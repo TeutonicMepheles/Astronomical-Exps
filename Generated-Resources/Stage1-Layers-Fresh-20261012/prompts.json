@@ -1,0 +1,17 @@
+{
+  "mode": "built-in image_gen; fresh generation from text, no input image pixels",
+  "size_requested": [
+    1672,
+    941
+  ],
+  "layers": [
+    {
+      "file": "stage1-background-fresh.png",
+      "prompt": "Use case: stylized-concept. Generate a brand NEW clean production raster background layer for a blue educational optics laboratory, landscape 16:9, preferably 1672x941. Full-frame front-facing flat deep-blue wall with a precise fine square grid extending uniformly over the entire canvas, including bottom third which will later be covered by a separate tabletop layer. Approximately 65 columns of evenly spaced thin muted blue lines, slightly emphasized every fifth line, no perspective distortion. Palette navy #10274d at edges, medium muted blue #274e80 center-left, soft broad illumination from upper left. Clean stylized illustration, refined smooth vector-like color surfaces and subtle smooth lighting, no visible material grain. Absolutely no paper texture, mottling, clouds, dust, film grain, speckling, dithering, distressed texture or painterly brush marks. No tabletop, horizon, objects, stationery, instruments, frames, text or labels. Maintain spacious quiet instructional backdrop; thin grid unobtrusive, clean and consistent. Opaque image, sharp lines and very smooth large areas. This is a newly drawn standalone layer, not a retouch of previous pixels."
+    },
+    {
+      "file": "stage1-table-fresh.png"
+    }
+  ],
+  "note": "New independent assets only. Existing project and previous generated versions untouched."
+}

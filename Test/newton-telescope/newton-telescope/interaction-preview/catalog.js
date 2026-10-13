@@ -1,0 +1,7 @@
+(()=>{
+ const entries=[['gesture','手势引导'],['bubble','名称气泡'],['outline','可操作描边'],['operation','操作提示'],['progress','任务进度'],['completion','阶段完成']];
+ const frame=document.querySelector('iframe'),buttons=entries.map(([id,label],i)=>{const b=document.createElement('button');b.textContent=`0${i+1}  ${label}`;b.onclick=()=>location.hash=id;document.querySelector('#pages').append(b);return b;});
+ let current=0;function render(){const index=entries.findIndex(([id])=>id===location.hash.slice(1));current=index<0?0:index;buttons.forEach((b,i)=>{if(i===current)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});frame.src=entries[current][0]==='progress'?'progress.html?catalog=1':`component.html?kind=${entries[current][0]}`;frame.title=entries[current][1]+'独立预览';document.querySelector('#count').textContent=`${current+1} / ${entries.length}`;document.querySelector('#prev').disabled=current===0;document.querySelector('#next').disabled=current===entries.length-1;}
+ document.querySelector('#prev').onclick=()=>location.hash=entries[current-1][0];document.querySelector('#next').onclick=()=>location.hash=entries[current+1][0];addEventListener('hashchange',render);
+ function fit(){const scale=Math.min(innerWidth/1920,innerHeight/1080),canvas=document.querySelector('#canvas');canvas.style.transform=`scale(${scale})`;canvas.style.left=(innerWidth-1920*scale)/2+'px';canvas.style.top=(innerHeight-1080*scale)/2+'px';}addEventListener('resize',fit);fit();render();
+})();

@@ -1,0 +1,28 @@
+const assert=require('node:assert/strict');
+const {chromium}=require('playwright');
+(async()=>{
+ const browser=await chromium.launch({headless:true}),page=await browser.newPage({viewport:{width:1600,height:900}}),errors=[];
+ page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.url());});
+ await page.goto('http://127.0.0.1:8792/?production=1');await page.waitForSelector('.exp-gesture');
+ assert.equal(await page.locator('#progress-rail').count(),0);
+ assert.equal(await page.locator('.experiment-progress').count(),1);
+ assert.equal(await page.locator('.exp-hand-image').evaluate(i=>i.complete&&i.naturalWidth>0),true);
+ await page.waitForTimeout(1100);await page.screenshot({path:'artifacts/course-guide.png'});
+ await page.hover('[data-mirror=concave]');assert.match(await page.locator('[role=tooltip]').innerText(),/^凹面镜$/);
+ await page.hover('#rail-carriage');assert.match(await page.locator('[role=tooltip]').innerText(),/夹具/);
+ await page.screenshot({path:'artifacts/course-bubble.png'});
+ await page.keyboard.press('Escape');assert.equal(await page.locator('.exp-gesture').count(),0);assert.equal(await page.locator('[role=tooltip]').count(),0);
+ await page.click('.experiment-progress__toggle');await page.locator('[data-step=assembly]').click({force:true});
+ assert.equal(await page.evaluate(()=>Newton.course.get().stage),'mirrors');assert.match(await page.locator('.experiment-progress__message').innerText(),/镜面/);
+ await page.click('.experiment-progress__toggle');
+ await page.locator('[data-mirror=concave]').dragTo(page.locator('#rail-carriage'));
+ assert.equal(await page.evaluate(()=>Newton.course.get().mirrorMounted),true);
+ await page.waitForTimeout(800);assert.equal(await page.locator('.exp-gesture').count(),0);
+ await page.hover('#rail-carriage');assert.match(await page.locator('[role=tooltip]').innerText(),/^镜片夹具$/);
+ await page.click('.experiment-progress__toggle');assert.match(await page.locator('[data-step=mirrors] small').innerText(),/1 \/ 3/);
+ await page.click('#restart-course');await page.waitForSelector('.exp-gesture');
+ await page.setViewportSize({width:1024,height:768});await page.hover('[data-mirror=convex]');
+ const box=await page.locator('[role=tooltip]').boundingBox();assert.ok(box.x>=0&&box.x+box.width<=1024);
+ await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator('.exp-gesture').evaluate(e=>getComputedStyle(e).animationName),'none');
+ assert.deepEqual(errors,[]);await browser.close();console.log('PASS: reused progress, gates, hover bubbles, guide lifecycle, real drag, reset, scaling and reduced motion.');
+})().catch(e=>{console.error(e);process.exit(1);});

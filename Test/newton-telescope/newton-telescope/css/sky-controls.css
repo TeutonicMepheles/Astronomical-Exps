@@ -1,0 +1,15 @@
+/* Alpha-only feathering preserves foreground texture. */
+.landscape{filter:url(#foreground-feather) drop-shadow(0 -2px var(--sky-glow-width,18px) var(--sky-glow-color,rgba(110,169,255,.55)))}
+.sky-debug-panel{position:fixed;right:18px;bottom:18px;z-index:31;width:300px;max-width:calc(100vw - 30px);max-height:calc(100svh - 80px);overflow:auto;padding:16px;border:1px solid #7199cb88;border-radius:14px;background:#101e35f5;box-shadow:0 12px 45px #0008;backdrop-filter:blur(12px)}
+.sky-debug-heading{display:flex;justify-content:space-between;align-items:center}
+.sky-debug-heading button{border:0;background:none;color:#cfe3ff;font-size:24px;padding:0 5px}
+.sky-debug-panel p{font-size:11px;line-height:1.6;color:#92aed1;margin:8px 0 12px}
+.sky-debug-row{margin:12px 0}
+.sky-debug-row label{display:flex;justify-content:space-between;font-size:12px;color:#c7dafa}
+.sky-debug-row label span{color:#829fc5}
+.sky-debug-row>div{display:flex;gap:14px;align-items:center;margin-top:5px}
+.sky-debug-row input[type=range]{flex:1;min-width:0;height:5px;margin:8px 0;box-shadow:none;border:0;background:#34577e}
+.sky-debug-row input[type=range]::-webkit-slider-thumb{width:16px;height:16px;border:3px solid #cce3ff}
+.sky-debug-row input[type=range]::-moz-range-thumb{width:10px;height:10px;border:3px solid #cce3ff}
+.sky-debug-row input[type=number]{width:68px;flex-shrink:0;border:1px solid #5275a2;border-radius:5px;background:#0a162a;color:#d7e9ff;padding:4px;font-size:12px}
+.sky-debug-reset{width:100%;border:1px solid #557baa;border-radius:7px;background:#243e62;color:#d5e7ff;padding:8px;font-size:12px}

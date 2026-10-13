@@ -1,0 +1,2 @@
+Built-in imagegen; source: 03.png; selected by user.
+Extract the exact golden icon from this image onto true transparent alpha background. Preserve the circular mirror with curved cutout, downward arrow and tray, their exact proportions and relative spacing, warm yellow matte paper grain. Remove ALL navy including interior cutouts. No glow, no shadow, no outline, no new elements or text. Center entire icon in a square with small 5% transparent padding, crisp clean silhouette. This is a faithful background-removal extraction, not a redesign.

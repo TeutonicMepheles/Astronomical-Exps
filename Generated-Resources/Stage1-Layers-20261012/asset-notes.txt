@@ -1,0 +1,9 @@
+第一阶段分层资源；仅新增资源，未接入或修改现有工程。
+两层尺寸：1672 x 941，与原图一致。叠放时均使用整幅画布、左上角对齐。
+stage1-background.png：RGB 不透明网格背景，向下补全被桌面遮挡的区域。
+stage1-foreground-table.png：RGBA 桌面和文具，保留全幅透明占位。
+使用内置 image_gen 生成，并非逐像素无损提取；透明区仍存在极低 alpha 的残余像素（上方 590 行最大 2/255），后续接入时应留意边缘效果。
+原图 SHA256 已复核未变化。
+初始生成提示词见 prompts.json。
+前景边缘清理提示词：
+Use case: background-extraction. Edit this transparent tabletop PNG only to clean its alpha matte. Preserve exact image dimensions, exact registration and ALL tabletop and stationery pixels below the desk horizon. The desk top boundary must be a perfectly straight horizontal edge at approximately y=603 of the 1672x941 canvas (64.1% image height). Remove every isolated blue speck, jagged fringe and residual wall above this edge: the whole upper region must have zero alpha. Keep the entire lower tabletop opaque. Do not redraw or move objects, do not crop, no added content. Output true transparent PNG, same full-canvas framing.

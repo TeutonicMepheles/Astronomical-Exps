@@ -1,0 +1,19 @@
+.world{position:absolute;left:0;top:0;width:300%;height:100%;transform-origin:0 0;will-change:transform}
+.lamp-tap-guide .exp-gesture-label{display:none}
+.lamp-tap-guide{--hint-hand-size:64px;--hint-ring-size:24px}
+.world .panorama{position:absolute;inset:0;width:100%;height:100%;will-change:auto}
+.sky,.lighting,.lamps{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lamp-object{position:absolute;padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;touch-action:none;overflow:visible;color:#c4e3f1;min-width:0}
+.lamp-object>svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}
+.lamp-object::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:max(100%,44px);height:max(100%,44px)}
+.lamp-object:focus-visible{outline:none}.lamp-object .exp-affordance-layer{inset:0}
+.lamp-editor{position:absolute;z-index:5;width:292px;padding:16px;border:1px solid #7693ba70;border-radius:14px;background:#14233bf5;box-shadow:0 8px 28px #050d2340;color:#eef2f8}
+.lamp-editor[hidden]{display:none}.editor-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.editor-heading h2{font-size:16px;font-weight:500;margin:0}.editor-heading small{font-size:11px;color:#a6b8d0;margin-left:6px}
+.close-editor{height:32px;width:32px;border:0;background:none;color:#acbdd4;cursor:pointer;font-size:24px}
+.shade-options{display:flex;gap:8px}.shade-options button{flex:1;min-width:0;border:1px solid #7689a74d;border-radius:9px;background:#20324d;color:#cbd7e8;padding:6px 3px;cursor:pointer;font:12px "Microsoft YaHei",sans-serif}
+.shade-options svg{width:100%;height:48px;display:block;margin-bottom:4px}.shade-options button[aria-pressed=true]{border-color:#f4cb83;background:#443b2d;color:#f4cb83}.shade-options button:hover{background:#304362}
+.temperature-label{display:flex;justify-content:space-between;font-size:13px;margin-top:18px}output{font-variant-numeric:tabular-nums;color:#bfccdf}
+#temperature{width:100%;height:32px;margin:4px 0 0;appearance:none;background:transparent;cursor:ew-resize}#temperature::-webkit-slider-runnable-track{height:5px;border-radius:5px;background:linear-gradient(90deg,#ffb465,#ffe8c1,#b9d5ff)}#temperature::-webkit-slider-thumb{appearance:none;width:18px;height:18px;margin-top:-6.5px;border-radius:50%;background:#edf0f4;border:2px solid #14233b}
+@media(max-width:600px){.lamp-editor{width:245px;padding:10px}.shade-options svg{height:32px}.temperature-label{margin-top:8px}}
+

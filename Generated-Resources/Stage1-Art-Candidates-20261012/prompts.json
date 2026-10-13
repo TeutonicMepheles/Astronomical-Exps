@@ -1,0 +1,20 @@
+{
+  "generator": "built-in image_gen",
+  "purpose": "Three freshly generated complete-scene art-direction candidates, not separated production layers. Existing project unchanged.",
+  "style_reference": "Visual-Spec/references/01-solar-system-observation.jpg",
+  "candidates": [
+    {
+      "file": "A-muted-blue.png",
+      "label": "A 雾蓝平涂",
+      "prompt": "Generate a BRAND NEW single 16:9 landscape illustration (1672x941 preferred) for the Newton optics educational experiment. Attached image is STYLE REFERENCE ONLY: borrow simplified geometric hand-painted flat shapes, quiet science editorial feeling, fine restrained natural pigment/paper grain; do not copy any people, planets, telescope or composition from it. Scene: straight-on blue optical laboratory backdrop; upper 64% an uninterrupted deep muted blue fine square grid wall, subtle low contrast grid approximately 65 columns; bottom 36% a wide matte blue tabletop with perfectly horizontal back edge, no front fascia or legs. Small stationery cropped ONLY at bottom corners: partially visible pale blue graph-paper notebook and warm wooden pencil bottom left, small blue-white eraser near lower left, navy notebook with pale paper underneath bottom right. Keep stationery small (each corner group no wider than 18% canvas), center entirely empty for later instruments. No equipment, light beams, UI, words, numbers, labels, branding, star fields or extra decoration. Flat gouache / screen-print editorial illustration with clear silhouettes, large calm color fields, only 2-3 value levels per object, soft restrained short shadows. Texture should be tiny low-contrast even natural pigment granulation contained inside painted shapes, like carefully printed paper, visible gently at close view, not dirty. NO photographic materials, 3D render, glossy plastic, dramatic shading, cloudy stains, muddy smudges, random bright/dark dots, digital compression noise or deteriorated edges. No frame, no inset image. This is an opaque FULL SCENE candidate for art direction selection.\nVARIANT A: closest to project baseline: muted Prussian blue wall (#202e4d/#28466b), dusty medium-blue desk, warm pale paper, restrained gold pencil. Balanced illumination and very subtle fine dry pigment texture, naturally hand-painted but quiet and clean. Slight soft hand-drawn irregularity in object outlines, grid stays orderly."
+    },
+    {
+      "file": "B-blue-lavender.png",
+      "label": "B 蓝紫纸感"
+    },
+    {
+      "file": "C-deep-navy.png",
+      "label": "C 深蓝简化"
+    }
+  ]
+}
