@@ -1,0 +1,15 @@
+{
+  "name": "astronomical-exps",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "python tools/serve.py",
+    "check": "python tools/check.py",
+    "test": "python tools/test.py",
+    "test:browser": "node tools/smoke.cjs",
+    "export": "python tools/export.py"
+  },
+  "devDependencies": {
+    "playwright": "1.64.0"
+  }
+}

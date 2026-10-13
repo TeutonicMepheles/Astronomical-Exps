@@ -1,3 +1,5 @@
+> 2026-10-13 协作约定：八个实验独立配色，不设全站统一主题色；共同字体入口见 [字体规范](../shared/typography/README.md)。Newton、光污染均为开发中，以下页面基线不是完工模板。
+
 # 天文实验室视觉规范
 
 整理日期：2026-10-12。以当前牛顿望远镜页面、已有视觉说明和统一整理的参考图片为依据。本目录用于后续页面与美术资源的一致性维护，不代表本轮进行了页面重设计或视觉验收。
@@ -14,7 +16,7 @@
 
 主规范中的“已明确方向”来自原有文档及其后续修订；“设计目标”不是对现有页面已达标的声明。实现基线记录实际代码，发生差异时应先识别是实现欠缺还是后续设计调整，不把代码中的所有细节自动提升为全项目规范。
 
-本轮来源是 [当前页面](../Test/newton-telescope/newton-telescope/index.html) 的工作区文件，而非同级 ZIP 内的旧副本。原有 [VISUAL_SPEC.md](../Test/newton-telescope/newton-telescope/VISUAL_SPEC.md) 保留不动，本目录提供集中整理后的阅读入口。
+本轮来源是 [当前页面](../experiments/newton-telescope/index.html) 的工作区文件，而非同级 ZIP 内的旧副本。原有 [VISUAL_SPEC.md](../experiments/newton-telescope/VISUAL_SPEC.md) 保留不动，本目录提供集中整理后的阅读入口。
 
 ## 目录
 

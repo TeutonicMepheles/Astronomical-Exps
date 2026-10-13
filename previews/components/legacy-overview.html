@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>轻轻探索 · 实验交互预览</title><link rel="stylesheet" href="../../shared/components/components.css"><link rel="stylesheet" href="preview.css"><link rel="stylesheet" href="debug-panel.css"><link rel="stylesheet" href="completion.css"><link rel="stylesheet" href="../../shared/typography/typography.css"></head>
+<body>
+<main>
+ <header><a class="brand" href="../../experiments/newton-telescope/index.html">✧ 天文实验室 <span> / INTERACTION STUDY</span></a><a class="preview-badge" href="progress.html">实验进度控件预览 →</a></header>
+ <section class="intro"><p class="eyebrow">让好奇心，找到下一步</p><h1>轻轻一点，开始探索。</h1><p>靠近一面镜子，认识它；把凹面镜移到观测位，试试手感。</p></section>
+ <section class="scene" aria-label="镜片交互体验区">
+  <div class="scene-heading"><span>牛顿望远镜 / 镜片工作台</span><span class="live-dot">可以亲手试试</span></div>
+  <div class="axis" aria-hidden="true"></div>
+  <div class="objects">
+   <div class="specimen"><button class="object" id="plane" aria-label="查看平面镜名称"><img src="../../experiments/newton-telescope/assets/mirrors/plane-v2.png" alt="平面镜插画" draggable="false"></button><span class="object-caption">01 <i></i> 点击认识</span></div>
+   <div class="specimen"><button class="object" id="convex" aria-label="查看凸面镜名称"><img src="../../experiments/newton-telescope/assets/mirrors/convex-v2.png" alt="凸面镜插画" draggable="false"></button><span class="object-caption">02 <i></i> 靠近发现</span></div>
+   <div class="specimen"><button class="object movable" id="concave" aria-label="选择凹面镜，然后点击观测位放入"><img src="../../experiments/newton-telescope/assets/mirrors/concave-v2.png" alt="凹面镜插画" draggable="false"></button><span class="object-caption">03 <i></i> 拖动放置</span></div>
+   <div class="specimen destination"><button id="drop-zone" aria-label="将选中的凹面镜放入观测位"><span class="target-ring">＋</span><span class="target-label">观测位</span></button><span class="object-caption">04 <i></i> 在这里松开</span></div>
+  </div>
+  <div class="scene-footer"><p id="feedback" role="status">试着点击左侧镜片，或拖动凹面镜到右侧。</p><button id="reset">↺ 重置体验</button></div>
+ </section>
+ <section class="controls" aria-label="效果预览设置">
+  <div class="control-title"><span class="eyebrow">自由组合</span><h2>细微提示，恰好看见。</h2><p>三个效果可以单独开启。</p></div>
+  <label class="toggle"><span class="control-icon">☝</span><span><strong>手势引导</strong><small>点击 · 按下 · 移动 · 松开</small></span><input id="gesture-toggle" type="checkbox" checked><span class="switch"></span></label>
+  <label class="toggle"><span class="control-icon">···</span><span><strong>名称气泡</strong><small>悬停、聚焦或点击物品</small></span><input id="bubble-toggle" type="checkbox" checked><span class="switch"></span></label>
+  <label class="toggle"><span class="control-icon">✧</span><span><strong>可操作轮廓</strong><small>沿物品边缘，轻轻呼吸</small></span><input id="outline-toggle" type="checkbox" checked><span class="switch"></span></label>
+ </section>
+ <footer><a href="#hand-gallery">↓ 挑选手势图标 · 10 款</a><div class="mode-picker" aria-label="手势类型"><button data-mode="tap" aria-pressed="false">点击演示</button><button data-mode="drag" aria-pressed="true">拖动演示</button></div><span>支持触屏与键盘 · Esc 收起提示</span></footer>
+ <section id="hand-gallery" aria-labelledby="hand-heading"><div class="gallery-heading"><div><p class="eyebrow">找到合适的手感</p><h2 id="hand-heading">十种手势，选一个试试。</h2><p>点击卡片替换上方演示。扁平色块与简洁轮廓，比较十款手势的造型。</p></div><span id="hand-selection" role="status">当前：08 侧转手指</span></div><div id="hand-options" aria-label="手势图标选择"></div><p class="gallery-note">10 款均为单指手势。点击选择后，可回到上方比较实际点击与拖动效果。</p><a class="back-to-scene" href="#drop-zone">↑ 回到场景查看动效</a></section>
+</main>
+<script src="../../shared/components/hand-icons-flat.js"></script><script src="../../shared/components/gesture.js"></script><script src="../../shared/components/name-bubble.js"></script><script src="../../shared/components/affordance.js"></script><script src="mirror-contours.js"></script><script src="debug-panel.js"></script><script src="preview.js"></script>
+<script src="../../shared/components/stage-completion.js"></script><script src="completion.js"></script></body></html>
