@@ -1,3 +1,5 @@
+> 唯一公共实现位于本目录；六类组件状态与完整入口见 [公共组件登记](../README.md)。下文保留历史 API 说明，实验状态由宿主提供。
+
 # 可复用组件清单
 
 | 组件 | 脚本 / 样式 | 用途 |
@@ -10,7 +12,7 @@
 
 ## OperationTip 顶部操作提示
 
-加载 shared/operation-tip.css 和 shared/operation-tip.js。宿主传入定位容器（position:relative/absolute），组件在其顶部中央显示，随固定舞台等比缩放。默认距顶部 64px，可通过 top 或 --operation-tip-top 配置。
+加载 shared/components/operation-tip.css 和 shared/components/operation-tip.js。宿主传入定位容器（position:relative/absolute），组件在其顶部中央显示，随固定舞台等比缩放。默认距顶部 64px，可通过 top 或 --operation-tip-top 配置。
 
 ```js
 const tip = new ExperimentUI.OperationTip(stageElement, { top: '64px' });
