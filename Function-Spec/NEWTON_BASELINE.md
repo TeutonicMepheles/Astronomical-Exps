@@ -1,14 +1,14 @@
 # 牛顿望远镜功能与参数实现基线
 
-2026-10-12 静态核对当前 `Test/newton-telescope/newton-telescope` 工作区。本文记录本地实现，不等于 Word 原始需求，也不证明其与指定参考 Demo 为同一版本。本轮未运行浏览器或功能测试。
+2026-10-12 静态核对当前 `experiments/newton-telescope` 工作区。本文记录本地实现，不等于 Word 原始需求，也不证明其与指定参考 Demo 为同一版本。本轮未运行浏览器或功能测试。
 
 ## 1. 依据
 
-- [index.html](../Test/newton-telescope/newton-telescope/index.html)：控件、选项、范围和步长。
-- [state.js](../Test/newton-telescope/newton-telescope/js/state.js)：观测默认参数。
-- [course-state.js](../Test/newton-telescope/newton-telescope/js/course-state.js) 与 [course-ui.js](../Test/newton-telescope/newton-telescope/js/course-ui.js)：镜面初始/重置值及位置换算。
-- [README.md](../Test/newton-telescope/newton-telescope/README.md)：流程、状态、公式假设和示意边界。
-- [原视觉说明](../Test/newton-telescope/newton-telescope/VISUAL_SPEC.md)：第一阶段后续修订，以固定光源与可移动镜面替代早期移动光源方案。
+- [index.html](../experiments/newton-telescope/index.html)：控件、选项、范围和步长。
+- [state.js](../experiments/newton-telescope/js/state.js)：观测默认参数。
+- [course-state.js](../experiments/newton-telescope/js/course-state.js) 与 [course-ui.js](../experiments/newton-telescope/js/course-ui.js)：镜面初始/重置值及位置换算。
+- [README.md](../experiments/newton-telescope/README.md)：流程、状态、公式假设和示意边界。
+- [原视觉说明](../experiments/newton-telescope/VISUAL_SPEC.md)：第一阶段后续修订，以固定光源与可移动镜面替代早期移动光源方案。
 
 ## 2. 当前流程
 

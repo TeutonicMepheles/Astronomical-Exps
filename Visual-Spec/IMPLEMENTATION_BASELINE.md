@@ -12,14 +12,14 @@
 
 | 来源 | 本次采用内容 |
 | --- | --- |
-| [原视觉说明](../Test/newton-telescope/newton-telescope/VISUAL_SPEC.md) | 基础画风、建议色值、后续场景和材质修订 |
-| [页面说明](../Test/newton-telescope/newton-telescope/README.md) | 三阶段结构、固定舞台、实现边界 |
-| [styles.css](../Test/newton-telescope/newton-telescope/css/styles.css) | 基础字体、标题、控制台、预览与固定舞台 |
-| [course.css](../Test/newton-telescope/newton-telescope/css/course.css) | 课程令牌、最终级联覆盖、第一阶段背景与状态 |
-| [experiment-heading.js](../Test/newton-telescope/newton-telescope/js/experiment-heading.js) | 三阶段共享标题，仅替换内容 |
-| [stage.js](../Test/newton-telescope/newton-telescope/js/stage.js) | 舞台整体缩放 |
-| [光学资源说明](../Test/newton-telescope/newton-telescope/assets/optical/README.md) | 设备组来源、动态对齐方式 |
-| [sky-defaults.js](../Test/newton-telescope/newton-telescope/js/sky-defaults.js) | 已保存星空参数 |
+| [原视觉说明](../experiments/newton-telescope/VISUAL_SPEC.md) | 基础画风、建议色值、后续场景和材质修订 |
+| [页面说明](../experiments/newton-telescope/README.md) | 三阶段结构、固定舞台、实现边界 |
+| [styles.css](../experiments/newton-telescope/css/styles.css) | 基础字体、标题、控制台、预览与固定舞台 |
+| [course.css](../experiments/newton-telescope/css/course.css) | 课程令牌、最终级联覆盖、第一阶段背景与状态 |
+| [experiment-heading.js](../experiments/newton-telescope/js/experiment-heading.js) | 三阶段共享标题，仅替换内容 |
+| [stage.js](../experiments/newton-telescope/js/stage.js) | 舞台整体缩放 |
+| [光学资源说明](../experiments/newton-telescope/assets/optical/README.md) | 设备组来源、动态对齐方式 |
+| [sky-defaults.js](../experiments/newton-telescope/js/sky-defaults.js) | 已保存星空参数 |
 
 ## 当前代码参数
 

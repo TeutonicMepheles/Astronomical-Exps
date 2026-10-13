@@ -1,0 +1,7 @@
+const {chromium}=require('playwright');const assert=require('node:assert/strict');
+(async()=>{const b=await chromium.launch(),p=await b.newPage({viewport:{width:1600,height:900}});await p.goto((process.env.BASE_URL || 'http://127.0.0.1:8793') + '/experiments/newton-telescope/?production=1');await p.waitForTimeout(900);
+await p.hover('[data-mirror=plane]');assert.ok(await p.evaluate(()=>Newton.courseOutlines[0].hint.layer.style.display!=='none'));await p.click('[data-mirror=plane]');await p.mouse.move(700,120);assert.ok(await p.evaluate(()=>Newton.courseOutlines[0].hint.layer.style.display!=='none'));
+await p.hover('#rail-carriage');await p.screenshot({path:'artifacts/outline-empty.png'});assert.ok(await p.evaluate(()=>Newton.courseOutlines[3].hint.layer.style.display!=='none'));
+await p.click('#rail-carriage');await p.mouse.move(700,120);await p.waitForTimeout(100);assert.equal(await p.evaluate(()=>Newton.courseOutlines[3].key),'mounted-plane');await p.screenshot({path:'artifacts/outline-mounted.png'});
+for(const k of ['concave','convex']){await p.click('[data-mirror='+k+']');await p.click('#rail-carriage');await p.waitForTimeout(100);assert.equal(await p.evaluate(()=>Newton.courseOutlines[3].key),'mounted-'+k);}
+await p.mouse.click(700,120);await p.waitForTimeout(100);assert.equal(await p.evaluate(()=>Newton.courseOutlines[3].hint.layer.style.display),'none');await b.close();console.log('PASS: shared contour hover, selection persistence, empty and all mounted variants, deselection.');})().catch(e=>{console.error(e);process.exit(1)});
