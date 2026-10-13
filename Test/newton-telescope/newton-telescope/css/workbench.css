@@ -1,0 +1,23 @@
+/* The first two stages share independently layered background, desk and objects. */
+.observatory:is([data-stage=mirrors],[data-stage=assembly]){background:#163556 url('../assets/workbench/background.png') center/100% 100% no-repeat;box-shadow:none}
+.observatory:is([data-stage=mirrors],[data-stage=assembly])::before,.observatory[data-stage=assembly] .lab-stationery{display:none}
+.workbench-table{position:absolute;inset:0;z-index:14;pointer-events:none;background:url('../assets/workbench/foreground.png') center/100% 100% no-repeat}
+.observatory[data-stage=observation] .workbench-table{display:none}
+.observatory[data-stage=assembly] .workbench-table{transform:translateY(40px)}
+.observatory[data-stage=mirrors] #viewport{z-index:20}
+.observatory[data-stage=mirrors] .console{z-index:22}
+.observatory:is([data-stage=mirrors],[data-stage=assembly]) .introduction{z-index:30}
+.observatory[data-stage=assembly] #viewport,.observatory[data-stage=assembly] .console,.observatory[data-stage=assembly] #lesson-feedback,.observatory[data-stage=assembly] .scene-caption{visibility:hidden!important;pointer-events:none!important}
+.observatory[data-stage=assembly] #course-progress{right:48px;left:auto;top:48px}
+.observatory[data-stage=assembly] #course-progress .experiment-progress__popup{right:0;left:auto;transform-origin:top right}
+.assembly-preview{position:absolute;inset:0;z-index:12;pointer-events:none}
+.assembly-telescope{position:absolute;left:360px;top:40px;width:940px;height:620px;object-fit:contain;object-position:center bottom}
+.assembly-caption{position:absolute;left:48px;top:210px;color:#c4d6ed;font:18px/1.8 'Microsoft YaHei',sans-serif}
+.assembly-caption strong{display:block;color:#e3ecf8;font-size:23px;font-weight:500;margin-bottom:9px}
+.assembly-mirror-tray{position:absolute;z-index:24;left:400px;top:705px;width:800px;display:flex;justify-content:center;gap:38px}
+.assembly-mirror-tray[hidden],.assembly-preview[hidden]{display:none}
+.assembly-mirror-tray img{width:180px;height:164px;object-fit:contain;filter:drop-shadow(0 9px 5px #07162866)}
+.workbench-transition{cursor:progress}
+
+.observatory[data-stage=assembly] #sky,.observatory[data-stage=assembly] .landscape,.observatory[data-stage=assembly] .preview-card,.observatory[data-stage=assembly] #part-tooltip,.observatory[data-stage=assembly] #viewport *{visibility:hidden!important;pointer-events:none!important}
+

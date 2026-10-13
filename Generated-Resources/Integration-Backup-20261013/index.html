@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1530"><meta name="description" content="探索牛顿反射式望远镜：交互式三维模型、光路实验与目镜成像。">
+  <title>牛顿望远镜 · 交互光学实验室</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/sky-controls.css">
+  <link rel="stylesheet" href="css/course.css">
+  <link rel="stylesheet" href="css/rail-lab.css">
+  <link rel="stylesheet" href="shared/experiment-progress.css">
+  <link rel="stylesheet" href="interaction-preview/components.css">
+  <link rel="stylesheet" href="css/course-interactions.css">
+<link rel="stylesheet" href="shared/operation-tip.css">
+</head>
+<body>
+<svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4.2 4.2l2.1 2.1m11.4 11.4 2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+<symbol id="icon-focus" viewBox="0 0 24 24"><path d="M12 1v8m0 6v8M1 12h8m6 0h8M4 4l5 5m6 6 5 5M4 20l5-5m6-6 5-5M7 3l3 5m4 8 3 5"/></symbol>
+<symbol id="icon-angle" viewBox="0 0 24 24"><path d="m20 3-16 17h18M13 20a9 9 0 0 0-2.5-6.2"/><circle cx="18" cy="9" r="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="icon-eye" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z"/><circle cx="12" cy="12" r="3.5"/></symbol>
+<symbol id="icon-play" viewBox="0 0 24 24"><path d="m7 3 15 9-15 9Z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="icon-reset" viewBox="0 0 24 24"><path d="M20.5 10A9 9 0 1 1 14 3.2M14 0v6l6-2"/></symbol>
+<symbol id="icon-planet" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="12" ry="4" transform="rotate(-30 12 12)"/><path d="m19 1 1 2 2 1-2 1-1 2-1-2-2-1 2-1Z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="icon-drag" viewBox="0 0 24 24"><path d="M8 11V5a2 2 0 0 1 4 0v6-3a2 2 0 0 1 4 0v4-2a2 2 0 0 1 4 0v6c0 4-3 6-6 6h-2c-2 0-3-1-4-3l-4-6a2 2 0 0 1 3-2l1 1"/></symbol>
+</defs></svg>
+<main class="observatory">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="landscape" aria-hidden="true"></div>
+  <div class="lab-stationery" aria-hidden="true"><span class="stationery-notebook-left"></span><span class="stationery-notebook-right"></span><span class="stationery-paper"></span><span class="stationery-pencil"></span></div>
+  <header class="introduction">
+    <span class="title-rule"></span><h1>牛顿望远镜</h1><p class="english-title">NEWTONIAN TELESCOPE</p>
+    <span class="description-rule"></span><p class="description">牛顿望远镜使用凹面主镜收集并反射<br class="desktop-break">光线，再通过平面副镜将光线侧向反射<br class="desktop-break">到目镜中。</p>
+  </header>
+  <aside id="course-progress" aria-label="实验进度"></aside>
+  <section id="viewport" aria-label="牛顿望远镜交互式三维模型" tabindex="0" aria-describedby="viewport-help">
+    <div id="mirror-workspace" aria-label="暗房镜面实验台">
+      <img id="optical-emitter-art" src="assets/rail-lab/coherent-v4/emitter.png" alt="激光光源设备" draggable="false">
+      <img id="optical-rail-art" src="assets/rail-lab/coherent-v4/rail.png" alt="光学导轨" draggable="false">
+      <img id="optical-mirror-art" src="assets/rail-lab/coherent-v4/holder.png" alt="镜片夹具" draggable="false">
+      <button id="rail-carriage" class="rail-carriage" aria-label="沿光轴移动镜面，左右方向键微调" type="button"></button>
+      <button id="mirror-drop-slot" class="mirror-drop-slot" type="button">拖入镜片<span>或先选择，再点击放入</span></button>
+    </div>
+    <div id="webgl-fallback" hidden>当前浏览器未启用 WebGL。请启用硬件加速，或使用新版 Chrome / Safari 打开。</div>
+    <div class="part-label" data-part="eyepiece"><span class="leader"></span><button type="button">目镜</button></div>
+    <div class="part-label secondary" data-part="secondary"><span class="leader"></span><button type="button">副镜<span>（平面镜）</span></button></div>
+    <div class="part-label" data-part="primary"><span class="leader"></span><button type="button">主镜<span>（凹面镜）</span></button></div>
+    <div class="assembly-hotspots" id="assembly-hotspots" hidden>
+      <button class="installation-slot" data-slot="primary">主镜安装位<span>镜筒后端</span></button>
+      <button class="installation-slot" data-slot="secondary">副镜安装位<span>前部 · 45°</span></button>
+    </div>
+    <span class="focus-marker" id="focus-marker" hidden></span>
+    <div class="scene-caption" id="scene-caption"><span id="scene-title"></span><small id="scene-subtitle"></small></div>
+  </section>
+  <div class="view-tools" id="viewport-help"><svg class="icon"><use href="#icon-drag"/></svg><span>拖动旋转<span class="dot">·</span>滚轮缩放</span><button id="restore-view" title="恢复初始视角（Home）" aria-label="恢复初始视角"><svg class="icon"><use href="#icon-reset"/></svg></button></div>
+  <aside class="preview-card" aria-labelledby="preview-heading">
+    <div id="observation-feedback">
+    <div class="preview-heading"><h2 id="preview-heading">观测效果</h2><label class="live-control"><span>实时预览</span><input id="live-preview" type="checkbox" checked role="switch"><span class="switch" aria-hidden="true"></span></label></div>
+    <div class="planet-viewport"><canvas id="planet" aria-label="土星的目镜成像示意"></canvas><span class="preview-paused" hidden>预览已暂停</span><div class="preview-badge"><span></span><span id="magnification">32×</span></div></div>
+    <p class="preview-description">调节下方参数，观察光路变化，<br>并查看目镜中的成像效果。</p>
+    <div class="observation-status"><span class="status-dot"></span><span id="observation-status" role="status">光路就绪</span><span class="simulation-tag">成像示意</span></div>
+    </div>
+    <div id="lesson-feedback" class="lesson-feedback">
+      <span class="component-eyebrow" id="feedback-eyebrow">MIRROR LAB</span><h2 id="feedback-title"></h2>
+      <div class="evidence-screen"><img id="feedback-mirror" class="feedback-mirror-art" src="assets/optical/plane.png" alt="平面镜" width="112" height="112"><strong id="feedback-symbol" hidden></strong><span id="feedback-summary"></span></div>
+      <p id="feedback-description"></p><div class="formula-readout" id="feedback-formula"></div>
+      <p class="feedback-status" id="course-message" role="status" aria-live="polite"></p>
+    </div>
+  </aside>
+  <aside id="part-tooltip" class="part-tooltip" hidden><button id="close-tooltip" aria-label="关闭说明">×</button><h3></h3><p></p></aside>
+  <section class="console" aria-labelledby="controls-title">
+    <svg class="console-chassis" viewBox="0 0 1600 260" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="shell" x2="0" y2="1"><stop stop-color="#6583ba"/><stop offset=".12" stop-color="#4b6398"/><stop offset=".85" stop-color="#3a5080"/><stop offset="1" stop-color="#6179a9"/></linearGradient><linearGradient id="inset" x2=".2" y2="1"><stop stop-color="#182744"/><stop offset=".4" stop-color="#334771"/><stop offset="1" stop-color="#253454"/></linearGradient><linearGradient id="screw" x2="1" y2="1"><stop stop-color="#b2cdf1"/><stop offset=".45" stop-color="#6f90c3"/><stop offset="1" stop-color="#304774"/></linearGradient></defs>
+      <path d="M105 3H1495Q1532 3 1545 39L1594 214Q1606 255 1560 257H40Q-6 255 6 214L55 39Q68 3 105 3Z" fill="url(#shell)" stroke="#8aa9db" stroke-width="3"/>
+      <path d="M119 21H1481Q1509 21 1517 51L1560 209Q1568 234 1539 235H61Q32 234 40 209L83 51Q91 21 119 21Z" fill="url(#inset)" stroke="#293c64" stroke-width="5"/>
+      <path d="M110 24H1482Q1506 24 1514 48" fill="none" stroke="#9ab2dd" stroke-opacity=".28" stroke-width="2"/>
+      <g fill="url(#screw)" stroke="#97b5dd" stroke-width="2"><ellipse cx="86" cy="23" rx="8" ry="6"/><ellipse cx="1514" cy="23" rx="8" ry="6"/><ellipse cx="44" cy="233" rx="8" ry="7"/><ellipse cx="1556" cy="233" rx="8" ry="7"/></g><g stroke="#263e68" stroke-width="3"><path d="m82 25 8-4m1420 4 8-4M40 235l8-4m1504 4 8-4"/></g>
+      <g stroke="#223556" stroke-width="5" stroke-linecap="round"><path d="m32 201 10-40m-2 40 10-40m-2 40 10-40m1510 40-10-40m2 40-10-40m2 40-10-40"/></g>
+    </svg>
+    <div class="console-inner"><div class="console-heading"><h2 id="controls-title"><svg class="icon"><use href="#icon-planet"/></svg>实验控制</h2><span class="console-indicator"><i></i>OPTICAL LAB</span></div>
+    <!-- Replaceable control panels share the same console chassis. -->
+    <div class="workbench-panel mirror-panel" id="progress-page-mirrors" data-panel="mirrors">
+      <fieldset class="control"><legend>镜面托盘</legend><div class="mirror-selector">
+        <button data-mirror="plane" aria-label="平面镜" class="specimen-button"><img class="mirror-art" src="assets/rail-lab/plane-readable-v3.png" alt="" width="76" height="76"><span>平面镜</span><i class="specimen-check">✓</i></button>
+        <button data-mirror="concave" aria-label="凹面镜" class="specimen-button"><img class="mirror-art" src="assets/rail-lab/concave-readable-v3.png" alt="" width="76" height="76"><span>凹面镜</span><i class="specimen-check">✓</i></button>
+        <button data-mirror="convex" aria-label="凸面镜" class="specimen-button"><img class="mirror-art" src="assets/rail-lab/convex-readable-v3.png" alt="" width="76" height="76"><span>凸面镜</span><i class="specimen-check">✓</i></button>
+      </div></fieldset>
+      <div class="control parameter"><label for="mirror-focal">曲面镜焦距</label><output id="mirror-focal-value">—</output><input id="mirror-focal" type="range" min="400" max="1200" step="50" value="700"><div class="range-ends"><span>400 mm</span><span>1200 mm</span></div><button id="remove-mirror" class="quiet-button" type="button">取下镜片 · 比较空光路</button></div>
+      <div class="control parameter"><label for="mirror-position">镜面位置 · 光源固定</label><output id="mirror-position-value">105 cm</output><input id="mirror-position" type="range" min="-1" max="3.5" step="0.1" value="3.5"><div class="range-ends"><span>−30 cm</span><span>105 cm</span></div><p id="mirror-hint" class="mirror-hint"></p></div>
+      <div class="control actions"><button id="finish-mirrors" class="start-button">进入组装 →</button><button data-reset-stage class="reset-button">重置</button></div>
+    </div>
+    <div class="workbench-panel assembly-panel" id="progress-page-assembly" data-panel="assembly" hidden>
+      <fieldset class="control"><legend>反射镜零件托盘</legend><div class="parts-selector">
+        <button data-piece="primary" draggable="true" class="part-button"><img class="part-mirror-art" src="assets/optical/concave.png" alt="" width="56" height="56" draggable="false"><span>凹面主镜<small>集光 · 会聚</small></span><i>待安装</i></button>
+        <button data-piece="secondary" draggable="true" class="part-button"><img class="part-mirror-art" src="assets/optical/plane.png" alt="" width="56" height="56" draggable="false"><span>平面副镜<small>折转光路</small></span><i>待安装</i></button>
+      </div></fieldset>
+      <div class="control console-note"><span class="component-eyebrow">装配状态</span><p id="assembly-checklist"></p><small>目镜已经固定，不属于反射镜。</small></div>
+      <div class="control actions"><button id="finish-assembly" class="start-button">进入观测 →</button><button data-reset-stage class="reset-button">重新组装</button></div>
+    </div>
+    <div class="control-grid workbench-panel" id="progress-page-observation" data-panel="observation" hidden>
+      <fieldset class="control light-control"><legend><svg class="icon"><use href="#icon-sun"/></svg>入射光</legend><div class="segmented" role="group" aria-label="入射光模式"><button type="button" data-mode="parallel" aria-pressed="true">平行光</button><button type="button" data-mode="point" aria-pressed="false">点光源</button></div></fieldset>
+      <div class="control parameter"><label for="focal"><svg class="icon"><use href="#icon-focus"/></svg>主镜焦距</label><output for="focal" id="focal-value">800 <span>mm</span></output><input id="focal" type="range" min="400" max="1600" step="10" value="800" aria-label="主镜焦距（毫米）"><div class="range-ends"><span>400</span><span>1600</span></div></div>
+      <div class="control parameter"><label for="angle-input"><svg class="icon"><use href="#icon-angle"/></svg>望远镜角度</label><output for="angle-input" id="angle-value">45<span>°</span></output><input id="angle-input" type="range" min="0" max="90" step="1" value="45" aria-label="望远镜角度（度）"><div class="range-ends"><span>0°</span><span>90°</span></div></div>
+      <div class="control parameter"><label for="eyepiece"><svg class="icon"><use href="#icon-eye"/></svg>目镜焦距</label><output for="eyepiece" id="eyepiece-value">25 <span>mm</span></output><input id="eyepiece" type="range" min="5" max="50" step="1" value="25" aria-label="目镜焦距（毫米）"><div class="range-ends"><span>5</span><span>50</span></div></div>
+      <div class="control actions"><button id="start" class="start-button"><svg class="icon"><use href="#icon-play"/></svg><span>开始观测</span></button><button id="reset" class="reset-button"><svg class="icon"><use href="#icon-reset"/></svg>重置</button></div>
+    </div></div>
+  </section>
+  <!-- Observation task drawer, styled independently from the console controls. -->
+  <section class="observation-task" id="observation-task" hidden aria-label="目镜对照实验">
+    <div class="observation-task__tools"><label>主镜口径 <input id="aperture" type="range" min="80" max="250" step="10" value="130"><output id="aperture-value">130 mm</output></label>
+      <label>目标 <select id="target"><option value="saturn">土星</option><option value="moon">月球</option><option value="jupiter">木星</option><option value="pleiades">昴星团</option></select></label>
+      <div class="eyepiece-presets" aria-label="对照目镜"><button data-eyepiece="25">25 mm</button><button data-eyepiece="10">10 mm</button><button data-eyepiece="5">5 mm</button></div><button id="record-observation" class="record-button">记录当前结果</button>
+    </div><div class="optical-metrics" id="optical-metrics"></div><div class="observation-records" id="observation-records" role="status"></div>
+  </section>
+  <div id="toast" role="status" hidden></div>
+</main>
+<script src="vendor/three.min.js"></script>
+<script src="js/stage.js"></script><script src="js/sky-defaults.js"></script><script src="js/sky-controls.js"></script><script src="js/state.js"></script><script src="js/background.js"></script><script src="js/optics.js"></script><script src="js/course-state.js"></script><script src="js/camera-director.js"></script><script src="js/mirror-optics.js"></script><script src="js/optical-art.js"></script><script src="js/darkroom.js"></script><script src="js/beam-visual.js"></script><script src="js/lab-scene.js"></script><script src="js/telescope.js"></script><script src="js/preview.js"></script><script src="js/app.js"></script><script src="js/experiment-heading.js"></script><script src="js/course-ui.js"></script>
+<script src="shared/experiment-progress.js"></script>
+<script src="interaction-preview/newton-progress-adapter.js"></script>
+<script src="interaction-preview/hand-icons-flat.js"></script>
+<script src="interaction-preview/gesture.js"></script>
+<script src="interaction-preview/name-bubble.js"></script>
+<script src="js/course-interactions.js"></script>
+<script src="interaction-preview/affordance.js"></script>
+<script src="js/course-contours.js"></script>
+<script src="js/course-outlines.js"></script>
+<script src="shared/operation-tip.js"></script>
+<script src="js/mirror-drag-visual.js"></script>
+<script src="js/mounted-mirror-controls.js"></script>
+</body>
+</html>

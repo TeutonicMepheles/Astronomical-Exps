@@ -1,0 +1,25 @@
+{
+  "generator": "built-in image_gen",
+  "status": "Selected complete-scene art candidates; no project integration",
+  "candidates": [
+    {
+      "file": "A-muted-blue.png",
+      "label": "A 雾蓝平涂",
+      "prompt": "Generate a BRAND NEW single 16:9 landscape illustration (1672x941 preferred) for the Newton optics educational experiment. Attached image is STYLE REFERENCE ONLY: borrow simplified geometric hand-painted flat shapes, quiet science editorial feeling, fine restrained natural pigment/paper grain; do not copy any people, planets, telescope or composition from it. Scene: straight-on blue optical laboratory backdrop; upper 64% an uninterrupted deep muted blue fine square grid wall, subtle low contrast grid approximately 65 columns; bottom 36% a wide matte blue tabletop with perfectly horizontal back edge, no front fascia or legs. Small stationery cropped ONLY at bottom corners: partially visible pale blue graph-paper notebook and warm wooden pencil bottom left, small blue-white eraser near lower left, navy notebook with pale paper underneath bottom right. Keep stationery small (each corner group no wider than 18% canvas), center entirely empty for later instruments. No equipment, light beams, UI, words, numbers, labels, branding, star fields or extra decoration. Flat gouache / screen-print editorial illustration with clear silhouettes, large calm color fields, only 2-3 value levels per object, soft restrained short shadows. Texture should be tiny low-contrast even natural pigment granulation contained inside painted shapes, like carefully printed paper, visible gently at close view, not dirty. NO photographic materials, 3D render, glossy plastic, dramatic shading, cloudy stains, muddy smudges, random bright/dark dots, digital compression noise or deteriorated edges. No frame, no inset image. This is an opaque FULL SCENE candidate for art direction selection.\nVARIANT A: closest to project baseline: muted Prussian blue wall (#202e4d/#28466b), dusty medium-blue desk, warm pale paper, restrained gold pencil. Balanced illumination and very subtle fine dry pigment texture, naturally hand-painted but quiet and clean. Slight soft hand-drawn irregularity in object outlines, grid stays orderly.",
+      "reference": "Visual-Spec/references/01-solar-system-observation.jpg"
+    },
+    {
+      "file": "B-blue-lavender.png",
+      "label": "B 蓝紫纸感",
+      "prompt": "Create one NEW image, landscape 16:9, 1672x941. A mostly EMPTY blue optics lab background for an interactive lesson. Upper 64 percent: ONLY an uninterrupted dark indigo-blue wall covered with a fine regular low-contrast square grid. Lower 36 percent: ONLY a matte dusty lavender-blue desk surface, horizontal straight back edge. Tiny cropped stationery in bottom corners: left corner a pale blue graph-paper notebook and muted ochre wood pencil, a little blue-white eraser nearby; right corner a dark blue closed notebook with a pale paper underneath. Corner objects occupy less than 18% image width each. Center remains completely empty. STYLE: hand-painted flat gouache science editorial illustration, geometrically simplified forms, clearly defined slightly handmade contours, two or three flat muted shades per object, shallow understated painted shadows. Subtle natural fine pigment grain as in high-quality printed illustration; texture is uniform and low contrast, not cloudy or dirty. Palette soft blue lavender, warm ivory paper, tiny ochre accent, still predominantly blue. NOT photorealistic, NOT glossy 3D, NOT sterile smooth vector. No people, planets, telescope, solar system, posters, stars, cups, decorations, text, labels, equipment, beams, borders or other objects. Do not introduce any objects beyond the listed cropped stationery. No stains, large mottled patches, digital noise, random bright specks or smeared edges.",
+      "reference": null
+    },
+    {
+      "file": "C-deep-navy.png",
+      "label": "C 深蓝简化",
+      "prompt": "undefined\nVARIANT C: deep navy-blue wall with particularly low contrast blue grid and muted slate-blue tabletop. Strongest geometric simplification of stationery, like sophisticated hand-painted science poster art, still hand made rather than sterile vector. Tiny delicately distributed ink grain and very restrained dry-brush texture only within object fills, subtle light upper left, uncluttered deep blue quiet background. Two-tone large flat color shapes; pale blue paper and very small honey-gold pencil accent. Do not darken so far that objects become unreadable. Same 64% table boundary and small cropped corner props.",
+      "reference": null
+    }
+  ],
+  "note": "prompts.json records initial attempts. B and C initial image-reference attempts were rejected for incorrect composition; selected-prompts.json records final delivered generation prompts."
+}

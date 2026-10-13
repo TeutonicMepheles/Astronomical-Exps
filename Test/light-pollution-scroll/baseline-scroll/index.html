@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>光污染与夜天光 · 横向场景原型</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="stage" aria-label="光污染与夜天光横向街景">
+    <div class="viewport" tabindex="0" role="region" aria-label="横向街景，可拖动、滚轮或使用左右方向键移动">
+      <img class="panorama" src="../assets/city-panorama-v2.png" alt="连续的住宅、公共建筑、广告牌与滨河路灯夜景" draggable="false">
+    </div>
+    <header><span class="eyebrow">天文实验室</span><h1>光污染与夜天光</h1><div class="rule"></div></header>
+    <span class="prototype">场景原型</span>
+    <button class="arrow previous" aria-label="向左移动">‹</button>
+    <button class="arrow next" aria-label="向右移动">›</button>
+    <footer>
+      <span class="hint">拖动探索 <span>↔</span></span>
+      <input class="position" type="range" min="0" max="1000" value="0" aria-label="街景位置">
+      <span class="location" aria-hidden="true">住宅 · 公共建筑</span>
+    </footer>
+    <p class="error" hidden>场景图片未能加载，请确认 assets 文件夹完整。</p>
+  </main>
+</body>
+</html>
+
+

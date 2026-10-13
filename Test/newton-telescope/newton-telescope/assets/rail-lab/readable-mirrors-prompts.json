@@ -1,0 +1,18 @@
+{
+  "mode": "built-in imagegen edit",
+  "reference": "User supplied mirror shapes; Visual-Spec/references/01-solar-system-observation.jpg for illustration style",
+  "assets": [
+    {
+      "file": "plane-readable-v3.png",
+      "prompt": "Create matching PLANE MIRROR asset from this blue concave mirror. Preserve identical circular navy rim, tiny triangular tabletop foot, slight lean-back camera angle, size, padding and science illustration style. Replace bowl with completely FLAT silver ice-blue circular reflecting surface with TWO STRAIGHT broad diagonal pale reflection bands. No cavity, no curvature, no bulge; flat rigid disk. Broad simplified blue colors, subtle gradient, fine grain only on matte rim, no photographic room reflections. Isolated on truly transparent background. No words, no labels, no additional objects."
+    },
+    {
+      "file": "concave-readable-v3.png",
+      "prompt": "Create an isolated transparent PNG asset of ONE concave optical mirror for a blue educational optics workbench. Image1 is ONLY reference for readable bowl geometry and tabletop viewing angle; image2 is the STYLE guide: simplified science illustration, broad flat blue color planes with gentle gradients, very fine matte paper grain, restrained highlights. A round silver-blue concave mirror leaning backward 25 degrees on a tiny discreet navy triangular foot, viewed from slightly above and front, no pole. Make unmistakable deep inward bowl cavity, clear thick circular rim, dark inner upper-left wall, lighter recessed bottom, curved broad pale reflection bands following inner walls. NOT a convex bulge; center visibly recessed behind rim. Isometric-like shallow perspective, rim projects as a wide ellipse, entire object fits with 8% padding. Navy rim #283d60, ice blue reflecting interior #c4e3f1. Clean polished surface with soft large highlights; grain on matte rim only. Do not reproduce photographic chrome, room/window reflections, glitter or tiny scratches. No text, no labels, no environment, no rail, no hands, no other mirror. Real transparent background."
+    },
+    {
+      "file": "convex-readable-v3.png",
+      "prompt": "Create the matching CONVEX mirror asset from this concave mirror. Preserve identical camera, angle, size, circular dark navy rim and tiny triangular foot, transparent background and stylized blue science illustration finish. Replace the recessed concave cavity with an unmistakable OUTWARD BULGING HEMISPHERICAL DOME, the rounded center protrudes prominently toward viewer in front of rim. Strong dome silhouette at top, bright broad curved highlight on upper-left crown, medium ice-blue dome center, dark blue crescent under bulge on bottom-right. Broad simple color shading planes and gentle gradients, no photographic window/room reflections. Mirror looks round and bulging like the outside of a spoon, not flat, not hollow bowl, no cavity. Very fine papergrain on matte rim only; smooth reflective dome. No text or other objects. Real transparent PNG."
+    }
+  ]
+}

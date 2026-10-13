@@ -1,0 +1,17 @@
+{
+  "source": "Test/newton-telescope/newton-telescope/assets/rail-lab/background-stationery-v2.png",
+  "source_sha256": "BF6FDE7C6B85761730152185934F26D9A6C196D1555E8BC3A91A3FC4A1B4791D",
+  "generator": "built-in image_gen",
+  "layers": [
+    {
+      "file": "stage1-background.png",
+      "role": "Opaque full-frame grid background extended behind desk",
+      "prompt": "Use case: precise-object-edit. Input image is the EDIT TARGET: existing blue illustrated Newton telescope laboratory stage. Produce ONE standalone background layer for layered scene transitions. Keep the original 16:9 framing, straight-on camera, blue palette, fine square grid scale, soft painterly lighting and vignette. Remove the entire foreground tabletop and ALL stationery (notebooks, pencil, eraser). Extend the blue gridded back wall seamlessly down to the bottom edge, including the region formerly occluded by the desk. No horizon seam, no desk, no objects, no labels, no added decorations. Preserve upper 64 percent as closely as possible. Full-bleed opaque background, same aspect ratio as input. This will sit behind a separately extracted foreground tabletop, so do not redesign composition."
+    },
+    {
+      "file": "stage1-foreground-table.png",
+      "role": "Transparent full-frame tabletop with stationery; align at canvas origin"
+    }
+  ],
+  "integration": "New assets only. Existing application and source image unchanged."
+}

@@ -1,0 +1,33 @@
+/* Independent assembly interaction; all coordinates use the 1600 x 900 scene. */
+.assembly-caption{max-width:275px}
+.assembly-caption small{display:block;margin-top:14px;color:#f2d49b}
+.assembly-reset{pointer-events:auto;margin-top:12px;padding:8px 16px;border:1px solid #90afd0;border-radius:20px;background:#244a70;color:#e4efff;font:inherit;cursor:pointer}
+.assembly-targets{position:absolute;inset:0;z-index:13;pointer-events:none;visibility:hidden}
+.layered-assembly:not(.workbench-transition) .assembly-targets{visibility:visible}
+.assembly-slot{position:absolute;pointer-events:auto;border:2px dashed #aac8e8;border-radius:50%;background:#addfff0c;cursor:pointer;color:#e4f2ff}
+.assembly-slot span{position:absolute;white-space:nowrap;top:100%;left:50%;transform:translateX(-50%);font:17px 'Microsoft YaHei';padding:6px 10px;border-radius:12px;background:#153858dd}
+.assembly-slot.hovered{border-color:#ffe3a1;background:#ffe3a133;box-shadow:0 0 22px #ffe3a166}
+.assembly-slot.installed{border-color:transparent;background:transparent}
+.mounted-surface{display:none;position:absolute;inset:8px 20px;border-radius:50%;background:linear-gradient(100deg,#577c9f,#dbf3ff 45%,#8eb5d6 65%,#324964);border:4px solid #92abc2;box-shadow:inset 5px 0 8px #173450}
+.installed .mounted-surface{display:block}
+.plane .mounted-surface{inset:12px 38px;border-radius:3px;transform:rotate(-45deg);border-width:2px;background:linear-gradient(90deg,#7394b3,#e9f6ff)}
+.assembly-mirror-tray{pointer-events:auto}
+.loose-mirror{flex:0 0 180px;border:0;background:none;padding:0;color:#daebff;cursor:grab;touch-action:none;font:17px 'Microsoft YaHei'}
+.loose-mirror img{display:block;pointer-events:none}
+.loose-mirror span{display:block;margin-top:-8px}
+.loose-mirror.selected img{filter:drop-shadow(0 0 8px #ffe0a3)}
+.loose-mirror.dragging img{opacity:.25}
+.loose-mirror.installed img{opacity:.12;filter:grayscale(1)}
+.loose-mirror:disabled{cursor:default}
+.assembly-drag-ghost{position:absolute;z-index:60;width:150px;height:140px;object-fit:contain;pointer-events:none;transform:translate(-50%,-50%);filter:drop-shadow(0 10px 10px #0006)}
+
+.assembly-mirror-tray{top:705px}
+
+.assembly-targets[hidden]{display:none}
+.assembly-next{display:block;pointer-events:auto;margin-top:12px;border:1px solid #efcf96;border-radius:20px;padding:8px 16px;background:#efc67e;color:#493c2a;font:inherit;cursor:pointer}.assembly-next:disabled{opacity:.4;cursor:default}
+.assembly-slot.selected{border-color:#ffe3a1}
+
+
+/* Keep the assembly canvas free of instruction panels and tray captions. */
+.assembly-preview .assembly-caption,.assembly-mirror-tray .loose-mirror>span{display:none}
+

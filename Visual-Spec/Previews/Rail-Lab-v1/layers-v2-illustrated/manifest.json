@@ -1,0 +1,11 @@
+{
+  "status": "style-corrected preview assets, not integrated into live UI",
+  "background": "background.png",
+  "transparentAssets": ["rail.png", "emitter.png", "clamp.png", "plane.png", "concave.png", "convex.png"],
+  "overview": "preview.png",
+  "beforeAfter": "comparison.png",
+  "generator": "built-in imagegen",
+  "prompts": ["style-audit-and-prompts.json", "background-refinement.json"],
+  "preserved": ["rear power cable", "optical apparatus structure", "enlarged mirror proportions", "corrected notebook ray diagrams"],
+  "integrationPending": ["common aperture and optical-axis calibration", "clamp foreground occlusion", "dynamic rail movement and ray overlay"]
+}

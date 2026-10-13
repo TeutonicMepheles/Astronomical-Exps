@@ -1,0 +1,52 @@
+{
+  "status": "extracted/reconstructed preview assets; no changes to live UI",
+  "generator": "built-in imagegen",
+  "preview": "preview.html",
+  "layers": [
+    {
+      "file": "background-corrected.png",
+      "role": "background including corrected textbook-style notebook diagrams",
+      "transparent": false
+    },
+    {
+      "file": "rail.png",
+      "role": "fixed optical rail",
+      "transparent": true
+    },
+    {
+      "file": "emitter.png",
+      "role": "fixed emitter, rear power plug and cable, post and carriage",
+      "transparent": true
+    },
+    {
+      "file": "clamp-clean.png",
+      "role": "empty movable holder, post and carriage",
+      "transparent": true
+    },
+    {
+      "file": "plane.png",
+      "role": "plane mirror insert",
+      "transparent": true
+    },
+    {
+      "file": "concave.png",
+      "role": "concave mirror insert",
+      "transparent": true
+    },
+    {
+      "file": "convex.png",
+      "role": "convex mirror insert",
+      "transparent": true
+    }
+  ],
+  "nextIntegrationWork": [
+    "calibrate common beam height and mirror aperture",
+    "define rail-carriage contact anchors",
+    "derive front clamp occlusion mask in renderer",
+    "keep optical paths and scale marks dynamic"
+  ],
+  "superseded": [
+    "background.png",
+    "clamp.png"
+  ]
+}

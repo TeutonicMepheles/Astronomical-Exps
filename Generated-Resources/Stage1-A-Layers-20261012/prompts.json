@@ -1,0 +1,14 @@
+{
+  "generator": "built-in image_gen",
+  "source": "../Stage1-Art-Candidates-20261012/A-muted-blue.png",
+  "layers": [
+    {
+      "file": "A-background.png",
+      "prompt": "Edit target is candidate A, the supplied blue hand-painted flat illustration. Deliver ONLY its standalone BACKGROUND layer. Keep the 1672x941 full canvas, original muted Prussian-blue colors, regular square grid size and positions, gently handmade grid lines and fine natural paper/pigment grain. Preserve the original upper two thirds as faithfully as possible. Remove the lower blue desk and every notebook, pencil, eraser and shadow. Extend the SAME grid wall seamlessly from y=627 through to bottom y=941, without changing grid spacing, color or texture at the former table boundary. One continuous full-frame opaque gridded wall, no horizon/seam, no tabletop, no stationery, no new content, no text. Preserve A's restrained hand-painted flat style and controlled fine pigment grain; do not add cloudy stains, speckles, mottling or digital grunge. This is a background layer to reveal when a separate desk overlay moves downward."
+    },
+    {
+      "file": "A-foreground-pencil-sketch.png"
+    }
+  ],
+  "registration": "Keep full-frame images aligned top-left at equal dimensions. Background underneath foreground. Table boundary near 66.6% height. No existing project files changed."
+}

@@ -1,0 +1,24 @@
+.transition-toolbar{position:absolute;z-index:50;right:38px;top:38px;display:flex;align-items:center;gap:14px;font:16px 'Microsoft YaHei',sans-serif;color:#d7e8ff}
+.transition-toolbar button{border:1px solid #f5d9a4;border-radius:24px;padding:12px 22px;background:#f1c77f;color:#513e28;font:inherit;cursor:pointer}
+.transition-toolbar button:disabled{opacity:.55;cursor:default}
+.transition-toolbar .preview-back{background:#263e60;color:#d7e8ff;border-color:#6784a6}
+#course-progress{visibility:hidden!important}
+.assembly-preview{position:absolute;inset:0;z-index:12;pointer-events:none;opacity:0;visibility:hidden}
+.assembly-preview img{position:absolute;left:340px;top:210px;width:980px;height:690px;object-fit:contain;object-position:center bottom}
+.assembly-preview .assembly-caption{position:absolute;left:48px;top:210px;color:#c4d6ed;font:18px/1.8 'Microsoft YaHei',sans-serif}
+.assembly-caption strong{display:block;color:#e3ecf8;font-size:23px;font-weight:500;margin-bottom:9px}
+.observatory.transition-busy #viewport,.observatory.transition-busy .console{pointer-events:none!important}
+.observatory.transition-busy #viewport *,.observatory.transition-busy .console *{pointer-events:none!important}
+.observatory.assembly-demo #viewport,.observatory.assembly-demo .console,.observatory.assembly-demo .view-tools{visibility:hidden!important;pointer-events:none!important}
+
+/* Preview depth: backdrop < telescope < tabletop < three loose mirrors. */
+.observatory[data-stage=mirrors]{background-image:url('/Generated-Resources/Stage1-Layout-Preview-20261012/background-selected-20261013.png')!important}
+.transition-worktable{position:absolute;inset:0;z-index:14;pointer-events:none;background:url('/Generated-Resources/Stage1-Layout-Preview-20261012/foreground.png') center/100% 100% no-repeat}
+.observatory #viewport{z-index:20}
+.observatory .console{z-index:22}
+.observatory .introduction{z-index:30}
+.assembly-preview img{left:330px;top:100px;width:1000px;height:670px}
+.assembly-mirror-tray{position:absolute;z-index:24;left:400px;top:735px;width:800px;display:flex;justify-content:center;gap:38px;opacity:0;visibility:hidden;pointer-events:none}
+.assembly-mirror-tray img{width:180px;height:164px;object-fit:contain;filter:drop-shadow(0 9px 5px #07162866)}
+.assembly-preview img{left:360px;top:40px;width:940px;height:620px}
+.transition-toolbar select{font:inherit;background:#263e60;color:#d7e8ff;border:1px solid #6784a6;border-radius:12px;padding:10px}

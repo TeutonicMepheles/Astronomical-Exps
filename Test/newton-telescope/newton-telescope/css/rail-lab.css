@@ -1,0 +1,37 @@
+/* Stage-one composition, isolated from assembly and observation. */
+.observatory[data-stage=mirrors]{background:#202e4d url('../assets/rail-lab/background-stationery-v2.png') center/100% 100% no-repeat;box-shadow:none}
+.observatory[data-stage=mirrors]::before,.observatory[data-stage=mirrors] .lab-stationery{display:none}
+.observatory[data-stage=mirrors] #viewport{inset:0;border:0}
+.observatory[data-stage=mirrors] #viewport>canvas{position:absolute;inset:0;pointer-events:none;z-index:3}
+.observatory[data-stage=mirrors] #optical-mirror-art{z-index:2}
+/* Rays start at the aperture center; composite them above the rim so emission stays continuous. */
+.observatory[data-stage=mirrors] #optical-emitter-art{z-index:2}
+.observatory[data-stage=mirrors] .console{inset:690px 400px auto;height:195px;min-height:0;max-height:none;filter:none;pointer-events:none}
+.observatory[data-stage=mirrors] .console-chassis,.observatory[data-stage=mirrors] .console-heading,.observatory[data-stage=mirrors] .mirror-panel .parameter,.observatory[data-stage=mirrors] .mirror-panel legend{display:none}
+.observatory[data-stage=mirrors] .console-inner{inset:0}
+.observatory[data-stage=mirrors] .mirror-panel{display:block;height:100%}
+.observatory[data-stage=mirrors] .mirror-panel>.control{border:0;padding:0}
+.observatory[data-stage=mirrors] .mirror-selector{justify-content:center;gap:38px;height:195px}
+.observatory[data-stage=mirrors] .specimen-button{flex:0 0 185px;height:195px;border:0;background:none;box-shadow:none;pointer-events:auto;cursor:grab;touch-action:none}
+.observatory[data-stage=mirrors] .specimen-button .mirror-art{display:block;width:180px;height:164px;margin:0 auto 4px;object-fit:contain;filter:drop-shadow(0 9px 5px #07162866);transition:transform .18s,filter .18s}
+.observatory[data-stage=mirrors] .specimen-button:hover .mirror-art,.observatory[data-stage=mirrors] .specimen-button[aria-pressed=true] .mirror-art{transform:translateY(-8px);filter:drop-shadow(0 6px 8px #f4cb8355)}
+.observatory[data-stage=mirrors] .specimen-button.is-mounted .mirror-art{opacity:.22}
+.observatory[data-stage=mirrors] .specimen-button span{font-size:15px;text-shadow:0 2px 4px #142643}
+.observatory[data-stage=mirrors] .specimen-check{top:14px;right:15px}
+.observatory[data-stage=mirrors] .mirror-panel .actions{position:fixed;right:38px;top:125px;display:flex;gap:12px;pointer-events:auto}
+.observatory[data-stage=mirrors] .mirror-panel .actions button{font-size:13px;padding:10px 16px}
+.observatory[data-stage=mirrors] .view-tools{bottom:auto;top:651px;left:800px;white-space:nowrap}
+.observatory[data-stage=mirrors] .scene-caption{display:none}
+.observatory[data-stage=mirrors] .progress-rail{z-index:6}
+.observatory[data-stage=mirrors] #remove-mirror{position:absolute;z-index:6;top:185px;right:40px;pointer-events:auto;font-size:12px;background:#172c48dd}
+.observatory[data-stage=mirrors] .mirror-drop-slot{z-index:5;min-width:150px;background:#142941bf}
+.rail-carriage{position:absolute;z-index:4;border:0;background:transparent;cursor:ew-resize;touch-action:none}
+.rail-carriage:focus-visible{outline:none}
+.observatory[data-stage=mirrors] #viewport.is-drop-target{box-shadow:none}
+.mirror-drag-ghost{position:fixed;z-index:100;pointer-events:none;width:140px;height:140px;object-fit:contain;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 10px #07162899)}
+@media(prefers-reduced-motion:reduce){.specimen-button .mirror-art{transition:none!important}}
+
+
+#optical-rail-art{position:absolute;pointer-events:none;z-index:1;object-fit:contain}
+.observatory[data-stage=mirrors] .rail-carriage{z-index:6}
+.observatory[data-stage=mirrors] .mirror-drop-slot{z-index:7}

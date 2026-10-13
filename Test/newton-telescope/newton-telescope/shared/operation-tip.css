@@ -1,0 +1,4 @@
+.experiment-operation-tip{position:absolute;top:var(--operation-tip-top,64px);left:50%;translate:-50% 0;z-index:1001;pointer-events:none;box-sizing:border-box;max-width:calc(100% - 48px);padding:13px 26px;border:1px solid var(--operation-tip-accent,#f4cb83);border-radius:14px;background:var(--operation-tip-bg,#172c48f2);color:var(--operation-tip-text,#fff4d8);font:600 16px/1.5 system-ui;text-align:center;box-shadow:0 5px 18px #08132244;transform-origin:top center;animation:operation-tip-expand 260ms cubic-bezier(.2,.8,.2,1) both}
+.experiment-operation-tip[hidden]{display:none!important}
+@keyframes operation-tip-expand{from{opacity:0;transform:translateY(-10px) scaleX(.65) scaleY(.25);clip-path:inset(0 35% 0 35% round 14px)}to{opacity:1;transform:none;clip-path:inset(0 0 0 0 round 14px)}}
+@media(prefers-reduced-motion:reduce){.experiment-operation-tip{animation:none}}

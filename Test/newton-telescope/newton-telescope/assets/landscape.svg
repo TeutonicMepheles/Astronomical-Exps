@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1672 941" preserveAspectRatio="none">
+<defs>
+<linearGradient id="mount" x2="0" y2="1"><stop stop-color="#203560"/><stop offset="1" stop-color="#111e3c"/></linearGradient>
+<linearGradient id="near" x2="0" y2="1"><stop stop-color="#101d39"/><stop offset="1" stop-color="#080f24"/></linearGradient>
+<linearGradient id="dome"><stop stop-color="#172749"/><stop offset=".58" stop-color="#2b3f69"/><stop offset="1" stop-color="#57668c"/></linearGradient>
+<linearGradient id="wall"><stop stop-color="#172444"/><stop offset="1" stop-color="#334569"/></linearGradient>
+<linearGradient id="window" x2="0" y2="1"><stop stop-color="#f2d39d"/><stop offset="1" stop-color="#ab997d"/></linearGradient>
+<symbol id="tree" viewBox="0 0 32 85"><path fill="#09162d" d="m16 0-7 18h4L5 35h6L1 56h10L0 73h13v12h6V73h13L21 56h10L21 35h6l-8-17h4Z"/></symbol>
+</defs>
+<path d="M0 516 80 555 207 599 354 568 553 636 690 603 807 649 965 613 1110 657 1255 619 1397 570 1485 553 1590 567 1672 535V810H0Z" fill="url(#mount)"/>
+<path d="m0 540 171 42 87 64 98-65 190 68 144-46 72 59 146-24 194 57 102-33 86-43 145 15 78-58 142 3 117-44V799H0Z" fill="#142447"/>
+<path d="m353 569 102 88 104-18-124-23Zm337 34-60 76 130-17Zm795-50-88 104 68-33 44-22Z" fill="#0e1c3b" opacity=".6"/>
+<!-- Small hilltop observatory, constructed as editable vector artwork. -->
+<g transform="translate(105 464)">
+<path d="M0 46A47 49 0 0 1 94 46Z" fill="url(#dome)" stroke="#3f547f" stroke-width="3"/>
+<path d="M35 46C30 15 43 1 58-2 34-8 8 17 7 46Z" fill="#0d1b35" stroke="#2b426d" stroke-width="2"/>
+<path d="M45 46C43 22 50 9 66 4" fill="none" stroke="#58729f" stroke-width="2"/>
+<path d="M0 49H94V98L0 79Z" fill="url(#wall)"/><path d="M-7 45H101V55H-7Z" fill="#354b73"/>
+<path d="M89 81H146V119L89 102Z" fill="#263755"/><path d="m91 75 61 11-4 7-59-11Z" fill="#405476"/>
+<path d="M60 70q0-8 8-6v28l-8-2Zm18 3q0-8 8-6v28l-8-2ZM128 98q0-6 7-5v16l-7-1Z" fill="url(#window)"/>
+<path d="M21 68q0-6 8-5v20l-8-2Z" fill="#12223e"/>
+<path d="M64 64v28m18-25v27m49 0v14" stroke="#53607c" stroke-width="1.4"/>
+</g>
+<path d="M0 538C94 553 130 545 231 581S431 666 538 681 642 646 691 640L807 702 902 673 1093 692 1233 661 1383 680 1486 622 1569 585 1672 566V809H0Z" fill="url(#near)"/>
+<g><use href="#tree" x="0" y="514" width="46" height="116"/><use href="#tree" x="66" y="547" width="32" height="85"/><use href="#tree" x="41" y="579" width="24" height="65"/><use href="#tree" x="305" y="587" width="40" height="109"/><use href="#tree" x="356" y="609" width="28" height="80"/><use href="#tree" x="388" y="617" width="21" height="64"/><use href="#tree" x="422" y="624" width="35" height="88"/><use href="#tree" x="470" y="643" width="23" height="68"/><use href="#tree" x="1444" y="606" width="29" height="82"/><use href="#tree" x="1481" y="588" width="31" height="92"/><use href="#tree" x="1539" y="618" width="28" height="81"/><use href="#tree" x="1580" y="585" width="43" height="118"/><use href="#tree" x="1632" y="588" width="43" height="118"/></g>
+<path d="M0 703H1672V941H0Z" fill="#536c9c"/><path d="M0 705H1672" stroke="#88a0c6" stroke-width="2"/><path d="m0 756 710-53h277l685 53" fill="#405984"/><path d="M0 758H1672V941H0Z" fill="#293d65"/><path d="M0 760H1672" stroke="#182d53" stroke-width="4"/>
+</svg>

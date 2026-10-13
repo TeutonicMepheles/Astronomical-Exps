@@ -1,0 +1,14 @@
+{
+  "generator": "built-in image_gen",
+  "mode": "brand-new text-only generation; no referenced_image_paths and no prior conversation images passed",
+  "layers": [
+    {
+      "file": "background.png",
+      "prompt": "Generate a completely NEW standalone background image from text. Landscape canvas 1672x941, approximately 16:9. A quiet blue optics classroom backdrop, consisting ONLY of one uninterrupted flat front-facing muted Prussian-blue square-grid wall covering the ENTIRE canvas from top to bottom. Thin low-contrast dusty blue grid lines, regular squares, about 43 columns, no perspective. Palette dark desaturated blue #263e60 with a gentle slight lift toward #304d73 near center. Hand-painted FLAT gouache editorial science illustration: broad calm color fields, delicately uneven handmade line quality, VERY subtle fine natural pigment/paper grain with consistent scale and low contrast. Texture feels like fresh matte printed illustration, not photographic noise or dirty distressed paper. No cloudy stains, smudges, swirls, gritty specks, mottled patches, banding, glossy shading or 3D. No tabletop, horizon line, stationery, objects, equipment, text, numbers, borders or decoration. Opaque full-bleed image. This is the rear layer of a scene; a separately generated foreground desk will cover the bottom third. The grid must continue through that bottom third."
+    },
+    {
+      "file": "foreground.png"
+    }
+  ],
+  "integration": "Independent new assets only; existing project and previous candidates untouched."
+}

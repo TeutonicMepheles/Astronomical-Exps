@@ -1,0 +1,7 @@
+{
+  "generator": "built-in image_gen",
+  "mode": "text-only new generation; no reference images submitted",
+  "file": "foreground-small-low.png",
+  "background": "../Stage1-TextOnly-Layers-20261012/background.png",
+  "note": "New foreground candidate only. Keep full-frame alignment over existing separate background. Existing project not changed."
+}

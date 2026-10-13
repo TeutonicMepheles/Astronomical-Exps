@@ -1,0 +1,5 @@
+{
+  "generator": "built-in imagegen",
+  "reason": "remove remaining embossed tabletop relief while preserving notebook optics geometry",
+  "prompt": "LOCALIZED STYLE CORRECTION. Image1 target background. Image2 establishes fine paper-grain painted illustration. Preserve exact grid-wall composition, horizon, stationery, notebooks, pencil, eraser, their sizes and position, and ALL graphite optics diagram lines and arrows. Change ONLY the large blue tabletop surface and the grid wall finish: REMOVE all raised/embossed scratches, swirls, concrete texture, tiny cracks and stone/bumpy surface effects. Replace tabletop with one broad matte painted slate-blue plane with at most a subtle 2-tone soft light/shadow gradient and very light flat PRINTED PAPER SPECKLE. It must look like colored paper or a painted illustration, absolutely no physical relief or normal-map bumps. Wall uses very low-contrast fine grid against quiet indigo painted plane with subtle flat papergrain, not an uneven masonry wall. Preserve natural broad corner shadows; no surface micro-shadows. Nothing else changes. No machinery, rail, mirrors, text or UI. Opaque 16:9 background."
+}
