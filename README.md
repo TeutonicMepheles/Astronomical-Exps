@@ -33,6 +33,7 @@ npm run export -- light-pollution
 
 ## 文档
 
+- [学生使用说明](docs/STUDENT_GUIDE.md) / [项目协作 Skill](.agents/skills/astronomical-collab/SKILL.md) / [网页目录与协作工具](docs/collaboration/README.md)
 - [协作流程](CONTRIBUTING.md) / [Agent 入口](AGENTS.md)
 - [Git 工作流程](docs/AGENT_GIT_WORKFLOW.md) / [组件政策](docs/COMPONENT_POLICY.md)
 - [功能规范](Function-Spec/README.md) / [视觉规范](Visual-Spec/README.md)
