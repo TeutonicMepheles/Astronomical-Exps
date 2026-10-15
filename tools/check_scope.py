@@ -10,7 +10,7 @@ if a.branch and a.branch.startswith('experiment/'):
 root=Path(__file__).resolve().parents[1]
 def git(*args):return subprocess.check_output(['git',*args],cwd=root).decode('utf-8').split('\0')
 # Merge base avoids reporting unrelated updates already on main.
-names=set(git('diff','--no-renames','--name-only','-z',a.base+'...HEAD'))|set(git('diff','--no-renames','--name-only','-z','HEAD'))|set(git('ls-files','--others','--exclude-standard','-z'))
+names=set(git('diff','--no-renames','--name-only','-z',a.base+'...HEAD'))|set(git('diff','--no-renames','--name-only','-z','HEAD'))|set(git('diff','--cached','--no-renames','--name-only','-z'))|set(git('ls-files','--others','--exclude-standard','-z'))
 names.discard('')
 experiments={x.split('/')[1] for x in names if x.startswith('experiments/')}
 if a.experiment:
