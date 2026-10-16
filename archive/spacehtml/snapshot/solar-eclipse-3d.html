@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="基于日—月—地视圆相交与影锥几何的三维日食模拟器">
+  <title>日—月—地影锥实验室</title>
+  <link rel="stylesheet" href="./solar-eclipse-3d.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-orbit" aria-hidden="true"><i></i></span>
+        <div>
+          <p>ORBITAL GEOMETRY LAB</p>
+          <h1>日—月—地影锥实验室</h1>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span id="kernelStatus" class="status-pill">几何内核检查中</span>
+        <button id="resetButton" class="button secondary" type="button">恢复默认</button>
+        <button id="exportButton" class="button primary" type="button">导出参数</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="visual-column">
+        <article class="viewport-card">
+          <canvas id="sceneCanvas" aria-label="日、月、地三维影锥场景"></canvas>
+          <div class="viewport-topline">
+            <div class="segmented" role="group" aria-label="视图模式">
+              <button type="button" data-view="system" class="active">机制全景</button>
+              <button type="button" data-view="earthmoon">地月实比</button>
+              <button type="button" data-view="earth">地球近景</button>
+              <button type="button" data-view="sky">地面观察</button>
+            </div>
+            <div class="viewport-badges">
+              <span id="eventBadge" class="event-badge solar">日食侧</span>
+              <span id="scaleBadge" class="scale-badge">距离压缩示意 · 计算使用真实数值</span>
+            </div>
+          </div>
+          <div id="viewportHelp" class="viewport-help">拖动旋转 · 滚轮缩放 · 双击复位视角</div>
+          <div id="skyHud" class="sky-hud" hidden>
+            <span><b>观察点</b><em id="observerLocation">赤道 · 120.0° 经度</em></span>
+            <span><b>观察结果</b><em id="observerEclipse">—</em></span>
+            <span><b>太阳</b><em id="sunAltAz">—</em></span>
+            <span><b>月球</b><em id="moonAltAz">—</em></span>
+            <span><b>视圆角距</b><em id="skySeparation">—</em></span>
+            <span><b>视直径 ☉ / ☾</b><em id="apparentDiameters">—</em></span>
+          </div>
+          <div id="objectLabels" class="object-labels" aria-hidden="true">
+            <span data-label="sun">太阳</span>
+            <span data-label="moon">月球</span>
+            <span data-label="earth">地球</span>
+          </div>
+          <section id="observerPreview" class="observer-preview" aria-label="同步地面观察窗">
+            <header>
+              <div><span id="observerEyebrow">EQUATOR · LOCAL NOON</span><b id="observerPreviewTitle">赤道正午观测</b></div>
+              <em id="observerPreviewResult">计算中</em>
+            </header>
+            <canvas id="observerCanvas" width="640" height="360"></canvas>
+            <footer><span id="observerPreviewAngles">—</span><span>真实角尺度</span></footer>
+          </section>
+          <div class="legend" aria-label="影区图例">
+            <span><i class="penumbra"></i>半影</span>
+            <span><i class="umbra"></i>本影</span>
+            <span><i class="antumbra"></i>反本影</span>
+          </div>
+        </article>
+
+        <div class="metric-grid">
+          <article class="metric featured">
+            <span>当前几何结果</span>
+            <strong id="eclipseType">计算中</strong>
+            <small id="eclipseNote">正在求解地表最大食分点</small>
+          </article>
+          <article class="metric">
+            <span id="umbraMetricLabel">地心截面本影</span>
+            <strong id="umbraRadius">—</strong>
+            <small id="umbraDetail">—</small>
+          </article>
+          <article class="metric">
+            <span id="penumbraMetricLabel">地心截面半影</span>
+            <strong id="penumbraRadius">—</strong>
+            <small id="axisOffset">—</small>
+          </article>
+          <article class="metric">
+            <span>地表最大遮挡</span>
+            <strong id="maxObscuration">—</strong>
+            <small id="maxLocation">—</small>
+          </article>
+        </div>
+
+        <article class="map-card">
+          <div class="card-heading">
+            <div>
+              <p id="mapEyebrow">EXACT SURFACE SOLUTION</p>
+              <h2 id="mapTitle">地表影区投影</h2>
+            </div>
+            <div class="map-readout" id="mapReadout">移动指针读取经纬度</div>
+          </div>
+          <div class="map-wrap">
+            <canvas id="footprintCanvas" width="960" height="480" aria-label="地球表面日食区域经纬度投影图"></canvas>
+            <div id="mapBusy" class="map-busy">更新精确边界…</div>
+          </div>
+          <div class="area-summary">
+            <span><i id="partialAreaLabel">仅偏食面积</i> <b id="partialArea">—</b></span>
+            <span><i id="totalAreaLabel">全食面积</i> <b id="totalArea">—</b></span>
+            <span><i id="annularAreaLabel">环食面积</i> <b id="annularArea">—</b></span>
+          </div>
+        </article>
+      </section>
+
+      <aside class="control-panel">
+        <div class="panel-heading">
+          <div>
+            <p>INITIAL CONDITIONS</p>
+            <h2>轨道与观测控制</h2>
+          </div>
+          <span class="live-dot">实时</span>
+        </div>
+
+        <section class="control-section presets">
+          <h3>几何预设</h3>
+          <div class="preset-grid preset-grid-wide">
+            <button type="button" data-preset="total">中心全食</button>
+            <button type="button" data-preset="annular">中心环食</button>
+            <button type="button" data-preset="partial">偏食掠过</button>
+            <button type="button" data-preset="lunar">月全食</button>
+            <button type="button" data-preset="miss">完全错过</button>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h3>时间演化</h3>
+            <button type="button" id="playButton" class="play-button" aria-pressed="false"><i></i><span>播放月球公转</span></button>
+          </div>
+          <label class="control-row" for="timeScale">
+            <span><b>动画速度</b><em id="timeScaleValue">3.0° / 秒</em></span>
+            <input id="timeScale" type="range" min="0.5" max="12" step="0.5" value="3">
+          </label>
+          <label class="switch-row" for="earthRotationToggle">
+            <span><b>地球自转</b><small>同步改变地表经度</small></span>
+            <input id="earthRotationToggle" type="checkbox"><i></i>
+          </label>
+        </section>
+
+        <section class="control-section">
+          <h3>月球轨道</h3>
+          <label class="control-row" for="moonPhase">
+            <span><b>月球位置（月相角）</b><em id="moonPhaseValue">0.0° · 新月</em></span>
+            <input id="moonPhase" type="range" min="0" max="360" step="0.05" value="0">
+          </label>
+          <label class="control-row" for="lunarInclination">
+            <span><b>月轨倾角</b><em id="lunarInclinationValue">5.145°</em></span>
+            <input id="lunarInclination" type="range" min="0" max="10" step="0.005" value="5.145">
+          </label>
+          <label class="control-row" for="nodeLongitude">
+            <span><b>升交点方向</b><em id="nodeLongitudeValue">0.0° · 食季中心</em></span>
+            <input id="nodeLongitude" type="range" min="0" max="360" step="0.1" value="0">
+          </label>
+          <p class="hint">交点方向完整转过 360° 对应约 18.6 年的节点退行周期。</p>
+        </section>
+
+        <section class="control-section">
+          <h3>轨道距离</h3>
+          <label class="control-row" for="sunDistance">
+            <span><b>日地距离</b><em id="sunDistanceValue">149,600,000 km</em></span>
+            <input id="sunDistance" type="range" min="147100000" max="152100000" step="10000" value="149600000">
+          </label>
+          <label class="control-row" for="moonDistance">
+            <span><b>月地距离</b><em id="moonDistanceValue">363,300 km</em></span>
+            <input id="moonDistance" type="range" min="356400" max="406700" step="100" value="363300">
+          </label>
+        </section>
+
+        <section class="control-section">
+          <h3>地球朝向</h3>
+          <label class="control-row" for="solarLongitude">
+            <span><b>太阳直射点经度</b><em id="solarLongitudeValue">120.0°</em></span>
+            <input id="solarLongitude" type="range" min="-180" max="180" step="0.5" value="120">
+          </label>
+          <label class="control-row" for="solarLatitude">
+            <span><b>太阳直射点纬度</b><em id="solarLatitudeValue">15.0°</em></span>
+            <input id="solarLatitude" type="range" min="-23.4" max="23.4" step="0.1" value="15">
+          </label>
+        </section>
+
+        <section class="control-section">
+          <h3>场景图层</h3>
+          <label class="switch-row" for="observerToggle">
+            <span><b>同步地面观察窗</b><small>随日食/月食自动切换正午或午夜</small></span>
+            <input id="observerToggle" type="checkbox" checked><i></i>
+          </label>
+          <label class="switch-row" for="eclipticToggle">
+            <span><b>显示黄道面</b><small>同时显示升交点方向</small></span>
+            <input id="eclipticToggle" type="checkbox" checked><i></i>
+          </label>
+          <label class="switch-row" for="orbitToggle">
+            <span><b>显示月球轨道</b><small>严格倾斜的圆轨道教学模型</small></span>
+            <input id="orbitToggle" type="checkbox" checked><i></i>
+          </label>
+        </section>
+
+        <details class="formula-panel">
+          <summary>模型、公式与精度边界</summary>
+          <div class="formula-content">
+            <p>每个地表点都用视圆相交计算，而不是把影子简单画成圆。</p>
+            <code>α☉ = asin(R☉ / |S − P|)</code>
+            <code>α☾ = asin(R☾ / |M − P|)</code>
+            <code>δ = acos((S−P)·(M−P) / |S−P||M−P|)</code>
+            <ul>
+              <li>半影外边界：δ = α☉ + α☾</li>
+              <li>本影边界：δ = α☾ − α☉</li>
+              <li>反本影边界：δ = α☉ − α☾</li>
+            </ul>
+            <p>满月侧改用地球遮挡太阳的影锥，按月心到影轴距离与月球半径判断半影月食、月偏食和月全食。</p>
+            <p>采用球形天体、真空直线传播。未加入地球椭球、月缘地形、大气折射、光行时和相对论修正。</p>
+          </div>
+        </details>
+
+        <div class="constants">
+          <span>R☉ 696,340 km</span>
+          <span>R☾ 1,737.4 km</span>
+          <span>R⊕ 6,371.0 km</span>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="./solar-eclipse-3d.js"></script>
+</body>
+</html>

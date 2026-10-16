@@ -1,16 +1,16 @@
 # 实现基线与差异
 
-补充说明：后续用户已明确全站画面元素统一参考画风、各实验可有独立主色调，见 [视觉规范](VISUAL_SPEC.md) 和 [画风参考](REFERENCES.md)。下文的蓝色令牌、场景和参数仅记录牛顿望远镜现有实现，不构成全站强制配色。本轮未按新参考修改页面。
+补充说明：后续用户已明确全站画面元素统一参考画风、各实验可有独立主色调，见 [视觉规范](VISUAL_SPEC.md) 和 [画风参考](REFERENCES.md)。下文的蓝色令牌、场景和参数仅记录牛顿望远镜现有实现，不构成全站强制配色。2026-10-12 整理时未按新参考修改页面。
 
-## 核对范围
+## 历史核对范围
 
-2026-10-12 对本地文件进行静态核对。页面目录为 `B:\GithubProject\Astronomical-Exps\Test\newton-telescope\newton-telescope`，独立 Git 仓库分支 `main`，HEAD 为 `064b0a4`，未配置远端。存在多项未提交修改及未跟踪资源，本规范反映这些工作区文件，不仅是 HEAD。外层 `Astronomical-Exps` 目录不是 Git 仓库，`Visual-Spec` 不在上述页面仓库内。
+以下为 2026-10-12 的静态核对记录，不是当前 Git 状态。2026-10-13 已迁入根仓库的 `experiments/newton-telescope/`，现行路径见[迁移记录](../docs/MIGRATION.md)。当时页面目录为 `B:\GithubProject\Astronomical-Exps\Test\newton-telescope\newton-telescope`，独立 Git 仓库分支 `main`，HEAD 为 `064b0a4`，未配置远端。存在多项未提交修改及未跟踪资源，本规范反映这些工作区文件，不仅是 HEAD。外层 `Astronomical-Exps` 目录不是 Git 仓库，`Visual-Spec` 不在上述页面仓库内。
 
-未改动页面代码、原文档或资源；没有重新打开浏览器验收。已有文档中的历史测试记录不作为本轮验证结果。
+未改动页面代码、原文档或资源；没有重新打开浏览器验收。已有文档中的历史测试记录不作为2026-10-12 整理时验证结果。
 
 ## 来源与入口
 
-| 来源 | 本次采用内容 |
+| 来源 | 当时采用内容 |
 | --- | --- |
 | [原视觉说明](../experiments/newton-telescope/VISUAL_SPEC.md) | 基础画风、建议色值、后续场景和材质修订 |
 | [页面说明](../experiments/newton-telescope/README.md) | 三阶段结构、固定舞台、实现边界 |
@@ -21,7 +21,7 @@
 | [光学资源说明](../experiments/newton-telescope/assets/optical/README.md) | 设备组来源、动态对齐方式 |
 | [sky-defaults.js](../experiments/newton-telescope/js/sky-defaults.js) | 已保存星空参数 |
 
-## 当前代码参数
+## 2026-10-12 代码参数
 
 | 项目 | 当前值或行为 |
 | --- | --- |
@@ -53,11 +53,11 @@
 | 初版磨砂 / 颗粒镜面 | 通用镜面 v2 改为透亮光学玻璃，正面无颗粒 |
 | 第一阶段用简易程序方盒和镜片外观 | 使用 `assets/optical/` 侧视设备资源，动态光路另绘 |
 
-光学资源 README 仍有“Viewport 背景”的早期表述；本次依照原视觉说明的后续修订与 `course.css` 当前代码记录为全舞台背景。
+光学资源 README 仍有“Viewport 背景”的早期表述；当时依照原视觉说明的后续修订与 `course.css` 当前代码记录为全舞台背景。
 
 ## 资源分工
 
-- `assets/optical/grid.png`、`emitter.png`、`plane.png`、`concave.png`、`convex.png`：第一阶段网格及含支架设备组。其原始设备参考图是另一张历史输入，本次两张画风图不能替代该来源。
+- `assets/optical/grid.png`、`emitter.png`、`plane.png`、`concave.png`、`convex.png`：第一阶段网格及含支架设备组。其原始设备参考图是另一张历史输入，当时两张画风图不能替代该来源。
 - `assets/optical/stationery-overlay.png`：透明文具覆盖，提示词为同目录 `stationery-prompt.txt`。
 - `assets/mirrors/*-v2.png`：通用透亮镜面组；`preview-v2.png` 为并排预览，`prompts-v2.json` 为生成记录。旧版保留，不等于当前第一阶段正在使用旧图。
 - `assets/foreground-landscape.png`：后两阶段山景前景；`bg-sky.png` 为保留的早期背景，不应据此判断当前动态星空呈现。
@@ -70,6 +70,6 @@
 - 面板和按钮圆角不完全符合建议范围；例如预览卡为 21px，部分主动作按钮为 40px，镜片控件为 13px。
 - 旧控制台和按钮仍保留渐变、底部浮雕及多层阴影；“减轻浮雕”属于已记录方向，不是全界面已完成结果。
 - 至少 44 × 44px 的目标尚未全面落实，例如进度折叠按钮为 30 × 28px；也未验证缩放后目标尺寸。
-- 数值等宽、对比度、减少动态效果和所有交互状态未在本轮运行时复核；150–200ms 为建议，代码中也存在 250ms 过渡。
+- 数值等宽、对比度、减少动态效果和所有交互状态未在2026-10-12 整理时运行时复核；150–200ms 为建议，代码中也存在 250ms 过渡。
 
-以上是后续设计与验收的核对项，本轮不据此扩展为页面改造任务。
+以上是后续设计与验收的核对项，2026-10-12 整理时不据此扩展为页面改造任务。

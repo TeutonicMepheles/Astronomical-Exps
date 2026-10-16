@@ -1,43 +1,75 @@
-# 天文实验课 · 协作工程
+# 天文实验课
 
-八个实验处于分阶段研发中。Newton 与光污染是**开发中的实现**，不是完工模板或其他实验的视觉、交互验收标准。目录迁移通过不代表教学或美术验收通过。
+本项目包含八个天文实验网页，由贡献者分别开发，维护者审核后合并。目前牛顿望远镜、光污染已有可运行页面，仍在开发中；其余六个实验已有需求文档，尚无正式页面。
+
+展示面向智慧白板大屏，统一 16:9 横屏，以点击、拖拽为主。核心流程不依赖悬停或滚动；悬停与选中效果一致（选中即悬浮）。详见[展示与交互约定](Visual-Spec/VISUAL_SPEC.md#展示与交互约定)。
+
+## 从这里开始
+
+1. 阅读[贡献者使用说明](docs/STUDENT_GUIDE.md)，完成安装和仓库下载。
+2. 在下表找到负责的实验，阅读需求。使用 Agent（如 Codex）开发时，也要让它读取该目录的 `AGENTS.md`。
+3. 平时保存版本、上传备份；整页自检和亲自试玩通过后，再提交维护者审核。
+
+协作规则见 [CONTRIBUTING.md](CONTRIBUTING.md)。不熟悉 GitHub 可以先按贡献者说明操作，不必先学会所有 Git 命令。
+
+## 实验目录
+
+| 编号 | 实验 | 当前状态 | 需求 |
+| --- | --- | --- | --- |
+| EXP-01 | 傅科摆 | 仅文档 | [阅读](experiments/foucault-pendulum/REQUIREMENTS.md) |
+| EXP-02 | 月面环形山高度 | 仅文档 | [阅读](experiments/lunar-crater-height/REQUIREMENTS.md) |
+| EXP-03 | 陨石坑撞击 | 仅文档 | [阅读](experiments/meteor-impact/REQUIREMENTS.md) |
+| EXP-04 | 地球周长 | 仅文档 | [阅读](experiments/earth-circumference/REQUIREMENTS.md) |
+| EXP-05 | 光污染 | 开发中，光效尚未标定 | [阅读](experiments/light-pollution/REQUIREMENTS.md) |
+| EXP-06 | 日月食 | 仅文档 | [阅读](experiments/solar-lunar-eclipses/REQUIREMENTS.md) |
+| EXP-07 | 牛顿望远镜 | 开发中 | [阅读](experiments/newton-telescope/REQUIREMENTS.md) |
+| EXP-08 | 火箭发射 | 仅文档 | [阅读](experiments/rocket-launch/REQUIREMENTS.md) |
+
+启动、导出和贡献者协作工具目前只接入光污染、牛顿望远镜。其余实验开始制作前，请维护者补充工具入口。已有页面和公共组件都还需完善，不能当作完成验收的模板。
 
 ## 本地运行
 
-需要 Python 3.10+、Node.js 22+。在根目录执行 `npm ci`，浏览器测试首次执行 `npx playwright install chromium`。
+需要 Python 3.10+、Node.js 22+。在仓库根目录（本文件所在文件夹）打开终端，首次安装：
+
+```sh
+npm ci
+npx playwright install chromium
+```
+
+选择一个入口运行，打开终端显示的地址。服务运行时保留终端，结束时按 `Ctrl+C`。
 
 ```sh
 npm run dev -- --experiment newton-telescope
 npm run dev -- --experiment light-pollution
 npm run dev -- --experiment components
-npm run check
-npm test
-npm run test:browser
+```
+
+默认端口为 8793；占用时在命令末尾加 `--port 8795`。源码需通过根目录服务访问。离线文件需单独导出：
+
+```sh
 npm run export -- newton-telescope
 npm run export -- light-pollution
 ```
 
-服务默认仅监听本机 8793 端口，可传 `--port 8795`。`BASE_URL` 可指定浏览器测试服务；默认测试自行启动临时服务。源码页面需以**根目录**为服务根，不能单独托管某个实验子目录。导出结果在 `dist/`，可离线打开，不提交生成产物。
+结果为 `dist/<实验目录>/index.html`，可离线打开；`dist/` 不提交到仓库。
 
-## 入口与状态
+## 检查
 
-| 实验 | 状态 | 入口 |
-| --- | --- | --- |
-| EXP-07 牛顿望远镜 | 开发中，仍需迭代 | [页面](experiments/newton-telescope/index.html) |
-| EXP-05 光污染 | 开发中，光效为未标定演示 | [页面](experiments/light-pollution/index.html) |
-| 其他六个实验 | 尚未建立正式实验目录，不表示功能预研不存在 | [功能规范](Function-Spec/FUNCTION_SPEC.md) |
-| 公共组件 | 全部试验中，维护者负责升级 | [目录](shared/README.md)、[预览](previews/components/index.html) |
-| 综合功能原型 | 历史参考，含火箭能力 | [说明](prototypes/README.md) |
+```sh
+npm run check
+npm test
+npm run test:browser
+```
 
-八个实验独立配色；共享字体规范，不设统一主题色。公共控件的示例皮肤不等于全项目配色标准。
+前两项检查代码和现有测试；第三项用浏览器检查已接入页面、组件预览和离线导出，默认自行启动临时服务。自动检查后仍需亲自试玩。仅修改文档时运行前两项，并核对链接；修改页面或组件时三项都要运行。
 
-## 文档
+## 其他文档
 
-- [协作流程](CONTRIBUTING.md) / [Agent 入口](AGENTS.md)
-- [Git 工作流程](docs/AGENT_GIT_WORKFLOW.md) / [组件政策](docs/COMPONENT_POLICY.md)
-- [功能规范](Function-Spec/README.md) / [视觉规范](Visual-Spec/README.md)
-- [字体规范](shared/typography/README.md) / [迁移记录](docs/MIGRATION.md)
+- [文档目录](docs/README.md)：按贡献者、开发和维护用途查找。
+- [功能需求](Function-Spec/README.md)：功能、参数和待确认问题。
+- [视觉规范](Visual-Spec/README.md)与[字体规范](shared/typography/README.md)：共用画风和字体，各实验独立配色。
+- [设计资料与前端参考](docs/DESIGN_REFERENCES.md)：建议贡献者按需阅读的设计、图标和组件网站。
+- [公共组件](shared/README.md)：可复用接口及预览。
+- [历史资料](archive/README.md)与[早期原型](prototypes/README.md)：供追溯，不作为正式页面模板。SpaceHTML 仅备份，不作交互、视觉或代码参考。
 
-`archive/` 是历史资料，不参与正式运行、测试基线或公共 API。参考图片的授权信息尚不完整，当前只登记为研究参考；发布时应单独核对。
-
-远程仓库：[TeutonicMepheles/Astronomical-Exps](https://github.com/TeutonicMepheles/Astronomical-Exps)，Private。远程保护状态见 [GitHub 配置记录](docs/GITHUB_SETUP.md)。
+仓库地址：[TeutonicMepheles/Astronomical-Exps](https://github.com/TeutonicMepheles/Astronomical-Exps)。访问需要维护者授权；服务端保护的历史配置见 [GitHub 配置记录](docs/GITHUB_SETUP.md)。

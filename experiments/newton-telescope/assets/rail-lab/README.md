@@ -1,6 +1,6 @@
 # 光具座插画资源整合
 
-检查点：`2e00470`；整合分支：`feat/rail-lab-art-integration`。
+历史整合检查点：`2e00470`，分支 `feat/rail-lab-art-integration`，属于迁移前的独立仓库，不是当前根仓库分支。
 
 ## 当前版本 coherent-v4
 
