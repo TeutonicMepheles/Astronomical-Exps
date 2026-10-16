@@ -13,4 +13,4 @@
 1. 先读本目录 [REQUIREMENTS.md](REQUIREMENTS.md)，其中列出正式功能、参数、待确认问题、核对项和初步资料位置。
 2. 再核对[总功能规范](../../Function-Spec/FUNCTION_SPEC.md)第 5 节（EXP-04）及[待确认决策](../../Function-Spec/OPEN_DECISIONS.md)。需求副本发生冲突时报告，不自行扩充科学参数。
 3. 初步功能资料：Function-Spec/PRE_RESEARCH_NOTES.md 的 EXP-04 行（仓库根相对路径）；具体链接与限制见 REQUIREMENTS.md。
-4. SpaceHTML 历史文件的实验定位也列于 REQUIREMENTS.md 的“历史资料”。仅供追溯，**不作为交互、视觉方案或代码实现参考**；不主动运行备份。不得用旧页面行为覆盖正式需求。
+4. SpaceHTML 原始文件不随本仓库发布，见 REQUIREMENTS.md 的“历史资料”。仅供追溯，**不作为交互、视觉方案或代码实现参考**；不主动运行备份。不得用旧页面行为覆盖正式需求。

@@ -1,6 +1,6 @@
 # 历史资料
 
-- [SpaceHTML 备份](spacehtml/README.md)：只作备份和追溯，不作为交互、视觉方案或代码实现参考。
+- [SpaceHTML 资料说明](spacehtml/README.md)：原始资料已移至仓库外，不随项目发布。
 
 generated-resources 保存原 Generated-Resources 的候选图、过程脚本和预览；legacy-light-* 保存已被唯一公共组件替代的历史副本。此目录不参与正式运行或默认检查，内容可能包含旧路径和过时指令，不能作为 Agent 操作要求。
 

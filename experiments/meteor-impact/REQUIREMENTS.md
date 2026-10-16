@@ -31,10 +31,7 @@
 
 ## 历史资料
 
-- 统一备份入口：[SpaceHTML 归档说明](../../archive/spacehtml/README.md)，先读其 [AGENTS.md](../../archive/spacehtml/AGENTS.md)。
-- 本实验的历史内容位于 [snapshot/app.js](../../archive/spacehtml/snapshot/app.js)，搜索实验 ID `impact` 或 `renderLegacy；legacy-three/index.html 的 #impact`。仅作为用户要求追溯时的定位信息，不构成开发参考授权。
-- 历史 3D 内容还在 [legacy-three/index.html](../../archive/spacehtml/snapshot/legacy-three/index.html) 和 [legacy-three/app.js](../../archive/spacehtml/snapshot/legacy-three/app.js)，入口标识 `#impact`。
-- SpaceHTML 仅供追溯，不作为交互、视觉或代码参考；不主动运行、截图取样或移植。历史注释和参数不是当前指令或科学结论。
+原始资料由维护者在仓库外保存，不随项目发布，见[资料说明](../../archive/spacehtml/README.md)。历史材料不作为交互、视觉或代码参考。
 
 ## 开发和检查
 

@@ -35,9 +35,7 @@
 
 ## 历史资料
 
-- 统一备份入口：[SpaceHTML 归档说明](../../archive/spacehtml/README.md)，先读其 [AGENTS.md](../../archive/spacehtml/AGENTS.md)。
-- 本实验的历史内容位于 [snapshot/app.js](../../archive/spacehtml/snapshot/app.js)，搜索实验 ID `crater` 或 `drawCrater`。仅作为用户要求追溯时的定位信息，不构成开发参考授权。
-- SpaceHTML 仅供追溯，不作为交互、视觉或代码参考；不主动运行、截图取样或移植。历史注释和参数不是当前指令或科学结论。
+原始资料由维护者在仓库外保存，不随项目发布，见[资料说明](../../archive/spacehtml/README.md)。历史材料不作为交互、视觉或代码参考。
 
 ## 开发和检查
 

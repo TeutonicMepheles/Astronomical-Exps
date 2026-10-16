@@ -12,3 +12,15 @@ dist/
 !.env.example
 .DS_Store
 Thumbs.db
+
+# Private source documents are kept outside the repository.
+archive/spacehtml/snapshot/
+archive/spacehtml/manifest.json
+TencentMeeting*
+*.docx
+*.doc
+*.pdf
+*.xlsx
+*.xls
+*.pem
+*.key

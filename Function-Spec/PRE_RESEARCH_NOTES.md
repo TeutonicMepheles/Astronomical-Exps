@@ -1,8 +1,6 @@
 # 前期功能研究补充
 
-本文记录早期功能研究，尚未批准为正式需求。来源包括 SpaceHTML 的脚本、设计文档 v1.1 和会议对照报告；会议报告为二次整理，未核对原始转录。
-
-SpaceHTML 文件于 2026-10-15 保存到[历史备份](../archive/spacehtml/README.md)，未接入正式页面。备份不作交互、视觉或代码参考，旧注释也不是当前指令。正式需求见 [FUNCTION_SPEC.md](FUNCTION_SPEC.md)，冲突见 [OPEN_DECISIONS.md](OPEN_DECISIONS.md)。
+以下为候选功能与模型问题，尚未批准为正式需求。原始研究材料由维护者在仓库外保存，不随项目发布。正式需求见 [FUNCTION_SPEC.md](FUNCTION_SPEC.md)，冲突见 [OPEN_DECISIONS.md](OPEN_DECISIONS.md)。
 
 | 编号 | 可保留的功能信息 | 限制与后续确认 |
 | --- | --- | --- |
