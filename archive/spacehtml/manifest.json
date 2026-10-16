@@ -17,7 +17,8 @@
   "excluded": [
     ".git/",
     "astronomy-lab-studio/.openai/",
-    "astronomy-lab-studio/dist/"
+    "astronomy-lab-studio/dist/",
+    "TencentMeeting_(20260805175300)_Transcription(1).docx"
   ],
   "files": [
     {
@@ -174,11 +175,6 @@
       "path": "solar-eclipse-3d.js",
       "bytes": 56492,
       "sha256": "b02b0479e7f02ecee659721c463c2a82cc0f2ee0038497bc7885818635bbda6f"
-    },
-    {
-      "path": "TencentMeeting_(20260805175300)_Transcription(1).docx",
-      "bytes": 73836,
-      "sha256": "07aed4a27fec74caa1510ab334e8cb0be08263aecd99cf661bbdfb05b845ec64"
     },
     {
       "path": "《天文实验课》互动网页技术需求.docx",
