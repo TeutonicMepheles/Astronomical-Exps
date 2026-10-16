@@ -1,0 +1,7 @@
+{
+  "repository": "TeutonicMepheles/Astronomical-Exps",
+  "pages": {
+    "newton-telescope": {"name": "牛顿望远镜"},
+    "light-pollution": {"name": "光污染"}
+  }
+}
