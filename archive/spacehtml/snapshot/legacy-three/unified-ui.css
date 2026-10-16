@@ -1,0 +1,128 @@
+:root {
+  --aiq-ink: #202124;
+  --aiq-paper: #f7f4ed;
+  --aiq-purple: #bbb1ff;
+  --aiq-purple-hover: #9f95df;
+  --aiq-yellow: #fde293;
+  --aiq-green: #b2ffb1;
+  font-family: "Google Sans", "Microsoft YaHei", Helvetica, system-ui, sans-serif;
+}
+
+html, body, #root { width: 100%; height: 100%; min-height: 0; margin: 0; }
+body { overflow: hidden; background: var(--aiq-paper); }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #0066cc !important; outline-offset: 3px !important; }
+
+/* 撞击实验：仅重排和统一 DOM 控件，不触碰 Three.js 画布与事件。 */
+main:not(.r) {
+  height: 100%;
+  min-height: 0;
+  padding: 12px;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 10px;
+  overflow: hidden;
+  background: var(--aiq-paper);
+}
+
+main:not(.r) > .space-decor,
+main:not(.r) > .hero,
+main:not(.r) > .results-section,
+main:not(.r) > .learn-section,
+main:not(.r) > .next-module,
+main:not(.r) > footer { display: none !important; }
+
+main:not(.r) > .topbar { display: none !important; }
+
+.brand-mark { border: 2px solid var(--aiq-ink); border-radius: 50%; background: var(--aiq-yellow); box-shadow: 3px 3px 0 var(--aiq-ink); }
+.module-switch, .topbar-note { border: 2px solid var(--aiq-ink); border-radius: 100px; }
+.module-switch { color: var(--aiq-ink); background: var(--aiq-purple); }
+.module-switch:hover { color: var(--aiq-ink); background: var(--aiq-purple-hover); transform: scale(1.05); }
+
+main:not(.r) > .lab-shell {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 14px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  border: 2px solid var(--aiq-ink);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.lab-heading { margin-bottom: 10px; align-items: center; }
+.lab-heading h2 { font-size: 22px; }
+.lab-heading p { font-size: 11px; }
+.preset-row button, .option { border: 2px solid var(--aiq-ink); border-radius: 100px; }
+.preset-row button:hover { transform: scale(1.05); }
+.option.active { color: var(--aiq-ink); border-color: var(--aiq-ink); background: var(--aiq-purple); box-shadow: 2px 2px 0 var(--aiq-ink); transform: none; }
+.option.active small { color: #4d4864; }
+.launch-button { min-height: 46px; border: 2px solid var(--aiq-ink); border-radius: 100px; color: var(--aiq-ink); background: var(--aiq-purple); box-shadow: 3px 3px 0 var(--aiq-ink); }
+.launch-button:hover:not(:disabled) { background: var(--aiq-purple-hover); transform: scale(1.03); box-shadow: 3px 3px 0 var(--aiq-ink); }
+.launch-button:active:not(:disabled) { transform: scale(.97); box-shadow: 1px 1px 0 var(--aiq-ink); }
+.experiment-layout { min-height: 0; height: 100%; grid-template-columns: minmax(260px, .32fr) minmax(0, .68fr); gap: 12px; }
+.control-panel { min-height: 0; padding: 16px; overflow: auto; border: 2px solid var(--aiq-ink); border-radius: 18px; }
+.selector { margin-bottom: 14px; }
+.stage-panel { min-height: 0; height: 100%; border: 2px solid var(--aiq-ink); border-radius: 18px; }
+.prediction { border: 1.5px solid var(--aiq-ink); background: var(--aiq-yellow); }
+
+/* 日食实验使用 CSS modules 的短类名；以下只覆盖布局和控件视觉。 */
+main.r {
+  height: 100%;
+  min-height: 0;
+  padding: 12px;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 10px;
+  overflow: hidden;
+  background: var(--aiq-paper);
+}
+
+main.r > .o,
+main.r > .P,
+main.r > .n,
+main.r > .a { display: none !important; }
+
+main.r > .y { display: none !important; }
+
+main.r > .C {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 12px;
+  grid-template-columns: minmax(250px, .31fr) minmax(0, .69fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  border: 2px solid var(--aiq-ink);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: none;
+}
+
+main.r .H { min-height: 0; padding: 16px; overflow: auto; border: 2px solid var(--aiq-ink); border-radius: 18px; }
+main.r .M h2 { font-size: 20px; }
+main.r .L { margin-top: 12px; gap: 6px; }
+main.r .t, main.r .e { padding: 9px 10px; border: 2px solid var(--aiq-ink); border-radius: 14px; }
+main.r .e { color: var(--aiq-ink); background: var(--aiq-purple); box-shadow: 2px 2px 0 var(--aiq-ink); transform: none; }
+main.r .e small { color: #4f4967; }
+main.r .u { min-height: 0; border: 2px solid var(--aiq-ink); border-radius: 18px; }
+main.r .S { padding: 10px 13px; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 12px; border: 2px solid var(--aiq-ink); border-radius: 16px; }
+main.r .N, main.r .h button { border: 2px solid var(--aiq-ink); border-radius: 100px; color: var(--aiq-ink); background: var(--aiq-yellow); box-shadow: 2px 2px 0 var(--aiq-ink); }
+main.r .x button[aria-pressed="true"] { color: var(--aiq-ink); background: var(--aiq-yellow); }
+
+@media (max-width: 1100px) {
+  main:not(.r), main.r { padding: 8px; gap: 7px; }
+  main:not(.r) > .lab-shell, main.r > .C { padding: 9px; }
+  .experiment-layout { grid-template-columns: 280px minmax(0, 1fr); }
+  main.r > .C { grid-template-columns: 250px minmax(0, 1fr); }
+  .control-panel, main.r .H { padding: 11px; }
+  .selector { margin-bottom: 9px; }
+  .option { padding: 7px 3px; }
+  main.r .factCard { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

@@ -1,0 +1,209 @@
+{
+  "purpose": "backup-only; not a source of interaction, visual, or implementation requirements",
+  "captured_at": "2026-10-15T21:04:24.862064+08:00",
+  "source_path": "B:\\GithubProject\\SpaceHTML",
+  "source_head": "4741805df7305a2cf95162c4fbea863b3a29ce3a",
+  "source_status": [
+    "## main...origin/main [ahead 1]",
+    " M app.css",
+    " M app.js",
+    "?? EarthSpaceLab-日月食模拟逆向分析报告.md",
+    "?? astronomy-lab-studio/",
+    "?? solar-eclipse-3d.css",
+    "?? solar-eclipse-3d.html",
+    "?? solar-eclipse-3d.js"
+  ],
+  "snapshot_kind": "current working files, including uncommitted and untracked content; not Git history",
+  "excluded": [
+    ".git/",
+    "astronomy-lab-studio/.openai/",
+    "astronomy-lab-studio/dist/"
+  ],
+  "files": [
+    {
+      "path": "app.css",
+      "bytes": 14753,
+      "sha256": "c5803a48e9fb807412632df53ea68df0fd48acc1ba0dd66cd6c77ac0d3d63ba3"
+    },
+    {
+      "path": "app.js",
+      "bytes": 60070,
+      "sha256": "7a9351e0109f0cb424c4f344b427185092eeb2438311b2577f53cf7cdf1d905f"
+    },
+    {
+      "path": "astronomy-lab-studio/.gitignore",
+      "bytes": 26,
+      "sha256": "450c413ea96d434aee1ebbe4bef04b0844c047ab4ca793befbcb842bc177f37e"
+    },
+    {
+      "path": "astronomy-lab-studio/package.json",
+      "bytes": 254,
+      "sha256": "df21aa06da486a48180dba8bbb61ed09b3504358dd226a7f55989a15da837d94"
+    },
+    {
+      "path": "astronomy-lab-studio/README.md",
+      "bytes": 887,
+      "sha256": "46c1c378f41f99af196d3df1b5ad4df4f0bb81024ab10d4f055300746e3fe58e"
+    },
+    {
+      "path": "astronomy-lab-studio/scripts/build.mjs",
+      "bytes": 788,
+      "sha256": "ac6c63f4afb8799d24399c6d86ac23fdadddbf95e1a5555276d6466ea6e033d5"
+    },
+    {
+      "path": "astronomy-lab-studio/scripts/serve.mjs",
+      "bytes": 1883,
+      "sha256": "3f421c07e37cbf9fcabe70f35fb4959c84d7f95164e531b33d5060c301dab9a3"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/framework-CXnKph_e.js",
+      "bytes": 189805,
+      "sha256": "73b45b606448e4dc310fbe851d8089ee752f3eb081980b3a6fec88988820ee12"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/index-D1qZtLxy.css",
+      "bytes": 45191,
+      "sha256": "407f87cc10afebad0cf513df8946841f56c0fbebe95974c59273db9666eaaf5b"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/index-DEge0YoZ.js",
+      "bytes": 81377,
+      "sha256": "566ff0c4d2f518f65dc725d65abfa7f7903b38013766a172c6a68b46904c4cea"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/layout-segment-context-CQ9FLevy.js",
+      "bytes": 288,
+      "sha256": "10902d6894028cb79356a6e5b475395137d55697adbe41caf6aa415d5e850ed5"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/link-BK2eE3Bt.js",
+      "bytes": 8132,
+      "sha256": "5d15717bbdf5a2a3aa85a00cc0611eb5eeec65362f5a186ac3db0036033f5580"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/query-DZOG5WwV.js",
+      "bytes": 1564,
+      "sha256": "5e3ecc5fd4f80c9c8228cef75d2d4a8bb5f8f95ca267e7a4e62923aad52b5db8"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/rocket-lab-BO623EKo.js",
+      "bytes": 15659,
+      "sha256": "2cdb0903b779c1b629bc97cf41cc6db65d8d9ad56fda8c93895729bac5705d31"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/rolldown-runtime-S-ySWqyJ.js",
+      "bytes": 694,
+      "sha256": "5db5ba82eef00d1dee7e86e663098c9427d01183a88d357437daff295aec3e75"
+    },
+    {
+      "path": "astronomy-lab-studio/site/assets/telescope-lab-nzssYpXX.js",
+      "bytes": 547534,
+      "sha256": "e49a382ca3970f6088d3c7aea71ee25d177752b4415d864a656f0e26385bb9a2"
+    },
+    {
+      "path": "astronomy-lab-studio/site/favicon.svg",
+      "bytes": 265,
+      "sha256": "8351b3ff880cb1880e810a0e7a7cdb3f206d87ede6147767981d25ac54e3fedf"
+    },
+    {
+      "path": "astronomy-lab-studio/site/index.html",
+      "bytes": 16151,
+      "sha256": "fb5377069dee20a1151fffd6ca4d62c6f7e4e8384b7ccb0fec5931c9a871db96"
+    },
+    {
+      "path": "astronomy-lab-studio/site/labs/newtonian-telescope/index.html",
+      "bytes": 12670,
+      "sha256": "60696e1187b6871035c7e188a2ef2765d2dadbbcbc2918b0d91e2ced77ea2da9"
+    },
+    {
+      "path": "astronomy-lab-studio/site/labs/rocket-launch/index.html",
+      "bytes": 8500,
+      "sha256": "4d5f02afeb7de4e0168e8a19d754505618cb51f1626abdc0ee2d94cc451f0291"
+    },
+    {
+      "path": "astronomy-lab-studio/site/og.png",
+      "bytes": 1446507,
+      "sha256": "ad0313db73868717607e99d1cba44e163389ae3395d055b241803b45f90a4fb0"
+    },
+    {
+      "path": "EarthSpaceLab-日月食模拟逆向分析报告.md",
+      "bytes": 28736,
+      "sha256": "7d08d690d83ea4a9b5be42ab56eaef8553ed304f098dbbd5fa4751196de0b698"
+    },
+    {
+      "path": "index.html",
+      "bytes": 575,
+      "sha256": "4ba2fa887e7bb4dc904f348de0519d15b664eeb4a2007a825a2fa7cedf37bdfe"
+    },
+    {
+      "path": "legacy-three/app.css",
+      "bytes": 53220,
+      "sha256": "66a2801c5e6e516b15c287c9055e2319099893d7921982c0e58fca7d67932527"
+    },
+    {
+      "path": "legacy-three/app.js",
+      "bytes": 933490,
+      "sha256": "3e986171469b89d4f8bc04845269b699362a8d8b0dd6d3af6a72a840a26e802d"
+    },
+    {
+      "path": "legacy-three/index.html",
+      "bytes": 848,
+      "sha256": "0db1b5ea157085e1e59077761eafd7ee07b7403723f2a1dd35c1898a3e564b7f"
+    },
+    {
+      "path": "legacy-three/unified-ui.css",
+      "bytes": 5322,
+      "sha256": "09823fa04bc2fd0fef8f5d8d3538632df2a9d4886b3ab3d36d114f7a2db1b184"
+    },
+    {
+      "path": "legacy-three/使用说明.txt",
+      "bytes": 515,
+      "sha256": "75873a2b4340d9f9ae5441cb07841d96a4f3a0f3b73598af64d283fde8b29dcb"
+    },
+    {
+      "path": "solar-eclipse-3d.css",
+      "bytes": 15366,
+      "sha256": "2782b5441374426607af9c3712621ae205e68d1a58c4aa861a24800e9630d4c1"
+    },
+    {
+      "path": "solar-eclipse-3d.html",
+      "bytes": 11553,
+      "sha256": "bdc303f591bc1d950693da9bf4a5a3cbef021e8067657acc66e791182a72a68d"
+    },
+    {
+      "path": "solar-eclipse-3d.js",
+      "bytes": 56492,
+      "sha256": "b02b0479e7f02ecee659721c463c2a82cc0f2ee0038497bc7885818635bbda6f"
+    },
+    {
+      "path": "TencentMeeting_(20260805175300)_Transcription(1).docx",
+      "bytes": 73836,
+      "sha256": "07aed4a27fec74caa1510ab334e8cb0be08263aecd99cf661bbdfb05b845ec64"
+    },
+    {
+      "path": "《天文实验课》互动网页技术需求.docx",
+      "bytes": 12964,
+      "sha256": "59416fbe4d1e79a7638f4779ddc39c39ec041f28e89d087d64faf20248480272"
+    },
+    {
+      "path": "使用说明.txt",
+      "bytes": 846,
+      "sha256": "3e4e6785a8f1f02c886e5523d375e0ca3d32e976ab6e59e43e49eeb0350c05d0"
+    },
+    {
+      "path": "天文实验课-互动网页设计文档-v1.1.md",
+      "bytes": 48713,
+      "sha256": "f8b5f8b79a6a18477aaf0a9cf00da590302ef1bff2ccc4889dc982cdce257c23"
+    },
+    {
+      "path": "天文实验课-互动网页设计文档.md",
+      "bytes": 68080,
+      "sha256": "ec604ff6aea255e11267076a7f9e499d999a971772e891f1ed2ec5084ba5b8e3"
+    },
+    {
+      "path": "设计文档-会议对照审查报告.md",
+      "bytes": 22789,
+      "sha256": "cb60eb6326011e43dc863d4ea0def5db6c5692046ecbb01b09bfda147acb257f"
+    }
+  ]
+}

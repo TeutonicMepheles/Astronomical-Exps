@@ -13,6 +13,6 @@
 
 命名空间暂保留 ExperimentHints、ExperimentUI、StageCompletionDialog 以兼容现有实验。hand-icons-flat.js 是可选图标目录，资源相对脚本解析。样式必须显式加载。
 
-详细接口见 [组件说明](components/README.md)，手势类旧说明见 [预览说明](../previews/components/README.md)。预览中的宿主实现仅为示例，不能反向成为 shared 依赖。
+完整接口见[组件说明](components/README.md)，运行示例见[预览说明](../previews/components/README.md)。预览中的宿主实现仅为示例，不能反向成为 shared 依赖。
 
 阶段完成提示的 data 为 kicker/title/body/action 文本，重复 show 在已打开或关闭动画中返回 false；确认回调由宿主负责业务。destroy 取消动画、关闭并移除自身 DOM，不能触发确认回调。

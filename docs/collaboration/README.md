@@ -1,14 +1,14 @@
 # 协作工具维护与命令
 
-学生读 [学生使用说明](../STUDENT_GUIDE.md)，Agent 读 [项目 Skill](../../.agents/skills/astronomical-collab/SKILL.md)。本工具只负责学生实验分支；维护者跨目录任务按 [Git 工作流程](../AGENT_GIT_WORKFLOW.md) 操作。
+贡献者读 [贡献者使用说明](../STUDENT_GUIDE.md)，Agent 读 [项目 Skill](../../.agents/skills/astronomical-collab/SKILL.md)。本工具只负责贡献者实验分支；维护者跨目录任务按 [Git 工作流程](../AGENT_GIT_WORKFLOW.md) 操作。
 
 ## 上线前由维护者准备
 
-1. 提供私有仓库访问权限即可，不维护学生用户名白名单。学生自行选择负责网页，老师在 PR 中检查归属。[pages.json](pages.json) 仅记录仓库和网页名称，不包含人员。
-2. 其余六页尚无正式目录：先登记对应 `experiments/<目录>/index.html`、`AGENTS.md` ，再确认现有静态检查、浏览器测试及导出器覆盖新页。当前导出器仅支持牛顿望远镜和光污染；新增页面必须扩展工具，不能跳过失败。
-3. 将本次工具审核合并至 main，学生即可自行 clone 后使用，无需等待人员登记。
+1. 提供私有仓库访问权限即可，不维护贡献者用户名白名单。贡献者自行选择负责网页，维护者在 PR 中检查归属。[pages.json](pages.json) 仅记录仓库和网页名称，不包含人员。
+2. 其余六页已有目录、`AGENTS.md` 和 `REQUIREMENTS.md`，但尚无正式 `index.html`。开始实现时由维护者补充网页目录登记及运行入口，再确认静态检查、浏览器测试和导出器覆盖新页。当前协作网页目录与导出器仅支持牛顿望远镜和光污染；需求文档不代表已完成工具接入，不能跳过失败。
+3. 确认协作工具已合并到 main，再通知贡献者克隆并开始使用。
 4. 核实 GitHub 服务端 main 保护。历史限制见 [配置记录](../GITHUB_SETUP.md)；本工具不配置或替代服务端权限。不能把本地检查宣传为强制安全边界。
-5. 每位学生试走一次开始、保存、备份、自检流程。首次 `gh auth login --hostname github.com` 由学生完成；Git 提交姓名/邮箱自行选择，可用 GitHub 提供的隐私邮箱。
+5. 每位贡献者试走一次开始、保存、备份、自检流程。首次 `gh auth login --hostname github.com` 由贡献者完成；Git 提交姓名/邮箱自行选择，可用 GitHub 提供的隐私邮箱。
 
 ## 命令
 
@@ -27,7 +27,7 @@ python tools/collab.py submit --completed "完成整页教学流程与灯具控�
 
 `start` 默认任务名 `initial-delivery`。后续交付用 `--task <新任务名>`。已有分支继续用 `guard`；换机器或切回原分支用 `resume --experiment light-pollution --task initial-delivery`。同名本地/远端分支不会被 start 覆盖。若远端分支有其他人的新提交，resume 不会自动合并，应查看差异后处理。
 
-`--playtested` 是学生对当前版本整页试玩及离线打开通过的明确确认，由 Agent 在收到确认后代传，不是自动推断，也不是学生额外填写的技术清单。
+`--playtested` 是贡献者对当前版本整页试玩及离线打开通过的明确确认，由 Agent 在收到确认后代传，不是自动推断，也不是贡献者额外填写的技术清单。
 
 | 命令 | 修改与约束 |
 | --- | --- |
@@ -43,16 +43,20 @@ python tools/collab.py submit --completed "完成整页教学流程与灯具控�
 
 脚本状态、commit 消息、PR 正文和检查收据位于 Git 元数据目录 `student-collab/`，不进入版本控制；worktree 分别保存。收据不包含凭据。检查重跑失败会撤销旧的通过记录，提交或 main 变化需要重新检查。运行中不要同时切分支或让另一个 Agent 修改该工作区。
 
-PR 返回结果未知时先查询；重复 submit 会查询开放 PR 并更新，不盲目重复创建。`gh pr edit` 会按模板更新整个正文，因此应先读取现有正文，把仍有效的学生说明保留在完成内容/已知问题中；讨论评论不变。关闭或合并的 PR 分支必须新建任务名，禁止直接复用。
+PR 返回结果未知时先查询；重复 submit 会查询开放 PR 并更新，不盲目重复创建。`gh pr edit` 会按模板更新整个正文，因此应先读取现有正文，把仍有效的贡献者说明保留在完成内容/已知问题中；讨论评论不变。关闭或合并的 PR 分支必须新建任务名，禁止直接复用。
 
 ## 模板与边界
 
 - [commit 模板](commit-template.txt)：网页、摘要、完成内容、已知问题，脚本插值生成。
-- [脚本 PR 模板](pr-template.md)：三个学生字段，加真实工具记录。
+- [脚本 PR 模板](pr-template.md)：交付信息、完成内容和已知问题三个字段，加真实工具记录。
 - [GitHub 手工 PR 模板](../../.github/pull_request_template.md)：同样三个字段，无自动成功断言。
 
-本次不安装 Git hooks、不修改用户全局 Git 配置。模板通过脚本应用，不会强制约束学生绕过工具的手工 commit。本地绑定只记录所选网页和分支，不证明负责人身份；真正的 main 保护仍需服务端配置。
+工具不安装 Git hooks，也不修改用户全局 Git 配置。模板通过脚本应用，不会强制约束贡献者绕过工具的手工 commit。本地绑定只记录所选网页和分支，不证明负责人身份；真正的 main 保护仍需服务端配置。
 
-维护者手工提交也使用简化结构，将网页名替换为“项目协作”等维护范围；PR 交付信息说明授权范围，工具结果如实填写，不套用学生已试玩的成功记录。
+维护者手工提交也使用简化结构，将网页名替换为“项目协作”等维护范围；PR 交付信息说明授权范围，工具结果如实填写，不套用贡献者已试玩的成功记录。
 
 回归测试：`python -m unittest discover -s tools/tests -p "test_*.py"`。测试使用临时仓库和本地裸远端，不会向真实 GitHub 推送或创建 PR。
+
+## 协作流程图源数据
+
+[workflow-diagram.json](workflow-diagram.json) 保留已有流程图节点数据，原文件名为 `output.png`，内容实际为 JSON。此处仅更正文件名和存放位置，节点内容原样保留；其中旧称呼不代表现行协作规则。
