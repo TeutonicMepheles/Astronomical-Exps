@@ -20,10 +20,10 @@
       const names={plane:'平面镜',concave:'凹面镜',convex:'凸面镜'};
       const carriage=state.mirrorPosition+(state.mirrorMounted?mountOffset(state.mirror):0);
       const target=Number.isFinite(position)?position:carriage-mountOffset(mirror);
-      patch({mirror,mirrorFocal:mirror==='convex'?270:mirror==='concave'?440:700,mirrorPosition:bounded(target,mirror),mirrorMounted:true,mirrorSelection:null,seen:[...new Set([...state.seen,mirror])],message:names[mirror]+'已放入光路。沿导轨拖动镜面，比较光路变化。'});return true;
+      patch({mirror,mirrorFocal:N.mirrorParts?N.mirrorParts.limits(mirror).initial:mirror==='convex'?270:mirror==='concave'?440:700,mirrorPosition:bounded(target,mirror),mirrorMounted:true,mirrorSelection:null,seen:[...new Set([...state.seen,mirror])],message:names[mirror]+'已放入光路。沿导轨拖动镜面，比较光路变化。'});return true;
     },
     removeMirror(){if(state.stage!=='mirrors')return;patch({mirrorPosition:state.mirrorPosition+(state.mirrorMounted?mountOffset(state.mirror):0),mirrorMounted:false,mirrorSelection:null,message:'镜片已回到桌面。比较空光路，或放入另一块镜片。'});},
-    setMirrorFocal(value){value=Number(value);if(state.stage!=='mirrors'||!state.mirrorMounted||state.mirror==='plane'||!Number.isFinite(value))return;patch({mirrorFocal:Math.max(200,Math.min(1200,value))});},
+    setMirrorFocal(value){value=Number(value);if(state.stage!=='mirrors'||!state.mirrorMounted||state.mirror==='plane'||!Number.isFinite(value))return;const range=N.mirrorParts?.limits(state.mirror)||{min:200,max:1200};patch({mirrorFocal:Math.max(range.min,Math.min(range.max,value))});},
     setMirrorPosition(value){if(state.stage!=='mirrors'||!Number.isFinite(value))return;patch({mirrorPosition:bounded(value,state.mirrorMounted?state.mirror:null)});},
     selectPart(part,focus=true){if(!['primary','secondary'].includes(part)||state.installed.includes(part))return;patch({selected:part,focusSelection:focus,message:part==='primary'?'凹面主镜负责集光和会聚。请选择它的安装位置。':'平面副镜将会聚光折向目镜。请选择它的安装位置。'});},
     install(slot,part=state.selected){
@@ -37,11 +37,13 @@
     toggleCollapsed(){patch({collapsed:!state.collapsed});},
     record(){
       const optical=N.store.get();if(state.stage!=='observation')return;
+      if(!optical.live){patch({message:'画面已冻结。请开启实时预览，再记录当前参数。'});return;}
       if(![25,10,5].includes(optical.eyepiece)){patch({message:'本次对照任务请使用 25、10、5 mm 三档目镜。'});return;}
       // A comparison is valid only at the same focal length, aperture, target and source.
       const key=[optical.focal,optical.aperture,optical.target,optical.mode].join('/');
       let records=state.records.filter(r=>r.key===key&&r.eyepiece!==optical.eyepiece);
-      records.push({key,eyepiece:optical.eyepiece,focal:optical.focal,aperture:optical.aperture,target:optical.target,magnification:optical.focal/optical.eyepiece,field:60/(optical.focal/optical.eyepiece)});
+      const metrics=N.store.metrics(optical);
+      records.push({key,eyepiece:optical.eyepiece,focal:optical.focal,aperture:optical.aperture,target:optical.target,magnification:metrics.magnification,field:metrics.field});
       patch({records,complete:records.length===3,message:records.length===3?'对照完成：目镜焦距越短，倍率越高，实际视场越窄。':'已记录。保持主镜、目标和光源不变，换一档目镜继续比较。'});
     },
     resetStage(){

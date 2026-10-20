@@ -12,15 +12,16 @@
   function sync(s){const isAssembly=s.stage==='assembly';stage.classList.toggle('layered-assembly',isAssembly);assembly.hidden=tray.hidden=!isAssembly;viewport.inert=isAssembly;consolePanel.inert=isAssembly;}
   function motion(el,frames,duration,delay=0){if(!el)return Promise.resolve();const a=el.animate(frames,{duration:reduced.matches?0:duration,delay:reduced.matches?0:delay,fill:'forwards',easing:'cubic-bezier(.22,.7,.25,1)'});animations.add(a);return a.finished.catch(()=>{});}
   function cleanup(){animations.forEach(a=>a.cancel());animations.clear();busy=false;stage.classList.remove('workbench-transition');stage.removeAttribute('aria-busy');stage.inert=false;sync(N.course.get());}
-  N.course.requestEnter=async function(target){
+  N.course.requestEnter=async function(target,{completionConfirmed=false}={}){
     if(busy||target===N.course.get().stage||!N.course.canEnter(target))return false;
     const from=N.course.get().stage;if(from!=='mirrors'||target!=='assembly')return N.course.enter(target);
+    if(!completionConfirmed)return N.courseCompletion?.requestMirrors()??false;
     const token=++epoch;busy=true;stage.inert=true;stage.classList.add('workbench-transition');stage.setAttribute('aria-busy','true');
     try{
       await assembly.querySelector('img').decode();if(token!==epoch)return false;
       N.app.telescope.lab.darkroom.endDrag();N.mirrorDragVisual?.end();N.courseInteractions?.guide.hide();N.courseInteractions?.bubble.hide();
       await Promise.all([motion(viewport.querySelector(':scope > canvas'),[{opacity:1},{opacity:0}],180),motion(consolePanel,[{opacity:1},{opacity:0}],180)]);
-      await Promise.all(['#optical-mirror-art','#optical-emitter-art','#optical-rail-art'].map((selector,i)=>motion(document.querySelector(selector),[{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(38px)'}],340,i*65)));
+      await Promise.all([['#optical-mirror-art',0],['#optical-mirror-surface',0],['#optical-emitter-art',1],['#optical-rail-art',2]].map(([selector,i])=>motion(document.querySelector(selector),[{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(38px)'}],340,i*65)));
       if(token!==epoch)return false;
       if(!N.course.enter(target))return false;
       await Promise.all([motion(table,[{transform:'translateY(0)'},{transform:'translateY(40px)'}],540),motion(assembly,[{opacity:0,transform:'translateY(30px) scale(.98)'},{opacity:1,transform:'translateY(0) scale(1)'}],540),motion(tray,[{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],220,540)]);

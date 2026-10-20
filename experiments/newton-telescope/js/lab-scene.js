@@ -45,7 +45,7 @@
         for(let i=0;i<vectors.length-1;i++){const a=vectors[i],b=vectors[i+1],direction=b.clone().sub(a).normalize();this.beams.add(new T.ArrowHelper(direction,a.clone().lerp(b,.6),.18,0xffd395,.14,.07));}
         const spark=new T.Mesh(new T.SphereGeometry(.018,8,8),new T.MeshBasicMaterial({color:0xffefb9,transparent:true,opacity:.65}));this.beams.add(spark);spark.userData.path=this.mirrorPaths.at(-1);
       });
-      if(s.mirrorMounted&&s.mirror!=='plane'){const marker=new T.Mesh(new T.SphereGeometry(.065,16,8),new T.MeshBasicMaterial({color:0xffc474}));marker.position.set(s.mirrorPosition+(s.mirror==='concave'?-f:f),0,0);this.beams.add(marker);}
+      if(s.mirrorMounted&&s.mirror!=='plane'){const marker=new T.Mesh(new T.SphereGeometry(.065,16,8),new T.MeshBasicMaterial({color:0xffc474}));marker.position.set(...N.mirrorOptics.focus(s));this.beams.add(marker);}
     }
     sync(s,instant=false){
       const v=this.view,isMirror=s.stage==='mirrors',isAssembly=s.stage==='assembly';this.group.visible=isMirror;v.root.visible=!isMirror;v.mount.visible=s.stage==='observation';

@@ -7,6 +7,6 @@
  const remove=root.querySelector('button'),bubble=new ExperimentHints.NameBubble();
  remove.addEventListener('pointerenter',()=>bubble.show({target:remove,text:'取下镜片'}));remove.addEventListener('pointerleave',()=>bubble.hide());remove.addEventListener('focus',()=>bubble.show({target:remove,text:'取下镜片'}));remove.addEventListener('blur',()=>bubble.hide());
  remove.addEventListener('click',()=>{bubble.hide();N.course.removeMirror();});
- const sync=s=>{if(s.stage!=='mirrors'||!s.mirrorMounted)bubble.hide();root.hidden=s.stage!=='mirrors'||!s.mirrorMounted;focal.hidden=s.mirror==='plane';input.disabled=s.mirror==='plane'||!s.mirrorMounted;input.value=s.mirrorFocal;output.textContent=s.mirrorFocal+' mm';};
+ const sync=s=>{if(s.stage!=='mirrors'||!s.mirrorMounted)bubble.hide();root.hidden=s.stage!=='mirrors'||!s.mirrorMounted;focal.hidden=s.mirror==='plane';input.disabled=s.mirror==='plane'||!s.mirrorMounted;const range=N.mirrorParts.limits(s.mirror);input.min=range.min;input.max=range.max;input.step=1;input.value=s.mirrorFocal;output.textContent=s.mirrorFocal+' mm';};
  const off=N.course.subscribe(sync);sync(N.course.get());window.addEventListener('pagehide',()=>{off();bubble.destroy();root.remove();},{once:true});
 })(window.Newton);

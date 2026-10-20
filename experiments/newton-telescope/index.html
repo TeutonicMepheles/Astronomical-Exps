@@ -56,8 +56,11 @@
   <aside class="preview-card" aria-labelledby="preview-heading">
     <div id="observation-feedback">
     <div class="preview-heading"><h2 id="preview-heading">观测效果</h2><label class="live-control"><span>实时预览</span><input id="live-preview" type="checkbox" checked role="switch"><span class="switch" aria-hidden="true"></span></label></div>
-    <div class="planet-viewport"><canvas id="planet" aria-label="土星的目镜成像示意"></canvas><span class="preview-paused" hidden>预览已暂停</span><div class="preview-badge"><span></span><span id="magnification">32×</span></div></div>
-    <p class="preview-description">调节下方参数，观察光路变化，<br>并查看目镜中的成像效果。</p>
+    <div class="planet-viewport"><canvas id="planet" aria-label="土星的目镜成像示意"></canvas><span class="preview-paused" hidden>画面已冻结</span><div class="preview-badge"><span></span><span id="magnification">32×</span></div></div>
+    <div class="preview-readout"><strong id="preview-target">土星</strong><span>图像视场 <output id="preview-field">1.88°</output></span></div>
+    <button id="refresh-preview" class="preview-refresh" type="button" hidden>按当前参数更新画面</button>
+    <p class="preview-description">倍率越高，视场越窄；目标超出画面时只显示局部。</p>
+    <p class="preview-assumption">按目镜视场 60° 估算；天体尺寸与间距为教学示意。</p>
     <div class="observation-status"><span class="status-dot"></span><span id="observation-status" role="status">光路就绪</span><span class="simulation-tag">成像示意</span></div>
     </div>
     <div id="lesson-feedback" class="lesson-feedback">
@@ -114,7 +117,7 @@
   <div id="toast" role="status" hidden></div>
 </main>
 <script src="vendor/three.min.js"></script>
-<script src="js/stage.js"></script><script src="js/sky-defaults.js"></script><script src="js/sky-controls.js"></script><script src="js/state.js"></script><script src="js/background.js"></script><script src="js/optics.js"></script><script src="js/course-state.js"></script><script src="js/camera-director.js"></script><script src="js/mirror-optics.js"></script><script src="js/optical-art.js"></script><script src="js/darkroom.js"></script><script src="js/beam-visual.js"></script><script src="js/lab-scene.js"></script><script src="js/telescope.js"></script><script src="js/preview.js"></script><script src="js/app.js"></script><script src="js/experiment-heading.js"></script><script src="js/course-ui.js"></script>
+<script src="js/stage.js"></script><script src="js/sky-defaults.js"></script><script src="js/sky-controls.js"></script><script src="js/state.js"></script><script src="js/background.js"></script><script src="js/optics.js"></script><script src="assets/rail-lab/coherent-v4/parts-v2/profile-geometry.js"></script><script src="js/mirror-parts-config.js"></script><script src="js/mirror-parts.js"></script><script src="js/course-state.js"></script><script src="js/camera-director.js"></script><script src="js/mirror-optics.js"></script><script src="js/optical-art.js"></script><script src="js/darkroom.js"></script><script src="js/beam-visual.js"></script><script src="js/lab-scene.js"></script><script src="js/telescope.js"></script><script src="js/preview.js"></script><script src="js/app.js"></script><script src="js/experiment-heading.js"></script><script src="js/course-ui.js"></script>
 <script src="../../shared/components/experiment-progress.js"></script>
 <script src="adapters/newton-progress-adapter.js"></script>
 <script src="../../shared/components/hand-icons-flat.js"></script>

@@ -18,12 +18,23 @@
     project(position){const p=this.lab.group.localToWorld(position.clone()).project(this.view.camera),rect=this.view.container.getBoundingClientRect();return{x:rect.left+(p.x*.5+.5)*rect.width,y:rect.top+(-p.y*.5+.5)*rect.height};}
     positionFromEvent(e){const rect=this.view.container.getBoundingClientRect();this.pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);this.raycaster.setFromCamera(this.pointer,this.view.camera);const p=new T.Vector3();this.raycaster.ray.intersectPlane(new T.Plane(new T.Vector3(0,0,1),0),p);return p.x;}
     beginDrag(e){
-      if(N.course.get().stage!=='mirrors'||!e.target.closest('.clamp-arrow'))return false;
-      this.drag={offset:N.course.get().mirrorPosition-this.positionFromEvent(e)};this.view.container.classList.add('is-dragging-mirror');return true;
+      const target=e.target.closest('.clamp-arrow,#rail-carriage');
+      if(N.course.get().stage!=='mirrors'||!target||e.button!==0||!e.isPrimary||this.drag)return false;
+      this.drag={target,pointerId:e.pointerId,startX:e.clientX,active:false,offset:N.course.get().mirrorPosition-this.positionFromEvent(e)};
+      target.focus({preventScroll:true});return true;
     }
-    moveDrag(e){if(this.drag)N.course.setMirrorPosition(this.positionFromEvent(e)+this.drag.offset);}
-    endDrag(){if(!this.drag)return false;this.drag=null;this.view.container.classList.remove('is-dragging-mirror');return true;}
-    sync(s){this.emitter.position.x=s.mirrorSource;}
+    moveDrag(e){
+      const drag=this.drag;if(!drag||drag.pointerId!==e.pointerId)return;
+      if(!drag.active&&Math.abs(e.clientX-drag.startX)<=4)return;
+      drag.active=true;this.view.container.classList.add('is-dragging-mirror');
+      N.course.setMirrorPosition(this.positionFromEvent(e)+drag.offset);
+    }
+    endDrag(e){
+      const drag=this.drag;if(!drag||e&&drag.pointerId!==e.pointerId)return false;
+      this.drag=null;this.view.container.classList.remove('is-dragging-mirror');
+      if(drag.target.hasPointerCapture(drag.pointerId))drag.target.releasePointerCapture(drag.pointerId);return true;
+    }
+    sync(s){if(s.stage!=='mirrors')this.endDrag();this.emitter.position.x=s.mirrorSource;}
     placeLabels(){const s=N.course.get();this.art.place(s);const p=this.project(new T.Vector3(s.mirrorPosition+(s.mirrorMounted?2.15:0),s.mirrorMounted?1.2:1,0)),rect=this.view.container.getBoundingClientRect(),el=document.querySelector('#mirror-drop-slot');el.style.left=(p.x-rect.left)/rect.width*this.view.container.clientWidth+'px';el.style.top=(p.y-rect.top)/rect.height*this.view.container.clientHeight+'px';}
   };
 })(window.Newton);
