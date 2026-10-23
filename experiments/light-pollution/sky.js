@@ -1,10 +1,11 @@
 /* Local visual demonstration only: coefficients are not photometric calibration. */
 (() => {
   const W=2172,H=724,canvas=document.querySelector('.sky'),ctx=canvas.getContext('2d');
+  const starCanvases=[...document.querySelectorAll('.stars')],starContexts=starCanvases.map(canvas=>canvas.getContext('2d'));
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),groups=new Map();
   let seed=4703,frame=0,last=0;
   const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
-  const stars=Array.from({length:420},()=>({x:random()*W,y:12+random()*345,b:.18+random()*.82,r:.45+random()*.9}));
+  const stars=Array.from({length:420},()=>({x:random()*W,y:12+random()*345,b:.18+random()*.82,r:.45+random()*.9,group:Math.floor(random()*3)}));
   function draw(){
     const emitters=[...groups.values()].flat();
     const gradient=ctx.createLinearGradient(0,0,0,H);
@@ -18,10 +19,12 @@
       glow.addColorStop(0,`rgba(${rgb},${alpha})`);glow.addColorStop(.4,`rgba(${rgb},${alpha*.42})`);glow.addColorStop(1,`rgba(${rgb},0)`);
       ctx.fillStyle=glow;ctx.fillRect(-1,-1,2,2);ctx.restore();
     }
+    starContexts.forEach(starCtx=>starCtx.clearRect(0,0,W,H));
     for(const star of stars){
+      const starCtx=starContexts[star.group];
       const haze=emitters.reduce((sum,e)=>sum+e.current*Math.exp(-Math.pow((star.x-e.x)/e.radius,2))*Math.exp(-Math.pow((star.y-390)/360,2)),0);
       const visibility=Math.max(0,star.b-haze*.68);
-      ctx.fillStyle=`rgba(228,235,255,${visibility})`;ctx.beginPath();ctx.arc(star.x,star.y,star.r,0,Math.PI*2);ctx.fill();
+      starCtx.fillStyle=`rgba(228,235,255,${visibility})`;starCtx.beginPath();starCtx.arc(star.x,star.y,star.r,0,Math.PI*2);starCtx.fill();
     }
   }
   function tick(now){

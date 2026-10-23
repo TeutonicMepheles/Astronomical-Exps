@@ -1,8 +1,12 @@
 .world{position:absolute;left:0;top:0;width:300%;height:100%;transform-origin:0 0;will-change:transform}
 .lamp-tap-guide .exp-gesture-label{display:none}
 .lamp-tap-guide{--hint-hand-size:64px;--hint-ring-size:24px}
-.world .panorama{position:absolute;inset:0;width:100%;height:100%;will-change:auto}
-.sky,.lighting,.lamps{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.world .panorama{position:absolute;inset:0;width:100%;height:100%;will-change:auto;-webkit-mask:url("assets/source-layers-v1/city-unlit.png") 0 0/100% 100% no-repeat;mask:url("assets/source-layers-v1/city-unlit.png") 0 0/100% 100% no-repeat}
+.sky,.stars,.lighting,.lamps{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.stars{will-change:opacity;animation:star-layer-pulse 2s linear infinite}
+.star-group-2{animation-delay:.5s}
+.star-group-3{animation-delay:1s}
+@keyframes star-layer-pulse{0%,100%{opacity:1}50%{opacity:0}}
 .lamp-object{position:absolute;padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;touch-action:none;overflow:visible;color:#c4e3f1;min-width:0}
 .lamp-object>svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}
 .lamp-object::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:max(100%,44px);height:max(100%,44px)}

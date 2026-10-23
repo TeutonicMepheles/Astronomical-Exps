@@ -3,7 +3,7 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  const page=await browser.newPage({viewport:{width:1600,height:1000},reducedMotion:'reduce'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(process.env.LIGHT_URL||'http://127.0.0.1:8795/experiments/light-pollution/');
  const input=async(id,value)=>{await page.locator('#'+id).evaluate((i,v)=>{i.value=v;i.dispatchEvent(new Event('input',{bubbles:true}));},value);await page.waitForTimeout(80);};
- const sample=()=>page.locator('.sky').evaluate(c=>{const d=c.getContext('2d').getImageData(0,0,2172,724).data;let brightness=0,stars=0;for(let y=30;y<330;y++)for(let x=0;x<2172;x++){const i=(y*2172+x)*4;brightness+=.2126*d[i]+.7152*d[i+1]+.0722*d[i+2];if(d[i]>120&&d[i+1]>130&&d[i+2]>140)stars++;}return {brightness,stars,pixel:Array.from(d.slice((300*2172+200)*4,(300*2172+200)*4+3))};});
+ const sample=()=>page.locator('.sky').evaluate(c=>{const d=c.getContext('2d').getImageData(0,0,2172,724).data,s=document.querySelector('.stars').getContext('2d').getImageData(0,0,2172,724).data;let brightness=0,stars=0;for(let y=30;y<330;y++)for(let x=0;x<2172;x++){const i=(y*2172+x)*4;brightness+=.2126*d[i]+.7152*d[i+1]+.0722*d[i+2];if(s[i+3]>24)stars++;}return {brightness,stars,pixel:Array.from(d.slice((300*2172+200)*4,(300*2172+200)*4+3))};});
  await page.waitForTimeout(150);const allOn=await sample();
  const ids=['residential-brightness','public-building-brightness','lamp-brightness','billboard-brightness'];
  for(const id of ids)await input(id,0);const dark=await sample();assert(dark.brightness<allOn.brightness);assert(dark.stars>allOn.stars,'Dim stars emerge with all four source groups off');

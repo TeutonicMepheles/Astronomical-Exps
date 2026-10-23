@@ -38,6 +38,8 @@
 .public-building-editor #public-building-brightness::-moz-range-track{background:linear-gradient(90deg,#58647b,#e9eef8)}
 
 .billboard-target{position:absolute;left:56.2615%;top:50%;width:6.4917%;height:12.7072%;clip-path:polygon(0 0,100% 14.13%,100% 100%,0 92.39%);padding:0;border:1px solid transparent;background:transparent;cursor:pointer;touch-action:none}
-.billboard-target:hover,.billboard-target:focus-visible,.billboard-target[aria-expanded=true]{background:#f4cb8320;outline:2px solid #f4cb83;outline-offset:-2px}
+.billboard-target::after{content:"";position:absolute;inset:0;box-sizing:border-box;padding:2px;background:#f4cb83;clip-path:polygon(0 0,100% 14.13%,100% 100%,0 92.39%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;pointer-events:none;transition:opacity .15s}
+.billboard-target:hover,.billboard-target:focus-visible,.billboard-target[aria-expanded=true]{outline:none}
+.billboard-target:hover::after,.billboard-target:focus-visible::after,.billboard-target[aria-expanded=true]::after{opacity:1}
 .billboard-editor #billboard-brightness::-webkit-slider-runnable-track{background:linear-gradient(90deg,#58647b,#e9eef8)}
 .billboard-editor #billboard-brightness::-moz-range-track{background:linear-gradient(90deg,#58647b,#e9eef8)}
