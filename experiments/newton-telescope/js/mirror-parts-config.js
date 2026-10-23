@@ -1,4 +1,4 @@
-/* Approved parts-v2 registration and parabola limits. Preview pixels, existing 300 mm/scene-unit convention. */
+/* Parts-v2 registration and parabola limits. Sag bounds correspond to rounded teaching focal endpoints. */
 window.Newton.mirrorPartsConfig={
   "concave": {
     "start": {
@@ -10,8 +10,8 @@ window.Newton.mirrorPartsConfig={
       "y": 484
     },
     "nativeSag": 38.49804922264353,
-    "minSag": 23.098829533586116,
-    "maxSag": 42.06203923865674,
+    "minSag": 22.20325,
+    "maxSag": 44.4065,
     "anchor": 1094,
     "shape": {},
     "bendSign": 1,
@@ -44,8 +44,8 @@ window.Newton.mirrorPartsConfig={
       "y": 491
     },
     "nativeSag": 73.49965840883584,
-    "minSag": 13.229938513590449,
-    "maxSag": 48.50977454983165,
+    "minSag": 13.448125,
+    "maxSag": 53.7925,
     "anchor": 1018,
     "shape": {
       "sagScale": 0.3,

@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-21",
+  "mode": "built-in image_gen",
+  "use_case": "style-transfer / precise-object-edit",
+  "source": "用户提供的 codex-clipboard-d9ab8267-b59b-4d45-92b3-cbea8b7572d1.png",
+  "style_reference": "concave-glass-illustration-v1.png",
+  "target": "convex-glass-illustration-v1.png",
+  "status": "standalone normalized image; not integrated into experiment",
+  "changes": [
+    "统一低饱和冰蓝/蓝紫配色及简化明暗",
+    "保留外鼓曲面、原朝向与厚度",
+    "减少摄影式反光与镜面颗粒",
+    "输出透明 RGBA PNG"
+  ],
+  "prompt": "Use case: style-transfer / precise-object-edit.\nImage 1 is the EDIT TARGET: an outward-bulging convex optical-glass element. Image 2 is the APPROVED STYLE REFERENCE from the same asset family, a concave glass element; copy its illustration treatment and palette only, NEVER its inward-curving geometry.\nPrimary request: normalize image 1 to match the approved illustration style of image 2. Fully restyle the surface finish while preserving image 1's original three-quarter camera, facing direction, tall elliptical silhouette, outward-bulging convex front surface, visible edge thickness, placement and square-canvas proportions. This must remain convex, not concave, not a bowl.\nArt direction: calm educational science illustration, clean geometric shapes, only 4–5 broad controlled blue-lavender tonal regions with subtle smooth blending. Use pale ice blue #C4E3F1, mist blue #7693BA and muted lavender blue #ACAEDB. Match image 2's restrained saturation, shallow dimensionality and simplified shading. Face must read as a gently outward-domed transparent optical-glass surface; use a soft broad illumination area and a narrow curved highlight to describe its bulge. Preserve genuine translucency inside the glass and legible thickness.\nReplace the entire noisy shiny rim with a clean smooth elliptical glass-thickness band. Remove cloudlike photographic environmental reflections, mottled chrome, grain, central moiré artifacts and plastic/metallic glare. No face grain or speckles. Soft upper-left illumination. No electric blue, neon outline, cyan fringe, jagged edge or detached colored specks. Clean smooth antialiased outer boundary with all exterior pixels alpha-zero.\nOutput ONE isolated RGBA PNG, genuine transparent background, safe padding on every side, no cast shadow. The source's black display must not become a painted background.\nNo retaining ring, added hardware, stand, stem, mounting frame, label, text, UI, watermark, border, sparkles, ground plane or checkerboard. Do not include the concave reference object in the output. One convex glass component only."
+}

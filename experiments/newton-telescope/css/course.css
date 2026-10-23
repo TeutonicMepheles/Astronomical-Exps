@@ -47,6 +47,7 @@
 .part-label.label-inward{transform:translateX(-100%);flex-direction:row-reverse}.part-label.label-inward button{padding:0 12px 0 0;text-align:right}
 
 .focus-marker{position:absolute;transform:translate(-50%,16px);font-size:12px;color:var(--course-accent);background:#102340c9;border:1px solid #d8b98044;border-radius:6px;padding:4px 8px;pointer-events:none}
+.focus-marker[data-virtual=true]{z-index:5;color:#b1c9f0;border-color:#8ea9d377}
 
 .preview-readout{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--course-muted);font-variant-numeric:tabular-nums}
 .preview-readout strong{font-weight:500;color:var(--course-text)}

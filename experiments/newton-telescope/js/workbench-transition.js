@@ -16,12 +16,15 @@
     if(busy||target===N.course.get().stage||!N.course.canEnter(target))return false;
     const from=N.course.get().stage;if(from!=='mirrors'||target!=='assembly')return N.course.enter(target);
     if(!completionConfirmed)return N.courseCompletion?.requestMirrors()??false;
+    N.trayTransition?.cancel();
     const token=++epoch;busy=true;stage.inert=true;stage.classList.add('workbench-transition');stage.setAttribute('aria-busy','true');
     try{
       await assembly.querySelector('img').decode();if(token!==epoch)return false;
       N.app.telescope.lab.darkroom.endDrag();N.mirrorDragVisual?.end();N.courseInteractions?.guide.hide();N.courseInteractions?.bubble.hide();
       await Promise.all([motion(viewport.querySelector(':scope > canvas'),[{opacity:1},{opacity:0}],180),motion(consolePanel,[{opacity:1},{opacity:0}],180)]);
-      await Promise.all([['#optical-mirror-art',0],['#optical-mirror-surface',0],['#optical-emitter-art',1],['#optical-rail-art',2]].map(([selector,i])=>motion(document.querySelector(selector),[{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(38px)'}],340,i*65)));
+      const apparatus=[['#optical-mirror-art',0],['#optical-mirror-surface',0],['#optical-round-holder-art',0],['#optical-frame-occlusion',0],['#convex-original-glass',0],['#concave-original-glass',0],['#optical-emitter-art',1],['#optical-rail-art',2]];
+      const overlays=[...document.querySelectorAll('#focus-marker,#mounted-mirror-controls,#mirror-move-handle,.table-page-arrow'),...(N.courseOutlines||[]).map(entry=>entry.overlay)].filter(el=>!el.hidden&&getComputedStyle(el).display!=='none'&&el.getBoundingClientRect().width>0);
+      await Promise.all([...apparatus.map(([selector,i])=>motion(document.querySelector(selector),[{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(38px)'}],340,i*65)),...overlays.map(el=>motion(el,[{opacity:1},{opacity:0}],340))]);
       if(token!==epoch)return false;
       if(!N.course.enter(target))return false;
       await Promise.all([motion(table,[{transform:'translateY(0)'},{transform:'translateY(40px)'}],540),motion(assembly,[{opacity:0,transform:'translateY(30px) scale(.98)'},{opacity:1,transform:'translateY(0) scale(1)'}],540),motion(tray,[{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],220,540)]);

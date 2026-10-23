@@ -1,20 +1,25 @@
 /* Learning state is independent of optical parameters and viewport state. */
 (function(N){
   'use strict';
-  const fresh=()=>({stage:'mirrors',mirror:'plane',mirrorMounted:false,mirrorSelection:null,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,selected:null,installed:[],assemblyDone:false,collapsed:false,records:[],complete:false,message:'将操作台上的镜片拖入光轴夹具，观察光路。'});
+  const fresh=()=>({stage:'mirrors',mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,selected:null,installed:[],assemblyDone:false,collapsed:false,records:[],complete:false,message:'将操作台上的镜片拖入光轴夹具，观察光路。'});
   // Reflecting faces sit at different distances from the common holder pivot.
   const mountOffset=type=>({plane:1,concave:1.192,convex:1.8}[type]||0);
   const bounded=(value,type)=>Math.max(-1-mountOffset(type),Math.min(5.3-mountOffset(type),value));
-  let state=fresh();const listeners=new Set();
+  let state=fresh(),resetVersion=0;const listeners=new Set();
   const emit=()=>listeners.forEach(fn=>fn(N.course.get()));
   const patch=p=>{state={...state,...p};emit();};
   N.course={
+    get resetVersion(){return resetVersion;},
     get:()=>({...state,seen:[...state.seen],installed:[...state.installed],records:state.records.map(r=>({...r}))}),
     subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},
     canEnter(stage){return stage==='mirrors'||stage==='assembly'&&state.seen.length===3||stage==='observation'&&state.assemblyDone;},
     enter(stage){if(!this.canEnter(stage))return false;patch({stage,selected:null,mirrorSelection:null,message:stage==='mirrors'?'将桌面镜片放入光路，比较三种镜面的光线与焦点。':stage==='assembly'?'选择零件，再点击安装位。':'保持主镜不变，对比 25、10、5 mm 目镜。'});return true;},
     selectMirror(mirror){if(state.stage!=='mirrors'||state.mirrorMounted&&state.mirror===mirror||!['plane','concave','convex'].includes(mirror))return;patch({mirrorSelection:mirror,message:'已选择镜片。拖到夹具上安装。'});},
     clearMirrorSelection(){if(state.stage==='mirrors')patch({mirrorSelection:null});},
+    mountLens(type){if(state.stage!=='mirrors'||!['concave','convex'].includes(type))return false;patch({lens:type,message:(type==='concave'?'凹透镜已安装：光束发散，蓝色虚线反向延伸到虚焦点。':'凸透镜已安装：平行光穿过透镜后会聚到实焦点。')+'可移动镜座或取下镜片。'});return true;},
+    removeLens(){if(state.stage==='mirrors')patch({lens:null,message:'透镜已回到桌面，圆环镜座已清空。'});},
+    setConvexShape(value){value=Number(value);if(state.stage!=='mirrors'||state.lens!=='convex'||!Number.isFinite(value))return;patch({convexShape:Math.max(92,Math.min(100,value))});},
+    setConcaveShape(value){value=Number(value);if(state.stage!=='mirrors'||state.lens!=='concave'||!Number.isFinite(value))return;patch({concaveShape:Math.max(85,Math.min(100,value))});},
     mountMirror(mirror=state.mirrorSelection,position){
       if(state.stage!=='mirrors'||!['plane','concave','convex'].includes(mirror))return false;
       const names={plane:'平面镜',concave:'凹面镜',convex:'凸面镜'};
@@ -47,10 +52,11 @@
       patch({records,complete:records.length===3,message:records.length===3?'对照完成：目镜焦距越短，倍率越高，实际视场越窄。':'已记录。保持主镜、目标和光源不变，换一档目镜继续比较。'});
     },
     resetStage(){
-      if(state.stage==='mirrors')patch({mirror:'plane',mirrorMounted:false,mirrorSelection:null,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,installed:[],assemblyDone:false,records:[],complete:false,message:'光路已清空，镜片回到操作台。请重新比较三种镜面。'});
+      resetVersion++;
+      if(state.stage==='mirrors')patch({mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,installed:[],assemblyDone:false,records:[],complete:false,message:'光路已清空，镜片回到操作台。请重新比较三种镜面。'});
       else if(state.stage==='assembly')patch({installed:[],selected:null,assemblyDone:false,records:[],complete:false,message:'零件已回到托盘，请重新组装。'});
       else{N.store.reset();patch({records:[],complete:false,message:'已恢复观测参数，重新进行三档目镜对照。'});}
     },
-    restart(){state=fresh();N.store.reset();emit();}
+    restart(){resetVersion++;state=fresh();N.store.reset();emit();}
   };
 })(window.Newton);

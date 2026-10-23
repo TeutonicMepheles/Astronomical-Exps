@@ -7,7 +7,8 @@
  const focalFor=(p,sag)=>((p.end.x-p.start.x)**2+(p.end.y-p.start.y)**2)/(16*sag)/ppu*mmPerUnit;
  const limits=type=>{
   const p=config[type];if(!p)return {min:200,max:1200,initial:700};
-  return {min:Math.ceil(focalFor(p,p.maxSag)),max:Math.floor(focalFor(p,p.minSag)),initial:Math.round(focalFor(p,p.nativeSag*(p.shape.sagScale??1)))};
+  const min=Math.round(focalFor(p,p.maxSag));
+  return {min,max:Math.round(focalFor(p,p.minSag)),initial:min};
  };
  const curve=(type,focal)=>{
   const key=type+'/'+focal;if(cache.has(key))return cache.get(key);

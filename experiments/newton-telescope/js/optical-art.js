@@ -8,6 +8,17 @@ N.OpticalArt=class{
   this.canvas=document.querySelector('#optical-mirror-art');
   this.surfaceCanvas=document.createElement('canvas');this.surfaceCanvas.id='optical-mirror-surface';
   this.surfaceCanvas.setAttribute('aria-hidden','true');this.surfaceCanvas.hidden=true;this.canvas.after(this.surfaceCanvas);
+  this.roundHolder=document.createElement('img');this.roundHolder.id='optical-round-holder-art';this.roundHolder.alt='透镜圆环镜座';this.roundHolder.draggable=false;this.roundHolder.hidden=true;
+  this.roundSources={holder:'assets/table-lenses/round-holder-source.png',concave:N.concaveShape.holder,convex:N.convexShape.holder};this.roundKind='holder';
+  this.roundHolder.addEventListener('load',()=>{this.view.dirty=true;});this.roundHolder.src=this.roundSources.holder;this.surfaceCanvas.after(this.roundHolder);
+  // Composite only the far rim above the rays. The near rim must leave the incoming beam bright.
+  this.frameOcclusion=document.createElement('div');this.frameOcclusion.id='optical-frame-occlusion';this.frameOcclusion.hidden=true;this.frameOcclusion.setAttribute('aria-hidden','true');
+  this.frameCover=new Image();this.frameCover.alt='';this.frameCover.draggable=false;this.frameCover.src=this.roundHolder.src;this.frameOcclusion.append(this.frameCover);this.roundHolder.after(this.frameOcclusion);
+  this.convexGlass=document.createElement('canvas');this.convexGlass.id='convex-original-glass';this.convexGlass.hidden=true;this.convexGlass.setAttribute('aria-hidden','true');this.roundHolder.after(this.convexGlass);
+  this.convexArt=new N.ConvexOriginalArt(()=>{this.view.dirty=true;});
+  this.concaveGlass=document.createElement('canvas');this.concaveGlass.id='concave-original-glass';this.concaveGlass.hidden=true;this.concaveGlass.setAttribute('aria-hidden','true');this.convexGlass.after(this.concaveGlass);
+  this.concaveArt=new N.ConcaveOriginalArt(()=>{this.view.dirty=true;});
+  for(const key of ['concave','convex']){const image=new Image();image.src=this.roundSources[key];}
   this.profiles={};this.surfaceKey='';this.parts=new N.MirrorPartsArt(()=>{this.view.dirty=true;});
   this.rail=document.querySelector('#optical-rail-art');this.emitter=document.querySelector('#optical-emitter-art');
   this.assetRoot='assets/rail-lab/coherent-v4/';this.kind='';
@@ -42,6 +53,33 @@ N.OpticalArt=class{
   // Reflecting-edge landmarks measured from each transparent plate at native y=330.
   const anchor={holder:1243,plane:1118,concave:1094,convex:1018}[kind];
   const left=center.x-anchor*scale;
+  this.roundActive=s.stage==='mirrors'&&document.querySelector('.observatory').dataset.trayPage==='lenses';
+  this.roundHolder.hidden=!this.roundActive;
+  this.frameOcclusion.hidden=!this.roundActive;
+  this.convexGlass.hidden=!this.roundActive||s.lens!=='convex';
+  this.concaveGlass.hidden=!this.roundActive||s.lens!=='concave';
+  if(this.roundActive){
+   const roundKind=s.lens||'holder';if(roundKind!==this.roundKind){this.roundHolder.src=this.roundSources[roundKind];this.frameCover.src=this.roundHolder.src;this.roundKind=roundKind;}
+   this.roundHolder.alt=s.lens?(s.lens==='concave'?'已安装凹透镜':'已安装凸透镜'):'透镜圆环镜座';
+   // Source landmarks: ring axis y=400, saddle x=1577 and rail contact y=771.
+   // Register the new base to the same saddle and rail; retain source pixels.
+   const registration=N.lensOptics.art,railTop=top+625*scale,saddleX=left+1248*scale,roundScale=registration.scaleRatio*scale;
+   const roundLeft=saddleX-registration.saddleX*roundScale,roundTop=railTop-registration.railY*roundScale;
+   Object.assign(this.roundHolder.style,{left:roundLeft+'px',top:roundTop+'px',width:2048*roundScale+'px',height:1152*roundScale+'px'});
+   Object.assign(this.frameOcclusion.style,{left:roundLeft+'px',top:roundTop+'px',width:2048*roundScale+'px',height:1152*roundScale+'px'});
+   Object.assign(this.convexGlass.style,{left:roundLeft+'px',top:roundTop+'px',width:2048*roundScale+'px',height:1152*roundScale+'px'});
+   if(s.lens==='convex')this.convexGlass.hidden=!this.convexArt.render(s.convexShape,this.convexGlass);
+   Object.assign(this.concaveGlass.style,{left:roundLeft+'px',top:roundTop+'px',width:2048*roundScale+'px',height:1152*roundScale+'px'});
+   if(s.lens==='concave')this.concaveGlass.hidden=!this.concaveArt.render(s.concaveShape,this.concaveGlass);
+   this.canvas.hidden=true;this.surfaceCanvas.hidden=true;
+   this.mount={x:saddleX,y:origin.y,width:358*roundScale,height:763*roundScale,left:roundLeft+1420*roundScale,top:roundTop+140*roundScale};
+   const carriage=document.querySelector('#rail-carriage');Object.assign(carriage.style,{left:this.mount.left+'px',top:this.mount.top+'px',width:this.mount.width+'px',height:this.mount.height+'px'});carriage.hidden=false;carriage.setAttribute('aria-label','透镜圆环镜座：拖动镜座沿导轨移动；左右方向键微调');
+   const guide=document.querySelector('#mirror-guide-anchor');if(guide)Object.assign(guide.style,{left:saddleX+'px',top:origin.y+'px'});
+   const handle=document.querySelector('#mirror-move-handle');if(handle)Object.assign(handle.style,{left:saddleX+'px',top:railTop+40*scale+'px'});
+   const controls=document.querySelector('#mounted-mirror-controls');if(controls){const controlsX=s.lens?Math.min(1450,roundLeft+2040*roundScale):saddleX-32,controlsY=s.lens?roundTop+300*roundScale:roundTop+20*roundScale;Object.assign(controls.style,{left:controlsX+'px',top:controlsY+'px'});Object.assign(controls.querySelector('button').style,{left:saddleX-32-controlsX+'px',top:roundTop+20*roundScale-controlsY+'px'});}
+   this.geometryInfo=null;this.cableInfo={exit:{x:source.x-576*scale,y:top+635*scale}};
+   this.registration={scale,top,railTop,saddleX};return;
+  }
   if(kind!==this.kind){this.canvas.src=this.assetRoot+(kind==='plane'?'plane-extended':kind)+'.png';this.kind=kind;}
   this.canvas.hidden=false;set(this.canvas,left);
   const parametric=this.renderSurface(s);this.canvas.style.visibility=parametric?'hidden':'';

@@ -35,7 +35,10 @@ const assert=require('node:assert/strict'),{chromium}=require('playwright'),path
       await page.waitForFunction(t=>Newton.app.telescope.lab.darkroom.art.surfaceKey.startsWith(t+'/'),type);
       assert(await page.locator('#optical-mirror-surface').isVisible());
       const limits=await page.evaluate(t=>Newton.mirrorParts.limits(t),type);
-      const input=page.locator('#mounted-focal');assert.equal(Number(await input.getAttribute('min')),limits.min);assert.equal(Number(await input.getAttribute('max')),limits.max);await input.focus();await page.keyboard.press('Home');
+      const input=page.locator('#mounted-focal');assert.equal(Number(await input.getAttribute('min')),limits.min);assert.equal(Number(await input.getAttribute('max')),limits.max);
+      assert.equal(await input.inputValue(),String(limits.min),'a newly mounted mirror starts at the minimum focal length');
+      assert.equal(await page.locator('.mounted-focal output').textContent(),limits.min+' mm');
+      await input.focus();await page.keyboard.press('Home');
       await page.waitForFunction(f=>Newton.app.telescope.lab.darkroom.art.surfaceKey.endsWith('/'+f),limits.min);
       const short=await read();
       await page.mouse.move(650,120);await page.screenshot({path:path.join(folder,`mirror-${type}-short-${variant}.png`)});

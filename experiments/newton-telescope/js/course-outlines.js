@@ -20,17 +20,19 @@
  let previousStage=N.course.get().stage;
  const unsubscribe=N.course.subscribe(s=>{if(s.stage!==previousStage){selectedClamp=false;entries.forEach(e=>{e.hover=false;e.focus=false;});}previousStage=s.stage;});
  function render(){
-  const s=N.course.get(),key='mounted-'+(s.mirrorMounted?s.mirror:'holder');
-  const art=N.app.telescope?.lab.darkroom.art,curved=s.mirrorMounted&&['concave','convex'].includes(s.mirror);
+  const s=N.course.get(),art=N.app.telescope?.lab.darkroom.art,round=Boolean(art?.roundActive),key=round?'mounted-round-'+(s.lens||'holder'):'mounted-'+(s.mirrorMounted?s.mirror:'holder');
+  const curved=!round&&s.mirrorMounted&&['concave','convex'].includes(s.mirror);
   const signature=key+(curved?'/'+s.mirrorFocal+'/'+art?.surfaceKey:'');
   if(clamp.signature!==signature){
    clamp.key=key;clamp.signature=signature;clamp.hint.destroy();
-   const contour=curved?art.contour(s.mirror,s.mirrorFocal):CourseContours[key];
+   clamp.target=round?art.roundHolder:document.querySelector('#optical-mirror-art');
+   const contour=round?(N.mountedLensContours?.[s.lens]||N.roundHolderContour):curved?art.contour(s.mirror,s.mirrorFocal):CourseContours[key];
    clamp.hint=new ExperimentHints.AffordanceHint(clamp.target,{contour,overlayRoot:clamp.overlay});
   }
   for(const entry of entries){
    const selected=entry===clamp?selectedClamp:s.mirrorSelection===entry.key;
-   const active=!entry.button.disabled&&s.stage==='mirrors'&&(entry.hover||entry.focus||(entry===clamp?selectedClamp:s.mirrorSelection===entry.key));
+   if(N.trayTransition?.busy){selectedClamp=false;entry.hover=false;entry.focus=false;}
+   const active=!N.trayTransition?.busy&&!entry.button.disabled&&entry.button.getClientRects().length>0&&s.stage==='mirrors'&&(entry.hover||entry.focus||(entry===clamp?selectedClamp:s.mirrorSelection===entry.key));
    entry.hint.setEnabled(active);
    if(active){const r=entry.target.getBoundingClientRect();Object.assign(entry.overlay.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});}
   }

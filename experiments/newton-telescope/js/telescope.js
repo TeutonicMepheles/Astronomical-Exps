@@ -158,8 +158,11 @@
       const w=this.container.clientWidth,h=this.container.clientHeight;
       const lesson=N.course.get(),focusLabel=this.container.querySelector('#focus-marker');
       if(lesson.stage==='mirrors')this.lab.darkroom.placeLabels();
-      focusLabel.hidden=lesson.stage!=='mirrors'||!lesson.mirrorMounted||lesson.mirror==='plane';
-      if(!focusLabel.hidden){const p=this.lab.group.localToWorld(new T.Vector3(...N.mirrorOptics.focus(lesson))).project(this.camera);focusLabel.textContent=lesson.mirror==='concave'?'实焦点 F':'虚焦点 F';focusLabel.style.left=`${(p.x*.5+.5)*w}px`;focusLabel.style.top=`${(-p.y*.5+.5)*h}px`;focusLabel.style.visibility=Math.abs(p.x)>1||Math.abs(p.y)>1?'hidden':'visible';}
+      const lensPage=document.querySelector('.observatory').dataset.trayPage==='lenses',focus=lensPage?N.lensOptics.focus(lesson):lesson.mirrorMounted&&lesson.mirror!=='plane'?N.mirrorOptics.focus(lesson):null;
+      focusLabel.hidden=lesson.stage!=='mirrors'||!focus;
+      if(!focusLabel.hidden){const virtual=lensPage?lesson.lens==='concave':lesson.mirror==='convex',p=this.lab.group.localToWorld(new T.Vector3(...focus)).project(this.camera),x=(p.x*.5+.5)*w;focusLabel.textContent=(virtual?'虚焦点 F':'实焦点 F')+(lensPage?'（示意）':'');focusLabel.dataset.virtual=String(virtual);focusLabel.classList.remove('convex-focus-above');focusLabel.style.left=x+'px';focusLabel.style.top=`${(-p.y*.5+.5)*h}px`;focusLabel.style.visibility=Math.abs(p.x)>1||Math.abs(p.y)>1?'hidden':'visible';
+       if(lensPage&&lesson.lens==='convex'){const controls=this.container.querySelector('#mounted-mirror-controls');if(controls&&Math.abs(x-parseFloat(controls.style.left)-55)<90){focusLabel.classList.add('convex-focus-above');focusLabel.style.top=parseFloat(controls.style.top)-12+'px';}}
+      }
       for(const [name,x] of [['primary',3],['secondary',-1.9]]){const point=this.tube.localToWorld(new T.Vector3(x,0,0)).project(this.camera);const button=this.container.querySelector(`[data-slot="${name}"]`);button.style.left=`${(point.x*.5+.5)*w}px`;button.style.top=`${(-point.y*.5+.5)*h}px`;button.style.visibility=Math.abs(point.x)>1||Math.abs(point.y)>1?'hidden':'visible';}
       Object.entries(this.anchors).forEach(([name,anchor])=>{const p=this.tube.localToWorld(anchor.clone()).project(this.camera);const label=this.container.querySelector(`[data-part="${name}"]`);label.classList.toggle('label-inward',name==='primary');label.style.left=`${(p.x*.5+.5)*w}px`;label.style.top=`${(-p.y*.5+.5)*h}px`;label.style.visibility=N.course.get().stage==='mirrors'||(N.course.get().stage==='assembly'&&!N.course.get().installed.includes(name)&&name!=='eyepiece')||p.z>1||Math.abs(p.x)>1.05||Math.abs(p.y)>.85?'hidden':'visible';});
     }
