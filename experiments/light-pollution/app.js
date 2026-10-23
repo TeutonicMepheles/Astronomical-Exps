@@ -13,6 +13,9 @@
   function paint() {
     world.style.transform = `translate3d(${-position}px,0,0)`;
     window.LampScene.positionPanel();
+    window.ResidentialScene.positionPanel();
+    window.PublicBuildingScene.positionPanel();
+    window.BillboardScene.positionPanel();
     const fraction = limit ? position / limit : 0;
     range.value = Math.round(fraction * 1000);
     range.style.setProperty('--fill', `${fraction * 100}%`);
@@ -55,7 +58,7 @@
   viewport.addEventListener('pointerdown', event => {
     if (!event.isPrimary || event.button !== 0) return;
     move(position, true);
-    drag = {id:event.pointerId, x:event.clientX, y:event.clientY, position, lamp:event.target.closest('[data-lamp]')?.dataset.lamp, moved:false};
+    drag = {id:event.pointerId, x:event.clientX, y:event.clientY, position, lamp:event.target.closest('[data-lamp]')?.dataset.lamp, residential:!!event.target.closest('[data-residential]')||window.ResidentialScene.hitTest(event.clientX,event.clientY), publicBuilding:!!event.target.closest('[data-public-building]')||window.PublicBuildingScene.hitTest(event.clientX,event.clientY), billboard:window.BillboardScene.hitTest(event.clientX,event.clientY), moved:false};
     viewport.setPointerCapture(event.pointerId);
     viewport.classList.add('dragging');
     viewport.focus({preventScroll:true});
@@ -68,7 +71,13 @@
   });
   const release = () => {drag = null; viewport.classList.remove('dragging');};
   viewport.addEventListener('pointerup', () => {
-    if(drag&&!drag.moved){if(drag.lamp)window.LampScene.select(drag.lamp);else window.LampScene.close();}
+    if(drag&&!drag.moved){
+      if(drag.lamp)window.LampScene.select(drag.lamp);
+      else if(drag.billboard)window.BillboardScene.select();
+      else if(drag.publicBuilding)window.PublicBuildingScene.select(window.PublicBuildingScene.point(drag.x,drag.y));
+      else if(drag.residential)window.ResidentialScene.select(window.ResidentialScene.point(drag.x,drag.y));
+      else {window.LampScene.close();window.ResidentialScene.close();window.PublicBuildingScene.close();window.BillboardScene.close();}
+    }
     release();
   });
   viewport.addEventListener('pointercancel', release);

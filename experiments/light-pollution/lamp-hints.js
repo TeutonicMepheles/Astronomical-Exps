@@ -18,6 +18,9 @@
     },900);
   }
   stage.addEventListener('lamp-selected',()=>{dismissed=true;hide();});
+  stage.addEventListener('residential-selected',()=>{dismissed=true;hide();});
+  stage.addEventListener('billboard-selected',()=>{dismissed=true;hide();});
+  stage.addEventListener('public-building-selected',()=>{dismissed=true;hide();});
   stage.addEventListener('pointerdown',()=>{pressed=true;hide();});
   window.addEventListener('pointerup',()=>{pressed=false;schedule();});
   window.addEventListener('pointercancel',()=>{pressed=false;schedule();});

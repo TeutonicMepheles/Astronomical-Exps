@@ -7,11 +7,16 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="../../shared/components/components.css">
   <link rel="stylesheet" href="lamps.css">
+  <link rel="stylesheet" href="residential.css">
   <script src="../../shared/components/affordance.js" defer></script>
   <script src="../../shared/components/hand-icons-flat.js" defer></script>
   <script src="../../shared/components/gesture.js" defer></script>
   <script src="lamp-layout.js" defer></script>
+  <script src="sky.js" defer></script>
   <script src="lamps.js" defer></script>
+  <script src="residential.js" defer></script>
+  <script src="public-building.js" defer></script>
+  <script src="billboard.js" defer></script>
   <script src="app.js" defer></script>
   <script src="lamp-hints.js" defer></script>
 <link rel="stylesheet" href="../../shared/typography/typography.css"></head>
@@ -20,11 +25,30 @@
     <div class="viewport" tabindex="0" role="region" aria-label="横向街景，可拖动、滚轮或使用左右方向键移动">
       <div class="world">
         <canvas class="sky" width="2172" height="724" aria-hidden="true"></canvas>
-        <img class="panorama" src="assets/city-layer-all-lamps.png" alt="连续的住宅、公共建筑、广告牌与滨河路灯夜景" draggable="false">
+        <img class="panorama" src="assets/source-layers-v2/city-unlit.svg" alt="连续的住宅、公共建筑、广告牌与滨河路灯夜景" draggable="false">
+        <img class="building-layer public-building-light" src="assets/source-layers-v2/public-building-windows.svg" alt="" draggable="false">
+        <img class="building-layer billboard-light" src="assets/source-layers-v2/billboard-screen.svg" alt="" draggable="false">
+        <img class="building-layer residential-light" src="assets/source-layers-v2/residential-windows.svg" alt="" draggable="false">
+        <svg class="residential-curtains" viewBox="0 0 2172 724" aria-hidden="true">
+          <defs>
+            <pattern id="curtain-folds" width="9" height="724" patternUnits="userSpaceOnUse"><rect width="9" height="724" fill="#30374f"/><path d="M1 0V724M7 0V724" stroke="#41465f"/><path d="M4 0V724" stroke="#222b43" stroke-width="2"/></pattern>
+            <filter id="curtain-aperture" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 16 0 -16 0 .5"/><feComponentTransfer><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer><feComposite in2="SourceGraphic" operator="in"/></filter>
+            <mask id="curtain-foreground" maskUnits="userSpaceOnUse" x="0" y="0" width="2172" height="724" style="mask-type:alpha"><image width="2172" height="724" filter="url(#curtain-aperture)"/></mask>
+          </defs>
+          <g class="curtain-cloth" mask="url(#curtain-foreground)" fill="url(#curtain-folds)"></g>
+        </svg>
+        <div class="residential-targets"></div>
+        <div class="public-building-targets"></div>
+        <button class="billboard-target" type="button" aria-label="编辑广告屏亮度" aria-controls="billboard-editor" aria-expanded="false"></button>
         <canvas class="lighting" width="2172" height="724" aria-hidden="true"></canvas>
         <div class="lamps"></div>
       </div>
     </div>
+    <svg class="residential-filter-defs" aria-hidden="true" width="0" height="0">
+      <defs><filter id="residential-color" color-interpolation-filters="sRGB">
+        <feColorMatrix id="residential-color-matrix" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0"/>
+      </filter><filter id="public-building-color" color-interpolation-filters="sRGB"><feColorMatrix id="public-building-color-matrix" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0"/></filter></defs>
+    </svg>
     <header><h1>光污染实验</h1><div class="rule"></div></header>
     <section class="lamp-editor" aria-label="前景路灯编辑" hidden>
       <div class="editor-heading"><h2>全部路灯 <small class="lamp-count"></small></h2><button class="close-editor" aria-label="关闭路灯编辑">×</button></div>
@@ -35,8 +59,32 @@
       </div>
       <label class="temperature-label" for="temperature">色温 <output id="temperature-value">3000 K</output></label>
       <input id="temperature" type="range" min="2200" max="6500" step="100" value="3000">
+      <label class="temperature-label" for="lamp-brightness">亮度 <output id="lamp-brightness-value">100%</output></label>
+      <input id="lamp-brightness" type="range" min="0" max="100" step="1" value="100">
     </section>
     <button class="arrow previous" aria-label="向左移动">‹</button>
+    <section id="residential-editor" class="residential-editor" role="dialog" aria-modal="false" aria-labelledby="residential-title" hidden>
+      <div class="residential-heading"><h2 id="residential-title">住宅灯光</h2><button class="close-residential" type="button" aria-label="关闭住宅灯光面板">×</button></div>
+      <label for="residential-temperature">色温 <output id="residential-temperature-value">3000 K</output></label>
+      <input id="residential-temperature" type="range" min="2200" max="6500" step="100" value="3000">
+      <label for="residential-brightness">亮度 <output id="residential-brightness-value">100%</output></label>
+      <input id="residential-brightness" type="range" min="0" max="100" step="1" value="100">
+      <fieldset class="curtain-controls"><legend>拉帘 <small>左侧近景住宅联动</small></legend><div class="curtain-options" role="group" aria-label="住宅拉帘比例"><button type="button" data-curtain="25" aria-pressed="false">25%</button><button type="button" data-curtain="50" aria-pressed="false">50%</button><button type="button" data-curtain="75" aria-pressed="false">75%</button><button type="button" data-curtain="100" aria-pressed="false">100%</button></div></fieldset>
+      <p>色温、亮度：全部住宅窗灯联动</p>
+    </section>
+    <section id="public-building-editor" class="public-building-editor" role="dialog" aria-modal="false" aria-labelledby="public-building-title" hidden>
+      <div class="residential-heading"><h2 id="public-building-title">公共建筑灯光</h2><button class="close-residential close-public-building" type="button" aria-label="关闭公共建筑灯光面板">×</button></div>
+      <label for="public-building-temperature">色温 <output id="public-building-temperature-value">3000 K</output></label>
+      <input id="public-building-temperature" type="range" min="2200" max="6500" step="100" value="3000">
+      <label for="public-building-brightness">亮度 <output id="public-building-brightness-value">100%</output></label>
+      <input id="public-building-brightness" type="range" min="0" max="100" step="1" value="100">
+      <p>色温、亮度：全部公共建筑窗灯联动</p>
+    </section>
+    <section id="billboard-editor" class="billboard-editor" role="dialog" aria-modal="false" aria-labelledby="billboard-title" hidden>
+      <div class="residential-heading"><h2 id="billboard-title">广告屏</h2><button class="close-residential close-billboard" type="button" aria-label="关闭广告屏面板">×</button></div>
+      <label for="billboard-brightness">亮度 <output id="billboard-brightness-value">100%</output></label>
+      <input id="billboard-brightness" type="range" min="0" max="100" step="1" value="100">
+    </section>
     <button class="arrow next" aria-label="向右移动">›</button>
     <footer>
       <span class="hint">拖动探索 <span>↔</span></span>
