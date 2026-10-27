@@ -72,4 +72,6 @@ npm run test:browser
 - [公共组件](shared/README.md)：可复用接口及预览。
 - [历史资料](archive/README.md)与[早期原型](prototypes/README.md)：供追溯，不作为正式页面模板。SpaceHTML 仅备份，不作交互、视觉或代码参考。
 
-仓库地址：[TeutonicMepheles/Astronomical-Exps](https://github.com/TeutonicMepheles/Astronomical-Exps)。访问需要维护者授权；服务端保护的历史配置见 [GitHub 配置记录](docs/GITHUB_SETUP.md)。
+仓库地址：[TeutonicMepheles/Astronomical-Exps](https://github.com/TeutonicMepheles/Astronomical-Exps)。本仓库已公开，任何人均可浏览、Clone 和 Pull，无需维护者授权。具有写入权限的协作者可 Push 自己的任务分支，并通过 PR 提交维护者审核；尚无写入权限的贡献者可先 Fork，将修改 Push 到自己的 Fork 后向本仓库发起 PR，或联系维护者添加协作者权限。请遵循上述协作流程，不直接向 main 推送。
+
+服务端保护的历史配置见 [GitHub 配置记录](docs/GITHUB_SETUP.md)，其中私有仓库及套餐限制的记录仅代表当时状态。
