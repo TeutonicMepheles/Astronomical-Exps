@@ -1,5 +1,5 @@
 /* Local scene layout editor. Layouts contain no scripts or external asset URLs. */
-window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVisible,getView,setGenerated,screen,extras,gradient,lamps,storageKey='lib-static-layout-v1',sceneId='legacy'}) {
+window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVisible,getView,setGenerated,screen,extras,gradient,lamps,buildings,storageKey='lib-static-layout-v1',sceneId='legacy'}) {
  const $=id=>document.getElementById(id), copy=value=>JSON.parse(JSON.stringify(value));
  const defaults=()=>specs.map(([id])=>({id,x:0,y:0,scale:1,opacity:1,visible:true,locked:false}));
  const undo=[],redo=[];
@@ -16,10 +16,10 @@ window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVi
    return {id:l.id,x:l.x,y:l.y,scale:l.scale,opacity:l.opacity,visible:l.visible,locked:l.locked};
   });return result;
  }
- function snapshot(){return {layers:copy(layers),objects:extras.getData(),skyGradient:gradient.getData(),lamps:lamps.getData()};}
- function apply(state){layers=copy(state.layers);extras.setData(state.objects);gradient.setData(state.skyGradient);lamps.setData(state.lamps);}
+ function snapshot(){return {layers:copy(layers),objects:extras.getData(),skyGradient:gradient.getData(),lamps:lamps.getData(),buildingControls:buildings.getData()};}
+ function apply(state){layers=copy(state.layers);extras.setData(state.objects);gradient.setData(state.skyGradient);lamps.setData(state.lamps);buildings.setData(state.buildingControls);}
  function documentData(){return {format:'lib-static-layout',version:2,sceneId,width:W,height:H,...snapshot()};}
- function validateAll(doc){return {layers:validate(doc),objects:extras.validate(doc.objects),skyGradient:gradient.validate(doc.skyGradient),lamps:lamps.validate(doc.lamps)};}
+ function validateAll(doc){return {layers:validate(doc),objects:extras.validate(doc.objects),skyGradient:gradient.validate(doc.skyGradient),lamps:lamps.validate(doc.lamps),buildingControls:buildings.validate(doc.buildingControls)};}
  function save(){try{localStorage.setItem(storageKey,JSON.stringify(documentData()));status('草稿已保存到此浏览器 · 导出 JSON 可备份');}catch{status('浏览器无法保存草稿，请导出 JSON 备份');}}
  function record(before){if(JSON.stringify(before)===JSON.stringify(snapshot()))return;undo.push(before);if(undo.length>100)undo.shift();redo.length=0;save();}
  function change(fn){const before=snapshot();fn();record(before);refresh();compose();}
@@ -46,10 +46,10 @@ window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVi
  document.querySelectorAll('[data-order]').forEach(b=>b.onclick=()=>{const l=chosen();if(!l||l.locked)return;change(()=>{const i=layers.indexOf(l),action=b.dataset.order,j=action==='top'?layers.length-1:action==='bottom'?0:action==='up'?i+1:i-1;layers.splice(i,1);layers.splice(j,0,l);});});
  function travel(from,to){if(!from.length)return;to.push(snapshot());apply(from.pop());save();refresh();compose();}
  $('undo').onclick=()=>travel(undo,redo);$('redo').onclick=()=>travel(redo,undo);
- $('reset-layout').onclick=()=>change(()=>{layers=defaults();extras.reset();gradient.reset();lamps.reset();});
+ $('reset-layout').onclick=()=>change(()=>{layers=defaults();extras.reset();gradient.reset();lamps.reset();buildings.reset();});
  $('export-layout').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(documentData(),null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='light-pollution-layout.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('已导出完整场景 JSON（含替换图片）');};
  $('import-layout').onclick=()=>$('layout-file').click();
- $('layout-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>32000000)throw Error('布局文件过大');const doc=JSON.parse(await file.text()),next=validateAll(doc);await extras.preload(next.objects);change(()=>{apply(next);});status('布局已导入，可撤销');}catch(err){status('导入失败：'+err.message);}finally{e.target.value='';}};
+ $('layout-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>32000000)throw Error('布局文件过大');const doc=JSON.parse(await file.text()),next=validateAll(doc);await extras.preload(next.objects);await buildings.preload(next.buildingControls);change(()=>{apply(next);});status('布局已导入，可撤销');}catch(err){status('导入失败：'+err.message);}finally{e.target.value='';}};
  function viewport(){const v=getView(),w=W/v.z,h=H/v.z;return {z:v.z,x:Math.max(0,Math.min(W-w,v.x-w/2)),y:Math.max(0,Math.min(H-h,v.y-h/2))};}
  function point(e){const r=canvas.getBoundingClientRect(),v=viewport();return {x:v.x+(e.clientX-r.left)*W/r.width/v.z,y:v.y+(e.clientY-r.top)*H/r.height/v.z};}
  function hit(l,p){const b=bounds[l.id],x=Math.floor((p.x-b.x-l.x)/l.scale+b.x),y=Math.floor((p.y-b.y-l.y)/l.scale+b.y);return x>=0&&y>=0&&x<W&&y<H&&(extras.hasLayerImage(l.id)?x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h:masks[l.id][y*W+x]>8);}
@@ -58,7 +58,7 @@ window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVi
  function finish(e,cancel=false){if(!drag||(e&&e.pointerId!==drag.pointer))return;const old=drag;drag=null;if(cancel)apply(old.before);else record(old.before);if(canvas.hasPointerCapture(old.pointer))canvas.releasePointerCapture(old.pointer);refresh();compose();}
  canvas.addEventListener('pointerup',e=>finish(e));canvas.addEventListener('pointercancel',e=>finish(e,true));canvas.addEventListener('lostpointercapture',e=>finish(e,true));
  $('edit-toggle').disabled=false;$('edit-toggle').onclick=()=>{finish(null);active=!active;setGenerated();document.documentElement.dataset.editing=String(active);$('editor-panel').hidden=!active;$('edit-toggle').setAttribute('aria-expanded',String(active));$('edit-toggle').setAttribute('aria-label',active?'退出素材编辑':'打开素材编辑');document.querySelectorAll('[data-mode]').forEach(b=>b.disabled=active);refresh();compose();};
- document.addEventListener('keydown',e=>{if(!active||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='Escape'){if(drag)finish(null,true);else $('edit-toggle').click();}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();if(!drag&&!gradient.busy&&!lamps.busy)travel(e.shiftKey?redo:undo,e.shiftKey?undo:redo);}});
+ document.addEventListener('keydown',e=>{if(!active||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='Escape'){if(drag)finish(null,true);else $('edit-toggle').click();}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();if(!drag&&!gradient.busy&&!lamps.busy&&!buildings.busy)travel(e.shiftKey?redo:undo,e.shiftKey?undo:redo);}});
  try{const raw=localStorage.getItem(storageKey);if(raw){apply(validateAll(JSON.parse(raw)));status('已恢复此浏览器的布局草稿');}}catch{status('草稿不可用，已使用初始构图');}
  refresh();
  return {get layers(){return layers;},get active(){return active;},get selectedId(){return selected;},changeExternal:change,beginExternal:snapshot,commitExternal(before){record(before);refresh();compose();},cancelExternal(before){apply(before);refresh();compose();},drawSelection(){gradient.draw();if(gradient.active)return;extras.drawSelection(active);if(!active||!selectionVisible||extras.editingObjects())return;const l=chosen();if(!l||!l.visible||!isVisible(l.id))return;const b=bounds[l.id],v=viewport();screen.save();screen.strokeStyle=l.locked?'#9ba9b880':'#f1ce9280';screen.lineWidth=2*W/canvas.getBoundingClientRect().width;screen.setLineDash([10,6]);screen.strokeRect((b.x+l.x-v.x)*v.z,(b.y+l.y-v.y)*v.z,b.w*l.scale*v.z,b.h*l.scale*v.z);screen.restore();}};

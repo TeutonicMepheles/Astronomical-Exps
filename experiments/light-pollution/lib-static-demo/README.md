@@ -123,3 +123,13 @@
 - 亮度为零仍可点选。直接拖动街景不打开面板，空白点击或 Esc 关闭；工具模式可用同一个路灯按钮调节。
 - 参数保存为场景 JSON/草稿的可选 `lamps` 字段，参与统一撤销/重做及恢复构图。旧布局缺失此字段时使用默认半遮光、3000 K、100%；非法参数拒绝整份导入。滑条的一次拖动合并为一次历史记录。
 - `verify-lamps.cjs` 检查九盏灯逐一响应、组参数、关灯点选、拖动隔离、历史、刷新恢复、非法导入和离线加载；实际展示截图为 `lamps-preview.png` 与 `lamps-editor-preview.png`。
+
+## 本地基线整合（2026-10-28）
+
+基于 4a48f64，入口仍为本目录 index.html / standalone.html；新模块接到原图层编辑器，无需进入独立建筑预览。默认展示模式点击住宅或公共建筑打开对应面板，四角按钮跳到原对象编辑器。右下角编辑按钮继续提供图层拖动、坐标/缩放、层级排序、锁定、图片替换、撤销和 JSON 保存。
+
+新增 building-controls.js、masked-lighting.js、curtain-palette.js，均为同实验 review-light-pollution 工作区已验证实现的本地适配。使用本基线的 warp 投影接口；未将另一个工作区的广告屏动画改动整体覆盖过来。palette 内嵌 LibTV 生成手绘褶皱的重新配色图，默认雾蓝/蓝紫为主，米杏/亚麻为辅，样式按固定序列分配。原生成画布 5ba762ab872a4bd9a1866a96e7a626cc、节点 02ecaa44-1a27-4d42-bfe4-76f50d9f8426、任务 20261028030503566497723；来源 2×2 图集四款经灰度亮度保留与重新着色到 384px 内嵌，无远程运行依赖。
+
+buildingControls 字段随原场景 JSON 与草稿保存款式替换、窗口分配和组进度，旧配置缺失该字段则使用默认；不自动迁移另一个 file URL 下的浏览器草稿。主窗角点和室内参数仍保存在原 objects 字段中。窗帘图片按款式替换，16 个已拆主窗错峰关闭，总进度100%全闭。未拆侧窗只参与遮罩调光，不新增窗帘；外墙溢光按最近原始窗中心分配为演示近似。光照未物理标定。
+
+专项：verify-buildings.cjs（本地自带内嵌图片作为替换测试资源），以及原 verify-candidates.cjs、verify-editor.cjs、verify-lamps.cjs。重建：node experiments/light-pollution/lib-static-demo/export.cjs。
