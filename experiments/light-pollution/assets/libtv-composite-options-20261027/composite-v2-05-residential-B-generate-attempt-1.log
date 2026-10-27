@@ -1,0 +1,91 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "5ba762ab872a4bd9a1866a96e7a626cc",
+  "newNodeKey": "489c4a6d-05bf-454d-8f86-1a6a77894662",
+  "reactFlowNode": {
+    "id": "489c4a6d-05bf-454d-8f86-1a6a77894662",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "composite-v2-05-residential-B",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "以参考原图为唯一美术和构图标准，制作可叠合的2D城市夜景游戏背景素材。严格继承蓝紫色手绘插画风格、颗粒纹理、建筑透视、城市布局、尺度和原位。不是重新设计城市，不是写实照片，不做素材拼贴或九宫格。参考画布2184×936，原始全景2171×724位于x=6,y=106；输出21:9，所有位置按比例对应。顶部和底部留边保持纯白。仅画指定图层，其他区域均为纯白RGB255,255,255，不要灰底或棋盘格，不要天空、星星、云、文字、水印、标注、投影。原位输出，不要把主体放大居中，不改变视角。保持蓝紫环境色与原图暖色窗灯；不要整体调色。允许自然补全指定图层被其他物体遮挡的部分，使整块素材可复用。每张是一张完整独立候选图，不是在一张图内画多个版本。任务：只画最左侧原有相邻两栋住宅，保留完整外墙、屋顶、阳台、窗框、玻璃、暖色室内及家具人物剪影，组成同一个住宅建筑组。原位置约x=6至385、y=305至735，保持实际原图轮廓比例。移除遮挡住宅的树木和灌木，自然补全墙体及窗户，楼体完整落地。不要新增建筑，不居中放大，不留树形白洞。其他公共楼、广告楼、山、水、道路和植物全部纯白。",
+        "model": "lib-image-2.5-s",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "high",
+          "resolution": "2K",
+          "background": "opaque",
+          "ratio": "21:9"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ]
+      }
+    },
+    "position": {
+      "x": 5100,
+      "y": 600
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "f7b934f2-d592-4ae3-98ef-98573652439b",
+      "source": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+      "target": "489c4a6d-05bf-454d-8f86-1a6a77894662"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "489c4a6d-05bf-454d-8f86-1a6a77894662"
+  ]
+}
+
+API Request Error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:15141:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async requestJson (C:\snapshot\temp\libtv-pkg-runtime.js:5235:11)
+    at async getCanvasDetail (C:\snapshot\temp\libtv-pkg-runtime.js:5815:15)
+    at async executeNodeRunAfterFlush (C:\snapshot\temp\libtv-pkg-runtime.js:17282:18)
+    at async runCreateCanvasNodeCli (C:\snapshot\temp\libtv-pkg-runtime.js:17527:7)
+    at async executeLibtvNodeCreateMain (C:\snapshot\temp\libtv-pkg-runtime.js:17992:3)
+    at async _Command.<anonymous> (C:\snapshot\temp\libtv-pkg-runtime.js:18062:5)
+    at async _Command.parseAsync (C:\snapshot\temp\libtv-pkg-runtime.js:2224:9)
+    at async main (C:\snapshot\temp\libtv-pkg-runtime.js:21702:3) {
+  [cause]: Error: Client network socket disconnected before secure TLS connection was established
+      at TLSSocket.onConnectEnd (node:internal/tls/wrap:1839:19)
+      at TLSSocket.emit (node:events:531:35)
+      at endReadableNT (node:internal/streams/readable:1698:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+    code: 'ECONNRESET',
+    path: undefined,
+    host: 'api.liblib.tv',
+    port: 443,
+    localAddress: null
+  }
+}
+拉取画布失败 [-1]: request fail

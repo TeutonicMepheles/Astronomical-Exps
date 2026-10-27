@@ -1,0 +1,989 @@
+[
+  {
+    "id": "01-distant-environment",
+    "name": "远景整体",
+    "options": [
+      {
+        "number": 1,
+        "image": "panorama/01-distant-environment/01.png",
+        "raw": "raw/01-distant-environment/A/composite-v2-01-distant-environment-A_1.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9995395948434622,
+        "overflowTranslation": [
+          0.0027624309392262347,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          380,
+          2178,
+          699
+        ],
+        "exteriorWhitePixels": 1058442,
+        "sha256": "5cc060a191ff9fc9539c43957807b708ffadeb05d60b02ad50deaafdcf014c35"
+      },
+      {
+        "number": 2,
+        "image": "panorama/01-distant-environment/02.png",
+        "raw": "raw/01-distant-environment/A/composite-v2-01-distant-environment-A_2.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9995395948434622,
+        "overflowTranslation": [
+          0.0027624309392262347,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          354,
+          2178,
+          717
+        ],
+        "exteriorWhitePixels": 1003388,
+        "sha256": "44b4c864dd05752b072a848984b72c630d865c6e0b077c6fcd5ebd3ced10a534"
+      },
+      {
+        "number": 3,
+        "image": "panorama/01-distant-environment/03.png",
+        "raw": "raw/01-distant-environment/A/composite-v2-01-distant-environment-A_3.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9981609195402299,
+        "overflowTranslation": [
+          2.0073563218390804,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          4,
+          345,
+          2179,
+          690
+        ],
+        "exteriorWhitePixels": 1013042,
+        "sha256": "e34fb156e6e3472e9d9e5afe0d58a47663a024f8a3878ab04407f54646aa2c15"
+      },
+      {
+        "number": 4,
+        "image": "panorama/01-distant-environment/04.png",
+        "raw": "raw/01-distant-environment/A/composite-v2-01-distant-environment-A_4.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9995395948434622,
+        "overflowTranslation": [
+          0.0027624309392262347,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          378,
+          2178,
+          703
+        ],
+        "exteriorWhitePixels": 1046793,
+        "sha256": "d06551c1861d7f36e08167609acd326ccc13ff7d83083821ffc0f80f9d85f78d"
+      },
+      {
+        "number": 5,
+        "image": "panorama/01-distant-environment/05.png",
+        "raw": "raw/01-distant-environment/B/composite-v2-01-distant-environment-B.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9995395948434622,
+        "overflowTranslation": [
+          0.0027624309392262347,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          304,
+          2178,
+          665
+        ],
+        "exteriorWhitePixels": 984004,
+        "sha256": "4035e30e82dec4855c98c418dcc36ff25dacf51f824138e331d0ddeb697bfde0"
+      }
+    ]
+  },
+  {
+    "id": "02-ground-planting",
+    "name": "近景地面植被",
+    "options": [
+      {
+        "number": 1,
+        "image": "panorama/02-ground-planting/01.png",
+        "raw": "raw/02-ground-planting/A/composite-v2-02-ground-planting-A_1.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9990796134376438,
+        "overflowTranslation": [
+          1.0046019328117808,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          5,
+          508,
+          2178,
+          655
+        ],
+        "exteriorWhitePixels": 1301849,
+        "sha256": "2799dccb5a302667ce8226fc162c564d1768c6ab7e0b5c4baeea139662d1a345"
+      },
+      {
+        "number": 2,
+        "image": "panorama/02-ground-planting/02.png",
+        "raw": "raw/02-ground-planting/A/composite-v2-02-ground-planting-A_2.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          7,
+          548,
+          2177,
+          702
+        ],
+        "exteriorWhitePixels": 1284058,
+        "sha256": "0a803c43984f44f1d7dbd78601226f88f86b5fcf4fcc9a7720c967c2d6b45611"
+      },
+      {
+        "number": 3,
+        "image": "panorama/02-ground-planting/03.png",
+        "raw": "raw/02-ground-planting/A/composite-v2-02-ground-planting-A_3.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9990796134376438,
+        "overflowTranslation": [
+          0.005522319374136941,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          562,
+          2179,
+          688
+        ],
+        "exteriorWhitePixels": 1351228,
+        "sha256": "7d30156959cf0858d8c2d7d33c72f5ee3f509cb80cbc42178210b1b7143d97af"
+      },
+      {
+        "number": 4,
+        "image": "panorama/02-ground-planting/04.png",
+        "raw": "raw/02-ground-planting/A/composite-v2-02-ground-planting-A_4.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9986200551977921,
+        "overflowTranslation": [
+          1.0068997240110393,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          5,
+          507,
+          2179,
+          653
+        ],
+        "exteriorWhitePixels": 1305974,
+        "sha256": "103fc326e48200821b4f97087c4ab2c6debdf353cd8f58097fcbb65de15e88a8"
+      },
+      {
+        "number": 5,
+        "image": "panorama/02-ground-planting/05.png",
+        "raw": "raw/02-ground-planting/B/composite-v2-02-ground-planting-B.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9967860422405876,
+        "overflowTranslation": [
+          3.009641873278237,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          3,
+          547,
+          2181,
+          681
+        ],
+        "exteriorWhitePixels": 1330544,
+        "sha256": "3ba530651bdecbd2c35fca9e2c98fa2c56cf5a2d770ed7c6eb2e7f358d037c40"
+      }
+    ]
+  },
+  {
+    "id": "03-foreground-trees",
+    "name": "前景遮挡植被",
+    "options": [
+      {
+        "number": 1,
+        "image": "panorama/03-foreground-trees/01.png",
+        "raw": "raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_1.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          6,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          0,
+          378,
+          1917,
+          690
+        ],
+        "exteriorWhitePixels": 1350137,
+        "sha256": "07aa8e37c2aee5521d9db973c360946c773c66a08055b20be752d92088f4e113"
+      },
+      {
+        "number": 2,
+        "image": "panorama/03-foreground-trees/02.png",
+        "raw": "raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_2.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9990796134376438,
+        "overflowTranslation": [
+          0.005522319374136941,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          399,
+          2179,
+          643
+        ],
+        "exteriorWhitePixels": 1420679,
+        "sha256": "146222541d39fcda28898ce57b9673d8f5c985e8df9d547b3c9c075666a4acfe"
+      },
+      {
+        "number": 3,
+        "image": "panorama/03-foreground-trees/03.png",
+        "raw": "raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_3.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          395,
+          2173,
+          632
+        ],
+        "exteriorWhitePixels": 1422211,
+        "sha256": "3dd3cb2dec70f5edb349165eee7730b4bfe02c50c52fabe32a6dc63cd12fce4a"
+      },
+      {
+        "number": 4,
+        "image": "panorama/03-foreground-trees/04.png",
+        "raw": "raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_4.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9986200551977921,
+        "overflowTranslation": [
+          1.0068997240110393,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          5,
+          421,
+          2179,
+          673
+        ],
+        "exteriorWhitePixels": 1436318,
+        "sha256": "6b904c48cc8b00c0b1800d25946a0a7ed143b5e0ea9b15332341e77f570896e8"
+      },
+      {
+        "number": 5,
+        "image": "panorama/03-foreground-trees/05.png",
+        "raw": "raw/03-foreground-trees/B/composite-v2-03-foreground-trees-B.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          356,
+          2029,
+          635
+        ],
+        "exteriorWhitePixels": 1377765,
+        "sha256": "d9f9a76abd0b1a0a19cba4abfa8ce446bb38a5def05450bf449476defa17bd96"
+      }
+    ]
+  },
+  {
+    "id": "04-foreground-water",
+    "name": "前景水体",
+    "options": [
+      {
+        "number": 1,
+        "image": "panorama/04-foreground-water/01.png",
+        "raw": "raw/04-foreground-water/A/composite-v2-04-foreground-water-A_1.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9986200551977921,
+        "overflowTranslation": [
+          1.0068997240110393,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          5,
+          662,
+          2179,
+          814
+        ],
+        "exteriorWhitePixels": 1241813,
+        "sha256": "087144f845655530a61ca95a425df88a2eb851feac28af3b5129937a52a7085b"
+      },
+      {
+        "number": 2,
+        "image": "panorama/04-foreground-water/02.png",
+        "raw": "raw/04-foreground-water/A/composite-v2-04-foreground-water-A_2.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9995395948434622,
+        "overflowTranslation": [
+          0.0027624309392262347,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          687,
+          2178,
+          814
+        ],
+        "exteriorWhitePixels": 1296081,
+        "sha256": "60156d98491665a13e22f9b4ef1d87e17c2a5b3bda886293f531d9aea34c585b"
+      },
+      {
+        "number": 3,
+        "image": "panorama/04-foreground-water/03.png",
+        "raw": "raw/04-foreground-water/A/composite-v2-04-foreground-water-A_3.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9986200551977921,
+        "overflowTranslation": [
+          1.0068997240110393,
+          -0.851885924563021
+        ],
+        "contentBoundsOnPaddedReference": [
+          5,
+          681,
+          2179,
+          832
+        ],
+        "exteriorWhitePixels": 1244057,
+        "sha256": "c01c2eac5d9f4a3f2b6309f93c94fe94d8142a26cceb56e7d0399a9de9993421"
+      },
+      {
+        "number": 4,
+        "image": "panorama/04-foreground-water/04.png",
+        "raw": "raw/04-foreground-water/A/composite-v2-04-foreground-water-A_4.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9990796134376438,
+        "overflowTranslation": [
+          1.0046019328117808,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          5,
+          692,
+          2178,
+          827
+        ],
+        "exteriorWhitePixels": 1278720,
+        "sha256": "64ff6f6613f9f35047b4b85f174fd2a3b0ea2b434be2e55b3799f394a7ed6950"
+      },
+      {
+        "number": 5,
+        "image": "panorama/04-foreground-water/05.png",
+        "raw": "raw/04-foreground-water/B/composite-v2-04-foreground-water-B.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 0.9986200551977921,
+        "overflowTranslation": [
+          1.0068997240110393,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          5,
+          670,
+          2179,
+          817
+        ],
+        "exteriorWhitePixels": 1252668,
+        "sha256": "01c00b246550e1f90756e4a4352683783586d6957367b1076f0aa0e0709b6027"
+      }
+    ]
+  },
+  {
+    "id": "05-residential",
+    "name": "住宅组",
+    "options": [
+      {
+        "number": 1,
+        "image": "panorama/05-residential/01.png",
+        "raw": "raw/05-residential/A/composite-v2-05-residential-A_1.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          6,
+          211,
+          640,
+          829
+        ],
+        "exteriorWhitePixels": 1219509,
+        "sha256": "13053ec40eec08db9a4ac44fde4e307921fa44c6bc0cb6cf62d7ef5fd0b5f5bd"
+      },
+      {
+        "number": 2,
+        "image": "panorama/05-residential/02.png",
+        "raw": "raw/05-residential/A/composite-v2-05-residential-A_2.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          7,
+          286,
+          527,
+          785
+        ],
+        "exteriorWhitePixels": 1339593,
+        "sha256": "86835390ae026aeeeb41cb153b5f5dd9af471c83d769ec447b6c9a8c5b9a147a"
+      },
+      {
+        "number": 3,
+        "image": "panorama/05-residential/03.png",
+        "raw": "raw/05-residential/A/composite-v2-05-residential-A_3.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          2,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          4,
+          266,
+          505,
+          741
+        ],
+        "exteriorWhitePixels": 1358589,
+        "sha256": "a67133385a121a3a6efb7cc18468a7bdf07333d259444a309252bf081a8aa42c"
+      },
+      {
+        "number": 4,
+        "image": "panorama/05-residential/04.png",
+        "raw": "raw/05-residential/A/composite-v2-05-residential-A_4.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          9,
+          302,
+          523,
+          795
+        ],
+        "exteriorWhitePixels": 1343790,
+        "sha256": "331382bf2d454a1bc97a458081e5f00e117077990d34d17003141d96c1d01c48"
+      },
+      {
+        "number": 5,
+        "image": "panorama/05-residential/05.png",
+        "raw": "raw/05-residential/B/composite-v2-05-residential-B.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          8,
+          242,
+          582,
+          794
+        ],
+        "exteriorWhitePixels": 1290274,
+        "sha256": "82c5ed5cbb9b9e89f53030dee38bf3f3edde1ccfa2769e0a28114ec57084ee20"
+      }
+    ]
+  },
+  {
+    "id": "06-public-building",
+    "name": "公共建筑",
+    "options": [
+      {
+        "number": 1,
+        "image": "panorama/06-public-building/01.png",
+        "raw": "raw/06-public-building/A/composite-v2-06-public-building-A_1.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          369,
+          360,
+          1815,
+          692
+        ],
+        "exteriorWhitePixels": 1202399,
+        "sha256": "05889d28b02237a739acffac76dbbf470c7239a916ca1d2d0838a6815a249b64"
+      },
+      {
+        "number": 2,
+        "image": "panorama/06-public-building/02.png",
+        "raw": "raw/06-public-building/A/composite-v2-06-public-building-A_2.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          221,
+          362,
+          1817,
+          680
+        ],
+        "exteriorWhitePixels": 1153146,
+        "sha256": "f257c3f2755b795a29c63bdcc18942354a9e660232717e13a5d5b1e82f4212a5"
+      },
+      {
+        "number": 3,
+        "image": "panorama/06-public-building/03.png",
+        "raw": "raw/06-public-building/A/composite-v2-06-public-building-A_3.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          342,
+          325,
+          1799,
+          630
+        ],
+        "exteriorWhitePixels": 1261398,
+        "sha256": "4461f995b4d424b4505fdb4c2dd35771c45e2ad36dfff1f915c7e40edaf1926f"
+      },
+      {
+        "number": 4,
+        "image": "panorama/06-public-building/04.png",
+        "raw": "raw/06-public-building/A/composite-v2-06-public-building-A_4.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          346,
+          370,
+          1837,
+          678
+        ],
+        "exteriorWhitePixels": 1222513,
+        "sha256": "16dcbd39e41389fd7905c7826d5d6d6d095db978ba6744fa0901fc723ed1ee7d"
+      },
+      {
+        "number": 5,
+        "image": "panorama/06-public-building/05.png",
+        "raw": "raw/06-public-building/B/composite-v2-06-public-building-B.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          376,
+          353,
+          1706,
+          666
+        ],
+        "exteriorWhitePixels": 1251384,
+        "sha256": "3e2ef153f23febbeb194706d5e132408672e102fe6d26983af46959c021a5267"
+      }
+    ]
+  },
+  {
+    "id": "07-billboard-building",
+    "name": "广告屏建筑",
+    "options": [
+      {
+        "number": 1,
+        "image": "panorama/07-billboard-building/01.png",
+        "raw": "raw/07-billboard-building/A/composite-v2-07-billboard-building-A_1.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          916,
+          258,
+          1514,
+          800
+        ],
+        "exteriorWhitePixels": 1285474,
+        "sha256": "c718f8cabd388414ebb112fb52a2410d110c4f15fb539a98592bd21698260062"
+      },
+      {
+        "number": 2,
+        "image": "panorama/07-billboard-building/02.png",
+        "raw": "raw/07-billboard-building/A/composite-v2-07-billboard-building-A_2.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          963,
+          243,
+          1505,
+          746
+        ],
+        "exteriorWhitePixels": 1332232,
+        "sha256": "cbdf5c76e304f37fe55ea19a811bed6924649cf61f172b29be2610a3be6a919a"
+      },
+      {
+        "number": 3,
+        "image": "panorama/07-billboard-building/03.png",
+        "raw": "raw/07-billboard-building/A/composite-v2-07-billboard-building-A_3.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          1026,
+          287,
+          1521,
+          751
+        ],
+        "exteriorWhitePixels": 1370687,
+        "sha256": "94debedc3257a8424039c8791bc79bf974b770d47b8a8a80c8024641486c7b22"
+      },
+      {
+        "number": 4,
+        "image": "panorama/07-billboard-building/04.png",
+        "raw": "raw/07-billboard-building/A/composite-v2-07-billboard-building-A_4.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          926,
+          220,
+          1488,
+          734
+        ],
+        "exteriorWhitePixels": 1312106,
+        "sha256": "19cb8e826ed9865839db458dc109a07178e3f41b669387170b053c3416b647e7"
+      },
+      {
+        "number": 5,
+        "image": "panorama/07-billboard-building/05.png",
+        "raw": "raw/07-billboard-building/B/composite-v2-07-billboard-building-B.png",
+        "rawSize": [
+          2016,
+          864
+        ],
+        "outputSize": [
+          2171,
+          724
+        ],
+        "scale": 1.0833333333333333,
+        "overflowFit": 1,
+        "overflowTranslation": [
+          0,
+          0
+        ],
+        "contentBoundsOnPaddedReference": [
+          912,
+          280,
+          1386,
+          726
+        ],
+        "exteriorWhitePixels": 1378496,
+        "sha256": "73e7d308d7670ac66294ea82a5d8d6d9e8ce954e0eb8ee4bd066b679c3abf152"
+      }
+    ]
+  }
+]

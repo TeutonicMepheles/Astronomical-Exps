@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>光污染 · 分层试拼</title><link rel="stylesheet" href="../../../shared/typography/typography.css"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
+<body><main class="stage">
+ <canvas id="scene" width="1600" height="900" aria-label="由透明图层拼接的城市夜景，包含联动灯光、窗帘和动态水面"></canvas>
+ <header><p class="eyebrow">CITY AFTER DARK <span>分层试拼</span></p><h1>让星光重新可见</h1><p class="intro">调节城市灯光，观察夜空与水面的变化。</p></header>
+ <nav class="tools" aria-label="场景工具"><button id="layers-toggle" aria-expanded="false" aria-controls="layer-panel">图层</button><button id="motion" aria-pressed="false">暂停水面</button><button id="reset">重置</button></nav>
+ <div class="scene-label"><span class="live-dot"></span>滨河夜景 <span>／</span> 独立演示</div>
+ <section id="layer-panel" hidden aria-label="图层可见性"><div class="panel-heading"><h2>场景图层</h2><button id="layers-close" aria-label="关闭图层面板">×</button></div><div id="layer-list"></div><p>白底已抠除；图层位置为试拼调整。</p></section>
+ <section class="dock" aria-label="灯光控制"><div class="source-picker" role="group" aria-label="选择光源"><button data-source="residential" aria-pressed="true">住宅窗灯</button><button data-source="public" aria-pressed="false">公共建筑</button><button data-source="billboard" aria-pressed="false">广告屏</button><button data-source="lamps" aria-pressed="false">滨河路灯</button></div>
+ <div class="control"><label for="brightness">亮度 <output id="brightness-value">80%</output></label><input id="brightness" type="range" min="0" max="100" value="80"><span class="caption">视觉强度</span></div>
+ <div class="control" id="temperature-control"><label for="temperature">色温 <output id="temperature-value">3000 K</output></label><input id="temperature" type="range" min="2200" max="6500" step="100" value="3000"><span class="caption">暖色光 <span class="right">冷色光</span></span></div>
+ <div class="control" id="curtain-control"><label>窗帘覆盖 <output id="curtain-value">0%</output></label><div class="segments" role="group" aria-label="窗帘覆盖比例"><button data-cover="0" aria-pressed="true">开</button><button data-cover="25">25</button><button data-cover="50">50</button><button data-cover="75">75</button><button data-cover="100">100%</button></div><span class="caption">近景住宅联动</span></div>
+ <div class="control" id="other-control" hidden><label id="other-title">灯光开关</label><div id="other-options" class="segments"></div><span class="caption" id="other-caption"></span></div>
+ </section><p class="footnote">图层合成与光效演示 · 未作科学标定</p><div id="loading" role="status">正在拼接夜景…</div>
+</main></body></html>

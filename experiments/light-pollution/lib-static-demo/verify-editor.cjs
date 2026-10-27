@@ -1,0 +1,30 @@
+const {chromium}=require('playwright');
+const {pathToFileURL}=require('node:url');
+const path=require('node:path');
+const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch();try{
+ const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(pathToFileURL(path.join(__dirname,'index.html')).href+'?scene=legacy');await page.waitForSelector('html[data-ready=true]');
+ const image=()=>page.locator('#scene').evaluate(c=>c.toDataURL());const initial=await image();
+ await page.locator('#edit-toggle').click();await page.locator('#editor-panel').waitFor({state:'visible'});
+ const row=id=>page.locator(`.editor-row[data-id="${id}"]`);await row('buildings').locator('.layer-select').click();
+ await page.locator('#prop-x').fill('80');await page.locator('#prop-x').press('Tab');assert.equal(await page.locator('#prop-x').inputValue(),'80');
+ await page.locator('#undo').click();assert.equal(await page.locator('#prop-x').inputValue(),'0');await page.locator('#redo').click();assert.equal(await page.locator('#prop-x').inputValue(),'80');
+ await page.locator('[data-order=top]').click();assert.equal(await page.locator('.editor-row').first().getAttribute('data-id'),'buildings');
+ const download=page.waitForEvent('download');await page.locator('#export-layout').click();const file=await download;const fs=require('node:fs');const doc=JSON.parse(fs.readFileSync(await file.path(),'utf8'));assert.equal(doc.layers.at(-1).id,'buildings');assert.equal(doc.layers.at(-1).x,80);
+ await page.locator('#reset-layout').click();assert.equal(await page.locator('#prop-x').inputValue(),'0');
+ await page.locator('#layout-file').setInputFiles({name:'layout.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(doc))});await page.waitForFunction(()=>document.querySelector('#prop-x').value==='80');
+ await page.locator('#layout-file').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{"version":999}')});await page.waitForFunction(()=>document.querySelector('#editor-status').textContent.includes('导入失败'));assert.equal(await page.locator('#prop-x').inputValue(),'80');
+ await page.locator('#undo').click();assert.equal(await page.locator('#prop-x').inputValue(),'0');
+ await row('front-water').locator('.layer-select').click();assert.equal(await page.locator('#prop-scale').isDisabled(),true);
+ // Native canvas drag in scene coordinates, including detail view conversion.
+ const dragAt=async(view)=>{await page.locator(`button[data-view=${view}]`).click();const rect=await page.locator('#scene').boundingBox();const x=rect.x+rect.width*.5,y=rect.y+rect.height*.96;await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x+24,y-8,{steps:5});await page.mouse.up();assert.notEqual(Number(await page.locator('#prop-x').inputValue()),0);await page.locator('#undo').click();assert.equal(Number(await page.locator('#prop-x').inputValue()),0);};
+ await dragAt('all');await dragAt('water');await page.locator('button[data-view=all]').click();
+ await row('front-water').getByRole('button',{name:'前景水体 锁定',exact:true}).click();assert.equal(await page.locator('#prop-x').isDisabled(),true);await page.locator('#undo').click();
+ await row('vegetation').locator('.layer-select').dragTo(row('front-water').locator('.layer-select'));assert.equal(await page.locator('.editor-row').first().getAttribute('data-id'),'vegetation');await page.locator('#undo').click();
+ await page.screenshot({path:path.join(__dirname,'editor-preview.png')});
+ const overlap=await page.evaluate(()=>{const a=document.querySelector('.viewer').getBoundingClientRect(),b=document.querySelector('#editor-panel').getBoundingClientRect();return a.bottom>b.top;});assert.equal(overlap,false,'Editor must not obscure scene');
+ await page.locator('#edit-toggle').click();assert.equal(await image(),initial,'Undo restores exact rendered scene');
+ await page.reload();await page.waitForSelector('html[data-ready=true]');assert.equal(await image(),initial);assert.deepEqual(errors,[]);
+ console.log('PASS: properties, order, drag sorting, canvas drag at two zooms, lock, water constraint, undo/redo, JSON round-trip/rejection, draft reload, panel geometry.');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

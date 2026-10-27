@@ -22,3 +22,11 @@ sky.destroy();
 - starfieldchange 事件在参数更新时从 canvas 发出。实例相互独立，不访问宿主内部 UI。
 
 默认响应系统减少动态效果；用户可显式播放。隐藏标签页暂停刷新。所有参数均为视觉演示，不是标定的科学等级、星表或真实天球旋转。调节仅在本次页面会话内有效。
+
+## 空间渐变 API（Compositor 扩展）
+
+`update({gradient})` 接受 `null`（使用原档位底色/泛光），或 `{version:1,start:[x,y],end:[x,y],curve:[x1,y1,x2,y2],stops:[{id,position,color},...]}`。坐标与位置为 0–1；起终点至少相距 0.01；色标 2–8 个，按位置升序，最小间隔 0.005；曲线控制点单调且位于单位正方形。非法数据抛出错误，不更新现有设置。
+
+构造参数 `gradientFrame:[x,y,width,height]` 指定渐变归一化坐标所对应的完整 Canvas 区域，默认全画布。Compositor 使用 `[0,11/27,1,16/27]` 对应可见全景；不是额外的动画速度。`getSettings()` 返回含独立渐变副本的设置，`reset()` 保持自定义渐变，由宿主明确调用 `update({gradient:null})` 清除。
+
+静态 `PollutionStarfield.validateGradient(value)` 返回校验后的独立副本；`PollutionStarfield.sampleGradient(validGradient,position)` 返回 RGB 三元组，供宿主色带预览与新增色标使用。自定义模式不叠加档位地平线泛光，仍保留星点及其档位可见度。

@@ -1,0 +1,133 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "5ba762ab872a4bd9a1866a96e7a626cc",
+  "newNodeKey": "c01bad52-95dd-44db-93d3-975d851ee165",
+  "reactFlowNode": {
+    "id": "c01bad52-95dd-44db-93d3-975d851ee165",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "composite-v2-06-public-building-B",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "以参考原图为唯一美术和构图标准，制作可叠合的2D城市夜景游戏背景素材。严格继承蓝紫色手绘插画风格、颗粒纹理、建筑透视、城市布局、尺度和原位。不是重新设计城市，不是写实照片，不做素材拼贴或九宫格。参考画布2184×936，原始全景2171×724位于x=6,y=106；输出21:9，所有位置按比例对应。顶部和底部留边保持纯白。仅画指定图层，其他区域均为纯白RGB255,255,255，不要灰底或棋盘格，不要天空、星星、云、文字、水印、标注、投影。原位输出，不要把主体放大居中，不改变视角。保持蓝紫环境色与原图暖色窗灯；不要整体调色。允许自然补全指定图层被其他物体遮挡的部分，使整块素材可复用。每张是一张完整独立候选图，不是在一张图内画多个版本。任务：只画原图中央低层公共建筑及其相连低层翼楼，保留完整屋顶、外墙、玻璃窗框、暖色室内、书架家具与入口台阶，作为单个完整建筑组。原位置约x=550至1010、y=505至735，准确以原图为准。移除前方树木、灌木及栏杆并补全被遮挡建筑至地面。保留原透视及尺度，不居中放大。排除左侧住宅、右侧带广告屏的高楼、山、水和道路。",
+        "model": "lib-image-2.5-s",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "high",
+          "resolution": "2K",
+          "background": "opaque",
+          "ratio": "21:9"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ]
+      }
+    },
+    "position": {
+      "x": 5750,
+      "y": 600
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "f60dac4f-55ca-4ede-afff-6a160610b26b",
+      "source": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+      "target": "c01bad52-95dd-44db-93d3-975d851ee165"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "c01bad52-95dd-44db-93d3-975d851ee165"
+  ]
+}
+{
+  "nodeKey": "c01bad52-95dd-44db-93d3-975d851ee165",
+  "nodeType": "image",
+  "taskId": "20261027201503975857723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "composite-v2-06-public-building-B",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985978244_f9fd62aa3038411082aa5969a8cf3350.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "以参考原图为唯一美术和构图标准，制作可叠合的2D城市夜景游戏背景素材。严格继承蓝紫色手绘插画风格、颗粒纹理、建筑透视、城市布局、尺度和原位。不是重新设计城市，不是写实照片，不做素材拼贴或九宫格。参考画布2184×936，原始全景2171×724位于x=6,y=106；输出21:9，所有位置按比例对应。顶部和底部留边保持纯白。仅画指定图层，其他区域均为纯白RGB255,255,255，不要灰底或棋盘格，不要天空、星星、云、文字、水印、标注、投影。原位输出，不要把主体放大居中，不改变视角。保持蓝紫环境色与原图暖色窗灯；不要整体调色。允许自然补全指定图层被其他物体遮挡的部分，使整块素材可复用。每张是一张完整独立候选图，不是在一张图内画多个版本。任务：只画原图中央低层公共建筑及其相连低层翼楼，保留完整屋顶、外墙、玻璃窗框、暖色室内、书架家具与入口台阶，作为单个完整建筑组。原位置约x=550至1010、y=505至735，准确以原图为准。移除前方树木、灌木及栏杆并补全被遮挡建筑至地面。保留原透视及尺度，不居中放大。排除左侧住宅、右侧带广告屏的高楼、山、水和道路。",
+      "model": "Lib Image 2.5 Pro",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "high",
+        "resolution": "2K",
+        "background": "opaque",
+        "ratio": "21:9"
+      },
+      "imageListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261027201503975857723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,122 @@
+﻿[
+    {
+        "id":  "01-foreground-water",
+        "bounds":  [
+                       0,
+                       591,
+                       2172,
+                       133
+                   ],
+        "file":  "assets/01-foreground-water.png"
+    },
+    {
+        "id":  "02-background-water",
+        "bounds":  [
+                       1418,
+                       417,
+                       754,
+                       98
+                   ],
+        "file":  "assets/02-background-water.png"
+    },
+    {
+        "id":  "03-mountains",
+        "bounds":  [
+                       89,
+                       237,
+                       2083,
+                       183
+                   ],
+        "file":  "assets/03-mountains.png"
+    },
+    {
+        "id":  "04-distant-city",
+        "bounds":  [
+                       202,
+                       282,
+                       1956,
+                       189
+                   ],
+        "file":  "assets/04-distant-city.png"
+    },
+    {
+        "id":  "05-near-buildings",
+        "bounds":  [
+                       0,
+                       165,
+                       1481,
+                       396
+                   ],
+        "file":  "assets/05-near-buildings.png"
+    },
+    {
+        "id":  "06-residential-interiors",
+        "bounds":  [
+                       20,
+                       184,
+                       2124,
+                       263
+                   ],
+        "file":  "assets/06-residential-interiors.png"
+    },
+    {
+        "id":  "07-public-interiors",
+        "bounds":  [
+                       542,
+                       320,
+                       888,
+                       109
+                   ],
+        "file":  "assets/07-public-interiors.png"
+    },
+    {
+        "id":  "08-billboard",
+        "bounds":  [
+                       1149,
+                       244,
+                       269,
+                       175
+                   ],
+        "file":  "assets/08-billboard.png"
+    },
+    {
+        "id":  "09-window-frames",
+        "bounds":  [
+                       17,
+                       219,
+                       2134,
+                       329
+                   ],
+        "file":  "assets/09-window-frames.png"
+    },
+    {
+        "id":  "10-vegetation",
+        "bounds":  [
+                       0,
+                       264,
+                       2172,
+                       243
+                   ],
+        "file":  "assets/10-vegetation.png"
+    },
+    {
+        "id":  "11-shore-structures",
+        "bounds":  [
+                       0,
+                       409,
+                       2172,
+                       117
+                   ],
+        "file":  "assets/11-shore-structures.png"
+    },
+    {
+        "id":  "12-water-reflections",
+        "bounds":  [
+                       115,
+                       528,
+                       1720,
+                       93
+                   ],
+        "file":  "assets/12-water-reflections.png"
+    }
+]
