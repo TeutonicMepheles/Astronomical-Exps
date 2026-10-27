@@ -25,7 +25,7 @@ npm run export -- light-pollution
 
 街景支持拖动、滚轮、触控板、左右按钮和位置滑条。场景获得焦点后可用方向键、Home、End；到两端停止。展示区保持 16:9，按窗口等比缩放。
 
-前景有 7 盏路灯、6 盏步道灯。选择一盏后，通过面板联动修改全部灯具的三种灯罩和色温。点击空白或按 Esc 关闭面板；对象移出画面时面板也会收起，参数保留。拖动超过 6 屏幕像素时按移动处理。
+前景有 7 盏路灯、6 盏步道灯，统一使用 155 逻辑单位的显示高度，不按类别或位置缩小。选择一盏后，通过面板联动修改全部灯具的三种灯罩和色温。点击空白或按 Esc 关闭面板；对象移出画面时面板也会收起，参数保留。拖动超过 6 屏幕像素时按移动处理。
 
 空闲后在可见灯具上显示手势提示；拖动时隐藏，首次选中或按 Esc 后，本次会话不再提示。
 
@@ -51,3 +51,15 @@ npm run export -- light-pollution
 描边和手势使用根目录 `shared/components/` 的公开接口；实验提供目标、轮廓和状态。资源说明见 [LAYERS.md](assets/LAYERS.md)、[ALL-LAMPS.md](assets/ALL-LAMPS.md)。背景于 2026-10-13 使用 imagegen 生成，为无文字的连续滨河街景插画。
 
 `baseline-scroll/` 保留接入灯具前的滚动版本，仅供历史对照，不是正式入口。
+
+## 当前开发进度与换机续编
+
+当前分支为 `experiment/light-pollution/sky-preview`。新增的 [独立星空预览](sky-preview/README.md) 和 [PollutionStarfield 组件](components/pollution-starfield/README.md) 尚未接入正式页面；本次同时保存全部前景灯具统一为 155 逻辑单位高度的调整。
+
+换机请克隆完整仓库并切换到该分支；已有仓库且工作区干净时，执行 `git fetch origin`、`git switch experiment/light-pollution/sky-preview`、`git pull --ff-only`。首次安装及检查环境见根目录 README（Python 3.10+、Node.js 22+、`npm ci`、`npx playwright install chromium`）。贡献者本地绑定可用 `python tools/collab.py resume --experiment light-pollution --task sky-preview` 恢复。
+
+启动本实验服务后，访问 `/experiments/light-pollution/sky-preview/` 继续编辑预览。预览依赖本目录的 `sky-preview/index.html`、`preview.css`、`preview.js`、`components/pollution-starfield/starfield.js` 以及仓库内 `shared/typography/typography.css`；无需另行下载图片、字体或运行库。正式页面的街景、灯具图集位于已纳入 Git 的 `assets/`，公共组件仍从仓库 `shared/` 加载，因此不要只复制预览目录。
+
+**浏览器参数不随 Git 迁移：**“保存当前档位”只写入当前站点的 localStorage（键为 `light-pollution.starfield-presets.v1`），不修改源码。换机默认使用源码预设；如需保留手调结果，应另行迁移该键的 JSON。`dist/`、`node_modules/` 和测试截图均为本地生成内容，在新电脑重新生成。根目录导出命令导出的是正式页面，不包含独立星空预览。
+
+此分支用于开发备份，星空档位与参数仍是未标定的美术演示，尚未完成整页人工验收。

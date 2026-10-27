@@ -1,3 +1,5 @@
 # 光污染私有组件
 
-本目录目前没有定制组件。新增副本时使用独立名称和 CSS 作用域，并用 `SOURCE.md` 记录来源路径、提交版本、复制日期、原因和维护者。其他实验不得引用。
+- [PollutionStarfield](pollution-starfield/README.md)：纯星空画布，支持四档、数量、动态与配色调节。来源和定制原因见 [SOURCE.md](pollution-starfield/SOURCE.md)。目前只用于独立预览，未接入正式页面。
+
+其他实验不得直接引用本目录私有组件。
