@@ -23,6 +23,7 @@
   const p=pages[pageId],key=stateKey(s),f=p.views[view];
   root.style.background=p.scene.color;
   let html=`<div class="studio-grid" ${p.scene.grid?'':'hidden'}></div>`+image(f.assetId,f,'studio-body');
+  if(view==='cutaway')html+=N.step2Rays?.render(p,s)||'';
   // Studio single-mirror pages use their authored extras, while the both master already contains both mirrors.
   if(view==='cutaway'){
    for(const e of p.extras||[])if(e.visible!==false&&(e.view==='both'||e.view===view))html+=image(e.assetId,e,'studio-extra');

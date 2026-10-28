@@ -7,3 +7,17 @@
 
 /* Installed slots should not reappear as dashed hover targets. */
 .newton-studio .studio-hit.installed:hover{border-color:transparent!important}
+
+
+/* Step2 ray diagram, positioned from the authored mirror hit anchors.
+   Restrict to the exposed cutaway; overlay sits below installed mirror assets. */
+.studio-rays{position:absolute;inset:0;width:1664px;height:936px;z-index:12;pointer-events:none;overflow:visible;opacity:.96;animation:studio-rays-enter .24s ease-out both}
+.studio-rays__halo,.studio-rays__incident,.studio-rays__reflected,.studio-rays__folded{
+  fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.studio-rays__halo{stroke:#ffe5a3;stroke-width:7;opacity:.075}
+.studio-rays__incident{stroke:#ffe2a4;stroke-width:1.7;opacity:.53}
+.studio-rays__reflected{stroke:#ffe8b6;stroke-width:2.2;opacity:.85}
+.studio-rays__folded{stroke:#fff2c9;stroke-width:2.3;opacity:.94}
+.studio-rays__spark{fill:#fff1c8;opacity:.94;filter:drop-shadow(0 0 3px #ffe0a0)}
+@keyframes studio-rays-enter{from{opacity:0}to{opacity:.96}}
+@media (prefers-reduced-motion:reduce){.studio-rays{animation:none}.studio-rays__spark{display:none}}
