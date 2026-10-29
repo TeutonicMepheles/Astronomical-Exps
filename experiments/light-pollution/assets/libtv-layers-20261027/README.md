@@ -1,3 +1,85 @@
+# libtv-layers-20261027 资源
+
+## 当前功能与状态
+
+保存本目录既有素材、来源或生成记录；是否进入当前离线包以 assets/manifest.json 为准。
+
+## 职责边界
+
+资源不能仅因未打包删除；原始来源和许可依据既有记录，缺失许可说明不等于可重新授权。
+
+## 文件与子目录索引
+
+- [panorama/](panorama/README.md)
+- [raw/](raw/README.md)
+- [01-foreground-water-download.json](01-foreground-water-download.json)
+- [01-foreground-water-generation.json](01-foreground-water-generation.json)
+- [02-background-water-download.json](02-background-water-download.json)
+- [02-background-water-generation.json](02-background-water-generation.json)
+- [03-mountains-download.json](03-mountains-download.json)
+- [03-mountains-generation.json](03-mountains-generation.json)
+- [04-distant-city-download.json](04-distant-city-download.json)
+- [04-distant-city-generation.json](04-distant-city-generation.json)
+- [05-near-buildings-download.json](05-near-buildings-download.json)
+- [05-near-buildings-generation.json](05-near-buildings-generation.json)
+- [06-residential-interiors-download.json](06-residential-interiors-download.json)
+- [06-residential-interiors-generation.json](06-residential-interiors-generation.json)
+- [07-public-interiors-download.json](07-public-interiors-download.json)
+- [07-public-interiors-generation.json](07-public-interiors-generation.json)
+- [08-billboard-download.json](08-billboard-download.json)
+- [08-billboard-generation.json](08-billboard-generation.json)
+- [09-window-frames-download.json](09-window-frames-download.json)
+- [09-window-frames-generation.json](09-window-frames-generation.json)
+- [10-vegetation-download.json](10-vegetation-download.json)
+- [10-vegetation-generation.json](10-vegetation-generation.json)
+- [11-shore-structures-download.json](11-shore-structures-download.json)
+- [11-shore-structures-generation.json](11-shore-structures-generation.json)
+- [12-water-reflections-download.json](12-water-reflections-download.json)
+- [12-water-reflections-generation.json](12-water-reflections-generation.json)
+- [12-water-reflections-r2-generation.json](12-water-reflections-r2-generation.json)
+- [generate_layers.py](generate_layers.py)
+- [manifest.json](manifest.json)
+- [prepare_review.py](prepare_review.py)
+- [review-metadata.json](review-metadata.json)
+
+## 使用方法
+
+在仓库根目录运行：
+
+```sh
+node experiments/light-pollution/tools/audit/check-readmes.cjs
+```
+
+
+### 本目录资源实测清单
+
+资源 ID、SHA-256 和尺寸见[资源目录清单](../../docs/resource-catalog.json)。未声明的来源或许可证仍为未确认，不推断授权。生成方法与配准沿用本目录或父目录来源说明；构建只内嵌素材，不重新生成美术。诊断截图会在测试时更新，可运行 tools/audit/catalog.py 刷新元数据。
+
+| 文件 | 尺寸/坐标 | 字节 | 使用边界 |
+| --- | --- | ---: | --- |
+| [contact-sheet.jpg](contact-sheet.jpg) | 1500 × 900 | 141,928 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| [reference-padded.png](reference-padded.png) | 2184 × 936 | 1,060,772 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+
+## 公开接口与数据
+
+无独立运行 API；通过本目录入口、命令或数据文件使用。
+
+资源来源、许可和尺寸：保留既有来源记录；未记载项标为未确认。场景使用 2172×724 配准、单窗遮罩使用 256×256；具体图片尺寸以文件为准，不批量改尺寸。
+
+## 依赖与解耦策略
+
+资源不能仅因未打包删除；原始来源和许可依据既有记录，缺失许可说明不等于可重新授权。 依赖通过显式入口或 manifest 声明；不跨实验引用私有实现，不通过其他模块内部 DOM 或模拟点击执行业务。
+
+## 验证与已知限制
+
+目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+---
+
+## 既有说明与来源记录
+
+以下保留原说明；当前模块归属及迁移入口以上文为准。
+
 # LibTV 白底分层生成素材
 
 2026-10-27；模型：Lib Image 2.5 Pro（`lib-image-2.5-s`），2K、高画质、21:9、不透明背景，每层一张。

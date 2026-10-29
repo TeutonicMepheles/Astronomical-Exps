@@ -1,0 +1,19 @@
+{
+  "head": "d3574770f2f79fc3a6cb74277b6adedc8f6c2ff7",
+  "baselineStandalone": "175ad5e70c360b37be5dec91d656c9e5bb8ec4caa05fb3310c0dff164a43fe93",
+  "snapshotBackup": "C:/Users/Golajah/AppData/Local/Temp/light-refactor-baseline-81kasvan/baseline.zip",
+  "priorDirtyFilesPreserved": true,
+  "dataFormat": {
+    "format": "lib-static-layout",
+    "readVersions": [
+      1,
+      2
+    ],
+    "writeVersion": 2
+  },
+  "storageKeys": [
+    "lib-candidate-layout-v1",
+    "lib-static-layout-v1",
+    "light-pollution.compositor-starfield-presets.v1"
+  ]
+}

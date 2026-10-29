@@ -1,0 +1,21 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const root=path.resolve(__dirname,'../..'),window={LightPollution:{}};
+const context=vm.createContext({window,console,localStorage:{getItem:()=>null,setItem(){}}});
+for(const file of ['resources/asset-registry.js','core/history.js','persistence/draft-storage.js','persistence/scene-codec.js','core/scene-store.js','features/billboard/commands.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context);
+const LP=window.LightPollution;
+let state={image:'data:image/png;base64,OLD',value:0},changes=0;
+const assets=LP.createAssetRegistry(),history=LP.createHistory({assets,snapshot:()=>state,apply:s=>state=s,changed:()=>changes++,limit:2});
+const first=history.begin();state={image:'data:image/png;base64,NEW',value:1};history.commit(first);
+assert.equal(assets.size,2);assert(!JSON.stringify(first).includes('base64'));history.undo();assert.equal(state.image,'data:image/png;base64,OLD');history.redo();assert.equal(state.value,1);
+const drag=history.begin();state.value=9;history.undo();assert.equal(state.value,9,'undo cannot cross an active gesture');history.cancel(drag);assert.equal(state.value,1);
+history.change(()=>state.value=2);history.change(()=>state.value=3);assert.equal(assets.size,1,'evicted undo payload is released');history.undo();assert.equal(state.value,2);
+assert.throws(()=>history.change(()=>{state.value=5;throw Error('cancel');}));assert.equal(state.value,2);history.destroy();assert.equal(assets.size,0);
+let object={brightness:100,playing:true,slide:0,images:[]},isLocked=false,restarts=0;
+const commands=LP.createBillboardCommands({getObject:()=>object,locked:()=>isLocked,change:fn=>fn(),restart:()=>restarts++,setResource(){},resetFrame(){},elapsed:()=>7000,reduced:()=>false});
+commands.setValue('brightness',0);assert.equal(object.brightness,0);isLocked=true;commands.setValue('brightness',100);assert.equal(object.brightness,0);isLocked=false;commands.toggle();assert.equal(object.playing,false);assert.equal(object.slide,1);commands.setResource('03');assert.equal(object.resource,'03');assert.equal(restarts,1);assert.throws(()=>commands.setValue('brightness',Infinity));assert.throws(()=>commands.setResource('remote'));
+(async()=>{
+ let value={n:1};const port={getData:()=>value,setData:v=>value=v,validate:v=>{if(!v||!Number.isFinite(v.n))throw Error('invalid');return v;},preload:async v=>{if(v.n===9)throw Error('decode failed');},reset:()=>value={n:1}};
+ const store=LP.createSceneStore({W:10,H:10,specs:[['layer']],sceneId:'test',storageKey:'test',slices:{feature:port},compose(){}});
+ const doc=store.documentData();doc.feature={n:9};await assert.rejects(store.importDocument(doc));assert.equal(value.n,1,'failed preparation is atomic');doc.feature={n:2};await store.importDocument(doc);assert.equal(value.n,2);store.history.undo();assert.equal(value.n,1);assert.equal(store.documentData().version,2);store.destroy();
+ console.log('PASS asset retention/eviction, gesture cancel, history lock, shared billboard commands, atomic scene import and v2 encoding');
+})().catch(e=>{console.error(e);process.exitCode=1;});

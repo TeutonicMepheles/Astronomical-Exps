@@ -1,0 +1,1 @@
+window.LightPollution.legacyLayers=[['mountains','远山与山脚',0],['distant','远景建筑',1],['back-water','背景水体',6],['far-shore','远岸设施',5],['buildings','近景建筑 · 窗灯 · 广告屏',2],['vegetation','树木与灌木',4],['near-shore','近岸步道',5],['front-water','前景水体',7]];

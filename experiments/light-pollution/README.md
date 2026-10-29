@@ -1,3 +1,97 @@
+# 光污染实验工程
+
+当前重构边界、接口和兼容说明见 [架构文档](docs/ARCHITECTURE.md)。
+
+## 当前功能与状态
+
+保留原正式页，并以兼容离线入口提供重构后的候选场景。
+
+## 职责边界
+
+正式页与候选页暂不合并；实验私有代码只在本目录维护。
+
+## 文件与子目录索引
+
+- [adapters/](adapters/README.md)
+- [app/](app/README.md)
+- [archive/](archive/README.md)
+- [assets/](assets/README.md)
+- [baseline-scroll/](baseline-scroll/README.md)
+- [components/](components/README.md)
+- [core/](core/README.md)
+- [docs/](docs/README.md)
+- [features/](features/README.md)
+- [layered-demo/](layered-demo/README.md)
+- [lib-static-demo/](lib-static-demo/README.md)
+- [mask-editor/](mask-editor/README.md)
+- [persistence/](persistence/README.md)
+- [rendering/](rendering/README.md)
+- [resource-archives/](resource-archives/README.md)
+- [resources/](resources/README.md)
+- [scenes/](scenes/README.md)
+- [sky-preview/](sky-preview/README.md)
+- [static-demo/](static-demo/README.md)
+- [tests/](tests/README.md)
+- [tools/](tools/README.md)
+- [AGENTS.md](AGENTS.md)
+- [app.js](app.js)
+- [asset-review.html](asset-review.html)
+- [billboard-display.js](billboard-display.js)
+- [billboard-surface.js](billboard-surface.js)
+- [billboard.js](billboard.js)
+- [export.py](export.py)
+- [index.html](index.html)
+- [INTEGRATION.md](INTEGRATION.md)
+- [lamp-hints.js](lamp-hints.js)
+- [lamp-layout.js](lamp-layout.js)
+- [lamps.css](lamps.css)
+- [lamps.js](lamps.js)
+- [public-building.js](public-building.js)
+- [REQUIREMENTS.md](REQUIREMENTS.md)
+- [residential.css](residential.css)
+- [residential.js](residential.js)
+- [sky.js](sky.js)
+- [style.css](style.css)
+- [WINDOW_SURFACE_SPEC.md](WINDOW_SURFACE_SPEC.md)
+
+## 使用方法
+
+在仓库根目录运行：
+
+```sh
+node experiments/light-pollution/lib-static-demo/export.cjs
+```
+
+### 本目录资源实测清单
+
+资源 ID、SHA-256 和尺寸见[资源目录清单](docs/resource-catalog.json)。未声明的来源或许可证仍为未确认，不推断授权。生成方法与配准沿用本目录或父目录来源说明；构建只内嵌素材，不重新生成美术。诊断截图会在测试时更新，可运行 tools/audit/catalog.py 刷新元数据。
+
+| 文件 | 尺寸/坐标 | 字节 | 使用边界 |
+| --- | --- | ---: | --- |
+| [preview-all-lamps.png](preview-all-lamps.png) | 892 × 1117 | 53,983 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| [preview-click-hint.png](preview-click-hint.png) | 892 × 1117 | 56,903 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| [preview-lamps.png](preview-lamps.png) | 1280 × 720 | 75,351 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| [preview-v2.png](preview-v2.png) | 1267 × 1005 | 109,512 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| [preview.png](preview.png) | 1267 × 1005 | 141,711 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+
+## 公开接口与数据
+
+公开入口：`BillboardScene`、`BillboardSurface`、`ForegroundLamps`、`LampScene`、`PublicBuildingScene`、`ResidentialScene`、`SkyScene`。具体参数与返回值以入口定义和专项测试为准。
+
+## 依赖与解耦策略
+
+正式页与候选页暂不合并；实验私有代码只在本目录维护。 依赖通过显式入口或 manifest 声明；不跨实验引用私有实现，不通过其他模块内部 DOM 或模拟点击执行业务。
+
+## 验证与已知限制
+
+目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+---
+
+## 既有说明与来源记录
+
+以下保留原说明；当前模块归属及迁移入口以上文为准。
+
 # 光污染与夜天光测量实验
 
 当前处于开发中，光效是未标定的演示。功能要求见 [REQUIREMENTS.md](REQUIREMENTS.md)，修改范围见 [AGENTS.md](AGENTS.md)。

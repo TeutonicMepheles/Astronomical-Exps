@@ -1,0 +1,54 @@
+const sceneDir=require('node:path').resolve(__dirname,'../../lib-static-demo');
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os'),{pathToFileURL}=require('node:url');
+(async()=>{
+ const browser=await chromium.launch({headless:true}),out=fs.mkdtempSync(path.join(os.tmpdir(),'building-masks-'));
+ try{
+  // Exercise both real GPU consumers, independently of the scene's overlays and sky.
+  const harness=await browser.newPage();await harness.setContent('<p id="editor-status"></p>');
+  for(const file of ['../core/runtime.js','../features/curtains/motion.js','../rendering/masked-lighting.js','../resources/building-light-masks.js','../rendering/building-renderer.js','../features/buildings/controller.js'])await harness.addScriptTag({content:fs.readFileSync(path.join(sceneDir,file),'utf8')});
+  const pixels=await harness.evaluate(async()=>{
+   window.STREET_CURTAINS=[];const make=(w,h,color)=>{const c=document.createElement('canvas');c.width=w;c.height=h;if(color){const g=c.getContext('2d');g.fillStyle=color;g.fillRect(0,0,w,h);}return c;};
+   const texture=make(256,256,'#eb9e40'),source=make(64,64,'#eb9e40'),definition={id:'residential-window-0',parent:'residential',type:'window',corners:[[16,16],[48,16],[48,48],[16,48]],visible:true,brightness:0,temperature:3000,coverage:0},definitions=[definition],originals=new Map([[definition.id,[texture]]]);
+   const warp=(im,q)=>{const c=make(32,32);c.getContext('2d').drawImage(im,0,0,32,32);return {canvas:c,x:q[0][0],y:q[0][1]};};
+   const controller=createBuildingControls({canvas:make(64,64),W:64,H:64,getSession:()=>null,getObjects:()=>({getData:()=>({items:[definition]}),invalidateWindows(){}}),compose(){},bounds:{},masks:{},getView(){}});controller.registerMaskWindows(definitions,originals,warp);
+   const png=(w,h,color)=>make(w,h,color).toDataURL(),black={name:'black.png',image:png(64,64,'black')},white={name:'white.png',image:png(64,64,'white')};
+   async function apply(lightMasks){const next=controller.validate({...controller.getData(),lightMasks});await controller.preload(next);controller.setData(next);await Promise.resolve();}
+   function render(){const c=make(64,64);controller.renderBase(c.getContext('2d'),'residential',source,definitions,originals,warp);const w=controller.renderWindow(definition,texture),pixel=(im,x,y)=>Array.from(im.getContext('2d').getImageData(x,y,1,1).data);return {wall:pixel(c,4,4),baseWindow:pixel(c,32,32),window:pixel(w,128,128)};}
+   await apply({version:1,buildings:{residential:black},windows:{}});const a=render();await apply({version:1,buildings:{residential:white},windows:{}});const b=render();
+   await apply({version:1,buildings:{residential:white},windows:{[definition.id]:{name:'window.png',image:png(256,256,'black')}}});const override=render();
+   // A spatial gradient tests the UV mapping, not only constant masks.
+   const gradient=make(64,64),g=gradient.getContext('2d'),data=g.createImageData(64,64);for(let y=0;y<64;y++)for(let x=0;x<64;x++){const i=(y*64+x)*4;data.data[i]=data.data[i+1]=data.data[i+2]=x<32?0:255;data.data[i+3]=255;}g.putImageData(data,0,0);
+   await apply({version:1,buildings:{residential:{name:'split.png',image:gradient.toDataURL()}},windows:{}});const w=controller.renderWindow(definition,texture),split=[24,232].map(x=>Array.from(w.getContext('2d').getImageData(x,128,1,1).data));
+   return {a,b,override,split};
+  });
+  assert.deepEqual(pixels.a.wall,[235,158,64,255]);assert.deepEqual(pixels.a.baseWindow,pixels.a.window);assert(pixels.b.wall[0]<pixels.a.wall[0]/2);assert.deepEqual(pixels.b.baseWindow,pixels.b.window);assert.deepEqual(pixels.override.wall,pixels.b.wall);assert.deepEqual(pixels.override.baseWindow,pixels.a.baseWindow);assert.deepEqual(pixels.override.window,pixels.a.window);assert(pixels.split[0][0]>pixels.split[1][0]*2);await harness.close();
+  const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[],remote=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url()))remote.push(r.url());});
+  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href);await page.waitForSelector('html[data-ready=true]');
+  const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('lib-candidate-layout-v1')));
+  const masks=async()=>JSON.stringify((await saved()).buildingControls.lightMasks);
+  const open=async()=>{if(await page.locator('#editor-panel').isHidden())await page.click('#edit-toggle');await page.click('#tab-objects');await page.selectOption('#object-select','residential-window-0');await page.click('#object-light-mask');};
+  await open();await page.click('#building-tab-interior');await page.locator('#building-brightness').fill('20');await page.locator('#building-brightness').dispatchEvent('input');await page.locator('#building-brightness').dispatchEvent('change');await page.click('#building-tab-mask');
+  const png=async(w,h,color)=>Buffer.from(await page.evaluate(({w,h,color})=>{const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.fillStyle=color;g.fillRect(0,0,w,h);return c.toDataURL().split(',')[1];},{w,h,color}),'base64');
+  const black=await png(2172,724,'black'),white=await png(256,256,'white'),bad=await png(12,12,'white');
+  const importMask=async(buffer,name)=>{await page.locator('#building-mask-file').setInputFiles({name,mimeType:'image/png',buffer});await page.waitForFunction(()=>!document.querySelector('#building-mask-kind').disabled);};
+  await importMask(black,'building-black.png');assert((await saved()).buildingControls.lightMasks.buildings.residential);assert((await page.locator('#building-mask-note').textContent()).includes('已同步'));
+  const snapshot=await masks();await page.click('#undo');assert.deepEqual((await saved()).buildingControls.lightMasks.buildings,{});await page.click('#redo');assert.equal(await masks(),snapshot);
+  await importMask(bad,'wrong-size.png');assert((await page.locator('#building-mask-note').textContent()).includes('尺寸须'));assert.equal(await masks(),snapshot);
+  const exportMask=async()=>{const event=page.waitForEvent('download');await page.click('#building-mask-export');const download=await event,file=path.join(out,Date.now()+download.suggestedFilename());await download.saveAs(file);return fs.readFileSync(file);};
+  const stats=async(buffer)=>page.evaluate(async data=>{const im=new Image();im.src='data:image/png;base64,'+data;await im.decode();const c=document.createElement('canvas');c.width=im.width;c.height=im.height;const g=c.getContext('2d');g.drawImage(im,0,0);const d=g.getImageData(0,0,c.width,c.height).data;let min=255,max=0;for(let i=0;i<d.length;i+=4){min=Math.min(min,d[i]);max=Math.max(max,d[i]);}return {w:c.width,h:c.height,min,max};},buffer.toString('base64'));
+  assert.deepEqual(await stats(await exportMask()),{w:2172,h:724,min:0,max:0});await page.selectOption('#building-mask-kind','windows');assert.deepEqual(await stats(await exportMask()),{w:256,h:256,min:0,max:0});
+  await importMask(white,'window-white.png');assert((await saved()).buildingControls.lightMasks.windows['residential-window-0']);assert.deepEqual(await stats(await exportMask()),{w:256,h:256,min:255,max:255});await page.selectOption('#building-mask-kind','buildings');const merged=await stats(await exportMask());assert.equal(merged.min,0);assert.equal(merged.max,255);
+  await page.selectOption('#building-mask-kind','windows');await page.click('#building-mask-reset');assert.deepEqual(await stats(await exportMask()),{w:256,h:256,min:0,max:0});await page.click('#undo');assert((await saved()).buildingControls.lightMasks.windows['residential-window-0']);
+  await page.selectOption('#building-mask-kind','buildings');await importMask(black,'replace-all.png');assert.deepEqual((await saved()).buildingControls.lightMasks.windows,{});
+  const document=await saved(),beforeInvalid=await masks();const corrupt=structuredClone(document);corrupt.buildingControls.lightMasks.buildings.residential.image='data:image/png;base64,'+black.subarray(0,33).toString('base64');await page.locator('#layout-file').setInputFiles({name:'corrupt.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(corrupt))});await page.waitForFunction(()=>document.querySelector('#editor-status').textContent.includes('导入失败'));assert.equal(await masks(),beforeInvalid);
+  await page.click('#building-close');await page.click('#reset-layout');assert.deepEqual((await saved()).buildingControls.lightMasks.buildings,{});await page.locator('#layout-file').setInputFiles({name:'valid.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(document))});await page.waitForFunction(()=>document.querySelector('#editor-status').textContent.includes('布局已导入'));assert.equal(await masks(),beforeInvalid);
+  await page.reload();await page.waitForSelector('html[data-ready=true]');await open();assert((await page.locator('#building-mask-info').textContent()).includes('replace-all.png'));assert.deepEqual(await stats(await exportMask()),{w:2172,h:724,min:0,max:0});
+  // Locked windows prevent a group mask from silently changing their lighting.
+  await page.click('#building-close');await page.click('#object-lock');await page.click('#object-light-mask');assert(await page.locator('#building-mask-import').isDisabled());const beforeLocked=await masks();await importMask(black,'locked.png');assert.equal(await masks(),beforeLocked);
+  await page.click('#building-close');await page.click('#object-lock');await page.click('#object-light-mask');
+  const old=await saved();delete old.buildingControls.lightMasks;await page.locator('#layout-file').setInputFiles({name:'older.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(old))});await page.waitForFunction(()=>document.querySelector('#editor-status').textContent.includes('布局已导入'));assert.deepEqual((await saved()).buildingControls.lightMasks,{version:1,buildings:{},windows:{}});
+  await importMask(black,'building-black.png');await page.selectOption('#building-mask-kind','windows');await importMask(white,'window-white.png');await page.screenshot({path:path.join(out,'light-mask-import.png')});
+  const rect=await page.locator('#building-controls').boundingBox();assert(rect.y+rect.height<900,'panel fits stage');assert.deepEqual(errors,[]);assert.deepEqual(remote,[]);
+  console.log('PASS: real GPU building/window synchronization, perspective sampling, single-window merge, import/export, undo/redo, bad dimensions and corrupt PNG rejection, lock, JSON round trip, reload, old-layout migration, offline page.');console.log('Screenshot: '+path.join(out,'light-mask-import.png'));
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

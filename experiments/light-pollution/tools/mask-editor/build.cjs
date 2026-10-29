@@ -1,0 +1,12 @@
+const fs=require('node:fs'),path=require('node:path');
+const read=f=>fs.readFileSync(path.join(__dirname,f),'utf8');
+const catalog=JSON.parse(read('assets/catalog.json'));
+const data=file=>file?'data:image/png;base64,'+fs.readFileSync(path.join(__dirname,file)).toString('base64'):null;
+const assets=catalog.assets.map(a=>({...a,source:data(a.source),mask:data(a.mask)}));
+fs.writeFileSync(path.join(__dirname,'assets-data.js'),'window.MASK_EDITOR_ASSETS='+JSON.stringify(assets)+';\n');
+let html=read('index.html');
+for(const file of ['../../../../shared/typography/typography.css','style.css'])html=html.replace(`<link rel="stylesheet" href="${file}">`,'<style>'+read(file)+'</style>');
+for(const file of ['assets-data.js','lighting.js','editor.js'])html=html.replace(`<script src="${file}" defer></script>`,'');
+html=html.replace('</body>',['assets-data.js','lighting.js','editor.js'].map(f=>'<script>'+read(f).replace(/<\/script/gi,'<\\/script')+'</script>').join('')+'</body>');
+fs.writeFileSync(path.join(__dirname,'standalone.html'),html);
+console.log('Mask editor: '+assets.length+' local assets; standalone.html exported.');

@@ -1,0 +1,909 @@
+{
+  "schema": 1,
+  "scripts": [
+    "core/runtime.js",
+    "scenes/candidate/definition.js",
+    "scenes/legacy/definition.js",
+    "persistence/draft-storage.js",
+    "features/curtains/motion.js",
+    "features/light-environment/model.js",
+    "resources/asset-registry.js",
+    "core/history.js",
+    "persistence/scene-codec.js",
+    "core/scene-store.js",
+    "features/billboard/commands.js",
+    "rendering/surface-projector.js",
+    "rendering/building-renderer.js",
+    "rendering/reflection-pass.js",
+    "rendering/compositor.js",
+    "components/pollution-starfield/starfield.js",
+    "features/sky/panel.js",
+    "app/editor/layer-editor.js",
+    "lib-static-demo/assets/music-08/atlas-data.js",
+    "lib-static-demo/assets/future-03/atlas-data.js",
+    "features/billboard/renderer.js",
+    "app/editor/object-editor.js",
+    "app/presentation/billboard-panel.js",
+    "features/objects/service.js",
+    "resources/candidate-loader.js",
+    "app/presentation/navigation.js",
+    "app/editor/gradient-editor.js",
+    "features/lamps/controller.js",
+    "rendering/masked-lighting.js",
+    "resources/building-light-masks.js",
+    "features/curtains/palette.js",
+    "features/buildings/controller.js",
+    "features/water/renderer.js",
+    "features/light-environment/controller.js",
+    "../../shared/components/affordance.js",
+    "scenes/candidate/hint-contours.js",
+    "adapters/affordance-adapter.js",
+    "features/interaction-hints/controller.js",
+    "features/environment/controller.js",
+    "core/performance-probe.js",
+    "app/bootstrap.js"
+  ],
+  "styles": [
+    "../../shared/typography/typography.css",
+    "../../shared/components/components.css",
+    "app/styles/scene.css"
+  ],
+  "resources": [
+    {
+      "path": "assets/billboard-demo/city.svg",
+      "bytes": 923,
+      "sha256": "bb9786d6b8124299abfbcbc47b787b330ff5c494bf74615c085c258c77c678f3",
+      "resourceIds": [
+        "../assets/billboard-demo/city.svg"
+      ],
+      "dimensions": null
+    },
+    {
+      "path": "assets/billboard-demo/future.svg",
+      "bytes": 917,
+      "sha256": "fbdca092e4e3a792d2ebea8f85ebe36282be4e9f0ac0c8681b914a4a1d56b696",
+      "resourceIds": [
+        "../assets/billboard-demo/future.svg"
+      ],
+      "dimensions": null
+    },
+    {
+      "path": "assets/billboard-demo/orbit.svg",
+      "bytes": 917,
+      "sha256": "347c00d9333cfe7b3adb68b66da368b68955195efe95bab341c18220076d086e",
+      "resourceIds": [
+        "../assets/billboard-demo/orbit.svg"
+      ],
+      "dimensions": null
+    },
+    {
+      "path": "assets/lamp-sprites.png",
+      "bytes": 1296053,
+      "sha256": "ee27a34e1fced20eed8aadd8e43e08f901689b49452309f45a5874424306bb18",
+      "resourceIds": [
+        "../assets/lamp-sprites.png"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
+      "bytes": 709082,
+      "sha256": "81ce8328557ad28d3705039aaee69eedf873dfe5d3c6926e6cf7a4ae7e498bc8",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png",
+      "bytes": 416738,
+      "sha256": "8b75a8195031908f863d57e5ebc2d5408bf714543f22aea8153dae128116e40f",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png",
+      "bytes": 289529,
+      "sha256": "3c40e604e8278ecce4c07e00f0ed12685fd8358b5bd9cfaab6db69083cea4645",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png",
+      "bytes": 367297,
+      "sha256": "77839256c6c43e3420112e94ee6bbeaa987db9b3b89f25078d9e9c8c379be585",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/05-residential/02.png",
+      "bytes": 354138,
+      "sha256": "b9042daa3d6a710c541b65eb71633ad183b135c8563fcb9a8916766d431e2d2d",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/05-residential/02.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/03.png",
+      "bytes": 505921,
+      "sha256": "ef0522eb8b8bbb9fc88e252c24b77b5f33a1d567f49fb770f5799b43f32937da",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/06-public-building/03.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png",
+      "bytes": 386215,
+      "sha256": "c3db4b5b942d634fb5232cfb6e6fd79aa59fdf3ee9b39d1b17d6a8076722efd4",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/01-foreground-water.png",
+      "bytes": 442553,
+      "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd",
+      "resourceIds": [
+        "assets/01-foreground-water.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/02-background-water.png",
+      "bytes": 170430,
+      "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1",
+      "resourceIds": [
+        "assets/02-background-water.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/03-mountains.png",
+      "bytes": 304360,
+      "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996",
+      "resourceIds": [
+        "assets/03-mountains.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/04-distant-city.png",
+      "bytes": 323257,
+      "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09",
+      "resourceIds": [
+        "assets/04-distant-city.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/05-near-buildings.png",
+      "bytes": 734662,
+      "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563",
+      "resourceIds": [
+        "assets/05-near-buildings.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/06-residential-interiors.png",
+      "bytes": 142985,
+      "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18",
+      "resourceIds": [
+        "assets/06-residential-interiors.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/07-public-interiors.png",
+      "bytes": 181076,
+      "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9",
+      "resourceIds": [
+        "assets/07-public-interiors.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/08-billboard.png",
+      "bytes": 91696,
+      "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8",
+      "resourceIds": [
+        "assets/08-billboard.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/10-vegetation.png",
+      "bytes": 319158,
+      "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3",
+      "resourceIds": [
+        "assets/10-vegetation.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/11-shore-structures.png",
+      "bytes": 344776,
+      "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c",
+      "resourceIds": [
+        "assets/11-shore-structures.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/reference.png",
+      "bytes": 1829669,
+      "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1",
+      "resourceIds": [
+        "assets/reference.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/window-apertures.png",
+      "bytes": 21758,
+      "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed",
+      "resourceIds": [
+        "assets/window-apertures.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "path": "app/page.html",
+      "bytes": 8054,
+      "sha256": "ac777d7b36ed05d790eda0f28ce6c383d9b099e509afae9a794e5284b88e403e",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "core/runtime.js",
+      "bytes": 4578,
+      "sha256": "5f016cb097d36231fa42f4a4a70a545b60238a66ea9e8da3280e8bfe4457c832",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "scenes/candidate/definition.js",
+      "bytes": 534,
+      "sha256": "0ded3b5c269d8fa4f34181d228da492de1bd12afd9cd6ae39993258e30d470f6",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "scenes/legacy/definition.js",
+      "bytes": 319,
+      "sha256": "cddd8bf15c44959f1562922eb93b1229c0e3bee21f8030e40e9d513787a079e2",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "persistence/draft-storage.js",
+      "bytes": 145,
+      "sha256": "9e696d2ee922190f0a1ae60ed51efbf94361b7b3d5fde5f3e87717bb037fed0b",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/curtains/motion.js",
+      "bytes": 355,
+      "sha256": "de18a263a96a312e901bc4a57a3dc2f6ae51ac837ad74a416ef9025eedb8d085",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/light-environment/model.js",
+      "bytes": 1511,
+      "sha256": "917c97e9bd9c8f2c8fd92250119b8be00e5c69a5a3ebdc50d14b8a13e1a89276",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "resources/asset-registry.js",
+      "bytes": 1562,
+      "sha256": "3c8d55dc33aed07e273ef42cb5916650c76da165c2fe6a3aae3a3b4c0aa75f9c",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "core/history.js",
+      "bytes": 1296,
+      "sha256": "15f692864c2095efef7d8ab1cd4a3fcb409b856fa4afacf85cd85ed55550bf1e",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "persistence/scene-codec.js",
+      "bytes": 1515,
+      "sha256": "673b6b76d7454f6c36a7b22bc3e316b74846866fbdfb923c91a6e6480be024ca",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "core/scene-store.js",
+      "bytes": 2117,
+      "sha256": "a1a6108b87f01b25db956f3db673aa65f1402c8fe60af05cf904d916c32577a8",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/billboard/commands.js",
+      "bytes": 961,
+      "sha256": "eac3e0d879415fb8e3306f90c9930dec58940293e9c287524af17b39745e709e",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "rendering/surface-projector.js",
+      "bytes": 4849,
+      "sha256": "92792ae9198ea0f07eacb12eb6eb7c24cb96e0f7cefcb85393e1110d382a30a7",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "rendering/building-renderer.js",
+      "bytes": 3388,
+      "sha256": "1f4329a1d2026b3f3e365df11f8d750138d111590b89a551f1eb14273c1c8103",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "rendering/reflection-pass.js",
+      "bytes": 2793,
+      "sha256": "3d65eea7952b6685c17cc9ae74a1757a2658d7d1ef7dd8d21ff20b2fcec811b8",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "rendering/compositor.js",
+      "bytes": 1935,
+      "sha256": "291c59f0bda3da097805d6d506cfd94209e440048176b3485474e34087eedaef",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "components/pollution-starfield/starfield.js",
+      "bytes": 9258,
+      "sha256": "531835338eb1b5d6621817df1f1c2db90eecd3a4796907cdeb351acbac33e3d8",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/sky/panel.js",
+      "bytes": 5483,
+      "sha256": "5c39728b66f1cc065bdd4329efafc0adf2506528ca7fa6a5cb864a5e41b90032",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "app/editor/layer-editor.js",
+      "bytes": 7870,
+      "sha256": "4f2a73f9a5667a13b8e3ad4da6ef82c3dfe997b36787d210e7b2610e22098d3d",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "lib-static-demo/assets/music-08/atlas-data.js",
+      "bytes": 9142811,
+      "sha256": "29f85338ad4f5227142d0d2db149d68ed69b30e96180e7e8b38f15206b6098d5",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "lib-static-demo/assets/future-03/atlas-data.js",
+      "bytes": 9543542,
+      "sha256": "8e74adccb48af4b5c49f580b7a1c9a1be4019b66a0dca623b48e8d947b39d92b",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/billboard/renderer.js",
+      "bytes": 4004,
+      "sha256": "c435770f57eb4b351e622023916b2a5f21d3ee58d4a161cbd995c13626f74cee",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "app/editor/object-editor.js",
+      "bytes": 5613,
+      "sha256": "26e9bda33804114b0306086a7881cf10e00d6e1e7e91af503ce7e33f48612e39",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "app/presentation/billboard-panel.js",
+      "bytes": 2725,
+      "sha256": "e6930e1513267e9df8a21483f675f5d4b9a7e5601ff6a171225f193d3fd56896",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/objects/service.js",
+      "bytes": 20055,
+      "sha256": "0a1ea557392fba0fe541b940cf6cb46ed14107b31b738a11b763dd2b227e463b",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "resources/candidate-loader.js",
+      "bytes": 6086,
+      "sha256": "06a75ab9cdfeb2be58929a22f7a0cd662e3c7d714ffcf2117819bf93863b2ac0",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "app/presentation/navigation.js",
+      "bytes": 3092,
+      "sha256": "7066e3201536145578275b5e8e1a8e94969c48a5ab788fd5b9657b1bfef44389",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "app/editor/gradient-editor.js",
+      "bytes": 15044,
+      "sha256": "506713e6f29ac758982e4e05885a66b87d4c718eeb49245eb0ac45381aeab479",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/lamps/controller.js",
+      "bytes": 6876,
+      "sha256": "97fa606a7da642f4b1096d0ae33b880d202ee1885f957b67026cd2da6fc19201",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "rendering/masked-lighting.js",
+      "bytes": 4070,
+      "sha256": "931696bacbbe165e96a017507d989aadc13a03431153dd7a79b73cc5c84cc3d7",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "resources/building-light-masks.js",
+      "bytes": 6509,
+      "sha256": "02c8085a5a9bd7dca72f63220236d56c50bd9df9f732b8c57cf370e0a1cd5c3f",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/curtains/palette.js",
+      "bytes": 1350551,
+      "sha256": "ef65e24af175d3cd92fa1f81290e5ac1068380acfb04545fb377856f854fc8d2",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/buildings/controller.js",
+      "bytes": 16283,
+      "sha256": "8396f1f185e262f4301ce512b5ae0129dc62e1e8c7307450f9e49f01bb75b5ac",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/water/renderer.js",
+      "bytes": 6917,
+      "sha256": "6e4a39ab8ce40ba5f06868772d4ec6b15744ca2c32043a0be80b78f0421194f8",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/light-environment/controller.js",
+      "bytes": 4260,
+      "sha256": "53cd8c5c62fbd14725387e5f4207690cf510dc79909c00b228422c1eb4364330",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "../../shared/components/affordance.js",
+      "bytes": 1842,
+      "sha256": "4ee16f0650cf1808a0e1280a2c7ed6a801f83c4edf4a28e791cf42651d7eb6cc",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "scenes/candidate/hint-contours.js",
+      "bytes": 929,
+      "sha256": "930a67171a5cc486ffeb840df5fbcaa90e3a4fded79c7f7046a53f477bff1b90",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "adapters/affordance-adapter.js",
+      "bytes": 201,
+      "sha256": "5ef596002a1c1a2cc3619d5a430cccc52ffb1f88f17f001d125bf96576003a35",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/interaction-hints/controller.js",
+      "bytes": 5522,
+      "sha256": "357c326d2021d294133bc51ba52fe76ba46cfda900443df18c325f0b8e8f133c",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "features/environment/controller.js",
+      "bytes": 4959,
+      "sha256": "9fed5d5f978333e1c349740317788ee262eac17a1d9ab9d9da62d6eea98599dc",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "core/performance-probe.js",
+      "bytes": 1614,
+      "sha256": "b4dda2b4ed5dd29efaa3ae2146e5bb210ba41d1eddc0d59b7614119cf52c7854",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "app/bootstrap.js",
+      "bytes": 21139,
+      "sha256": "8587c9df06a84fb98aac1f581edc9cc4ac464ce794ba226104e9b0f180dd6b28",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "../../shared/typography/typography.css",
+      "bytes": 300,
+      "sha256": "bd9f3a1c595ac9f71ccf114237c7042d6feb096a6f93ec3e149f2043951edea3",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "../../shared/components/components.css",
+      "bytes": 6107,
+      "sha256": "25f6334cfe86e93ee31947595cc7a5e0ad95e6313a9988e48f8c56f2ab9e0d16",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "app/styles/scene.css",
+      "bytes": 18499,
+      "sha256": "f9a8f8163c4ce1710af6be83f2c2d51a870cbf112355af1fcbbc94ff39da4ce3",
+      "resourceIds": [],
+      "dimensions": null
+    },
+    {
+      "path": "assets/billboard-demo/city.svg",
+      "bytes": 923,
+      "sha256": "bb9786d6b8124299abfbcbc47b787b330ff5c494bf74615c085c258c77c678f3",
+      "resourceIds": [
+        "../assets/billboard-demo/city.svg"
+      ],
+      "dimensions": null
+    },
+    {
+      "path": "assets/billboard-demo/future.svg",
+      "bytes": 917,
+      "sha256": "fbdca092e4e3a792d2ebea8f85ebe36282be4e9f0ac0c8681b914a4a1d56b696",
+      "resourceIds": [
+        "../assets/billboard-demo/future.svg"
+      ],
+      "dimensions": null
+    },
+    {
+      "path": "assets/billboard-demo/orbit.svg",
+      "bytes": 917,
+      "sha256": "347c00d9333cfe7b3adb68b66da368b68955195efe95bab341c18220076d086e",
+      "resourceIds": [
+        "../assets/billboard-demo/orbit.svg"
+      ],
+      "dimensions": null
+    },
+    {
+      "path": "assets/lamp-sprites.png",
+      "bytes": 1296053,
+      "sha256": "ee27a34e1fced20eed8aadd8e43e08f901689b49452309f45a5874424306bb18",
+      "resourceIds": [
+        "../assets/lamp-sprites.png"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
+      "bytes": 709082,
+      "sha256": "81ce8328557ad28d3705039aaee69eedf873dfe5d3c6926e6cf7a4ae7e498bc8",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png",
+      "bytes": 416738,
+      "sha256": "8b75a8195031908f863d57e5ebc2d5408bf714543f22aea8153dae128116e40f",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png",
+      "bytes": 289529,
+      "sha256": "3c40e604e8278ecce4c07e00f0ed12685fd8358b5bd9cfaab6db69083cea4645",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png",
+      "bytes": 367297,
+      "sha256": "77839256c6c43e3420112e94ee6bbeaa987db9b3b89f25078d9e9c8c379be585",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/05-residential/02.png",
+      "bytes": 354138,
+      "sha256": "b9042daa3d6a710c541b65eb71633ad183b135c8563fcb9a8916766d431e2d2d",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/05-residential/02.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/03.png",
+      "bytes": 505921,
+      "sha256": "ef0522eb8b8bbb9fc88e252c24b77b5f33a1d567f49fb770f5799b43f32937da",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/06-public-building/03.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png",
+      "bytes": 386215,
+      "sha256": "c3db4b5b942d634fb5232cfb6e6fd79aa59fdf3ee9b39d1b17d6a8076722efd4",
+      "resourceIds": [
+        "../assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/01-foreground-water.png",
+      "bytes": 442553,
+      "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd",
+      "resourceIds": [
+        "assets/01-foreground-water.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/02-background-water.png",
+      "bytes": 170430,
+      "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1",
+      "resourceIds": [
+        "assets/02-background-water.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/03-mountains.png",
+      "bytes": 304360,
+      "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996",
+      "resourceIds": [
+        "assets/03-mountains.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/04-distant-city.png",
+      "bytes": 323257,
+      "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09",
+      "resourceIds": [
+        "assets/04-distant-city.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/05-near-buildings.png",
+      "bytes": 734662,
+      "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563",
+      "resourceIds": [
+        "assets/05-near-buildings.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/06-residential-interiors.png",
+      "bytes": 142985,
+      "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18",
+      "resourceIds": [
+        "assets/06-residential-interiors.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/07-public-interiors.png",
+      "bytes": 181076,
+      "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9",
+      "resourceIds": [
+        "assets/07-public-interiors.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/08-billboard.png",
+      "bytes": 91696,
+      "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8",
+      "resourceIds": [
+        "assets/08-billboard.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/10-vegetation.png",
+      "bytes": 319158,
+      "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3",
+      "resourceIds": [
+        "assets/10-vegetation.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/11-shore-structures.png",
+      "bytes": 344776,
+      "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c",
+      "resourceIds": [
+        "assets/11-shore-structures.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/reference.png",
+      "bytes": 1829669,
+      "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1",
+      "resourceIds": [
+        "assets/reference.png"
+      ],
+      "dimensions": [
+        2171,
+        724
+      ]
+    },
+    {
+      "path": "lib-static-demo/assets/window-apertures.png",
+      "bytes": 21758,
+      "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed",
+      "resourceIds": [
+        "assets/window-apertures.png"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ]
+    }
+  ],
+  "standalone": {
+    "bytes": 32572697,
+    "sha256": "21b7004f38a606d99df840a0763d115a80979573ba107147a552dc974198afbf"
+  },
+  "remoteExecutableDependencies": false
+}
