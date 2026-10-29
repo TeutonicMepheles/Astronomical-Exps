@@ -4,6 +4,7 @@
 .observatory[data-stage=mirrors] #viewport{inset:0;border:0}
 .observatory[data-stage=mirrors] #viewport>canvas{position:absolute;inset:0;pointer-events:none;z-index:3}
 .observatory[data-stage=mirrors] #optical-mirror-art{z-index:2}
+#optical-mirror-surface{position:absolute;pointer-events:none;z-index:2}
 /* Rays start at the aperture center; composite them above the rim so emission stays continuous. */
 .observatory[data-stage=mirrors] #optical-emitter-art{z-index:2}
 .observatory[data-stage=mirrors] .console{inset:690px 400px auto;height:195px;min-height:0;max-height:none;filter:none;pointer-events:none}
