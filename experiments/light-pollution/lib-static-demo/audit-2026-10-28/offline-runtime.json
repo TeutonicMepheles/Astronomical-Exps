@@ -1,0 +1,21 @@
+{
+  "chrome": "156.0.8078.49",
+  "results": [
+    {
+      "scene": "candidate",
+      "requests": [
+        "file:///B:/GithubProject/Astronomical-Exps/experiments/light-pollution/lib-static-demo/standalone.html"
+      ],
+      "errors": [],
+      "ready": "true"
+    },
+    {
+      "scene": "legacy",
+      "requests": [
+        "file:///B:/GithubProject/Astronomical-Exps/experiments/light-pollution/lib-static-demo/standalone.html?scene=legacy"
+      ],
+      "errors": [],
+      "ready": "true"
+    }
+  ]
+}

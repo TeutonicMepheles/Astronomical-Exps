@@ -1,0 +1,2706 @@
+{
+  "date": "2026-10-27",
+  "operation": "copy; originals retained",
+  "files": [
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\AGENTS.md",
+      "archived": "snapshot/experiments/light-pollution/AGENTS.md",
+      "bytes": 1573,
+      "sha256": "65edc3aafb2076f007f2ba90341b82810e92064ab17ff0a5e9c09eff3511ecef"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\app.js",
+      "archived": "snapshot/experiments/light-pollution/app.js",
+      "bytes": 5129,
+      "sha256": "2c4cd879c930bd48e0aa705aabef9e3cf928bd38e3e159c8153136612b54bce9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\asset-review.html",
+      "archived": "snapshot/experiments/light-pollution/asset-review.html",
+      "bytes": 5580,
+      "sha256": "50978b135be1b8ed0319f0e048da46f89576a683f287a5c30cac5283b3f367e1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\billboard-display.js",
+      "archived": "snapshot/experiments/light-pollution/billboard-display.js",
+      "bytes": 9024,
+      "sha256": "fcfc69004d72f6c332a1d8c9e607d44b73859ad7221f0a8a8274d0fc69a7dadc"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\billboard.js",
+      "archived": "snapshot/experiments/light-pollution/billboard.js",
+      "bytes": 2889,
+      "sha256": "e9f3b4c4a97a327b678fbac69344a9c772218266252cef9026e206284d38ce2e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\export.py",
+      "archived": "snapshot/experiments/light-pollution/export.py",
+      "bytes": 233,
+      "sha256": "75fb66722690df647f516aef247b10fdbfc7455eb6741483d17d737a60d9e64a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\index.html",
+      "archived": "snapshot/experiments/light-pollution/index.html",
+      "bytes": 9423,
+      "sha256": "51729137ac52e6b44f12b66e3322813d1b39108aec09c78a219402afc2822ec7"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lamp-hints.js",
+      "archived": "snapshot/experiments/light-pollution/lamp-hints.js",
+      "bytes": 2147,
+      "sha256": "d5af7364ea5ad19191eb4564e964974ab0a276b9a59b92a25264f5a7481aa44b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lamp-layout.js",
+      "archived": "snapshot/experiments/light-pollution/lamp-layout.js",
+      "bytes": 910,
+      "sha256": "3d12b643c468cf6da722b7ba656349d4e8b4326e4db562b00e45a95441d4b19d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lamps.css",
+      "archived": "snapshot/experiments/light-pollution/lamps.css",
+      "bytes": 3854,
+      "sha256": "72c270678eeb7ea23426037b1a5b48cbde0a12c8e5ed171d8ab99c73fd55f6ee"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lamps.js",
+      "archived": "snapshot/experiments/light-pollution/lamps.js",
+      "bytes": 7902,
+      "sha256": "b3bf8c77b05faf1191195bb537a7526f533538e33f9c0a6f0b07217b9fb69759"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\preview-all-lamps.png",
+      "archived": "snapshot/experiments/light-pollution/preview-all-lamps.png",
+      "bytes": 53983,
+      "sha256": "0d477e84d1ad4c3c8b80fe950dcb8852ada948951433e1b0cc64dcf73d9b3953"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\preview-click-hint.png",
+      "archived": "snapshot/experiments/light-pollution/preview-click-hint.png",
+      "bytes": 56903,
+      "sha256": "10dce684e33b6e346c9f8f5fabb31a7e55ff73e5882b14ada75bf09f9431244e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\preview-lamps.png",
+      "archived": "snapshot/experiments/light-pollution/preview-lamps.png",
+      "bytes": 75351,
+      "sha256": "0929c0e55f377fd490631b6e7464265514d44009bf170e8689850b55b6c82e68"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\preview-v2.png",
+      "archived": "snapshot/experiments/light-pollution/preview-v2.png",
+      "bytes": 109512,
+      "sha256": "34ddadeeff4d1b041ac4364a883f8582ffba22718660bb6d5133d0f6fad0f9fe"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\preview.png",
+      "archived": "snapshot/experiments/light-pollution/preview.png",
+      "bytes": 141711,
+      "sha256": "6b478540ae6594a40d8902383bd9ccacae40e17d5db4399d4bb63b6b3ce08c4b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\public-building.js",
+      "archived": "snapshot/experiments/light-pollution/public-building.js",
+      "bytes": 6363,
+      "sha256": "ca3b75a564d4512fb48480088c248ba7e1567668076685a06f7c38ad7729ea44"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\README.md",
+      "archived": "snapshot/experiments/light-pollution/README.md",
+      "bytes": 8624,
+      "sha256": "422117bc47ab99ef3de751b662e46de73cd41505d35aa83cd447ed1558384b87"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\REQUIREMENTS.md",
+      "archived": "snapshot/experiments/light-pollution/REQUIREMENTS.md",
+      "bytes": 4612,
+      "sha256": "22cd279105cf6a164913e70912bef300a145a0e3bcd9042876a63bf40a4feb4b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\residential.css",
+      "archived": "snapshot/experiments/light-pollution/residential.css",
+      "bytes": 8427,
+      "sha256": "c109726b08378a893c1e0a6c17c34643dd72954c98a60eae95b4763030f2f2a4"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\residential.js",
+      "archived": "snapshot/experiments/light-pollution/residential.js",
+      "bytes": 8547,
+      "sha256": "f1fd9135f25bbe92b842a60f04212287e7af174d30d49845a24f51e902307d09"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\sky.js",
+      "archived": "snapshot/experiments/light-pollution/sky.js",
+      "bytes": 2756,
+      "sha256": "fbf64bbb6961e6a258a41e2878aa8b4618510a5731fe88da4be2ca7219dca04f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\style.css",
+      "archived": "snapshot/experiments/light-pollution/style.css",
+      "bytes": 2771,
+      "sha256": "3c737ea90f9bce40a9fc76f3f4729eb213be430763752007b6be6cfb6412ec15"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\WINDOW_SURFACE_SPEC.md",
+      "archived": "snapshot/experiments/light-pollution/WINDOW_SURFACE_SPEC.md",
+      "bytes": 5875,
+      "sha256": "328ec76aec011feb4e418f86454105f64f9eaf248e841f562d2cff20c97f04c9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\adapters\\README.md",
+      "archived": "snapshot/experiments/light-pollution/adapters/README.md",
+      "bytes": 165,
+      "sha256": "1fe245b7949074a8f4b63c96efef127a2796aebfde679b74a42d030934aa38fc"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\ALL-LAMPS.md",
+      "archived": "snapshot/experiments/light-pollution/assets/ALL-LAMPS.md",
+      "bytes": 2240,
+      "sha256": "07f4c3a79be5ae78e094269fb9191b78d5a4547e9cdf594da7da65f3f5ecf038"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\city-layer-all-lamps.png",
+      "archived": "snapshot/experiments/light-pollution/assets/city-layer-all-lamps.png",
+      "bytes": 1284333,
+      "sha256": "c1967b5df6e8a6e57cc0df71eed00e8da5490bbe036ec0af764bc323d99cdb38"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\city-layer.png",
+      "archived": "snapshot/experiments/light-pollution/assets/city-layer.png",
+      "bytes": 1342831,
+      "sha256": "47e844a47de4adb13729dab222ded59eae7621ed75a57dac070886e192d43e5b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\city-panorama-v2-prompt.txt",
+      "archived": "snapshot/experiments/light-pollution/assets/city-panorama-v2-prompt.txt",
+      "bytes": 1524,
+      "sha256": "dcba39465d82e8a461036c29776ae5d1d6f9bfc7e415741e19dc4a485e56ff3c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\city-panorama-v2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/city-panorama-v2.png",
+      "bytes": 2204020,
+      "sha256": "c2e73a3f9f4a8fbded2050d7db8e2fa50cf0bf9465fd550c45065bb614a7f72a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\city-panorama.png",
+      "archived": "snapshot/experiments/light-pollution/assets/city-panorama.png",
+      "bytes": 2276908,
+      "sha256": "fd8422a40d65beb31b25706099dc2ef05658b4c4f58fca5e73a14bd2e0d1ab1e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\lamp-sprites.png",
+      "archived": "snapshot/experiments/light-pollution/assets/lamp-sprites.png",
+      "bytes": 1296053,
+      "sha256": "ee27a34e1fced20eed8aadd8e43e08f901689b49452309f45a5874424306bb18"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\LAYERS.md",
+      "archived": "snapshot/experiments/light-pollution/assets/LAYERS.md",
+      "bytes": 832,
+      "sha256": "3de0c1a6302f88e3c2ddca1b2f21b2350278a739a8e88a466e4fc3a9fab5ddc8"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\baseline-scroll\\app.js",
+      "archived": "snapshot/experiments/light-pollution/baseline-scroll/app.js",
+      "bytes": 3719,
+      "sha256": "49fdaa512c035415dd368ebfebc3a3e70cb591d8e6c2238d57e6c31d92953ecc"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\baseline-scroll\\index.html",
+      "archived": "snapshot/experiments/light-pollution/baseline-scroll/index.html",
+      "bytes": 1364,
+      "sha256": "0d08e3a388c7c78b1e9939c27c533c1989a3dd2f42c19f366191aed87f3c2416"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\baseline-scroll\\style.css",
+      "archived": "snapshot/experiments/light-pollution/baseline-scroll/style.css",
+      "bytes": 2771,
+      "sha256": "3c737ea90f9bce40a9fc76f3f4729eb213be430763752007b6be6cfb6412ec15"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\components\\README.md",
+      "archived": "snapshot/experiments/light-pollution/components/README.md",
+      "bytes": 233,
+      "sha256": "450de5fce62eeae9c6f09ffff6cf5b13b1321b53ceb4a2b9818d9e257eb510b1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\app.js",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/app.js",
+      "bytes": 12808,
+      "sha256": "91fda602492873824e3b337d2b62d25036fb74588c637f4d13f7947f76839a41"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\export.cjs",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/export.cjs",
+      "bytes": 972,
+      "sha256": "d3a7e774022ea961b9b7ccad2160af258bf47850f6fc5507e86c03fa33cebdec"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\extract.ps1",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/extract.ps1",
+      "bytes": 3504,
+      "sha256": "1f27f6650a0ab55b886832b74df379c3fd77c0d16ffa91cc4b08a8be151a6a56"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\index.html",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/index.html",
+      "bytes": 3034,
+      "sha256": "dd850cd0025595692d54b27e8fb45981bef5f53f541ef31abe3250f75eb77530"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\preview.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/preview.png",
+      "bytes": 840810,
+      "sha256": "08e61991188b2ca5455c86e977115c6c297c0df4e1eba457745ffaf5d01fff7c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\README.md",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/README.md",
+      "bytes": 2857,
+      "sha256": "7f109946026d623eeae1d625d3030f0d3f102f77930e0a810026275446954d95"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\standalone.html",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/standalone.html",
+      "bytes": 4768603,
+      "sha256": "09a949c2d96c94315d26ca60424781d08700d402b3aff14495f2a1e0ab01950b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\style.css",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/style.css",
+      "bytes": 3684,
+      "sha256": "e62ef5909f999b1d15af54613f7a0429bef5cb85fd63f0814cdade6b279b7902"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\verify.cjs",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/verify.cjs",
+      "bytes": 3495,
+      "sha256": "6e3c045c02fd845fa5661312dab72a19a72aaa680caa7cbc7ca5c976824eea81"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\app.js",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/app.js",
+      "bytes": 9452,
+      "sha256": "086508cc61119bf4af4c3a7bdd260c28f871a2c2366f51ccff2fb8491ad654b4"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\editor-preview.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/editor-preview.png",
+      "bytes": 466388,
+      "sha256": "6b42b6535419af2d5dee00af7c45528a3c2601b69b6c4ceb86fd06e0b60a5875"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\editor.js",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/editor.js",
+      "bytes": 8775,
+      "sha256": "c7953dd6ceea33702b097f7a6b6e9093115d4fb3717a491246b371a9a96436e9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\export.cjs",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/export.cjs",
+      "bytes": 1068,
+      "sha256": "98e0cff3aa7c951af7989ef1c77e46c5d8413524047e82c652be2df91d4d5649"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\index.html",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/index.html",
+      "bytes": 3735,
+      "sha256": "b9d3ff6c715a175466f49c0628d186a80c7a4a82bed58b4aa52087949a3eb271"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\preview.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/preview.png",
+      "bytes": 556606,
+      "sha256": "5f79621c0ba6afba4575d68789f32a2a6742cbed09ec60c9b537566b87bc440b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\README.md",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/README.md",
+      "bytes": 3497,
+      "sha256": "14715045efa05b033689cf55558420364c98d891e5c4fc1c7468fd3330a004e5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\standalone.html",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/standalone.html",
+      "bytes": 6569432,
+      "sha256": "6fd418125ed84f55aea633f867ff75abbc2a05a865c3b8d8e7f8bf3d1f37c3c5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\style.css",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/style.css",
+      "bytes": 4860,
+      "sha256": "405f3d0fa2e513f3265e28df3bc6b4176974568092d847d5bd5b72fbb0604db6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\verify-editor.cjs",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/verify-editor.cjs",
+      "bytes": 4390,
+      "sha256": "31a53cd2edb55128d4adc95de1e79cbb10195dd6222ff7b979186051550d0a43"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\verify.cjs",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/verify.cjs",
+      "bytes": 1763,
+      "sha256": "b6732091c9d3b581f34b04879985221d6126a327eb7f0121d49034d0bbf78729"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\app.js",
+      "archived": "snapshot/experiments/light-pollution/static-demo/app.js",
+      "bytes": 4120,
+      "sha256": "6ce1e3d63f86d99c80f072d607ec8f45a2e8a48a4081634d7c9dbf12481d1e35"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\browser-check.json",
+      "archived": "snapshot/experiments/light-pollution/static-demo/browser-check.json",
+      "bytes": 279,
+      "sha256": "f817eeeaecd5dead3e06a0ad74ab5190e51f14d1a68dded412ee6e1b5fb73f80"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\build-layers.ps1",
+      "archived": "snapshot/experiments/light-pollution/static-demo/build-layers.ps1",
+      "bytes": 4518,
+      "sha256": "c880a27d1996015de4fb82c91aad0cec611e4d8ce755b3a0c43655209385f3b7"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\export.cjs",
+      "archived": "snapshot/experiments/light-pollution/static-demo/export.cjs",
+      "bytes": 954,
+      "sha256": "4d2b2c948e70e5fa52bf3a5c17e19564921e7c824194a8975e7a6d9bbfd84e0b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\index.html",
+      "archived": "snapshot/experiments/light-pollution/static-demo/index.html",
+      "bytes": 1950,
+      "sha256": "569470e58197063487efdf105c210bb24e045b236aa9f2db73549ffe15da4b1b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\pixel-check.json",
+      "archived": "snapshot/experiments/light-pollution/static-demo/pixel-check.json",
+      "bytes": 256,
+      "sha256": "6c8fd57926d9e0aa5459e736f745c8c7886c322bfe32b753bb7a2d495f5e7636"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\preview-all.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/preview-all.png",
+      "bytes": 572317,
+      "sha256": "5d9d5c9624395ccb26332c18d3673a60d8f6bfdecf79be8047f4aebe887cfb4e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\preview-homes.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/preview-homes.png",
+      "bytes": 601590,
+      "sha256": "188d8d4fd83b3046a435ed455359cebb9c5fb94bd5f0ad354ce8f3c5a6a510d6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\preview-public.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/preview-public.png",
+      "bytes": 588992,
+      "sha256": "dcf525d21c1f5ea0ec8da986e87847fde21afafb5cbd51045d8384b826200e42"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\preview-water.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/preview-water.png",
+      "bytes": 649914,
+      "sha256": "b6e117b309abaaf7f66dfcaa09212a283036cd2788f2b59254e68e89864d124b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\preview.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/preview.png",
+      "bytes": 572241,
+      "sha256": "7781d730169d88f4158d1fb66f55e90c5e987713617984cfdebedb57c7fcd056"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\README.md",
+      "archived": "snapshot/experiments/light-pollution/static-demo/README.md",
+      "bytes": 2741,
+      "sha256": "e82c081f5ae30978116f099fef77e6e6a5bdd77bf3cc3e9ca2f88c9ea8090d14"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\standalone.html",
+      "archived": "snapshot/experiments/light-pollution/static-demo/standalone.html",
+      "bytes": 4326478,
+      "sha256": "c63c970aab76900091c1a9dcc273679d7e448ad8406558acedc786b2b9f8e1af"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\style.css",
+      "archived": "snapshot/experiments/light-pollution/static-demo/style.css",
+      "bytes": 2930,
+      "sha256": "b1a66b08e7a9afd793d50c65e4546727ca6aec3e9b6a1685ac80a39492c3a0e4"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\verify.cjs",
+      "archived": "snapshot/experiments/light-pollution/static-demo/verify.cjs",
+      "bytes": 3749,
+      "sha256": "2c7051e842e99ee5bb72fd811d095781d46c9c889f785c72541dd587d42fd968"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\billboard-display.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/billboard-display.browser.cjs",
+      "bytes": 3539,
+      "sha256": "dc8a873c7fbd70135e7d0c76fcb4529f5155d0de5e94fec9b955d6ec91021fe9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\billboard.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/billboard.browser.cjs",
+      "bytes": 4525,
+      "sha256": "62190c5507ceaab4542f7adb50adf6040f8a492e600fdc39dd34f73cdb3c39e4"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\curtains.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/curtains.browser.cjs",
+      "bytes": 2096,
+      "sha256": "e36bf152c911bbe288427b76eb2424c42b62f5fc9ac1b23703fe9878969e2d83"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\lamp-brightness.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/lamp-brightness.browser.cjs",
+      "bytes": 4379,
+      "sha256": "fd451b28d76af80cc7af394e39ec34752a1381098ad57b0083a6b78abd901ba2"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\public-building.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/public-building.browser.cjs",
+      "bytes": 3067,
+      "sha256": "88f961acb3abf4d792ca983243e230aaa7038cb21d191890a85db7a41fa23d89"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\README.md",
+      "archived": "snapshot/experiments/light-pollution/tests/README.md",
+      "bytes": 191,
+      "sha256": "37fd1fc4e2197744b61b788950cb5a1d6ab7cce2503d49269cf4dac7f8a81444"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\residential.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/residential.browser.cjs",
+      "bytes": 8709,
+      "sha256": "292fd6e8e65abc7a696e9b69fdaaff87719fe78ef246f6e684d1e9c550b5fe22"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\sky.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/sky.browser.cjs",
+      "bytes": 3635,
+      "sha256": "a241b8a476dee4936b18b9ba511527840ddaac32009f3531a6ea9d7ec83ad80a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\source-layers.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/source-layers.browser.cjs",
+      "bytes": 6130,
+      "sha256": "df850e4e65da3d7658f375a1ff2b7311d2f3485c7956979de57b4cfe520e8871"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\tests\\star-layer.browser.cjs",
+      "archived": "snapshot/experiments/light-pollution/tests/star-layer.browser.cjs",
+      "bytes": 3620,
+      "sha256": "15bab821cc2104c131f7fa9ee086ffa0329787fde97536dd6dbb473c33fe644e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\00-sky.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/00-sky.png",
+      "bytes": 8325,
+      "sha256": "bda25e8c0d9238272ac764652afbaa227f8b12e636802c7eb22782cccc7e6d4d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\01-scenery.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/01-scenery.png",
+      "bytes": 1161880,
+      "sha256": "b051cf02da95942c269714af0150b11926c17761f6c84ee806e4b02c2306fa03"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\02-foreground-water.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/02-foreground-water.png",
+      "bytes": 316378,
+      "sha256": "31ddf9c5d3f7996628e3ff1eeaf9ff734c80aee4b4940b746c25481ee344703f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\03-background-water.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/03-background-water.png",
+      "bytes": 83670,
+      "sha256": "03bd5e96c131cd1f27f1d9065fb6dbaae3c34476255ffdb236e57fd6e76d8fdf"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\04-residential-emission.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/04-residential-emission.png",
+      "bytes": 135009,
+      "sha256": "5798195ab1b2a160402ef14cd852d5aca41a898d56081275252d415b3f48be02"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\05-public-emission.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/05-public-emission.png",
+      "bytes": 141393,
+      "sha256": "4a37b3e745905c21f65f4b6d19611293d92e702cb9909002670d688f46c29772"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\06-billboard.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/06-billboard.png",
+      "bytes": 44221,
+      "sha256": "320ea6edc49099ff7c95a8e2777415cd18faf094632c7184d28739146fce9bea"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\07-warm-reflections.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/07-warm-reflections.png",
+      "bytes": 62350,
+      "sha256": "b6f879f31b7fa7336b760eca0adb97441e432bb821e8ac0b7ddfa3b32e880fac"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\composite.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/composite.png",
+      "bytes": 1829669,
+      "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\reference.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/reference.png",
+      "bytes": 1829669,
+      "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\static-demo\\assets\\source.png",
+      "archived": "snapshot/experiments/light-pollution/static-demo/assets/source.png",
+      "bytes": 1284333,
+      "sha256": "c1967b5df6e8a6e57cc0df71eed00e8da5490bbe036ec0af764bc323d99cdb38"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\01-foreground-water.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/01-foreground-water.png",
+      "bytes": 442553,
+      "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\02-background-water.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/02-background-water.png",
+      "bytes": 170430,
+      "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\03-mountains.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/03-mountains.png",
+      "bytes": 304360,
+      "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\04-distant-city.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/04-distant-city.png",
+      "bytes": 323257,
+      "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\05-near-buildings.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/05-near-buildings.png",
+      "bytes": 734662,
+      "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\06-residential-interiors.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/06-residential-interiors.png",
+      "bytes": 142985,
+      "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\07-public-interiors.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/07-public-interiors.png",
+      "bytes": 181076,
+      "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\08-billboard.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/08-billboard.png",
+      "bytes": 91696,
+      "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\10-vegetation.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/10-vegetation.png",
+      "bytes": 319158,
+      "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\11-shore-structures.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/11-shore-structures.png",
+      "bytes": 344776,
+      "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\reference.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/reference.png",
+      "bytes": 1829669,
+      "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\assets\\window-apertures.png",
+      "archived": "snapshot/experiments/light-pollution/lib-static-demo/assets/window-apertures.png",
+      "bytes": 21758,
+      "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\01-foreground-water.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/01-foreground-water.png",
+      "bytes": 442553,
+      "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\02-background-water.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/02-background-water.png",
+      "bytes": 170430,
+      "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\03-mountains.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/03-mountains.png",
+      "bytes": 304360,
+      "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\04-distant-city.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/04-distant-city.png",
+      "bytes": 323257,
+      "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\05-near-buildings.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/05-near-buildings.png",
+      "bytes": 734662,
+      "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\06-residential-interiors.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/06-residential-interiors.png",
+      "bytes": 142985,
+      "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\07-public-interiors.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/07-public-interiors.png",
+      "bytes": 181076,
+      "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\08-billboard.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/08-billboard.png",
+      "bytes": 91696,
+      "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\09-window-frames.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/09-window-frames.png",
+      "bytes": 345188,
+      "sha256": "7f131569acd1d84e43cd6e6531466235b783bb01d67e25641c7445a02b08e5d2"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\10-vegetation.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/10-vegetation.png",
+      "bytes": 319158,
+      "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\11-shore-structures.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/11-shore-structures.png",
+      "bytes": 344776,
+      "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\12-water-reflections.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/12-water-reflections.png",
+      "bytes": 139169,
+      "sha256": "f6532d18b826b83442d585ef7cfe3f5e10feb944da3c342d5bd8df69607cc44f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\layers.json",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/layers.json",
+      "bytes": 3140,
+      "sha256": "3da5e817ded0fe2fdb5e7b65c0b977f70ca3ba3aa993bc98cffc83806939205f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\layered-demo\\assets\\window-apertures.png",
+      "archived": "snapshot/experiments/light-pollution/layered-demo/assets/window-apertures.png",
+      "bytes": 21758,
+      "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\billboard-demo\\city.svg",
+      "archived": "snapshot/experiments/light-pollution/assets/billboard-demo/city.svg",
+      "bytes": 923,
+      "sha256": "bb9786d6b8124299abfbcbc47b787b330ff5c494bf74615c085c258c77c678f3"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\billboard-demo\\future.svg",
+      "archived": "snapshot/experiments/light-pollution/assets/billboard-demo/future.svg",
+      "bytes": 917,
+      "sha256": "fbdca092e4e3a792d2ebea8f85ebe36282be4e9f0ac0c8681b914a4a1d56b696"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\billboard-demo\\orbit.svg",
+      "archived": "snapshot/experiments/light-pollution/assets/billboard-demo/orbit.svg",
+      "bytes": 917,
+      "sha256": "347c00d9333cfe7b3adb68b66da368b68955195efe95bab341c18220076d086e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\01-distant-environment-contact.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/01-distant-environment-contact.jpg",
+      "bytes": 340045,
+      "sha256": "724e3051b29b0a22bb430b4f5f4c6d8e41f21cdc45c6c69585f8ebdc63d41045"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\02-ground-planting-contact.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/02-ground-planting-contact.jpg",
+      "bytes": 211485,
+      "sha256": "de1b2b9e7149f3dc35483681a5dc5d64b4ff7812f3e8becce79660792e177a5d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\03-foreground-trees-contact.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/03-foreground-trees-contact.jpg",
+      "bytes": 234511,
+      "sha256": "7b3e01b81098fd61671f293db42e22ede6c7d82eddea1e648863e6d189d34226"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\04-foreground-water-contact.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/04-foreground-water-contact.jpg",
+      "bytes": 168936,
+      "sha256": "ff10409b003181980847740096f5d478d6b4da6cef624d0698db0b74f6b88a69"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\05-residential-contact.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/05-residential-contact.jpg",
+      "bytes": 219017,
+      "sha256": "414f563727fabf7e5756fa375655043eab315fd90093b7dfdad04e94a90abdbd"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\06-public-building-contact.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/06-public-building-contact.jpg",
+      "bytes": 266841,
+      "sha256": "af2fd17a5d049fa0ab8077b8b65f86e8c8a61f9edb64f42d021a7ff610a12a7c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\07-billboard-building-contact.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/07-billboard-building-contact.jpg",
+      "bytes": 205402,
+      "sha256": "bc3f7e2184b08cd2e85706c877cc71d4668962b511cc1779abfea765b5db6e86"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\35-layer-options.zip",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/35-layer-options.zip",
+      "bytes": 51036453,
+      "sha256": "a343cabe4335283c07ef21f07e3d75026ee442d758c40d3e2e110ae54a5bdae6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\billboard-review.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/billboard-review.jpg",
+      "bytes": 82786,
+      "sha256": "c5b19fd6eb085b04ef1024d8360009ec0380cea3b63591fac3a0f518c72a11ea"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A-download.stderr",
+      "bytes": 452,
+      "sha256": "f0bacc0b40bbdb15059e028742c2ed541ffa7f5e07a578a4cac2439a7ffb77de"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A-download.stdout",
+      "bytes": 868,
+      "sha256": "2ef2b70d908332d88345b90fd87e229357038a597aec9dc8e22d853c371cea2b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A-generate.stderr",
+      "bytes": 1351,
+      "sha256": "680d3f9f835b116c7ab5206278b3bfacd6e70917ad12d0233f630e012a01a723"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A-generate.stdout",
+      "bytes": 3281,
+      "sha256": "857b526badd75631dbfab2ad9ce2ef043a165409f76679b002b4e5ea866adfef"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A-run.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A-run.ok",
+      "bytes": 11,
+      "sha256": "acb85951ac6a4b52ee9e669e4b3d935eeb83af3cb7ed64b2ba056489365f494d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A-run.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A-run.stderr",
+      "bytes": 59,
+      "sha256": "110c624118708fec9ca3ec73325d4ddbd77369f3a86d61ec1caff50497b8f574"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A-run.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A-run.stdout",
+      "bytes": 4268,
+      "sha256": "9e35dbee6a7106cd338ace323284f3dd33dfffd18921db0622cea54ab6b98459"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-A.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-A.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-B-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-B-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-B-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-B-download.stderr",
+      "bytes": 113,
+      "sha256": "d34cec0987cb427a5b59e0942a1cbce0f841da83010d39db9a640ee3260fb108"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-B-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-B-download.stdout",
+      "bytes": 215,
+      "sha256": "af076e3ffb9f577f2ace3ac718b507e138aa63e8053e4298319733598b11581e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-B-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-B-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-B-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-B-generate.stderr",
+      "bytes": 59,
+      "sha256": "480dac1cd6019fe81621765b8f50562e11c0dabbcb5f59f10e456a58cc2395f4"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-B-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-B-generate.stdout",
+      "bytes": 6462,
+      "sha256": "49bf86eefc0ebf38fed45ec9dcac3d7103e81171eca81cbb16ca372d93dd1796"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-01-distant-environment-B.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-01-distant-environment-B.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-A-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-A-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-A-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-A-download.stderr",
+      "bytes": 452,
+      "sha256": "f0bacc0b40bbdb15059e028742c2ed541ffa7f5e07a578a4cac2439a7ffb77de"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-A-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-A-download.stdout",
+      "bytes": 836,
+      "sha256": "84ac4a8754df7a9c12ca7532fc59875257acdc3cb0fab32b88c49c514cdb2385"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-A-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-A-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-A-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-A-generate.stderr",
+      "bytes": 59,
+      "sha256": "62aa292f41370dffef67067481a3f07e0de2e00457741ce6e254312728256b5a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-A-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-A-generate.stdout",
+      "bytes": 7371,
+      "sha256": "71dde67f40204c5afc4bddf2779a5d741280259a37ac29ee282bf2b9dd18f64c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-A.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-A.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-download.stderr",
+      "bytes": 113,
+      "sha256": "d34cec0987cb427a5b59e0942a1cbce0f841da83010d39db9a640ee3260fb108"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-download.stdout",
+      "bytes": 207,
+      "sha256": "f8d9611db697724091868b011560b12f4b212b8a6695bbdd1889e7f9f46c1508"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-generate-attempt-1.log",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-generate-attempt-1.log",
+      "bytes": 1266,
+      "sha256": "bc3e1523c6503041b4495e9029fe5c97f218a57f161798923c190527c38c3a27"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-generate.stderr",
+      "bytes": 59,
+      "sha256": "4298769d66a7f65ed819cb1a534454e47ff2b62c82be2691544ebb78ea539b28"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-generate.stdout",
+      "bytes": 6284,
+      "sha256": "35fe6f20d8f53cc1979b3b7fdfdd1ed5eccebc5265aff9fd175ddd88c82bbe33"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-inspect-0.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-inspect-0.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-inspect-0.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-inspect-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B-inspect-0.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B-inspect-0.stdout",
+      "bytes": 38,
+      "sha256": "d47a381c152339c034f2d39d75ae83a07303bceae2e634d6e7d6ecbb70f36bd5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-02-ground-planting-B.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-02-ground-planting-B.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-A-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-A-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-A-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-A-download.stderr",
+      "bytes": 452,
+      "sha256": "f0bacc0b40bbdb15059e028742c2ed541ffa7f5e07a578a4cac2439a7ffb77de"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-A-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-A-download.stdout",
+      "bytes": 844,
+      "sha256": "99990ae750f4b141a8dbceb3a0405659a77f7b9f1ae2b581a46df6c3a3de2faf"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-A-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-A-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-A-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-A-generate.stderr",
+      "bytes": 59,
+      "sha256": "a518341cc410d3064ebc61383d3cd670a9c37ca687035930a7ee1a99d6bfa70e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-A-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-A-generate.stdout",
+      "bytes": 7305,
+      "sha256": "4e5464bdb31865f6054e8856e5b1430c9d507e259dcc11c9ec078ba6f455e472"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-A.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-A.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-B-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-B-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-B-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-B-download.stderr",
+      "bytes": 113,
+      "sha256": "d34cec0987cb427a5b59e0942a1cbce0f841da83010d39db9a640ee3260fb108"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-B-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-B-download.stdout",
+      "bytes": 209,
+      "sha256": "2d226efaf27777a46ecc39be38d08d5469816dd58918498b934d32f721123959"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-B-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-B-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-B-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-B-generate.stderr",
+      "bytes": 59,
+      "sha256": "90d36c474ff1c35e51aeec2b59d164ac4d3110020b14fff2f58f10cc7ab5bf67"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-B-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-B-generate.stdout",
+      "bytes": 6218,
+      "sha256": "30f345fd1b73ea96ad7c83d7a1d5f215ac504bc5918608d3ef28417a4b6656ba"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-03-foreground-trees-B.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-03-foreground-trees-B.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-download-attempt-1.log",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-download-attempt-1.log",
+      "bytes": 1092,
+      "sha256": "d6ea27ddbf3432a87cd009d10304242635fd5c292f0ab7f09c2d9426bcecc72d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-download-attempt-2.log",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-download-attempt-2.log",
+      "bytes": 129,
+      "sha256": "2a63bc84c2331950c8da2412df3a50f86a4c728d6bafc75d719c0fb655811b8c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-download-attempt-3.log",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-download-attempt-3.log",
+      "bytes": 1092,
+      "sha256": "d6ea27ddbf3432a87cd009d10304242635fd5c292f0ab7f09c2d9426bcecc72d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-download.stderr",
+      "bytes": 452,
+      "sha256": "f0bacc0b40bbdb15059e028742c2ed541ffa7f5e07a578a4cac2439a7ffb77de"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-download.stdout",
+      "bytes": 844,
+      "sha256": "77f281a913ee0bef8965aff427aba144293f8fc5460ab74c688589c6ea8bff75"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-generate.stderr",
+      "bytes": 59,
+      "sha256": "968d9e754bf1ecf922ea03715caeee29c44433b56cac66c758bf849130d8ece4"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A-generate.stdout",
+      "bytes": 7137,
+      "sha256": "051b2ebf83491fc42653857a5ea328eabbd6e2ce540c20cf163d0f88efa3e559"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-A.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-A.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-B-download-attempt-1.log",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-B-download-attempt-1.log",
+      "bytes": 1092,
+      "sha256": "d6ea27ddbf3432a87cd009d10304242635fd5c292f0ab7f09c2d9426bcecc72d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-B-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-B-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-B-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-B-download.stderr",
+      "bytes": 113,
+      "sha256": "d34cec0987cb427a5b59e0942a1cbce0f841da83010d39db9a640ee3260fb108"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-B-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-B-download.stdout",
+      "bytes": 209,
+      "sha256": "e98c8e15a4732846d4d31d57616d4d89254853932fb69ecdcfbc47fa66520d48"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-B-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-B-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-B-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-B-generate.stderr",
+      "bytes": 59,
+      "sha256": "5278f650cf3a813685dfa5c4a2ef63de5991fd05cffef42077fb68e697ac8019"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-B-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-B-generate.stdout",
+      "bytes": 6050,
+      "sha256": "19fa10587af8275e78f018ce69d0ca4b05d2728995213478e3c5ab8a8847e085"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-04-foreground-water-B.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-04-foreground-water-B.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-A-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-A-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-A-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-A-download.stderr",
+      "bytes": 452,
+      "sha256": "f0bacc0b40bbdb15059e028742c2ed541ffa7f5e07a578a4cac2439a7ffb77de"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-A-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-A-download.stdout",
+      "bytes": 804,
+      "sha256": "1d9dde08e6391d72ce60de817abf9541d59111d96d4e8602358c750d85c85294"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-A-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-A-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-A-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-A-generate.stderr",
+      "bytes": 59,
+      "sha256": "4f3ffc07bb665512fd085bf51899a95c49bdc164da9911d4ce5920cad383e1e3"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-A-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-A-generate.stdout",
+      "bytes": 7365,
+      "sha256": "9e1b66eba6ed3fda15582fb11224286f60d3a7192ec04d3a26d919ba9961f12f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-A.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-A.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-download.stderr",
+      "bytes": 113,
+      "sha256": "d34cec0987cb427a5b59e0942a1cbce0f841da83010d39db9a640ee3260fb108"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-download.stdout",
+      "bytes": 199,
+      "sha256": "2783ef3a205398debcab9e615a7ecd7b0ec370c8de08abdca4bb8b5b4af989d5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-generate-attempt-1.log",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-generate-attempt-1.log",
+      "bytes": 4544,
+      "sha256": "1029426d34e001d7f4cde724d82df4109a4015467ebcd9de968450b7b7be464b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-generate.stderr",
+      "bytes": 59,
+      "sha256": "0d711d6d09b4bfc57b1fec9381577ad236bd1aa64db439a20f8d97463ddea3f9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-generate.stdout",
+      "bytes": 3087,
+      "sha256": "84cb08d96b3223740f4343c7e4c62cc28f20ec741b241afffbabb8ee7b53beec"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-inspect-0.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-inspect-0.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-inspect-0.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-inspect-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-inspect-0.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-inspect-0.stdout",
+      "bytes": 2477,
+      "sha256": "ccdbfa7714a7f768a22a1c31c46885de27c369faee73b997423a2a921abbd2b0"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-inspect-1-attempt-1.log",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-inspect-1-attempt-1.log",
+      "bytes": 1259,
+      "sha256": "b7e98da0df0c6463c4acf5336883d517eadaa3ffeed6f17f564f9b45daffce79"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-inspect-1.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-inspect-1.stderr",
+      "bytes": 1257,
+      "sha256": "157062faa170802f3b9377d5aba3295b79a0ff48094613fd0cf9f62acede900c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B-inspect-1.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B-inspect-1.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-05-residential-B.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-05-residential-B.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-A-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-A-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-A-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-A-download.stderr",
+      "bytes": 452,
+      "sha256": "f0bacc0b40bbdb15059e028742c2ed541ffa7f5e07a578a4cac2439a7ffb77de"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-A-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-A-download.stdout",
+      "bytes": 836,
+      "sha256": "a74cd6968c3a80d2887fa4892c3277e1280dfcbafb197b4e94a252af13c8d70c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-A-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-A-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-A-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-A-generate.stderr",
+      "bytes": 59,
+      "sha256": "4b132a6f6acac1f59fd6a3a2698a26eb04aff72baa611a781a742c637afeaef6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-A-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-A-generate.stdout",
+      "bytes": 7325,
+      "sha256": "5a3d651d8f9b07bd12120ad7eaa0df88a986add919311045316c1215e5903d73"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-A.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-A.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-B-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-B-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-B-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-B-download.stderr",
+      "bytes": 113,
+      "sha256": "d34cec0987cb427a5b59e0942a1cbce0f841da83010d39db9a640ee3260fb108"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-B-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-B-download.stdout",
+      "bytes": 207,
+      "sha256": "0f81a9f7dadbaa3698e39ae552761c3a8c195e4b17e680216274ce0ea42546e2"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-B-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-B-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-B-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-B-generate.stderr",
+      "bytes": 59,
+      "sha256": "d083a990af904a6b70bdf3d603bf9807c9990ce90ad85775ddf568827cdab7fd"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-B-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-B-generate.stdout",
+      "bytes": 6238,
+      "sha256": "6b103ac2d66ad20b46a6455c6928b569d42ce72155a71b1cbc6761d56295c4aa"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-06-public-building-B.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-06-public-building-B.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-A-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-A-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-A-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-A-download.stderr",
+      "bytes": 452,
+      "sha256": "f0bacc0b40bbdb15059e028742c2ed541ffa7f5e07a578a4cac2439a7ffb77de"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-A-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-A-download.stdout",
+      "bytes": 860,
+      "sha256": "bb55dc743599a92161cb24783aee35102cba864731b84428c3bd4a255c3f2f57"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-A-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-A-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-A-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-A-generate.stderr",
+      "bytes": 59,
+      "sha256": "5b4f9d7375a45b1a4ef69bdec4302ca9ce1ac86f05fb5e67c376356456aa03ff"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-A-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-A-generate.stdout",
+      "bytes": 7363,
+      "sha256": "c91dbd0bb7b3591c468991483ef9c954cc4577e14db035eff6b1280abb8de70f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-A.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-A.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-B-download.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-B-download.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-B-download.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-B-download.stderr",
+      "bytes": 113,
+      "sha256": "d34cec0987cb427a5b59e0942a1cbce0f841da83010d39db9a640ee3260fb108"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-B-download.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-B-download.stdout",
+      "bytes": 213,
+      "sha256": "846903a7edb0c96430832907f1398a29be79dc97b17be62702f15461cdd400ec"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-B-generate.ok",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-B-generate.ok",
+      "bytes": 9,
+      "sha256": "22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-B-generate.stderr",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-B-generate.stderr",
+      "bytes": 59,
+      "sha256": "cf993f58a060c69b08ee18501086372a4d6e2556f7da0db40811f42a9714004f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-B-generate.stdout",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-B-generate.stdout",
+      "bytes": 6276,
+      "sha256": "9572d8ca8db62255e7d8a3e9a42edcdfb8a4feb63e5d0cde23846f5c084f2509"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\composite-v2-07-billboard-building-B.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/composite-v2-07-billboard-building-B.done",
+      "bytes": 56,
+      "sha256": "6d6c2d5221bc223b6b91630cf14c2ad27571cbecd90bde586d43a3b83c642ac6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\first-review.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/first-review.jpg",
+      "bytes": 152885,
+      "sha256": "5d64880cde1634fbe353e1273ec75bd94e0d5056687725a2e07f52844cc3d9e6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\gallery-preview.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/gallery-preview.png",
+      "bytes": 457201,
+      "sha256": "3d2c4284c35e7166131c4ce488bd03dbd68602da770545a6bc8d24e886eca173"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\generate.py",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/generate.py",
+      "bytes": 7965,
+      "sha256": "ad126920ff1a1ec12a9d0751501ee6ce70ebfacecf265a01fe5c09d776ccdea0"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\ground-review.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/ground-review.jpg",
+      "bytes": 84104,
+      "sha256": "db0460724ec5c81d3a258fc3c345a3317037210131b368623df695b3623d4fce"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\index.html",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/index.html",
+      "bytes": 20095,
+      "sha256": "86555c9c6437134bcc1c201aace5c501923841f5c8d5f27abb56ad483cb2a982"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\manifest.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/manifest.json",
+      "bytes": 10421,
+      "sha256": "03a3b233ccf7f1e1f3fe61e2d2911b34c180da65503910c9d88c360c232cb178"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\overview.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/overview.jpg",
+      "bytes": 342819,
+      "sha256": "e88091bdeeb4e3db7a0f8add24c63d53de9c9d6ceb5b94bca760ebe69464233e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\prepare.py",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/prepare.py",
+      "bytes": 8040,
+      "sha256": "33ba23c6c112666e7bafa56bc16e20a15656b0d0a68534e5f982c142778f3eec"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\public-review.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/public-review.jpg",
+      "bytes": 103312,
+      "sha256": "e5b4bbf407aab63e412ae6ad286f18c0cbe7cde407884c893d047d12ff1ea1d9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\README.md",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/README.md",
+      "bytes": 2665,
+      "sha256": "d020ea494195f90260c332c89101108cad74e5e8f1f61ce67d4a3fe1fe05a342"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\reference.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/reference.png",
+      "bytes": 1053244,
+      "sha256": "475c9ad4e7fd974ce32928007ebfde48f8b3898c4713e30dc9521a18571c5e1e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\residential-review.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/residential-review.jpg",
+      "bytes": 86900,
+      "sha256": "61a7ab65a5431ecca2978b73cca885db6a7da335afa22019ddf68a71dce7fb27"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\review.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/review.json",
+      "bytes": 25854,
+      "sha256": "54922a31be876cf6796329e90dbf5a3737bf399f8c1732365dedfca1a1f11748"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\trees-review.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/trees-review.jpg",
+      "bytes": 90750,
+      "sha256": "74d56062bd6515f1ed40de6198a9523349a4760601f06e8cb0c991a813fec54d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\verify.cjs",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/verify.cjs",
+      "bytes": 2103,
+      "sha256": "a0ecdf6a00c65a6dbb787b54e9269bc36012bdc923133780e9b2558a62324e7c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\water-review.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/water-review.jpg",
+      "bytes": 70794,
+      "sha256": "0781663cbed5533a03d61c218eacdad2ec361cbaedf2dd0ecb66f3a759312125"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\01-foreground-water-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/01-foreground-water-download.json",
+      "bytes": 296,
+      "sha256": "c18abefc5c5a5dbf48bd5c9dd4600928f8cf0aa0fcba6543e522383c695c29fc"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\01-foreground-water-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/01-foreground-water-generation.json",
+      "bytes": 5676,
+      "sha256": "765523b681813ad832759e24408b869e711e177df1ed4af6be31d391cd4f9a22"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\01-foreground-water.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/01-foreground-water.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\02-background-water-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/02-background-water-download.json",
+      "bytes": 296,
+      "sha256": "594ce2078ec2292719254c5c52c3faa002266f7c7a6c3b2d50799767f48f5fc2"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\02-background-water-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/02-background-water-generation.json",
+      "bytes": 5707,
+      "sha256": "139b1e04289b60afd8d75d29c8533c4f96c476f0af58320776b3f3021db45764"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\02-background-water.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/02-background-water.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\03-mountains-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/03-mountains-download.json",
+      "bytes": 282,
+      "sha256": "268b67504e7a82b03bdfbc8fa22547fb49fe8c32c1b2fbdfe0674ea93ac9f289"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\03-mountains-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/03-mountains-generation.json",
+      "bytes": 5409,
+      "sha256": "b54d6951bbaa5301272ce61f3116fda7b65496b64733ae1e11d90d6cafc57418"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\03-mountains.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/03-mountains.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\04-distant-city-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/04-distant-city-download.json",
+      "bytes": 288,
+      "sha256": "9a3178d75d5f2e32a2306c22a32f7344639e3819905aac387a1ab7657240b92a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\04-distant-city-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/04-distant-city-generation.json",
+      "bytes": 5620,
+      "sha256": "cdf4a8eb55a6a52eb1076235452c7917c4ad4acece9df0c2234e26526a4145ba"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\04-distant-city.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/04-distant-city.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\05-near-buildings-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/05-near-buildings-download.json",
+      "bytes": 292,
+      "sha256": "fe5bf3e8b47cad2add13bbfddab53a2bbc8c31ce1433ad2a3268165d45b228bc"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\05-near-buildings-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/05-near-buildings-generation.json",
+      "bytes": 5781,
+      "sha256": "011dcab3c0ada74d5c732a80e12d1de2f8312adbfeeca1e1756f4328d333bebb"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\05-near-buildings.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/05-near-buildings.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\06-residential-interiors-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/06-residential-interiors-download.json",
+      "bytes": 306,
+      "sha256": "36962b1052ba09b26301548509c87a868b373a76649b4e1948709ebe0db17002"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\06-residential-interiors-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/06-residential-interiors-generation.json",
+      "bytes": 5735,
+      "sha256": "07311b5224ac38ffc84583609a257403cf9f650890c0f7501d848d1656ba4c5f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\06-residential-interiors.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/06-residential-interiors.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\07-public-interiors-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/07-public-interiors-download.json",
+      "bytes": 296,
+      "sha256": "4d186b0f651c7512996f27e785223d4714ceaeab3bba933aab9571c18a82cf90"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\07-public-interiors-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/07-public-interiors-generation.json",
+      "bytes": 5676,
+      "sha256": "9610fd6c432624b84f83ed3732f2341a573e9fc5a5851da51998032447209b49"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\07-public-interiors.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/07-public-interiors.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\08-billboard-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/08-billboard-download.json",
+      "bytes": 282,
+      "sha256": "4be73c14cd7d4951617b53b376c1102c1a4eaa5d20a4acc13e8917ae12e30181"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\08-billboard-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/08-billboard-generation.json",
+      "bytes": 5513,
+      "sha256": "c5547bb6b1e4499ca0333cf7b545f16ab52a34426313beed898834e4996e6d8a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\08-billboard.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/08-billboard.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\09-window-frames-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/09-window-frames-download.json",
+      "bytes": 290,
+      "sha256": "d116807e406c98e4c75ad3c9c07ae9c74091884e85bd8d0b849eb985263a9b79"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\09-window-frames-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/09-window-frames-generation.json",
+      "bytes": 5629,
+      "sha256": "3e46edc74a068e4c5fc560a551f9e841990c2ebc11efa41b4eb532e222bc82b0"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\09-window-frames.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/09-window-frames.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\10-vegetation-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/10-vegetation-download.json",
+      "bytes": 284,
+      "sha256": "18b1528c4bfcc640855fc6ed038344b2e9a3c5f091865ee55505c0f5be48985d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\10-vegetation-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/10-vegetation-generation.json",
+      "bytes": 5455,
+      "sha256": "41110eae2a6a255ec8b0a38eeefc40be1053aa45a3a7d24d145acc70168ab339"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\10-vegetation.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/10-vegetation.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\11-shore-structures-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/11-shore-structures-download.json",
+      "bytes": 296,
+      "sha256": "c587f2e01c20e3c4354284ee9d7c768f1c63a21d1ce88bc290523d1dedd1ffc2"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\11-shore-structures-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/11-shore-structures-generation.json",
+      "bytes": 5642,
+      "sha256": "053f5d7699b8a2402de099c2ec378ccc9ee6ff831cd4cf8e70e336db42031cf8"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\11-shore-structures.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/11-shore-structures.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\12-water-reflections-download.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/12-water-reflections-download.json",
+      "bytes": 298,
+      "sha256": "ec3df5845bdcf1ba15a61038421c42e59a5ad2ca0e82da3553e5e75c342b9544"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\12-water-reflections-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/12-water-reflections-generation.json",
+      "bytes": 5734,
+      "sha256": "d21c02cb6118f37c4f40292139810177b78a20193ebab6b958159a71898b7ede"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\12-water-reflections-r2-generation.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/12-water-reflections-r2-generation.json",
+      "bytes": 4600,
+      "sha256": "99bac73a35b5c37e3e532f7ac8d7f117016973a8acb12e06ad589038865ebc28"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\12-water-reflections.done",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/12-water-reflections.done",
+      "bytes": 46,
+      "sha256": "a31a53e07d7d19e748075ff08301bd84d6f80cb6b33bdbb0fa90ad2948f66b9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\contact-sheet.jpg",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/contact-sheet.jpg",
+      "bytes": 141928,
+      "sha256": "b7c8935c5db8f896c11f930d0679599803c7b2be33cf0021a5a6af9ca18ae70e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\generate_layers.py",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/generate_layers.py",
+      "bytes": 6938,
+      "sha256": "e8d077a95993a8b38ac68c4338a01328ff65131e31a01192cba29aa04cf3bd73"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\manifest.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/manifest.json",
+      "bytes": 13545,
+      "sha256": "f0a585bdd1b8247754cc862941313a42106564878908751116675271765221cd"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\prepare_review.py",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/prepare_review.py",
+      "bytes": 2473,
+      "sha256": "bc2e7b91a32dbd077e6fdb14893b78d91699da203ac5fc16718b1213c4378919"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\README.md",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/README.md",
+      "bytes": 4414,
+      "sha256": "921a81db89a974e41e120b1959f6108c040cc4d6dd180c913c1e22511ef2643d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\reference-padded.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/reference-padded.png",
+      "bytes": 1060772,
+      "sha256": "97e6d686f934a39731453ce564d5c8653983290c39e0b5b0be46b5defbe9d438"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\review-metadata.json",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/review-metadata.json",
+      "bytes": 7140,
+      "sha256": "dcafdd0a91c09a225c7fff318a689232df97b0334aa0de153a80d9cb5a8fcd08"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\white-background-layers.zip",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/white-background-layers.zip",
+      "bytes": 2160071,
+      "sha256": "9d3146279078f022ec7a8a60029069e5bcfd7cd74ee0999bc242e56527d1927e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v1\\billboard-screen.png",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v1/billboard-screen.png",
+      "bytes": 76603,
+      "sha256": "4faded9c6588c19ee44fc144b3ffc970b1eb9e29d458151d2833ab467f7d0caf"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v1\\city-unlit.png",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v1/city-unlit.png",
+      "bytes": 1294361,
+      "sha256": "5b2c0ae40132347e9a5cd0a1241ee1d02ca491e7d83adc491dcbdf9c8f1cbe9c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v1\\prompts.json",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v1/prompts.json",
+      "bytes": 5501,
+      "sha256": "980cb5f6e6e9a29e36f7e4f613e92d9892a67b74468779d7b2a2ca19fdeeb81a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v1\\public-building-windows.png",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v1/public-building-windows.png",
+      "bytes": 177911,
+      "sha256": "c13dfb5dd1e47e43c91603d724069b3e8533a039fece65ab6c7aa4f20deb3f27"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v1\\README.md",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v1/README.md",
+      "bytes": 1819,
+      "sha256": "409b45df42caa1f95a2ad21c8d33a0442ba916013dd377faa7561878e4a24037"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v1\\residential-windows.png",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v1/residential-windows.png",
+      "bytes": 209294,
+      "sha256": "2de5b0b25a3f4da365a98b479aa43000c1c55d607c38107b51584a5e863ce805"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\billboard-screen.svg",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/billboard-screen.svg",
+      "bytes": 1715853,
+      "sha256": "aceb228dd161795d37b046f38eb80f45f095589335dafee718e608408bc1d452"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\build_layers.py",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/build_layers.py",
+      "bytes": 6415,
+      "sha256": "1dc3e441683752005c3942f0b44b5f406fb5a447a1aeb960c4654e73d57e1b50"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\city-unlit-plate.png",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/city-unlit-plate.png",
+      "bytes": 1285801,
+      "sha256": "70d1799aeefaddc38b2544e50f469ccadb5cc6d04904f1e187ab41146e584463"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\city-unlit.svg",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/city-unlit.svg",
+      "bytes": 3431158,
+      "sha256": "1dba769091b6e0b00bd18b613f529318c3e15acef500fe858bbfb92cc1f96a0e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\manifest.json",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/manifest.json",
+      "bytes": 1309,
+      "sha256": "86524120c9dbe3335abd4f8baf41c7eb54d86acadd85c2886c6121b7a1238400"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\prompts.json",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/prompts.json",
+      "bytes": 1432,
+      "sha256": "3c4945a76d23014fc0c8807656eb564c485905b913bcb9c8534f972228bd47cc"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\public-building-windows.svg",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/public-building-windows.svg",
+      "bytes": 1715879,
+      "sha256": "0324a66a1b709d264778f66478162f43fa5a22026ea0b67d812c7eee17c1a0f3"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\README.md",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/README.md",
+      "bytes": 3012,
+      "sha256": "b9924a77ee532c6a428869767198b9f6c8c7969acee4d220e32095630b0e9f80"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\source-layers-v2\\residential-windows.svg",
+      "archived": "snapshot/experiments/light-pollution/assets/source-layers-v2/residential-windows.svg",
+      "bytes": 1715878,
+      "sha256": "569d3c75f2962dfae1e1cb2351c5197953d97269674ca84e620f303b883a6c8d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\01-foreground-water.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/01-foreground-water.png",
+      "bytes": 307240,
+      "sha256": "1557dac2fa3ef3a6030db722204f442a0272d9983ff90b7a0b21ee549ac76f31"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\02-background-water.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/02-background-water.png",
+      "bytes": 105006,
+      "sha256": "7ed7b17d1da0fdb3b80b21f3e1ac9e5bb599b4e28ed01795cf625e5a0c3a547e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\03-mountains.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/03-mountains.png",
+      "bytes": 182834,
+      "sha256": "b2fd4d8fc5e5c94b0789bfe0ab42c08831230e4a658e5caf30ac24a710f8e3d5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\04-distant-city.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/04-distant-city.png",
+      "bytes": 187005,
+      "sha256": "fdf772f66fa18e432a589cc79d3b84b802fc98d49b2d4379270842512f624deb"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\05-near-buildings.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/05-near-buildings.png",
+      "bytes": 387224,
+      "sha256": "9e6a8bce688bbf171e3e5c39da5ad5923f42ad188333365b9c255b5c1cd8f90d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\06-residential-interiors.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/06-residential-interiors.png",
+      "bytes": 91007,
+      "sha256": "3292db458311e835fd0332b20fe9f7d4d0c31261fd1d4f6ab137e9c35a336e0e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\07-public-interiors.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/07-public-interiors.png",
+      "bytes": 99877,
+      "sha256": "aa83da4e1e9cebade2aada25731e095ae77d0851367662380b535c844505b3e1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\08-billboard.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/08-billboard.png",
+      "bytes": 63457,
+      "sha256": "d85c0e21022279f4b3f1816692e66f0da1a9012fd3081aca9024dfe4145482a5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\09-window-frames.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/09-window-frames.png",
+      "bytes": 197612,
+      "sha256": "ea963e549488b503ebea2afea4989d210bda262dadd16607fa3b56a3ec9298d1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\10-vegetation.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/10-vegetation.png",
+      "bytes": 225153,
+      "sha256": "bda3207bde4e8aa90cc6988bbe30c1832bbd2134c6b05796094a4ca84fc0cb8c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\11-shore-structures.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/11-shore-structures.png",
+      "bytes": 200167,
+      "sha256": "bb3f215665c52a3c4d060ba6bc49b18f31a0513d1098881b8ac4295f043d8ec7"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\panorama\\12-water-reflections.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/12-water-reflections.png",
+      "bytes": 87930,
+      "sha256": "eeda2d16c915975c872b834f5e3f4f65dfcf04ca50218aaf9f4d9fa30937e527"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\01-foreground-water\\01-foreground-water.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/01-foreground-water/01-foreground-water.png",
+      "bytes": 1135323,
+      "sha256": "c6b9a63335e174c8ad0fcf81a53cde4fc061ca3d8be356014c662f00c51cae77"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\02-background-water\\02-background-water.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/02-background-water/02-background-water.png",
+      "bytes": 995922,
+      "sha256": "e185cecba3a98f1f2ba1f75ff103f01dde7ff7fbfbe5aaef3d31baef1b327f08"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\03-mountains\\03-mountains.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/03-mountains/03-mountains.png",
+      "bytes": 1038894,
+      "sha256": "dcb094cb5dae9fe12fa8d5f48d251a49031420c239119deb68012a1fdf76201c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\04-distant-city\\04-distant-city.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/04-distant-city/04-distant-city.png",
+      "bytes": 1040802,
+      "sha256": "d3e2d420de0ae0f46137a1ee53435ef2d7c2bcfc061c8186756d92331fa2c66a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\05-near-buildings\\05-near-buildings.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/05-near-buildings/05-near-buildings.png",
+      "bytes": 1137580,
+      "sha256": "a902f5b832f4db41df919a571825a60addc623f2739c2c8d84536a7e0a5b4e52"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\06-residential-interiors\\06-residential-interiors.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/06-residential-interiors/06-residential-interiors.png",
+      "bytes": 946952,
+      "sha256": "99620f6aa77c00577686e135a141d411105498a3c8ef9044778ad2ee3c9d7816"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\07-public-interiors\\07-public-interiors.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/07-public-interiors/07-public-interiors.png",
+      "bytes": 898053,
+      "sha256": "ac6c285940a3c587d63126fc3d10f9d3f25a1931461dacdca244fa85a9a6e9bb"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\08-billboard\\08-billboard.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/08-billboard/08-billboard.png",
+      "bytes": 959249,
+      "sha256": "2eb40dc22ae0956687bab1ef5efe92497a2155607a720084e4c93df2eed8d48f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\09-window-frames\\09-window-frames.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/09-window-frames/09-window-frames.png",
+      "bytes": 958789,
+      "sha256": "b9561f99406982128e355ab1242552cde2de3a611778c67925b91ed5bbb8e767"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\10-vegetation\\10-vegetation.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/10-vegetation/10-vegetation.png",
+      "bytes": 1025337,
+      "sha256": "9518dce703d8e3be7a39d1051f646ce643357c79905d7259fe96af5b59ee847f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\11-shore-structures\\11-shore-structures.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/11-shore-structures/11-shore-structures.png",
+      "bytes": 1040153,
+      "sha256": "3813b8223c5e5bf91ca7ebfe8945f9f86ed336ccfffc9e45ed750f8e76e4203c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\12-water-reflections\\12-water-reflections.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/12-water-reflections/12-water-reflections.png",
+      "bytes": 1089662,
+      "sha256": "b5a502353a61019746c44cdc0d111ceeffd183532124b2ce4b775eb3989c920b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-layers-20261027\\raw\\12-water-reflections-r2\\12-water-reflections-r2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/12-water-reflections-r2/12-water-reflections-r2.png",
+      "bytes": 986048,
+      "sha256": "81a16094f8c381bffcc7bcb563b277f153469903c14148c22963dd7efb73c546"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\__pycache__\\generate.cpython-314.pyc",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/__pycache__/generate.cpython-314.pyc",
+      "bytes": 10017,
+      "sha256": "03bccf81544f8c08c1d39941f2ece0a76caefa00117732bbe982bcaf22c107fa"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\07-billboard-building\\A\\composite-v2-07-billboard-building-A_1.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/07-billboard-building/A/composite-v2-07-billboard-building-A_1.png",
+      "bytes": 1221510,
+      "sha256": "c718f8cabd388414ebb112fb52a2410d110c4f15fb539a98592bd21698260062"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\07-billboard-building\\A\\composite-v2-07-billboard-building-A_2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/07-billboard-building/A/composite-v2-07-billboard-building-A_2.png",
+      "bytes": 1176537,
+      "sha256": "cbdf5c76e304f37fe55ea19a811bed6924649cf61f172b29be2610a3be6a919a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\07-billboard-building\\A\\composite-v2-07-billboard-building-A_3.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/07-billboard-building/A/composite-v2-07-billboard-building-A_3.png",
+      "bytes": 1111817,
+      "sha256": "94debedc3257a8424039c8791bc79bf974b770d47b8a8a80c8024641486c7b22"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\07-billboard-building\\A\\composite-v2-07-billboard-building-A_4.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/07-billboard-building/A/composite-v2-07-billboard-building-A_4.png",
+      "bytes": 1191736,
+      "sha256": "19cb8e826ed9865839db458dc109a07178e3f41b669387170b053c3416b647e7"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\07-billboard-building\\B\\composite-v2-07-billboard-building-B.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/07-billboard-building/B/composite-v2-07-billboard-building-B.png",
+      "bytes": 1109230,
+      "sha256": "73e7d308d7670ac66294ea82a5d8d6d9e8ce954e0eb8ee4bd066b679c3abf152"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\06-public-building\\A\\composite-v2-06-public-building-A_1.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_1.png",
+      "bytes": 1260631,
+      "sha256": "05889d28b02237a739acffac76dbbf470c7239a916ca1d2d0838a6815a249b64"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\06-public-building\\A\\composite-v2-06-public-building-A_2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_2.png",
+      "bytes": 1306352,
+      "sha256": "f257c3f2755b795a29c63bdcc18942354a9e660232717e13a5d5b1e82f4212a5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\06-public-building\\A\\composite-v2-06-public-building-A_3.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_3.png",
+      "bytes": 1218178,
+      "sha256": "4461f995b4d424b4505fdb4c2dd35771c45e2ad36dfff1f915c7e40edaf1926f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\06-public-building\\A\\composite-v2-06-public-building-A_4.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_4.png",
+      "bytes": 1256455,
+      "sha256": "16dcbd39e41389fd7905c7826d5d6d6d095db978ba6744fa0901fc723ed1ee7d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\06-public-building\\B\\composite-v2-06-public-building-B.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/B/composite-v2-06-public-building-B.png",
+      "bytes": 1271093,
+      "sha256": "3e2ef153f23febbeb194706d5e132408672e102fe6d26983af46959c021a5267"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\05-residential\\A\\composite-v2-05-residential-A_1.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_1.png",
+      "bytes": 1286911,
+      "sha256": "13053ec40eec08db9a4ac44fde4e307921fa44c6bc0cb6cf62d7ef5fd0b5f5bd"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\05-residential\\A\\composite-v2-05-residential-A_2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_2.png",
+      "bytes": 1142433,
+      "sha256": "86835390ae026aeeeb41cb153b5f5dd9af471c83d769ec447b6c9a8c5b9a147a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\05-residential\\A\\composite-v2-05-residential-A_3.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_3.png",
+      "bytes": 1119044,
+      "sha256": "a67133385a121a3a6efb7cc18468a7bdf07333d259444a309252bf081a8aa42c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\05-residential\\A\\composite-v2-05-residential-A_4.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_4.png",
+      "bytes": 1124360,
+      "sha256": "331382bf2d454a1bc97a458081e5f00e117077990d34d17003141d96c1d01c48"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\05-residential\\B\\composite-v2-05-residential-B.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/B/composite-v2-05-residential-B.png",
+      "bytes": 1194051,
+      "sha256": "82c5ed5cbb9b9e89f53030dee38bf3f3edde1ccfa2769e0a28114ec57084ee20"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\04-foreground-water\\A\\composite-v2-04-foreground-water-A_1.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_1.png",
+      "bytes": 1161718,
+      "sha256": "087144f845655530a61ca95a425df88a2eb851feac28af3b5129937a52a7085b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\04-foreground-water\\A\\composite-v2-04-foreground-water-A_2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_2.png",
+      "bytes": 1114432,
+      "sha256": "60156d98491665a13e22f9b4ef1d87e17c2a5b3bda886293f531d9aea34c585b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\04-foreground-water\\A\\composite-v2-04-foreground-water-A_3.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_3.png",
+      "bytes": 1186809,
+      "sha256": "c01c2eac5d9f4a3f2b6309f93c94fe94d8142a26cceb56e7d0399a9de9993421"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\04-foreground-water\\A\\composite-v2-04-foreground-water-A_4.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_4.png",
+      "bytes": 1135339,
+      "sha256": "64ff6f6613f9f35047b4b85f174fd2a3b0ea2b434be2e55b3799f394a7ed6950"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\04-foreground-water\\B\\composite-v2-04-foreground-water-B.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/B/composite-v2-04-foreground-water-B.png",
+      "bytes": 1177268,
+      "sha256": "01c00b246550e1f90756e4a4352683783586d6957367b1076f0aa0e0709b6027"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\03-foreground-trees\\A\\composite-v2-03-foreground-trees-A_1.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_1.png",
+      "bytes": 1221436,
+      "sha256": "07aa8e37c2aee5521d9db973c360946c773c66a08055b20be752d92088f4e113"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\03-foreground-trees\\A\\composite-v2-03-foreground-trees-A_2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_2.png",
+      "bytes": 1072459,
+      "sha256": "146222541d39fcda28898ce57b9673d8f5c985e8df9d547b3c9c075666a4acfe"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\03-foreground-trees\\A\\composite-v2-03-foreground-trees-A_3.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_3.png",
+      "bytes": 1100453,
+      "sha256": "3dd3cb2dec70f5edb349165eee7730b4bfe02c50c52fabe32a6dc63cd12fce4a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\03-foreground-trees\\A\\composite-v2-03-foreground-trees-A_4.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_4.png",
+      "bytes": 1083365,
+      "sha256": "6b904c48cc8b00c0b1800d25946a0a7ed143b5e0ea9b15332341e77f570896e8"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\03-foreground-trees\\B\\composite-v2-03-foreground-trees-B.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/B/composite-v2-03-foreground-trees-B.png",
+      "bytes": 1144095,
+      "sha256": "d9f9a76abd0b1a0a19cba4abfa8ce446bb38a5def05450bf449476defa17bd96"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\02-ground-planting\\A\\composite-v2-02-ground-planting-A_1.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_1.png",
+      "bytes": 1201007,
+      "sha256": "2799dccb5a302667ce8226fc162c564d1768c6ab7e0b5c4baeea139662d1a345"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\02-ground-planting\\A\\composite-v2-02-ground-planting-A_2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_2.png",
+      "bytes": 1211442,
+      "sha256": "0a803c43984f44f1d7dbd78601226f88f86b5fcf4fcc9a7720c967c2d6b45611"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\02-ground-planting\\A\\composite-v2-02-ground-planting-A_3.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_3.png",
+      "bytes": 1141860,
+      "sha256": "7d30156959cf0858d8c2d7d33c72f5ee3f509cb80cbc42178210b1b7143d97af"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\02-ground-planting\\A\\composite-v2-02-ground-planting-A_4.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_4.png",
+      "bytes": 1140387,
+      "sha256": "103fc326e48200821b4f97087c4ab2c6debdf353cd8f58097fcbb65de15e88a8"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\02-ground-planting\\B\\composite-v2-02-ground-planting-B.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/B/composite-v2-02-ground-planting-B.png",
+      "bytes": 1151442,
+      "sha256": "3ba530651bdecbd2c35fca9e2c98fa2c56cf5a2d770ed7c6eb2e7f358d037c40"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\01-distant-environment\\A\\composite-v2-01-distant-environment-A_1.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/01-distant-environment/A/composite-v2-01-distant-environment-A_1.png",
+      "bytes": 1382585,
+      "sha256": "5cc060a191ff9fc9539c43957807b708ffadeb05d60b02ad50deaafdcf014c35"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\01-distant-environment\\A\\composite-v2-01-distant-environment-A_2.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/01-distant-environment/A/composite-v2-01-distant-environment-A_2.png",
+      "bytes": 1389821,
+      "sha256": "44b4c864dd05752b072a848984b72c630d865c6e0b077c6fcd5ebd3ced10a534"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\01-distant-environment\\A\\composite-v2-01-distant-environment-A_3.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/01-distant-environment/A/composite-v2-01-distant-environment-A_3.png",
+      "bytes": 1416101,
+      "sha256": "e34fb156e6e3472e9d9e5afe0d58a47663a024f8a3878ab04407f54646aa2c15"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\01-distant-environment\\A\\composite-v2-01-distant-environment-A_4.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/01-distant-environment/A/composite-v2-01-distant-environment-A_4.png",
+      "bytes": 1396297,
+      "sha256": "d06551c1861d7f36e08167609acd326ccc13ff7d83083821ffc0f80f9d85f78d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\raw\\01-distant-environment\\B\\composite-v2-01-distant-environment-B.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/01-distant-environment/B/composite-v2-01-distant-environment-B.png",
+      "bytes": 1404922,
+      "sha256": "4035e30e82dec4855c98c418dcc36ff25dacf51f824138e331d0ddeb697bfde0"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\01-distant-environment\\01.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
+      "bytes": 709082,
+      "sha256": "81ce8328557ad28d3705039aaee69eedf873dfe5d3c6926e6cf7a4ae7e498bc8"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\01-distant-environment\\02.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/02.png",
+      "bytes": 767519,
+      "sha256": "32ddd31e3f9224116983a1c2334240ea4bac536ae3103cfe6ce510678cbed63c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\01-distant-environment\\03.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/03.png",
+      "bytes": 774328,
+      "sha256": "d716101658984e9b03c740a1edb396880c24865f04abe0c984630bf703a660fd"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\01-distant-environment\\04.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/04.png",
+      "bytes": 731680,
+      "sha256": "54ded800bb17537ae3aaebbe2860f2553eacc9e51088ab2ecce0f94d66e54013"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\01-distant-environment\\05.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/05.png",
+      "bytes": 775047,
+      "sha256": "e7ec55ac90985eca861d6ae7ce05287d77a4c067c7d7a6287f620a852b66a82e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\02-ground-planting\\01.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/01.png",
+      "bytes": 391433,
+      "sha256": "d42676cf3026a76160c52baab9dc27359785cd7ca3ad8d4083513bfeaeb1f30f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\02-ground-planting\\02.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png",
+      "bytes": 416738,
+      "sha256": "8b75a8195031908f863d57e5ebc2d5408bf714543f22aea8153dae128116e40f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\02-ground-planting\\03.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/03.png",
+      "bytes": 330098,
+      "sha256": "0faf669000d3fca52deb9d08c61986125f80f0385d31af48fd3279414333a439"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\02-ground-planting\\04.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/04.png",
+      "bytes": 355474,
+      "sha256": "3565598ad60ac7b4fbb8b88a87dc0dd7bc38902978dee79a09695ed117f0ade3"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\02-ground-planting\\05.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/05.png",
+      "bytes": 344801,
+      "sha256": "378a3add32417bd7051dee22c9820d46e067ac6ad30d09b945e470d95daf54da"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\03-foreground-trees\\01.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/01.png",
+      "bytes": 413412,
+      "sha256": "a7a680657097b73c361e302b205f47fca3b751bf5ebe81b7e7a6690aa9e1bcc6"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\03-foreground-trees\\02.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/02.png",
+      "bytes": 293439,
+      "sha256": "c9cc211fe3a62058a9bbeac9ee8233565a5869ef7af5fda279a6219f32a278e4"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\03-foreground-trees\\03.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png",
+      "bytes": 289529,
+      "sha256": "3c40e604e8278ecce4c07e00f0ed12685fd8358b5bd9cfaab6db69083cea4645"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\03-foreground-trees\\04.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/04.png",
+      "bytes": 256791,
+      "sha256": "02306ab7d336a42ebb99a410ac22996222b61676076424c32472bd9e194e3e5f"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\03-foreground-trees\\05.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/05.png",
+      "bytes": 347933,
+      "sha256": "d52879725b26390a24ff3fa138181f0a6083a68f72c6031bd2c3aa35152db7f9"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\04-foreground-water\\01.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png",
+      "bytes": 367297,
+      "sha256": "77839256c6c43e3420112e94ee6bbeaa987db9b3b89f25078d9e9c8c379be585"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\04-foreground-water\\02.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/02.png",
+      "bytes": 315980,
+      "sha256": "708f9a0db6b20de8792e0fbe2bf1419769978a2401f95afde0659f9063c3a566"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\04-foreground-water\\03.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/03.png",
+      "bytes": 411824,
+      "sha256": "51be3dcd92d77a22565ba9c3f5437f4835baf8db460c6fff4df4fba997583903"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\04-foreground-water\\04.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/04.png",
+      "bytes": 346164,
+      "sha256": "d721ecde702aeeb9701201a69869dafc1be92500af298a2b76a9885e2c7b78f1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\04-foreground-water\\05.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/05.png",
+      "bytes": 386716,
+      "sha256": "16c907f99121828314579fc096e876b98f8468bf55c1c2c0635b9ef909d1e426"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\05-residential\\01.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/01.png",
+      "bytes": 552804,
+      "sha256": "894dba8310b5a20d1f9ccd9d4c97c7a3cacbfbf5e4f922aff195f0244f1a4f2a"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\05-residential\\02.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/02.png",
+      "bytes": 354138,
+      "sha256": "b9042daa3d6a710c541b65eb71633ad183b135c8563fcb9a8916766d431e2d2d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\05-residential\\03.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/03.png",
+      "bytes": 330728,
+      "sha256": "8a58b18d7380e4d5f58d47175b68d29675ebd2884427fd2166ae6d7668805e6d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\05-residential\\04.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/04.png",
+      "bytes": 335996,
+      "sha256": "04f1da18765514a0391e167f2fd951469caf158399628971a6064837a93dde96"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\05-residential\\05.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/05.png",
+      "bytes": 448409,
+      "sha256": "88f2f42420629cdf0f23c8d9cd00d54270fc2fa1b619f98496e3b2e4db9dbc60"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\06-public-building\\01.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/01.png",
+      "bytes": 523704,
+      "sha256": "d423cb73e9aa5053609d604198c8300ffe0275c712a967428eac593197ec1a54"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\06-public-building\\02.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/02.png",
+      "bytes": 634292,
+      "sha256": "7350cdb6de9b284688995051390e5f1272912ca59a6460fe634f1d4218a01b66"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\06-public-building\\03.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/03.png",
+      "bytes": 505921,
+      "sha256": "ef0522eb8b8bbb9fc88e252c24b77b5f33a1d567f49fb770f5799b43f32937da"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\06-public-building\\04.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/04.png",
+      "bytes": 539631,
+      "sha256": "018547dfce077a68544be30759f012cb9869e4fbe6b38217c416381da8d1aadf"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\06-public-building\\05.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/05.png",
+      "bytes": 528919,
+      "sha256": "afa9c3a2171f91f913e4f59db6d5e3dc1e942b8ae32e88e05555687412d85f9c"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\07-billboard-building\\01.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/01.png",
+      "bytes": 451769,
+      "sha256": "377b69618e4d5659a1801ec83849f28aa1bb5ec919d278311342bc3be3a35bbf"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\07-billboard-building\\02.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png",
+      "bytes": 386215,
+      "sha256": "c3db4b5b942d634fb5232cfb6e6fd79aa59fdf3ee9b39d1b17d6a8076722efd4"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\07-billboard-building\\03.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/03.png",
+      "bytes": 312835,
+      "sha256": "422a43246c6088a80e9608c31021f6032fd6443fef7fd73f456543275dead690"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\07-billboard-building\\04.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/04.png",
+      "bytes": 417350,
+      "sha256": "b483e6ff687582a87db0584506cf367c81a80f2f9445b83c676637d2d8097c20"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\experiments\\light-pollution\\assets\\libtv-composite-options-20261027\\panorama\\07-billboard-building\\05.png",
+      "archived": "snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/05.png",
+      "bytes": 294878,
+      "sha256": "f29f14609c3f8ce9a2b5ecd4193f0018b5d68030d9d0b76d9122eb769a76d024"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\README.md",
+      "archived": "snapshot/shared/README.md",
+      "bytes": 1452,
+      "sha256": "ec5a1aab8f7cc7c6f9ba91a2d98dd776092c1c4879c67574a916450418ec822d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\affordance.js",
+      "archived": "snapshot/shared/components/affordance.js",
+      "bytes": 1842,
+      "sha256": "4ee16f0650cf1808a0e1280a2c7ed6a801f83c4edf4a28e791cf42651d7eb6cc"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\components.css",
+      "archived": "snapshot/shared/components/components.css",
+      "bytes": 6107,
+      "sha256": "25f6334cfe86e93ee31947595cc7a5e0ad95e6313a9988e48f8c56f2ab9e0d16"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\COURSE_INTEGRATION.md",
+      "archived": "snapshot/shared/components/COURSE_INTEGRATION.md",
+      "bytes": 1265,
+      "sha256": "d799422d288d22a9932ae4443a16b459c4d967baeb908fd4655b5ad8b796ce14"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\experiment-progress.css",
+      "archived": "snapshot/shared/components/experiment-progress.css",
+      "bytes": 7258,
+      "sha256": "1c22b5e3e46725e07f2a25d8c53f0b25637ef9471c6bba11cab33d1ad1eb0840"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\experiment-progress.js",
+      "archived": "snapshot/shared/components/experiment-progress.js",
+      "bytes": 9069,
+      "sha256": "bc2b7a1999a84da75fe3779e6ba7044a6014665d7931679d19173acd0f6732c2"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\gesture.js",
+      "archived": "snapshot/shared/components/gesture.js",
+      "bytes": 4733,
+      "sha256": "089e04ac445e45cb2e1b54053ea7fb162d13306a5d4739b369f3469bc5017dc5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\hand-icons-flat.js",
+      "archived": "snapshot/shared/components/hand-icons-flat.js",
+      "bytes": 12534,
+      "sha256": "d444c80c17c0ceac09d3427e7c54120c0ffce1966a52ca8ccda33a7b7bb2af54"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\name-bubble.js",
+      "archived": "snapshot/shared/components/name-bubble.js",
+      "bytes": 1907,
+      "sha256": "25559b00060c6b8ea32ada77081fd10362485107c34e3fb1b7f8592bec3cce09"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\operation-tip.css",
+      "archived": "snapshot/shared/components/operation-tip.css",
+      "bytes": 895,
+      "sha256": "3005832316f1f63446a7ad6616b66186216106e80dd9b9bed2146e851e01dda5"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\operation-tip.js",
+      "archived": "snapshot/shared/components/operation-tip.js",
+      "bytes": 876,
+      "sha256": "90ca0e607b6bd1927f78348cd3dee9391ee9b6f33c494be45f9f3c217719ce8d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\README.md",
+      "archived": "snapshot/shared/components/README.md",
+      "bytes": 9211,
+      "sha256": "5a4ca9c70497228ffde065095c6cccf5e1ef54a19a2ece30ef5bc97336525d35"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\stage-completion.css",
+      "archived": "snapshot/shared/components/stage-completion.css",
+      "bytes": 2451,
+      "sha256": "959ff3f03f4c59189102940b8158dedbf231a4dcff27f25dcc83986b4f2506fd"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\stage-completion.js",
+      "archived": "snapshot/shared/components/stage-completion.js",
+      "bytes": 3238,
+      "sha256": "5be82c1169b72c889e3b002215ec4ec00547e0a9717b19686f3dd77b8e59ebfa"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\typography\\README.md",
+      "archived": "snapshot/shared/typography/README.md",
+      "bytes": 973,
+      "sha256": "e4d5fdc94a203e0373be3a0793061f68cf65f764eb897337e546dfd21159dfff"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\typography\\typography.css",
+      "archived": "snapshot/shared/typography/typography.css",
+      "bytes": 300,
+      "sha256": "bd9f3a1c595ac9f71ccf114237c7042d6feb096a6f93ec3e149f2043951edea3"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\assets\\progress-notebook.png",
+      "archived": "snapshot/shared/components/assets/progress-notebook.png",
+      "bytes": 123216,
+      "sha256": "5092df9bd25e733997c1e0c5dd62a4e168a0db61bc9d92796c9ff650b891e4af"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\completion-assets\\clip.png",
+      "archived": "snapshot/shared/components/completion-assets/clip.png",
+      "bytes": 5837,
+      "sha256": "afae7f694ddd0293020f95ef5b4a32a31e97cb8b1a054ed57fb975f07a722b5b"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\completion-assets\\gold.png",
+      "archived": "snapshot/shared/components/completion-assets/gold.png",
+      "bytes": 3209,
+      "sha256": "8c7ddba2835a540ace1ea5ae644bb069c879219937971b3690859eee50c09091"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\completion-assets\\paper.png",
+      "archived": "snapshot/shared/components/completion-assets/paper.png",
+      "bytes": 21820,
+      "sha256": "815dae79f764056cb1959556ab4d177d1331bf2985d8c112aec048bbaaf9f503"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\components\\completion-assets\\stamp.png",
+      "archived": "snapshot/shared/components/completion-assets/stamp.png",
+      "bytes": 37336,
+      "sha256": "93b358ab2c89cfbf19b9d773bb21eb00fd9e66fbedaab79db3a1daf0a0485972"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\01-cream.png",
+      "archived": "snapshot/shared/assets/hands-flat/01-cream.png",
+      "bytes": 397080,
+      "sha256": "72a51e6c931800e3fd55e7a35d6b0c99d6265054ba3be16254f98152c4a43eeb"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\02-cursor.png",
+      "archived": "snapshot/shared/assets/hands-flat/02-cursor.png",
+      "bytes": 380552,
+      "sha256": "2d57ecba0812b3cfdca7af728be6d4cc41a0bd4d39826e4f2b4662b48e722ab3"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\03-line.png",
+      "archived": "snapshot/shared/assets/hands-flat/03-line.png",
+      "bytes": 362457,
+      "sha256": "58a2e119db31cb57edb91809139c96284ccfe599a8c2da761332d06c1d6c7fdb"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\04-round.png",
+      "archived": "snapshot/shared/assets/hands-flat/04-round.png",
+      "bytes": 324702,
+      "sha256": "071ff77f189fac518e50f5a6aba9b049653f61f02a29ba7774a939866f05d360"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\05-paper.png",
+      "archived": "snapshot/shared/assets/hands-flat/05-paper.png",
+      "bytes": 384180,
+      "sha256": "5b43a1460f96bdb17ca4509da0fdc8d932b41a4826d8c18d286484f20bb803c1"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\06-cuff.png",
+      "archived": "snapshot/shared/assets/hands-flat/06-cuff.png",
+      "bytes": 335174,
+      "sha256": "3a3e51fe511d42fdeabf67ea6c4d6e47ef0a9466f020b97442647453e960b866"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\07-palm.png",
+      "archived": "snapshot/shared/assets/hands-flat/07-palm.png",
+      "bytes": 357207,
+      "sha256": "7403cc4a3ff67975d6aeb3dee5d127d1db7099f65ed1b5bbeec0d9c2a85ec402"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\08-grab.png",
+      "archived": "snapshot/shared/assets/hands-flat/08-grab.png",
+      "bytes": 347534,
+      "sha256": "c60286d0678d5efa27e886d4b4316124b8b2ccdbb882857520b92923a0816a9d"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\09-two.png",
+      "archived": "snapshot/shared/assets/hands-flat/09-two.png",
+      "bytes": 352508,
+      "sha256": "3ca6aafd3ec876494f6f6acee2ad9100ad527a910deab2b09b7d8f5ede329595"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\10-touch.png",
+      "archived": "snapshot/shared/assets/hands-flat/10-touch.png",
+      "bytes": 452289,
+      "sha256": "9777c0b428a3d9d4d2139e5c2ca75e8e9d6bf049866bfb30b1c11689cd66349e"
+    },
+    {
+      "source": "C:\\Users\\Golajah\\.codex\\worktrees\\review-light-pollution\\Astronomical-Exps\\shared\\assets\\hands-flat\\prompts.json",
+      "archived": "snapshot/shared/assets/hands-flat/prompts.json",
+      "bytes": 18726,
+      "sha256": "3f2f45ce8ea30660801bebc2667028c643088c8643710be46c0b4882afed72c2"
+    }
+  ]
+}

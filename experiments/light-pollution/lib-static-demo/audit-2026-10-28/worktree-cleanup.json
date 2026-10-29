@@ -1,0 +1,16 @@
+{
+  "removed": [
+    {
+      "path": "C:/Users/Golajah/.codex/worktrees/light-pollution-head-preview/Astronomical-Exps",
+      "head": "f26d3aba2656aaacc2c93a91b66549702372c017",
+      "checks": [
+        "clean tracked and untracked state",
+        "no ignored files",
+        "HEAD ancestor of current branch"
+      ],
+      "method": "git worktree remove (without force)",
+      "recoverableFromCurrentHistory": true
+    }
+  ],
+  "remainingPorcelain": "worktree B:/GithubProject/Astronomical-Exps\nHEAD d3574770f2f79fc3a6cb74277b6adedc8f6c2ff7\nbranch refs/heads/experiment/light-pollution/sky-preview\n\nworktree C:/Users/Golajah/.codex/worktrees/newton-restore-head-preview/Astronomical-Exps\nHEAD b33696315b634a26d24fc1286f6d8542c372acb6\nbranch refs/heads/codex/newton-concave-thickness\n\nworktree C:/Users/Golajah/.codex/worktrees/newton-step2-head-preview/Astronomical-Exps\nHEAD 80caf53f325f690478944ae9cd6306e24717f930\ndetached\n\nworktree C:/Users/Golajah/.codex/worktrees/review-light-pollution/Astronomical-Exps\nHEAD f26d3aba2656aaacc2c93a91b66549702372c017\nbranch refs/heads/experiment/light-pollution/maintainer-refinement\n\n"
+}

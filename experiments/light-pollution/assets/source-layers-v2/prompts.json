@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-23",
+  "mode": "built-in imagegen",
+  "editTarget": "../source-layers-v1/city-unlit.png",
+  "prompt": "Edit target is the attached existing already-unlit transparent-sky city panorama. Production asset cleanup only. Keep the exact full 2172x724 composition, every building edge/window/roof, vegetation silhouette, mountains, bench, railing, pavement and river bank coordinates. Do not redraw, reframe, shift, crop or add objects. Refine the transparent skyline edge: remove stray semitransparent speckles/blue fringes in the empty sky and retain only clean silhouette antialiasing; genuine transparent alpha everywhere above the skyline. Keep all apartment, public building and distant windows dark and unlit, the billboard surface off dark navy. Refine the foreground river to remove residual repeated vertical light streaks from old lamp reflections, maintaining coherent natural dark blue river texture, no golden light or reflected columns. Preserve blue/purple cut-paper illustration texture and the wood-colored bench. No artificial light spill or glows, no new lamps, no sky fill, no stars, no UI or text. Strictly local alpha-edge/water cleanup, preserve the architecture pixel positions as much as possible.",
+  "output": "exec-440599d3-67e4-4482-81de-25857a219d90.png",
+  "nativeRefinement": "build_layers.py produces source-coordinate SVG masks and embeds original PNG texture; no raster rewrite."
+}

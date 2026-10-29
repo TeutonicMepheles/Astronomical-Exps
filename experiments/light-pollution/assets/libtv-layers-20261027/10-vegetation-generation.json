@@ -1,0 +1,135 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "5ba762ab872a4bd9a1866a96e7a626cc",
+  "newNodeKey": "68b958cb-f12e-43da-81a1-161801ae2d7c",
+  "reactFlowNode": {
+    "id": "68b958cb-f12e-43da-81a1-161801ae2d7c",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "10-vegetation",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "这是严格保持注册位置的图层提取，不是重新创作。唯一参考图是带白色留边的原始2D夜景全景插画。输出与参考相同21:9画布；原全景占参考2184×936画布中的(x=6,y=106,width=2171,height=724)。所有保留像素对应的物体必须保持原始位置、比例、透视、轮廓、画风、颜色与纹理。不裁切，不放大，不居中，不移动，不增加物体，不改构图。仅保留本任务指定内容，其他区域全部均匀纯白RGB(255,255,255)，包括顶部与底部留边；禁止透明、灰底、棋盘格、阴影、文字、标签、边框。边缘干净。被前方物体遮挡而不可见的部分保持白色，不臆造隐藏细节。任务：仅保留原图所有前景树冠、树干与灌木，严格保持每棵树的位置、轮廓、尺寸、紫蓝色和插画纹理。其余全部白色；不补充新树，不移动或重新排列。",
+        "model": "lib-image-2.5-s",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "high",
+          "resolution": "2K",
+          "background": "opaque",
+          "ratio": "21:9"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ]
+      }
+    },
+    "position": {
+      "x": 600,
+      "y": 1050
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "5096e497-e487-43ea-85b2-519370fa3a44",
+      "source": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+      "target": "68b958cb-f12e-43da-81a1-161801ae2d7c"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "68b958cb-f12e-43da-81a1-161801ae2d7c"
+  ]
+}
+{
+  "nodeKey": "68b958cb-f12e-43da-81a1-161801ae2d7c",
+  "nodeType": "image",
+  "taskId": "20261027170703733437723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "10-vegetation",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985568940_e874b9030744462aa565ad6aca63aa87.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "这是严格保持注册位置的图层提取，不是重新创作。唯一参考图是带白色留边的原始2D夜景全景插画。输出与参考相同21:9画布；原全景占参考2184×936画布中的(x=6,y=106,width=2171,height=724)。所有保留像素对应的物体必须保持原始位置、比例、透视、轮廓、画风、颜色与纹理。不裁切，不放大，不居中，不移动，不增加物体，不改构图。仅保留本任务指定内容，其他区域全部均匀纯白RGB(255,255,255)，包括顶部与底部留边；禁止透明、灰底、棋盘格、阴影、文字、标签、边框。边缘干净。被前方物体遮挡而不可见的部分保持白色，不臆造隐藏细节。任务：仅保留原图所有前景树冠、树干与灌木，严格保持每棵树的位置、轮廓、尺寸、紫蓝色和插画纹理。其余全部白色；不补充新树，不移动或重新排列。",
+      "model": "Lib Image 2.5 Pro",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "high",
+        "resolution": "2K",
+        "background": "opaque",
+        "ratio": "21:9"
+      },
+      "imageListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261027170703733437723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    }
+  }
+}
+
+[run] task=20261027170703733437723 status=2 progress=100%

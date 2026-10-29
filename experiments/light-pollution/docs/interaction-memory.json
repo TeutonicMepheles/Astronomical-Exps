@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-28T11:59:55.118Z",
+  "chrome": "156.0.8078.49",
+  "description": "30 programmatic panel opens: handler start to next rAF, not hardware input latency/INP. Six retained-heap samples after explicit GC; includes bounded 100-entry undo history.",
+  "latencyMs": {
+    "p50": 9.400000095367432,
+    "p95": 12.199999809265137,
+    "max": 12.599999904632568
+  },
+  "heap": [
+    {
+      "cycle": 0,
+      "retainedHeapBytes": 8120516
+    },
+    {
+      "cycle": 1,
+      "retainedHeapBytes": 8373168
+    },
+    {
+      "cycle": 2,
+      "retainedHeapBytes": 8409928
+    },
+    {
+      "cycle": 3,
+      "retainedHeapBytes": 8649704
+    },
+    {
+      "cycle": 4,
+      "retainedHeapBytes": 8528576
+    },
+    {
+      "cycle": 5,
+      "retainedHeapBytes": 8597752
+    }
+  ],
+  "errors": []
+}
