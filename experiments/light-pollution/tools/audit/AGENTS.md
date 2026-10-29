@@ -33,7 +33,7 @@
 
 ## 验证与交付
 
-所有命令从仓库根目录运行。先启动服务（独立终端）：
+所有命令从仓库根目录运行。先按根 README 安装项目依赖，并安装本机 Chrome；该脚本使用 `channel=chrome`，仅安装 Playwright Chromium 不满足要求。先启动服务（独立终端；8090 已占用时核对现有服务来源或换端口）：
 
 ```sh
 python -m http.server 8090 --bind 127.0.0.1
@@ -46,7 +46,7 @@ node experiments/light-pollution/lib-static-demo/export.cjs
 node experiments/light-pollution/tools/audit/chrome-interactions.cjs chrome-review.json
 ```
 
-默认访问 8090 的候选 standalone；其他地址用 LIGHT_URL 指定。输出写入实验 docs，使用新的结果文件名保留基线。脚本 pass 表示所含功能断言通过，不代表所有性能场景通过。
+默认访问 8090 的候选 standalone；其他地址用 LIGHT_URL 指定。输出写入实验 docs，使用未占用且以 `.json` 结尾的文件名，其对应 `.cpuprofile` 也不得覆盖基线。脚本截图目前固定写入 `docs/chrome-billboard-panel.png`，不会随结果文件名改变；运行前将需要保留的截图另存为带日期或轮次的证据文件，运行后核对 Git 差异，不覆盖或丢弃用户已有修改。脚本 pass 表示所含功能断言通过，不代表所有性能场景通过。
 
 - 覆盖默认动画、广告转场、整页平移、建筑亮度/色温/窗帘连续拖动和全窗帘压力状态。广告屏必须验证独立面板、无需完整编辑器 DOM、零亮度点选、实时预览、单步撤销/重做、Esc/取消、面板互斥和播放控制。
 - 按改动运行核心测试与专项；交付执行 `npm run check`、`npm test`，影响页面时执行 `npm run test:browser` 及 `node experiments/light-pollution/tools/audit/run-tests.cjs`。文档检查运行 `node experiments/light-pollution/tools/audit/check-readmes.cjs`。
