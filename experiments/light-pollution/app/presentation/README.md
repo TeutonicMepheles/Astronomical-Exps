@@ -25,6 +25,8 @@ node experiments/light-pollution/tests/browser/verify-presentation.cjs
 
 `createStreetNavigation` 管理视图；`LightPollution.createBillboardPanel({getObject,locked,commands,getResource,select})` 装配面板，返回 `open/sync/syncResource`。参数命令归 billboard 服务所有，面板只持有 DOM。事件随 runtime 的 pagehide 清理；面板随页面释放。
 
+广告滑条在 input 时调用 previewValue，pointerup/change/blur 提交同一事务；pointercancel 或拖动中的 Esc 撤销预览。点击滑条轨道时先聚焦，避免 Chrome 在新 input 后才触发旧控件 blur，造成一条手势被拆成两条历史。关闭或切换面板提交已完成预览；Esc 先取消再关闭。
+
 ## 依赖与解耦策略
 
 导航只管理视图，不改变场景几何或业务参数。 依赖通过显式入口或 manifest 声明；不跨实验引用私有实现，不通过其他模块内部 DOM 或模拟点击执行业务。

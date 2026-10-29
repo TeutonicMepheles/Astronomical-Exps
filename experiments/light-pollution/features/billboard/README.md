@@ -24,7 +24,9 @@ node experiments/light-pollution/tests/browser/verify-video-transition.cjs
 ## 公开接口与数据
 
 
-`LightPollution.createBillboardCommands({getObject,locked,change,restart,setResource,resetFrame,elapsed,reduced})` 返回 setValue、setResource、toggle、next；无 DOM、无自有状态。setValue 仅接受 brightness 0–200、bloom/glitch/dots 0–100；setResource 接受 03/08。锁定时返回 false，不写历史。渲染器产出纹理，播放时钟由对象服务持有。
+`LightPollution.createBillboardCommands({getObject,locked,change,restart,setResource,resetFrame,elapsed,reduced,gesture})` 返回 setValue、setResource、toggle、next，以及 previewValue、commitGesture、cancelGesture。gesture 端口提供 begin/preview/commit/cancel，由对象服务接入场景历史；命令只持有未提交事务令牌，不持有 DOM。setValue/previewValue 仅接受 brightness 0–200、bloom/glitch/dots 0–100；setResource 接受 03/08。锁定时返回 false，不开启事务。预览不保存草稿，提交后一次保存；取消恢复拖动前状态。
+
+渲染器产出纹理，播放时钟由对象服务持有。GPU 图集为容量 2 的 LRU 缓存：转场两端各保留一张，切页时淘汰最旧纹理，避免每帧重新上传两张图集。当前素材约占 18 MiB RGBA 图集显存，不包括投影/帧缓冲；图片分辨率、20 fps 源帧、着色器和 0.45 秒转场不变。pagehide 先删除纹理，再释放 WebGL 上下文。
 
 ## 依赖与解耦策略
 

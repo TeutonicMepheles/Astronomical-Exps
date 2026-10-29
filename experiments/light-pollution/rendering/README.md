@@ -35,6 +35,8 @@ node experiments/light-pollution/tests/browser/verify-reflections.cjs
 
 窗面照明按资源/遮罩/亮度/色温缓存；投影 `warp(texture,corners,id)` 可复用同一对象输出，GPU 缓冲只增长。反射按连续窗口段缓存并保留对象和图层合成顺序；隐藏和不再使用的段会移除。
 
+建筑 invalidate 清除照明结果和窗口输出，保留源图与最近窗口归属图。源图身份或窗口可见性改变时 renderBase 才重建几何；因此导入参数、撤销和修改遮罩不会重新执行整图逐像素的最近窗口计算。pagehide 释放所有缓存。
+
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。

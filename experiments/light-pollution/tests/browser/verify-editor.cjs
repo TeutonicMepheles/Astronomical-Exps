@@ -6,7 +6,7 @@ const assert=require('node:assert/strict');
 (async()=>{const browser=await chromium.launch();try{
  const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(pathToFileURL(path.join(sceneDir,'index.html')).href+'?scene=legacy');await page.waitForSelector('html[data-ready=true]');
- const image=()=>page.locator('#scene').evaluate(c=>c.toDataURL());const initial=await image();
+ const image=()=>page.locator('#scene').evaluate(async c=>{await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return c.toDataURL();});const initial=await image();
  await page.locator('#edit-toggle').click();await page.locator('#editor-panel').waitFor({state:'visible'});
  const row=id=>page.locator(`.editor-row[data-id="${id}"]`);await row('buildings').locator('.layer-select').click();
  await page.locator('#prop-x').fill('80');await page.locator('#prop-x').press('Tab');assert.equal(await page.locator('#prop-x').inputValue(),'80');

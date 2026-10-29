@@ -188,8 +188,8 @@
     },
     {
       "path": "features/billboard/commands.js",
-      "bytes": 961,
-      "sha256": "eac3e0d879415fb8e3306f90c9930dec58940293e9c287524af17b39745e709e"
+      "bytes": 1476,
+      "sha256": "d62640ecdb005a31ad893281c0abefd18adefa07f1ad829b0221cb166a717643"
     },
     {
       "path": "rendering/surface-projector.js",
@@ -198,8 +198,8 @@
     },
     {
       "path": "rendering/building-renderer.js",
-      "bytes": 3388,
-      "sha256": "1f4329a1d2026b3f3e365df11f8d750138d111590b89a551f1eb14273c1c8103"
+      "bytes": 3591,
+      "sha256": "8dbc998db874cb72ad60c025ac908a2466d989499096aa06821e102341f14606"
     },
     {
       "path": "rendering/reflection-pass.js",
@@ -238,8 +238,8 @@
     },
     {
       "path": "features/billboard/renderer.js",
-      "bytes": 4004,
-      "sha256": "c435770f57eb4b351e622023916b2a5f21d3ee58d4a161cbd995c13626f74cee"
+      "bytes": 4595,
+      "sha256": "820809895b9c09315cb4d903c24e53e054942c6646f3e6aa846435746b3093a7"
     },
     {
       "path": "app/editor/object-editor.js",
@@ -248,13 +248,13 @@
     },
     {
       "path": "app/presentation/billboard-panel.js",
-      "bytes": 2725,
-      "sha256": "e6930e1513267e9df8a21483f675f5d4b9a7e5601ff6a171225f193d3fd56896"
+      "bytes": 3418,
+      "sha256": "cb233eb3b429946c53a118323ff4a654afa3ec9a6720f5e6e66020c012f7dd19"
     },
     {
       "path": "features/objects/service.js",
-      "bytes": 20055,
-      "sha256": "0a1ea557392fba0fe541b940cf6cb46ed14107b31b738a11b763dd2b227e463b"
+      "bytes": 20529,
+      "sha256": "b190315c51689e6aebbeacd33ef40a7c72fb2b4fb4551ca293e838b10d961eb8"
     },
     {
       "path": "resources/candidate-loader.js",
@@ -293,8 +293,8 @@
     },
     {
       "path": "features/buildings/controller.js",
-      "bytes": 16283,
-      "sha256": "8396f1f185e262f4301ce512b5ae0129dc62e1e8c7307450f9e49f01bb75b5ac"
+      "bytes": 16489,
+      "sha256": "fcc11f1acfd50cab562b1e0e48a355088468471e69fdebe0e290fa87768a2424"
     },
     {
       "path": "features/water/renderer.js",
@@ -333,18 +333,18 @@
     },
     {
       "path": "core/performance-probe.js",
-      "bytes": 1614,
-      "sha256": "b4dda2b4ed5dd29efaa3ae2146e5bb210ba41d1eddc0d59b7614119cf52c7854"
+      "bytes": 1686,
+      "sha256": "26b3a24a1ad2326ca441816beeac040249395486d13d71c37f8fdbfb615e3692"
     },
     {
       "path": "app/bootstrap.js",
-      "bytes": 21139,
-      "sha256": "8587c9df06a84fb98aac1f581edc9cc4ac464ce794ba226104e9b0f180dd6b28"
+      "bytes": 21079,
+      "sha256": "8a3f1179e4b180839e7a61c4c25b6ac5b6f6b316042341a53645417aa186d670"
     }
   ],
   "output": {
     "path": "lib-static-demo/standalone.html",
-    "bytes": 32572697,
-    "sha256": "21b7004f38a606d99df840a0763d115a80979573ba107147a552dc974198afbf"
+    "bytes": 32575391,
+    "sha256": "00fdf81d5c9f305cc4c6144230493540b1b0b55d149197801bdc7c1dab0139fc"
   }
 }

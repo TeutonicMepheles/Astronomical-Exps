@@ -290,10 +290,16 @@ window.LightPollution.createSceneStore = function ({ W,H,specs,sceneId,storageKe
   };return store;
 };
 </script><script>/* Both presentation and authoring UI call these commands, never one another. */
-window.LightPollution.createBillboardCommands = function ({ getObject, locked, change, restart, setResource, resetFrame, elapsed, reduced }) {
-  function mutate(fn) { const o=getObject(); if(!o||locked(o))return false;change(()=>fn(o));return true; }
+window.LightPollution.createBillboardCommands = function ({ getObject, locked, change, restart, setResource, resetFrame, elapsed, reduced, gesture }) {
+  let pending=null;
+  function commitGesture(){if(pending){const before=pending;pending=null;gesture.commit(before);}}
+  function cancelGesture(){if(pending){const before=pending;pending=null;gesture.cancel(before);}}
+  function validate(key,value){const max={brightness:200,bloom:100,glitch:100,dots:100}[key];if(max===undefined||!Number.isFinite(value)||value<0||value>max)throw Error('屏幕参数越界');}
+  function mutate(fn) { commitGesture();const o=getObject(); if(!o||locked(o))return false;change(()=>fn(o));return true; }
   return {
-    setValue(key,value){const max={brightness:200,bloom:100,glitch:100,dots:100}[key];if(max===undefined||!Number.isFinite(value)||value<0||value>max)throw Error('屏幕参数越界');return mutate(o=>{o[key]=value;});},
+    commitGesture,cancelGesture,
+    previewValue(key,value){validate(key,value);const o=getObject();if(!o||locked(o))return false;if(!pending)pending=gesture.begin();o[key]=value;gesture.preview();return true;},
+    setValue(key,value){validate(key,value);return mutate(o=>{o[key]=value;});},
     setResource(id){if(!['03','08'].includes(id))throw Error('未知动态屏幕资源');return mutate(o=>{o.resource=id;o.images=[];o.playing=true;setResource(id);restart();});},
     toggle(){return mutate(o=>{if(o.playing&&!reduced())o.slide+=Math.floor(elapsed()/6000);o.playing=!o.playing;resetFrame();});},
     next(){return mutate(o=>{o.slide++;resetFrame();restart();});}
@@ -343,7 +349,9 @@ window.createBuildingRenderer=function({W,H,getObjects,style,styleId,pictures,li
  c.restore();}}return out;}
  function renderBase(c,id,source,definitions,originals,warp){const list=getObjects().getData().items.filter(o=>o.parent===id&&o.type==='window'),visibleKey=list.map(o=>o.visible).join();let rec=baseCache.get(id);if(!rec||rec.source!==source||rec.visibleKey!==visibleKey){const full=make(W,H),g=full.getContext('2d');g.drawImage(source,0,0);for(const d of definitions.filter(o=>o.parent===id&&list.find(w=>w.id===o.id)?.visible)){const r=warp(originals.get(d.id)[0],d.corners);g.drawImage(r.canvas,r.x,r.y);}const owner=make(W,H),og=owner.getContext('2d'),pixels=og.createImageData(W,H),centers=list.map(o=>{const d=definitions.find(d=>d.id===o.id);return [d.corners.reduce((s,p)=>s+p[0],0)/4,d.corners.reduce((s,p)=>s+p[1],0)/4];});for(let y=0;y<H;y++)for(let x=0;x<W;x++){let nearest=0,dist=Infinity;centers.forEach((p,i)=>{const d=(x-p[0])**2+(y-p[1])**2;if(d<dist){dist=d;nearest=i;}});pixels.data[(y*W+x)*4]=nearest;pixels.data[(y*W+x)*4+3]=255;}og.putImageData(pixels,0,0);rec={source,full,owner,visibleKey,key:'',output:make(W,H)};baseCache.set(id,rec);}const key=JSON.stringify(list.map(o=>[o.brightness,o.temperature]));if(rec.key!==key){rec.key=key;const g=rec.output.getContext('2d');g.clearRect(0,0,W,H);g.drawImage(masked(rec.full,list,rec.owner,lightMasks.fullMask(id,rec.full)),0,0);}c.drawImage(rec.output,0,0);}
 
- return {renderWindow,renderBase,setMotionTime(t){curtainTime=t;},invalidate(){baseCache.clear();windowCache.clear();}};
+ // Parameter/mask imports change lighting, not the source or nearest-window geometry.
+ // renderBase still rebuilds geometry when source identity or visibility changes.
+ return {renderWindow,renderBase,setMotionTime(t){curtainTime=t;},invalidate(){for(const rec of baseCache.values())rec.key=null;windowCache.clear();}};
 };
 </script><script>/* Cache contiguous window emitters without changing layer/object blend order. */
 const reflectionCaches=new WeakMap();
@@ -566,9 +574,16 @@ float resolved=smoothstep(144.,432.,size.x);col*=mix(1.,.45+.55*dotMask,effects.
 gl_FragColor=vec4(col*gain,texture2D(image,crop.xy+clamp(q,0.,1.)*crop.zw).a);
 }`));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
 const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
-const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);for(const key of [gl.TEXTURE_MIN_FILTER,gl.TEXTURE_MAG_FILTER])gl.texParameteri(gl.TEXTURE_2D,key,gl.LINEAR);for(const key of [gl.TEXTURE_WRAP_S,gl.TEXTURE_WRAP_T])gl.texParameteri(gl.TEXTURE_2D,key,gl.CLAMP_TO_EDGE);let uploaded=-1;
+// A transition samples two atlases every frame. Retain that pair instead of
+// repeatedly uploading both multi-megabyte images into one texture.
+const textures=new Map();
+function bindAtlas(key,image){let texture=textures.get(key);if(texture){textures.delete(key);textures.set(key,texture);gl.bindTexture(gl.TEXTURE_2D,texture);return;}
+ if(textures.size===2){const oldest=textures.keys().next().value;gl.deleteTexture(textures.get(oldest));textures.delete(oldest);}
+ texture=gl.createTexture();textures.set(key,texture);gl.bindTexture(gl.TEXTURE_2D,texture);for(const param of [gl.TEXTURE_MIN_FILTER,gl.TEXTURE_MAG_FILTER])gl.texParameteri(gl.TEXTURE_2D,param,gl.LINEAR);for(const param of [gl.TEXTURE_WRAP_S,gl.TEXTURE_WRAP_T])gl.texParameteri(gl.TEXTURE_2D,param,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);
+}
+LightPollution.disposers.push(()=>{for(const texture of textures.values())gl.deleteTexture(texture);textures.clear();});
 const u=name=>gl.getUniformLocation(program,name);gl.uniform2f(u('size'),640,384);gl.uniform1f(u('gain'),1);gl.viewport(0,0,640,384);
-return {draw(time,fx,id='08'){const data=sources[id]||sources['08'],images=decoded[id]||decoded['08'];const frame=Math.floor(time%data.duration*data.fps)%data.count,page=Math.floor(frame/data.perAtlas),slot=frame%data.perAtlas;if(uploaded!==id+':'+page){gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,images[page]);uploaded=id+':'+page;}gl.uniform4f(u('crop'),((slot%data.columns)*data.strideX+data.padding+.5)/data.atlasWidth,(Math.floor(slot/data.columns)*data.strideY+data.padding+.5)/data.atlasHeight,(data.frameWidth-1)/data.atlasWidth,(data.frameHeight-1)/data.atlasHeight);gl.uniform3f(u('effects'),fx.bloom,fx.glitch,fx.dots);gl.uniform1f(u('time'),time);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);return canvas;}};
+return {draw(time,fx,id='08'){const data=sources[id]||sources['08'],images=decoded[id]||decoded['08'];const frame=Math.floor(time%data.duration*data.fps)%data.count,page=Math.floor(frame/data.perAtlas),slot=frame%data.perAtlas;bindAtlas(id+':'+page,images[page]);gl.uniform4f(u('crop'),((slot%data.columns)*data.strideX+data.padding+.5)/data.atlasWidth,(Math.floor(slot/data.columns)*data.strideY+data.padding+.5)/data.atlasHeight,(data.frameWidth-1)/data.atlasWidth,(data.frameHeight-1)/data.atlasHeight);gl.uniform3f(u('effects'),fx.bloom,fx.glitch,fx.dots);gl.uniform1f(u('time'),time);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);return canvas;}};
 };
 </script><script>/* Authoring-only UI. Feature state is accessed through an explicit host adapter. */
 window.LightPollution.bindObjectEditor=function({$,definitions,buildings,billboardCommands,refresh,compose,locked,item,mutate,parent,chooseImage,defaults,getSession,ui,getState}){
@@ -595,8 +610,15 @@ window.LightPollution.createBillboardPanel=function({getObject,locked,commands,g
  }
  function openBillboard(){LightPollution.panels.open('billboard');}
  function bindBillboard(){const panel=document.createElement('aside');panel.id='billboard-controls';panel.hidden=true;panel.setAttribute('aria-label','广告屏编辑');panel.innerHTML=`<div class="building-heading"><strong>广告屏编辑</strong><button id="billboard-close" aria-label="关闭广告屏编辑">×</button></div>${[['brightness','亮度',200],['bloom','Bloom 光晕',100],['glitch','Glitch 故障',100],['dots','像素波点',100]].map(([k,label,max])=>`<label>${label}<output id="billboard-${k}-value"></output><input id="billboard-${k}" type="range" min="0" max="${max}" step="5"></label>`).join('')}<label>视频资源<select id="billboard-resource"><option value="08">08 · 音乐之夜</option><option value="03">03 · 未来视界</option></select></label><div class="building-presets"><button id="billboard-play">暂停播放</button><button id="billboard-next">从头播放</button></div><p>灯光与光晕为视觉演示。</p>`;document.querySelector('.stage').append(panel);
-  LightPollution.panels.register('billboard',()=>{select();panel.hidden=false;},()=>{panel.hidden=true;});$('billboard-close').onclick=closeBillboard;
-  for(const k of ['brightness','bloom','glitch','dots'])$('billboard-'+k).onchange=e=>commands.setValue(k,Number(e.target.value));
+  LightPollution.panels.register('billboard',()=>{select();panel.hidden=false;},()=>{commands.commitGesture();panel.hidden=true;});$('billboard-close').onclick=closeBillboard;
+  for(const k of ['brightness','bloom','glitch','dots']){const input=$('billboard-'+k);let dragging=false;
+   // Chrome can emit the track's first input before blurring the previous slider.
+   // Focus first so that previous blur cannot commit this new gesture halfway.
+   input.onpointerdown=()=>{input.focus({preventScroll:true});dragging=true;};input.oninput=e=>commands.previewValue(k,Number(e.target.value));
+   input.onchange=()=>{if(!dragging)commands.commitGesture();};input.onpointerup=()=>{dragging=false;commands.commitGesture();};
+   input.onblur=()=>{dragging=false;commands.commitGesture();};input.onpointercancel=()=>{dragging=false;commands.cancelGesture();};
+  }
+  LightPollution.on(document,'keydown',e=>{if(e.key==='Escape'&&!panel.hidden)commands.cancelGesture();},true);
   $('billboard-resource').onchange=e=>commands.setResource(e.target.value);
   $('billboard-play').onclick=commands.toggle;$('billboard-next').onclick=commands.next;
 
@@ -650,7 +672,10 @@ window.createSceneObjects=function({canvas,screen,W,H,apertures,interiors,images
  }
  function load(src){if(loaded.has(src))return Promise.resolve(loaded.get(src));if(pending.has(src))return pending.get(src);const p=new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>{if(im.width*im.height>20000000){reject(Error('图片尺寸过大'));return;}loaded.set(src,im);resolve(im);};im.onerror=()=>reject(Error('无法解码图片'));im.src=src;});pending.set(src,p);p.finally(()=>pending.delete(src)).catch(()=>{});return p;}
  function preload(data){return Promise.all([...Object.values(data.layerImages),...data.items.flatMap(o=>o.images)].map(load));}
- function setData(data){revision++;const next=data.items.find(o=>o.type==='billboard')?.resource??'08';if(next!==(state.items.find(o=>o.type==='billboard')?.resource??'08')){activeVideo=next;videoTime=0;transitionTime=0;lastFrame=0;}state=clone(data);warped.clear();preload(state).then(()=>{warped.clear();compose();}).catch(e=>{if($('editor-status'))$('editor-status').textContent=e.message;});refresh();}
+ function setData(data){revision++;const next=data.items.find(o=>o.type==='billboard')?.resource??'08';if(next!==(state.items.find(o=>o.type==='billboard')?.resource??'08')){activeVideo=next;videoTime=0;transitionTime=0;lastFrame=0;}
+  for(const o of data.items)if(JSON.stringify(o)!==JSON.stringify(state.items.find(old=>old.id===o.id)))warped.delete(o.id);
+  state=clone(data);const missing=[...Object.values(state.layerImages),...state.items.flatMap(o=>o.images)].some(src=>!loaded.has(src));
+  if(missing)preload(state).then(()=>{warped.clear();compose();}).catch(e=>{if($('editor-status'))$('editor-status').textContent=e.message;});refresh();}
  function mutate(fn){getSession().changeExternal(()=>{fn();revision++;warped.clear();refresh();});}
  function cover(c,im,w,h){const s=Math.max(w/im.width,h/im.height);c.drawImage(im,(w-im.width*s)/2,(h-im.height*s)/2,im.width*s,im.height*s);}
  const projector=createSurfaceProjector(),warp=projector.warp;LightPollution.disposers.push(()=>projector.destroy());
@@ -669,7 +694,9 @@ window.createSceneObjects=function({canvas,screen,W,H,apertures,interiors,images
  function drawSelection(active){const o=item(),l=parent();if(!active||!objectMode||!selectionVisible||!o.visible||!l.visible||l.opacity<=0||!isObjectVisible(o.type,o))return;const v=viewport(),scale=W/canvas.getBoundingClientRect().width,q=o.corners.map(world).map(p=>[(p[0]-v.x)*v.z,(p[1]-v.y)*v.z]);screen.save();screen.strokeStyle=locked(o)?'#9ba9b880':'#f1ce9280';screen.lineWidth=1.5*scale;screen.beginPath();q.forEach((p,i)=>i?screen.lineTo(...p):screen.moveTo(...p));screen.closePath();screen.stroke();if(cornerMode)q.forEach((p,i)=>{screen.beginPath();screen.arc(...p,5*scale,0,Math.PI*2);screen.fillStyle='#eac99780';screen.fill();screen.fillStyle='#fff';screen.font=10*scale+'px sans-serif';screen.fillText(String(i+1),p[0]+8*scale,p[1]-7*scale);});screen.restore();}
  function refresh(){syncBillboard();if(!$('object-select'))return;const o=item();$('object-select').value=selected;if($('object-resource')){$('object-resource').value=activeVideo;$('object-resource').disabled=locked(o);}for(const k of ['brightness','temperature','coverage','bloom','glitch','dots']){$('object-'+k).value=o[k];$('value-'+k).textContent=o[k]+(k==='temperature'?' K':'%');$('object-'+k).disabled=locked(o);}$('object-material').value=o.material;$('object-material').disabled=locked(o);$('object-visible').textContent=o.visible?'隐藏对象':'显示对象';$('object-lock').textContent=o.locked?'解锁对象':'锁定对象';$('object-play').textContent=o.playing?'暂停播放':'继续播放';$('object-corners').setAttribute('aria-pressed',String(cornerMode));$('object-move').setAttribute('aria-pressed',String(!cornerMode));document.querySelectorAll('[data-window]').forEach(e=>e.hidden=o.type!=='window');document.querySelectorAll('[data-ad]').forEach(e=>e.hidden=o.type!=='billboard');$('object-light-mask').hidden=!definitions||o.type!=='window';for(const id of ['object-visible','object-image','object-original','object-next','object-play','object-reset'])$(id).disabled=locked(o);$('object-lock').disabled=!!parent()?.locked;$('object-note').textContent=locked(o)?'对象或建筑图层已锁定。':'空格＋拖动平移；点击对象外隐藏编辑框，点击对象恢复。拖动角点调整透视。';}
  async function chooseImage(files,target,layer){try{if(!files.length)return;if(files.length>12)throw Error('最多选择 12 张图片');const data=[];for(const file of files){if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>8000000)throw Error('请选择 8MB 内的 PNG、JPEG 或 WebP');const url=URL.createObjectURL(file);try{const im=await load(url),c=make(Math.max(1,Math.round(im.width*Math.min(1,2048/Math.max(im.width,im.height)))),Math.max(1,Math.round(im.height*Math.min(1,2048/Math.max(im.width,im.height)))));c.getContext('2d').drawImage(im,0,0,c.width,c.height);data.push(c.toDataURL('image/webp',.92));loaded.delete(url);}finally{URL.revokeObjectURL(url);}}await Promise.all(data.map(load));if(layer){const l=getSession().layers.find(l=>l.id===target);if(l.locked)return;mutate(()=>{state.layerImages[target]=data[0];});}else{const o=state.items.find(o=>o.id===target);if(locked(o))return;mutate(()=>{o.images=data;o.slide=0;});}}catch(e){$('object-note').textContent=e.message;if($('editor-status'))$('editor-status').textContent=e.message;}}
- const billboardCommands=LightPollution.createBillboardCommands({getObject:()=>state.items.find(o=>o.type==='billboard'),locked,change:mutate,restart(){videoTime=0;transitionTime=0;lastFrame=0;},setResource(id){activeVideo=id;},resetFrame(){frameTime=0;},elapsed:()=>frameTime,reduced:()=>reduced.matches});
+ const billboardCommands=LightPollution.createBillboardCommands({getObject:()=>state.items.find(o=>o.type==='billboard'),locked,change:mutate,restart(){videoTime=0;transitionTime=0;lastFrame=0;},setResource(id){activeVideo=id;},resetFrame(){frameTime=0;},elapsed:()=>frameTime,reduced:()=>reduced.matches,
+  gesture:{begin:()=>getSession().beginExternal(),commit:before=>getSession().commitExternal(before),cancel:before=>getSession().cancelExternal(before),preview(){revision++;warped.delete('billboard');refresh();compose();}}
+ });
  let billboardPanel=null;
  function syncBillboard(){billboardPanel?.sync();}
  function openBillboard(){billboardPanel?.open();}
@@ -997,7 +1024,8 @@ window.createBuildingControls=function({canvas,W,H,getSession,getObjects,compose
  const load=src=>pictures.has(src)?Promise.resolve():new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>{pictures.set(src,im);resolve();};im.onerror=()=>reject(Error('窗帘图片无法读取'));im.src=src;});const ready=Promise.all(STREET_CURTAINS.map(s=>load(s.image)));
  function validate(v){if(v===undefined)return defaults();if(!v||v.version!==1||!Array.isArray(v.styles)||v.styles.length!==4||!v.assignments||!v.progress)throw Error('建筑控制配置无效');for(const s of v.styles)if(s&&(typeof s.name!=='string'||s.name.length>200||typeof s.image!=='string'||s.image.length>8000000||!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(s.image)))throw Error('窗帘图片无效');for(const [id,n]of Object.entries(v.assignments))if(!/^(residential|public|ad-building)-window-\d+$/.test(id)||!Number.isInteger(n)||n<0||n>3)throw Error('窗帘款式无效');v=copy(v);if(v.progress['ad-building']===undefined)v.progress['ad-building']=0;for(const id of ['residential','public','ad-building'])if(!Number.isFinite(v.progress[id])||v.progress[id]<0||v.progress[id]>100)throw Error('建筑窗帘进度无效');v.lightMasks=lightMasks.validate(v.lightMasks);return copy(v);}
  const preload=v=>Promise.all([...v.styles.filter(Boolean).map(s=>load(s.image)),lightMasks.preload(v.lightMasks)]);
- function setData(v){state=validate(v);lightMasks.setData(state.lightMasks);renderer.invalidate();preload(state).then(()=>{renderer.invalidate();getObjects()?.invalidateWindows();compose();}).catch(e=>{if($('editor-status'))$('editor-status').textContent=e.message;});sync();}
+ function setData(v){const next=validate(v),changed=JSON.stringify([state.lightMasks,state.styles,state.assignments])!==JSON.stringify([next.lightMasks,next.styles,next.assignments]);state=next;
+  if(changed){lightMasks.setData(state.lightMasks);renderer.invalidate();getObjects()?.invalidateWindows();preload(state).then(()=>{renderer.invalidate();getObjects()?.invalidateWindows();compose();}).catch(e=>{if($('editor-status'))$('editor-status').textContent=e.message;});}sync();}
  const renderer=createBuildingRenderer({W,H,getObjects,style,styleId,pictures,lightMasks}),renderWindow=renderer.renderWindow,renderBase=renderer.renderBase;
  let maskLoading=false,maskTarget=null;
  function list(){return getObjects()?.getData().items.filter(o=>o.parent===group&&o.type==='window')||[];}
@@ -1233,8 +1261,9 @@ window.createSceneEffects=function({getSession,compose,hitDistant}){
  const records=[],longs=[];let start=performance.now(),last=0;
  const output=document.createElement('output');output.id='performance-probe';output.style.cssText='position:fixed;left:8px;top:8px;z-index:99999;background:#001d;color:white;font:12px monospace;max-width:95vw;pointer-events:none';document.body.append(output);
  const observer=new PerformanceObserver(list=>longs.push(...list.getEntries().map(x=>x.duration)));observer.observe({type:'longtask'});
- LightPollution.profile={record(ms){const now=performance.now();records.push({ms,gap:last?now-last:0});last=now;},reset(){records.length=longs.length=0;start=performance.now();last=0;}};
- const timer=setInterval(()=>{const duration=(performance.now()-start)/1000,sorted=records.map(x=>x.ms).sort((a,b)=>a-b),gaps=records.map(x=>x.gap).filter(Boolean).sort((a,b)=>a-b);const at=(a,q)=>+(a[Math.min(a.length-1,Math.floor(a.length*q))]||0).toFixed(2);const result={seconds:+duration.toFixed(1),sceneFps:+(records.length/duration).toFixed(1),renderP95:at(sorted,.95),renderMax:at(sorted,1),gapP95:at(gaps,.95),gapMax:at(gaps,1),longTasks:longs.length,heap:performance.memory?.usedJSHeapSize,dpr:devicePixelRatio,viewport:[innerWidth,innerHeight]};output.textContent=JSON.stringify(result);output.dataset.result=JSON.stringify(result);if(duration>20)LightPollution.profile.reset();},5000);
+ function snapshot(){const duration=(performance.now()-start)/1000,sorted=records.map(x=>x.ms).sort((a,b)=>a-b),gaps=records.map(x=>x.gap).filter(Boolean).sort((a,b)=>a-b);const at=(a,q)=>+(a[Math.min(a.length-1,Math.floor(a.length*q))]||0).toFixed(2);return {seconds:+duration.toFixed(1),sceneFps:+(records.length/Math.max(.001,duration)).toFixed(1),renderP95:at(sorted,.95),renderMax:at(sorted,1),gapP95:at(gaps,.95),gapMax:at(gaps,1),longTasks:longs.length,heap:performance.memory?.usedJSHeapSize,dpr:devicePixelRatio,viewport:[innerWidth,innerHeight]};}
+ LightPollution.profile={snapshot,record(ms){const now=performance.now();records.push({ms,gap:last?now-last:0});last=now;},reset(){records.length=longs.length=0;start=performance.now();last=0;}};
+ const timer=setInterval(()=>{const result=snapshot();output.textContent=JSON.stringify(result);output.dataset.result=JSON.stringify(result);if(result.seconds>20)LightPollution.profile.reset();},5000);
  LightPollution.disposers.push(()=>{clearInterval(timer);observer.disconnect();output.remove();});
 })();
 </script><script>/* Static assembly of Lib Image output. Original panorama is reference-only. */
@@ -1317,7 +1346,7 @@ const buildings=window.createBuildingControls({canvas,W,H,getSession:()=>session
  }return false;}
  let distantHitBand=null;
  function waterTick(t){const dt=waterLast?Math.min(t-waterLast,100):0;waterLast=t;if(!ready||document.hidden||waterReduced.matches||mode!=='generated')return;const layer=session.layers.find(l=>l.id==='front-water');if(layer&&(!layer.visible||layer.opacity<=0))return;waterSeconds+=dt/1000*sceneEffects.getData().waterSpeed;compose();}LightPollution.disposers.push(LightPollution.scheduler.add(waterTick));
- function compose(){if(!ready)return;if(LightPollution.scheduler.batching)LightPollution.scheduler.invalidate('scene',renderScene);else renderScene();}
+ function compose(){if(ready)LightPollution.scheduler.invalidate('scene',renderScene);}
  function renderScene(){if(!ready)return;const started=LightPollution.profile?performance.now():0;LightPollution.renderScene({lightEnvironment,scene,session,specs,visible,bounds,candidate,candidateMode,surfaces,objects,waterFlow,waterReduced,waterSeconds,reflectionScene,screenLight,sceneEffects,lamps,paint,cover,W,H});LightPollution.profile?.record(performance.now()-started);}
  let lastPaintView='';
  function paint(){if(!ready)return;const v=views[view],w=W/v.z,h=H/v.z,x=Math.max(0,Math.min(W-w,v.x-w/2)),y=Math.max(0,Math.min(H-h,v.y-h/2));const paintKey=JSON.stringify([view,mode,v,!!editor?.active]);if(paintKey!==lastPaintView){lastPaintView=paintKey;document.querySelector('#sky-viewport').style.transform=`translate(${-x/W*100*v.z}%,${-y/H*100*v.z}%) scale(${v.z})`;document.querySelector('#view-label').textContent=(mode==='generated'?'Lib Image 合成':'原图构图参照')+' / '+viewNames[view];document.documentElement.dataset.mode=mode;document.documentElement.dataset.view=view;navigation.sync();}screen.clearRect(0,0,W,H);screen.drawImage(mode==='generated'?scene:sourceView,x,y,w,h,0,0,W,H);if(editor)editor.drawSelection();interactionHints.sync();}
@@ -1365,6 +1394,6 @@ const buildings=window.createBuildingControls({canvas,W,H,getSession:()=>session
  LightPollution.authoring={open(tab='layers',id){ensureEditor();editor.setActive(true);if(tab==='gradient')gradient.open();else if(tab==='objects')objects.selectForEditing(id);else objects.showEditor(false);},setView(name){view=name;document.querySelectorAll('button[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===name)));paint();},setInspecting};
  document.querySelector('#edit-toggle').disabled=false;document.querySelector('#edit-toggle').onclick=()=>{ensureEditor();editor.setActive(true);};
  LightPollution.on(document,'compositor-open-gradient',()=>LightPollution.authoring.open('gradient'));
- await store.restore();compose();document.querySelector('#loading').hidden=true;document.documentElement.dataset.ready='true';}).catch(e=>{console.error(e);document.querySelector('#loading').textContent=e.message;});
+ await store.restore();renderScene();document.querySelector('#loading').hidden=true;document.documentElement.dataset.ready='true';}).catch(e=>{console.error(e);document.querySelector('#loading').textContent=e.message;});
 })();
 </script></body></html>

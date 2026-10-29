@@ -1118,6 +1118,14 @@
     "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
   },
   {
+    "path": "docs/chrome-billboard-panel.png",
+    "bytes": 1901206,
+    "sha256": "218a570ec906ff97e8146ae849c8387b8382c96caa480b4c13df54f8095fef22",
+    "dimensions": "2400 × 1350",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
     "path": "layered-demo/preview.png",
     "bytes": 840316,
     "sha256": "c400f1cec132ff3c13e07a9bb0d7da144c7cafd2766dbeea4e0e59cd7e1c6d4e",

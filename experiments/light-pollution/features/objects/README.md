@@ -31,6 +31,8 @@ node experiments/light-pollution/tests/browser/verify-objects.cjs
 
 `revision` 供提示层检测文档改变；动画不增加文档版本。水体和广告按统一帧时钟更新，超过 12 扇活动窗帘分三批失效，使用真实经过时间计算运动，避免集中重绘。
 
+setData 比较各对象的文档内容，只失效改变对象的投影；已解码资源不再安排额外异步重绘。广告实时预览仅失效广告对象，事务提交/取消交给 session；调用方通过 compose 请求下一帧统一绘制。
+
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。

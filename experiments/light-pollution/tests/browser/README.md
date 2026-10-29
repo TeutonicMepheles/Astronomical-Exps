@@ -8,6 +8,8 @@
 
 默认 Playwright Chromium；保留原 fixture 和离线路径，兼容脚本只转发。
 
+画布快照和派生光照读数在两个 rAF 后读取，等待统一 scheduler 的合成及其派生天空绘制；像素相等、不等、色彩比值和功能断言保持原标准。真实本机 Chrome 的点击/拖动及性能检查入口见 [chrome-interactions.cjs](../../tools/audit/chrome-interactions.cjs)，不与本组 GPU 测试并行运行。
+
 ## 文件与子目录索引
 
 - [data-compatibility.cjs](data-compatibility.cjs)：迁移前候选 fixture 和 v1 可选字段兼容。

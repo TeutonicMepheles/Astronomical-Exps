@@ -10,7 +10,7 @@ SceneStore 通过特性端口协调文档，History 管理手势事务和图片�
 
 ## 文件与子目录索引
 
-- [performance-probe.js](performance-probe.js)：仅 `?profile=1` 启用；统计场景合成耗时、频率与长任务，随 runtime 销毁。
+- [performance-probe.js](performance-probe.js)：仅 `?profile=1` 启用；统计场景合成耗时、频率与长任务，随 runtime 销毁。`profile.reset()` 开始采样、`profile.snapshot()` 读取即时统计，避免测试误读每 5 秒更新的 HUD。HUD 超过 20 秒自动清窗，长采样须分段读取。
 
 - [history.js](history.js)
 - [runtime.js](runtime.js)

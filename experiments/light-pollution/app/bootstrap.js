@@ -78,7 +78,7 @@ const buildings=window.createBuildingControls({canvas,W,H,getSession:()=>session
  }return false;}
  let distantHitBand=null;
  function waterTick(t){const dt=waterLast?Math.min(t-waterLast,100):0;waterLast=t;if(!ready||document.hidden||waterReduced.matches||mode!=='generated')return;const layer=session.layers.find(l=>l.id==='front-water');if(layer&&(!layer.visible||layer.opacity<=0))return;waterSeconds+=dt/1000*sceneEffects.getData().waterSpeed;compose();}LightPollution.disposers.push(LightPollution.scheduler.add(waterTick));
- function compose(){if(!ready)return;if(LightPollution.scheduler.batching)LightPollution.scheduler.invalidate('scene',renderScene);else renderScene();}
+ function compose(){if(ready)LightPollution.scheduler.invalidate('scene',renderScene);}
  function renderScene(){if(!ready)return;const started=LightPollution.profile?performance.now():0;LightPollution.renderScene({lightEnvironment,scene,session,specs,visible,bounds,candidate,candidateMode,surfaces,objects,waterFlow,waterReduced,waterSeconds,reflectionScene,screenLight,sceneEffects,lamps,paint,cover,W,H});LightPollution.profile?.record(performance.now()-started);}
  let lastPaintView='';
  function paint(){if(!ready)return;const v=views[view],w=W/v.z,h=H/v.z,x=Math.max(0,Math.min(W-w,v.x-w/2)),y=Math.max(0,Math.min(H-h,v.y-h/2));const paintKey=JSON.stringify([view,mode,v,!!editor?.active]);if(paintKey!==lastPaintView){lastPaintView=paintKey;document.querySelector('#sky-viewport').style.transform=`translate(${-x/W*100*v.z}%,${-y/H*100*v.z}%) scale(${v.z})`;document.querySelector('#view-label').textContent=(mode==='generated'?'Lib Image 合成':'原图构图参照')+' / '+viewNames[view];document.documentElement.dataset.mode=mode;document.documentElement.dataset.view=view;navigation.sync();}screen.clearRect(0,0,W,H);screen.drawImage(mode==='generated'?scene:sourceView,x,y,w,h,0,0,W,H);if(editor)editor.drawSelection();interactionHints.sync();}
@@ -126,5 +126,5 @@ const buildings=window.createBuildingControls({canvas,W,H,getSession:()=>session
  LightPollution.authoring={open(tab='layers',id){ensureEditor();editor.setActive(true);if(tab==='gradient')gradient.open();else if(tab==='objects')objects.selectForEditing(id);else objects.showEditor(false);},setView(name){view=name;document.querySelectorAll('button[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===name)));paint();},setInspecting};
  document.querySelector('#edit-toggle').disabled=false;document.querySelector('#edit-toggle').onclick=()=>{ensureEditor();editor.setActive(true);};
  LightPollution.on(document,'compositor-open-gradient',()=>LightPollution.authoring.open('gradient'));
- await store.restore();compose();document.querySelector('#loading').hidden=true;document.documentElement.dataset.ready='true';}).catch(e=>{console.error(e);document.querySelector('#loading').textContent=e.message;});
+ await store.restore();renderScene();document.querySelector('#loading').hidden=true;document.documentElement.dataset.ready='true';}).catch(e=>{console.error(e);document.querySelector('#loading').textContent=e.message;});
 })();

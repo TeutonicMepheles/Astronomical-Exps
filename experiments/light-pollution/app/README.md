@@ -29,6 +29,8 @@ node experiments/light-pollution/lib-static-demo/export.cjs
 
 公开入口：`compositorLightEnvironment`。具体参数与返回值以入口定义和专项测试为准。
 
+初始化在草稿恢复及首帧 renderScene 完成后设置 `html[data-ready=true]`。其后所有 compose 请求进入统一 scheduler，同一帧内的输入、资源回调和动画只提交一次整景。状态同步改变，画布与派生光照报告在下一帧更新；读取像素的测试须等待绘制帧，不能把事件处理结束当成绘制完成。
+
 ## 依赖与解耦策略
 
 仅负责装配与视图；状态事务归 core，资源加载归 resources。 依赖通过显式入口或 manifest 声明；不跨实验引用私有实现，不通过其他模块内部 DOM 或模拟点击执行业务。

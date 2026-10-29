@@ -10,6 +10,7 @@
 
 ## 文件与子目录索引
 
+- [chrome-interactions.cjs](chrome-interactions.cjs)：本机有窗口 Chrome，真实鼠标/键盘操作广告屏、三栋建筑与全景；记录 rAF、事件耗时、长任务和 CPU profile。隔离浏览器配置，不使用用户草稿。
 - [profile-headed.cjs](profile-headed.cjs)：本机有窗口 Chrome 的默认/全窗帘采样，需先启动 127.0.0.1:12918 仓库 HTTP 服务。
 
 - [catalog.py](catalog.py)：刷新资源元数据与目录 README 表格，运行 `python -X utf8 experiments/light-pollution/tools/audit/catalog.py`。
@@ -28,6 +29,8 @@
 ```sh
 node experiments/light-pollution/tools/audit/run-tests.cjs
 ```
+
+本机 Chrome 专项在仓库根运行 `node experiments/light-pollution/tools/audit/chrome-interactions.cjs chrome-expanded.json`。先启动仓库 HTTP 服务，默认访问 127.0.0.1:8090；可用 LIGHT_URL 指定 standalone 地址。结果和对应 .cpuprofile 写入 docs；测试期间请勿操作自动化 Chrome 窗口。全窗帘通过公开 importDocument 设置压力场景，其加载耗时与正常动画分开说明；其余操作使用真实鼠标/键盘。该结果不等于人眼或白板验收。
 
 ## 公开接口与数据
 

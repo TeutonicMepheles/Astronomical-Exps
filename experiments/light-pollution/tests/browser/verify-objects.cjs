@@ -7,7 +7,7 @@ const path=require('node:path'),fs=require('node:fs'),assert=require('node:asser
  page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url()))requests.push(r.url());});
  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href+'?scene=legacy');await page.waitForSelector('html[data-ready=true]');
  await page.locator('#edit-toggle').click();await page.locator('#tab-objects').click();await page.locator('[data-view=billboard]').click();
- const pixels=()=>page.locator('#scene').evaluate(c=>c.toDataURL());
+ const pixels=()=>page.locator('#scene').evaluate(async c=>{await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return c.toDataURL();});
  const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('lib-static-layout-v1')));
  const change=async(id,value)=>{await page.locator(id).fill(String(value));await page.locator(id).dispatchEvent('change');};
  await change('#object-bloom',65);const original=await saved(),ad=original.objects.items.find(x=>x.id==='billboard');

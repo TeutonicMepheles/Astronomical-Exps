@@ -8,10 +8,10 @@ const path=require('node:path'),fs=require('node:fs'),assert=require('node:asser
  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href);await page.waitForSelector('html[data-ready=true]');
  await page.locator('#edit-toggle').click();
  assert.equal(await page.locator('.editor-row').count(),7);
- const initialPixels=await page.locator('#scene').evaluate(c=>c.toDataURL());
- for(let i=0;i<7;i++){const toggle=page.locator('.editor-row').nth(i).locator('button[aria-label$=" 显示"]');await toggle.click();assert.notEqual(await page.locator('#scene').evaluate(c=>c.toDataURL()),initialPixels);await toggle.click();}
+ const initialPixels=await page.locator('#scene').evaluate(async c=>{await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return c.toDataURL();});
+ for(let i=0;i<7;i++){const toggle=page.locator('.editor-row').nth(i).locator('button[aria-label$=" 显示"]');await toggle.click();assert.notEqual(await page.locator('#scene').evaluate(async c=>{await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return c.toDataURL();}),initialPixels);await toggle.click();}
  await page.locator('#tab-objects').click();await page.locator('[data-view=billboard]').click();
- const pixels=()=>page.locator('#scene').evaluate(c=>c.toDataURL());
+ const pixels=()=>page.locator('#scene').evaluate(async c=>{await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return c.toDataURL();});
  const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('lib-candidate-layout-v1')));
  const change=async(id,value)=>{await page.locator(id).fill(String(value));await page.locator(id).dispatchEvent('change');};
  await change('#object-bloom',65);const original=await saved(),ad=original.objects.items.find(x=>x.id==='billboard');

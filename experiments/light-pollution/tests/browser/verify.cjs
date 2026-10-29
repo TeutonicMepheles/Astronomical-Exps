@@ -14,7 +14,7 @@ const assert=require('node:assert/strict');
   await page.waitForSelector('html[data-editing="true"]');
   await page.locator('#inspect-layers').click();
   assert(await page.locator('.layer-controls').isVisible(),'Layer inspection must be reachable');
-  const pixels=()=>page.locator('#scene').evaluate(c=>c.toDataURL());
+  const pixels=()=>page.locator('#scene').evaluate(async c=>{await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return c.toDataURL();});
   const baseline=await pixels();
   await page.waitForTimeout(250);assert.equal(await pixels(),baseline,'Static scene must remain stable');
   for(let i=0;i<8;i++){

@@ -10,6 +10,7 @@
 
 ## 文件与子目录索引
 
+- [CHROME-PERFORMANCE-2026-10-29.md](CHROME-PERFORMANCE-2026-10-29.md)：本机 Chrome 的真实输入、84 秒采样、卡顿原因、修复及异常边界；链接全部原始结果与 CPU profile。
 - [headed-before.json](headed-before.json) 与 [headed-final.json](headed-final.json)：有窗口 Chrome 场景帧率及长任务对比。
 
 - [VALIDATION.md](VALIDATION.md)：验证结果、性能、兼容限制与人工待验。
@@ -39,6 +40,7 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 | 文件 | 尺寸/坐标 | 字节 | 使用边界 |
 | --- | --- | ---: | --- |
 | [billboard-panel.png](billboard-panel.png) | 1600 × 900 | 1,140,070 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| [chrome-billboard-panel.png](chrome-billboard-panel.png) | 2400 × 1350 | 1,901,206 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
 
 ## 公开接口与数据
 
