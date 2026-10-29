@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-21",
+  "mode": "built-in image_gen",
+  "use_case": "style-transfer",
+  "source": "用户提供的 codex-clipboard-5610e6a1-f6eb-4871-a743-ef9b928b1e61.png",
+  "target": "concave-glass-illustration-v1.png",
+  "status": "standalone visual-normalization candidate; not integrated into experiment",
+  "references": [
+    "Visual-Spec/VISUAL_SPEC.md",
+    "Visual-Spec/IMPLEMENTATION_BASELINE.md",
+    "Visual-Spec/README.md",
+    "Visual-Spec/REFERENCES.md",
+    "Visual-Spec/references/overview-forms.jpg"
+  ],
+  "changes": [
+    "低饱和冰蓝/蓝紫色盘",
+    "减少写实环境反光，采用概括色块与柔和明暗",
+    "保留凹曲面、玻璃厚度和半透明层次",
+    "独立透明 PNG，不包含文字或交互状态"
+  ],
+  "prompt": "Use case: style-transfer.\nCompletely restyle the optical glass object from image 1 into the visual language of a calm illustrated science teaching asset. The user explicitly wants illustration standardization, so the final finish must be substantially simpler and cleaner than the original photographic-looking rendering.\nImage 1: shape/orientation reference. Image 2: illustration-style reference ONLY. Produce one optical component, not a page, collage or reference sheet.\nPreserve the same tall elliptical concave glass shape, inward face, visible edge thickness, three-quarter view facing toward the left and central placement. Square canvas, fully visible component with generous padding.\nUse CLEAN CEL-SHADED EDUCATIONAL ILLUSTRATION: only 4 or 5 controlled broad blue-lavender tonal areas, extremely subtle smooth blending, simple coherent geometry, smooth unbroken contours. Face a quiet pale ice blue, recessed left crescent mist blue, rim muted lavender. Show glass transparency with a single delicate inner contour and a restrained narrow pale highlight. No grain on the face.\nIMPORTANT: Replace the entire noisy shiny outer rim with a newly drawn smooth simple elliptical glass thickness strip. Absolutely no cloud-like studio reflections, mottled chrome, metallic shine, glitter, neon, cyan/ultramarine jaggies, electric blue strokes, random specks or exterior glow. No high-frequency texture at all. This must look like a polished illustration asset, not a processed photograph.\nSoft light upper left; muted palette #7693BA #ACAEDB #C4E3F1. Transparent exterior, alpha-zero background. Keep light semitransparent glass inside. No black or white backdrop, no checkerboard, no drop shadow.\nNo stand, no ring or hardware added, no stem, no mount, no text, no label, no border, no selection effect or decorative marks."
+}

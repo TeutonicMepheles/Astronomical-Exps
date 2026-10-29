@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-22",
+  "mode": "built-in image_gen",
+  "use_case": "style-transfer / precise-object-edit",
+  "source": "codex-clipboard-216bc398-d983-4354-b2b7-d953e92e92c6.png",
+  "target": "ring-holder-illustration-v1.png",
+  "status": "独立标准化素材，尚未替换页面资源",
+  "references": [
+    "Visual-Spec/VISUAL_SPEC.md",
+    "Visual-Spec/README.md",
+    "Visual-Spec/REFERENCES.md",
+    "Visual-Spec/IMPLEMENTATION_BASELINE.md"
+  ],
+  "changes": [
+    "简化金属纹理与明暗",
+    "统一低饱和深蓝及蓝紫色盘",
+    "保留空心圆环、三处旋钮、立杆与底座",
+    "透明中心孔和外部背景"
+  ],
+  "prompt": "Use case: style-transfer.\nEdit the supplied isolated empty optical holder. PRESERVE ITS EXISTING TRANSPARENCY MASK. Do not fill any transparent pixels. The entire central opening and exterior must stay completely empty transparent, as in the input.\nChange ONLY the opaque material surfaces from photographic metal into clean educational illustration: remove mottled texture and tiny scratches, use broad simple cel-shaded navy and lavender-blue tonal regions with subtle soft transitions, restrained thin edge highlights, upper-left light. Satin silver upright with simple smooth light/dark strips, not chrome. Keep visible functional screw threads and knurled knobs, simplified into clear repeated facets.\nPreserve every object part and its exact shape: the hollow elliptical ring and inner metal wall, top thumbscrew, large right ring thumbscrew, small circular fastener, long silver vertical upright, lower right locking screw, two rectangular rail-base blocks and front bolt. Same camera angle, portrait canvas, sizes and placement. No new design.\nThe solid device is opaque; everything outside its silhouette and inside the open central hole is ALPHA ZERO. No lens, no blue glass across the hole, NO atmospheric light, NO blue background glow, NO haze, NO halo, NO cast shadows, no shadow catcher. Output a hard-surface isolated cutout PNG, NOT a studio scene. Never add any backdrop color, black fill, checkerboard or environmental gradient. Keep the original empty alpha areas unchanged.\nColor palette muted deep navy #202E4D, mist blue #7693BA, subtle lavender #ACAEDB, ice silver #C4E3F1. No electric-blue fringe, no neon outline, no gold. No text, UI, labels, extra objects. One complete EMPTY lens holder."
+}

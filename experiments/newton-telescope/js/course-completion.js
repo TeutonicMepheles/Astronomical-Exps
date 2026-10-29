@@ -1,4 +1,4 @@
-/* Host adapter: completion edges open the shared view; only confirmation navigates. */
+/* Mirror observation is student-paced; other completion edges retain their flow. */
 (function(N){
  'use strict';
  const dialog=new StageCompletionDialog(),notified=new Set();
@@ -9,20 +9,26 @@
   observation:{title:'本次实验已完成',body:'你已完成三档目镜的观测与记录。',action:'完成实验 ✓'}
  };
  const completed=s=>({mirrors:s.seen.length===3,assembly:s.assemblyDone,observation:s.complete});
+ function show(stage){
+  const data=content[stage];
+  return dialog.show({...data,kicker:`阶段 0${steps.indexOf(stage)+1} 完成`},()=>{
+   const latest=N.course.get();
+   if(data.next&&latest.stage===stage&&completed(latest)[stage])N.course.requestEnter(data.next,{completionConfirmed:true});
+  });
+ }
+ N.courseCompletion={requestMirrors(){
+  const s=N.course.get();return s.stage==='mirrors'&&completed(s).mirrors?show('mirrors'):false;
+ }};
  let pending=false;
  function sync(s){
   const done=completed(s);steps.forEach(key=>{if(!done[key])notified.delete(key);});
-  if(pending||!done[s.stage]||notified.has(s.stage))return;
+  if(s.stage==='mirrors'||pending||!done[s.stage]||notified.has(s.stage))return;
   pending=true;
   // Wait for all course subscribers and the current drop handler to finish first.
   queueMicrotask(()=>{
    pending=false;const current=N.course.get(),stage=current.stage;
-   if(!completed(current)[stage]||notified.has(stage))return;
-   const data=content[stage];
-   if(dialog.show({...data,kicker:`阶段 0${steps.indexOf(stage)+1} 完成`},()=>{
-    const latest=N.course.get();
-    if(data.next&&latest.stage===stage&&completed(latest)[stage])N.course.requestEnter(data.next);
-   }))notified.add(stage);
+   if(stage==='mirrors'||!completed(current)[stage]||notified.has(stage))return;
+   if(show(stage))notified.add(stage);
   });
  }
  N.course.subscribe(sync);sync(N.course.get());

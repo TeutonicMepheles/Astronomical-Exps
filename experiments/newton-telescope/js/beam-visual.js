@@ -6,16 +6,16 @@
       const a=new T.Vector3(...start),b=new T.Vector3(...end),direction=b.clone().sub(a),length=direction.length();
       if(length<.0001)return;
       const material=new T.ShaderMaterial({
-        uniforms:{tint:{value:new T.Color(color)},length:{value:length}},
+        uniforms:{tint:{value:new T.Color(color)},length:{value:length},beamOpacity:{value:1}},
         vertexShader:'varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
-        fragmentShader:`varying vec2 vUv; uniform vec3 tint; uniform float length;
+        fragmentShader:`varying vec2 vUv; uniform vec3 tint; uniform float length; uniform float beamOpacity;
           void main(){
             float y=(vUv.y-.5)*2.;
             float halo=exp(-y*y*9.)*.18+exp(-y*y*38.)*.24;
             float core=exp(-y*y*550.)*.65;
             float scatter=.88+.08*sin(vUv.x*length*13.)+.04*sin(vUv.x*length*43.+y*17.);
             float ends=smoothstep(0.,.025,vUv.x)*smoothstep(0.,.025,1.-vUv.x);
-            gl_FragColor=vec4(tint,(halo*scatter+core)*ends);
+            gl_FragColor=vec4(tint,(halo*scatter+core)*ends*beamOpacity);
           }`,
         transparent:true,depthWrite:false,blending:T.AdditiveBlending,side:T.DoubleSide
       });
