@@ -10,6 +10,8 @@
 
 ## 文件与子目录索引
 
+- [AGENTS.md](AGENTS.md)：性能任务工作约定、证据要求、模块责任与验收边界；根目录及实验 AGENTS.md 均索引此文件。
+
 - [chrome-interactions.cjs](chrome-interactions.cjs)：本机有窗口 Chrome，真实鼠标/键盘操作广告屏、三栋建筑与全景；记录 rAF、事件耗时、长任务和 CPU profile。隔离浏览器配置，不使用用户草稿。
 - [profile-headed.cjs](profile-headed.cjs)：本机有窗口 Chrome 的默认/全窗帘采样，需先启动 127.0.0.1:12918 仓库 HTTP 服务。
 
