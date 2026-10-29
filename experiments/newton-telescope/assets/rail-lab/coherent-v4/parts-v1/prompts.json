@@ -1,0 +1,56 @@
+[
+  {
+    "type": "concave",
+    "part": "mirror",
+    "source": "C:/Users/59249/OneDrive/桌面/天文馆/Astronomical-Exps/experiments/newton-telescope/assets/rail-lab/coherent-v4/concave.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: precise-object-edit / background-extraction. Produce ONE production RGBA transparent PNG component layer extracted from the provided image. The input is the EDIT TARGET, not a loose style reference. Preserve its exact blue scientific-illustration style, material texture, lighting, camera angle, silhouette details and sharpness. Keep the FULL original 1672 x 941 canvas, original object scale, and original pixel registration: this apparatus stays on the RIGHT side of the canvas with most of the left side empty. Never center, enlarge, crop or move the retained part. Return only the requested component on real transparency (alpha zero everywhere else), no background, no checkerboard baked into pixels, no ground shadow, no labels, no explanatory text, no new apparatus, no exploded view. This layer will be overlaid on the other separately extracted layers at its original position. Retain ONLY the bright silver concave reflective mirror face, the narrow inward-curving silver strip facing LEFT, from approximately (1065,192) to (1094,330) to (1065,475), including its natural silver side thickness but NO blue rear casing. Remove ALL blue back shell, top and bottom screw caps, bowed rear braces, horizontal connector, U-shaped fork, upright, adjustment knob and base. The result is just the slim curved silver mirror body suspended at exactly its original position.",
+    "generated": "C:\\Users\\59249\\.codex\\generated_images\\01a1584c-391a-7a22-9df8-5cd3d5912ef2\\exec-e44e480f-d0d8-4827-9a2f-eeb047a45c4e.png"
+  },
+  {
+    "type": "concave",
+    "part": "back",
+    "source": "C:/Users/59249/OneDrive/桌面/天文馆/Astronomical-Exps/experiments/newton-telescope/assets/rail-lab/coherent-v4/concave.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: precise-object-edit / background-extraction. Produce ONE production RGBA transparent PNG component layer extracted from the provided image. The input is the EDIT TARGET, not a loose style reference. Preserve its exact blue scientific-illustration style, material texture, lighting, camera angle, silhouette details and sharpness. Keep the FULL original 1672 x 941 canvas, original object scale, and original pixel registration: this apparatus stays on the RIGHT side of the canvas with most of the left side empty. Never center, enlarge, crop or move the retained part. Return only the requested component on real transparency (alpha zero everywhere else), no background, no checkerboard baked into pixels, no ground shadow, no labels, no explanatory text, no new apparatus, no exploded view. This layer will be overlaid on the other separately extracted layers at its original position. Retain ONLY the dark blue curved rear casing of the concave mirror, both end caps with their screws, the bowed rear support and the short connector toward the U-shaped fork. Remove the entire bright silver reflective face, and remove the U-shaped fork, upright, knob and base. Preserve the thin blue casing and support geometry around native x=1052..1193, y=160..508; do not fill the mirror opening with an invented solid plate. Small edges formerly hidden by the silver face may be completed consistently. Do not alter screw shapes or their positions.",
+    "generated": "C:\\Users\\59249\\.codex\\generated_images\\01a1584c-391a-7a22-9df8-5cd3d5912ef2\\exec-f2ee4f79-7ec6-4038-ac1b-23ba32943424.png"
+  },
+  {
+    "type": "concave",
+    "part": "mount",
+    "source": "C:/Users/59249/OneDrive/桌面/天文馆/Astronomical-Exps/experiments/newton-telescope/assets/rail-lab/coherent-v4/concave.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: precise-object-edit / background-extraction. Produce ONE production RGBA transparent PNG component layer extracted from the provided image. The input is the EDIT TARGET, not a loose style reference. Preserve its exact blue scientific-illustration style, material texture, lighting, camera angle, silhouette details and sharpness. Keep the FULL original 1672 x 941 canvas, original object scale, and original pixel registration: this apparatus stays on the RIGHT side of the canvas with most of the left side empty. Never center, enlarge, crop or move the retained part. Return only the requested component on real transparency (alpha zero everywhere else), no background, no checkerboard baked into pixels, no ground shadow, no labels, no explanatory text, no new apparatus, no exploded view. This layer will be overlaid on the other separately extracted layers at its original position. Retain ONLY the fixed mounting hardware: the original blue U-shaped open fork, silver vertical post, right-hand adjustment knob, and complete blue sliding base. This region is approximately x=1188..1325, y=292..725. Preserve the fork's open hole exactly; do not add a central bolt that is absent in the concave source. Remove the ENTIRE mirror, curved casing, end-cap screws, bowed support and short connector extending LEFT of the fork. Keep every remaining hardware detail and its original location.",
+    "generated": "C:\\Users\\59249\\.codex\\generated_images\\01a1584c-391a-7a22-9df8-5cd3d5912ef2\\exec-ad4dd5d1-3668-4872-91a2-95356125db1d.png"
+  },
+  {
+    "type": "convex",
+    "part": "mirror",
+    "source": "C:/Users/59249/OneDrive/桌面/天文馆/Astronomical-Exps/experiments/newton-telescope/assets/rail-lab/coherent-v4/convex.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: precise-object-edit / background-extraction. Produce ONE production RGBA transparent PNG component layer extracted from the provided image. The input is the EDIT TARGET, not a loose style reference. Preserve its exact blue scientific-illustration style, material texture, lighting, camera angle, silhouette details and sharpness. Keep the FULL original 1672 x 941 canvas, original object scale, and original pixel registration: this apparatus stays on the RIGHT side of the canvas with most of the left side empty. Never center, enlarge, crop or move the retained part. Return only the requested component on real transparency (alpha zero everywhere else), no background, no checkerboard baked into pixels, no ground shadow, no labels, no explanatory text, no new apparatus, no exploded view. This layer will be overlaid on the other separately extracted layers at its original position. Retain ONLY the convex mirror's bright silver reflective face/body, the outward-bulging silver crescent facing LEFT, approximately x=1018..1102, y=174..488. Keep its natural silver edge thickness and shading. Remove ALL dark blue rear shell, end caps and screws, rear triangular braces, central horizontal shaft, U-shaped fork and pivot bolt, upright, adjustment knob and base. The result is only the curved silver mirror body suspended at exactly its original position.",
+    "generated": "C:\\Users\\59249\\.codex\\generated_images\\01a1584c-391a-7a22-9df8-5cd3d5912ef2\\exec-6bf64e69-a780-4aad-b52d-4fa4957199a5.png"
+  },
+  {
+    "type": "convex",
+    "part": "back",
+    "source": "C:/Users/59249/OneDrive/桌面/天文馆/Astronomical-Exps/experiments/newton-telescope/assets/rail-lab/coherent-v4/convex.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: precise-object-edit / background-extraction. Produce ONE production RGBA transparent PNG component layer extracted from the provided image. The input is the EDIT TARGET, not a loose style reference. Preserve its exact blue scientific-illustration style, material texture, lighting, camera angle, silhouette details and sharpness. Keep the FULL original 1672 x 941 canvas, original object scale, and original pixel registration: this apparatus stays on the RIGHT side of the canvas with most of the left side empty. Never center, enlarge, crop or move the retained part. Return only the requested component on real transparency (alpha zero everywhere else), no background, no checkerboard baked into pixels, no ground shadow, no labels, no explanatory text, no new apparatus, no exploded view. This layer will be overlaid on the other separately extracted layers at its original position. Retain ONLY the convex mirror's dark blue rear shell/back plate, top and bottom caps and mirror screws, the two triangular rear connecting arms, and the central horizontal shaft up to its connection with the fork. These remain around x=1082..1205,y=149..506. Remove the entire bright silver reflective face, and remove the U-shaped fork including its circular center pivot bolt, vertical post, adjustment knob and base. Preserve the original triangular open spaces, casing depth, screw shapes, texture and exact placement. Complete only narrow casing edges previously hidden behind the silver face if needed.",
+    "generated": "C:\\Users\\59249\\.codex\\generated_images\\01a1584c-391a-7a22-9df8-5cd3d5912ef2\\exec-2125e947-3560-4a58-8dc9-0a9cb860bac5.png"
+  },
+  {
+    "type": "convex",
+    "part": "mount",
+    "source": "C:/Users/59249/OneDrive/桌面/天文馆/Astronomical-Exps/experiments/newton-telescope/assets/rail-lab/coherent-v4/convex.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: precise-object-edit / background-extraction. Produce ONE production RGBA transparent PNG component layer extracted from the provided image. The input is the EDIT TARGET, not a loose style reference. Preserve its exact blue scientific-illustration style, material texture, lighting, camera angle, silhouette details and sharpness. Keep the FULL original 1672 x 941 canvas, original object scale, and original pixel registration: this apparatus stays on the RIGHT side of the canvas with most of the left side empty. Never center, enlarge, crop or move the retained part. Return only the requested component on real transparency (alpha zero everywhere else), no background, no checkerboard baked into pixels, no ground shadow, no labels, no explanatory text, no new apparatus, no exploded view. This layer will be overlaid on the other separately extracted layers at its original position. Retain ONLY the fixed mounting hardware: original blue U-shaped fork WITH its original round central pivot bolt, silver vertical post, right adjustment knob, and complete blue sliding base. This region is approximately x=1188..1325,y=292..725. Remove the entire silver mirror, blue rear casing and end caps, the triangular arms and horizontal shaft extending LEFT of the fork. Keep the original pivot bolt and all remaining hardware at their exact original size and coordinates.",
+    "generated": "C:\\Users\\59249\\.codex\\generated_images\\01a1584c-391a-7a22-9df8-5cd3d5912ef2\\exec-7f832b4a-c7fe-47f3-9780-995c6f8b32b9.png"
+  }
+]

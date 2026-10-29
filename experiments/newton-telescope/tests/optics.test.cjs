@@ -5,6 +5,7 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const context = { window: { Newton: {} } };
 vm.createContext(context);
+vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/state.js'), 'utf8'), context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../js/optics.js'), 'utf8'), context);
 const calculate = context.window.Newton.optics.calculate;
 let configurations = 0;
@@ -13,6 +14,8 @@ for (const mode of ['parallel', 'point']) {
     for (const eyepiece of [5, 25, 50]) {
       const result = calculate({ mode, focal, eyepiece });
       assert.equal(result.magnification, focal / eyepiece);
+      assert.equal(result.field, 60 / (focal / eyepiece));
+      assert(Math.abs(result.magnification * result.field - 60) < 1e-10);
       const expectedImageDistance = mode === 'parallel' ? focal / 100 : 1 / (100 / focal - 1 / 20);
       assert(Math.abs(result.imageDistance - expectedImageDistance) < 1e-10);
       for (const points of result.paths) {
@@ -29,3 +32,8 @@ for (const mode of ['parallel', 'point']) {
   }
 }
 console.log(`Passed ${configurations} optical configurations: magnification, image distance, mirror intersection and reflection direction.`);
+// Endpoint regression: every allowed setting changes field continuously, including 8x and 320x.
+const metrics = context.window.Newton.store.metrics;
+assert.equal(metrics({focal:400,eyepiece:50}).field,7.5);
+assert.equal(metrics({focal:1600,eyepiece:5}).field,.1875);
+assert.equal(metrics({focal:800,eyepiece:25,aperture:130}).field,metrics({focal:800,eyepiece:25,aperture:250}).field);

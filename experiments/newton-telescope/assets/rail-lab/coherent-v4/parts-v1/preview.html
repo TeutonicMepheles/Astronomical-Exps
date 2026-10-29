@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>曲面镜分件素材 · 检查预览</title>
+<style>
+:root{color-scheme:dark;font:15px/1.6 system-ui,"Microsoft YaHei",sans-serif;color:#e5edf8;background:#101a2c}*{box-sizing:border-box}body{margin:0;padding:28px;max-width:1800px;margin:auto}h1{font-size:28px;margin:0 0 8px}h2{font-size:22px;margin:28px 0 12px}p{max-width:1000px;color:#b4c4da;margin:8px 0}a{color:#b9dbff}button,input{font:inherit}button{min-height:40px;border:1px solid #617994;border-radius:8px;padding:6px 14px;background:#243a57;color:#edf4ff;cursor:pointer}.toolbar{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:16px}.switches{display:flex;gap:18px}.switches label{cursor:pointer;display:flex;gap:7px;align-items:center}.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}figure{margin:0;min-width:0;border:1px solid #3f5775;border-radius:12px;overflow:hidden;background:#18263d}figcaption{padding:10px 12px;display:flex;gap:8px;justify-content:space-between;align-items:center;font-weight:600}figcaption a{font-weight:400;font-size:12px}canvas{width:100%;height:auto;display:block;background-color:#263b56;background-image:linear-gradient(45deg,#ffffff08 25%,transparent 25%),linear-gradient(-45deg,#ffffff08 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ffffff08 75%),linear-gradient(-45deg,transparent 75%,#ffffff08 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}.light canvas{background-color:#e5e9ef;background-image:linear-gradient(45deg,#00000009 25%,transparent 25%),linear-gradient(-45deg,#00000009 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#00000009 75%),linear-gradient(-45deg,transparent 75%,#00000009 75%)}.note{padding:8px 12px;color:#a9bad1;font-size:12px;min-height:58px}#status{font-size:13px;color:#f4cb83}@media(max-width:900px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}body{padding:16px}}
+</style>
+<h1>凹面镜、凸面镜 · 部件拆分</h1>
+<p>每组 3 张透明 PNG：银色镜面、背壳与连接架、夹具与立柱底座。下方使用统一缩放和平移进行叠合，没有对图片做非等比拉伸。</p>
+<p>这是 AI 分层提取与局部补全版本，细节与原图存在差异；叠合位置供后续开发校准，不能当作无损切片。此页面只预览素材，实验页面尚未使用这些图层。</p>
+<div class="toolbar"><button id="background">切换浅色底</button><div class="switches">
+<label><input type="checkbox" data-part="mirror" checked>镜面</label>
+<label><input type="checkbox" data-part="back" checked>背壳与连接架</label>
+<label><input type="checkbox" data-part="mount" checked>夹具与底座</label>
+</div><a href="manifest.json">定位数据</a><a href="prompts.json">生成提示词</a><span id="status">加载图片…</span></div>
+<main></main>
+<script>
+const manifest={"version":1,"kind":"AI-extracted independent component assets","tool":"image_gen.imagegen","created":"2026-10-20","referenceCanvas":{"width":1672,"height":941},"placement":"Uniform scale and translation only: x'=scale*x+xOffset, y'=scale*y+yOffset. No nonuniform stretching.","status":"Asset-only handoff; not wired into the experiment. Generated details differ from source; these placements are visual starting points, not pixel-exact reconstruction.","stackOrder":["back","mirror","mount"],"layers":{"concave":[{"part":"back","label":"背壳与连接架","file":"concave/back.png","width":1671,"height":941,"bbox":[1051,159,1221,527],"scale":0.9375,"x":65.6875,"y":8.90625},{"part":"mirror","label":"银色镜面","file":"concave/mirror.png","width":1670,"height":941,"bbox":[1060,179,1166,571],"scale":0.7244897959183674,"x":291.2653061224489,"y":58.31632653061223},{"part":"mount","label":"夹具、立柱与底座","file":"concave/mount.png","width":1671,"height":941,"bbox":[1173,290,1330,730],"scale":0.9840909090909091,"x":19.774999999999956,"y":5.249999999999988}],"convex":[{"part":"back","label":"背壳与连接架","file":"convex/back.png","width":1672,"height":941,"bbox":[1010,149,1260,677],"scale":0.678030303030303,"x":358.52272727272737,"y":49.97348484848487},{"part":"mirror","label":"银色镜面","file":"convex/mirror.png","width":1671,"height":941,"bbox":[1024,166,1127,498],"scale":0.9457831325301205,"x":49.518072289156635,"y":16},{"part":"mount","label":"夹具、立柱与底座","file":"convex/mount.png","width":1671,"height":941,"bbox":[1172,289,1329,728],"scale":0.9863325740318907,"x":16.98861047835989,"y":4.510250569476078}]}};
+const names={concave:'凹面镜',convex:'凸面镜'},images=new Map(),views=[];
+function imageFor(file){if(!images.has(file)){const img=new Image();img.src=file;images.set(file,img);}return images.get(file);}
+for(const [type,layers] of Object.entries(manifest.layers)){
+ const section=document.createElement('section'),heading=document.createElement('h2');heading.textContent=names[type];section.append(heading);
+ const grid=document.createElement('div');grid.className='cards';section.append(grid);document.querySelector('main').append(section);
+ const specs=[{label:'原图对照',file:'../'+type+'.png',source:true},...['mirror','back','mount'].map(part=>layers.find(x=>x.part===part)),{label:'三层叠合',composite:true}];
+ for(const spec of specs){
+  const figure=document.createElement('figure'),caption=document.createElement('figcaption');caption.append(spec.label);
+  if(spec.file){const link=document.createElement('a');link.href=spec.file;link.textContent='打开 PNG';caption.append(link);}
+  const canvas=document.createElement('canvas');canvas.width=360;canvas.height=610;canvas.setAttribute('aria-label',names[type]+spec.label);
+  const note=document.createElement('div');note.className='note';note.textContent=spec.source?'已有完整器件图，保留原文件。':spec.composite?'可用上方开关分别隐藏图层。':'PNG 含真实 Alpha；预览按定位数据等比放置。';
+  figure.append(caption,canvas,note);grid.append(figure);views.push({canvas,spec,layers});
+  if(spec.file)imageFor(spec.file);else layers.forEach(layer=>imageFor(layer.file));
+ }
+}
+function draw(){const enabled=new Set([...document.querySelectorAll('[data-part]:checked')].map(x=>x.dataset.part));
+ for(const {canvas,spec,layers} of views){const ctx=canvas.getContext('2d');ctx.clearRect(0,0,360,610);ctx.save();ctx.translate(-980,-130);
+  if(spec.source)ctx.drawImage(imageFor(spec.file),0,0);
+  else for(const layer of spec.composite?layers.filter(x=>enabled.has(x.part)):[spec]){ctx.save();ctx.translate(layer.x,layer.y);ctx.scale(layer.scale,layer.scale);ctx.drawImage(imageFor(layer.file),0,0);ctx.restore();}
+  ctx.restore();
+ }}
+Promise.all([...images.values()].map(img=>img.decode())).then(()=>{draw();document.getElementById('status').textContent='8 张来源图已加载 · 6 张分件 PNG';document.body.dataset.ready='true';}).catch(e=>{document.getElementById('status').textContent='图片加载失败：'+e.message;});
+document.getElementById('background').onclick=()=>{const light=document.body.classList.toggle('light');document.getElementById('background').textContent=light?'切换深色底':'切换浅色底';};
+document.querySelectorAll('[data-part]').forEach(input=>input.onchange=draw);
+</script></html>

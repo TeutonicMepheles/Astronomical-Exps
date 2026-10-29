@@ -10,14 +10,16 @@
     ranges.forEach(([id,key,unit])=>{const input=$('#'+id);input.value=state[key];input.style.setProperty('--fill',`${(state[key]-Number(input.min))/(Number(input.max)-Number(input.min))*100}%`);const output=$('#'+(key==='angle'?'angle':id)+'-value');output.innerHTML=`${state[key]}${unit==='mm'?' ':''}<span>${unit}</span>`;input.setAttribute('aria-valuetext',`${state[key]}${unit==='mm'?' 毫米':' 度'}`);});
     document.querySelectorAll('[data-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===state.mode)));
     $('#live-preview').checked=state.live;
+    $('#refresh-preview').hidden=state.live;
     $('#start').classList.toggle('is-running',state.running);$('#start span').textContent=state.running?'暂停观测':'开始观测';$('#start').setAttribute('aria-pressed',String(state.running));
     $('#start use').setAttribute('href',state.running?'#icon-eye':'#icon-play');
-    const status=state.running?'正在追踪光路':state.live?'光路就绪':'预览已冻结';$('#observation-status').textContent=status;
+    const status=!state.live?'预览已冻结':state.running?'正在追踪光路':'光路就绪';$('#observation-status').textContent=status;
     preview.update(state);
   }
   ranges.forEach(([id,key])=>$('#'+id).addEventListener('input',event=>store.set({[key]:Number(event.target.value)})));
   document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>store.set({mode:button.dataset.mode})));
   $('#live-preview').addEventListener('change',event=>store.set({live:event.target.checked}));
+  $('#refresh-preview').addEventListener('click',()=>preview.update(store.get(),true));
   $('#start').addEventListener('click',()=>{const next=!store.get().running;store.set({running:next});if(next){preview.update(store.get(),true);if(!store.get().live)toast('已按当前参数更新观测图像');}});
   $('#reset').addEventListener('click',()=>{N.course.resetStage();telescope?.resetView();$('#part-tooltip').hidden=true;toast('已恢复默认参数与视角');});
   $('#restore-view').addEventListener('click',()=>{telescope?.resetView();toast('已恢复初始视角');});

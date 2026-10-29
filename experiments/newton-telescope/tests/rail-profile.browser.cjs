@@ -5,7 +5,8 @@ const {chromium}=require('playwright');
  await p.goto((process.env.BASE_URL || 'http://127.0.0.1:8793') + '/experiments/newton-telescope/?production=1');await p.waitForTimeout(700);
  const saddleX=await p.evaluate(()=>Newton.app.telescope.lab.darkroom.art.registration.saddleX);
  for(const type of ['plane','concave','convex']){
-  await p.click('[data-mirror='+type+']');await p.click('#rail-carriage');
+  await p.locator('[data-mirror='+type+']').dragTo(p.locator('#rail-carriage'));
+  if(type==='convex'){assert.equal(await p.getByRole('dialog').count(),0);assert.equal(await p.evaluate(()=>Newton.course.get().stage),'mirrors');}
   await p.waitForFunction(t=>Newton.app.telescope.lab.darkroom.art.geometryInfo?.type===t,type);
   assert.ok(Math.abs(await p.evaluate(()=>Newton.app.telescope.lab.darkroom.art.registration.saddleX)-saddleX)<.1,'Changing mirrors must preserve the carriage position');
   const info=await p.evaluate(()=>{
@@ -21,7 +22,10 @@ const {chromium}=require('playwright');
    assert.equal(info.geometry.angle,45);
    const [a,,c]=info.geometry.edge;assert.ok(Math.abs((c.y-a.y)/(c.x-a.x)-1)<1e-10);
    info.rayDirections.forEach(([x,y])=>{assert.ok(Math.abs(x)<1e-10);assert.ok(Math.abs(y-1)<1e-10);});
-  }else assert.equal(Math.sign(info.geometry.edge[0].x),type==='concave'?-1:1);
+  }else {
+   const [a,b,c]=info.geometry.edge;
+   assert.equal(Math.sign((a.x+c.x)/2-b.x),type==='concave'?-1:1,'registered front has the correct curvature about its moving vertex');
+  }
   await p.screenshot({path:'artifacts/hardware-'+type+'.png'});
  }
  await p.evaluate(()=>Newton.course.removeMirror());await p.waitForTimeout(100);

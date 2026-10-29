@@ -47,3 +47,13 @@
 .part-label.label-inward{transform:translateX(-100%);flex-direction:row-reverse}.part-label.label-inward button{padding:0 12px 0 0;text-align:right}
 
 .focus-marker{position:absolute;transform:translate(-50%,16px);font-size:12px;color:var(--course-accent);background:#102340c9;border:1px solid #d8b98044;border-radius:6px;padding:4px 8px;pointer-events:none}
+.focus-marker[data-virtual=true]{z-index:5;color:#b1c9f0;border-color:#8ea9d377}
+
+.preview-readout{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--course-muted);font-variant-numeric:tabular-nums}
+.preview-readout strong{font-weight:500;color:var(--course-text)}
+.preview-readout output{margin-left:4px;color:var(--course-accent)}
+.preview-card .preview-description{margin:10px 0 0;font-size:13px;line-height:1.7}
+.preview-assumption{margin:8px 0 12px;font-size:12px;line-height:1.6;color:var(--course-muted)}
+.record-button:disabled{color:var(--course-muted);border-style:dashed}
+.preview-refresh{width:100%;min-height:44px;margin-top:12px;border:1px solid var(--course-border);border-radius:8px;background:#30486c;color:var(--course-text);font-size:14px}
+.preview-refresh:hover,.preview-refresh:active{border-color:var(--course-accent);color:var(--course-accent)}
