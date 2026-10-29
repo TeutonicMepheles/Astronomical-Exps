@@ -21,8 +21,8 @@ JSON / 草稿 → codec.validate → preload → 单次事务应用
 - `createSceneStore({W,H,specs,sceneId,storageKey,slices,compose})`：slice 必须实现 getData、setData、validate、reset，可提供 preload。snapshot 返回场景快照；documentData 返回兼容 JSON；importDocument 先等待所有 preload，再整体事务应用；subscribe 返回取消函数；destroy 清除监听及历史。
 - `createHistory({snapshot,apply,assets,changed,limit})`：begin/update（调用方修改）/commit/cancel；一次手势一次记录。change 用于离散命令。手势期间 undo/redo 不跨越未提交状态；失败或 cancel 恢复原快照。历史容量默认 100。
 - `createAssetRegistry()`：pack/unpack 将图片字符串与内部 ID 互换，collect 接受当前、撤销、重做和进行中快照，只有全部不再引用才移除。运行中的图片解码缓存仍由各资源服务拥有；本轮没有把兼容 feature payload 强行改成新 JSON schema。
-- `createBillboardCommands(...)`：setValue(key,value)、setResource(id)、toggle、next。统一范围校验和锁定检查，修改经注入 change 提交；UI 不拥有播放状态。
-- `createScheduler()`：add(run,interval) 返回取消函数；invalidate(key,draw) 同帧同 key 合并；destroy 清空任务。页面隐藏停帧，恢复重置时差。动画帧批次合并整景合成，用户离散操作保留同步反馈。
+- `createBillboardCommands(...)`：setValue(key,value)、setResource(id)、toggle、next；previewValue、commitGesture、cancelGesture 通过注入 gesture 端口管理实时预览与单步历史。统一范围校验和锁定检查，离散修改经注入 change 提交；UI 不拥有播放状态。
+- `createScheduler()`：add(run,interval) 返回取消函数；invalidate(key,draw) 同帧同 key 合并；destroy 清空任务。页面隐藏停帧，恢复重置时差。动画与用户输入统一合并整景合成，状态更新后的像素在后续调度帧可见；首次 ready 在实际首帧绘制后发布。
 - `createPanels()`：register(id,show,hide)、open、close；互斥、Esc、焦点恢复。feature 负责内部控件与 show/hide，核心不查询这些控件。
 - `createTapRouter(viewer,enabled)`：add(priority,hit,open)；移动超过 6 CSS px 不作为点击，pointercancel 清除手势。导航捕获阶段保留优先权，完整编辑关闭展示命中路由。
 
