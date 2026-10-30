@@ -11,7 +11,7 @@
       this.transition={from:{...this.current},to:{...to},start:performance.now(),duration:850};this.view.dirty=true;
     }
     tick(time){if(!this.transition)return;const t=Math.min(1,Math.max(0,(time-this.transition.start)/this.transition.duration)),e=t*t*(3-2*t);for(const key of ['x','y','span'])this.current[key]=this.transition.from[key]+(this.transition.to[key]-this.transition.from[key])*e;this.apply();if(t===1)this.transition=null;}
-    apply(){const {x,y}=this.current,isMirror=N.course.get().stage==='mirrors';this.view.camera.position.set(isMirror?x:x-3.3,isMirror?y:y+2.4,15);this.view.camera.lookAt(x,y,0);this.view.resize();}
+    apply(){const {x,y}=this.current,isMirror=N.course.get().stage!=='assembly';this.view.camera.position.set(isMirror?x:x-3.3,isMirror?y:y+2.4,15);this.view.camera.lookAt(x,y,0);this.view.resize();}
     get busy(){return !!this.transition;}
   };
 })(window.Newton);

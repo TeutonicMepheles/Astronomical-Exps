@@ -24,7 +24,7 @@
         const exitX = hitX + slope * (exitY - hitY);
         return [[startX, startY, 0], [mirrorX, height, 0], [hitX, hitY, 0], [exitX, exitY, 0]];
       });
-      return { paths, imageDistance, magnification: state.focal / state.eyepiece, focusHeight: secondary - focusX };
+      return { paths, imageDistance, ...N.store.metrics(state), focusHeight: secondary - focusX };
     }
   };
 })(window.Newton);

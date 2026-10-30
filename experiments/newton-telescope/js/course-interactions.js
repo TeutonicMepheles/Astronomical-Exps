@@ -16,16 +16,16 @@
  function stop(){clearTimeout(timer);guide.hide();bubble.hide();}
  function schedule(){
   clearTimeout(timer);const s=course.get();
-  if(s.stage!=='mirrors'||s.seen.length||s.mirrorMounted||interacting||dismissed)return;
+  if(N.trayTransition?.busy||s.stage!=='mirrors'||document.querySelector('.observatory').dataset.trayPage==='lenses'||s.seen.length||s.mirrorMounted||interacting||dismissed)return;
   timer=setTimeout(()=>{
-   const s=course.get();if(s.stage!=='mirrors'||s.seen.length||s.mirrorMounted||interacting||dismissed)return;
+   const s=course.get();if(N.trayTransition?.busy||s.stage!=='mirrors'||document.querySelector('.observatory').dataset.trayPage==='lenses'||s.seen.length||s.mirrorMounted||interacting||dismissed)return;
    guide.show({target:$('[data-mirror="'+(s.mirrorSelection||'concave')+'"]'),destination:anchor,mode:'drag',iconId:'grab'});
    guide.node.querySelector('.exp-gesture-label').textContent='按住镜片，拖入光轴夹具';
   },700);
  }
  function describe(el){
-  const s=course.get();if(s.stage!=='mirrors'||interacting||el.disabled)return;
-  const text=el.dataset.mirror?names[el.dataset.mirror]:(s.mirrorMounted?names[s.mirror]:'镜片夹具');
+  const s=course.get();if(N.trayTransition?.busy||s.stage!=='mirrors'||interacting||el.disabled)return;
+  const text=el.dataset.mirror?names[el.dataset.mirror]:document.querySelector('.observatory').dataset.trayPage==='lenses'?(s.lens?(s.lens==='concave'?'凹透镜':'凸透镜'):'透镜圆环镜座'):(s.mirrorMounted?names[s.mirror]:'镜片夹具');
   bubble.show({target:el,text});
  }
  const arrows=document.createElement('div');arrows.id='mirror-move-handle';arrows.hidden=true;arrows.setAttribute('role','group');arrows.setAttribute('aria-label','左右拖动镜片夹具');arrows.innerHTML='<button type="button" class="clamp-arrow clamp-arrow-left" aria-label="拖动夹具左侧箭头"><img src="assets/arrow-options/gold-left.png" alt="" draggable="false"></button><button type="button" class="clamp-arrow clamp-arrow-right" aria-label="拖动夹具右侧箭头"><img src="assets/arrow-options/gold-left.png" alt="" draggable="false"></button>';$('#mirror-workspace').append(arrows);
@@ -45,9 +45,9 @@
  for(const event of ['pointerup','pointercancel','dragend'])on(document,event,release);
  on(document,'keydown',e=>{if(e.key==='Escape'){dismissed=true;arrows.hidden=true;stop();}});
  const unsubscribe=course.subscribe(s=>{
-  bubble.hide();if(s.stage!=='mirrors'||s.seen.length===0&&lastSeen>0)arrows.hidden=true;
+  bubble.hide();if(N.trayTransition?.busy||s.stage!=='mirrors'||s.seen.length===0&&lastSeen>0)arrows.hidden=true;
   if(s.stage!==lastStage||s.seen.length===0&&lastSeen>0){dismissed=false;stop();}
-  if(s.stage!=='mirrors'||s.seen.length||s.mirrorMounted)stop();else schedule();
+  if(N.trayTransition?.busy||s.stage!=='mirrors'||s.seen.length||s.mirrorMounted)stop();else schedule();
   lastStage=s.stage;lastSeen=s.seen.length;
  });
  lastStage=course.get().stage;schedule();

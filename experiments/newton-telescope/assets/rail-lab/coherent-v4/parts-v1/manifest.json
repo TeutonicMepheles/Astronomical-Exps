@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "kind": "AI-extracted independent component assets",
+  "tool": "image_gen.imagegen",
+  "created": "2026-10-20",
+  "referenceCanvas": {
+    "width": 1672,
+    "height": 941
+  },
+  "placement": "Uniform scale and translation only: x'=scale*x+xOffset, y'=scale*y+yOffset. No nonuniform stretching.",
+  "status": "Asset-only handoff; not wired into the experiment. Generated details differ from source; these placements are visual starting points, not pixel-exact reconstruction.",
+  "stackOrder": [
+    "back",
+    "mirror",
+    "mount"
+  ],
+  "layers": {
+    "concave": [
+      {
+        "part": "back",
+        "label": "背壳与连接架",
+        "file": "concave/back.png",
+        "width": 1671,
+        "height": 941,
+        "bbox": [
+          1051,
+          159,
+          1221,
+          527
+        ],
+        "scale": 0.9375,
+        "x": 65.6875,
+        "y": 8.90625
+      },
+      {
+        "part": "mirror",
+        "label": "银色镜面",
+        "file": "concave/mirror.png",
+        "width": 1670,
+        "height": 941,
+        "bbox": [
+          1060,
+          179,
+          1166,
+          571
+        ],
+        "scale": 0.7244897959183674,
+        "x": 291.2653061224489,
+        "y": 58.31632653061223
+      },
+      {
+        "part": "mount",
+        "label": "夹具、立柱与底座",
+        "file": "concave/mount.png",
+        "width": 1671,
+        "height": 941,
+        "bbox": [
+          1173,
+          290,
+          1330,
+          730
+        ],
+        "scale": 0.9840909090909091,
+        "x": 19.774999999999956,
+        "y": 5.249999999999988
+      }
+    ],
+    "convex": [
+      {
+        "part": "back",
+        "label": "背壳与连接架",
+        "file": "convex/back.png",
+        "width": 1672,
+        "height": 941,
+        "bbox": [
+          1010,
+          149,
+          1260,
+          677
+        ],
+        "scale": 0.678030303030303,
+        "x": 358.52272727272737,
+        "y": 49.97348484848487
+      },
+      {
+        "part": "mirror",
+        "label": "银色镜面",
+        "file": "convex/mirror.png",
+        "width": 1671,
+        "height": 941,
+        "bbox": [
+          1024,
+          166,
+          1127,
+          498
+        ],
+        "scale": 0.9457831325301205,
+        "x": 49.518072289156635,
+        "y": 16
+      },
+      {
+        "part": "mount",
+        "label": "夹具、立柱与底座",
+        "file": "convex/mount.png",
+        "width": 1671,
+        "height": 941,
+        "bbox": [
+          1172,
+          289,
+          1329,
+          728
+        ],
+        "scale": 0.9863325740318907,
+        "x": 16.98861047835989,
+        "y": 4.510250569476078
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "frame_input": "C:\\Users\\59249\\OneDrive\\桌面\\新建文件夹\\镜框02.png",
+  "installed_input": "C:\\Users\\59249\\AppData\\Local\\Temp\\codex-clipboard-d0835841-4ca2-48b5-81d0-9c7785f967f9.png",
+  "frame_sha256": "b38a3b635e03408395341356d53afa6ec75994b2b018b2b68c669c800527b42a",
+  "installed_sha256": "3c09f2a421451ba5e0eb3678e17d162458381b998562a09af88c2a5935de3acc",
+  "method": "Original visible-pixel selection; RGB/interior alpha unchanged; 8x coverage mask at cut boundary only. No image generation or hidden-area reconstruction.",
+  "verified_original_interior_pixels": 37860,
+  "selection": [
+    [
+      [
+        1562,
+        251
+      ],
+      [
+        1505,
+        253
+      ],
+      [
+        1453,
+        316
+      ],
+      [
+        1456,
+        400
+      ]
+    ],
+    [
+      [
+        1456,
+        400
+      ],
+      [
+        1457,
+        474
+      ],
+      [
+        1503,
+        534
+      ],
+      [
+        1563,
+        548
+      ]
+    ],
+    [
+      [
+        1563,
+        548
+      ],
+      [
+        1605,
+        520
+      ],
+      [
+        1629,
+        460
+      ],
+      [
+        1627,
+        399
+      ]
+    ],
+    [
+      [
+        1627,
+        399
+      ],
+      [
+        1626,
+        335
+      ],
+      [
+        1604,
+        276
+      ],
+      [
+        1562,
+        251
+      ]
+    ]
+  ],
+  "baseline": 100,
+  "minimum_visible_width_percent": 92
+}

@@ -1,0 +1,173 @@
+{
+  "version": 2,
+  "created": "2026-10-20",
+  "tool": "image_gen.imagegen",
+  "purpose": "Two-layer rig for deformable mirror body and invariant structural hardware",
+  "referenceCanvas": {
+    "width": 1672,
+    "height": 941
+  },
+  "alphaBboxThreshold": 32,
+  "layerOrder": [
+    "deformable",
+    "fixed"
+  ],
+  "deformableIncludes": [
+    "silver reflective face",
+    "close-fitting blue rear casing"
+  ],
+  "fixedIncludes": [
+    "both rectangular top/bottom end blocks",
+    "all screws",
+    "curved/triangular connecting frame",
+    "horizontal shaft",
+    "fork",
+    "upright",
+    "knob",
+    "base"
+  ],
+  "placement": "Canvas similarity matrix [a,b,-b,a,x,y]; uniform scale, slight rotation and translation. No nonuniform registration stretch.",
+  "demo": "Analytic parabola or circular arc; translate the source silver strip at invariant horizontal width to the exact front. Only blue casing interior stretches; outer rear band and hardware fixed. Curvature range contracts to retain a minimum blue gap. Preview pixels, not calibrated mm or constant 3D normal thickness.",
+  "status": "AI-extracted/locally completed assets; not lossless source segmentation. Asset preview only; production experiment remains unchanged.",
+  "groups": {
+    "concave": {
+      "label": "凹面镜",
+      "fixed": {
+        "file": "concave/fixed.png",
+        "width": 1671,
+        "height": 941,
+        "bbox": [
+          1038,
+          159,
+          1368,
+          823
+        ],
+        "transform": {
+          "a": 0.8478915662650602,
+          "b": 0,
+          "x": 168.72138554216872,
+          "y": 33.23795180722891
+        }
+      },
+      "deformable": {
+        "file": "concave/deformable.png",
+        "width": 1672,
+        "height": 941,
+        "bbox": [
+          1067,
+          180,
+          1262,
+          783
+        ],
+        "anchors": [
+          {
+            "x": 1125.385,
+            "y": 185
+          },
+          {
+            "x": 1108.32,
+            "y": 777
+          }
+        ],
+        "bendSign": 1,
+        "transform": {
+          "a": 0.5038981775749583,
+          "b": -0.00879637860685219,
+          "x": 505.56279770079107,
+          "y": 102.53658342204481
+        }
+      },
+      "contacts": [
+        {
+          "x": 1074.269578313253,
+          "y": 185.85843373493975
+        },
+        {
+          "x": 1070.8780120481929,
+          "y": 484.31626506024094
+        }
+      ]
+    },
+    "convex": {
+      "label": "凸面镜",
+      "fixed": {
+        "file": "convex/fixed.png",
+        "width": 1672,
+        "height": 941,
+        "bbox": [
+          1084,
+          147,
+          1328,
+          727
+        ],
+        "transform": {
+          "a": 1,
+          "b": 0,
+          "x": 0,
+          "y": 0
+        }
+      },
+      "deformable": {
+        "file": "convex/deformable.png",
+        "width": 1672,
+        "height": 941,
+        "bbox": [
+          1005,
+          129,
+          1183,
+          705
+        ],
+        "anchors": [
+          {
+            "x": 1158.884,
+            "y": 134
+          },
+          {
+            "x": 1156.269,
+            "y": 700
+          }
+        ],
+        "bendSign": -1,
+        "transform": {
+          "a": 0.5794929306676141,
+          "b": -0.002677339246812396,
+          "x": 432.0761510771198,
+          "y": 88.45067290624263
+        },
+        "previewShape": {
+          "sagScale": 0.3,
+          "silverWidthScale": 0.4,
+          "purpose": "Approved gentle end and default preserved; the previous 60 percent shape is now the maximum allowed slider position. Curvature mapping and silver width unchanged.",
+          "highFactor": 3,
+          "sliderMax": 60
+        }
+      },
+      "contacts": [
+        {
+          "x": 1104,
+          "y": 163
+        },
+        {
+          "x": 1104,
+          "y": 491
+        }
+      ]
+    }
+  },
+  "geometry": {
+    "script": "profile-geometry.js",
+    "default": "parabola",
+    "models": [
+      "parabola",
+      "sphere"
+    ],
+    "rearBandPixels": 3,
+    "curvatureFactor": "Candidate 0.6 to 1.4; per-type/model interval restricted by all rows to preserve silver width and at least 1.5px blue gap. Slider interpolates around the baseline.",
+    "sources": [
+      "https://openstax.org/books/university-physics-volume-3/pages/2-2-spherical-mirrors",
+      "https://www.edmundoptics.com/knowledge-center/application-notes/optics/all-about-aspheric-lenses/"
+    ],
+    "silverWidth": "Source seam-to-front horizontal width per row remains constant; seam located by sustained red/green channel drop.",
+    "minimumBlueGapPixels": 1.5
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "pass": true,
+  "browser": "156.0.8078.74",
+  "channel": "chrome",
+  "headed": true,
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "loadMs": 2209,
+  "bytes": 57686774,
+  "before": {
+    "exterior": 7,
+    "cutaway": 8,
+    "memory": {
+      "geometries": 76,
+      "textures": 13
+    },
+    "children": 2
+  },
+  "after": {
+    "exterior": 7,
+    "cutaway": 8,
+    "memory": {
+      "geometries": 76,
+      "textures": 13
+    },
+    "children": 2
+  },
+  "sampling": {
+    "frames": 1352,
+    "rafMedianMs": 13.300000000001091,
+    "rafP95Ms": 13.400000000001455,
+    "rafMaxMs": 26.80000000000291,
+    "longTasks": [],
+    "dpr": 1.0000000298023224,
+    "focused": true,
+    "visibility": "visible"
+  },
+  "external": [],
+  "errors": [],
+  "limitations": "Six cycles only; rAF is not GPU FPS or formal INP; no physical whiteboard or endurance acceptance."
+}
