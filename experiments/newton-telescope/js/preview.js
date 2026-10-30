@@ -10,9 +10,11 @@
     draw(state){
       const ctx=this.ctx,w=this.canvas.clientWidth,h=this.canvas.clientHeight;if(!w||!h)return;
       const dpr=Math.min(devicePixelRatio||1,2);this.canvas.width=w*dpr;this.canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
-      [[.16,.35,1],[.81,.61,.8],[.75,.17,.5],[.26,.79,.7],[.93,.29,.5],[.1,.84,.4]].forEach(([x,y,r])=>{ctx.fillStyle='#cddfff99';ctx.beginPath();ctx.arc(x*w,y*h,r,0,Math.PI*2);ctx.fill();});
-      const optics=N.optics.calculate(state),scale=Math.min(2.8,Math.max(.48,optics.magnification/32));
+      // Preserve the default 32x illustration; all scene spacing follows inverse field.
+      // Target sizes are schematic, not a catalogue of measured angular diameters.
+      const optics=N.optics.calculate(state),scale=(60/32)/optics.field;
       const r=(state.target==='jupiter'?h*.14:state.target==='moon'?h*.38:h*.31)*scale,cx=w*.51+(state.angle-45)*w*.001,cy=h*.52+(state.angle-45)*h*.001;
+      [[.16,.35,1],[.81,.61,.8],[.75,.17,.5],[.26,.79,.7],[.93,.29,.5],[.1,.84,.4]].forEach(([x,y,r])=>{ctx.fillStyle='#cddfff99';ctx.beginPath();ctx.arc(cx+(x-.51)*w*scale,cy+(y-.52)*h*scale,r,0,Math.PI*2);ctx.fill();});
       const blur=Math.min(5,Math.abs(optics.focusHeight-3.1)*.45);
       ctx.save();ctx.translate(cx,cy);ctx.rotate(-.37);ctx.filter=`blur(${blur}px)`;
       const halo=ctx.createRadialGradient(0,0,r*.3,0,0,r*1.9);halo.addColorStop(0,'#d3b59318');halo.addColorStop(1,'#d3b59300');ctx.fillStyle=halo;ctx.fillRect(-r*2,-r*2,r*4,r*4);
@@ -37,7 +39,10 @@
       ctx.restore();
       const vignette=ctx.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,w*.61);vignette.addColorStop(0,'#050b1e00');vignette.addColorStop(1,'#050b1e66');ctx.fillStyle=vignette;ctx.fillRect(0,0,w,h);
       document.getElementById('magnification').textContent=`${Number(optics.magnification.toFixed(1))}×`;
-      this.canvas.setAttribute('aria-label',`${state.mode==='point'?'点光源':({saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'}[state.target])}目镜成像示意，放大倍率 ${optics.magnification.toFixed(1)} 倍`);
+      const target=state.mode==='point'?'点光源':({saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'}[state.target]);
+      document.getElementById('preview-target').textContent=target;
+      document.getElementById('preview-field').textContent=`${optics.field.toFixed(2)}°`;
+      this.canvas.setAttribute('aria-label',`${target}目镜成像示意，放大倍率 ${optics.magnification.toFixed(1)} 倍，估算视场 ${optics.field.toFixed(2)} 度；天体尺寸与间距为示意`);
     }
     rings(ctx,r,front){
       const start=front?0:Math.PI,end=front?Math.PI:Math.PI*2;

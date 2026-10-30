@@ -1,12 +1,13 @@
 /* DOM bindings only. Controls use data attributes; all presentation lives in course.css. */
 (function(N){
   'use strict';const $=s=>document.querySelector(s),all=s=>document.querySelectorAll(s);
-  const mirrors={plane:{title:'平面镜',summary:'改变传播方向',description:'平面镜折转光路，不使平行光自动会聚。牛顿望远镜的副镜利用这一作用，把会聚光导向目镜。',formula:'无有限焦点 · 不提供放大',hint:'沿箭头观察：光线经 45° 平面镜反射后转向。'},concave:{title:'凹面镜',summary:'平行光会聚到实焦点',description:'凹面主镜收集远方天体的光并形成像。缩短焦距，焦点靠近镜面；增大焦距，焦点远离镜面。',formula:'近轴近似：f ≈ R / 2',hint:'调节焦距，比较焦点位置。实线是光线的实际传播路径。'},convex:{title:'凸面镜',summary:'反射光发散 · 镜后虚焦点',description:'凸面镜将光线向外发散。反向延长线交于镜后虚焦点，因此不作为牛顿望远镜的主镜。',formula:'近轴近似：|f| ≈ R / 2',hint:'虚线是反向延长线，光子不会沿虚线传播。'}};
+  const mirrors={plane:{title:'平面镜',summary:'改变传播方向',description:'平面镜折转光路，不使平行光自动会聚。牛顿望远镜的副镜利用这一作用，把会聚光导向目镜。',formula:'无有限焦点 · 不提供放大',hint:'沿箭头观察：光线经 45° 平面镜反射后转向。'},concave:{title:'凹面镜',summary:'平行光会聚到实焦点',description:'凹面主镜收集远方天体的光并形成像。缩短焦距，焦点靠近镜面；增大焦距，焦点远离镜面。',formula:'抛物面：轴上平行光汇聚于实焦点',hint:'调节焦距，比较焦点位置。实线是光线的实际传播路径。'},convex:{title:'凸面镜',summary:'反射光发散 · 镜后虚焦点',description:'凸面镜将光线向外发散。反向延长线交于镜后虚焦点，因此不作为牛顿望远镜的主镜。',formula:'抛物面：反射光反向延长线交于虚焦点',hint:'虚线是反向延长线，光子不会沿虚线传播。'}};
   const names={saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'};
   const stageNames={mirrors:'认识镜面',assembly:'组装望远镜',observation:'参数观测'};
   let lastStage='';
   const heading=new N.ExperimentHeading($('.introduction'));
   $('#mirror-workspace').appendChild($('#remove-mirror'));
+  $('#mirror-workspace').appendChild($('#finish-mirrors'));
   function sync(s){
     const optical=N.store.get(),m=mirrors[s.mirror];document.querySelector('.observatory').dataset.stage=s.stage;
     $('#mirror-workspace').hidden=s.stage!=='mirrors';$('#remove-mirror').disabled=!s.mirrorMounted;
@@ -17,12 +18,12 @@
     $('.view-tools>span').firstChild.textContent=s.stage==='mirrors'?'拖入镜片':'拖动旋转';$('.view-tools .dot').nextSibling.textContent=s.stage==='mirrors'?'实时光路':'滚轮缩放';
     all('[data-panel]').forEach(panel=>panel.hidden=panel.dataset.panel!==s.stage);
     $('#controls-title').lastChild.textContent=' '+stageNames[s.stage];
-    $('#observation-feedback').hidden=s.stage!=='observation';$('#lesson-feedback').hidden=s.stage==='observation';$('#observation-task').hidden=s.stage!=='observation';$('#assembly-hotspots').hidden=s.stage!=='assembly';
+    $('#observation-feedback').hidden=s.stage!=='observation';$('#lesson-feedback').hidden=s.stage==='observation';$('#observation-task').hidden=true;$('#assembly-hotspots').hidden=s.stage!=='assembly';
     $('#scene-title').textContent=s.stage==='mirrors'?(s.mirrorMounted?m.title+' · 已放入光路':'空光路 · 等待镜片'):s.stage==='assembly'?'反射镜装配台':'牛顿望远镜 · 完整光路';
     $('#scene-subtitle').textContent=s.stage==='mirrors'?(s.mirrorMounted?'入射光 → 镜面反射 → '+(s.mirror==='convex'?'发散光束':s.mirror==='concave'?'实焦点':'折转光束'):'将桌面镜片拖到夹具 · 光源固定于导轨'):s.stage==='assembly'?'选择或拖放零件到安装位':'入射光 → 凹面主镜 → 平面副镜 → 目镜';
     $('#course-message').textContent=s.message;
     all('[data-mirror]').forEach(button=>{button.disabled=s.mirrorMounted&&s.mirror===button.dataset.mirror;button.draggable=!button.disabled;if(button.disabled&&document.activeElement===button)button.blur();button.setAttribute('aria-pressed',String(!button.disabled&&button.dataset.mirror===s.mirrorSelection));button.classList.toggle('is-observed',s.seen.includes(button.dataset.mirror));button.classList.toggle('is-mounted',s.mirrorMounted&&s.mirror===button.dataset.mirror);});
-    $('#mirror-focal').disabled=!s.mirrorMounted||s.mirror==='plane';$('#mirror-focal').value=s.mirrorFocal;$('#mirror-focal').style.setProperty('--fill',((s.mirrorFocal-400)/800*100)+'%');$('#mirror-focal-value').textContent=!s.mirrorMounted?'先放入镜片':s.mirror==='plane'?'无有限焦距':s.mirrorFocal+' mm';$('#mirror-hint').textContent=s.mirrorMounted?m.summary:'拖入镜片后实时显示反射光路';
+    $('#mirror-focal').disabled=!s.mirrorMounted||s.mirror==='plane';const range=N.mirrorParts.limits(s.mirror);$('#mirror-focal').min=range.min;$('#mirror-focal').max=range.max;$('#mirror-focal').step=1;$('#mirror-focal').value=s.mirrorFocal;$('#mirror-focal').style.setProperty('--fill',((s.mirrorFocal-range.min)/(range.max-range.min)*100)+'%');$('#mirror-focal-value').textContent=!s.mirrorMounted?'先放入镜片':s.mirror==='plane'?'无有限焦距':s.mirrorFocal+' mm';$('#mirror-hint').textContent=s.mirrorMounted?m.summary:'拖入镜片后实时显示反射光路';
     $('#finish-mirrors').disabled=s.seen.length!==3;$('#finish-assembly').disabled=!s.assemblyDone;
     all('[data-piece]').forEach(button=>{const installed=s.installed.includes(button.dataset.piece);button.disabled=installed;button.draggable=!installed;button.setAttribute('aria-pressed',String(s.selected===button.dataset.piece));button.classList.toggle('is-installed',installed);button.querySelector('i').textContent=installed?'已安装':'待安装';});
     all('[data-slot]').forEach(button=>{button.hidden=s.installed.includes(button.dataset.slot);button.classList.toggle('is-target',s.selected===button.dataset.slot);});
@@ -35,7 +36,9 @@
   function syncOptics(s){
     $('#aperture').value=s.aperture;$('#aperture-value').textContent=s.aperture+' mm';$('#target').value=s.target;$('#aperture').style.setProperty('--fill',((s.aperture-80)/170*100)+'%');
     all('[data-eyepiece]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.eyepiece)===s.eyepiece)));
-    const m=s.focal/s.eyepiece;$('#optical-metrics').innerHTML=[['倍率',m.toFixed(1)+'×'],['实际视场',(60/m).toFixed(2)+'°'],['焦比','f/'+(s.focal/s.aperture).toFixed(1)],['出瞳',(s.aperture/m).toFixed(1)+' mm'],['集光能力',(s.aperture/7)**2]].map(([label,value])=>`<span>${label} <strong>${typeof value==='number'?value.toFixed(0)+'×':value}</strong></span>`).join('');
+    const metrics=N.store.metrics(s);$('#optical-metrics').innerHTML=[['倍率',metrics.magnification.toFixed(1)+'×'],['估算视场',metrics.field.toFixed(2)+'°'],['焦比','f/'+metrics.focalRatio.toFixed(1)],['出瞳',metrics.exitPupil.toFixed(1)+' mm'],['集光能力',metrics.lightGathering]].map(([label,value])=>`<span>${label} <strong>${typeof value==='number'?value.toFixed(0)+'×':value}</strong></span>`).join('');
+    $('#record-observation').disabled=!s.live;
+    $('#record-observation').textContent=s.live?'记录当前结果':'恢复实时预览后记录';
     if(N.course.get().stage==='observation')renderRecords(N.course.get());
   }
   function renderRecords(s){
@@ -70,5 +73,6 @@
   $('#aperture').addEventListener('input',e=>N.store.set({aperture:Number(e.target.value)}));$('#target').addEventListener('change',e=>N.store.set({target:e.target.value}));
   all('[data-eyepiece]').forEach(b=>b.addEventListener('click',()=>N.store.set({eyepiece:Number(b.dataset.eyepiece)})));
   $('#record-observation').addEventListener('click',()=>N.course.record());
+  all('[data-test-stage]').forEach(button=>button.addEventListener('click',()=>{N.course.testEnter(button.dataset.testStage);$('#test-stage-switch').open=false;N.app.telescope?.director.frame(button.dataset.testStage,null,true);}));
   N.course.subscribe(sync);N.store.subscribe(syncOptics);sync(N.course.get());
 })(window.Newton);

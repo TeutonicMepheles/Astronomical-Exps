@@ -1,0 +1,96 @@
+{
+  "input": "C:\\Users\\59249\\OneDrive\\桌面\\新建文件夹\\凹02.png",
+  "source_sha256": "0e269590d0551addda90705077f75ad2a1cbf4e5bb8419075aa5df0bca193083",
+  "native_size": [
+    1280,
+    720
+  ],
+  "holder": "../convex-original/holder.png",
+  "selection": [
+    [
+      [
+        976,
+        155
+      ],
+      [
+        936,
+        156
+      ],
+      [
+        902,
+        198
+      ],
+      [
+        903,
+        250
+      ]
+    ],
+    [
+      [
+        903,
+        250
+      ],
+      [
+        904,
+        301
+      ],
+      [
+        932,
+        339
+      ],
+      [
+        971,
+        348
+      ]
+    ],
+    [
+      [
+        971,
+        348
+      ],
+      [
+        1000,
+        331
+      ],
+      [
+        1018,
+        291
+      ],
+      [
+        1018,
+        249
+      ]
+    ],
+    [
+      [
+        1018,
+        249
+      ],
+      [
+        1018,
+        206
+      ],
+      [
+        1003,
+        170
+      ],
+      [
+        976,
+        155
+      ]
+    ]
+  ],
+  "method": "Original visible-pixel extraction; RGB and interior alpha unchanged. Only cut-edge coverage is masked. No generation, recolouring or reconstruction.",
+  "verified_original_interior_pixels": 16472,
+  "minimum_visible_width_percent": 85,
+  "baseline": 100,
+  "shape_control": {
+    "range": [
+      85,
+      100
+    ],
+    "model": "Fixed complete rim; smooth interior depth field; no perimeter compression",
+    "fixed_rim_pixels": 10,
+    "central_shift_at_85_source_pixels": 12
+  }
+}

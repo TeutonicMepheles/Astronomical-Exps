@@ -9,7 +9,7 @@
 .assembly-slot.hovered{border-color:#ffe3a1;background:#ffe3a133;box-shadow:0 0 22px #ffe3a166}
 .assembly-slot.installed{border-color:transparent;background:transparent}
 .mounted-surface{display:none;position:absolute;inset:8px 20px;border-radius:50%;background:linear-gradient(100deg,#577c9f,#dbf3ff 45%,#8eb5d6 65%,#324964);border:4px solid #92abc2;box-shadow:inset 5px 0 8px #173450}
-.installed .mounted-surface{display:block}
+.installed .mounted-surface{display:none}
 .plane .mounted-surface{inset:12px 38px;border-radius:3px;transform:rotate(-45deg);border-width:2px;background:linear-gradient(90deg,#7394b3,#e9f6ff)}
 .assembly-mirror-tray{pointer-events:auto}
 .loose-mirror{flex:0 0 180px;border:0;background:none;padding:0;color:#daebff;cursor:grab;touch-action:none;font:17px 'Microsoft YaHei'}
@@ -31,3 +31,31 @@
 /* Keep the assembly canvas free of instruction panels and tray captions. */
 .assembly-preview .assembly-caption,.assembly-mirror-tray .loose-mirror>span{display:none}
 
+
+/* Candidate review is opt-in via ?studio=1..4. Assets sit on the desk foreground. */
+.studio-review[data-stage=assembly] .assembly-preview{z-index:15}
+.studio-review[data-stage=assembly] .assembly-targets{z-index:16}
+.studio-review[data-stage=assembly] .assembly-mirror-tray{top:744px;z-index:17}
+.studio-review-options{position:absolute;left:48px;top:200px;z-index:40;display:grid;gap:9px;width:218px;font-size:14px}
+.studio-review-options strong{color:#d8e9fa;font-size:17px;margin-bottom:5px}
+.studio-review-options a,.studio-review-options button{display:block;text-decoration:none;text-align:left;color:#d8e9fa;border:1px solid #89b0d77a;border-radius:8px;padding:11px 14px;background:#153b60;cursor:pointer}
+.studio-review-options [aria-current]{border-color:#f4cb83;color:#ffe2ad;background:#34536c}
+.studio-review-options a:hover,.studio-review-options a:focus-visible{border-color:#f4cb83;background:#34536c}
+.studio-review:not([data-stage=assembly]) .studio-review-options{display:none}
+/* Layered asset review controls stay outside the assembly task's runtime state. */
+.studio-parts-review .assembly-installed-primary,.studio-parts-review .assembly-installed-secondary,.studio-parts-review .assembly-targets{display:none!important}
+.parts-editor{width:250px;gap:8px;top:185px}
+.parts-variants{display:flex;gap:6px}.parts-variants a{flex:1;text-align:center;padding:9px}
+.parts-editor label{display:flex;align-items:center;justify-content:space-between;color:#dae8f8;font-size:14px}
+.parts-editor input[type=number],.parts-editor select{width:110px;padding:6px;background:#163b5f;color:#edf5ff;border:1px solid #7598ba;border-radius:5px;font:inherit}
+.parts-editor input[type=checkbox]{width:20px;height:20px}.parts-editor label:has([type=checkbox]){justify-content:flex-start;gap:8px}
+.parts-editor small{font-size:12px;color:#aac6e0;line-height:1.5}.parts-secondary:focus-visible{outline:1px dashed #ffd98f}
+.studio-parts-review .test-stage-switch{bottom:20px}
+
+/* Approved variant 2: native secondary placement (420,444), size 320, angle 0. */
+.observatory[data-stage=assembly] .assembly-preview{z-index:15}
+.observatory[data-stage=assembly] .assembly-targets{z-index:16}
+.observatory[data-stage=assembly] .assembly-mirror-tray{top:744px;z-index:17}
+.observatory:not(.studio-review) .assembly-telescope{left:390px;top:100px;width:860px;height:645px}
+.observatory:not(.studio-review) .assembly-installed-secondary{left:493.5369873046875px;top:209.022216796875px;width:134.375px;height:134.375px;transform:none}
+.studio-review .assembly-front{display:none}

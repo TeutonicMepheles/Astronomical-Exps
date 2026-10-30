@@ -5,7 +5,7 @@
  caption.innerHTML='<strong>组装牛顿望远镜</strong><span role="status" aria-live="polite"></span><small></small><button type="button" class="assembly-reset">重新组装</button><button type="button" class="assembly-next">进入观测 →</button>';
  const message=caption.querySelector('[role=status]'),progress=caption.querySelector('small'),next=caption.querySelector('.assembly-next');
  const names={plane:'平面镜',concave:'凹面镜',convex:'凸面镜'},parts={plane:'secondary',concave:'primary'};
- let drag=null;const slots=[{type:'concave',label:'主镜',x:1208,y:335,w:100,h:220},{type:'plane',label:'副镜',x:684,y:338,w:90,h:90}];
+ let drag=null;const slots=N.studioCandidate?.slots||[{type:'concave',label:'主镜',x:1081,y:413,w:72,h:112},{type:'plane',label:'副镜',x:566.375,y:286.4453125,w:65,h:78}];
  const layer=document.createElement('div');layer.className='assembly-targets';stage.append(layer);
  slots.forEach(slot=>{
   const el=document.createElement('button');el.type='button';el.className='assembly-slot '+slot.type;el.style.cssText=`left:${slot.x-slot.w/2}px;top:${slot.y-slot.h/2}px;width:${slot.w}px;height:${slot.h}px`;el.innerHTML=`<span>${slot.label}</span><i class="mounted-surface"></i>`;slot.el=el;layer.append(el);
@@ -36,6 +36,8 @@
   N.course.install(parts[slot.type],parts[type]);
  }
  function sync(s){
+  document.querySelector('.assembly-installed-primary').hidden=!s.installed.includes('primary');
+  document.querySelector('.assembly-installed-secondary').hidden=!s.installed.includes('secondary');
   layer.hidden=s.stage!=='assembly';if(s.stage!=='assembly')cancelDrag();
   slots.forEach(slot=>{const installed=s.installed.includes(parts[slot.type]);slot.el.classList.toggle('installed',installed);slot.el.classList.toggle('selected',s.selected===parts[slot.type]);slot.el.setAttribute('aria-label',slot.label+(installed?'已安装：'+names[slot.type]:'安装位置'));slot.el.querySelector('span').textContent=slot.label+(installed?' ✓':'');});
   buttons.forEach(button=>{const type=button.dataset.assemblyMirror,installed=s.installed.includes(parts[type]);button.disabled=installed;button.classList.toggle('installed',installed);button.classList.toggle('selected',s.selected===parts[type]);button.setAttribute('aria-label',names[type]+(installed?'已安装':'，拖到安装位置'));button.querySelector('span').textContent=installed?'已安装':names[type];});

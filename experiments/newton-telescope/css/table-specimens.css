@@ -1,0 +1,36 @@
+/* Stage-one tabletop paging; position uses the existing 1600 x 900 stage. */
+.table-page-arrow{position:absolute;top:746px;width:76px;height:76px;padding:0;border:0;background:none;z-index:25;cursor:pointer;touch-action:manipulation}
+.table-page-arrow img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 3px 4px #14233e55)}
+.table-page-next{left:1180px}.table-page-next img{transform:scaleX(-1)}
+.table-page-previous{left:344px}
+.table-page-arrow:hover img,.table-page-arrow:focus-visible img{filter:brightness(1.14) drop-shadow(0 3px 4px #14233e55)}
+.table-page-arrow:focus-visible{outline:2px solid #c4e3f1;outline-offset:2px;border-radius:10px}
+.table-page-arrow[hidden],.table-lens-page[hidden],.observatory[data-tray-page=lenses] #table-mirror-page{display:none!important}
+.table-lens-page{height:195px;display:flex;justify-content:center;align-items:flex-start;gap:80px}
+.table-lens-button{position:relative;flex:0 0 185px;width:185px;height:195px;padding:0;border:0;background:none;box-shadow:none;color:#e8f2ff;cursor:grab;touch-action:none;pointer-events:auto}
+.table-lens-button:active{cursor:grabbing}
+.table-lens-button:focus-visible{outline:2px solid #c4e3f1;outline-offset:4px;border-radius:10px}
+/* Match the first tray's ~134 x 119 px visible silhouette, not PNG canvas size. */
+.table-lens-art{position:absolute;left:12px;top:13px;display:block;width:155px;height:155px;max-width:none;object-fit:contain;pointer-events:none;filter:drop-shadow(0 9px 5px #07162866)}
+.table-lens-button.is-mounted .table-lens-art{opacity:.22}
+.table-lens-button:disabled{pointer-events:none;cursor:default}
+.table-lens-button:disabled .table-lens-art{transform:none;filter:drop-shadow(0 9px 5px #07162866)}
+.table-lens-outline{position:fixed;z-index:90;pointer-events:none;--hint-outline:#F4CB83;--hint-outline-width:3px;--hint-outline-min:1;--hint-outline-max:1}
+.table-tray-announcement{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* Keep only the new holder; its source rail strip is masked by the viewport. */
+#optical-round-holder-art,#optical-frame-occlusion{position:absolute;z-index:2;pointer-events:none;clip-path:polygon(65% 0,88% 0,88% 66.75%,81.4% 66.75%,81.4% 100%,71.7% 100%,71.7% 66.75%,65% 66.75%)}
+#optical-frame-occlusion{z-index:4;/* Only the far rim covers rays; the near rim remains in front of the apparatus but behind the beam. */clip-path:polygon(76.27% 0,100% 0,100% 100%,76.32% 100%,76.32% 47.57%,77.05% 46.53%,77.69% 45.27%,78.23% 43.81%,78.69% 42.18%,79.04% 40.41%,79.28% 38.55%,79.42% 36.61%,79.44% 34.64%,79.38% 32.58%,79.22% 30.59%,78.96% 28.70%,78.61% 26.94%,78.16% 25.34%,77.62% 23.93%,76.99% 22.74%,76.27% 21.79%)}
+#optical-frame-occlusion img{display:block;width:100%;height:100%;opacity:.85}
+#optical-round-holder-art[hidden],#optical-frame-occlusion[hidden]{display:none!important}
+#convex-original-glass,#concave-original-glass{position:absolute;z-index:2;pointer-events:none}
+#convex-original-glass[hidden],#concave-original-glass[hidden]{display:none!important}
+.observatory[data-tray-page=lenses] #mounted-mirror-controls{width:64px;height:64px}
+.observatory[data-tray-page=lenses] #mounted-mirror-controls[data-optic=convex],.observatory[data-tray-page=lenses] #mounted-mirror-controls[data-optic=lens]{width:110px;height:auto;min-height:64px}
+.observatory[data-tray-page=lenses] #focus-marker.convex-focus-above{transform:translate(-50%,-100%);white-space:nowrap}
+
+/* Proposal B: changing layers stay hidden between exit and entrance animations.
+ * Web Animations supplies their animated opacity; the axis, rail and emitter stay fixed. */
+.is-tray-switching :is(#optical-mirror-art,#optical-mirror-surface,#optical-round-holder-art,#optical-frame-occlusion,#convex-original-glass,#concave-original-glass,#table-mirror-page,#table-lens-page,#focus-marker,#mounted-mirror-controls,.tray-beam-driver){opacity:0}
+.is-tray-switching #mirror-move-handle{visibility:hidden}
+.tray-beam-driver{position:absolute;width:0;height:0;pointer-events:none;opacity:1}
+.tray-transition-notice{position:absolute;z-index:70;left:50%;top:95px;transform:translateX(-50%);padding:12px 20px;border:1px solid #f4cb83;background:#213b58;color:#fff0cc;border-radius:10px;font-size:16px;pointer-events:none}

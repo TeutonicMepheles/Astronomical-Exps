@@ -47,3 +47,33 @@
 .part-label.label-inward{transform:translateX(-100%);flex-direction:row-reverse}.part-label.label-inward button{padding:0 12px 0 0;text-align:right}
 
 .focus-marker{position:absolute;transform:translate(-50%,16px);font-size:12px;color:var(--course-accent);background:#102340c9;border:1px solid #d8b98044;border-radius:6px;padding:4px 8px;pointer-events:none}
+.focus-marker[data-virtual=true]{z-index:5;color:#b1c9f0;border-color:#8ea9d377}
+
+.preview-readout{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--course-muted);font-variant-numeric:tabular-nums}
+.preview-readout strong{font-weight:500;color:var(--course-text)}
+.preview-readout output{margin-left:4px;color:var(--course-accent)}
+.preview-card .preview-description{margin:10px 0 0;font-size:13px;line-height:1.7}
+.preview-assumption{margin:8px 0 12px;font-size:12px;line-height:1.6;color:var(--course-muted)}
+.record-button:disabled{color:var(--course-muted);border-style:dashed}
+.preview-refresh{width:100%;min-height:44px;margin-top:12px;border:1px solid var(--course-border);border-radius:8px;background:#30486c;color:var(--course-text);font-size:14px}
+.preview-refresh:hover,.preview-refresh:active{border-color:var(--course-accent);color:var(--course-accent)}
+
+/* Step3: a fixed side elevation of the optical tube, above the console. */
+.observatory[data-stage=observation] #viewport{left:23%;right:23%;top:3%;bottom:29%;cursor:pointer;outline:none}
+
+.test-stage-switch{position:absolute;left:36px;bottom:30%;z-index:60;color:#c7d9f4;font-size:13px}
+.test-stage-switch summary{cursor:pointer;list-style:none;border:1px solid #789cca88;border-radius:8px;background:#152943;padding:10px 16px}
+.test-stage-switch>div{position:absolute;left:0;bottom:46px;display:grid;gap:6px;width:166px;padding:8px;border:1px solid #789cca88;border-radius:10px;background:#101f38}
+.test-stage-switch button{padding:12px 8px;border:0;border-radius:6px;background:#294466;color:#e4eeff;text-align:left;cursor:pointer}
+.test-stage-switch button:hover,.test-stage-switch button:focus-visible{background:#41658e}
+
+.observatory[data-stage=observation].eyepiece-view #viewport{left:5%;right:49%;top:18%;bottom:30%}
+.observatory[data-stage=observation].eyepiece-view .preview-card{left:54%;right:3%;top:7%;bottom:31%;width:auto;padding:22px}
+.observatory[data-stage=observation].eyepiece-view .planet-viewport{height:60%;min-height:0}
+.eyepiece-return{position:absolute;left:32%;bottom:31%;z-index:60;padding:10px 18px;border:1px solid #8fb4df;border-radius:8px;color:#e5efff;background:#203b60;cursor:pointer}
+
+.observatory.eyepiece-view #observation-feedback{height:100%}
+
+#progress-page-observation{grid-template-columns:repeat(3,minmax(0,1fr))}
+#progress-page-observation>.control:first-child{padding-left:0}
+#progress-page-observation>.control:nth-child(3){border-right:0}
