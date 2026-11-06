@@ -31,7 +31,8 @@ Function-Spec/meetings/
 # 生成/交付/录屏产物（已 bundle 归档，不进源码库，保留本机）
 **/concepts/
 **/delivery/
-**/docs/review/
+**/docs/review/*.webm
+**/docs/review/*.png
 **/source-layers*/
 **/libtv-layers*/
 **/libtv-composite-options*/
@@ -40,10 +41,13 @@ Function-Spec/meetings/
 **/resource-archives/
 **/building-preview/
 **/mask-editor/assets/
-experiments/newton-telescope/assets/studio-*/
+experiments/newton-telescope/assets/studio-body/
+experiments/newton-telescope/assets/studio-candidates/
+experiments/newton-telescope/assets/studio-parts/
+experiments/newton-telescope/assets/studio-refinements/
 experiments/light-pollution/lib-static-demo/standalone-light.html
 experiments/light-pollution/assets/lamp-variants/*.zip
-**/tests/*.png
+experiments/foucault-pendulum/tests/*.png
 
 # 本地归档与工具状态
 archive/*.bundle
