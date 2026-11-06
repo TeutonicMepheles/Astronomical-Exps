@@ -1,0 +1,266 @@
+* { box-sizing:border-box; }
+html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none; }
+#stage { position:absolute;width:1600px;height:900px;left:50%;top:50%;transform:translate(-50%,-50%);transform-origin:center;overflow:hidden;isolation:isolate; }
+.hall,.pendulum,.city-layer { position:absolute;inset:0;width:100%;height:100%;pointer-events:none; }
+.hall { object-fit:cover; }
+.hall-screen-rim { fill:none;stroke:#afcaff;stroke-width:3;opacity:.28; }
+.skylight { mix-blend-mode:screen; }
+.hall-screen-fx { display:block;width:100%;height:100%; }
+.hall-screen-fx:not([data-drawn]) { visibility:hidden; }
+#stage:not(.param-mode):not(.no-background) .pendulum-cable { clip-path:url(#hallCableClip); }
+.scene-bloom {
+  position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+  background:
+    radial-gradient(ellipse 30% 25% at 29% 50%,rgb(116 176 255 / 20%),transparent 72%),
+    radial-gradient(ellipse 22% 23% at 67% 53%,rgb(198 232 255 / 16%),transparent 70%),
+    linear-gradient(180deg,rgb(34 73 132 / 5%),rgb(51 91 151 / 3%));
+  transition:opacity .6s ease-in-out;
+}
+.earth-shadow { position:absolute;inset:0;pointer-events:none; }
+.earth-shadow::before,
+.earth-shadow::after { position:absolute;content:"";pointer-events:none; }
+.earth-shadow::before {
+  left:22px;top:659px;width:650px;height:116px;
+  background:radial-gradient(ellipse at center,rgb(12 24 48 / 24%) 0%,rgb(12 24 48 / 13%) 38%,rgb(12 24 48 / 0%) 76%);
+  transform:rotate(-6deg);
+}
+.earth-shadow::after {
+  left:238px;top:676px;width:264px;height:42px;
+  background:radial-gradient(ellipse at center,rgb(9 17 34 / 40%) 0%,rgb(9 17 34 / 19%) 43%,rgb(9 17 34 / 0%) 76%);
+}
+/* Meridian ring: reference stand replaces the old pedestal. Ring inner circle
+   (685 img px) ≈ globe radius (250 stage px) with a small gap: scale 0.37 →
+   ring inner 253 (globe 250). Ring centre (1099,907) aligned to globe centre
+   (450,375). (Exact tilt/axis alignment is pending Visual-Designer re-check.) */
+.meridian-base,
+.meridian-stem {
+  position:absolute;left:-36.6px;top:79.4px;width:757.8px;height:757.8px;pointer-events:none;
+}
+.meridian-base > *, .meridian-stem > * { position:absolute;inset:0;width:100%;height:100%; }
+:is(.meridian-base,.meridian-stem):not([data-grain]) > canvas,
+:is(.meridian-base,.meridian-stem)[data-grain] > img { opacity:0; }
+/* Soft contact shadow where the ring's base meets the floor. */
+.ring-contact-ao {
+  position:absolute;left:170px;top:776px;width:380px;height:46px;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgb(9 17 34 / 62%) 0%,rgb(9 17 34 / 30%) 46%,rgb(9 17 34 / 0%) 76%);
+}
+/* Soft contact shadow at the ball/base junction (ball sits in the ring socket). */
+.ball-base-ao {
+  position:absolute;left:170px;top:652px;width:400px;height:30px;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgb(9 17 34 / 52%) 0%,rgb(9 17 34 / 22%) 52%,rgb(9 17 34 / 0%) 78%);
+}
+#globe { position:absolute;left:95px;top:140px;width:550px;height:550px;touch-action:none;cursor:grab;outline:none; }
+#globe:active { cursor:grabbing; }
+#globe:focus-visible { outline:2px solid #789bb5;outline-offset:5px;border-radius:50%; }
+/* City markers on the globe (white dot + navy outline; yellow when selected). */
+.city { pointer-events:auto; cursor:pointer; }
+.city.hidden { opacity:0; pointer-events:none; }
+.city .hit { fill:transparent; pointer-events:all; }
+.city.hidden .hit { pointer-events:none; }
+.city .dot { fill:#ffffff; stroke:#16324f; stroke-width:2; }
+.city .ring { fill:none; stroke:#ffc400; stroke-width:2.5; opacity:0; }
+.city .name { fill:#16324f; font:700 15px/1 system-ui; }
+.city .coord { fill:#3d5c80; font:500 12px/1 system-ui; }
+.city .name,.city .coord { paint-order:stroke; stroke:#ffffff; stroke-width:3px; stroke-linejoin:round; }
+.city.selected .dot { fill:#ffc400;stroke:#725300;stroke-width:2; }
+.city.selected .name,.city.selected .coord { visibility:hidden; }
+.city.selected .ring { stroke-width:3.5; opacity:1; filter:url(#cityGlow); }
+/* Latitude annotation: degree labels at the globe edge + selected-city ring. */
+.latitude-overlay { pointer-events:none; }
+.latitude-overlay .lat-label { fill:#e6eef7; font:600 11px/1 system-ui; paint-order:stroke; stroke:#0d1c2e; stroke-width:3px; stroke-linejoin:round; }
+.latitude-ring { fill:none; stroke:#ffc400; stroke-width:3; stroke-linecap:round; filter:url(#cityGlow); }
+#trails { position:absolute;left:580px;top:545px;width:920px;height:270px;pointer-events:none; }
+#bob{position:absolute;left:0;top:0;width:70px;height:70px;pointer-events:none}
+#paramButton{position:absolute;right:28px;top:24px;min-width:120px;min-height:44px;z-index:6;border:1px solid #647897;border-radius:8px;background:#1c2c46;color:#edf2fa;font:16px system-ui;cursor:pointer;padding:10px 16px}
+#paramButton[aria-expanded="true"]{background:#2a3d5f;border-color:#99b7ef}
+#debugButton{position:absolute;right:28px;top:80px;min-width:72px;min-height:44px;z-index:5}
+.stage-control { opacity:0;pointer-events:none;transition:opacity .16s ease; }
+#stage.ctrl-held .stage-control { opacity:1;pointer-events:auto; }
+/* 调整单摆参数 mode: hide the hall/globe annotations, keep the pendulum. */
+#stage.param-mode .hall,
+#stage.param-mode .meridian-base,
+#stage.param-mode .meridian-stem,
+#stage.param-mode .ring-contact-ao,
+#stage.param-mode .ball-base-ao,
+#stage.param-mode .earth-shadow,
+#stage.param-mode #globe,
+#stage.param-mode #cityMarkers { opacity:0; pointer-events:none; }
+.scale-lines { position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .25s; }
+#stage.param-mode .scale-lines { opacity:1; }
+#debugPanel{position:absolute;right:28px;top:132px;width:300px;max-height:740px;overflow:auto;padding:20px;background:#142036f2;border:1px solid #647897;border-radius:12px;color:#edf2fa;z-index:5;font:16px system-ui}
+#debugPanel[hidden]{display:none}
+#debugPanel label{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:50px}
+#debugPanel input[type=range]{width:130px;accent-color:#99b7ef}
+#debugPanel input[type=color]{width:68px;height:36px;border:0;background:none;padding:0}
+#debugButton,#debugPanel button{border:1px solid #647897;border-radius:8px;background:#1c2c46;color:#edf2fa;font:16px system-ui;cursor:pointer;padding:10px 16px}
+#debugPanel button{margin-top:12px;min-height:44px;width:100%}
+/* Stage-1 readout + time-speed control. */
+#stage1Readout {
+  position:absolute;left:680px;top:135px;visibility:hidden;width:280px;padding:15px 17px;z-index:20;
+  border:1px solid #d5e6ff80;border-radius:15px;
+  background:linear-gradient(145deg,#183557f7,#0c1d35f2);
+  box-shadow:0 10px 28px #07152966;color:#edf5ff;pointer-events:none;
+}
+#stage1Readout::before {
+  content:"";position:absolute;left:-9px;top:50%;width:17px;height:17px;
+  border-left:1px solid #d5e6ff80;border-bottom:1px solid #d5e6ff80;
+  background:#162f4f;transform:translateY(-50%) rotate(45deg);
+}
+.location-heading { display:flex;align-items:center;gap:13px; }
+.location-heading svg {
+  width:48px;height:48px;padding:7px;border:1px solid #b7d7ff44;border-radius:12px;
+  background:#87b9f422;fill:none;stroke:#b9d9ff;stroke-width:1.3;
+}
+.location-heading .location-dot { fill:#ffc400;stroke:#483400; }
+.location-heading b { display:block;font-size:26px;line-height:1.12; }
+.location-coordinates { display:block;margin-top:4px;font-size:18px;font-weight:700;line-height:1.25;font-variant-numeric:tabular-nums; }
+.location-coordinates strong { color:#ffdc78; }
+.location-coordinates span { color:#edf5ff;font-weight:600; }
+.precession-readout {
+  position:absolute;left:655px;top:235px;width:225px;margin:0;z-index:19;
+  display:grid;gap:24px;padding-left:18px;border-left:1px solid #b9d9ff66;
+  color:#edf5ff;pointer-events:none;text-shadow:0 2px 12px #041125e6;
+  transition:opacity .6s ease-in-out;
+}
+.precession-readout dt { color:#d2e3f4;font-size:18px;font-weight:600;letter-spacing:.02em; }
+.precession-readout dd { display:flex;align-items:center;gap:8px;margin:5px 0 0;font-variant-numeric:tabular-nums; }
+.metric-value-group { display:inline-flex;align-items:baseline;gap:7px; }
+.precession-readout output { font-size:36px;font-weight:650;line-height:1.1; }
+.precession-readout .metric-unit { color:#fff;font-size:20px;font-weight:600;line-height:1.1; }
+.period-value .metric-unit { align-self:flex-end;margin-bottom:0; }
+.rate-value .metric-unit { align-self:flex-start;margin-top:0; }
+.precession-readout small:empty { display:none; }
+.metric-delta {
+  display:grid;place-items:center;flex:none;width:30px;height:32px;border-radius:50%;
+  background:#8cc8ff18;font-size:29px;font-weight:900;line-height:1;opacity:0;
+}
+.metric-value.is-changing { animation:metric-card-refresh .56s ease-out; }
+.metric-value.is-changing output { animation:metric-number-refresh .56s ease-out; }
+.metric-value.is-changing .metric-delta { opacity:1; }
+.metric-value.is-up .metric-delta { color:#ffd36a;background:#ffd36a20;box-shadow:0 0 14px #ffd36a38;animation:metric-arrow-up .56s ease-out; }
+.metric-value.is-down .metric-delta { color:#7ddcff;background:#7ddcff20;box-shadow:0 0 14px #7ddcff38;animation:metric-arrow-down .56s ease-out; }
+@keyframes metric-card-refresh { from{filter:brightness(1.45)}to{filter:none} }
+@keyframes metric-number-refresh { from{opacity:.45;transform:translateY(4px)}to{opacity:1;transform:none} }
+@keyframes metric-arrow-up { from{opacity:0;transform:translateY(9px)}35%{opacity:1}to{opacity:1;transform:none} }
+@keyframes metric-arrow-down { from{opacity:0;transform:translateY(-9px)}35%{opacity:1}to{opacity:1;transform:none} }
+@media(prefers-reduced-motion:reduce){.metric-value,.metric-value output,.metric-delta{animation:none!important}}
+.stage1-hud { position:absolute;left:1063.2114706973296px;bottom:48px;z-index:20;display:flex;align-items:stretch;gap:15px;transform:translateX(-50%);transition:opacity .6s ease-in-out; }
+.time-speed { position:relative;order:2;display:flex;align-items:center;gap:8px;padding:12px 16px;border:1px solid #adcdee35;border-radius:18px;background:#102643e8;color:#edf5ff; }
+.speed-icon { flex:none;width:54px;height:54px;padding:13px;border-radius:50%;background:#1e426c;box-shadow:inset 0 0 0 8px #28517c80;fill:none;stroke:#d6efff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round; }
+.speed-reading { display:flex;flex-direction:column;min-width:68px; }
+.speed-label { font-size:17px;font-weight:600;line-height:22px; }
+.time-speed button { display:grid;place-items:center;min-width:44px;min-height:44px;border:1px solid #adcdee60;border-radius:50%;background:#1e426c;box-shadow:inset 0 0 0 7px #28517c80;color:#d6efff;cursor:pointer; }
+.time-speed button svg { width:21px;height:21px;fill:currentColor; }
+.time-speed button:disabled { opacity:.35;cursor:default; }
+.time-speed button:focus-visible { outline:2px solid #ffe5ad;outline-offset:3px; }
+#timeSpeedVal { display:block;font-size:26px;font-weight:650;line-height:1.35;color:#7cdef3;font-variant-numeric:tabular-nums; }
+/* Top progress control (extracted from EXP-04). */
+.astro-stage-progress { position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:30;padding:12px 28px;border-radius:40px;background:#0b1c38e8;box-shadow:0 3px 16px #040a1a50;color:#8799bd; }
+.astro-stage-progress ol { display:flex;gap:46px;align-items:center;list-style:none;margin:0;padding:0; }
+.astro-stage-progress li { position:relative;display:flex;align-items:center;gap:12px;white-space:nowrap;font-size:20px; }
+.astro-stage-progress li.clickable { cursor:pointer; }
+.astro-stage-progress li.clickable:hover { color:#cdd8ee; }
+.astro-stage-progress li+li:before { content:'';position:absolute;left:-31px;top:50%;width:16px;border-top:2px dashed #61769f; }
+.step-number { display:grid;place-items:center;width:42px;height:42px;border-radius:48% 52% 47% 53%;background:#243e67;color:#a8bfdf;font-size:26px; }
+.astro-stage-progress .current { color:#fff2cf; }
+.current .step-number { background:#b2d8f5;color:#153254;box-shadow:0 0 0 2px #d3ebff44; }
+.current .step-number:after { content:'';position:absolute;left:4px;top:46px;width:32px;height:5px;border-bottom:2px solid #b2d8f5;border-radius:50%; }
+.astro-stage-progress .complete .step-number { box-shadow:inset 0 0 0 2px #8fc9bb; }
+.step-check { display:none;color:#b5dbc9;font-size:16px;margin-left:-6px; }.complete .step-check { display:block; }
+.stage-next { position:absolute;right:45px;bottom:28px;z-index:35;min-width:158px;min-height:58px;padding:12px 25px;color:#fff0c9;background:#28446b;border:1px solid #c4d8ef;border-radius:14px 12px 15px 11px;font-family:inherit;font-size:22px;line-height:1.3;cursor:pointer;box-shadow:0 3px 10px #07122680;animation:stage-next-in .45s ease-out; }
+.stage-next[hidden] { display:none; }.stage-next:hover,.stage-next:focus-visible { background:#385c89;outline:2px solid #ffe5ad;outline-offset:3px; }
+@keyframes stage-next-in { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+@media(prefers-reduced-motion:reduce){.stage-next{animation:none}}
+.stage-back { position:absolute;left:45px;bottom:28px;z-index:35;width:64px;height:58px;display:grid;place-items:center;padding:0;background:#192f50;color:#e2efff;border:1px solid #a8c9e8;border-radius:14px 12px 15px 11px;box-shadow:0 3px 10px #07122680;font:34px/1 system-ui;cursor:pointer; }
+.stage-back[hidden] { display:none; }.stage-back:hover,.stage-back:focus-visible { background:#385c89;outline:2px solid #ffe5ad;outline-offset:3px; }
+
+/* Stage backgrounds crossfade independently of the pendulum camera. */
+#stage { background:#101d31; }
+.parameter-background { position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse 60% 55% at 50% 47%,#243b56 0%,#15263d 64%,#0b1728 100%); }
+.parameter-background::after { content:"";position:absolute;left:10%;right:10%;top:81%;height:12%;
+  background:radial-gradient(ellipse at center,#729ab52b,transparent 70%); }
+.hall,.parameter-background,.meridian-base,.meridian-stem,.ring-contact-ao,.ball-base-ao,.earth-shadow,#globe,#cityMarkers { transition:opacity .6s ease-in-out; }
+#stage.param-mode .parameter-background { opacity:1; }
+#stage.param-mode #trails,#stage.param-mode #swingPlane,#stage.param-mode #swingSurface,
+#stage.param-mode .scene-bloom,#stage.param-mode #stage1Readout,
+#stage.param-mode .precession-readout,#stage.param-mode .stage1-hud { opacity:0;pointer-events:none; }
+#trails,#swingPlane,#swingSurface,#stage1Readout,.stage1-hud { transition:opacity .6s ease-in-out; }
+#stage.param-mode .scale-lines { transition-delay:.25s; }
+#swingSurface[hidden] { display:none; }
+#planeToggle {
+  width:44px;height:44px;display:grid;place-items:center;padding:0;
+  border:1px solid #adcdee60;border-radius:50%;background:#1e426c;color:#edf2fa;cursor:pointer;
+}
+#planeToggle[aria-pressed="true"] { background:#395c7b;border-color:#c1e4ff; }
+#planeToggle:focus-visible { outline:2px solid #ffe5ad;outline-offset:3px; }
+#stage.param-mode #paramButton { background:#2a3d5f; }
+@media(prefers-reduced-motion:reduce){
+  .hall,.scene-bloom,.parameter-background,.meridian-base,.meridian-stem,.ring-contact-ao,.ball-base-ao,.earth-shadow,#globe,#cityMarkers,
+  .scale-lines,#trails,#swingPlane,#swingSurface,#stage1Readout,.precession-readout,.stage1-hud { transition:none!important; }
+}
+@media(prefers-reduced-motion:reduce){.stage-control{transition:none}}
+
+#stage.param-mode .city { pointer-events:none; }
+
+#parameterControls { position:absolute;left:28px;top:270px;width:350px;padding:26px;
+  color:#e4edf8;background:#13263de8;border:1px solid #48647f;border-radius:16px;z-index:6; }
+#parameterControls[hidden] { display:none; }
+.parameter-field { margin-bottom:24px; }
+.parameter-field>label { display:block;font:600 20px system-ui;margin-bottom:12px; }
+.parameter-input { display:flex;gap:8px; }
+.parameter-input input { width:166px;min-width:0;min-height:52px;padding:8px 12px;
+  border:1px solid #789bb5;border-radius:8px;color:#edf2fa;background:#0f1e32;font:22px system-ui; }
+.parameter-input button { width:52px;min-height:52px;border:1px solid #789bb5;border-radius:8px;
+  color:#edf2fa;background:#263f5b;font:24px system-ui;cursor:pointer; }
+.parameter-input button:hover,.parameter-input button:focus-visible { background:#395c7b; }
+.parameter-period { display:flex;justify-content:space-between;font:18px system-ui; }
+.parameter-period output { color:#c6e7ff;font-variant-numeric:tabular-nums; }
+.parameter-note { margin:20px 0 0;color:#a5b9ce;font:14px/1.6 system-ui; }
+#parameterError { color:#ffd0b6;font:14px/1.5 system-ui;margin:0 0 14px; }
+#parameterError:empty { display:none; }
+
+.length-tiers { display:flex;gap:8px; }
+.length-tiers button { flex:1;min-height:52px;padding:8px;border:1px solid #789bb5;border-radius:8px;background:#0f1e32;color:#c5d8ec;font:600 18px system-ui;cursor:pointer; }
+.length-tiers button[aria-pressed="true"],.length-tiers button:hover,.length-tiers button:focus-visible { background:#375b7d;border-color:#d0e9fa;color:#fff; }
+.dimension-line { stroke:#b9dff9;stroke-width:1.6; }
+.dimension-tick { stroke:#b9dff9;stroke-width:2; }
+.dimension-text { fill:#e4f0fa;font:600 20px system-ui; }
+.reference-name { fill:#9fb9d3;font:500 17px system-ui; }
+.datum-line { stroke:#94b5d2;stroke-width:1;stroke-dasharray:5 8;opacity:.3; }
+#stage.param-mode #shadow { opacity:0; }
+#shadow { transition:opacity .6s ease-in-out; }
+#stage.param-mode .parameter-background::after { opacity:0; }
+
+@media(prefers-reduced-motion:reduce){#shadow{transition:none}}
+
+.dimension-text { paint-order:stroke;stroke:#15263d;stroke-width:4;stroke-linejoin:round; }
+
+#simpleToggle { width:100%;min-height:48px;margin-top:18px;background:#365d80;border:1px solid #b9dff9;border-radius:9px;color:#eff7ff;font:600 18px system-ui;cursor:pointer; }
+#simpleToggle[aria-pressed="true"] { background:#243f5a; }
+.simple-readouts { margin-top:12px;color:#b9cfe3;font:15px/1.9 system-ui; }
+.simple-readouts>div { display:flex;justify-content:space-between; }
+.simple-readouts output { font-variant-numeric:tabular-nums;color:#e1effb; }
+#previousStage { position:absolute;right:28px;bottom:28px;z-index:35;min-height:48px;padding:10px 20px;background:#243f5a;border:1px solid #a8c9e8;border-radius:10px;color:#eff7ff;font:18px system-ui;cursor:pointer; }
+#previousStage[hidden] { display:none; }
+#parameterControls { top:210px; }
+
+#stageOnePeriod { width:84px; min-height:38px; padding:4px 8px; border:1px solid #789bb5; border-radius:6px; background:#203a55; color:#fff; font:inherit; }
+#stageOnePeriod::placeholder { color:#c4d9ee; opacity:1; }
+
+#stage.param-mode #debugPanel .stage-one-period { display:none; }
+
+.perspective-guide { display:none;position:absolute;inset:0;width:100%;height:100%;pointer-events:none; }
+#stage.no-background:not(.param-mode) .perspective-guide { display:block; }
+#stage.no-background:not(.param-mode) :is(.hall,.earth-shadow,.meridian-base,.meridian-stem,.ring-contact-ao,.ball-base-ao,#globe,#cityMarkers) { visibility:hidden; }
+#stage.no-background:not(.param-mode) #swingPlane { filter:none; }
+
+#pendulumGizmo { display:none;position:absolute;z-index:4;width:52px;height:52px;transform:translate(-50%,-50%);touch-action:none;cursor:grab;border:2px solid #ffe8a9;border-radius:50%;background:#172841;color:#ffe8a9;font:28px system-ui; }
+#pendulumGizmo:active { cursor:grabbing; }
+#stage:not(.param-mode):has(#debugPanel:not([hidden])) #pendulumGizmo { display:grid;place-items:center; }
+
+:is(#backgroundControls,#hallScreenControls,#standShaderControls) { margin:0 0 8px;padding:4px 10px 8px;border:1px solid #647897;border-radius:8px; }
+:is(#backgroundControls,#hallScreenControls,#standShaderControls) label { display:grid;grid-template-columns:1fr 102px 38px;gap:5px; }
+:is(#backgroundControls,#hallScreenControls,#standShaderControls) input[type=range] { width:100%;margin:0; }
+:is(#backgroundControls,#hallScreenControls,#standShaderControls) output { text-align:right;font-variant-numeric:tabular-nums; }
+

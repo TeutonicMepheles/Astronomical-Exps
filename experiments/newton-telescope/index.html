@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../../shared/components/components.css">
   <link rel="stylesheet" href="css/course-interactions.css">
 <link rel="stylesheet" href="../../shared/components/operation-tip.css">
-<link rel="stylesheet" href="css/workbench.css"><link rel="stylesheet" href="css/workbench-assembly.css"><link rel="stylesheet" href="css/table-specimens.css"><link rel="stylesheet" href="../../shared/components/stage-completion.css"><link rel="stylesheet" href="../../shared/typography/typography.css"></head>
+<link rel="stylesheet" href="css/workbench.css"><link rel="stylesheet" href="css/workbench-assembly.css"><link rel="stylesheet" href="css/table-specimens.css"><link rel="stylesheet" href="../../shared/components/stage-completion.css"><link rel="stylesheet" href="../../shared/typography/typography.css"><link rel="stylesheet" href="components/rotation-viewer/style.css"></head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
 <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4.2 4.2l2.1 2.1m11.4 11.4 2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
@@ -134,5 +134,41 @@
 <script src="../../shared/components/operation-tip.js"></script>
 <script src="js/mirror-drag-visual.js"></script>
 <script src="js/mounted-mirror-controls.js"></script>
-<script src="js/workbench-transition.js"></script><script src="js/workbench-assembly.js"></script><script src="../../shared/components/stage-completion.js"></script><script src="js/course-completion.js"></script><script src="js/table-lens-contours.js"></script><script src="js/tray-transition.js"></script><script src="js/table-specimens.js"></script></body>
+<script src="js/workbench-transition.js"></script><script src="js/workbench-assembly.js"></script><template id="newton-rotation-template"><section class="newton-rotation" role="dialog" aria-modal="true" aria-label="360° 立体观察"><header><button type="button" data-rotation-back aria-label="返回组装" title="返回组装"><svg class="icon" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg>组装</button><h2 aria-label="360° 立体观察">360°</h2><button type="button" data-rotation-next aria-label="进入参数观测" title="进入参数观测">参数观测<svg class="icon" aria-hidden="true"><path d="m10 6 6 6-6 6m6-6H4"/></svg></button></header>  <section class="rotation-stage" aria-label="望远镜序列帧及光路">
+    <div class="rotation-photo" id="r360-photo">
+      <img id="r360-scope" alt="按住鼠标左右拖动旋转望远镜" draggable="false">
+      <canvas id="r360-matte" aria-hidden="true"></canvas>
+      <canvas id="r360-opticalCanvas" aria-hidden="true"></canvas><div id="r360-opticalMarkers" hidden></div>
+    </div>
+  </section>
+  <div class="rotation-dock">
+    <div class="rotation-controls" role="group" aria-label="旋转控制">
+      <button type="button" id="r360-play" aria-label="自动播放" title="自动播放" data-playing="false"><svg class="icon rotation-play" aria-hidden="true"><use href="#icon-play"/></svg><svg class="icon rotation-pause" aria-hidden="true"><path d="M9 5v14m6-14v14"/></svg></button>
+      <button type="button" id="r360-reset" aria-label="重置视角" title="重置视角"><svg class="icon" aria-hidden="true"><use href="#icon-reset"/></svg></button>
+      <button type="button" id="r360-light" aria-label="显示光路" aria-pressed="false" title="显示光路"><svg class="icon" aria-hidden="true"><path d="M3 7h14l-7 6v7m7-13 4-3m-4 3 4 3"/><circle cx="10" cy="13" r="1"/></svg></button>
+      <details class="rotation-settings"><summary aria-label="旋转设置" title="旋转设置"><svg class="icon" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></svg></summary>
+        <div class="rotation-settings-panel">
+          <label>速度 <select id="r360-speed"><option value="3">0.5×</option><option value="6" selected>1×</option><option value="12">2×</option></select></label>
+          <label>灵敏度 <input id="r360-sensitivity" aria-label="拖动灵敏度" type="range" min="2" max="16" value="7"></label>
+          <label>反向拖动 <input id="r360-reverse" type="checkbox"></label>
+          <details id="r360-calibration"><summary>配准</summary><p id="r360-calFrame"></p></details>
+        </div>
+      </details>
+    </div>
+    <div class="rotation-timeline">
+      <span class="rotation-gesture" title="按住望远镜左右拖动"><svg class="icon" role="img" aria-label="按住望远镜左右拖动"><use href="#icon-drag"/></svg><svg class="icon" aria-hidden="true"><path d="M3 12h18M7 8l-4 4 4 4m10-8 4 4-4 4"/></svg></span>
+      <input id="r360-scrub" aria-label="旋转时间帧" title="旋转进度 · 时间采样，非等角度" type="range" min="0" max="71" value="0">
+      <span id="r360-frame-number" aria-hidden="true">01 / 72</span>
+    </div>
+    <p id="r360-message" role="status"></p>
+  </div>
+  <div id="r360-opticalLegend" class="rotation-sr-only" hidden>
+    <span class="legend-item"><i class="legend-line gold"></i>入射</span>
+    <span class="legend-item"><i class="legend-line cream"></i>主镜反射</span>
+    <span class="legend-item"><i class="legend-line cyan"></i>副镜折向目镜</span>
+
+  </div>
+  <p id="r360-opticalDescription" class="rotation-sr-only" aria-live="polite">正在初始化光路。</p>
+  <p id="r360-status" class="rotation-sr-only">加载初始画面…</p>
+</section></template><script src="components/rotation-viewer/calibration.js"></script><script src="components/rotation-viewer/optics.js"></script><script src="components/rotation-viewer/background-key.js"></script><script src="components/rotation-viewer/viewer.js"></script><script src="adapters/newton-rotation-adapter.js"></script><script src="../../shared/components/stage-completion.js"></script><script src="js/course-completion.js"></script><script src="js/table-lens-contours.js"></script><script src="js/tray-transition.js"></script><script src="js/table-specimens.js"></script></body>
 </html>

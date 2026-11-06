@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>路灯 · 五种遮光方案</title>
+<style>body{margin:0;background:#0b1726;color:#eef3fa;font:18px system-ui;padding:40px}h1{font-size:28px;margin:0 0 8px}p{color:#a8b9ce}main{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}article{background:#112536;border:1px solid #365064;border-radius:12px;text-align:center;overflow:hidden}canvas{width:100%;display:block}h2{font-size:18px;margin:0 0 22px}footer{color:#a8b9ce;font-size:14px;margin-top:20px}</style>
+<h1>路灯 · 五种遮光方案</h1><p>深蓝金属 / 等高灯杆 / 光效实时绘制</p><main></main><footer>第五项为全遮光灯具的按需熄灯状态。光效为视觉演示，非科学标定。</footer>
+<script>window.LightPollution={};window.LIB_STATIC_ASSETS=Object.fromEntries(['open','cap','half','full','sensor'].map(id=>['../assets/lamp-variants/'+id+'.png',id+'.png']));</script>
+<script src="../../features/lamps/variants.js"></script><script src="../../features/lamps/controller.js"></script>
+<script>
+(async()=>{const source=document.createElement('canvas');source.width=2172;source.height=724;const lamps=createCompositorLamps({canvas:source,W:2172,H:724,getSession:()=>null,compose:()=>{}});await lamps.ready;
+ for(const [id,t]of Object.entries(LightPollution.lampVariants)){lamps.setData({version:1,shade:id,brightness:100,temperature:3000});const c=source.getContext('2d');c.clearRect(0,0,2172,724);lamps.render(c);const card=document.createElement('article'),canvas=document.createElement('canvas');canvas.width=360;canvas.height=540;canvas.getContext('2d').drawImage(source,66,451,120,180,0,0,360,540);const title=document.createElement('h2');title.textContent=t.label;card.append(canvas,title);document.querySelector('main').append(card);}document.documentElement.dataset.ready='true';})();
+</script></html>

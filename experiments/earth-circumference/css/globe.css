@@ -1,0 +1,349 @@
+/* EXP-04 地球朝向示意 —— 以参考图 01 的浅色线框风格重建。
+   逻辑舞台 1600x900，按 --stage-scale 等比缩放并居中留边。 */
+
+:root {
+  --page: #fcfcfc;
+  --globe-fill: #f2f3f5;
+  --grid: #95888b;
+  --ink: #1c1c1e;
+  --ink-soft: #8a8a8f;
+  --arrow: #e8703a;
+  --stage-scale: 1;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--page);
+  color: var(--ink);
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1600px;
+  height: 900px;
+  transform: translate(-50%, -50%) scale(var(--stage-scale));
+  transform-origin: center center;
+}
+
+/* ---------- 地球 ---------- */
+#globe {
+  position: absolute;
+  left: 494px;      /* 画布比球体大一圈：中心 781 − 574/2 */
+  top: 37px;        /* 中心 324 − 574/2 */
+  width: 574px;
+  height: 574px;
+  display: block;
+  border-radius: 50%;
+  touch-action: none;
+  cursor: grab;
+}
+#globe.dragging { cursor: grabbing; }
+
+/* 地面柔和投影：椭圆径向渐变，不引入位图 */
+.stage::after {
+  content: "";
+  position: absolute;
+  left: 795px;
+  top: 560px;
+  width: 496px;
+  height: 88px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(50% 50% at 50% 46%,
+              rgba(118, 122, 130, .34) 0%,
+              rgba(118, 122, 130, .24) 34%,
+              rgba(118, 122, 130, .10) 62%,
+              rgba(118, 122, 130, 0) 82%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- 太阳光线 ---------- */
+.sun-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ---------- 地轴 ---------- */
+.axis-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+.axis-line {
+  stroke: #9db0cd;
+  stroke-width: 1.15;
+  stroke-dasharray: 6 6;
+  opacity: .75;
+}
+
+/* 触控目标按设备像素保底 >=44px：舞台缩小时手柄反向放大，避免小窗口下目标过小 */
+.axis-grip {
+  position: absolute;
+  width: max(44px, calc(44px / var(--stage-scale)));
+  height: max(44px, calc(44px / var(--stage-scale)));
+  margin: calc(-0.5 * max(44px, calc(44px / var(--stage-scale)))) 0 0
+          calc(-0.5 * max(44px, calc(44px / var(--stage-scale))));
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  touch-action: none;
+  z-index: 4;
+  outline: none;
+}
+.axis-grip.dragging { cursor: grabbing; }
+.axis-grip-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1.5px solid #7f9cc4;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(143, 166, 200, .16);
+  transition: box-shadow .15s ease, transform .15s ease;
+}
+.axis-grip:hover .axis-grip-dot,
+.axis-grip:focus-visible .axis-grip-dot {
+  box-shadow: 0 0 0 7px rgba(143, 166, 200, .26);
+  transform: scale(1.08);
+}
+
+/* ---------- 可选位置标记（与纹理版同一交互） ---------- */
+.geo-marker {
+  position: absolute;
+  z-index: 6;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.geo-marker[hidden] { display: none; }
+.geo-ring {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #6f8299;
+  background: rgba(255, 255, 255, .55);
+  flex: none;
+}
+.geo-selected { pointer-events: auto; cursor: grab; }
+.geo-selected.dragging { cursor: grabbing; }
+.geo-selected::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(48px, calc(48px / var(--stage-scale)));
+  height: max(48px, calc(48px / var(--stage-scale)));
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.geo-label {
+  font-size: 12.5px;
+  color: #6f7a88;
+  padding: 4px 8px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, .82);
+  border: 1px solid #e2e4e8;
+}
+.geo-label b { color: #2c333c; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ---------- 进入测量 ---------- */
+.measure-btn {
+  position: absolute;
+  left: 48px;
+  top: 74px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid #d8dbe0;
+  border-radius: 10px;
+  background: #fff;
+  color: #3a3f47;
+  font: inherit;
+  font-size: 13.5px;
+  cursor: pointer;
+  z-index: 6;
+}
+.measure-btn:hover { background: #f3f4f6; }
+.measure-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 7; }
+.measure-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid #e2e4e8;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #5a636e;
+  white-space: nowrap;
+  z-index: 8;
+}
+.measure-label b { color: #23282f; font-size: 12.5px; }
+.measure-label i { font-style: normal; font-variant-numeric: tabular-nums; }
+
+/* ---------- 文本 ---------- */
+.title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 606px;
+  margin: 0;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  z-index: 5;
+}
+
+.subtitle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 652px;
+  margin: 0;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--ink-soft);
+  z-index: 5;
+}
+
+/* ---------- 四季 ---------- */
+.seasons {
+  position: absolute;
+  left: 384px;
+  width: 832px;
+  top: 700px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 5;
+}
+.season {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #9a9a9f;
+  transition: color .18s ease;
+}
+.season svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.season span { font-size: 15px; }
+.season[data-active="true"] { color: #5d636e; }
+.season[data-active="true"] svg { stroke-width: 1.5; }
+
+/* ---------- 年轴 ---------- */
+.timeline {
+  position: absolute;
+  left: 384px;
+  width: 832px;
+  top: 760px;
+  height: 56px;
+  z-index: 5;
+  cursor: pointer;
+  touch-action: none;
+  outline: none;
+}
+.timeline:focus-visible { box-shadow: 0 0 0 2px #b8c4ff inset; border-radius: 8px; }
+
+.ticks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 14px;
+  height: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.ticks i {
+  display: block;
+  width: 1px;
+  height: 9px;
+  background: #d8d8dc;
+}
+.ticks i.major { height: 17px; background: #c4c4ca; }
+
+.timeline-caret {
+  position: absolute;
+  top: 6px;
+  width: 2px;
+  height: 26px;
+  background: #2b2b2e;
+  border-radius: 1px;
+  transform: translateX(-1px);
+}
+
+.timeline-end {
+  position: absolute;
+  top: 34px;
+  font-size: 15px;
+  color: #3a3a3e;
+}
+.timeline-end-left  { left: 0; }
+.timeline-end-right { right: 0; font-weight: 600; }
+
+/* ---------- 读数与说明 ---------- */
+.readout {
+  position: absolute;
+  left: 48px;
+  top: 40px;
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+  color: #9a9a9f;
+  z-index: 6;
+}
+.readout b { color: #3a3a3e; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.note {
+  position: absolute;
+  left: 48px;
+  bottom: 26px;
+  margin: 0;
+  max-width: 900px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #a6a6ab;
+  z-index: 6;
+}
+.note b { color: #7c7c82; font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .axis-grip-dot, .season { transition: none; }
+}
+
+/* ---------- 测量镜头：隐藏四季进度轴（季节状态保留） ---------- */
+.stage.is-measuring .timeline,
+.stage.is-measuring .seasons {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}

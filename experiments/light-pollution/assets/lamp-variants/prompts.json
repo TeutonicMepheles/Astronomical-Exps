@@ -1,0 +1,28 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-30",
+  "base": "Use case: stylized-concept. Production transparent PNG sprite for an astronomy classroom night-city simulation. Reference 1 gives the five shielding concepts only; reference 2 gives required existing painterly navy-blue metal material, subtle texture, elegant square stepped base and thin straight pole. Create ONE isolated full-height front-view street lamp, centered, entire base visible, pole vertical, same navy blue material and proportions as reference 2, no background, no ground, no text, no shadow outside object, no halo or rays (runtime draws light). Neutral pale ivory diffuser, not overexposed. Canvas portrait, lamp fills 90% height. ",
+  "variants": [
+    [
+      "open",
+      "Unshielded spherical frosted globe, exposed in all directions, no cap."
+    ],
+    [
+      "cap",
+      "Very small shallow decorative navy cap above an exposed round globe, most of globe exposed including upper sides."
+    ],
+    [
+      "half",
+      "Wide shallow opaque navy dome cap covers upper hemisphere; frosted lower hemisphere exposed, lateral light possible."
+    ],
+    [
+      "full",
+      "Full cutoff opaque navy tapered bell shade centered directly above pole, deep shade hides bulb from side, only a slim flat horizontal ivory underside aperture visible. No side arm."
+    ],
+    [
+      "sensor",
+      "Identical full cutoff centered navy tapered bell shade and pole, lamp switched OFF, underside aperture dark blue gray. A tiny discreet sensor beneath shade. No glow."
+    ]
+  ],
+  "sensorCorrection": "Use full.png as edit target. Preserve exact tapered full-cutoff shade, pole and base. Turn the aperture dark slate gray and remove emitted glow. Do not expose a globe."
+}

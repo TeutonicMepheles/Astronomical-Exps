@@ -24,3 +24,6 @@ TencentMeeting*
 *.xls
 *.pem
 *.key
+
+# Private meeting recordings, transcripts and related working notes.
+Function-Spec/meetings/

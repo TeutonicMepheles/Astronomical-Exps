@@ -10,6 +10,8 @@
 
 ## 文件与子目录索引
 
+- [export-lamp-shades.cjs](export-lamp-shades.cjs)：导出五种灯罩的自包含 SVG。
+
 - [compatibility-readme.md](compatibility-readme.md)
 
 - [build.cjs](build.cjs)
