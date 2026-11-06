@@ -1,0 +1,64 @@
+.newton-rotation-entry{position:absolute;z-index:21;left:46px;top:657px;padding:12px 20px;border:1px solid #b8d0e0;border-radius:24px;background:#254b70;color:#f3f7fd;font:inherit;font-size:21px;cursor:pointer}
+.newton-rotation-entry[hidden]{display:none}
+.observatory[data-stage=assembly]>:is(.assembly-preview,.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-rotation-entry){transition:opacity 180ms ease}
+.observatory.newton-rotation-active>:is(.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-rotation-entry),
+.observatory.newton-rotation-ready>.assembly-preview{opacity:0}
+.observatory.newton-rotation-active>.assembly-preview{transition-duration:300ms}
+.newton-rotation{position:absolute;inset:0;z-index:100;color:#eaf3ff;display:grid;grid-template-rows:54px 594px auto;align-content:start;text-align:center;padding:64px 36px 8px;font-size:18px;line-height:1.25;overflow:hidden;outline:none}
+.newton-rotation:not(.is-ready)>*{visibility:hidden}
+.newton-rotation.is-ready .rotation-stage{animation:newton-rotation-enter 300ms ease both}
+.newton-rotation.is-ready .rotation-dock,.newton-rotation.is-ready header>*{animation:newton-rotation-controls-in 210ms 90ms ease both}
+.newton-rotation.is-leaving{animation:newton-rotation-leave 170ms ease both;pointer-events:none}
+@keyframes newton-rotation-enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes newton-rotation-controls-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes newton-rotation-leave{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){
+ .observatory[data-stage=assembly]>:is(.assembly-preview,.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-rotation-entry){transition:none}
+ .observatory.newton-rotation-active>.assembly-preview{transition:none}
+ .newton-rotation.is-ready :is(.rotation-stage,.rotation-dock),.newton-rotation.is-ready header>*,.newton-rotation.is-leaving{animation:none}
+}
+.newton-rotation header{display:grid;place-items:center;position:static;background:none;padding:0;margin:0}
+.newton-rotation [data-rotation-back],.newton-rotation [data-rotation-next]{position:absolute;top:186px;z-index:1}
+.newton-rotation [data-rotation-back]{left:48px}
+.newton-rotation [data-rotation-next]{right:48px}
+.newton-rotation h2{margin:0;color:#d5e8ff;font-size:29px;font-weight:620;letter-spacing:.1em;font-variant-numeric:tabular-nums}
+.newton-rotation button,.newton-rotation select{font:inherit;color:#edf5ff;background:#173b60;border:1px solid #94badd80;border-radius:12px;cursor:pointer}
+.newton-rotation header button{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 15px;font-size:16px}
+.newton-rotation header .icon{width:20px;height:20px}
+.newton-rotation button[aria-pressed=true],.newton-rotation button[data-playing=true]{background:#bcd9f5;color:#12375b}
+.newton-rotation .icon{fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+.newton-rotation .rotation-stage{display:flex;justify-content:center;align-items:center}
+.newton-rotation .rotation-photo{position:relative;width:792px;height:594px;overflow:hidden}
+.newton-rotation .rotation-photo.matte-fallback{border-radius:14px;background:#dce6ec;outline:1px solid #b8d0e0}
+.newton-rotation .rotation-photo img,.newton-rotation .rotation-photo canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.newton-rotation .rotation-photo img{object-fit:contain;cursor:grab;touch-action:none;user-select:none}
+.newton-rotation .rotation-photo:not(.matte-fallback) img{opacity:0}
+.newton-rotation .rotation-photo.matte-fallback #r360-matte{display:none}
+.newton-rotation .rotation-photo canvas,#r360-opticalMarkers{pointer-events:none}
+#r360-opticalMarkers{position:absolute;inset:0}#r360-opticalMarkers span{position:absolute;background:#f4f8ed;color:#144a44;padding:2px 5px;border-left:3px solid #12736a;font-size:13px}
+.newton-rotation .rotation-dock{position:relative;justify-self:center;width:408px;margin-top:7px;padding:8px 14px 10px;border:1px solid #a5c8ec66;border-radius:20px;background:#102c4aee;box-shadow:0 8px 24px #0a244055}
+.newton-rotation .rotation-controls{display:flex;align-items:center;justify-content:center;gap:10px}
+.newton-rotation .rotation-controls button,.newton-rotation .rotation-settings>summary{display:grid;place-items:center;width:56px;height:48px;padding:0}
+.newton-rotation .rotation-controls button:disabled{opacity:.4;cursor:default}
+.newton-rotation .rotation-settings>summary{border:1px solid #94badd80;border-radius:12px;background:#173b60;cursor:pointer}
+.newton-rotation .rotation-settings[open]>summary{background:#bcd9f5;color:#12375b}
+.newton-rotation .rotation-settings>summary::-webkit-details-marker{display:none}
+.newton-rotation :is(button,summary,select):focus-visible{outline:2px solid #b9d8ff;outline-offset:3px}
+.newton-rotation :is(button,summary):not(:disabled):hover{border-color:#e0f0ff}
+.newton-rotation #r360-play[data-playing=false] .rotation-pause,.newton-rotation #r360-play[data-playing=true] .rotation-play{display:none}
+.newton-rotation .rotation-settings-panel{position:absolute;right:0;bottom:calc(100% + 8px);z-index:1;width:226px;padding:12px 14px;display:grid;gap:10px;text-align:left;font-size:15px;background:#102c4af7;border:1px solid #a5c8ec80;border-radius:14px;box-shadow:0 8px 24px #081d3b66}
+.newton-rotation .rotation-settings-panel label{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:30px}
+.newton-rotation .rotation-settings-panel select{padding:4px 8px}
+.newton-rotation .rotation-settings-panel input[type=range]{width:90px;margin:0}
+.newton-rotation .rotation-settings-panel p{margin:6px 0 0}
+.newton-rotation .rotation-timeline{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-top:8px}
+.newton-rotation .rotation-gesture{display:flex;align-items:center;gap:3px;color:#bcd6f0}
+.newton-rotation .rotation-gesture .icon{width:19px;height:19px}
+.newton-rotation #r360-scrub{--fill:0%;width:100%;height:6px;margin:0}
+.newton-rotation #r360-scrub::-webkit-slider-thumb{width:17px;height:17px;border-width:3px}
+.newton-rotation #r360-scrub::-moz-range-thumb{width:12px;height:12px;border-width:3px}
+.newton-rotation #r360-frame-number{color:#c3d9ee;font-size:13px;font-variant-numeric:tabular-nums}
+.newton-rotation #r360-message{margin:6px 0 0;color:#ffe0ac;font-size:14px}
+.newton-rotation #r360-message:empty{display:none}
+.newton-rotation .rotation-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.newton-rotation [hidden]{display:none}
