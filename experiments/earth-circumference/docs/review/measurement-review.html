@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第二阶段 · 线条与影长测量审阅</title>
+<style>body{margin:0;background:#10182e;color:#edf2ff;font:16px/1.6 system-ui,sans-serif}main{max-width:1400px;margin:auto;padding:24px}h1{font-size:26px}a{color:#b5dbff}nav{display:flex;gap:10px;margin:20px 0;flex-wrap:wrap}button{min-height:44px;padding:8px 22px;border:1px solid #6378a6;border-radius:9px;color:#dae4ff;background:#203255;cursor:pointer}button[aria-pressed=true]{background:#526ca6;color:#fff}img,video{display:block;width:100%;border:1px solid #405272;border-radius:12px}p{color:#b5c3df}h2{margin-top:32px}</style>
+<main><h1>第二阶段 · 线条与影长测量</h1><p><a href="../../textured.html">打开可操作实验页面</a> · 以下为同一视角、同一端点的实际截图。</p>
+<nav aria-label="线条截图对比"><button data-mode="original" aria-pressed="true">现有</button><button data-mode="sketch" aria-pressed="false">手绘笔触</button><button data-mode="draft" aria-pressed="false">工程标注</button></nav>
+<img id="comparison" src="measurement-original.png" alt="现有线条与影长测量截图">
+<p>进入观测 → 选择线条样式 → 开始测量 → 点击杆底与影端 → 拖动微调 → 记录结果。切换两个观测点分别测量；重测只清除当前地点。</p>
+<h2>完整操作录屏</h2><video controls preload="metadata" src="measurement-flow.webm"></video>
+<p>记录为用户两次标记间的图像坐标距离，尚未标定实际长度，不以米表示。背景为当前示意场景；本轮不替换背景试稿。</p>
+<h2>两个地点分别记录</h2><img src="measurement-zero.png" alt="直射点零影长与观测点记录独立保留">
+<p>模型的太阳高度与用户图上测量分别呈现。切换样式不改变端点、角度或读数；改变选点或季节后旧记录失效。</p>
+</main><script>document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));const image=document.querySelector('#comparison');image.src={original:'measurement-original.png',sketch:'measurement-sketch.png',draft:'measurement-draft.png'}[button.dataset.mode];image.alt=button.textContent+'线条与影长测量截图';}));</script></html>

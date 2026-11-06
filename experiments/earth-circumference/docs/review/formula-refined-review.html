@@ -1,0 +1,10 @@
+﻿<!doctype html><meta charset="utf-8"><title>EXP04 公式交互与计算视角</title><style>body{background:#101b33;color:#e7efff;font:18px/1.6 system-ui;max-width:1200px;margin:40px auto}img,video{width:100%;margin:12px 0}a{color:#b9daff}</style>
+<h1>公式交互与计算视角 · 2026-11-04</h1><p><a href="../../textured.html">打开实验</a></p>
+<p>计算阶段使用纯网格地球，统一镜头旋转使直射点朝上；地球放大到 2.8 倍、球心下移至舞台 y800，突出杆影与圆心角。返回恢复观测阶段淡纹理和原镜头。</p>
+<img src="formula-grid.png"><h2>变量提示</h2><p>鼠标悬停、键盘聚焦和点击均显示页面内提示；变量、地球上的对应符号与标注同步高亮。经纬度分别标在线上，共同经线只保留一份经度。</p><img src="formula-tooltip.png">
+<h2>完整往返与揭示录屏</h2><video controls src="formula-refined.webm"></video>
+<p>角弧在触发前不生成路径。计算值用 900ms 柔和揭露；返回或重测取消动画并清除旧答案。测量角与模型角保留各自来源，两条周长支路独立揭示。</p>
+<h2>LibTV 样式参考</h2><p>一次 1K 生成，仅取深靛底、暖金双边和指向角样式。图内额外文案、公式与教学内容未采用。网页组件使用真实文本和定位；私有组件参考 shared/components/name-bubble.js 的公开交互约定，不修改 shared。</p><img src="tooltip-libtv-reference.png">
+<h2>验证</h2><p>通过：角弧延后、页面提示、变量联动、结果动画、返回途中取消、重入重置、纯网格切换、两点几何不变及原视角恢复、近重合点标签避让。check 零错误，npm test 通过，根浏览器检查通过；本页专项真实 Chrome 操作通过。用户视觉验收与白板触控仍独立。</p>
+<p>性能专项：本次影响镜头变换、Shader、标签更新及短动画生命周期。保持上一轮缓存颗粒；2560×1440 DPR1.5 同流程采样 P95 13.4ms，超过50ms帧0。未做长期稳定性或其他设备测试。</p>
+<p><a href="no-input-review.html">上一轮性能前后对照与观测场景</a></p>

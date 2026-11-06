@@ -1,0 +1,9 @@
+﻿<!doctype html><meta charset="utf-8"><title>EXP04 三阶段进度与笔触流动</title><style>body{background:#101b33;color:#e7efff;font:18px/1.6 system-ui;max-width:1200px;margin:40px auto}img,video{width:100%;margin:12px 0}a{color:#b9daff}</style>
+<h1>三阶段进度与背景笔触流动</h1><p><a href="../../textured.html">打开当前实验</a> · 2026-11-04</p>
+<h2>背景流动 · 约 13 秒</h2><p>观察左侧斜向蓝色笔触：纹理局部缓慢舒展，不是整图移动。直接采样原星空图，边缘位移归零；亮星尽量保持原位置。减少动态效果或 motion=off 时静态回退，页面隐藏时停止绘制。</p><video controls loop src="brush-flow.webm"></video>
+<h2>三阶段进度</h2><p>当前步骤亮色，完成步骤打勾，未完成步骤暗色。选点和旋转完成后，右下角才显示“下一步”；两地点影长均已记录后进入计算。切换地点本身不算完成。最后一步没有下一步；返回修改会同步失效相关记录与结果。</p><img src="progress-overview.png"><img src="progress-measure.png"><img src="progress-complete.png">
+<h2>完整操作录屏</h2><video controls src="progress-flow.webm"></video>
+<h2>验证与性能专项</h2><p>通过：初始不可推进、旋转中不可推进、两测量记录门槛、第三步无下一步、揭示完成状态、返回改点清除下游完成、减少动态效果停绘静态回退，无页面异常。check、单元测试和根浏览器回归通过；画风效果仍由用户验收。</p>
+<p>流动为固定960×540 WebGL单次纹理采样绘制，最高约30次/秒，不新增大面积SVG滤镜。2560×1440、DPR1.5、RTX5080环境的选点、季节拖动及三阶段镜头负载采样 两轮 P95 为26.6ms和13.5ms，超过50ms帧分别为0和1；功能门槛另由真实点击全流程验证。性能结果只代表此环境，未做长期或白板设备验证。</p>
+<p><a href="formula-refined-review.html">上一轮公式、提示与镜头证据</a></p>
+
