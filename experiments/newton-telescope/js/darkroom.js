@@ -25,7 +25,7 @@
     }
     moveDrag(e){
       const drag=this.drag;if(!drag||drag.pointerId!==e.pointerId)return;
-      if(!drag.active&&Math.abs(e.clientX-drag.startX)<=4)return;
+      if(!drag.active&&Math.abs(e.clientX-drag.startX)<=(N.developer?.effect('dragThreshold')??4))return;
       drag.active=true;this.view.container.classList.add('is-dragging-mirror');
       N.course.setMirrorPosition(this.positionFromEvent(e)+drag.offset);
     }

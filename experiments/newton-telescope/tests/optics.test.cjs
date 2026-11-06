@@ -32,7 +32,7 @@ for (const mode of ['parallel', 'point']) {
   }
 }
 console.log(`Passed ${configurations} optical configurations: magnification, image distance, mirror intersection and reflection direction.`);
-// Endpoint regression: every allowed setting changes field continuously, including 8x and 320x.
+// Endpoint regression for the current 400–1600 mm observation control.
 const metrics = context.window.Newton.store.metrics;
 assert.equal(metrics({focal:400,eyepiece:50}).field,7.5);
 assert.equal(metrics({focal:1600,eyepiece:5}).field,.1875);
