@@ -1,0 +1,104 @@
+.control-dock{
+  --dock-width-px:320px;
+  --dock-width-pct:28%;
+  --dock-top:3.2%;
+  --dock-right:1.5%;
+  --dock-bottom:13%;
+  --dock-pad-y:16px;
+  --dock-pad-x:18px;
+  --dock-radius:18px;
+  --dock-title-size:18px;
+  --dock-group-title-size:15px;
+  --dock-label-size:13px;
+  --dock-chip-size:12px;
+  --dock-chip-height:36px;
+  --dock-chip-radius:8px;
+  --dock-chip-gap:6px;
+  --dock-icon-size:18px;
+  --dock-close-size:44px;
+  --dock-close-font:26px;
+  --dock-toggle-size:52px;
+  --dock-toggle-top:4.4%;
+  --dock-toggle-right:2%;
+  --dock-toggle-radius:14px;
+  --dock-bar-width:18px;
+  --dock-track-height:6px;
+  --dock-thumb-size:18px;
+  --dock-slider-height:28px;
+  --dock-group-pad:10px;
+  --dock-heading-gap:6px;
+  --dock-label-gap:8px;
+  --dock-indent:16px;
+  --dock-bg:#1b2744f2;
+  --dock-toggle-bg:#1a2744e8;
+  position:absolute;inset:0;z-index:7;pointer-events:none
+}
+.control-toggle,.control-panel,.control-close,.control-panel button,.control-panel input{pointer-events:auto}
+.control-toggle{position:absolute;top:var(--dock-toggle-top);right:var(--dock-toggle-right);width:var(--dock-toggle-size);height:var(--dock-toggle-size);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid #9eb4d055;border-radius:var(--dock-toggle-radius);background:var(--dock-toggle-bg);box-shadow:0 8px 24px #050d2340;cursor:pointer}
+.control-toggle span{display:block;width:var(--dock-bar-width);height:2px;border-radius:2px;background:#e8eef8}
+.control-toggle:hover,.control-toggle[aria-expanded=true],.control-toggle:focus-visible{border-color:#f4cb83;background:#2a3858}
+.control-panel{position:absolute;top:var(--dock-top);right:var(--dock-right);bottom:var(--dock-bottom);display:flex;flex-direction:column;width:min(var(--dock-width-px),var(--dock-width-pct));overflow:hidden;padding:var(--dock-pad-y) var(--dock-pad-x);border:1px solid #7693ba55;border-radius:var(--dock-radius);background:var(--dock-bg);box-shadow:0 12px 36px #050d2360;color:#eef2f8}
+.control-panel[hidden]{display:none}
+.control-panel-heading{display:flex;flex:none;align-items:center;justify-content:space-between;margin-bottom:var(--dock-heading-gap)}
+.control-panel-body{flex:1;min-height:0;overflow:auto}
+.control-panel-heading h2{margin:0;font-size:var(--dock-title-size);font-weight:600}
+.control-close{width:var(--dock-close-size);height:var(--dock-close-size);padding:0;border:0;background:transparent;color:#c7d4e7;font-size:var(--dock-close-font);cursor:pointer}
+.dock-group{padding:var(--dock-group-pad) 0 8px}
+.dock-group h3{display:flex;align-items:center;gap:8px;margin:0 0 var(--dock-label-gap);font-size:var(--dock-group-title-size);font-weight:600}
+.dock-group h3 svg{width:var(--dock-icon-size);height:var(--dock-icon-size);flex:none;color:#d7e3f4}
+.dock-group label,.dock-field-label{display:flex;justify-content:space-between;align-items:center;margin:var(--dock-label-gap) 0 0;padding-left:var(--dock-indent);font-size:var(--dock-label-size);color:#c5d2e4}
+.dock-group output{color:#dce6f4;font-variant-numeric:tabular-nums;font-size:var(--dock-label-size)}
+.dock-group input[type=range]{display:block;box-sizing:border-box;width:calc(100% - var(--dock-indent));height:var(--dock-slider-height);margin:2px 0 0 var(--dock-indent);appearance:none;background:transparent;cursor:ew-resize;touch-action:none}
+.dock-group input[type=range]::-webkit-slider-runnable-track{height:var(--dock-track-height);border-radius:6px;background:linear-gradient(90deg,#ffb465,#ffe8c1,#8cbbef)}
+.dock-group input[type=range]::-webkit-slider-thumb{appearance:none;width:var(--dock-thumb-size);height:var(--dock-thumb-size);margin-top:calc((var(--dock-track-height) - var(--dock-thumb-size)) / 2);border-radius:50%;background:#edf0f4;border:1px solid #dce5f0}
+.dock-group input[type=range]::-moz-range-track{height:var(--dock-track-height);border-radius:6px;background:linear-gradient(90deg,#ffb465,#ffe8c1,#8cbbef)}
+.dock-group input[type=range]::-moz-range-thumb{width:var(--dock-thumb-size);height:var(--dock-thumb-size);border:0;border-radius:50%;background:#edf0f4}
+#dock-residential-brightness::-webkit-slider-runnable-track,
+#dock-public-brightness::-webkit-slider-runnable-track,
+#dock-billboard-brightness::-webkit-slider-runnable-track,
+#dock-lamp-brightness::-webkit-slider-runnable-track{background:linear-gradient(90deg,#58647b,#e9eef8)}
+#dock-residential-brightness::-moz-range-track,
+#dock-public-brightness::-moz-range-track,
+#dock-billboard-brightness::-moz-range-track,
+#dock-lamp-brightness::-moz-range-track{background:linear-gradient(90deg,#58647b,#e9eef8)}
+.dock-chips{display:flex;gap:var(--dock-chip-gap);box-sizing:border-box;width:calc(100% - var(--dock-indent));margin:8px 0 0 var(--dock-indent)}
+.dock-chips button{flex:1;min-width:0;height:var(--dock-chip-height);border:0;border-radius:var(--dock-chip-radius);background:#2e3c59;color:#edf0f4;cursor:pointer;font-size:var(--dock-chip-size);font-family:"Microsoft YaHei",sans-serif}
+.dock-chips button:hover,.dock-chips button[aria-pressed=true]{background:#3d6bd6;color:#fff}
+.stage.control-open .next{right:calc(min(var(--dock-width-px),var(--dock-width-pct)) + var(--dock-right) + 8px)}
+.stage>.lamp-editor,.stage>.residential-editor,.stage>.public-building-editor,.stage>.billboard-editor{z-index:9}
+footer{z-index:8}
+.panel-tuner{position:fixed;left:12px;top:12px;bottom:12px;z-index:40;width:280px;display:flex;flex-direction:column;border:1px solid #7693ba70;border-radius:14px;background:#10192cf2;color:#eef2f8;box-shadow:0 10px 32px #0006;font:13px "Microsoft YaHei",system-ui,sans-serif}
+.panel-tuner[hidden]{display:none}
+.panel-tuner-toggle,.pollution-meter-toggle{position:fixed;top:12px;z-index:41;height:40px;padding:0 12px;border:1px solid #7693ba70;border-radius:10px;background:#17233df0;color:#eef2f8;cursor:pointer;font:13px "Microsoft YaHei",sans-serif}
+.panel-tuner-toggle{left:12px}
+.pollution-meter-toggle{left:108px}
+.pollution-meter-toggle[aria-expanded=true]{display:none}
+.pollution-meter{position:fixed;left:12px;top:60px;bottom:12px;z-index:39;width:280px;display:flex;flex-direction:column;border:1px solid #7693ba70;border-radius:14px;background:#10192cf2;color:#eef2f8;box-shadow:0 10px 32px #0006;font:13px "Microsoft YaHei",system-ui,sans-serif}
+.pollution-meter[hidden]{display:none}
+.pollution-meter-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #7693ba40}
+.pollution-meter-head h2{margin:0;font-size:14px}
+.pollution-meter-head button{height:32px;border:0;border-radius:8px;background:#2e3c59;color:#edf0f4;cursor:pointer;font:inherit}
+.pollution-meter-grade{margin:12px 12px 0;font-size:42px;font-variant-numeric:tabular-nums;line-height:1}
+.pollution-meter-grade small{margin-left:6px;font-size:16px;color:#c5d2e4}
+.pollution-meter-round{margin:8px 12px 0;color:#c5d2e4}
+.pollution-meter-parts{flex:1;overflow:auto;margin:8px 0 0;padding:0 12px 8px}
+.pollution-meter-parts div{display:flex;justify-content:space-between;gap:8px;margin-top:8px}
+.pollution-meter-parts dt{color:#c5d2e4}
+.pollution-meter-parts dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.pollution-meter-parts small{display:block;color:#9aabc2;font-size:11px}
+.pollution-meter-note,.pollution-meter h3{margin:0 12px;color:#9aabc2;font-size:11px;line-height:1.45}
+.pollution-meter h3{margin-top:10px;font-size:12px;color:#c5d2e4}
+.pollution-meter-checks{margin:6px 12px 12px;padding-left:18px;color:#9aabc2;font-size:11px;line-height:1.45}
+.panel-tuner-toggle[aria-expanded=true]{display:none}
+.panel-tuner-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #7693ba40}
+.panel-tuner-head h2{margin:0;font-size:14px}
+.panel-tuner-head button,.panel-tuner-actions button{height:32px;border:0;border-radius:8px;background:#2e3c59;color:#edf0f4;cursor:pointer;font:inherit}
+.panel-tuner-list{flex:1;overflow:auto;padding:8px 12px 12px}
+.panel-tuner-list label{display:flex;justify-content:space-between;gap:8px;margin-top:8px;color:#c5d2e4}
+.panel-tuner-list input{width:100%;margin:2px 0 0}
+.panel-tuner-actions{display:flex;gap:8px;padding:8px 12px 12px}
+.panel-tuner-actions button{flex:1}
+.panel-tuner-copy{margin:0 12px 12px;min-height:4.5em;padding:8px;border-radius:8px;background:#0b1220;color:#c5d2e4;font:11px/1.4 ui-monospace,monospace;white-space:pre-wrap}
+@media(max-width:600px){
+  .panel-tuner,.pollution-meter{width:min(280px,calc(100vw - 24px));bottom:auto;max-height:70dvh}
+}
