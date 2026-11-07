@@ -25,12 +25,12 @@
       const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(vertices,3));geometry.setIndex(indices);geometry.computeVertexNormals();return geometry;
     }
     setBeamOpacity(value){
-      this.beamOpacity=Math.max(0,Math.min(1,value));this.beams.visible=this.beamOpacity>0;
+      this.beamOpacity=Math.max(0,Math.min(1,value));const intensity=this.beamOpacity*(N.developer?.effect('beamStrength')??1);this.beams.visible=intensity>0;
       this.beams.traverse(o=>{for(const m of o.material?(Array.isArray(o.material)?o.material:[o.material]):[]){
-        if(m.uniforms?.beamOpacity){m.uniforms.beamOpacity.value=this.beamOpacity;continue;}
+        if(m.uniforms?.beamOpacity){m.uniforms.beamOpacity.value=intensity;continue;}
         if(!this.beamMaterialStates.has(m))this.beamMaterialStates.set(m,{opacity:m.opacity,transparent:m.transparent});
-        const base=this.beamMaterialStates.get(m),transparent=this.beamOpacity<1||base.transparent;
-        if(m.transparent!==transparent){m.transparent=transparent;m.needsUpdate=true;}m.opacity=base.opacity*this.beamOpacity;
+        const base=this.beamMaterialStates.get(m),transparent=intensity<1||base.transparent;
+        if(m.transparent!==transparent){m.transparent=transparent;m.needsUpdate=true;}m.opacity=base.opacity*intensity;
       }});this.view.dirty=true;
     }
     buildMirror(s,lensPage=false){
@@ -65,7 +65,6 @@
       this.lastInstalled=[...s.installed];
       v.primaryParts.forEach(o=>o.visible=!isAssembly||s.installed.includes('primary'));v.secondaryParts.forEach(o=>o.visible=!isAssembly||s.installed.includes('secondary'));
       Object.entries(this.slots).forEach(([name,o])=>{o.visible=isAssembly&&!s.installed.includes(name);o.material.color.setHex(s.selected===name?0xffc474:0x81baff);});
-      v.importedModel?.sync(s);
       this.darkroom.sync(s);
       const lensPage=document.querySelector('.observatory').dataset.trayPage==='lenses';
       const key=[s.mirror,s.mirrorFocal,s.mirrorMounted,s.mirrorSource,s.mirrorPosition,lensPage,s.lens,s.convexShape,s.concaveShape].join('/');if(isMirror&&key!==this.lastMirror){this.buildMirror(s,lensPage);this.lastMirror=key;}
@@ -75,6 +74,6 @@
     }
     tick(time){
       this.flights=this.flights.filter(f=>{const t=this.view.reducedMotion?1:Math.min(1,(time-f.start)/500);f.group.position.copy(f.from).multiplyScalar(1-t*t*(3-2*t));this.view.dirty=true;return t<1;});
-      if(!this.group.visible||this.view.reducedMotion)return;this.beams.children.forEach((o,index)=>{const path=o.userData.path;if(!path)return;const phase=(time/3200+index*.12)%1,segments=path.length-1,t=phase*segments,i=Math.floor(t);o.position.copy(path[i]).lerp(path[i+1],t-i);});this.view.dirty=true;}
+      if(!this.group.visible||this.view.reducedMotion)return;this.beams.children.forEach((o,index)=>{const path=o.userData.path;if(!path)return;const phase=(time/3200*(N.developer?.effect('photonSpeed')??1)+index*.12)%1,segments=path.length-1,t=phase*segments,i=Math.floor(t);o.position.copy(path[i]).lerp(path[i+1],t-i);});this.view.dirty=true;}
   };
 })(window.Newton);
