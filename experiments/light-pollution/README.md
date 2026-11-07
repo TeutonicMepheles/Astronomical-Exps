@@ -4,11 +4,11 @@
 
 ## 当前功能与状态
 
-保留原正式页，并以兼容离线入口提供重构后的候选场景。
+根目录 `index.html` 作为实验默认入口，自动进入重构后的 `app/index.html`。原街景页保留为 [legacy-preview.html](legacy-preview.html)，供回溯和对照；不再作为默认入口。
 
 ## 职责边界
 
-正式页与候选页暂不合并；实验私有代码只在本目录维护。
+根入口已切换到候选重构版，原街景与候选实现仍分文件维护；实验私有代码只在本目录维护。
 
 ## 文件与子目录索引
 
@@ -18,6 +18,7 @@
 - [assets/](assets/README.md)
 - [baseline-scroll/](baseline-scroll/README.md)
 - [components/](components/README.md)
+- [concepts/](concepts/README.md)
 - [core/](core/README.md)
 - [docs/](docs/README.md)
 - [features/](features/README.md)
@@ -41,6 +42,7 @@
 - [billboard.js](billboard.js)
 - [export.py](export.py)
 - [index.html](index.html)
+- [legacy-preview.html](legacy-preview.html)
 - [INTEGRATION.md](INTEGRATION.md)
 - [lamp-hints.js](lamp-hints.js)
 - [lamp-layout.js](lamp-layout.js)
@@ -62,6 +64,14 @@
 node experiments/light-pollution/lib-static-demo/export.cjs
 ```
 
+生成自包含候选页后，也可以通过根目录命令导出：
+
+```sh
+npm run export -- light-pollution
+```
+
+导出文件为 `dist/light-pollution/index.html`，来源为 `lib-static-demo/standalone.html`。
+
 ### 本目录资源实测清单
 
 资源 ID、SHA-256 和尺寸见[资源目录清单](docs/resource-catalog.json)。未声明的来源或许可证仍为未确认，不推断授权。生成方法与配准沿用本目录或父目录来源说明；构建只内嵌素材，不重新生成美术。诊断截图会在测试时更新，可运行 tools/audit/catalog.py 刷新元数据。
@@ -80,7 +90,7 @@ node experiments/light-pollution/lib-static-demo/export.cjs
 
 ## 依赖与解耦策略
 
-正式页与候选页暂不合并；实验私有代码只在本目录维护。 依赖通过显式入口或 manifest 声明；不跨实验引用私有实现，不通过其他模块内部 DOM 或模拟点击执行业务。
+旧街景与候选实现仍分开维护，根入口默认进入候选重构版；实验私有代码只在本目录维护。依赖通过显式入口或 manifest 声明；不跨实验引用私有实现，不通过其他模块内部 DOM 或模拟点击执行业务。
 
 ## 验证与已知限制
 
@@ -113,15 +123,15 @@ npm run test:browser
 npm run export -- light-pollution
 ```
 
-离线文件为 `dist/light-pollution/index.html`。试玩时检查街景移动、灯具选择、灯罩和色温切换，以及面板关闭。
+离线文件为 `dist/light-pollution/index.html`，当前来源为候选重构版。试玩时应覆盖街景移动、灯具选择、灯罩和色温切换、建筑和广告屏控制、星空及素材编辑，并明确记录未通过项。
 
 ## 已有功能
 
 2026-10-23：住宅窗灯已接入独立图层。点按任意住宅亮窗，或用键盘选择前景住宅窗灯后按 Enter/空格，弹出色温与亮度面板；所有住宅窗灯共用参数，与路灯独立。点击空白、按 Esc、关闭按钮或改选路灯可关闭面板，参数在本次页面会话内保留。街景拖动不会打开面板；锚点移出画面时面板关闭。亮度为 0 时仍可点击原窗灯位置或键盘入口重新调亮。
 
-住宅色温沿用现有路灯的 2200–6500 K 演示范围及暖冷配色，默认 3000 K；亮度为 0–100% 的视觉强度，默认 100%，不是照度读数。近景住宅已加入四档窗帘，开启比例尚未实现。刷新页面恢复默认值。正式页使用第二版精修底图和住宅/公共建筑/广告屏图层，各组提供独立控制。
+住宅色温沿用现有路灯的 2200–6500 K 演示范围及暖冷配色，默认 3000 K；亮度为 0–100% 的视觉强度，默认 100%，不是照度读数。近景住宅已加入四档窗帘，开启比例尚未实现。刷新页面恢复默认值。旧街景页使用第二版精修底图和住宅/公共建筑/广告屏图层，各组提供独立控制。
 
-调节器初始隐藏；可无限次重复“点窗灯打开—点别处关闭—再点窗灯重新打开”。直接点击另一扇可见窗灯会移动面板，调节滑条不会关面板，亮度为 0 时仍可重新打开。分层预览 asset-review.html 不提供这一交互，需进入正式 index.html。
+调节器初始隐藏；可无限次重复“点窗灯打开—点别处关闭—再点窗灯重新打开”。直接点击另一扇可见窗灯会移动面板，调节滑条不会关面板，亮度为 0 时仍可重新打开。分层预览 asset-review.html 不提供这一交互；旧街景交互见 `legacy-preview.html`，默认候选入口见 `app/index.html`。
 
 街景支持拖动、滚轮、触控板、左右按钮和位置滑条。场景获得焦点后可用方向键、Home、End；到两端停止。展示区保持 16:9，按窗口等比缩放。
 
@@ -143,7 +153,7 @@ npm run export -- light-pollution
 
 | 文件 | 用途 |
 | --- | --- |
-| `index.html`、`style.css` | 页面结构和布局 |
+| `legacy-preview.html`、`style.css` | 旧街景页面结构和布局 |
 | `app.js` | 街景移动和输入 |
 | `lamp-layout.js` | 灯具清单与坐标 |
 | `lamps.js`、`lamps.css` | 灯具参数、轮廓、光效和面板 |
@@ -188,14 +198,14 @@ npm run export -- light-pollution
 专项检查：`node experiments/light-pollution/tests/billboard-surface.browser.cjs`，支持 `LIGHT_URL` 指定离线页。默认四角已统一放在 `billboard-surface.js`，不再修改渲染器的 `config.corners`。
 
 
-## 当前开发进度与换机续编
+## 2026-10-28 开发进度与换机记录（历史）
 
-当前分支为 `experiment/light-pollution/sky-preview`。新增的 [独立星空预览](sky-preview/README.md) 和 [PollutionStarfield 组件](components/pollution-starfield/README.md) 尚未接入正式页面；本次同时保存全部前景灯具统一为 155 逻辑单位高度的调整。完整整合范围、各入口和换机步骤见 [整合清单](INTEGRATION.md)。
+当时分支为 `experiment/light-pollution/sky-preview`。新增的 [独立星空预览](sky-preview/README.md) 和 [PollutionStarfield 组件](components/pollution-starfield/README.md) 作为独立开发入口保存；候选重构页现已使用星空调节能力。该记录还保存了全部前景灯具统一为 155 逻辑单位高度的调整。完整整合范围、各入口和换机步骤见 [整合清单](INTEGRATION.md)。
 
 换机请克隆完整仓库并切换到该分支；已有仓库且工作区干净时，执行 `git fetch origin`、`git switch experiment/light-pollution/sky-preview`、`git pull --ff-only`。首次安装及检查环境见根目录 README（Python 3.10+、Node.js 22+、`npm ci`、`npx playwright install chromium`）。贡献者本地绑定可用 `python tools/collab.py resume --experiment light-pollution --task sky-preview` 恢复。
 
-启动本实验服务后，访问 `/experiments/light-pollution/sky-preview/` 继续编辑预览。预览依赖本目录的 `sky-preview/index.html`、`preview.css`、`preview.js`、`components/pollution-starfield/starfield.js` 以及仓库内 `shared/typography/typography.css`；无需另行下载图片、字体或运行库。正式页面的街景、灯具图集位于已纳入 Git 的 `assets/`，公共组件仍从仓库 `shared/` 加载，因此不要只复制预览目录。
+启动本实验服务后，访问 `/experiments/light-pollution/sky-preview/` 继续编辑预览。预览依赖本目录的 `sky-preview/index.html`、`preview.css`、`preview.js`、`components/pollution-starfield/starfield.js` 以及仓库内 `shared/typography/typography.css`；无需另行下载图片、字体或运行库。候选与旧街景使用的灯具图集位于已纳入 Git 的 `assets/`，公共组件仍从仓库 `shared/` 加载，因此不要只复制预览目录。
 
-**浏览器参数不随 Git 迁移：**“保存当前档位”只写入当前站点的 localStorage（键为 `light-pollution.starfield-presets.v1`），不修改源码。换机默认使用源码预设；如需保留手调结果，应另行迁移该键的 JSON。`dist/`、`node_modules/` 和测试截图均为本地生成内容，在新电脑重新生成。根目录导出命令导出的是正式页面，不包含独立星空预览。
+**浏览器参数不随 Git 迁移：**“保存当前档位”只写入当前站点的 localStorage（键为 `light-pollution.starfield-presets.v1`），不修改源码。换机默认使用源码预设；如需保留手调结果，应另行迁移该键的 JSON。`dist/`、`node_modules/` 和测试截图均为本地生成内容，在新电脑重新生成。根目录导出命令生成候选单文件，不包含独立的 `sky-preview/` 入口。
 
 此分支用于开发备份，星空档位与参数仍是未标定的美术演示，尚未完成整页人工验收。

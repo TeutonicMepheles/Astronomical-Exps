@@ -1,5 +1,7 @@
 # 五种路灯方案替换
 
+> 当前状态注记（2026-11-07）：实验根 `index.html` 已改为重构版默认入口，`legacy-preview.html` 保留旧 atlas 街景；本文关于“原 index 入口”的描述属于当时状态。
+
 基线：e26230286d1d3672ace88f27e5b891a695aba3ad；分支 codex/development-20261030。只修改光污染实验，六个其它实验 concepts 保留。
 
 ## 实现与资源
