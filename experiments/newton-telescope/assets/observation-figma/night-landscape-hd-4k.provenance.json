@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "source": "night-landscape.png",
+  "sourceSize": [
+    1672,
+    941
+  ],
+  "output": "night-landscape-hd-4k.png",
+  "outputSize": [
+    3840,
+    2160
+  ],
+  "tool": "LibTV Lib Image 2.5 Pro",
+  "projectId": "272fe3a6d46e49e79f2dfe5283b4c8bc",
+  "nodeId": "i-i61ClFfwCF",
+  "taskId": "20261105165303319759221",
+  "resourceId": "res_6449603c5bef4b96bd0675898ec6741f",
+  "parameters": {
+    "resolution": "4K",
+    "quality": "high",
+    "count": 1,
+    "ratio": "16:9",
+    "background": "opaque"
+  },
+  "note": "The reference placeholder was resolved by LibTV to the uploaded original night-landscape.png. A previous built-in imagegen draft retained 1672×941 and was not selected.",
+  "prompt": "请将参考背景 {{Node i-3qrJ0B9QqC}} 忠实高清重建为原生4K 16:9背景。用于天文教学网页，进入剖面时摄像机将背景放大3倍，因此必须增加真实可辨的高频细节，不要把原有糊像素简单插值。保持原图构图、山峰位置、地平线高度、星星位置、深蓝和靛蓝配色、手绘插画风格完全一致。星星是锐利而细小的点和精致四角星芒，发光柔和但核心清晰；银河细密，山脊轮廓连续干净清楚，石块和草地纹理细腻。不要柔焦，不要景深虚化，不要JPEG块，不要油腻涂抹，不要过锐化白边。不得添加任何望远镜、三脚架、人物、建筑、桌子、文字、标识、UI、按钮、边框、水印。只输出原图同构图高清背景。",
+  "resolution": "4K",
+  "sourceNode": "i-3qrJ0B9QqC",
+  "outputNode": "i-i61ClFfwCF",
+  "sha256": "c0e9f3d8afbf756ba57486e4cdd07f16cb59dce2885c4d3d84d7743ea944118f",
+  "bytes": 12415786
+}

@@ -65,9 +65,11 @@
 
  }
  function showPage(value,{instant=false}={}){
+  if(!['mirrors','lenses'].includes(value))return false;
   if(instant){N.trayTransition.cancel();applyPage(value);return;}
   return N.trayTransition.run(value,applyPage,()=>{cancelDrag();choose(null);items.forEach(i=>{i.hover=false;i.focus=false;});});
  }
+ N.tableSpecimens={showPage,get page(){return trayPage;}};
  on(viewport,'dragover',e=>{if(active()&&Array.from(e.dataTransfer.types).includes('application/x-newton-lens')){e.preventDefault();e.dataTransfer.dropEffect=N.isOverMirrorClamp(e)?'copy':'none';viewport.classList.toggle('is-drop-target',N.isOverMirrorClamp(e));}});
  on(viewport,'drop',e=>{const type=e.dataTransfer.getData('application/x-newton-lens');if(!type||!active())return;e.preventDefault();if(N.isOverMirrorClamp(e))place(type);else announce.textContent='透镜已回到桌面。';cancelDrag();});
  on(carriage,'pointerdown',e=>{clampPress={x:e.clientX,y:e.clientY};clampMoved=false;});

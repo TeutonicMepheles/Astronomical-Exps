@@ -17,16 +17,18 @@
    if(data.next&&latest.stage===stage&&completed(latest)[stage])N.course.requestEnter(data.next,{completionConfirmed:true});
   });
  }
- N.courseCompletion={requestMirrors(){
+ N.courseCompletion={dismiss(){return dialog.dismiss(false);},requestMirrors(){
   const s=N.course.get();return s.stage==='mirrors'&&completed(s).mirrors?show('mirrors'):false;
  }};
  let pending=false;
  function sync(s){
+  if(N.developer?.enabled)return;
   const done=completed(s);steps.forEach(key=>{if(!done[key])notified.delete(key);});
   if(s.stage==='mirrors'||pending||!done[s.stage]||notified.has(s.stage))return;
   pending=true;
   // Wait for all course subscribers and the current drop handler to finish first.
   queueMicrotask(()=>{
+   if(N.developer?.enabled)return;
    pending=false;const current=N.course.get(),stage=current.stage;
    if(stage==='mirrors'||!completed(current)[stage]||notified.has(stage))return;
    if(show(stage))notified.add(stage);

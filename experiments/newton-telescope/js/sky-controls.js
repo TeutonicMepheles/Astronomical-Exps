@@ -21,7 +21,11 @@
       if (typeof saved[key] === 'number' && Number.isFinite(saved[key])) values[key] = Math.max(min, Math.min(max, saved[key]));
     }
   } catch (_) { /* Storage is optional, including under file://. */ }
-  window.NightSkyControls = Object.freeze({ getSettings: () => ({ ...values }) });
+  window.NightSkyControls = Object.freeze({ getSettings: () => ({ ...values }),
+    getFields: () => fields.map(field => [...field]),
+    setSettings(patch) { for (const [key,,min,max] of fields) if (typeof patch[key] === 'number' && Number.isFinite(patch[key])) values[key] = Math.max(min,Math.min(max,patch[key])); apply(); },
+    reset() {values = {...defaults}; apply();}
+  });
   const inputs = new Map();
 
   // Feather only the alpha silhouette. Mountain and building textures remain sharp.

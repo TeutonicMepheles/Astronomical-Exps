@@ -8,6 +8,6 @@
   };
   N.ExperimentHeading=class{
     constructor(element){this.element=element;this.title=element.querySelector('h1');this.english=element.querySelector('.english-title');this.description=element.querySelector('.description');}
-    update(stage){const value=content[stage];if(!value)return;this.title.textContent=value.title;this.english.textContent=value.english;this.description.textContent=value.description;}
+    update(stage){const value=content[stage];if(!value)return;this.title.textContent=N.developer?.text('title',value.title,stage)??value.title;this.english.textContent=N.developer?.text('english',value.english,stage)??value.english;this.description.textContent=N.developer?.text('description',value.description,stage)??value.description;}
   };
 })(window.Newton);
