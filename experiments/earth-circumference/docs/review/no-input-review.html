@@ -1,9 +1,0 @@
-﻿<!doctype html><meta charset="utf-8"><title>EXP04 当前验证</title><style>body{background:#101b33;color:#e7efff;font:18px/1.6 system-ui;max-width:1200px;margin:40px auto}img,video{width:100%;margin:12px 0}a{color:#b9daff}</style>
-<h1>EXP04：性能、场景与公式流</h1><p><a href="../../textured.html">打开实验</a> · 2026-11-04</p>
-<p>手绘颗粒从每条动态路径重绘 800 个 SVG 笔触，改为一次生成 254×254 缓存纹理。保持颗粒表现与真实几何。</p>
-<p>同一 Chrome / RTX 5080，视口 2560×1440、DPR 1.5、3840px 地球画布，执行选点、季节拖动、进入观测、进入计算和返回。带录屏对比：P95 帧间隔 333.5ms → 13.5ms；超过 50ms 帧数 62 → 1。此为本机本次测试，不代表所有设备性能。</p>
-<h2>优化前</h2><video controls src="perf-beforeInk.webm"></video><h2>优化后</h2><video controls src="perf-afterInk.webm"></video>
-<h2>观测场景</h2><p>LibTV 两背景和透明杆已接入；背景底部对齐裁切，地平线约 y301–304，杆底 y355。100cm 杆长、杆影等比缩放，深色条形投影。点选影端自动标记厘米长度。</p><img src="no-input-observation.png">
-<h2>公式流</h2><p>点击变量显示名称与同步高亮；占位符点击揭示。测量角来自点选影长，模型角来自纬度差；两种周长独立揭示，共用模拟距离，不作为独立实测验证。返回重测会清除旧结果。</p><img src="no-input-result.png"><video controls src="no-input-flow.webm"></video>
-<p>通过：无输入框、连续选点取消旧动画、两地点测量、等比例几何、独立结果揭示、变量高亮、返回重测重置、低太阳高度、无日照隐藏投影、减少动态效果设置；无页面异常。静态检查 0 错误。</p>
-<p>背景增强了少量星点的错峰亮度变化，保留原图静止与柔和星云变化；最终观感待用户确认。</p>

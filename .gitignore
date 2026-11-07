@@ -31,8 +31,7 @@ Function-Spec/meetings/
 # 生成/交付/录屏产物（已 bundle 归档，不进源码库，保留本机）
 **/concepts/
 **/delivery/
-**/docs/review/*.webm
-**/docs/review/*.png
+**/docs/review/
 **/source-layers*/
 **/libtv-layers*/
 **/libtv-composite-options*/
