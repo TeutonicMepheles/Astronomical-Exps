@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GlobeShaderRenderer · 公共组件预览</title>
+<style>
+  :root { color-scheme: dark; font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; overflow: hidden;
+    color: #eff5ff; background: radial-gradient(circle at 70% 25%, #314a7b 0, #111e39 38%, #070d1b 78%); }
+  main { width: min(92vw, 1120px); display: grid; grid-template-columns: 1fr 320px; align-items: center; gap: 38px; }
+  .globe-wrap { position: relative; width: min(76vh, 760px); aspect-ratio: 1; }
+  #globe { display: block; width: 100%; height: 100%; }
+  .halo { position: absolute; inset: 8%; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, transparent 58%, rgb(113 164 255 / 8%) 66%, transparent 72%); }
+  section { padding: 28px; border: 1px solid rgb(156 193 255 / 22%); border-radius: 20px;
+    background: rgb(8 18 38 / 72%); box-shadow: 0 20px 80px rgb(0 0 0 / 36%); }
+  small { color: #9ab4df; letter-spacing: .14em; }
+  h1 { margin: 8px 0 16px; font-size: 30px; font-weight: 600; }
+  p { margin: 0; color: #c8d7ee; line-height: 1.75; }
+  a { display: inline-block; margin-top: 22px; color: #9fc8ff; }
+  @media (max-width: 820px) { main { grid-template-columns: 1fr; gap: 10px; } section { display: none; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="globe-wrap"><canvas id="globe" aria-label="公共风格化地球 Shader 预览"></canvas><div class="halo"></div></div>
+  <section>
+    <small>SHARED / WEBGL</small>
+    <h1>GlobeShaderRenderer</h1>
+    <p>同一份 Shader 现同时服务埃拉托色尼地球周长与傅科摆实验。贴图、网格密度、虚线纬线、光照与叠加顺序均由公开配置控制。</p>
+    <a href="./">返回组件预览目录</a>
+  </section>
+</main>
+<script type="module">
+import { createGlobeShaderRenderer } from '../../shared/components/globe-shader-renderer/index.js';
+
+const canvas = document.getElementById('globe');
+const size = 800;
+canvas.width = size;
+canvas.height = size;
+const renderer = createGlobeShaderRenderer({
+  textureUrl: '../../experiments/earth-circumference/assets/earth-eq-redraw-1152x576.png',
+  grainUrl: '../../experiments/earth-circumference/assets/grain-ref-512.png',
+  grainBrushUrl: '../../experiments/earth-circumference/assets/grain-brush-512.png',
+  reliefUrl: '../../experiments/earth-circumference/assets/land-relief-1024x512.png',
+  grid: {
+    stepDegrees: 15,
+    latitude: true,
+    longitude: true,
+    dashedLatitude: false,
+    alpha: 0.20,
+    overlay: false,
+  },
+  lighting: {
+    highlightColor: [1, 0.91, 0.74],
+    highlightStrength: 1,
+    highlightRange: 1,
+    highlightGrain: 0,
+    highlightGrainScale: 3,
+    rimColor: [0.18, 0.34, 0.63],
+    rimStrength: 0.55,
+    ambientColor: [1, 1, 1],
+    ambientStrength: 0.18,
+  },
+  material: { paperGrain: 0.075, contactAO: 0 },
+});
+
+if (!renderer.init(canvas)) {
+  document.body.insertAdjacentHTML('beforeend', '<p>当前浏览器不支持 WebGL。</p>');
+} else {
+  renderer.grainMode = 1;
+  renderer.resize(size, size);
+  const tilt = 23.5 * Math.PI / 180;
+  const spin = -0.72;
+  const p = Math.cos(tilt);
+  const q = Math.sin(tilt);
+  const c = Math.cos(spin);
+  const s = Math.sin(spin);
+  const draw = () => renderer.draw({
+    sizePx: size,
+    pxPerLogical: 1,
+    zoom: 1,
+    focus: { x: 400, y: 400 },
+    center: { x: 400, y: 400 },
+    radius: 286,
+    basis: {
+      axis: [-q, p, 0],
+      e2: [-p * c, -q * c, s],
+      e3: [p * s, q * s, c],
+    },
+    sun: [0.64, 0.48, 0.60],
+  });
+  draw();
+  window.addEventListener('globe-texture-ready', draw);
+  window.addEventListener('beforeunload', () => renderer.dispose(), { once: true });
+}
+</script>
+</body>
+</html>

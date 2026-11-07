@@ -1,13 +1,37 @@
 /* 入口 B：纹理 / 夜面版（textured.html）。交互与白底版完全共用 globe-core.js。 */
 
 import { createScene } from './globe-core.js';
-import { createTexturedRenderer } from './renderer-textured.js';
+import { createGlobeShaderRenderer } from '../../../shared/components/globe-shader-renderer/index.js';
 
-const renderer = createTexturedRenderer({
+const renderer = createGlobeShaderRenderer({
   textureUrl: 'assets/earth-eq-redraw-1152x576.png',
   grainUrl: 'assets/grain-ref-512.png',
   grainBrushUrl: 'assets/grain-brush-512.png',
   reliefUrl: 'assets/land-relief-1024x512.png',
+  grid: {
+    stepDegrees: 15,
+    latitude: true,
+    longitude: true,
+    dashedLatitude: false,
+    alpha: 0.20,
+    overlay: false,
+  },
+  lighting: {
+    // These values reproduce the previous EXP-04 shader exactly.
+    highlightColor: [1, 0.91, 0.74],
+    highlightStrength: 1,
+    highlightRange: 1,
+    highlightGrain: 0,
+    highlightGrainScale: 3,
+    rimColor: [0.18, 0.34, 0.63],
+    rimStrength: 0.55,
+    ambientColor: [1, 1, 1],
+    ambientStrength: 0.18,
+  },
+  material: {
+    paperGrain: 0.075,
+    contactAO: 0,
+  },
 });
 const scene = createScene(renderer);
 

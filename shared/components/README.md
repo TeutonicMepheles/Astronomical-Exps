@@ -1,6 +1,6 @@
 # 公共组件接口
 
-公共实现位于本目录，六类组件目前均为试验中。实验提供业务状态，组件负责显示和操作请求；使用限制见[组件规则](../../docs/COMPONENT_POLICY.md)。
+公共实现位于本目录，六个界面组件和两个渲染组件目前均为试验中。实验提供业务状态、相机与科学计算，组件负责显示和操作请求；使用限制见[组件规则](../../docs/COMPONENT_POLICY.md)。
 
 | 组件 | 脚本 / 样式 | 用途 |
 | --- | --- | --- |
@@ -10,6 +10,24 @@
 | AffordanceHint | [affordance.js](affordance.js) / components.css | 物体轮廓提示 |
 | GestureHint | [gesture.js](gesture.js) / components.css | 点击与拖动手势引导 |
 | StageCompletionDialog | [stage-completion.js](stage-completion.js) / stage-completion.css | 阶段完成提示 |
+| GlobeShaderRenderer | [globe-shader-renderer/index.js](globe-shader-renderer/index.js) | 风格化纹理地球与经纬网绘制 |
+| OpticalBeam | [optical-beam.js](optical-beam.js) | Three.js 光路线条柔光与透明度 |
+
+## 渲染组件
+
+### GlobeShaderRenderer
+
+ES Module 入口为 `globe-shader-renderer/index.js`。调用 `createGlobeShaderRenderer` 时传入地表、纸纹、笔刷和地形四张贴图，以及 `grid`、`lighting`、`material`、`projection` 配置；宿主逐帧提供球体基向量、太阳方向、相机焦点、缩放和观测/网格模式。实例公开 `init`、`resize`、`draw`、`grainMode`、`setTextureUrl`、`setStyle`、`gl`、`dispose`。
+
+当前消费者为埃拉托色尼地球周长与傅科摆。前者使用 15° 连续经纬网与内联网格混色；后者使用 10° 虚线纬线、接触阴影、最终网格覆盖和实时高光调试参数。两种外观共用同一 Shader，但差异全部通过公开配置表达。贴图仍属于实验资源，公共组件不附带课程素材，也不计算经纬度、太阳直射点、昼夜或测量值。
+
+接口、颜色格式、事件和迁移边界见[组件说明](globe-shader-renderer/README.md)，独立预览为[globe-shader.html](../../previews/components/globe-shader.html)。
+
+### OpticalBeam
+
+经典脚本 `optical-beam.js` 暴露 `window.SharedComponents.OpticalBeam`。宿主构造时注入自己的 Three.js 兼容对象与父级 Group；随后用 `addSegment(start, end, { color })` 添加视觉线段，用 `setOpacity` 控制公共线段透明度，用 `clear` 重建当前光路，用 `dispose` 卸载。组件创建独立子 Group，不删除宿主添加的箭头、焦点、光子或其他场景对象。
+
+组件不读取实验 DOM、全局 `Newton` 状态或课程数据，也不计算光路。牛顿望远镜的 `LabScene` 仍拥有路径计算、反射、焦点、光子与层级清理。接口见[OpticalBeam 说明](optical-beam.md)，独立预览为[optical-beam.html](../../previews/components/optical-beam.html)。
 
 ## OperationTip 顶部操作提示
 
