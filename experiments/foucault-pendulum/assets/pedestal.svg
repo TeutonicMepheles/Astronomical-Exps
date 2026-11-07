@@ -1,0 +1,22 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="380" height="100" viewBox="0 0 380 100">
+  <title>球体底座（可替代从参考图切图；纯矢量，任意缩放不糊）</title>
+  <defs>
+    <linearGradient id="side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D9E2EC"/>
+      <stop offset="0.55" stop-color="#C6D2DF"/>
+      <stop offset="1" stop-color="#AFBDCD"/>
+    </linearGradient>
+    <linearGradient id="top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAF0F6"/>
+      <stop offset="1" stop-color="#DCE5EE"/>
+    </linearGradient>
+  </defs>
+  <!-- 侧面 -->
+  <path d="M20 40 L20 76 A170 24 0 0 0 360 76 L360 40 Z" fill="url(#side)"/>
+  <!-- 顶面椭圆 -->
+  <ellipse cx="190" cy="40" rx="170" ry="24" fill="url(#top)"/>
+  <!-- 顶面内圈（球座凹槽） -->
+  <ellipse cx="190" cy="40" rx="150" ry="19" fill="none" stroke="#C3CFDC" stroke-width="2"/>
+  <!-- 底面接触阴影 -->
+  <ellipse cx="190" cy="78" rx="168" ry="14" fill="#B9C6D4" opacity="0.45"/>
+</svg>

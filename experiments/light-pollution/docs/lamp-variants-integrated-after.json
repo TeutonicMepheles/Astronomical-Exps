@@ -1,0 +1,88 @@
+{
+  "chrome": "156.0.8078.74",
+  "source": "B:\\GithubProject\\Astronomical-Exps\\experiments\\light-pollution\\lib-static-demo\\standalone.html",
+  "sha256": "454bf5b23e95a94e38c6a6c8cdabb8490ab4c652d9bf5c226b31b43acf52a835",
+  "errors": [],
+  "samples": [
+    {
+      "phase": "idle",
+      "seconds": 6,
+      "sceneFps": 74.9,
+      "renderP95": 1.3,
+      "renderMax": 18.2,
+      "gapP95": 13.9,
+      "gapMax": 30.6,
+      "longTasks": 0,
+      "heap": 97400000,
+      "dpr": 1.5,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 13.400000000000546,
+      "rafMax": 13.600000000000364,
+      "focused": true,
+      "visibility": "visible"
+    },
+    {
+      "phase": "lamps",
+      "seconds": 3.8,
+      "sceneFps": 73,
+      "renderP95": 13.8,
+      "renderMax": 29.6,
+      "gapP95": 28.6,
+      "gapMax": 44.6,
+      "longTasks": 0,
+      "heap": 97400000,
+      "dpr": 1.5,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 13.400000000001455,
+      "rafMax": 39.899999999999636,
+      "focused": true,
+      "visibility": "visible"
+    },
+    {
+      "phase": "five-presets",
+      "seconds": 3.1,
+      "sceneFps": 73.1,
+      "renderP95": 18.3,
+      "renderMax": 21.5,
+      "gapP95": 30.6,
+      "gapMax": 34.1,
+      "longTasks": 0,
+      "heap": 97400000,
+      "dpr": 1.5,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 13.5,
+      "rafMax": 26.799999999999272,
+      "focused": true,
+      "visibility": "visible"
+    },
+    {
+      "phase": "shade-swipes",
+      "seconds": 2.5,
+      "sceneFps": 73.4,
+      "renderP95": 16.7,
+      "renderMax": 22.6,
+      "gapP95": 29,
+      "gapMax": 36.1,
+      "longTasks": 0,
+      "heap": 97400000,
+      "dpr": 1.5,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 13.400000000001455,
+      "rafMax": 26.700000000000728,
+      "focused": true,
+      "visibility": "visible"
+    }
+  ]
+}

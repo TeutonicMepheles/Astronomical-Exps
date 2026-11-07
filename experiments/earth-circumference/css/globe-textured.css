@@ -1,0 +1,671 @@
+/* 纹理版（夜面/星空）样式。布局尺寸与白底版一致：1600×900 逻辑舞台，等比缩放。 */
+
+:root {
+  --stage-scale: 1;
+  --ink: #eaf0ff;
+  --ink-soft: #9fb0d4;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  background:
+    radial-gradient(120% 90% at 78% 18%, #1b2b63 0%, #101a42 38%, #080f2b 68%, #050a1e 100%);
+}
+
+.stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1600px;
+  height: 900px;
+  transform: translate(-50%, -50%) scale(var(--stage-scale));
+  transform-origin: center center;
+}
+
+/* ---------- 星空 ---------- */
+.starfield {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- 太阳辉光与光柱（参考图拆片，screen 叠加） ---------- */
+/* 光柱：sun-rays-v3（纯光柱拆片，无标记/无矩形边/无星野碎屑）
+   原 sun-glow 整片裁切会把星野和暖辉光一起带进来，边缘需要遮罩掩饰；v3 不需要遮罩。 */
+.sun-glow {
+  position: absolute;
+  right: 40px;
+  top: 10px;
+  width: 520px;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+
+/* ---------- 地球 ---------- */
+#globe {
+  position: absolute;
+  left: 781px;          /* 画布中心对准球心，缩放时由 shader 处理焦点 */
+  top: 324px;
+  transform: translate(-50%, -50%);
+  width: 574px;
+  height: 574px;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+  z-index: 2;
+}
+#globe.dragging { cursor: grabbing; }
+
+/* ---------- 太阳光线 ---------- */
+.sun-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ---------- 地轴 ---------- */
+.axis-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+.axis-line {
+  stroke: #8fa4c6;
+  stroke-width: 1.1;
+  stroke-dasharray: 5 7;
+  opacity: .42;
+}
+
+.axis-grip {
+  position: absolute;
+  width: max(44px, calc(44px / var(--stage-scale)));
+  height: max(44px, calc(44px / var(--stage-scale)));
+  margin: calc(-0.5 * max(44px, calc(44px / var(--stage-scale)))) 0 0
+          calc(-0.5 * max(44px, calc(44px / var(--stage-scale))));
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  touch-action: none;
+  z-index: 6;
+  outline: none;
+}
+.axis-grip.dragging { cursor: grabbing; }
+.axis-grip-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1.5px solid #9db0cd;
+  background: #0b1330;
+  box-shadow: 0 0 0 4px rgba(157, 176, 205, .16);
+  transition: box-shadow .15s ease, transform .15s ease;
+}
+.axis-grip:hover .axis-grip-dot,
+.axis-grip:focus-visible .axis-grip-dot {
+  box-shadow: 0 0 0 7px rgba(157, 176, 205, .26);
+  transform: scale(1.08);
+}
+
+/* ---------- 经纬度标记 ---------- */
+.geo-marker {
+  position: absolute;
+  z-index: 5;
+  /* 锚点 = 圆点中心，而不是整行（圆点+文字）的中心：
+     原来 translate(-50%) 会把"圆点+标签"整行居中到锚点上，视觉上圆点被标签挤到左边
+     （实测偏 60px）。改成只回退半个圆点宽度，圆点中心正好落在锚点上。 */
+  transform: translate(-8px, -50%);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.geo-marker[hidden] { display: none; }
+
+.geo-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ee3b32;
+  box-shadow: 0 0 0 4px rgba(238, 59, 50, .18), 0 0 14px rgba(238, 59, 50, .55);
+  flex: none;
+}
+.geo-ring {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, .5);
+  flex: none;
+}
+.geo-selected { pointer-events: auto; cursor: grab; transform: translate(-10px, -50%); }
+.geo-selected.dragging { cursor: grabbing; }
+.geo-selected::before {                    /* 扩大触控热区，不改变视觉大小 */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(48px, calc(48px / var(--stage-scale)));
+  height: max(48px, calc(48px / var(--stage-scale)));
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.geo-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(10, 18, 44, .72);
+  border: 1px solid rgba(140, 170, 220, .22);
+  font-size: 12px;
+  line-height: 1.35;
+}
+.geo-label b { font-size: 13px; font-weight: 600; color: #eef3ff; }
+.geo-label i { font-style: normal; color: #a9bde0; font-variant-numeric: tabular-nums; }
+
+/* ---------- 信息面板 ---------- */
+.panel {
+  position: absolute;
+  right: 168px;
+  top: 430px;
+  width: 322px;
+  padding: 15px 20px 17px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(44, 53, 105, .88), rgba(71, 81, 133, .82));
+  border: 1px solid rgba(150, 180, 230, .26);
+  box-shadow: 0 18px 44px rgba(3, 8, 24, .5), inset 0 1px 0 rgba(190, 215, 255, .10);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  z-index: 5;
+}
+/* 面板自带的细颗粒：参考图的面板不是纯色，有一层纸感 */
+.panel-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/grain-ref-512.png');
+  background-size: calc(256px / var(--stage-scale));
+  opacity: .34;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.panel-title { position: relative; font-size: 13.5px; color: #d6e2fa; margin-bottom: 12px; letter-spacing: .2px; }
+.panel-row { position: relative; display: flex; align-items: stretch; gap: 18px; }
+.panel-cell { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.panel-cell span { font-size: 12px; color: #9db1d6; }
+.panel-cell strong { font-size: 22px; font-weight: 600; letter-spacing: .3px; font-variant-numeric: tabular-nums; }
+.panel-divider { width: 1px; background: rgba(150, 180, 230, .26); }
+
+/* ---------- 进入测量 ---------- */
+.measure-btn {
+  position: relative;
+  margin-top: 14px;
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid rgba(150, 180, 230, .30);
+  border-radius: 10px;
+  background: rgba(120, 160, 230, .18);
+  color: #e6eeff;
+  font: inherit;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+.measure-btn:hover { background: rgba(120, 160, 230, .30); }
+.measure-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 7; }
+.measure-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 11px;
+  border-radius: 9px;
+  background: rgba(10, 20, 48, .86);
+  border: 1px solid rgba(150, 180, 230, .28);
+  font-size: 12px;
+  line-height: 1.4;
+  color: #b9cdea;
+  white-space: nowrap;
+  z-index: 8;
+}
+.measure-label b { color: #eaf1ff; font-size: 12.5px; }
+.measure-label i { font-style: normal; font-variant-numeric: tabular-nums; }
+
+/* ---------- 文本 ---------- */
+.title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 606px;
+  margin: 0;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  z-index: 5;
+}
+.subtitle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 652px;
+  margin: 0;
+  text-align: center;
+  font-size: 18px;
+  color: #91a5c9;
+  z-index: 5;
+}
+
+/* ---------- 四季 ---------- */
+.seasons {
+  position: absolute;
+  left: 384px;
+  width: 832px;
+  top: 700px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 5;
+}
+.season {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #7d92b9;
+  transition: color .18s ease;
+}
+.season .season-icon {
+  height: 38px;
+  width: auto;
+  max-width: 44px;
+  object-fit: contain;
+  opacity: .92;
+}
+.season svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.season span { font-size: 15px; }
+.season[data-active="true"] { color: #dce8ff; }
+.season[data-active="true"] svg { stroke-width: 1.6; filter: drop-shadow(0 0 8px rgba(160, 200, 255, .55)); }
+.season[data-active="true"] .season-icon { opacity: 1; filter: drop-shadow(0 0 8px rgba(160, 200, 255, .45)); }
+
+/* ---------- 年轴 ---------- */
+.timeline {
+  position: absolute;
+  left: 384px;
+  width: 832px;
+  top: 760px;
+  height: 56px;
+  z-index: 5;
+  cursor: pointer;
+  touch-action: none;
+  outline: none;
+}
+.timeline:focus-visible { box-shadow: 0 0 0 2px #b8c4ff inset; border-radius: 8px; }
+/* 刻度尺用参考图拆片：原图 1413px 宽 → 1103.9 逻辑像素 */
+.scale-img {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10px;
+  width: 1000px;
+  height: 44px;
+  object-fit: fill;
+  opacity: .9;
+  pointer-events: none;
+}
+.ticks { display: none; }
+.ticks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 14px;
+  height: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.ticks i { display: block; width: 1px; height: 9px; background: rgba(150, 176, 220, .35); }
+.ticks i.major { height: 17px; background: rgba(190, 210, 245, .6); }
+.timeline-caret {
+  position: absolute;
+  top: 8px;
+  width: 2px;
+  height: 34px;
+  background: #eaf0ff;
+  border-radius: 1px;
+  transform: translateX(-1px);
+  box-shadow: 0 0 8px rgba(200, 220, 255, .8);
+}
+.timeline-end { position: absolute; top: 52px; font-size: 13.5px; color: #9fb0d4; }
+.timeline-end-left { left: 0; }
+.timeline-end-right { right: 0; }
+
+/* ---------- 纹理来源切换（同视角对比用） ---------- */
+.grain-toggle {
+  position: absolute;
+  left: 48px;
+  top: 76px;
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 12px;
+  background: rgba(16, 26, 60, .72);
+  border: 1px solid rgba(140, 170, 220, .22);
+  z-index: 6;
+}
+.grain-toggle button {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 7px 12px;
+  min-height: 34px;
+  border-radius: 9px;
+  background: transparent;
+  color: #9fb0d4;
+  font: inherit;
+  font-size: 12.5px;
+}
+.grain-toggle button[aria-pressed="true"] { background: rgba(120, 160, 230, .30); color: #eef3ff; }
+.grain-toggle button:hover { color: #eef3ff; }
+
+/* ---------- 读数与说明 ---------- */
+.readout {
+  position: absolute;
+  left: 48px;
+  top: 40px;
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+  color: #8fa3c8;
+  z-index: 6;
+}
+.readout b { color: #dbe6ff; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.note {
+  position: absolute;
+  left: 48px;
+  bottom: 26px;
+  margin: 0;
+  max-width: 980px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #7f93b8;
+  z-index: 6;
+}
+.note b { color: #b9caea; font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .axis-grip-dot, .season { transition: none; }
+}
+
+/* ---------- 测量镜头：隐藏四季进度轴（季节状态保留） ---------- */
+.stage.is-measuring .timeline,
+.stage.is-measuring .seasons {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+
+/* 贴图对比组：与颗粒组同风格，单独一行（颗粒组是绝对定位，必须显式给 top） */
+.tex-toggle { top: 124px; }
+.tex-toggle button { font-size: 11px; padding: 5px 10px; }
+
+/* Two-stage composition: observation owns the right half of the board. */
+.observation-panel { position:absolute; left:845px; top:100px; width:710px; padding:18px; border:1px solid #4e609b; border-radius:26px; background:linear-gradient(145deg,rgba(32,48,102,.96),rgba(17,24,57,.97)); z-index:9; box-shadow:0 15px 50px #05091c66; }
+.observation-panel[hidden] { display:none; }
+.observation-tabs { display:flex; gap:8px; padding:4px; border:1px solid #45558b; border-radius:18px; }
+.observation-tabs button { flex:1; min-height:68px; border:0; border-radius:14px; background:transparent; color:#aebee6; font:inherit; font-size:21px; cursor:pointer; }
+.observation-tabs button[aria-selected="true"] { color:white; background:linear-gradient(135deg,#426bb7,#2d448d); box-shadow:inset 0 0 0 1px #7592d3; }
+.site-heading { display:flex; justify-content:space-between; padding:18px 4px 14px; color:#c2d1f0; font-size:18px; }
+.site-heading b { color:#f2f5ff; }
+.site-scene { display:block; width:100%; height:350px; border-radius:18px; overflow:hidden; background:#cfdfed; }
+.site-readings { display:flex; justify-content:space-between; padding:18px 8px 4px; color:#aebee0; font-size:18px; }
+.site-readings b { color:#fff; margin-left:12px; font-size:24px; }
+.site-explanation { color:#a1b1d2; font-size:14px; margin:12px 8px 18px; }
+.circumference-row { display:flex; gap:20px; align-items:center; padding:18px; border:1px solid #43517f; background:#111a3c99; border-radius:15px; font-size:24px; }
+.circumference-row strong { margin-left:auto; }.circumference-row small { font-size:14px;color:#94a5cb; }
+.back-overview { margin-top:14px; min-height:48px; padding:0 20px; border:1px solid #637ab0; border-radius:12px; color:#dce8ff; background:#304476; font:inherit; cursor:pointer; }
+.stage.is-measuring .panel,.stage.is-measuring .title,.stage.is-measuring .subtitle,.stage.is-measuring .axis-layer,.stage.is-measuring .axis-grip,.stage.is-measuring .grain-toggle,.stage.is-measuring .readout { visibility:hidden; pointer-events:none; }
+.stage.is-measuring .geo-label { display:none; }
+.stage.is-measuring .note { max-width:720px; font-size:12px; }
+
+.grain-toggle button { min-height:44px; }
+.tex-toggle { top:136px; }
+.axis-grip,.axis-layer,.note,.readout,.measure-label,.site-explanation { display:none !important; }
+#globe { cursor:crosshair; }
+#globe:focus { outline:none; }
+.geo-selected .geo-label { display:none; }
+.geo-marker { pointer-events:none; }
+.stage.is-measuring #globe { cursor:default; }
+.site-scene text { display:none; }
+.stage { overflow:hidden; }
+.sun-glow { right:-110px; top:-210px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle at 40% 65%,#fff7db,#ffdda0); mix-blend-mode:normal; opacity:1; box-shadow:0 0 80px 35px #ffdb8d42,0 0 180px 80px #ffd89812; transition:none; }
+.sun-glow::after { content:""; position:absolute; inset:0; border-radius:inherit; background:url('../assets/grain-brush-512.png'); mix-blend-mode:multiply; opacity:.08; }
+
+.angle-guide { position:absolute; inset:0; z-index:8; pointer-events:none; }
+.angle-guide[hidden] { display:none; }
+.measure-layer[hidden],.stage:not(.is-measuring) .measure-layer,
+.stage:not(.is-measuring) .angle-guide { display:none; }
+.angle-guide svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.angle-radius { fill:none; stroke:#fff2cb; stroke-width:2.5; stroke-linecap:round; stroke-dasharray:12 6 2 6; opacity:0; }
+.angle-radius-site { stroke:#f2f7ff; }
+.is-drawing .angle-radius { opacity:.96; }
+.angle-arc { fill:none; stroke:#ffe5a3; stroke-width:2.5; stroke-linecap:round; opacity:0; transition:opacity .7s ease; }
+.angle-center { position:absolute; width:max(48px,calc(44px / var(--stage-scale))); height:max(48px,calc(44px / var(--stage-scale))); transform:translate(-50%,-50%); border:0; padding:0; background:transparent; border-radius:50%; cursor:pointer; pointer-events:auto; display:grid; place-items:center; }
+.angle-center span { width:10px; height:10px; border-radius:50%; background:#fff5d8; box-shadow:0 0 12px 5px #ffe6a65c; }
+.angle-center::before { content:""; position:absolute; inset:9px; border:1px solid #fff0c6aa; border-radius:50%; animation:angle-beacon 2.6s ease-in-out infinite; }
+.angle-center:focus-visible { outline:2px solid #fff2c5; outline-offset:4px; }
+.angle-center:disabled { cursor:default; }
+.is-drawing .angle-center::before { animation:none; opacity:0; }
+.angle-value { position:absolute; transform:translate(-50%,-50%); padding:8px 12px; border-radius:9px; background:#0b1739d9; color:#fff1ca; font-size:25px; font-variant-numeric:tabular-nums; opacity:0; transition:opacity .7s ease; white-space:nowrap; }
+.is-revealed .angle-arc,.is-revealed .angle-value { opacity:1; }
+@keyframes angle-beacon { 0%,100% { transform:scale(.7);opacity:.35; } 50% { transform:scale(1.35);opacity:.85; } }
+@media (prefers-reduced-motion:reduce) { .angle-center::before { animation:none; } }
+
+.line-style-defs { position:absolute; width:0; height:0; overflow:hidden; }
+.line-style-controls { position:absolute; left:40px; top:24px; display:flex; align-items:center; gap:6px; padding:6px; border:1px solid #52658f; border-radius:13px; background:#101b3be6; z-index:10; }
+.line-style-controls span { margin:0 10px; color:#9fafd1; font-size:14px; }
+.line-style-controls button { border:0; border-radius:8px; min-height:44px; padding:0 16px; font:inherit; color:#b1c1e0; background:transparent; cursor:pointer; }
+.line-style-controls button[aria-pressed="true"] { color:#fff; background:#3b5289; }
+.stage:not(.is-measuring) .line-style-controls { display:none; }
+.stage[data-line-style="sketch"] :is(.angle-radius,.angle-arc,#arcPath,.shadow-measure-path) { stroke:url(#pencil-ink); stroke-width:5.5; stroke-dasharray:none; stroke-linecap:round; }
+.stage[data-line-style="sketch"] .angle-arc { stroke-width:4.5; }
+.stage[data-line-style="sketch"] .angle-value { color:#fff1cd; border-radius:18px 9px 16px 7px; font-style:italic; }
+.stage[data-line-style="draft"] :is(.angle-radius,#arcPath,.shadow-measure-path) { stroke:#c4edff; stroke-width:1.5; stroke-dasharray:16 5 2 5; marker-start:url(#draft-end); marker-end:url(#draft-end); }
+.stage[data-line-style="draft"] .angle-arc { stroke:#c4edff; stroke-width:2; marker-start:url(#draft-tick); marker-end:url(#draft-tick); }
+.stage[data-line-style="draft"] .angle-value { color:#d3efff; border:1px solid #7298b1; border-radius:2px; font-family:Consolas,monospace; font-size:23px; background:#102b45ee; }
+.observation-panel { top:70px; }
+.site-scene { height:350px; touch-action:none; }
+.site-scene[data-measuring="true"] { cursor:crosshair; }
+.site-scene .shadow-measure-overlay text { display:block; fill:#152c48; stroke:#fffae8; stroke-width:3px; paint-order:stroke; font-size:15px; font-weight:600; text-anchor:middle; pointer-events:none; }
+.shadow-measure-path { stroke:#dc6d23; stroke-width:3; stroke-linecap:round; }
+.shadow-measure-halo { stroke:#192d49; stroke-width:7; stroke-linecap:round; opacity:.7; pointer-events:none; }
+.stage[data-line-style="draft"] .shadow-measure-halo { stroke-width:4; }
+.measure-hit { fill:transparent; cursor:grab; }
+.measure-dot { fill:#fff6d9; stroke:#8b4a19; stroke-width:2; pointer-events:none; }
+.measure-handle:focus { outline:none; }.measure-handle:focus .measure-dot { stroke:#2754ad; stroke-width:4; }
+.shadow-measure-controls { padding:14px 4px 0; }
+.measurement-actions { display:flex; align-items:center; gap:9px; }
+.measurement-actions button { min-height:44px; border:1px solid #6f86b5; border-radius:9px; padding:0 13px; background:#344d84; color:#f2f5ff; font:inherit; cursor:pointer; }
+.measurement-actions button:disabled { opacity:.38; cursor:default; }
+.measurement-value { margin-left:auto; color:#fff0be; font-size:22px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.measurement-instruction { margin:12px 0; min-height:22px; color:#acbddf; font-size:15px; }
+.measurement-records { display:flex; justify-content:space-between; border-top:1px solid #3a4c76; padding:10px 4px 0; color:#cfdbf3; font-size:15px; font-variant-numeric:tabular-nums; }
+.observation-tabs button[data-measured="true"]::after { content:" ✓"; color:#b8e7cf; }
+.site-readings { padding:12px 8px 5px; font-size:16px; align-items:center; }
+.site-readings b { font-size:20px; }.site-readings small { color:#93a8cd; font-size:13px; }
+.model-ratio[hidden] { display:none; }
+.circumference-row { display:none; }
+
+/* Shared scale, caret and pointer coordinate range. */
+.timeline { left:300px; width:1000px; height:56px; }
+.timeline .ticks { display:flex; left:0; right:0; top:18px; height:24px; }
+.timeline .ticks i { height:12px; }
+.timeline .ticks i.major { height:24px; }
+.timeline-caret { top:12px; height:34px; }
+.timeline-end { top:46px; }
+
+.sun-glow { right:auto; transition:none; }
+
+.geo-label,.panel-title,.panel-row,#site-coordinates { display:none!important; }
+.geo-marker { width:max(44px,calc(44px / var(--stage-scale))); height:max(44px,calc(44px / var(--stage-scale))); transform:translate(-50%,-50%); display:grid; place-items:center; pointer-events:auto; cursor:pointer; z-index:9; }
+.geo-marker::before { content:none; }
+.geo-marker:focus-visible { outline:2px dashed #fff2ca; border-radius:50%; }
+.geo-dot { width:15px;height:15px;background:#ffd499;border:2px solid #fff0c8;border-radius:43% 57% 48% 52%; }
+.geo-ring { width:27px;height:27px;border:2px dashed #d9efff;border-radius:46% 54% 50% 50%; }
+.geo-dot,.geo-ring { animation:point-breathe 3.2s ease-in-out infinite; }
+.geo-selected .geo-ring { animation-delay:-1.6s; }
+@keyframes point-breathe { 0%,100% { filter:brightness(.9);box-shadow:0 0 3px 1px #dceeff33; } 50% { filter:brightness(1.2);box-shadow:0 0 13px 4px #dceeff66; } }
+.point-guides { position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4; }
+.point-guides path { fill:none;stroke:url(#pencil-ink);stroke-width:2;opacity:.7; }
+.point-guides .point-parallel { stroke-dasharray:7 5;opacity:.5; }
+.point-guides[data-kind=site] path { stroke:#c4e3ff; }
+@media(prefers-reduced-motion:reduce){.geo-dot,.geo-ring{animation:none}}
+.calibration-inputs { display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:6px 0; }
+.calibration-inputs label,.calculation-panel label { display:grid;gap:4px;font-size:15px; }
+.calibration-inputs small { grid-column:1/-1;font-size:12px;color:#c5d6ef; }
+.calibration-inputs input,.calculation-panel input { min-height:40px;width:100%;box-sizing:border-box;background:#152541;border:1px solid #8197bb;border-radius:8px;color:#fff;font:inherit;padding:5px 10px; }
+.observation-panel { top:24px; }
+.observation-panel .site-scene { height:310px; }
+.to-calculation { float:right;min-height:44px;padding:10px 16px;border:1px solid #bdd6ff;border-radius:9px;background:#42649d;color:#fff;font:inherit; }
+.calculation-panel { position:absolute;left:890px;top:50px;width:650px;padding:24px;box-sizing:border-box;border:1px solid #7b94bd;border-radius:24px;background:#17264def;z-index:12; }
+.calculation-panel[hidden] { display:none; }
+.calculation-panel h2 { margin:0 0 10px;font-size:26px; }
+.calculation-panel p { margin:12px 0; }
+.calculation-panel small { display:block;color:#c4d2e7;font-size:13px; }
+.calculation-panel button { min-height:44px;border-radius:9px;border:1px solid #bdd6ff;background:#42649d;color:#fff;padding:10px 18px;font:inherit;margin:10px 0; }
+.calculation-panel button:disabled { opacity:.45; }
+.calculation-result strong { font-size:30px;color:#ffe9aa; }
+.calculation-status { color:#ffe2ac;font-size:15px; }
+.local-triangles { position:absolute;inset:0;width:100%;height:100%;z-index:10;pointer-events:none; }
+.local-triangles path { fill:none;stroke:#fff1be;stroke-width:4;stroke-linecap:round;filter:drop-shadow(0 1px 2px #081126); }
+.local-triangles .local-ground { stroke:#b6d7ff;stroke-width:2;stroke-dasharray:6 4; }
+.local-triangles .local-ray { stroke:#ffd390;stroke-dasharray:10 4;stroke-width:3; }
+.local-triangles .local-rod,.local-triangles .local-shadow { stroke:url(#pencil-ink);stroke-width:5; }
+.local-triangles text { fill:#fff3ca;stroke:#101c36;stroke-width:4;paint-order:stroke;font-size:18px; }
+.zero-shadow { fill:#fff3ca;stroke:#101c36;stroke-width:2; }
+.stage[data-line-style=sketch] .angle-radius,.stage[data-line-style=sketch] .angle-arc,
+.stage[data-line-style=sketch] #arcPath,.point-guides path { stroke-width:4;opacity:1;filter:drop-shadow(0 0 2px #061020) drop-shadow(0 1px 1px #061020); }
+.point-guides .point-parallel { stroke-width:3;opacity:.95;stroke-dasharray:12 5; }
+.observation-panel { top:110px;padding:14px; }
+.observation-panel .site-scene { width:100%;height:auto;aspect-ratio:660/400;display:block;margin:12px 0; }
+.site-scene .local-label,.site-scene .shadow-cm { display:block;fill:#fff5ce;stroke:#172641;stroke-width:3px;paint-order:stroke;font-size:19px;font-weight:600; }
+#site-sun { display:none!important; }
+.measurement-instruction { font-size:14px;margin:6px 0; }
+.measurement-records { font-size:15px; }
+.observation-footer { display:flex;justify-content:space-between;margin-top:12px; }
+.observation-footer button { min-height:44px;border:1px solid #95b6e9;border-radius:10px;background:#36578a;color:#fff;padding:10px 20px;font:inherit; }
+.point-guides text { fill:#fff2c7;stroke:#101c38;stroke-width:4px;paint-order:stroke;font-size:16px;font-weight:600; }
+.point-guides [data-guide=site] path { stroke:#c5e9ff; }
+.point-guides g path:nth-child(2) { stroke-dasharray:12 5; }
+.geo-dot { width:23px;height:23px;border:3px solid #fff3c6;background:#f59a44;box-shadow:0 0 0 5px #182541,0 0 18px #ffd480aa; }
+.geo-dot::after { content:'☀';display:block;color:#16233d;font-size:20px;line-height:23px;text-align:center; }
+.geo-subsolar { transition:opacity .65s ease; }
+.aligning-point .geo-subsolar,.aligning-point [data-guide=sun] { opacity:0!important;pointer-events:none!important; }
+.aligning-point .geo-subsolar { transition:none; }
+.point-guides [data-guide=sun] { transition:opacity .65s ease; }
+.picking-distance .geo-subsolar { outline:2px dashed #ffefb8;border-radius:50%; }
+.local-triangles { z-index:8; }
+.starfield { display:none; }
+.reference-backdrop { position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(#07102530,#07102530),url('../assets/starfield-reference.png') center/100% 100% no-repeat;overflow:hidden; }
+.nebula-breath { position:absolute;inset:0;background:radial-gradient(ellipse at 74% 32%,#8da6ed28,transparent 56%),radial-gradient(ellipse at 20% 80%,#7180d31a,transparent 45%);opacity:.3;animation:nebula-breath 22s ease-in-out infinite alternate; }
+@keyframes nebula-breath { from{opacity:.15}to{opacity:.65} }
+.reference-backdrop i { position:absolute;width:8px;height:8px;transform:translate(-50%,-50%);background:#e3ebff;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);opacity:.3;animation:quiet-twinkle ease-in-out infinite; }
+@keyframes quiet-twinkle { 0%,100%{opacity:.1}45%{opacity:.68}65%{opacity:.2} }
+.static-backdrop * { animation:none!important; }
+@media(prefers-reduced-motion:reduce){.reference-backdrop *{animation:none!important}}
+/* Formula flow shares the stage, without a separate card surface. */
+.formula-flow { left:820px;top:100px;width:760px;padding:16px;background:none;border:0;border-radius:0; }
+.formula-row { display:flex;align-items:center;justify-content:center;gap:8px;font:34px Georgia,serif;min-height:76px;white-space:nowrap; }
+.formula-flow .formula-var,.formula-flow .reveal { background:transparent;border:0;padding:4px 7px;margin:0;color:inherit;font:inherit;min-height:44px; }
+.formula-flow sub { font-size:.5em; }
+.fraction { display:inline-flex;flex-direction:column;align-items:center;line-height:1.1; }
+.fraction>span:first-child { border-bottom:1px solid currentColor;width:100%;text-align:center; }
+.flow-arrow { text-align:center;color:#aad6ff;font-size:30px;line-height:32px; }
+.formula-row.relation { min-height:48px;font-size:27px;color:#b8d9ff; }
+.formula-row.warm { color:#ffe5a2; }.formula-row.cool { color:#b9daff; }
+.formula-flow .reveal { border:1px dashed #91a6c7;font-size:24px;min-width:50px; }
+.formula-flow .active { text-shadow:0 0 12px #fff;border-bottom:2px solid #fff4bd; }
+.formula-tip { height:32px;text-align:center;font-size:16px;color:#ffeac0;margin-top:12px; }
+.formula-flow small { display:inline;margin:0 12px; }.formula-flow .back-observation { display:block; }
+.stage[data-formula-focus=L] .local-rod,.stage[data-formula-focus=s] .local-shadow,
+.stage[data-formula-focus=theta] .local-ray,.stage[data-formula-focus=delta] .angle-arc,
+.stage[data-formula-focus=d] #arcPath { stroke:#fff!important;stroke-width:8!important; }
+.stage[data-formula-focus=phi] [data-guide=site],.stage[data-formula-focus=sun] [data-guide=sun] { filter:brightness(1.7); }
+.stage[data-formula-focus=Cobs] #globe,.stage[data-formula-focus=Cmodel] #globe { outline:2px solid transparent;filter:brightness(1.14); }
+.reference-backdrop i { width:16px;height:16px;background:#fff;will-change:opacity; }
+@keyframes quiet-twinkle { 0%,100%{opacity:.05}40%{opacity:1}65%{opacity:.12} }
+.formula-flow { top:230px; }
+.formula-row { min-height:64px;font-size:30px;text-shadow:0 2px 3px #071126; }
+.formula-row.relation { min-height:40px; }
+.flow-arrow { line-height:24px; }
+.formula-flow .back-observation { margin-top:4px; }
+.stage[data-formula-focus=L] .label-rod,.stage[data-formula-focus=s] .label-shadow { fill:#fff;font-weight:800;stroke:#6a450c; }
+.astro-name-bubble { position:fixed;z-index:1000;pointer-events:none;max-width:calc(100vw - 24px);box-sizing:border-box;padding:13px 20px;color:#ffedc9;background:linear-gradient(120deg,#24344d,#14253f);border:1px solid #e6c896;outline:1px solid #8490a3;outline-offset:-5px;border-radius:13px 11px 14px 12px;box-shadow:0 5px 16px #030a2390;font:18px/1.5 Georgia,'Microsoft YaHei',serif;white-space:pre-line;text-align:center;animation:astro-tip-in .22s ease-out; }
+.astro-name-bubble:after { content:'';position:absolute;bottom:-7px;left:var(--tail);width:12px;height:12px;background:#192a43;border-right:1px solid #e6c896;border-bottom:1px solid #e6c896;transform:translateX(-50%) rotate(45deg); }
+.astro-name-bubble[data-below=true]:after { top:-7px;bottom:auto;transform:translateX(-50%) rotate(225deg); }
+@keyframes astro-tip-in { from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)} }
+.formula-flow .reveal { overflow:hidden; }
+.formula-flow .reveal-value { display:inline-block; }
+.local-triangles .formula-annotation { font-size:22px; }
+.local-triangles .variable-arc { stroke:#ffe9aa;stroke-width:3;fill:none; }
+.local-triangles [data-annotation].active text { fill:#fff;font-weight:800; }
+.local-triangles [data-annotation].active path { stroke:#fff!important;stroke-width:6; }
+@media(prefers-reduced-motion:reduce){.astro-name-bubble{animation:none}}
+.astro-stage-progress { position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:30;padding:12px 28px;border-radius:40px;background:#0b1c38e8;box-shadow:0 3px 16px #040a1a50;color:#8799bd; }
+.astro-stage-progress ol { display:flex;gap:46px;align-items:center;list-style:none;margin:0;padding:0; }
+.astro-stage-progress li { position:relative;display:flex;align-items:center;gap:12px;white-space:nowrap;font-size:20px; }
+.astro-stage-progress li+li:before { content:'';position:absolute;left:-31px;top:50%;width:16px;border-top:2px dashed #61769f; }
+.step-number { display:grid;place-items:center;width:42px;height:42px;border-radius:48% 52% 47% 53%;background:#243e67;color:#a8bfdf;font-size:26px; }
+.astro-stage-progress .current { color:#fff2cf; }
+.current .step-number { background:#b2d8f5;color:#153254;box-shadow:0 0 0 2px #d3ebff44; }
+.current .step-number:after { content:'';position:absolute;left:4px;top:46px;width:32px;height:5px;border-bottom:2px solid #b2d8f5;border-radius:50%; }
+.astro-stage-progress .complete .step-number { box-shadow:inset 0 0 0 2px #8fc9bb; }
+.step-check { display:none;color:#b5dbc9;font-size:16px;margin-left:-6px; }.complete .step-check { display:block; }
+.stage-next { position:absolute;right:45px;bottom:28px;z-index:35;min-width:158px;min-height:58px;padding:12px 25px;color:#fff0c9;background:#28446b;border:1px solid #c4d8ef;border-radius:14px 12px 15px 11px;font:22px/1.3 inherit;cursor:pointer;box-shadow:0 3px 10px #07122680;animation:stage-next-in .45s ease-out; }
+.stage-next[hidden] { display:none; }.stage-next:hover,.stage-next:focus-visible { background:#385c89;outline:2px solid #ffe5ad;outline-offset:3px; }
+@keyframes stage-next-in { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+@media(prefers-reduced-motion:reduce){.stage-next{animation:none}}
+.brush-flow { position:absolute;inset:0;width:100%;height:100%;pointer-events:none; }.brush-flow[hidden]{display:none;}
+.stage-next { font-family:inherit;font-size:22px;line-height:1.3; }
+.stage > .panel { display:none; }
+@media(prefers-reduced-motion:reduce){.brush-flow{display:none;}}
+.stage-back { position:absolute;left:45px;bottom:28px;z-index:35;width:64px;height:58px;display:grid;place-items:center;padding:0;background:#192f50;color:#e2efff;border:1px solid #a8c9e8;border-radius:14px 12px 15px 11px;box-shadow:0 3px 10px #07122680;font:34px/1 system-ui;cursor:pointer; }
+.stage-back[hidden] { display:none; }.stage-back:hover,.stage-back:focus-visible { background:#385c89;outline:2px solid #ffe5ad;outline-offset:3px; }
+.observation-footer:empty { display:none; }
+.calculation-outline { position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;opacity:0; }
+.calculation-outline circle { fill:none; }
+.calculation-outline .outline-backing { stroke:#09172d;stroke-width:9; }
+.calculation-outline .outline-ink { stroke:#d1eaff;stroke-width:4; }
+.selected-date { position:absolute;top:65px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;color:#ffeac0;white-space:nowrap;font-size:21px;font-variant-numeric:tabular-nums;pointer-events:none; }
+.selected-date small { color:#aabbd7;font-size:13px; }
+.seasons { left:300px;width:1000px;display:block; }
+.seasons .season { position:absolute;transform:translateX(-50%); }

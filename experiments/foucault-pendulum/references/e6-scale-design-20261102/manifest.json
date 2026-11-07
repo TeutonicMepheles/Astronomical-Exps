@@ -1,0 +1,34 @@
+[
+  {
+    "id": "E6-A",
+    "file": "E6-A.png",
+    "source": "C:\\Users\\Golajah\\.codex\\visualizations\\2026\\11\\02\\01a19b1d-9e30-7940-9704-6c6f51cc8780\\pendulum-china-scale-short-r2\\E6-A\\E6-A.png",
+    "sha256": "4973618f70b8a2a1487adeb6f52b7cf9fce87c1ca96a71694bd9499b6b50500f",
+    "role": "supporting-scale-study",
+    "status": "concept-needs-scale-correction"
+  },
+  {
+    "id": "E6-B",
+    "file": "E6-B.png",
+    "source": "C:\\Users\\Golajah\\.codex\\visualizations\\2026\\11\\02\\01a19b1d-9e30-7940-9704-6c6f51cc8780\\pendulum-china-scale-12-options\\E6-B\\E6-B.png",
+    "sha256": "4867ff41fa269f5a36d9dcbd78ffdef6ab1a13b7185a4da37ca0c1981d452c37",
+    "role": "supporting-scale-study",
+    "status": "concept-needs-scale-correction"
+  },
+  {
+    "id": "E6-C",
+    "file": "E6-C.png",
+    "source": "C:\\Users\\Golajah\\.codex\\visualizations\\2026\\11\\02\\01a19b1d-9e30-7940-9704-6c6f51cc8780\\pendulum-china-customs-r2\\E6-C\\E6-C.png",
+    "sha256": "799c08d6b244ceb08a88fa8427e9b22c6b48835600d7793dab25e63d49bc17ad",
+    "role": "supporting-scale-study",
+    "status": "concept-needs-scale-correction"
+  },
+  {
+    "id": "E6-D",
+    "file": "E6-D.png",
+    "source": "C:\\Users\\Golajah\\.codex\\visualizations\\2026\\11\\02\\01a19b1d-9e30-7940-9704-6c6f51cc8780\\pendulum-china-scale-12-options\\E6-D\\E6-D.png",
+    "sha256": "278b25fed3845de2176f0feeea4ede5f64b83319208079db8f97e0e50d2172ab",
+    "role": "primary-composition",
+    "status": "concept-needs-scale-correction"
+  }
+]
