@@ -3,8 +3,8 @@
   "inputs": [
     {
       "path": "app/page.html",
-      "bytes": 8410,
-      "sha256": "ae853a0968ddfca28cc308cf6a19670622fd6a65ea9d8026b17db71edcf24acc"
+      "bytes": 8389,
+      "sha256": "3f2ccf7c3d2cbbb7a21178720421b4a729ab14b0da859180523d79ec8e66b4e2"
     },
     {
       "path": "assets/billboard-demo/city.svg",
@@ -153,8 +153,8 @@
     },
     {
       "path": "app/styles/scene.css",
-      "bytes": 20499,
-      "sha256": "4858039298706a3caf49051e4cb549c1b1226df26521f87919b1f0faa73eedfc"
+      "bytes": 20419,
+      "sha256": "a73ecbab7acfa2f92aa40f6ad8dd66ee315ee13d159e56c36ed634875be3437b"
     },
     {
       "path": "core/runtime.js",
@@ -183,13 +183,13 @@
     },
     {
       "path": "features/lamps/variants.js",
-      "bytes": 3549,
-      "sha256": "1dca2cec6f856c601843c4ec4e1da5c74098b747cdc91a5035b69db6e7754b8b"
+      "bytes": 3525,
+      "sha256": "01d05626dec4a8850038b31bc4052ab6b09a5ceae1f0575266bb82626cd0538e"
     },
     {
       "path": "features/light-environment/model.js",
-      "bytes": 1518,
-      "sha256": "91802b8462b34115c9159dad805735653f512d401f4980045edc4cfd5e2fa3bf"
+      "bytes": 1502,
+      "sha256": "e698c1bbb36b9eb20e58c8e94c376b9f74cdc7596b71595ddc316d2f5c89cd1c"
     },
     {
       "path": "resources/asset-registry.js",
@@ -303,13 +303,13 @@
     },
     {
       "path": "features/lamps/carousel.js",
-      "bytes": 6505,
-      "sha256": "1b1c5f5340cc012d3a0bdab5fa851e1d6cfb4163eb40854ec8ba4bd137568711"
+      "bytes": 6455,
+      "sha256": "6a054ccc4fb2f818dbace01716682e3c6e33f560433bc690d76fa8000b81652f"
     },
     {
       "path": "features/lamps/controller.js",
-      "bytes": 7694,
-      "sha256": "a1dc11c80b5e8ae971c86d98a7880a2b555dd06b1aae01541bfa12a67444062a"
+      "bytes": 7649,
+      "sha256": "e2bca80e9ca8077a9104887fa043d600b55c02a92883ffb55eacaa7404cf7df9"
     },
     {
       "path": "rendering/masked-lighting.js",
@@ -338,8 +338,8 @@
     },
     {
       "path": "features/light-environment/controller.js",
-      "bytes": 4325,
-      "sha256": "4ddb477136edf1cc7638d7a767339612ad88dc16211dec3a09dd23a1200afe76"
+      "bytes": 4297,
+      "sha256": "73b1d2521eb3a4a17bebc5e26d3caba60c51e50763d210479a1a0f8c2908cc76"
     },
     {
       "path": "../../shared/components/affordance.js",
@@ -358,8 +358,8 @@
     },
     {
       "path": "features/interaction-hints/controller.js",
-      "bytes": 5570,
-      "sha256": "4f3628bb489f0131c4b3c2f370abc106f5dea114fd6fe055d7e9dd7632065e60"
+      "bytes": 5538,
+      "sha256": "63c8f9d52d8b448a7d2c8505959c34e13a2de71ef6df933b41b7a57fc44882b9"
     },
     {
       "path": "features/environment/controller.js",
@@ -373,13 +373,13 @@
     },
     {
       "path": "app/bootstrap.js",
-      "bytes": 21167,
-      "sha256": "7e0da4cdd6e98da2fa330011986cf259624e96272fa5f6a7804d0105b4742da0"
+      "bytes": 21037,
+      "sha256": "328294092f560d746339d93f72a53fbf143c82fefa60d55799b47545ef9edadb"
     }
   ],
   "output": {
     "path": "lib-static-demo/standalone.html",
-    "bytes": 37852543,
-    "sha256": "52b618ddbd85b4d2305b3367bd49cb1f314e547bada6694f7b6c41c59cfec0eb"
+    "bytes": 37852117,
+    "sha256": "3c25ca1c1986f39a99cebcd424858044587c394819fd822faa7124d4e6fadbe2"
   }
 }

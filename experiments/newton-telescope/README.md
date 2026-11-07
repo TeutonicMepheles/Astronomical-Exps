@@ -159,6 +159,8 @@ node experiments/newton-telescope/tests/mirror-curvature.browser.cjs
 
 学习状态由 `Newton.course` 管理，光学参数由 `Newton.store` 管理。公共组件来自根目录 `shared/components/`，使用规则见[组件文档](../../docs/COMPONENT_POLICY.md)。
 
+第一阶段的黄色光路线条自 2026-11-07 起使用公共 `SharedComponents.OpticalBeam`（`shared/components/optical-beam.js`）。`LabScene` 继续负责路径、反射、箭头、焦点、光子与重建，公共组件只绘制柔光并接受透明度；Three.js 仍由本实验随项目本地提供并注入。
+
 ## 交互待核对
 
 按[智慧白板约定](../../Visual-Spec/VISUAL_SPEC.md#展示与交互约定)，后续需核对模型缩放是否有触屏操作入口、必要提示是否仅在悬停出现，以及悬停与选中反馈是否一致。已有鼠标操作和公共组件不代表已完成触屏验收。

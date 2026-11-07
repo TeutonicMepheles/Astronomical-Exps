@@ -1,5 +1,7 @@
 # 光污染工程依赖审计与模块解耦方案
 
+> 状态注记（2026-11-07）：实验根 `index.html` 已改为重构版默认入口，原街景移至 `legacy-preview.html`；根 `npm run export -- light-pollution` 也已改为导出候选单文件。本文其余内容是 2026-10-28 的审计历史，不再描述当前入口。
+
 日期：2026-10-28。分析基线：当前工作区 `lib-static-demo/standalone.html`，SHA-256 `175ad5e70c360b37be5dec91d656c9e5bb8ec4caa05fb3310c0dff164a43fe93`。分支 `experiment/light-pollution/sky-preview`，HEAD `d357477` 加当前未提交内容。本文是工程重构方案，本轮不迁移运行模块、不修改科学模型。
 
 ## 1. 结论与实际完成事项

@@ -6,7 +6,7 @@ import {SCALE_VIEW,SCALE_REFERENCE,LENGTH_TIERS,MASS_TIERS,PARAMETER_DEFAULTS} f
 import {mountDebug} from './debug-panel.js';
 import {lighting,grid,pedestal,defaultPedestal,background} from './lighting.js';
 import {createMotion} from './pendulum-model.js';
-import { createTexturedRenderer } from './globe-renderer.js';
+import { createGlobeShaderRenderer } from '../../../shared/components/globe-shader-renderer/index.js';
 import { createCityMarkers, CITIES } from './city-markers.js';
 import { mountProgress } from './progress.js';
 
@@ -33,11 +33,22 @@ setStageControlsVisible(false);
 const trail=document.querySelector('#trails'), ctx=trail.getContext('2d');
 const bob=document.querySelector('#bob'), cable=document.querySelector('#cable');
 const cableBack=document.querySelector('#cableBack'), shadow=document.querySelector('#shadow');
-const renderer=createTexturedRenderer({
+const renderer=createGlobeShaderRenderer({
   textureUrl:'assets/earth-eq-redraw-1152x576.png',
   grainUrl:'assets/grain-ref-512.png',
   grainBrushUrl:'assets/grain-brush-512.png',
   reliefUrl:'assets/land-relief-1024x512.png',
+  grid:{
+    stepDegrees:10,
+    latitude:true,
+    longitude:false,
+    dashedLatitude:true,
+    alpha:.92,
+    color:[.90,.94,1],
+    overlay:true,
+  },
+  lighting,
+  material:{paperGrain:.14,contactAO:1},
 });
 let spin=0, cityFocus=null;
 let dirty=true, size=550, scale=1, elapsed=0, last=0, frame=0, zoom=1;

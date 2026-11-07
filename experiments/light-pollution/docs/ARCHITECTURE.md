@@ -1,6 +1,6 @@
 # 重构架构与维护契约
 
-本轮以 `lib-static-demo/standalone.html` 为兼容地址，将源代码移到职责目录。原正式实验首页仍独立保留；本次没有替换科学模型、增加框架或联网依赖。目录迁移明细见 [module-migration.json](module-migration.json)，字节基线见 [refactor-baseline.json](refactor-baseline.json)。
+本轮以 `lib-static-demo/standalone.html` 为兼容地址，将源代码移到职责目录。2026-11-07 起实验根 `index.html` 默认进入候选重构版 `app/index.html`，原街景页保留为实验根 `legacy-preview.html`；本次没有替换科学模型、增加框架或联网依赖。目录迁移明细见 [module-migration.json](module-migration.json)，字节基线见 [refactor-baseline.json](refactor-baseline.json)。
 
 ## 装配与依赖
 
@@ -42,7 +42,7 @@ runtime.on 登记事件取消函数，pagehide（非 bfcache）执行逆序销�
 
 ## 目录、兼容与文档规则
 
-旧 export.cjs 和 verify*.cjs 是委托入口，旧 standalone URL 不变；旧 mask-editor 两个 HTML 重定向至 tools/mask-editor，同名 build/verify 命令仍可使用。遮罩画室只通过 PNG 交换，没有依赖场景 session。源码 HTTP 入口为 app/index.html 或 lib-static-demo/index.html；file 打开源码入口会转到单文件。
+旧 export.cjs 和 verify*.cjs 是委托入口，旧 standalone URL 不变；旧 mask-editor 两个 HTML 重定向至 tools/mask-editor，同名 build/verify 命令仍可使用。遮罩画室只通过 PNG 交换，没有依赖场景 session。实验根 `index.html` 默认进入 `app/index.html`；其他源码 HTTP 入口为 `app/index.html` 或 `lib-static-demo/index.html`，file 打开源码入口会转到单文件。
 
 每个维护目录的 README 有七节、子目录导航和本地链接校验；不可变 snapshot 明确排除，不注入文件。lib-static-demo/README 由 tools/build/compatibility-readme.md 模板生成，修改它应改模板。资源子目录补充实际文件、尺寸、字节和使用边界。历史原型原地登记于 archive/README，不把“未打包”误判为可删除。
 

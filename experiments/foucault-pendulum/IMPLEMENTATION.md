@@ -1,11 +1,15 @@
 # Homepage visual study — 2026-11-04
 
+> 入口状态注记（2026-11-07）：当前 `main` 已包含本实验页面，默认入口为实验根 `index.html`；下文端口、分支和工作区描述属于当时研究记录。
+
+> 公共组件状态（2026-11-07）：私有 `js/globe-renderer.js` 已删除，`js/main.js` 改用 `shared/components/globe-shader-renderer/index.js`。10° 虚线纬线、白色最终网格、接触阴影、高光颗粒和实时光照对象继续由本实验配置；私有 `gl-core.js` 仍供本页其他小型 WebGL 渲染器使用。
+
 User request: Raft #Astronomical-Exps:0e4e1d96. This is a homepage composition, not the full experiment workflow in REQUIREMENTS.md. No additional visible controls or explanatory text were requested.
 
 ## Entry and provenance
 
 - `index.html`, served from this checkout at port 8378. Independent branch `experiment/foucault-pendulum/initial-delivery`; no changes to the current Earth-circumference checkout/server.
-- `js/globe-renderer.js` and `js/gl-core.js`: private copies extracted from Earth-circumference's current renderer-textured.js and createGL on 2026-11-04 (source branch feat/exp04-interactive-globe, base 29e13d0 plus working changes). Latitude-only graticule and stronger line visibility; same sphere projection, texture mapping and lighting. No runtime dependency on that experiment.
+- Historical provenance: on 2026-11-04 the textured globe began as private copies from Earth-circumference's renderer-textured.js and createGL (source branch feat/exp04-interactive-globe, base 29e13d0 plus working changes). On 2026-11-07 the shared superset renderer replaced `js/globe-renderer.js`; the experiment keeps only its own style and frame data. `js/gl-core.js` remains for this experiment's smaller shader renderers.
 - Globe assets copied from the same source: earth-eq-redraw-1152x576.png, grain-ref-512.png, grain-brush-512.png, land-relief-1024x512.png.
 - `assets/hall.png`: Visual-Designer LibTV draft, source work/foucault-bg/out/BG-大厅-16x9.png, 1280×720, message 51027008. Kept unchanged after composition review.
 - `assets/bob.png`, `assets/pedestal.svg`: Assets-Creator delivered cutout and vector reconstruction, message 944aec0c.
@@ -48,7 +52,7 @@ The globe is a transparent shader impostor rather than a scene mesh, so the floo
 
 ## Connector/cable alignment fix (2026-11-04)
 
-User reported a bend (�۽�) at swing extremes: the top connector looked detached from the tilted cable. Cindy ruled the highlight is environment lighting and is not the bob axis; the real defect is the top connector not rotating with the suspension->centre direction, and the cable not terminating on the connector.
+User reported a bend (折角) at swing extremes: the top connector looked detached from the tilted cable. Cindy ruled the highlight is environment lighting and is not the bob axis; the real defect is the top connector not rotating with the suspension->centre direction, and the cable not terminating on the connector.
 
 `js/main.js` drawPendulum now places the connector on the sphere toward the suspension point instead of a screen-fixed point directly above the centre. With suspension S=(1040,0), bob centre C=(x,y), offset off=33 (sphere radius): connector P = C - normalize(C-S)*off; the cable path ends at P and the joint circle moves to P. At rest this reduces to the old vertical top position, so no visual change there.
 
@@ -65,7 +69,7 @@ Verified headless Chromium (no recording): contact-AO present at (450,622), swin
 
 ## Trail/reference correction (2026-11-04, Cindy 62f06db8)
 
-Cindy ruled "�����������ʹ�ø߹���ɫ�������ɫ" must be read in the trail context, not as "paint the ground white". Reverted the `.pendulum-floor` white overlay. The swing trail is now white (255,255,255) over a soft dark underlay; the swing-plane reference line is a brighter ice-blue (#b7d3ee) dashed annotation so it stays distinguishable from the white trail on the dark hall floor. Bob silver and pedestal contact-AO retained. Static check 0 errors; headless Chromium no errors.
+Cindy ruled "地面绘制纹理使用高光亮色，建议白色" must be read in the trail context, not as "paint the ground white". Reverted the `.pendulum-floor` white overlay. The swing trail is now white (255,255,255) over a soft dark underlay; the swing-plane reference line is a brighter ice-blue (#b7d3ee) dashed annotation so it stays distinguishable from the white trail on the dark hall floor. Bob silver and pedestal contact-AO retained. Static check 0 errors; headless Chromium no errors.
 
 ## Bloom on trail + swing-plane line (2026-11-04, msg 5a01779a)
 
@@ -73,14 +77,14 @@ User asked for bloom on the ground swing-plane line and trail. Trail: drawTrails
 
 ## White globe + city markers (2026-11-05, thread fe190f87)
 
-User confirmed the 6 selectable cities (�Ϻ�/����/�¼���/Ϥ��/�ϼ�/����, default �Ϻ�) and asked to show them as Chinese markers on the WHITE globe, front-side only, with selected/default states.
+User confirmed the 6 selectable cities (上海/巴黎/新加坡/悉尼/南极/北极, default 上海) and asked to show them as Chinese markers on the WHITE globe, front-side only, with selected/default states.
 - `js/globe-wireframe.js` (new): white graticule globe (Eratosthenes-style), adapted from EXP-04 renderer-wireframe.js; light sphere + grey lat/lon grid + single-side lighting.
-- `js/city-markers.js` (new): CITIES list + projection. lat/lon -> sphere direction n = sin(lat)��axis + cos(lat)(cos(lon)��e2 + sin(lon)��e3); front = n.z >= 0 (>= so the poles on the fixed tilt axis stay visible); screen x=450+n.x��250, y=375?n.y��250. Selected = larger dot (r7) + ring (r11); default = small dot (r4.5); label = name + 1-decimal coordinate, flips left/right to stay inside the disc.
+- `js/city-markers.js` (new): CITIES list + projection. lat/lon -> sphere direction n = sin(lat)·axis + cos(lat)(cos(lon)·e2 + sin(lon)·e3); front = n.z >= 0 (>= so the poles on the fixed tilt axis stay visible); screen x=450+n.x·250, y=375?n.y·250. Selected = larger dot (r7) + ring (r11); default = small dot (r4.5); label = name + 1-decimal coordinate, flips left/right to stay inside the disc.
 - `main.js`: switched renderer to createWireframeRenderer(); integrated createCityMarkers with selectedCity (default shanghai); markers.update runs in drawGlobe each spin.
 - `index.html`: added `<svg id="cityMarkers" class="city-layer">` above the globe canvas. `style.css`: dark-ink markers (visible on white) with white text halo; selected = warm accent.
 Node-verified projection: 6 points length 1.0, positions within globe bounds, front/back flips with spin, poles fixed on rim. Static check 0. Browser re-test pending Cindy's GPU window.
 
-Browser re-test (Cindy 5ce64eab gave the window): white globe sampled R/G/B �� 237-243/239-244/242-246 (confirmed white, not textured blue); 6 markers present, default selected shanghai, click switches selection; visibility correct across spin (mid-lat cities hide on back, poles stay on rim). Fixed a float bug: cos(��90��)��6e-17 made pole nz flip sign with spin, culling the poles; changed front test to nz > -1e-6. No console errors, browser closed.
+Browser re-test (Cindy 5ce64eab gave the window): white globe sampled R/G/B ≈ 237-243/239-244/242-246 (confirmed white, not textured blue); 6 markers present, default selected shanghai, click switches selection; visibility correct across spin (mid-lat cities hide on back, poles stay on rim). Fixed a float bug: cos(±90°)≈6e-17 made pole nz flip sign with spin, culling the poles; changed front test to nz > -1e-6. No console errors, browser closed.
 
 
 ## Continuous rate changes (2026-11-05)

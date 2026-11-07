@@ -23,6 +23,13 @@ npm run dev -- --experiment components
 
 接口和代码示例统一见[公共组件说明](../../shared/components/README.md)。`preview.js` 等文件仅组织演示，不可作为正式实验的依赖；`legacy-overview.html` 保留旧预览供历史对照。
 
+## 渲染组件独立预览
+
+- [globe-shader.html](globe-shader.html)：直接检查公共风格化地球 Shader。预览借用埃拉托色尼现有四张离线贴图，组件本身不依赖该实验。
+- [optical-beam.html](optical-beam.html)：直接检查公共 Three.js 光晕组件及透明度控制。预览借用牛顿望远镜的本地 Three.js 文件，组件本身由宿主注入 `THREE`。
+
+这两个页面不加入上方六页分页，避免改变现有组件分页断言。浏览器烟测会打开两页并检查 WebGL 初始化与资源请求。
+
 ## 视觉调试
 
 前三页可通过右下角按钮或 `Ctrl+Alt+D` 打开调试面板；Esc 关闭。面板可调整手势、轨迹、描边和气泡。“保存本机”保存到浏览器，“导出 JSON”保存参数文件，“恢复默认”清除本机配置。

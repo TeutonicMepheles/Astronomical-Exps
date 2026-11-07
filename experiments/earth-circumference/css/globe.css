@@ -196,6 +196,7 @@ html, body {
   white-space: nowrap;
   z-index: 8;
 }
+.measure-label[hidden] { display: none; }
 .measure-label b { color: #23282f; font-size: 12.5px; }
 .measure-label i { font-style: normal; font-variant-numeric: tabular-nums; }
 

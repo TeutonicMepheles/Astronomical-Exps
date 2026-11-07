@@ -1,5 +1,14 @@
 # 协作目录迁移记录 · 2026-10-13
 
+> 状态注记（2026-11-07）：当前 `main` 已合并傅科摆、埃拉托色尼地球周长、光污染和牛顿望远镜四个可运行开发页面。本文件其余内容是 2026-10-13 的迁移历史，入口与完成度以根 README 和实验文档为准。
+
+## 公共渲染组件迁移（2026-11-07）
+
+- 埃拉托色尼 `js/renderer-textured.js` 与傅科摆 `js/globe-renderer.js` 合并为 `shared/components/globe-shader-renderer/`。公共实现保留两套外观的可配置能力，实验分别传入 15°/连续/内联网格与 10°/虚线纬线/最终覆盖等参数。
+- 牛顿望远镜 `js/beam-visual.js` 迁移为 `shared/components/optical-beam.js`。`LabScene` 仍拥有光路、反射、焦点、箭头与光子，公共组件只管理宿主传入线段的柔光和透明度。
+- 两个独立预览为 `previews/components/globe-shader.html` 与 `optical-beam.html`，不加入原有六页分页。
+- 私有源文件已删除，避免继续分叉。构建产物和 `standalone.html` 按离线快照处理，不作为公共组件源码。
+
 ## 基线与状态
 
 初始提交 e26d0e8 保存当时工程源码与资源；Newton 旧 Git 历史不迁入根仓库。当前版本以文件内容为准。Newton 和光污染均为开发中，公共组件均为试验中；迁移不代表视觉、科学或教学验收完成。

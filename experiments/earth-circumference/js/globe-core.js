@@ -229,6 +229,10 @@ export function createScene(sceneRenderer) {
     const size = Math.max(64, Math.round(cssSize * pixelScale));
     canvas.width = size;
     canvas.height = size;
+    // 两种入口的历史定位方式不同；统一把画布中心锚到球体逻辑中心。
+    canvas.style.left = `${GLOBE_CENTER.x}px`;
+    canvas.style.top = `${GLOBE_CENTER.y}px`;
+    canvas.style.transform = 'translate(-50%, -50%)';
     canvas.style.width = `${cssSize}px`;
     canvas.style.height = `${cssSize}px`;
     sceneRenderer.resize(size, size);
