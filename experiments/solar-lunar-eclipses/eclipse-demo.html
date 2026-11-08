@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>日月食实验 · 初版</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../shared/components/operation-tip.css">
+  <link rel="stylesheet" href="css/eclipse-demo.css">
+</head>
+<body>
+<main id="stage" aria-label="日月食实验">
+  <svg id="scene" viewBox="0 0 1600 900" aria-hidden="true">
+    <defs>
+      <radialGradient id="spaceGlow" cx="0" cy="50%" r="70%">
+        <stop offset="0" stop-color="#2b3f57"/>
+        <stop offset=".45" stop-color="#131e2d"/>
+        <stop offset="1" stop-color="#0a111b"/>
+      </radialGradient>
+      <radialGradient id="sunEdge" cx="0" cy="50%" r="100%">
+        <stop offset="0" stop-color="#ffd9a0" stop-opacity=".55"/>
+        <stop offset=".55" stop-color="#ffb765" stop-opacity=".16"/>
+        <stop offset="1" stop-color="#ffb765" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="earthLit" cx="28%" cy="40%" r="82%">
+        <stop offset="0" stop-color="#5aa8c9"/>
+        <stop offset=".55" stop-color="#2f7ba0"/>
+        <stop offset="1" stop-color="#1c4f70"/>
+      </radialGradient>
+      <linearGradient id="earthNight" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#050b14" stop-opacity="0"/>
+        <stop offset=".42" stop-color="#050b14" stop-opacity=".32"/>
+        <stop offset="1" stop-color="#050b14" stop-opacity=".84"/>
+      </linearGradient>
+      <radialGradient id="moonLit" cx="28%" cy="38%" r="80%">
+        <stop offset="0" stop-color="#ded7ca"/>
+        <stop offset=".6" stop-color="#b3ada2"/>
+        <stop offset="1" stop-color="#77736c"/>
+      </radialGradient>
+      <linearGradient id="moonNightGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#04101a" stop-opacity="0"/>
+        <stop offset=".45" stop-color="#04101a" stop-opacity=".34"/>
+        <stop offset="1" stop-color="#04101a" stop-opacity=".8"/>
+      </linearGradient>
+      <radialGradient id="moonRust" cx="45%" cy="45%" r="62%">
+        <stop offset="0" stop-color="#c4592f"/>
+        <stop offset=".62" stop-color="#8d3320"/>
+        <stop offset="1" stop-color="#4c1b12"/>
+      </radialGradient>
+      <radialGradient id="redGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#c2452a" stop-opacity=".55"/>
+        <stop offset=".55" stop-color="#8e2b1a" stop-opacity=".22"/>
+        <stop offset="1" stop-color="#7a2114" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="rayGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#ffd9a0" stop-opacity=".55"/>
+        <stop offset=".42" stop-color="#ffd9a0" stop-opacity=".28"/>
+        <stop offset="1" stop-color="#ffd9a0" stop-opacity=".12"/>
+      </linearGradient>
+      <radialGradient id="atmoGlow" cx="50%" cy="50%" r="50%">
+        <stop offset=".72" stop-color="#7fd0ea" stop-opacity="0"/>
+        <stop offset=".92" stop-color="#7fd0ea" stop-opacity=".18"/>
+        <stop offset="1" stop-color="#7fd0ea" stop-opacity="0"/>
+      </radialGradient>
+      <clipPath id="earthClip"><circle id="earthClipCircle" cx="1108" cy="450" r="88"/></clipPath>
+      <clipPath id="earthUmbClip"><path id="earthUmbClipPath"/></clipPath>
+      <clipPath id="stageClip"><rect width="1600" height="900"/></clipPath>
+      <mask id="shadowCut">
+        <rect width="1600" height="900" fill="#fff"/>
+        <path id="maskEarthPen" fill="#000"/>
+        <path id="maskMoonPen" fill="#000"/>
+      </mask>
+    </defs>
+
+    <g clip-path="url(#stageClip)">
+      <rect width="1600" height="900" fill="url(#spaceGlow)"/>
+      <g id="stars" fill="#cfe4f5"></g>
+      <rect x="0" y="0" width="360" height="900" fill="url(#sunEdge)"/>
+
+      <g id="rays" mask="url(#shadowCut)"></g>
+
+      <g id="orbit">
+        <circle id="orbitCircle" cx="1108" cy="450" r="322" fill="none"
+                stroke="#7fb3d2" stroke-opacity=".22" stroke-width="1.4" stroke-dasharray="7 11"/>
+        <line id="axisLine" x1="40" y1="450" x2="1560" y2="450"
+              stroke="#7fb3d2" stroke-opacity=".16" stroke-width="1" stroke-dasharray="3 9"/>
+      </g>
+
+      <g id="cones">
+        <path id="coneEarthPen" fill="#9db6c8" fill-opacity=".085" stroke="#a8c2d4" stroke-opacity=".18" stroke-width="1"/>
+        <path id="coneEarthUmb" fill="#0b1119" fill-opacity=".88"/>
+        <ellipse id="umbraRed" cx="1400" cy="450" rx="330" ry="30" fill="url(#redGlow)" opacity="0" clip-path="url(#earthUmbClip)"/>
+        <path id="coneMoonPen" fill="#9db6c8" fill-opacity=".09" stroke="#a8c2d4" stroke-opacity=".2" stroke-width="1"/>
+        <path id="coneMoonUmb" fill="#080d14" fill-opacity=".92"/>
+      </g>
+
+      <g id="bodies">
+        <circle id="atmo" cx="1108" cy="450" r="112" fill="url(#atmoGlow)"/>
+        <circle id="earth" cx="1108" cy="450" r="88" fill="url(#earthLit)"/>
+        <circle id="earthNight" cx="1108" cy="450" r="88" fill="url(#earthNight)"/>
+        <g clip-path="url(#earthClip)">
+          <circle id="earthSpot" r="0" cx="0" cy="0" fill="#01040a" fill-opacity=".92"/>
+          <ellipse id="earthSpotSoften" rx="0" ry="0" cx="0" cy="0" fill="#01040a" fill-opacity=".35"/>
+        </g>
+        <g id="moon">
+          <circle id="moonBody" r="24" fill="url(#moonLit)"/>
+          <g id="moonCraters" fill="#8f8a80" opacity=".4"></g>
+          <circle id="moonRustLayer" r="24" fill="url(#moonRust)" opacity="0"/>
+          <circle id="moonDim" r="24" fill="#070d15" opacity="0"/>
+          <circle id="moonNight" r="24" fill="url(#moonNightGrad)"/>
+        </g>
+      </g>
+
+      <g id="annotations" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif">
+        <g id="moonLabel" class="label">
+          <line x1="0" y1="0" x2="0" y2="-52" stroke="#c6dcec" stroke-opacity=".45" stroke-width="1"/>
+          <text x="0" y="-62" text-anchor="middle" fill="#dfeaf3" font-size="17">月球</text>
+        </g>
+        <g class="label">
+          <line x1="1230" y1="372" x2="1290" y2="330" stroke="#c6dcec" stroke-opacity=".4" stroke-width="1"/>
+          <text x="1298" y="324" fill="#dfeaf3" font-size="17">地球</text>
+        </g>
+        <text id="sunLabel" x="48" y="196" fill="#f4c98c" fill-opacity=".82" font-size="15" letter-spacing="2">太阳光 · 平行入射</text>
+        <g id="coneLabels" font-size="14" fill="#9fc0d6">
+          <text id="umbraLabel" text-anchor="middle" fill="#d3e3f1">本影</text>
+          <text id="penumbraLabel" text-anchor="middle" fill="#93b4cb">半影</text>
+        </g>
+      </g>
+    </g>
+  </svg>
+
+  <header class="topbar">
+    <div class="title-block">
+      <p class="title">日月食<span class="title-tag">EXP-06</span></p>
+      <div class="stage-line">
+        <b id="stageName">准备观察</b>
+        <span id="stageDesc">三球与平行光已就位，点击下一步开始。</span>
+      </div>
+    </div>
+
+    <div class="mode-switch" role="tablist" aria-label="选择现象">
+      <button type="button" role="tab" data-mode="solar" aria-selected="true">日食</button>
+      <button type="button" role="tab" data-mode="lunar" aria-selected="false">月食</button>
+    </div>
+
+    <div class="top-right">
+      <p class="type-badge" id="typeBadge">日全食</p>
+      <div class="legend">
+        <span><i class="swatch swatch-umbra"></i>本影</span>
+        <span><i class="swatch swatch-penumbra"></i>半影</span>
+        <span class="scale-note">比例示意</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="observer-card" aria-label="地球观察窗">
+    <canvas id="observer" width="520" height="520"></canvas>
+    <div class="observer-meta">
+      <span id="observerCaption">从地球观察 · 正午</span>
+      <span id="observerMetric">遮挡 0%</span>
+    </div>
+  </section>
+
+  <aside class="note" id="note">
+    <button type="button" class="note-toggle" id="noteToggle" aria-expanded="false">
+      为什么不是每个月都有日食？
+    </button>
+    <div class="note-body" id="noteBody" hidden>
+      <p>月球轨道面与地球轨道面有约 5° 夹角。多数新月时，月影从地球上方或下方掠过；只有月球正好接近两轨道的交点，影子才会落到地球上。</p>
+      <p>月食同理：满月多数时候从地影上方或下方经过。</p>
+    </div>
+  </aside>
+
+  <footer class="controls">
+    <ol class="rail" id="rail" aria-label="关键节点"></ol>
+    <div class="transport">
+      <button type="button" class="icon-btn" id="prevBtn" aria-label="上一步">◀</button>
+      <button type="button" class="play-btn" id="playBtn">播放</button>
+      <button type="button" class="icon-btn" id="nextBtn" aria-label="下一步">▶</button>
+      <button type="button" class="reset-btn" id="resetBtn">重置</button>
+    </div>
+  </footer>
+</main>
+
+<script src="../../shared/components/operation-tip.js"></script>
+<script src="js/eclipse-geometry.js"></script>
+<script src="js/eclipse-demo.js"></script>
+</body>
+</html>
