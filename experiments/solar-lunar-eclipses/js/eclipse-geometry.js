@@ -11,7 +11,7 @@
     height: 900,
     earth: { x: 1108, y: 450, r: 88 },
     moon: { r: 24, orbit: 322 },
-    sun: { r: 300, dist: 6000 }
+    sun: { r: 420, dist: 6000 }
   };
   CFG.sunPos = { x: CFG.earth.x - CFG.sun.dist, y: CFG.earth.y };
   CFG.observer = {
@@ -99,7 +99,7 @@
   var TEXT = {
     solar: {
       type: '日全食',
-      observer: '从地球观察 · 正午',
+      observer: '观察点所见 · 正午',
       nodes: [
         { key: 'first', name: '初亏', angle: 0, desc: '月面边缘刚与日面接触，日面出现第一个缺口。' },
         { key: 'total', name: '食既', angle: 0, desc: '月面完全遮住日面，全食开始，天色转暗。' },
@@ -110,7 +110,7 @@
     },
     lunar: {
       type: '月全食',
-      observer: '从地球观察 · 午夜',
+      observer: '观察点所见 · 午夜',
       nodes: [
         { key: 'first', name: '初亏', angle: 0, desc: '月球进入地球半影，月面右侧开始变暗。' },
         { key: 'total', name: '食既', angle: 0, desc: '月球完全进入地球本影，全食开始，月面转红。' },

@@ -121,6 +121,13 @@
           <text x="1298" y="324" fill="#dfeaf3" font-size="17">地球</text>
         </g>
         <text id="sunLabel" x="48" y="196" fill="#f4c98c" fill-opacity=".82" font-size="15" letter-spacing="2">太阳光 · 平行入射</text>
+        <g id="observerMark">
+          <circle id="obsRing" r="6.5" fill="none" stroke="#8fd3ff" stroke-opacity=".9" stroke-width="1.5"/>
+          <circle id="obsDot" r="2" fill="#d8efff"/>
+          <line id="obsLeader" stroke="#8fd3ff" stroke-opacity=".45" stroke-width="1" stroke-dasharray="3 4"/>
+          <text id="obsLabel" text-anchor="middle" fill="#9ed6ff" font-size="14"
+                stroke="#06111c" stroke-width="3.5" paint-order="stroke">观察点</text>
+        </g>
         <g id="coneLabels" font-size="14" fill="#9fc0d6">
           <text id="umbraLabel" text-anchor="middle" fill="#d3e3f1">本影</text>
           <text id="penumbraLabel" text-anchor="middle" fill="#93b4cb">半影</text>
@@ -156,7 +163,7 @@
   <section class="observer-card" aria-label="地球观察窗">
     <canvas id="observer" width="520" height="520"></canvas>
     <div class="observer-meta">
-      <span id="observerCaption">从地球观察 · 正午</span>
+      <span id="observerCaption">观察点所见 · 正午</span>
       <span id="observerMetric">遮挡 0%</span>
     </div>
   </section>

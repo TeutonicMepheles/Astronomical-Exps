@@ -90,6 +90,7 @@
     updateSpot(M, v);
     updateMoonShade(v);
     updateConeLabels(ec);
+    placeObserverMark();
 
     drawObserver(v);
     updateMetric(v);
@@ -140,6 +141,22 @@
     pen.setAttribute('y', (py === null ? CFG.earth.y - 128 : py - 14).toFixed(0));
   }
 
+  /* 观察点：小窗里看到的，就是这一点上的天空。不标出来，初亏时「本影已落在地球上、
+     而小窗仍是 0%」会读成矛盾——标注后读者才知道影锥落点在另一侧。 */
+  function placeObserverMark() {
+    var o = CFG.observer[state.mode];
+    var below = o.y + 8;
+    var foot = 560;
+    $('obsRing').setAttribute('cx', o.x); $('obsRing').setAttribute('cy', o.y);
+    $('obsDot').setAttribute('cx', o.x); $('obsDot').setAttribute('cy', o.y);
+    var ln = $('obsLeader');
+    ln.setAttribute('x1', o.x); ln.setAttribute('y1', below);
+    ln.setAttribute('x2', o.x); ln.setAttribute('y2', foot);
+    var tx = $('obsLabel');
+    tx.setAttribute('x', o.x);
+    tx.setAttribute('y', foot + 20);
+  }
+
   /* ---------- 地球观察小窗 ---------- */
   var cv = $('observer');
   var ctx = cv.getContext('2d');
@@ -151,39 +168,73 @@
     for (var i = 0; i < 46; i++) obsStars.push([rnd() * SZ, rnd() * SZ, rnd() * 1.3 + 0.4, rnd() * 0.5 + 0.1]);
   })();
 
+  function mix(a, b, t) {
+    return 'rgb(' + Math.round(a[0] + (b[0] - a[0]) * t) + ','
+      + Math.round(a[1] + (b[1] - a[1]) * t) + ','
+      + Math.round(a[2] + (b[2] - a[2]) * t) + ')';
+  }
+
+  /* 小窗的等比尺只算一次：取初亏那一帧，让月亮整个留在窗内。
+     逐帧自适应会让日面在换节点时忽大忽小。 */
+  var solarScaleCache = null;
+  function solarScale() {
+    if (solarScaleCache === null) {
+      var n0 = G.nodes('solar')[0];
+      var v0 = G.observerView('solar', n0.angle);
+      solarScaleCache = 232 / (v0.sep + v0.moonAng);
+    }
+    return solarScaleCache;
+  }
+
   function drawObserver(v) {
+    /* 日食窗口是正午的天空：遮挡不到九成才压暗，全食时才见星。
+       月食窗口本来就是午夜，始终星空。 */
+    var dark = state.mode === 'solar'
+      ? Math.pow(Math.min(1, Math.max(0, v.covered)), 5)
+      : 1;
     var sky = ctx.createRadialGradient(CX, CY, 30, CX, CY, 400);
-    sky.addColorStop(0, '#0b1626');
-    sky.addColorStop(1, '#04070c');
+    sky.addColorStop(0, state.mode === 'solar'
+      ? mix([44, 96, 132], [11, 22, 38], dark)
+      : '#0b1626');
+    sky.addColorStop(1, state.mode === 'solar'
+      ? mix([20, 54, 80], [4, 7, 12], dark)
+      : '#04070c');
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, SZ, SZ);
-    ctx.fillStyle = '#cfe4f5';
-    obsStars.forEach(function (s) {
-      ctx.globalAlpha = s[3];
-      ctx.beginPath(); ctx.arc(s[0], s[1], s[2], 0, 6.2832); ctx.fill();
-    });
-    ctx.globalAlpha = 1;
+
+    var starA = state.mode === 'solar'
+      ? Math.max(0, Math.min(1, (dark - 0.55) / 0.45))
+      : 1;
+    if (starA > 0) {
+      ctx.fillStyle = '#cfe4f5';
+      obsStars.forEach(function (s) {
+        ctx.globalAlpha = s[3] * starA;
+        ctx.beginPath(); ctx.arc(s[0], s[1], s[2], 0, 6.2832); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
 
     var dir = v.moon.y >= v.observer.y ? 1 : -1;
 
     if (state.mode === 'solar') {
-      var scale = 62 / v.sunAng;
+      var scale = solarScale();
       var dy = dir * v.sep * scale;
       var mr = v.moonAng * scale;
+      var sunR = v.sunAng * scale;
 
-      var halo = ctx.createRadialGradient(CX, CY, 58, CX, CY, 250);
+      var halo = ctx.createRadialGradient(CX, CY, sunR * 0.94, CX, CY, 250);
       halo.addColorStop(0, 'rgba(255,206,150,.32)');
       halo.addColorStop(.5, 'rgba(255,190,120,.10)');
       halo.addColorStop(1, 'rgba(255,180,110,0)');
       ctx.fillStyle = halo;
       ctx.beginPath(); ctx.arc(CX, CY, 255, 0, 6.2832); ctx.fill();
 
-      var sg = ctx.createRadialGradient(CX - 12, CY - 12, 6, CX, CY, 62);
+      var sg = ctx.createRadialGradient(CX - sunR * 0.2, CY - sunR * 0.2, sunR * 0.1, CX, CY, sunR);
       sg.addColorStop(0, '#fff9ea');
       sg.addColorStop(.55, '#ffd596');
       sg.addColorStop(1, '#ffb45c');
       ctx.fillStyle = sg;
-      ctx.beginPath(); ctx.arc(CX, CY, 62, 0, 6.2832); ctx.fill();
+      ctx.beginPath(); ctx.arc(CX, CY, sunR, 0, 6.2832); ctx.fill();
 
       ctx.fillStyle = '#080c12';
       ctx.beginPath(); ctx.arc(CX, CY + dy, mr, 0, 6.2832); ctx.fill();
