@@ -1,0 +1,144 @@
+/* Style 3 — 观测仪器 HUD / instrument overlay.
+ * Amber reticles over a darkened feed. Reads as a device UI attached to the
+ * viewport: scan bar, tactical brackets, glowing trace. */
+.style-hud .mw { --ac: #ffb347; --hot: #ff7a3d; }
+
+.style-hud .mw-dim {
+  background:
+    radial-gradient(80% 60% at 50% 50%, transparent 35%, rgb(4 8 14 / 45%) 100%),
+    rgb(6 10 16 / 40%);
+  transition: opacity .32s ease;
+}
+.style-hud .mw:not([data-phase="idle"]) .mw-dim { opacity: 1; }
+
+/* Enter scan: an instrument boot sweep — bar + faint scanlines. */
+.style-hud .mw-scan::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--ac) 35%, #fff4d8 50%, var(--ac) 65%, transparent 100%);
+  filter: drop-shadow(0 0 10px rgb(255 179 71 / 80%));
+  opacity: 0;
+}
+.style-hud .mw-scan::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgb(255 179 71 / 6%) 0 1px, transparent 1px 4px);
+  opacity: 0;
+}
+.style-hud .mw-scan.run::before { animation: hud-sweep .96s cubic-bezier(.4,0,.6,1) forwards; }
+.style-hud .mw-scan.run::after { animation: hud-lines .96s ease-out forwards; }
+@keyframes hud-sweep {
+  0% { top: 0; opacity: 0; }
+  6% { opacity: 1; }
+  94% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes hud-lines { 0%,100% { opacity: 0; } 25% { opacity: 1; } 60% { opacity: .55; } }
+
+.style-hud .mw-toggle {
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  color: var(--ac);
+  background: rgb(10 14 20 / 70%);
+  border: 1.5px solid rgb(255 179 71 / 60%);
+  border-radius: 50%;
+  box-shadow: inset 0 0 12px rgb(255 179 71 / 14%), 0 0 0 4px rgb(10 14 20 / 35%);
+  transition: box-shadow .18s ease, background .18s ease;
+}
+.style-hud .mw-toggle::after {
+  content: "";
+  position: absolute; inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgb(255 179 71 / 18%);
+  border-top-color: rgb(255 179 71 / 70%);
+  animation: hud-orbit 4.5s linear infinite;
+  pointer-events: none;
+}
+.style-hud .mw-toggle:hover { background: rgb(24 18 10 / 82%); box-shadow: inset 0 0 16px rgb(255 179 71 / 24%), 0 0 16px rgb(255 179 71 / 35%); }
+.style-hud .mw-toggle svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+@keyframes hud-orbit { to { rotate: 360deg; } }
+
+.style-hud .mw-line {
+  stroke: var(--ac);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgb(255 179 71 / 70%));
+}
+.style-hud .mw-line[data-kind="pending"] {
+  stroke-dasharray: 4 8;
+  animation: hud-blink 1s ease-in-out infinite;
+}
+.style-hud .mw-line[data-kind="drawing"] { stroke-dasharray: 1 1; }
+@keyframes hud-blink { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+/* Reticle marks: four corner brackets that snap in. */
+.style-hud .mw-mark::before,
+.style-hud .mw-mark::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.style-hud .mw-mark::before {
+  width: 30px; height: 30px;
+  border: 2px solid transparent;
+  border-top-color: var(--ac);
+  border-bottom-color: var(--ac);
+  animation: hud-spin 3.2s linear infinite;
+}
+.style-hud .mw-mark::after {
+  width: 6px; height: 6px;
+  background: #fff3d6;
+  box-shadow: 0 0 10px 2px rgb(255 179 71 / 85%);
+}
+.style-hud .mw-mark.mw-end::before { border-color: transparent; border-left-color: var(--hot); border-right-color: var(--hot); }
+.style-hud .mw-mark.on::after { animation: hud-pop .3s cubic-bezier(.34,1.56,.64,1) both; }
+.style-hud .mw-mark.locked::before { animation: hud-lock .6s ease-out, hud-spin 3.2s linear infinite; }
+@keyframes hud-spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes hud-pop { from { scale: .15; opacity: 0; } }
+@keyframes hud-lock { 0% { box-shadow: 0 0 0 0 rgb(255 179 71 / 55%); } 100% { box-shadow: 0 0 0 18px rgb(255 179 71 / 0%); } }
+
+.style-hud .mw-confirm {
+  width: 50px; height: 50px;
+  display: grid; place-items: center;
+  color: #1a0f02;
+  background: var(--ac);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgb(255 179 71 / 25%), 0 0 24px rgb(255 179 71 / 55%);
+  animation: hud-pop .26s cubic-bezier(.34,1.56,.64,1);
+}
+.style-hud .mw-confirm::after {
+  content: "";
+  position: absolute; inset: -5px;
+  border-radius: 50%;
+  border: 1px dashed rgb(255 179 71 / 55%);
+  animation: hud-orbit 6s linear infinite reverse;
+}
+.style-hud .mw-confirm svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.6; }
+
+.style-hud .mw-prompt {
+  font: 500 12px/1 "Cascadia Mono", "Consolas", ui-monospace, monospace;
+  letter-spacing: .22em;
+  color: #ffe9c4;
+  padding: 10px 20px;
+  background: rgb(10 12 16 / 72%);
+  border-top: 1px solid rgb(255 179 71 / 70%);
+  border-bottom: 1px solid rgb(255 179 71 / 25%);
+  text-shadow: 0 0 10px rgb(255 179 71 / 55%);
+}
+
+.style-hud .mw-readout {
+  padding: 10px 18px 9px;
+  background: rgb(10 12 16 / 80%);
+  border: 1px solid rgb(255 179 71 / 45%);
+  box-shadow: 0 0 22px rgb(255 140 40 / 22%), inset 0 0 18px rgb(255 179 71 / 8%);
+  color: #ffe9c4;
+  font: 500 12px/1 "Cascadia Mono", "Consolas", ui-monospace, monospace;
+  letter-spacing: .16em;
+  display: flex; align-items: baseline; gap: 8px;
+  animation: hud-read .26s ease-out both;
+}
+.style-hud .mw-readout-value { font-size: 20px; color: var(--ac); text-shadow: 0 0 12px rgb(255 179 71 / 65%); }
+.style-hud .mw-readout-label { opacity: .7; }
+@keyframes hud-read { from { opacity: 0; scale: .92; } }

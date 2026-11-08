@@ -1,6 +1,6 @@
 # 公共组件接口
 
-公共实现位于本目录，六个界面组件和两个渲染组件目前均为试验中。实验提供业务状态、相机与科学计算，组件负责显示和操作请求；使用限制见[组件规则](../../docs/COMPONENT_POLICY.md)。
+公共实现位于本目录，七个界面组件和两个渲染组件目前均为试验中。实验提供业务状态、相机与科学计算，组件负责显示和操作请求；使用限制见[组件规则](../../docs/COMPONENT_POLICY.md)。
 
 | 组件 | 脚本 / 样式 | 用途 |
 | --- | --- | --- |
@@ -12,6 +12,7 @@
 | StageCompletionDialog | [stage-completion.js](stage-completion.js) / stage-completion.css | 阶段完成提示 |
 | GlobeShaderRenderer | [globe-shader-renderer/index.js](globe-shader-renderer/index.js) | 风格化纹理地球与经纬网绘制 |
 | OpticalBeam | [optical-beam.js](optical-beam.js) | Three.js 光路线条柔光与透明度 |
+| MeasureMode | [measure-mode/measure-mode.js](measure-mode/measure-mode.js) / measure-mode.css + skins/*.css | 画面内取点测量：扫描、起终点、虚线确认、描线与长度读数 |
 
 ## 渲染组件
 
@@ -28,6 +29,26 @@ ES Module 入口为 `globe-shader-renderer/index.js`。调用 `createGlobeShader
 经典脚本 `optical-beam.js` 暴露 `window.SharedComponents.OpticalBeam`。宿主构造时注入自己的 Three.js 兼容对象与父级 Group；随后用 `addSegment(start, end, { color })` 添加视觉线段，用 `setOpacity` 控制公共线段透明度，用 `clear` 重建当前光路，用 `dispose` 卸载。组件创建独立子 Group，不删除宿主添加的箭头、焦点、光子或其他场景对象。
 
 组件不读取实验 DOM、全局 `Newton` 状态或课程数据，也不计算光路。牛顿望远镜的 `LabScene` 仍拥有路径计算、反射、焦点、光子与层级清理。接口见[OpticalBeam 说明](optical-beam.md)，独立预览为[optical-beam.html](../../previews/components/optical-beam.html)。
+
+## MeasureMode 测量模式
+
+加载 `measure-mode/measure-mode.css`（结构，必须）与 `measure-mode/skins/` 中一个皮肤文件，再加载 `measure-mode/measure-mode.js`。宿主给一个能被点击的 Viewport 元素，组件在其内部叠扫描、起终点、连线、确认按钮与读数。
+
+```js
+const measure = SharedComponents.MeasureMode(stageElement, {
+  label: '影长', unit: 'cm', pxPerUnit: 0.62, decimal: 1,
+  shape: 'straight', arcSag: 0.18, arcSide: 1
+});
+measure.enter();   // 宿主决定何时进入测量模式
+measure.exit();
+measure.destroy();
+```
+
+阶段为 `idle → scanning → pickStart → pickEnd → pending → committing → done`：进入后全画面扫描，提示取起点、再取终点，随后闪动半透明虚线并在终点旁给出确认按钮（未确认可反复改终点），确认后从起点描线到终点并显示长度；测量态下进入按钮变为关闭按钮。`shape: 'arc'` 时连线沿弦法线鼓出弧线并按弧长计算读数，用于球面边缘、坑缘等曲面标注。
+
+宿主提供单位与换算：默认 `pxPerUnit` 线性缩放，需要透视角换算或曲线拟合时传 `format(px) => ({ value, unit, decimal })`。组件不画场景、不判断可测对象、不计算科学结果、不推进课程阶段。实例方法 `enter`、`exit`、`destroy`、`setShape`、`getLength`、`getPoints`；皮肤见 [measure-mode/skins](measure-mode/skins)，通过 `body` 上的 `style-blueprint|ink|hud|soft` 切换。
+
+接口与截图见[MeasureMode 说明](measure-mode/README.md)，独立预览为[measure-mode.html](../../previews/components/measure-mode.html)。
 
 ## OperationTip 顶部操作提示
 

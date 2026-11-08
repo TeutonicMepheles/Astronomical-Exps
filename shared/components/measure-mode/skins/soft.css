@@ -1,0 +1,116 @@
+/* Style 4 — 柔光现代 / soft frosted.
+ * Quiet, daylight-friendly: frosted glass controls, one calm accent, motion
+ * that settles instead of snaps. Closest to the existing page UI language. */
+.style-soft .mw { --ac: #2f6f8f; --ac-hot: #d9713f; --glass: rgb(255 255 255 / 82%); }
+
+.style-soft .mw-dim {
+  background: radial-gradient(90% 80% at 50% 45%, rgb(255 255 255 / 6%), rgb(24 38 54 / 26%));
+  backdrop-filter: blur(1.5px);
+  transition: opacity .4s ease;
+}
+.style-soft .mw:not([data-phase="idle"]) .mw-dim { opacity: 1; }
+
+/* Enter scan: a soft band of light travels down the viewport. */
+.style-soft .mw-scan::before {
+  content: "";
+  position: absolute; left: -10%; right: -10%; top: -12%; height: 26%;
+  background: linear-gradient(180deg, transparent, rgb(255 255 255 / 45%) 55%, transparent);
+  filter: blur(6px);
+  opacity: 0;
+}
+.style-soft .mw-scan.run::before { animation: soft-sweep .95s cubic-bezier(.4,0,.25,1) forwards; }
+@keyframes soft-sweep {
+  0% { top: -22%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 96%; opacity: 0; }
+}
+
+.style-soft .mw-toggle {
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  color: var(--ac);
+  background: var(--glass);
+  border: 1px solid rgb(255 255 255 / 85%);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgb(23 40 60 / 18%), 0 1px 2px rgb(23 40 60 / 12%);
+  transition: transform .2s cubic-bezier(.3,1.4,.6,1), box-shadow .2s ease;
+}
+.style-soft .mw-toggle:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 8px 22px rgb(23 40 60 / 22%); }
+.style-soft .mw-toggle svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+
+.style-soft .mw-line {
+  stroke: var(--ac);
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 2px rgb(255 255 255 / 95%)) drop-shadow(0 2px 4px rgb(23 40 60 / 22%));
+}
+.style-soft .mw-line[data-kind="pending"] {
+  stroke-dasharray: 1 9;
+  stroke-width: 3.4;
+  animation: soft-blink 1.1s ease-in-out infinite;
+}
+.style-soft .mw-line[data-kind="drawing"] { stroke-dasharray: 1 1; }
+@keyframes soft-blink { 0%,100% { opacity: .28; } 55% { opacity: 1; } }
+
+.style-soft .mw-mark::before,
+.style-soft .mw-mark::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.style-soft .mw-mark::before {
+  width: 26px; height: 26px;
+  background: rgb(255 255 255 / 92%);
+  box-shadow: 0 2px 8px rgb(23 40 60 / 22%);
+}
+.style-soft .mw-mark::after {
+  width: 9px; height: 9px;
+  background: var(--ac);
+}
+.style-soft .mw-mark.mw-end::after { background: var(--ac-hot); }
+.style-soft .mw-mark.on::before { animation: soft-pop .3s cubic-bezier(.3,1.4,.6,1) both; }
+.style-soft .mw-mark.locked::before { animation: soft-lock .7s cubic-bezier(.2,.8,.3,1); }
+@keyframes soft-pop { from { scale: .3; opacity: 0; } }
+@keyframes soft-lock { 0% { box-shadow: 0 0 0 0 rgb(47 111 143 / 35%); } 100% { box-shadow: 0 0 0 16px rgb(47 111 143 / 0%); } }
+
+.style-soft .mw-confirm {
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  color: #fff;
+  background: var(--ac);
+  border: 3px solid rgb(255 255 255 / 92%);
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgb(23 40 60 / 28%);
+  animation: soft-pop .28s cubic-bezier(.3,1.4,.6,1);
+}
+.style-soft .mw-confirm svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; }
+
+.style-soft .mw-prompt {
+  font: 500 15px/1 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color: #17303f;
+  padding: 11px 22px;
+  background: var(--glass);
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgb(23 40 60 / 16%);
+}
+
+.style-soft .mw-readout {
+  padding: 11px 20px 10px;
+  background: var(--glass);
+  border: 1px solid rgb(255 255 255 / 85%);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 26px rgb(23 40 60 / 18%);
+  color: #2b4256;
+  font: 500 13px/1 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  display: flex; align-items: baseline; gap: 8px;
+  animation: soft-read .32s cubic-bezier(.3,1.2,.5,1) both;
+}
+.style-soft .mw-readout-value { font-size: 22px; color: var(--ac); font-weight: 700; letter-spacing: .01em; }
+@keyframes soft-read { from { opacity: 0; scale: .92; } }
