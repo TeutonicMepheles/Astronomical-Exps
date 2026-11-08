@@ -36,11 +36,15 @@
 - `shared/components/optical-beam.js` 服务牛顿望远镜第一阶段光路的柔光层。宿主注入 Three.js 和父级 Group；光路、反射、箭头、焦点、光子、清理层级与课程状态仍留在 `LabScene`。
 - 独立检查页：[GlobeShaderRenderer](../previews/components/globe-shader.html)、[OpticalBeam](../previews/components/optical-beam.html)。
 
+## 公共测量模式组件
+
+2026-11-09 新增 `shared/components/measure-mode/`：画面内取点测量（扫描 → 起点 → 终点 → 虚线确认 → 描线 → 长度读数），带工程制图、手绘批注、观测仪器、柔光现代四套皮肤，并支持直线与弧线两种线形。组件只管理取点与显示，视图、单位与数值换算由宿主提供；**尚无实验接入**，各实验现有测量逻辑未改动。独立检查页：[MeasureMode](../previews/components/measure-mode.html)。
+
 ## 工具与验证边界
 
 - `npm run dev`、`npm run export` 与贡献者协作工具仍只登记光污染、牛顿望远镜。
 - 傅科摆和地球周长当前通过仓库根目录 HTTP 服务打开。
-- `npm run test:browser` 覆盖傅科摆、埃拉托色尼、牛顿望远镜和光污染的默认入口，检查公共地球 Shader、牛顿 `OpticalBeam` 接入、原有六页组件预览、两个渲染组件独立预览及两套离线导出；不覆盖所有实验的完整教学流程。
+- `npm run test:browser` 覆盖傅科摆、埃拉托色尼、牛顿望远镜和光污染的默认入口，检查公共地球 Shader、牛顿 `OpticalBeam` 接入、原有六页组件预览、两个渲染组件独立预览、测量模式独立预览及两套离线导出；不覆盖所有实验的完整教学流程。
 - 光污染候选专项需先构建 `lib-static-demo/standalone.html`，再运行 `node experiments/light-pollution/tools/audit/run-tests.cjs`。
 - 自动检查不代表科学模型、视觉质量、真实白板触控或人工试玩通过。
 

@@ -61,6 +61,11 @@ const root=path.resolve(__dirname,'..');
    assert(await page.locator('canvas').first().isVisible());
    await page.screenshot({path:path.join(root,'artifacts','component-'+name+'.png')});
   }
+  await page.goto(base+'/previews/components/measure-mode.html');await page.waitForTimeout(500);
+  assert(await page.locator('.mw-toggle').isVisible());
+  await page.locator('.mw-toggle').click();await page.waitForTimeout(1300);
+  assert.equal(await page.locator('.mw').getAttribute('data-phase'),'pickStart');
+  await page.screenshot({path:path.join(root,'artifacts','component-measure-mode.png')});
   for(const name of ['newton-telescope','light-pollution']){
    const file=path.join(root,'dist',name,'index.html');if(!fs.existsSync(file))throw Error('Run npm run export -- '+name+' first');
    const offline=await browser.newContext({offline:true});const p=await offline.newPage();p.on('pageerror',e=>errors.push('OFFLINE '+e.message));p.on('requestfailed',r=>errors.push('OFFLINE REQUEST '+r.url().slice(0,120)));
@@ -68,6 +73,6 @@ const root=path.resolve(__dirname,'..');
    assert.deepEqual(await p.locator('img').evaluateAll(xs=>xs.filter(i=>i.getAttribute('src')&&(!i.complete||!i.naturalWidth)).map(i=>i.src.slice(0,100))),[]);
    await offline.close();
   }
-  assert.deepEqual(errors,[]);console.log('PASS four experiment entries, shared globe/beam integration, six preview pages, completion lifecycle, offline exports; not visual acceptance.');
+  assert.deepEqual(errors,[]);console.log('PASS four experiment entries, shared globe/beam integration, six preview pages, measure-mode preview, completion lifecycle, offline exports; not visual acceptance.');
  } finally {if(browser)await browser.close();if(server)server.kill();}
 })().catch(e=>{console.error(e);process.exitCode=1});
