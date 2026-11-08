@@ -100,7 +100,7 @@
       : Infinity;
     var umbLen = M.cone(moon, M.RM).umbraLength;
     var lands = axisHit < umbLen;
-    this.drawCone(ctx, M.EARTH, M.RE, 7.6, state, true, false);
+    this.drawCone(ctx, M.EARTH, M.RE, 5.6, state, true, false);
     this.drawCone(ctx, moon, M.RM, Math.max(0.4, Math.min(umbLen, axisHit)), state, false, lands);
     this.drawEarth(ctx, state);
     this.drawMoon(ctx, moon, state);

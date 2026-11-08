@@ -201,8 +201,8 @@
             cx + tm[0] * R, cy + tm[1] * R, 0,
             cx + tm[0] * R, cy + tm[1] * R, tm[2] * R * 1.2
           );
-          tg.addColorStop(0, 'rgba(96,38,26,' + (0.34 * depth).toFixed(3) + ')');
-          tg.addColorStop(0.55, 'rgba(96,38,26,' + (0.16 * depth).toFixed(3) + ')');
+          tg.addColorStop(0, 'rgba(96,38,26,' + (0.24 * depth).toFixed(3) + ')');
+          tg.addColorStop(0.55, 'rgba(96,38,26,' + (0.12 * depth).toFixed(3) + ')');
           tg.addColorStop(1, 'rgba(96,38,26,0)');
           ctx.fillStyle = tg;
           ctx.beginPath();

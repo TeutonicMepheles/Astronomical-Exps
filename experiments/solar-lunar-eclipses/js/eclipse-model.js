@@ -12,10 +12,10 @@
   'use strict';
 
   var RE = 1;          // 地球半径
-  var RM = 0.42;       // 月球半径
+  var RM = 0.2646;     // 月球半径（真实约 0.273 地球半径）
   var ORBIT = 4.6;     // 月轨半径（教学压缩）
   var SUN_DIST = 22;   // 日地距离（教学压缩）
-  var SUN_R = 2.22;    // 太阳半径（视半径 6.4°，略小于月球 6.7°，全食成立）
+  var SUN_R = 1.30;    // 太阳半径（日面视半径 3.55°）
   var DEG = Math.PI / 180;
 
   var SUN = { x: -SUN_DIST, y: 0 };
