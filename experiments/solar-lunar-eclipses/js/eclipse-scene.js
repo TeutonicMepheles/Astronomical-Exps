@@ -93,8 +93,15 @@
     this.drawSunGlow(ctx);
     this.drawOrbit(ctx);
     this.drawRays(ctx, moon, state);
-    this.drawCone(ctx, M.EARTH, M.RE, 7.6, state, true);
-    this.drawCone(ctx, moon, M.RM, Math.max(0.4, M.len(moon) - M.RE), state, false);
+    /* 月本影画到它真正收敛或落到地面的距离为止：落地点就与地面黑斑对得上 */
+    var my = Math.abs(moon.y);
+    var axisHit = my < M.RE
+      ? Math.abs(moon.x) - Math.sqrt(M.RE * M.RE - my * my)
+      : Infinity;
+    var umbLen = M.cone(moon, M.RM).umbraLength;
+    var lands = axisHit < umbLen;
+    this.drawCone(ctx, M.EARTH, M.RE, 7.6, state, true, false);
+    this.drawCone(ctx, moon, M.RM, Math.max(0.4, Math.min(umbLen, axisHit)), state, false, lands);
     this.drawEarth(ctx, state);
     this.drawMoon(ctx, moon, state);
     if (state.mode === 'solar') this.drawEarthSpot(ctx, moon, state);
@@ -173,7 +180,7 @@
     }
   };
 
-  Scene.prototype.drawCone = function (ctx, C, r, far, state, isEarth) {
+  Scene.prototype.drawCone = function (ctx, C, r, far, state, isEarth, solidTip) {
     var cone = M.cone(C, r);
     var u = cone.axis;
     var origin = { x: sx(C.x), y: sy(C.y) };
@@ -206,7 +213,8 @@
     var um = ctx.createLinearGradient(0, 0, len, 0);
     um.addColorStop(0, 'rgba(7,10,20,0.97)');
     um.addColorStop(0.78, 'rgba(9,13,25,0.93)');
-    um.addColorStop(1, 'rgba(12,17,32,0)');
+    /* 锥尖落到地面时保持不透明，避免末段淡出造成「锥尖没碰到球」 */
+    um.addColorStop(1, solidTip ? 'rgba(9,13,25,0.93)' : 'rgba(12,17,32,0)');
     ctx.fillStyle = um;
     ctx.beginPath();
     ctx.moveTo(0, -uw0);
@@ -219,7 +227,7 @@
     var edge = ctx.createLinearGradient(0, 0, len, 0);
     edge.addColorStop(0, 'rgba(158,182,226,0.30)');
     edge.addColorStop(0.6, 'rgba(158,182,226,0.16)');
-    edge.addColorStop(1, 'rgba(158,182,226,0)');
+    edge.addColorStop(1, solidTip ? 'rgba(158,182,226,0.16)' : 'rgba(158,182,226,0)');
     ctx.strokeStyle = edge;
     ctx.lineWidth = 1;
     ctx.beginPath();
