@@ -208,8 +208,8 @@
     var penR = v.penAng * s2, umbR = v.umbAng * s2, mr2 = v.moonAng * s2;
     var dy2 = dir * v.sep * s2;
 
-    softDisc(CX, CY, penR * 1.28, 'rgba(24,38,54,.62)');
-    softDisc(CX, CY, umbR, 'rgba(2,4,8,.97)');
+    softDisc(CX, CY, penR, 'rgba(27,42,58,.62)', 34);
+    softDisc(CX, CY, umbR, 'rgba(2,4,8,.985)', 14);
 
     var mx = CX, my = CY + dy2;
     ctx.save();
@@ -245,22 +245,23 @@
     ctx.beginPath(); ctx.arc(mx, my, mr2, 0, 6.2832); ctx.stroke();
   }
 
-  function softDisc(x, y, r, color) {
-    var g = ctx.createRadialGradient(x, y, r * .82, x, y, r);
-    g.addColorStop(0, color);
-    g.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = g;
+  /* 边缘清晰、带一点外扩柔光的圆：地影边界本身不是渐隐的。 */
+  function softDisc(x, y, r, color, blur) {
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,.85)';
+    ctx.shadowBlur = blur;
+    ctx.fillStyle = color;
     ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+    ctx.restore();
   }
 
   function updateMetric(v) {
-    var text, value;
+    var text;
     if (state.mode === 'solar') {
-      value = Math.round(v.covered * 100);
-      text = '遮挡 ' + value + '%';
+      text = '遮挡 ' + Math.round(v.covered * 100) + '%';
     } else if (v.umbraFrac > 0.001) {
       text = '本影 ' + Math.round(v.umbraFrac * 100) + '%';
-    } else if (v.penumbraFrac > 0.001) {
+    } else if (v.penumbraFrac > 0.001 || v.sep <= v.penAng + v.moonAng + 0.003) {
       text = '半影 ' + Math.round(v.penumbraFrac * 100) + '%';
     } else {
       text = '未进入地影';
