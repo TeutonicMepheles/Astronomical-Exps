@@ -26,7 +26,14 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .views{display:grid;grid-template-columns:1fr 1fr;min-height:0;flex:1}
 .view{position:relative;min-width:0;min-height:0;background:#0b0e14}
 .view:first-child{border-right:1px solid #53606a}
-.view canvas{width:100%;height:100%;display:block;touch-action:none}
+.view:first-child::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:url('./陨石坑参考/天文望远镜内部视角.png') center / cover no-repeat;mask-image:radial-gradient(ellipse 42.3% 44.4% at 50% 48.6%,transparent 99.5%,#000 100%)}
+#top{clip-path:ellipse(42.3% 44.4% at 50% 48.6%)}
+.view.side{background:#10203e}
+.view.side::before{content:"";position:absolute;z-index:0;top:0;left:0;right:0;height:360px;pointer-events:none;background:url('./风格化月面参考/图片节点 5.png') right top / auto 1000px no-repeat;mask-image:linear-gradient(#000 0%,#000 65%,transparent 100%)}
+.view.side:not(.measuring)::before{clip-path:polygon(48% 0,100% 0,100% 100%,76% 72%,48% 18%)}
+.view.side.measuring::before{height:100%;background-image:url('./风格化月面参考/宇宙背景.png');background-position:left top;background-size:100% auto;background-repeat:no-repeat;mask-image:none}
+.view canvas{position:relative;z-index:1;width:100%;height:100%;display:block;touch-action:none}
+.view .label,.view .help{z-index:3}
 .view .label,.view .help{position:absolute;left:16px;padding:7px 11px;border:1px solid #53606a;border-radius:10px;background:#17202bdf;pointer-events:none}
 .view .label{top:14px;color:#f0f3fa;font-size:15px;font-weight:600}
 .view .help{bottom:14px;right:16px;color:#d0dce8;font-size:13px}
@@ -43,6 +50,6 @@ button:disabled{opacity:.55;cursor:not-allowed}
 <label class="control"><span>太阳高度角</span><input id="angle" type="range" min="10" max="85" step="1" value="35"><output id="angleValue" for="angle">35°</output></label>
 <button id="start" class="primary" type="button">开始测量</button><button id="measure" type="button">测量影长</button><button id="height" type="button">计算高度</button><button id="clear" type="button">清除选点</button>
 </div></header>
-<div class="views"><section class="view"><canvas id="top"></canvas><div class="label">俯视 · 三维月面</div><div class="help" id="topHelp">拖动金色剖切线选择截面；开始测量后可沿线选点。</div></section><section class="view"><canvas id="section"></canvas><div class="label" id="sectionLabel">立体剖面</div><div class="help" id="sectionHelp">直接左右拖动剖切面调整位置；开始测量后点击选点。</div></section></div>
+<div class="views"><section class="view"><canvas id="top"></canvas><div class="label">俯视 · 三维月面</div><div class="help" id="topHelp">拖动金色剖切线选择截面；开始测量后可沿线选点。</div></section><section class="view side"><canvas id="section"></canvas><div class="label" id="sectionLabel">立体剖面</div><div class="help" id="sectionHelp">直接左右拖动剖切面调整位置；开始测量后点击选点。</div></section></div>
 <div class="result"><div><span id="lengthLabel">影长 L</span>：<strong id="lengthValue">—</strong></div><div>海拔 h：<strong id="heightValue">—</strong></div><span id="formula"></span><span id="status">先选择剖切面，再开始测量。</span></div>
 </main><script src="./assets/three.reference.local.js"></script><script src="./src/crater-3d.js"></script></body></html>

@@ -5,7 +5,7 @@
   const $ = id => document.getElementById(id);
   const topCanvas = $('top'), sideCanvas = $('section');
   const topRenderer = new THREE.WebGLRenderer({ canvas: topCanvas, antialias: true });
-  const sideRenderer = new THREE.WebGLRenderer({ canvas: sideCanvas, antialias: true });
+  const sideRenderer = new THREE.WebGLRenderer({ canvas: sideCanvas, antialias: true, alpha:true });
   for (const renderer of [topRenderer, sideRenderer]) {
     renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
     renderer.localClippingEnabled = true;
@@ -13,19 +13,20 @@
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.08;
   }
+  sideRenderer.setClearColor(0x10203e,0);
   const topScene = new THREE.Scene(), sideScene = new THREE.Scene();
+  topScene.background = new THREE.Color(0xdcd6ca);
   for (const scene of [topScene, sideScene]) {
-    scene.background = new THREE.Color(0x0b0e14);
-    scene.add(new THREE.HemisphereLight(0xbfc9da, 0x28231f, 1.0));
-    const sun = new THREE.DirectionalLight(0xffecc5, 2.4);
+    scene.add(new THREE.HemisphereLight(0xf9f1e7, 0x77716f, 0.72));
+    const sun = new THREE.DirectionalLight(0xfff4e4, 1.6);
     sun.position.set(180*Math.cos(35*Math.PI/180),180*Math.sin(35*Math.PI/180),0);
     sun.castShadow = true;
-    sun.shadow.mapSize.set(1024, 1024);
+    sun.shadow.mapSize.set(2048, 2048);
     // 光源距原点 180，背光侧地形距光源可超过 340；须覆盖整个高度场。
     Object.assign(sun.shadow.camera, { left: -175, right: 175, top: 175, bottom: -175, near: 1, far: 600 });
-    sun.shadow.normalBias = 0.04;
+    sun.shadow.normalBias = 0.09;
     scene.add(sun);
     scene.userData.sun = sun;
   }
@@ -36,13 +37,17 @@
   const sideCamera = new THREE.OrthographicCamera(-165, 165, 110, -110, 1, 600);
   const view = { measuring: false, cut: 0, angle: 35, points: [], length: null, height: null };
   function setSideCamera() {
-    sideCamera.position.set(view.measuring ? 0 : 165, view.measuring ? -7 : 100, view.measuring ? 255 : 185);
-    sideCamera.lookAt(0, -7, 0);
+    sideCamera.position.set(view.measuring ? 0 : 165, view.measuring ? -7 : 77, view.measuring ? 255 : 185);
+    sideCamera.lookAt(0, view.measuring ? -7 : -30, 0);
   }
   setSideCamera();
 
-  // 在原演示高度场基础上增加坑底起伏；所有长度均为演示模型单位。
+  // 与标准受光测试页共用的演示高度场；测量长度仍以模型单位表示。
   const fract = x => x - Math.floor(x);
+  const smooth = (a, b, value) => {
+    const t = Math.max(0, Math.min(1, (value-a)/(b-a)));
+    return t*t*(3-2*t);
+  };
   function noise(x, z) {
     const ix = Math.floor(x), iz = Math.floor(z);
     let u = fract(x), v = fract(z);
@@ -50,54 +55,88 @@
     const hash = (a, b) => fract(Math.sin(a * 127.1 + b * 311.7) * 43758.5453);
     return (1-v) * ((1-u)*hash(ix,iz)+u*hash(ix+1,iz)) + v*((1-u)*hash(ix,iz+1)+u*hash(ix+1,iz+1));
   }
+  function rimRadius(x, z) {
+    const a = Math.atan2(z, x);
+    return 88 + 10*Math.sin(3*a+1.2)+6*Math.sin(5*a+0.4)+4*Math.cos(2*a-0.8);
+  }
   function heightAt(x, z) {
-    const r = Math.hypot(x, z), a = Math.atan2(z, x);
-    const radius = 88 + 10*Math.sin(3*a+1.2)+6*Math.sin(5*a+0.4)+4*Math.cos(2*a-0.8);
+    const r = Math.hypot(x, z), a = Math.atan2(z, x), radius = rimRadius(x,z);
     const rim = 28 * Math.exp(-Math.pow((r-radius)/14, 2));
     const bowl = -27 * Math.exp(-Math.pow(r/(radius*0.70), 4));
     const peak = 13 * Math.exp(-Math.pow(r/18, 2));
-    const ripples = (noise(x*0.18,z*0.18)-0.5)*3.5 + (noise(x*0.65+20,z*0.65)-0.5)*0.8;
+    const reliefFade = 1 - 0.8*smooth(radius+12,radius+65,r);
+    const ripples = ((noise(x*0.18,z*0.18)-0.5)*3.5 + (noise(x*0.65+20,z*0.65)-0.5)*0.8)*reliefFade;
     const wall = 3*Math.sin(a*9+0.3)*Math.exp(-Math.pow((r-radius*0.73)/18, 2));
     return rim + bowl + peak + wall + ripples;
   }
   const SIZE = 320, SEG = 200;
   const geometry = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG);
-  const positions = geometry.attributes.position;
-  for (let i=0; i<positions.count; i++) positions.setZ(i, heightAt(positions.getX(i), -positions.getY(i)));
+  const positions = geometry.attributes.position, colors = [];
+  const fieldColor = new THREE.Color(0xd9d2c7), floorColor = new THREE.Color(0xd8cbbd);
+  const outerColor = new THREE.Color(0xc7b7a5);
+  const wallColor = new THREE.Color(0xab9684), rimColor = new THREE.Color(0xfff4e3);
+  const color = new THREE.Color();
+  for (let i=0; i<positions.count; i++) {
+    const x=positions.getX(i), z=-positions.getY(i), d=Math.hypot(x,z)-rimRadius(x,z);
+    positions.setZ(i,heightAt(x,z));
+    const floor=1-smooth(-68,-38,d);
+    const wall=smooth(-78,-48,d)*(1-smooth(-7,5,d));
+    const outer=smooth(9,25,d)*(1-smooth(40,62,d));
+    const rim=Math.exp(-Math.pow(d/15,2))*.9;
+    color.copy(fieldColor).lerp(floorColor,floor).lerp(outerColor,outer*.48)
+      .lerp(wallColor,wall).lerp(rimColor,rim);
+    color.multiplyScalar(.96+.06*noise(x*.075+12,z*.075-7));
+    colors.push(color.r,color.g,color.b);
+  }
   positions.needsUpdate = true;
+  geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
   geometry.computeVertexNormals();
-  // 一张覆盖整块月面的细颗粒纹理，避免小贴图反复平铺时出现方块边界。
+  // 与标准受光测试页相同的非平铺画布纹理，加载时只生成一次。
+  let textureSeed = 0xa34f97c1;
+  const random = () => ((textureSeed = (Math.imul(textureSeed, 1664525) + 1013904223) >>> 0) / 4294967296);
   const textureSize = 1024;
   const texCanvas = document.createElement('canvas');
   texCanvas.width = texCanvas.height = textureSize;
   const tx = texCanvas.getContext('2d'), tex = tx.createImageData(textureSize, textureSize);
-  let textureSeed = 0x51a7c3d9;
-  const random = () => ((textureSeed = (Math.imul(textureSeed, 1664525) + 1013904223) >>> 0) / 4294967296);
   for (let i=0; i<textureSize*textureSize; i++) {
-    const grain = 227 + Math.floor(random()*11);
-    tex.data[i*4] = grain;
-    tex.data[i*4+1] = grain-3;
-    tex.data[i*4+2] = grain-10;
-    tex.data[i*4+3] = 255;
-  }
-  // 不规则的短暗纹模拟细小月壤颗粒，方向和长度轻微变化，且不重复。
-  for (let i=0; i<90000; i++) {
-    const x = Math.floor(random()*(textureSize-7)), y = Math.floor(random()*(textureSize-2));
-    const width = 1 + Math.floor(random()*5), slope = (random()-0.5)*0.7;
-    const depth = 45 + Math.floor(random()*95);
-    for (let dx=0; dx<width; dx++) {
-      const yy = y + Math.round(dx*slope), p = (yy*textureSize+x+dx)*4;
-      tex.data[p] = Math.max(55, tex.data[p]-depth);
-      tex.data[p+1] = Math.max(55, tex.data[p+1]-depth);
-      tex.data[p+2] = Math.max(55, tex.data[p+2]-depth);
-    }
+    const shade=238+Math.floor(random()*12);
+    tex.data[4*i]=shade;
+    tex.data[4*i+1]=shade-3;
+    tex.data[4*i+2]=shade-9;
+    tex.data[4*i+3]=255;
   }
   tx.putImageData(tex,0,0);
+  for(let i=0;i<280;i++){
+    const x=random()*textureSize,y=random()*textureSize,rx=18+random()*100,ry=9+random()*50;
+    tx.fillStyle=i%3===0?'rgba(139,118,95,.025)':'rgba(255,251,237,.045)';
+    tx.beginPath();tx.ellipse(x,y,rx,ry,random()*Math.PI,0,Math.PI*2);tx.fill();
+  }
+  for(let i=0;i<13000;i++){
+    const x=random()*textureSize,y=random()*textureSize,r=.7+random()*3.2,rotation=random()*Math.PI*2;
+    tx.fillStyle=i%4===0?'rgba(255,255,246,.20)':'rgba(126,107,89,.13)';
+    tx.beginPath();
+    for(let j=0;j<5;j++){
+      const a=rotation+j*Math.PI*2/5,radius=r*(.55+random()*.45);
+      const px=x+Math.cos(a)*radius,py=y+Math.sin(a)*radius;
+      if(j===0)tx.moveTo(px,py);else tx.lineTo(px,py);
+    }
+    tx.closePath();tx.fill();
+  }
+  tx.fillStyle='rgba(121,106,90,.16)';
+  for(let i=0;i<55000;i++)tx.fillRect(random()*textureSize,random()*textureSize,.5+random()*1.5,.5+random()*1.2);
+  for(let i=0;i<90;i++){
+    const x=30+random()*(textureSize-60),y=30+random()*(textureSize-60);
+    const r=i<14?12+random()*13:2+random()*8;
+    tx.fillStyle='rgba(125,109,93,.12)';
+    tx.beginPath();tx.ellipse(x+1,y+1,r,r*.72,random()*Math.PI,0,Math.PI*2);tx.fill();
+    tx.strokeStyle='rgba(255,251,239,.46)';tx.lineWidth=1+random()*2;
+    tx.beginPath();tx.arc(x,y,r,Math.PI*.78,Math.PI*1.8);tx.stroke();
+  }
   const lunarTexture = new THREE.CanvasTexture(texCanvas);
   lunarTexture.colorSpace = THREE.SRGBColorSpace;
   lunarTexture.anisotropy = 4;
-  const base = { color: 0xc4c0b8, roughness: 0.95, metalness: 0,
-    map: lunarTexture, bumpMap: lunarTexture, bumpScale: 0.018, side: THREE.DoubleSide };
+  const base = { color: 0xffffff, vertexColors:true, roughness: 0.95, metalness: 0,
+    map: lunarTexture, bumpMap: lunarTexture, bumpScale: 0.006, side: THREE.DoubleSide };
   const topMesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial(base));
   // 保留剖面背后的半块地形，让正面剖切面不会被前景遮住。
   const cutPlane = new THREE.Plane(new THREE.Vector3(0,0,-1), 0);
@@ -107,8 +146,25 @@
     mesh.castShadow = mesh.receiveShadow = true;
   }
   topScene.add(topMesh); sideScene.add(sideMesh);
+  // 少量低面数碎石与测试页使用相同的随机序列和位置，只作为月面外观。
+  const rockGeometry=new THREE.IcosahedronGeometry(1,0);
+  const rockMaterial=new THREE.MeshStandardMaterial({color:0xe6dfd3,roughness:1,flatShading:true});
+  const rocks=new THREE.InstancedMesh(rockGeometry,rockMaterial,42);
+  const rockDummy=new THREE.Object3D(),rockColor=new THREE.Color();
+  for(let i=0;i<42;i++){
+    const x=(random()-.5)*300,z=(random()-.5)*300,size=.9+random()*2.6;
+    rockDummy.position.set(x,heightAt(x,z)+size*.55,z);
+    rockDummy.rotation.set(random()*2,random()*6,random()*2);
+    rockDummy.scale.set(size,size*(.55+random()*.4),size);
+    rockDummy.updateMatrix();rocks.setMatrixAt(i,rockDummy.matrix);
+    rockColor.setHex(i%3===0?0xbcb8b0:0xe7dfd1);rocks.setColorAt(i,rockColor);
+  }
+  rocks.castShadow=rocks.receiveShadow=true;
+  rocks.instanceMatrix.needsUpdate=true;
+  rocks.instanceColor.needsUpdate=true;
+  topScene.add(rocks);
 
-  const cap = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ vertexColors:true, side: THREE.DoubleSide }));
+  const cap = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ vertexColors:true, map:lunarTexture, side: THREE.DoubleSide }));
   // 使用实心窄带，避免 WebGL 在部分设备上把线宽固定为 1 像素。
   const referenceMaterial = new THREE.MeshBasicMaterial({color:0xf3cc62,side:THREE.DoubleSide,depthTest:false,depthWrite:false});
   const edge = new THREE.Mesh(new THREE.BufferGeometry(), referenceMaterial);
@@ -136,11 +192,11 @@
     cutPlane.constant = view.cut;
     line.position.z = view.cut;
     line.visible = true;
-    const verts = [], outline = [], colors=[];
+    const verts = [], outline = [], colors=[],capUV=[];
     const profile=Array.from({length:SEG+1},(_,i)=>heightAt(-160+i*SIZE/SEG,view.cut));
     const slope=Math.tan(view.angle*Math.PI/180);
-    const litColor=new THREE.Color(0x725239),shadowColor=new THREE.Color(0x353846);
-    const bottom = -58, z = view.cut + 0.08;
+    const litColor=new THREE.Color(0x776e69),shadowColor=new THREE.Color(0x4c4a51);
+    const bottom = -180, z = view.cut + 0.08;
     for (let i=0;i<SEG;i++) {
       const x0 = -160+i*SIZE/SEG, x1=x0+SIZE/SEG;
       const y0=profile[i], y1=profile[i+1];
@@ -152,6 +208,8 @@
       const color=shadow?shadowColor:litColor;
       for(let k=0;k<6;k++)colors.push(color.r,color.g,color.b);
       verts.push(x0,y0,z,x0,bottom,z,x1,y1,z, x1,y1,z,x0,bottom,z,x1,bottom,z);
+      const u0=(x0+160)/SIZE,u1=(x1+160)/SIZE,v0=(y0+180)/240,v1=(y1+180)/240;
+      capUV.push(u0,v0,u0,0,u1,v1,u1,v1,u0,0,u1,0);
     }
     for(let i=0;i<SEG;i++) {
       const x0=-160+i*SIZE/SEG,x1=x0+SIZE/SEG;
@@ -160,7 +218,7 @@
       outline.push(x0,y0-half,dz,x1,y1-half,dz,x1,y1+half,dz,
         x0,y0-half,dz,x1,y1+half,dz,x0,y0+half,dz);
     }
-    const geo = new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));geo.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geo.computeVertexNormals();replaceGeometry(cap,geo);
+    const geo = new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));geo.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(capUV,2));geo.computeVertexNormals();replaceGeometry(cap,geo);
     replaceGeometry(edge,new THREE.BufferGeometry().setAttribute('position',new THREE.Float32BufferAttribute(outline,3)));
     updateMarker();
     requestRender();
@@ -222,10 +280,11 @@
   });
   $('start').addEventListener('click',()=>{
     view.measuring=true;setSideCamera();rebuildSection();
+    sideCanvas.parentElement.classList.add('measuring');
     $('start').classList.add('active');$('start').textContent='测量中';
     $('sectionLabel').textContent='正对剖面 · 点击地形选点';
     $('topHelp').textContent='沿剖切线点击一个受光点；重新点击替换图钉。';
-    $('sectionHelp').textContent='点击受光处放图钉，再测量影长；拖动太阳改变高度角。';
+    $('sectionHelp').textContent='点击受光处放图钉，再测量影长；拖动上方光线或滑块调整太阳高度角。';
     $('status').textContent='请在左侧剖切线上或右侧剖面选取一个受光点。';
   });
   $('clear').addEventListener('click',()=>{view.points=[];clearReadout();updateMarker();requestRender();$('status').textContent='已清除选点。';});
@@ -272,7 +331,7 @@
     if(!dragLine)return;
     const dy=e.clientY-dragLine.startY;
     if(Math.abs(dy)>5)dragLine.moved=true;
-    if(dragLine.moved)setCut(dragLine.cut+dy*320/topCanvas.clientHeight);
+    if(dragLine.moved)setCut(dragLine.cut+dy*(topCamera.top-topCamera.bottom)/topCanvas.getBoundingClientRect().height);
   });
   topCanvas.addEventListener('pointerup',()=>{
     if(dragLine&&!dragLine.moved&&view.measuring)setPin(dragLine.x);
@@ -293,7 +352,7 @@
     if(!sectionDrag)return;
     const dx=e.clientX-sectionDrag.startX;
     if(Math.abs(dx)>5)sectionDrag.moved=true;
-    if(sectionDrag.moved)setCut(sectionDrag.cut-dx*320/sideCanvas.clientWidth);
+    if(sectionDrag.moved)setCut(sectionDrag.cut-dx*(sideCamera.right-sideCamera.left)/sideCanvas.getBoundingClientRect().width);
   });
   function endSectionDrag(){sectionDrag=null;sideCanvas.style.cursor='grab';}
   sideCanvas.style.cursor='grab';
@@ -303,36 +362,37 @@
   });
   sideCanvas.addEventListener('pointercancel',endSectionDrag);
   sideCanvas.addEventListener('lostpointercapture',endSectionDrag);
-  // 独立 SVG 注释层：仅太阳接收指针，地形选点与剖面拖动仍由下方画布处理。
+  // 光线的天空部分接收拖动，地形区域仍用于选点与剖切。
   const overlay=document.createElementNS('http://www.w3.org/2000/svg','svg');
   overlay.id='sunOverlay';
-  overlay.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden;touch-action:none';
+  overlay.style.cssText='position:absolute;z-index:2;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden;touch-action:none';
   sideCanvas.after(overlay);
-  let sunDrag=false;
-  const sunRay=new THREE.Raycaster();
-  overlay.addEventListener('pointerdown',e=>{
-    if(!view.measuring||!e.target.closest('[data-sun]')||e.button!==0)return;
-    sunDrag=true;overlay.setPointerCapture(e.pointerId);e.preventDefault();
-  });
-  overlay.addEventListener('pointermove',e=>{
-    if(!sunDrag)return;
+  let rayDrag=null;
+  function pointerAngle(event){
     const rect=overlay.getBoundingClientRect();
-    sunRay.setFromCamera(new THREE.Vector2((e.clientX-rect.left)/rect.width*2-1,1-(e.clientY-rect.top)/rect.height*2),sideCamera);
-    const p=sunRay.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0,0,1),-view.cut),new THREE.Vector3());
-    if(!p)return;
-    const angle=Math.atan2(p.y,p.x-15)*180/Math.PI;
-    $('angle').value=Math.max(10,Math.min(85,Math.round(angle)));
+    const origin=new THREE.Vector3(15,0,view.cut).project(sideCamera);
+    const x=rect.left+(origin.x+1)*rect.width/2,y=rect.top+(1-origin.y)*rect.height/2;
+    return Math.atan2(y-event.clientY,event.clientX-x)*180/Math.PI;
+  }
+  overlay.addEventListener('pointerdown',event=>{
+    if(!view.measuring||event.button!==0||!event.target.closest('[data-ray-drag]'))return;
+    rayDrag={pointerAngle:pointerAngle(event),angle:view.angle};
+    overlay.setPointerCapture(event.pointerId);event.preventDefault();
+  });
+  overlay.addEventListener('pointermove',event=>{
+    if(!rayDrag)return;
+    const delta=pointerAngle(event)-rayDrag.pointerAngle;
+    const wrappedDelta=((delta+540)%360)-180;
+    $('angle').value=Math.max(10,Math.min(85,Math.round(rayDrag.angle+wrappedDelta)));
     $('angle').dispatchEvent(new Event('input'));
   });
-  for(const event of ['pointerup','pointercancel','lostpointercapture'])overlay.addEventListener(event,()=>{sunDrag=false;});
+  for(const event of ['pointerup','pointercancel','lostpointercapture'])overlay.addEventListener(event,()=>{rayDrag=null;});
   function drawAnnotations(){
     if(!view.measuring){overlay.innerHTML='';return;}
     const w=sideCanvas.clientWidth,h=sideCanvas.clientHeight;
     overlay.setAttribute('viewBox',`0 0 ${w} ${h}`);
     const a=view.angle*Math.PI/180,c=Math.cos(a),s=Math.sin(a);
     const projectPlane=(x,y)=>{const p=new THREE.Vector3(x,y,view.cut).project(sideCamera);return {x:(p.x+1)*w/2,y:(1-p.y)*h/2};};
-    const origin=projectPlane(15,0),sun=projectPlane(15+90*c,90*s);
-    const cx=origin.x,cy=origin.y,sx=sun.x,sy=sun.y;
     const seg=(x1,y1,x2,y2,color,width=1.5,dash='')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width}" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
     let rays='';
     for(let k=-3;k<=3;k++){
@@ -340,10 +400,6 @@
       const from=projectPlane(x,y),to=projectPlane(x-c*260,y-s*260);
       rays+=seg(from.x,from.y,to.x,to.y,'#e8ba4a55');
     }
-    const horizontal=projectPlane(70,0);
-    let arc='';
-    for(let i=0;i<=32;i++){const t=a*i/32,p=projectPlane(15+28*Math.cos(t),28*Math.sin(t));arc+=`${i?'L':'M'} ${p.x} ${p.y} `;}
-    const label=projectPlane(52,9);
     let measurement='';
     if(view.length!==null&&view.points.length===1){
       const x=view.points[0],below=heightAt(x,view.cut)<0;
@@ -354,14 +410,12 @@
         +`<rect x="${mid-100}" y="${labelY}" width="200" height="26" rx="7" fill="#200e19e8" stroke="#ff8098"/><text x="${mid}" y="${labelY+18}" text-anchor="middle" fill="#ff9bad" font-size="14" font-weight="700">${below?'基准面距离':'影长'} ${view.length.toFixed(2)} 模型单位</text>`;
       if(view.height!==null)measurement+=`<text x="${mid}" y="${heightY}" text-anchor="middle" fill="#6cf0b0" font-size="14">计算海拔 h = ${view.height.toFixed(2)}</text>`;
     }
-    overlay.innerHTML=`<defs><radialGradient id="sunHalo"><stop stop-color="#ffe59b" stop-opacity=".5"/><stop offset="1" stop-color="#ffbd40" stop-opacity="0"/></radialGradient><radialGradient id="sunCore" cx="35%" cy="30%"><stop stop-color="#fffce2"/><stop offset=".6" stop-color="#ffd54a"/><stop offset="1" stop-color="#f2a825"/></radialGradient></defs>${rays}
-      ${seg(cx,cy,horizontal.x,horizontal.y,'#e8ba4a88',1.5,'5 5')}
-      <path d="${arc}" fill="none" stroke="#e8ba4a" stroke-width="1.8"/>
-      <text x="${label.x}" y="${label.y}" fill="#ffdc76" font-size="15" font-weight="700">${view.angle.toFixed(1)}°</text>
-      <g data-sun="true" style="pointer-events:all;cursor:grab" role="img" aria-label="拖动太阳调整高度角">
-      <circle cx="${sx}" cy="${sy}" r="59" fill="url(#sunHalo)" pointer-events="none"/>
-      <circle id="sunHandle" cx="${sx}" cy="${sy}" r="31" fill="transparent" stroke="#ffe19a" stroke-dasharray="4 4"/>
-      <circle cx="${sx}" cy="${sy}" r="21" fill="url(#sunCore)"/></g>${measurement}`;
+    // 仅天空内设置较宽的拖动命中区，避免光线挡住地形选点。
+    const skyBottom=Math.max(0,Math.min(...Array.from({length:SEG+1},(_,i)=>{
+      const x=-160+i*SIZE/SEG;return projectPlane(x,heightAt(x,view.cut)).y;
+    }))-8);
+    const hitRays=rays.replaceAll('stroke="#e8ba4a55"','stroke="transparent"').replaceAll('stroke-width="1.5"','stroke-width="18"');
+    overlay.innerHTML=`${rays}${measurement}<defs><clipPath id="rayDragSky"><rect width="${w}" height="${skyBottom}"/></clipPath></defs><g data-ray-drag="true" aria-label="拖动光线调整太阳高度角" style="pointer-events:stroke;cursor:grab" clip-path="url(#rayDragSky)">${hitRays}</g>`;
   }
   let pending=false;
   function requestRender() { if(!pending){pending=true;requestAnimationFrame(render);} }
@@ -370,6 +424,8 @@
     if(!w||!h)return;
     renderer.setSize(w,h,false);
     const ratio=w/h;
+    // 月面宽度为 320：宽画布按宽度取景，避免在模型两侧露出背景。
+    halfHeight=Math.min(halfHeight,160/ratio);
     camera.left=-halfHeight*ratio;camera.right=halfHeight*ratio;
     camera.top=halfHeight;camera.bottom=-halfHeight;
     camera.updateProjectionMatrix();
@@ -377,7 +433,7 @@
   function render() {
     pending=false;
     fit(topRenderer,topCanvas,topCamera,160);
-    fit(sideRenderer,sideCanvas,sideCamera,view.measuring?165:165);
+    fit(sideRenderer,sideCanvas,sideCamera,view.measuring?165:130);
     topRenderer.render(topScene,topCamera);sideRenderer.render(sideScene,sideCamera);
     drawAnnotations();
   }
