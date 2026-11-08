@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>日月食原理演示</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="stage" aria-label="日月食原理演示">
+    <canvas id="scene" aria-hidden="true"></canvas>
+
+    <div class="mode-switch" role="group" aria-label="选择食象">
+      <button type="button" data-mode="solar" aria-pressed="true">日食</button>
+      <button type="button" data-mode="lunar" aria-pressed="false">月食</button>
+    </div>
+
+    <section class="observer-card" aria-label="地面观察与当前阶段">
+      <div class="sky-frame">
+        <canvas id="sky" role="img" aria-label="地面观察视角"></canvas>
+        <span class="sky-caption" aria-hidden="true">地面观察</span>
+      </div>
+      <div class="stage-line">
+        <span class="stage-name" id="stageName">初亏</span>
+        <span class="stage-type" id="stageType">日全食</span>
+      </div>
+      <div class="stage-track" aria-hidden="true"><i id="stageFill"></i></div>
+    </section>
+
+    <nav class="node-steps" id="nodeSteps" aria-label="关键节点"></nav>
+
+    <div class="transport" role="group" aria-label="播放控制">
+      <button type="button" id="prevBtn" aria-label="上一步">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+      </button>
+      <button type="button" id="playBtn" class="transport-main" aria-label="播放">
+        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.5 19 12 8.5 18.5Z"/></svg>
+        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="5.5" width="2.6" height="13" rx="1"/><rect x="13.4" y="5.5" width="2.6" height="13" rx="1"/></svg>
+      </button>
+      <button type="button" id="nextBtn" aria-label="下一步">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <p class="live" id="live" aria-live="polite"></p>
+  </main>
+
+  <script src="js/eclipse-model.js"></script>
+  <script src="js/eclipse-scene.js"></script>
+  <script src="js/sky-window.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
