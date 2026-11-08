@@ -171,8 +171,8 @@
     ctx.globalCompositeOperation = 'multiply';
 
     var pen = ctx.createRadialGradient(scx, scy, Ru, scx, scy, Rp);
-    pen.addColorStop(0, 'rgb(126,126,134)');
-    pen.addColorStop(0.45, 'rgb(186,186,194)');
+    pen.addColorStop(0, 'rgb(158,158,166)');
+    pen.addColorStop(0.35, 'rgb(206,206,213)');
     pen.addColorStop(1, 'rgb(255,255,255)');
     ctx.fillStyle = pen;
     ctx.beginPath();
@@ -191,6 +191,25 @@
       ctx.beginPath();
       ctx.arc(scx, scy, Ru, 0, TAU);
       ctx.fill();
+
+      /* 只有整轮进入本影后，月海才以暗红纹理透出 */
+      var depth = M.clamp((Ru - Math.abs(scy - cy)) / R, 0, 1);
+      if (depth > 0.02) {
+        for (var t = 0; t < maria.length; t++) {
+          var tm = maria[t];
+          var tg = ctx.createRadialGradient(
+            cx + tm[0] * R, cy + tm[1] * R, 0,
+            cx + tm[0] * R, cy + tm[1] * R, tm[2] * R * 1.2
+          );
+          tg.addColorStop(0, 'rgba(96,38,26,' + (0.34 * depth).toFixed(3) + ')');
+          tg.addColorStop(0.55, 'rgba(96,38,26,' + (0.16 * depth).toFixed(3) + ')');
+          tg.addColorStop(1, 'rgba(96,38,26,0)');
+          ctx.fillStyle = tg;
+          ctx.beginPath();
+          ctx.arc(cx + tm[0] * R, cy + tm[1] * R, tm[2] * R * 1.2, 0, TAU);
+          ctx.fill();
+        }
+      }
     }
 
     ctx.globalCompositeOperation = 'source-over';

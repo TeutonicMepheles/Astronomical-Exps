@@ -204,8 +204,8 @@
     ctx.fill();
 
     var um = ctx.createLinearGradient(0, 0, len, 0);
-    um.addColorStop(0, 'rgba(7,10,20,0.94)');
-    um.addColorStop(0.78, 'rgba(9,13,25,0.86)');
+    um.addColorStop(0, 'rgba(7,10,20,0.97)');
+    um.addColorStop(0.78, 'rgba(9,13,25,0.93)');
     um.addColorStop(1, 'rgba(12,17,32,0)');
     ctx.fillStyle = um;
     ctx.beginPath();
@@ -274,17 +274,24 @@
     ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
 
     var land = [
-      [0.30, 0.36, 0.72, 0.42, -0.35],
-      [0.16, 0.72, 0.50, 0.30, 0.6],
-      [0.66, 0.24, 0.44, 0.26, 0.2],
-      [0.60, 0.66, 0.30, 0.22, -0.5]
+      [0.34, 0.30, 0.26, 0.15, -0.35], [0.28, 0.46, 0.17, 0.11, -0.2],
+      [0.20, 0.60, 0.13, 0.09, 0.5], [0.46, 0.21, 0.12, 0.07, 0.3],
+      [0.58, 0.31, 0.15, 0.08, -0.6], [0.52, 0.52, 0.11, 0.07, 0.2],
+      [0.66, 0.66, 0.16, 0.10, -0.4], [0.40, 0.72, 0.12, 0.07, 0.7],
+      [0.72, 0.42, 0.09, 0.06, 0.1], [0.14, 0.38, 0.08, 0.05, 0.4]
     ];
-    ctx.fillStyle = 'rgba(110,158,132,0.55)';
     for (var i = 0; i < land.length; i++) {
       var l = land[i];
+      var lx = cx - r + l[0] * 2 * r;
+      var ly = cy - r + l[1] * 2 * r;
       ctx.save();
-      ctx.translate(cx - r + l[0] * 2 * r, cy - r + l[1] * 2 * r);
+      ctx.translate(lx, ly);
       ctx.rotate(l[4]);
+      var lg = ctx.createRadialGradient(0, 0, 0, 0, 0, l[2] * r);
+      lg.addColorStop(0, 'rgba(118,158,128,0.30)');
+      lg.addColorStop(0.62, 'rgba(112,152,124,0.20)');
+      lg.addColorStop(1, 'rgba(108,148,120,0)');
+      ctx.fillStyle = lg;
       ctx.beginPath();
       ctx.ellipse(0, 0, l[2] * r, l[3] * r, 0, 0, TAU);
       ctx.fill();
@@ -324,9 +331,15 @@
     var cx = sx(moon.x), cy = sy(moon.y), r = M.RM * PX;
     var vis = M.sunVisible(moon, M.EARTH, M.RE);
     var shade = 1 - vis;
+    /* 本影深度：只有整轮沉入本影，折射红光才会盖过灰暗的日面 */
+    var depth = 0;
+    if (moon.x > 0) {
+      var umbraR = M.cone(M.EARTH, M.RE).umbraRadiusAt(moon.x);
+      depth = M.clamp((umbraR - Math.abs(moon.y)) / M.RM, 0, 1);
+    }
 
     var halo = ctx.createRadialGradient(cx, cy, r * 0.92, cx, cy, r * 1.45);
-    halo.addColorStop(0, shade > 0.5 ? 'rgba(196,104,66,0.16)' : 'rgba(210,226,255,0.13)');
+    halo.addColorStop(0, depth > 0.5 ? 'rgba(196,104,66,0.16)' : 'rgba(210,226,255,0.13)');
     halo.addColorStop(1, 'rgba(210,226,255,0)');
     ctx.fillStyle = halo;
     ctx.beginPath();
@@ -345,10 +358,21 @@
     ctx.fillStyle = base;
     ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
 
-    ctx.fillStyle = 'rgba(108,114,130,0.30)';
-    var craters = [[-0.3, -0.2, 0.24], [0.2, -0.36, 0.16], [0.34, 0.24, 0.2], [-0.14, 0.4, 0.14], [0.02, 0.08, 0.1]];
+    var craters = [
+      [-0.30, -0.20, 0.30], [0.20, -0.36, 0.22], [0.34, 0.24, 0.26],
+      [-0.14, 0.40, 0.20], [0.02, 0.06, 0.16], [-0.44, 0.22, 0.14],
+      [0.46, -0.10, 0.12]
+    ];
     for (var i = 0; i < craters.length; i++) {
       var c = craters[i];
+      var cg = ctx.createRadialGradient(
+        cx + c[0] * r, cy + c[1] * r, 0,
+        cx + c[0] * r, cy + c[1] * r, c[2] * r
+      );
+      cg.addColorStop(0, 'rgba(104,110,126,0.26)');
+      cg.addColorStop(0.65, 'rgba(104,110,126,0.14)');
+      cg.addColorStop(1, 'rgba(104,110,126,0)');
+      ctx.fillStyle = cg;
       ctx.beginPath();
       ctx.arc(cx + c[0] * r, cy + c[1] * r, c[2] * r, 0, TAU);
       ctx.fill();
@@ -363,12 +387,16 @@
     ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
 
     if (shade > 0.01) {
-      ctx.fillStyle = 'rgba(4,4,8,' + (0.90 * shade).toFixed(3) + ')';
+      /* 半影/本影先按「看到多少日面」压暗，月面整体偏灰 */
+      ctx.fillStyle = 'rgba(6,9,16,' + (0.62 * shade).toFixed(3) + ')';
       ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
+    }
+    if (depth > 0.01) {
+      /* 本影内改由穿过大气层的红光照明 */
       var red = ctx.createRadialGradient(cx - r * 0.2, cy - r * 0.2, r * 0.1, cx, cy, r);
-      red.addColorStop(0, 'rgba(88,24,14,' + (0.86 * shade).toFixed(3) + ')');
-      red.addColorStop(0.7, 'rgba(124,40,20,' + (0.84 * shade).toFixed(3) + ')');
-      red.addColorStop(1, 'rgba(170,68,34,' + (0.66 * shade).toFixed(3) + ')');
+      red.addColorStop(0, 'rgba(88,24,14,' + (0.88 * depth).toFixed(3) + ')');
+      red.addColorStop(0.7, 'rgba(124,40,20,' + (0.86 * depth).toFixed(3) + ')');
+      red.addColorStop(1, 'rgba(170,68,34,' + (0.68 * depth).toFixed(3) + ')');
       ctx.fillStyle = red;
       ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
     }
@@ -382,8 +410,11 @@
   };
 
   Scene.prototype.drawEarthSpot = function (ctx, moon, state) {
+    /* 本影沿日→月方向延伸，只有整条轴线落到地球上时才在地面留下投影 */
+    if (Math.abs(moon.y) >= M.RE) return;
     var cone = M.cone(moon, M.RM);
-    var P = M.mul(M.unit(moon), M.RE);
+    var xs = (moon.x < 0 ? -1 : 1) * Math.sqrt(M.RE * M.RE - moon.y * moon.y);
+    var P = M.v(xs, moon.y);
     var d = M.dist(P, moon);
     var spot = cone.umbraRadiusAt(d) * PX;
     var pen = cone.penumbraRadiusAt(d) * PX;
