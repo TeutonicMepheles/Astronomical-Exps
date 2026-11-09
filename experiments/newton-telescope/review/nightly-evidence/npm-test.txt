@@ -1,0 +1,72 @@
+
+> astronomical-exps@0.1.0 test
+> python tools/test.py
+
+ experiments/light-pollution/index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ experiments/light-pollution/index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ experiments/light-pollution/index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ experiments/light-pollution/index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ experiments/light-pollution/index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ experiments/light-pollution/index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ experiments/light-pollution/index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+.......................
+----------------------------------------------------------------------
+Ran 23 tests in 126.363s
+
+OK
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/next；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已保存到本地，尚未上传。
+已备份当前任务分支。备份不代表提交验收或合并。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已保存到本地，尚未上传。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已保存到本地，尚未上传。
+已同步公共更新，请重新检查及试玩。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已保存到本地，尚未上传。
+已备份当前任务分支。备份不代表提交验收或合并。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已回到原网页分支；已有改动保留。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已保存到本地，尚未上传。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已保存到本地，尚未上传。
+https://github.com/example/repo/pull/1
+已提交整页验收，等待维护者审核；未合并。
+https://github.com/example/repo/pull/1
+已提交整页验收，等待维护者审核；未合并。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已保存到本地，尚未上传。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+已开始：experiment/light-pollution/initial-delivery；只修改 experiments/light-pollution/。
+Passed 18 optical configurations: magnification, image distance, mirror intersection and reflection direction.
+PASS: 90 mirror/source/focal/position configurations, exact reflection, real/virtual focal intersection and source-face origin.
+PASS registered parts: approved curvature limits, optical vertex, horizontal central return, symmetric bundle and shared on-axis focus.
+PASS 24 thin-lens configurations: converging/diverging bundles, real/virtual focus, transmission direction, bounds, translation and saved mirror independence.
+PASS original-glass shape: native identity, fixed rear edge, bounded continuous warp and optical linkage.
+PASS original concave glass: native identity, bounded shape, independent controls and diverging optical linkage.
+PASS expanded lens focal ranges, signs, inverse control mapping, unchanged shape bounds and matching ray intersections.
+PASS: course progression and controlled-comparison invariants.
+PASS mirror completion only after explicit request; confirmed navigation, other completion edges, revisit, reset and stale confirmation.
+PASS existing calculation and course unit tests; browser checks are separate.
