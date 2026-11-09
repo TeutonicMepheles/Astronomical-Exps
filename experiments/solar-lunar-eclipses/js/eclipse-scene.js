@@ -191,6 +191,20 @@
   };
 
   Scene.prototype.drawSunGlow = function (ctx) {
+    /* 侧视档的太阳在 80 个地球半径外、远在画外。照搬下面那团以 22 RE 为心的径向光斑，
+       等于在画里凭空放了一个离地 22 RE 的亮源——图注说太阳在 80 RE，画面却指着 22 RE。
+       所以这一档不留任何画内的点光源：日光只在左缘铺一道沿 x 单调变暗的边缘光，
+       亮的那一端永远贴在画框外，方向由画面里的箭头交代。 */
+    if (view.mode === 'side') {
+      var day = ctx.createLinearGradient(0, 0, 640, 0);
+      day.addColorStop(0, 'rgba(255,230,190,0.30)');
+      day.addColorStop(0.09, 'rgba(250,206,150,0.14)');
+      day.addColorStop(0.40, 'rgba(238,190,130,0.05)');
+      day.addColorStop(1, 'rgba(230,180,120,0)');
+      ctx.fillStyle = day;
+      ctx.fillRect(0, 0, 640, H);
+      return;
+    }
     var x = sx(-M.SUN_DIST), y = sy(0);
     var far = view.mode === 'system' ? M.SUN_R * view.px * 11 : 1700;
     var g = ctx.createRadialGradient(x, y, 0, x, y, far);
