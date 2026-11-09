@@ -268,3 +268,24 @@ html, body {
   .rail-node,
   .transport button { transition: none; }
 }
+
+/*
+ * 斜视档画的是「另一个月份」：新月离交点 90° 的那一帧。
+ * 这一帧里没有本次日/月食发生，所以食相轨与地面观察窗都要让开——
+ * 留着它们等于让一个说「本次初亏」的控件去描述一张不相干的图。
+ * 公转进度条仍在，它在这一档走完整圈（新月/上弦/望/下弦）。
+ */
+#stage[data-view="oblique"] .rail,
+#stage[data-view="oblique"] .observer-card {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.rail, .observer-card {
+  transition: opacity 0.28s ease, visibility 0s linear 0s;
+}
+#stage[data-view="oblique"] .rail,
+#stage[data-view="oblique"] .observer-card {
+  transition: opacity 0.28s ease, visibility 0s linear 0.28s;
+}
+

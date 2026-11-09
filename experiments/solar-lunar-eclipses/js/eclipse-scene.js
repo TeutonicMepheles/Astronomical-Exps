@@ -660,7 +660,9 @@
   Scene.prototype.drawOblique = function (ctx, moon, state) {
     var ex = view.ex, ey = view.ey, px = view.px;
     var D = SIDE_ORBIT;
-    var u = state.phi;
+    /* 月食档看的是「地球挡住太阳照向月球」，与日食档同一个相位数的是一个月之后的另一侧：
+       整体转 180°，进度条 50% 落新月（日食）或望月（月食），两边对比的才是同一件事 */
+    var u = state.phi + (state.mode === 'lunar' ? Math.PI : 0);
     var P = obOrbit(u);
     var S3 = { x: -(D + SIDE_SUN_D), y: 0, z: 0 };
     /* 与侧视同一个压缩太阳：食甚时本影长 21 RE，锥尖落远侧地表附近 */
