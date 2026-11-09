@@ -107,11 +107,13 @@
     var x = CFG.earth.x - Math.sqrt(CFG.earth.r * CFG.earth.r - dy * dy);
     var d = Math.max(0, x - M.x);
     var Lm = CFG.moon.r * (CFG.sun.dist - CFG.moon.orbit) / (CFG.sun.r - CFG.moon.r);
-    var ru = Math.max(2.5, CFG.moon.r * (1 - d / Lm));
+    /* ru 就是本影锥在这里的截面半径，1:1 画出来，不做缩放——
+       画面上的斑必须等于算出来的几何量，否则读者拿尺子量会和读数对不上。 */
+    var ru = Math.max(1.2, CFG.moon.r * (1 - d / Lm));
     el.setAttribute('cx', x.toFixed(1)); el.setAttribute('cy', M.y.toFixed(1));
-    el.setAttribute('r', (ru * 0.5).toFixed(1));
+    el.setAttribute('r', ru.toFixed(1));
     soft.setAttribute('cx', x.toFixed(1)); soft.setAttribute('cy', M.y.toFixed(1));
-    soft.setAttribute('rx', (ru * 0.9).toFixed(1)); soft.setAttribute('ry', (ru * 1.6).toFixed(1));
+    soft.setAttribute('rx', (ru * 1.3).toFixed(1)); soft.setAttribute('ry', (ru * 1.9).toFixed(1));
   }
 
   function updateMoonShade(v) {
