@@ -37,6 +37,21 @@
   function sy(y) { return view.ey - y * view.px; }
 
   /*
+   * 月影该不该画：只有锥轴（日→月）朝地球这一侧才画。
+   * 月食档的滑块是整圈，月球会走到新月相位——那一帧月影正对着地球、从球面上方掠过，
+   * 「黄纬 1.79 RE」只有在这一帧才看得懂，不能删；望月相位影轴背向地球、一路画到画外被右缘切齐，
+   * 那一侧才该删。判据与几何无关，只是「轴·(地心−月球) > 0」。斜视是三维点，单独写一版。
+   */
+  function shadowFacesEarth(C, S) {
+    var axis = M.unit(M.sub(C, S));
+    var toEarth = M.unit(M.sub(M.EARTH, C));
+    return M.dot(axis, toEarth) > 0;
+  }
+  function shadowFacesEarth3(C, S) {
+    return (C.x - S.x) * -C.x + (C.y - S.y) * -C.y + (C.z - S.z) * -C.z > 0;
+  }
+
+  /*
    * 影斑落点：日→月这条轴线（也就是影锥自己的轴）与地球球面的近侧交点。
    * 不能用「y = 月球高度」的水平线去截球：月球偏离日地连线时，水平线与真轴线
    * 在地球上要差出十几像素，地面黑斑就会落在投影锥尖旁边，看着像影区没和投影对齐。
@@ -138,7 +153,10 @@
     var umbLen = M.cone(moon, M.RM).umbraLength;
     var lands = axisHit < umbLen;
     this.drawCone(ctx, M.EARTH, M.RE, 5.6, state, true, false);
-    this.drawCone(ctx, moon, M.RM, Math.max(0.4, Math.min(umbLen, axisHit)), state, false, lands);
+    /* 月食档只在月影朝地球这一侧画；背向的那一半会一路跑到画外被右缘切齐 */
+    if (state.mode === 'solar' || shadowFacesEarth(moon, M.SUN)) {
+      this.drawCone(ctx, moon, M.RM, Math.max(0.4, Math.min(umbLen, axisHit)), state, false, lands);
+    }
     this.drawEarth(ctx, state);
     if (state.mode === 'solar') this.drawEarthSpot(ctx, moon, state);
     this.drawObserver(ctx, moon, state);
@@ -546,8 +564,11 @@
     var sunRe = SIDE_RM + SIDE_SUN_D * (SIDE_RM / umbRe);
     var sideSun = { x: -(nodeRe + SIDE_SUN_D), y: 0, r: sunRe };
 
-    /* 月本影：从月球沿日→月方向延伸，锥尖落在远侧地表；偏离交点就从地球旁边过去 */
-    this.drawCone(ctx, mw, SIDE_RM, umbRe, state, false, true, sideSun);
+    /* 月本影：从月球沿日→月方向延伸，锥尖落在远侧地表；偏离交点就从地球旁边过去。
+       月食档只在影轴朝地球那一侧画（判据同主视图） */
+    if (state.mode === 'solar' || shadowFacesEarth(mw, sideSun)) {
+      this.drawCone(ctx, mw, SIDE_RM, umbRe, state, false, true, sideSun);
+    }
     /* 地本影：沿黄道面向右，略长于轨道半径即止。半影只在月食里有意义，日食时不画。
        日食档把整条地影压到 30%：这一档的主角是月影，地影抢镜又会吞掉黄道线与 5.145° */
     this.drawCone(ctx, M.EARTH, M.RE, nodeRe * 1.24, state, true, false, sideSun,
@@ -787,18 +808,22 @@
       }
     };
 
-    /* 半影一直张开到画外：按本影长度截断会在锥尖处留一道悬空的直边。
-       用沿轴线的渐变收尾，越远越淡。 */
-    var penLen = L * 2.6;
-    var penEnd = obAt({ x: P.x + ux * penLen, y: P.y + uy * penLen, z: P.z + uz * penLen });
-    var penGrad = ctx.createLinearGradient(o0.x, o0.y, penEnd.x, penEnd.y);
-    penGrad.addColorStop(0, 'rgba(2,4,10,0.30)');
-    penGrad.addColorStop(Math.min(1, L / penLen), 'rgba(2,4,10,0.20)');
-    penGrad.addColorStop(1, 'rgba(2,4,10,0)');
-    poly(penLen, function (t) { return SIDE_RM + t * (Rs + SIDE_RM) / Dm; }, penGrad, null);
+    /* 月影只在影轴朝地球这一侧画（判据同主视图的三维版）。
+       月食档整圈滑块会把月球送到新月相位，那一帧月影掠过地球上方，是黄纬标注唯一看得懂的帧。 */
+    if (state.mode === 'solar' || shadowFacesEarth3(P, S3)) {
+      /* 半影一直张开到画外：按本影长度截断会在锥尖处留一道悬空的直边。
+         用沿轴线的渐变收尾，越远越淡。 */
+      var penLen = L * 2.6;
+      var penEnd = obAt({ x: P.x + ux * penLen, y: P.y + uy * penLen, z: P.z + uz * penLen });
+      var penGrad = ctx.createLinearGradient(o0.x, o0.y, penEnd.x, penEnd.y);
+      penGrad.addColorStop(0, 'rgba(2,4,10,0.30)');
+      penGrad.addColorStop(Math.min(1, L / penLen), 'rgba(2,4,10,0.20)');
+      penGrad.addColorStop(1, 'rgba(2,4,10,0)');
+      poly(penLen, function (t) { return SIDE_RM + t * (Rs + SIDE_RM) / Dm; }, penGrad, null);
 
-    poly(L, function (t) { return Math.max(0.004, SIDE_RM * (1 - t / L)); },
-      'rgba(1,2,6,0.92)', 'rgba(158,182,226,0.30)');
+      poly(L, function (t) { return Math.max(0.004, SIDE_RM * (1 - t / L)); },
+        'rgba(1,2,6,0.92)', 'rgba(158,182,226,0.30)');
+    }
 
     /* 地影只在月食档画：日食档它跟这一页无关，还会把黄道线整条吞掉 */
     if (state.mode === 'lunar') {
