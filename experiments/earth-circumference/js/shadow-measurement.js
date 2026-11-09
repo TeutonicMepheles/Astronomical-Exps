@@ -1,38 +1,53 @@
-﻿export function mountShadowMeasurement(panel) {
-  const svg=panel.querySelector('.site-scene'), ns='http://www.w3.org/2000/svg';
-  const overlay=document.createElementNS(ns,'g');overlay.classList.add('shadow-measure-overlay');
-  overlay.innerHTML='<path class="shadow-measure-halo" fill="none"/><path class="shadow-measure-path" fill="none"/><circle class="measure-dot" r="6"/><text class="shadow-cm" text-anchor="middle"/>';
-  svg.append(overlay);
-  const controls=document.createElement('div');controls.className='shadow-measure-controls';
-  controls.innerHTML='<p class="measurement-instruction" aria-live="polite">点选影端</p><div class="measurement-records"><span data-record="selected"></span><span data-record="subsolar"></span></div>';
-  svg.after(controls);
-  const empty=()=>({value:null,saved:false});let records={selected:empty(),subsolar:empty()};
-  let context={},key='',frame=0,progress=1;
-  function stop(){cancelAnimationFrame(frame);frame=0;}
-  function paint(){
-    const r=records[context.site]||empty();overlay.style.display=r.value===null?'none':'';
-    if(r.value!==null){const end=330+r.value*context.pxPerCm*r.direction*progress;
-      overlay.querySelectorAll('path').forEach(p=>p.setAttribute('d',`M330 355V372H${end}V355`));
-      const dot=overlay.querySelector('circle');dot.setAttribute('cx',end);dot.setAttribute('cy','355');
-      const label=overlay.querySelector('text');label.setAttribute('x',(330+end)/2);label.setAttribute('y','395');label.textContent=progress<1?'':`${r.value.toFixed(1)} cm`;
-    }
-    controls.querySelector('.measurement-instruction').textContent=context.canMeasure?'点选影端 · 再次点击可重测':context.reason;
-    for(const site of ['selected','subsolar']){const r=records[site];controls.querySelector(`[data-record="${site}"]`).textContent=`${site==='selected'?'观测点':'直射点'}：${r.saved?r.value.toFixed(1)+' cm':'待测'}`;}
+// Public MeasureMode integration; the host owns calibration and saved evidence.
+export function mountShadowMeasurement(panel) {
+ const viewport=panel.querySelector('.observation-viewport');
+ const measureHost=document.createElement('div');measureHost.className='shadow-measure-host earth-measure-soft';viewport.append(measureHost);
+ const controls=document.createElement('div');controls.className='shadow-measure-controls';
+ controls.innerHTML='<p class="measurement-instruction" aria-live="polite"></p><div class="measurement-records"><span data-record="selected"></span><span data-record="subsolar"></span></div>';
+ viewport.after(controls);
+ const retry=document.createElement('button');retry.type='button';retry.className='shadow-remeasure';retry.setAttribute('aria-label','重新测量');retry.title='重新测量';retry.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></svg>';retry.hidden=true;viewport.append(retry);
+ const empty=()=>({value:null,saved:false});
+ let records={selected:empty(),subsolar:{value:0,saved:false,read:false,reference:true}},context={},key='',active=false;
+ function paint(){
+  retry.hidden=context.site!=='selected'||!records.selected.saved;
+  controls.querySelector('.measurement-instruction').textContent=context.canMeasure?'':context.reason||'';
+  for(const site of ['selected','subsolar']){
+   const r=records[site];
+   controls.querySelector(`[data-record="${site}"]`).textContent=site==='subsolar'?`直射点说明：${r.read?'已阅读':'可选查看'}`:`观测点：${r.saved?r.value.toFixed(1)+' cm':'待测'}`;
   }
-  svg.addEventListener('pointerdown',e=>{
-    if(!context.canMeasure||panel.hidden)return;
-    const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(svg.getScreenCTM().inverse());
-    if(p.y<260)return;
-    stop();const x=Math.max(20,Math.min(640,p.x));const delta=Math.abs(x-330)<7?0:x-330;
-    records[context.site]={value:Math.abs(delta)/context.pxPerCm,direction:Math.sign(delta)||context.direction,saved:false};
-    window.dispatchEvent(new Event('measurement-change'));
-    const started=performance.now(),site=context.site;progress=0;
-    function step(now){if(site!==context.site||panel.hidden){stop();return;}const t=Math.min(1,(now-started)/750);progress=t*t*(3-2*t);paint();if(t<1)frame=requestAnimationFrame(step);else{records[site].saved=true;paint();window.dispatchEvent(new Event('measurement-change'));}}
-    frame=requestAnimationFrame(step);e.preventDefault();
-  });
-  return {snapshot:()=>structuredClone(records),setContext(next){
-    if(next.key!==key){records={selected:empty(),subsolar:empty()};key=next.key;stop();}
-    if(next.site!==context.site){stop();progress=1;}
-    context=next;paint();
-  },suspend:stop};
+ }
+ function clearSelected(){
+  measure.exit();
+  records.selected=empty();
+  measureHost.hidden=false;
+  paint();
+  window.dispatchEvent(new Event('measurement-change'));
+ }
+ retry.addEventListener('click',()=>{clearSelected();measure.enter();});
+ const measure=window.SharedComponents.MeasureMode(measureHost,{
+  label:'影长',unit:'cm',decimal:1,shape:'straight',
+  format(px){
+   const unitsPerPixel=660/(viewport.clientWidth*context.pxPerCm);
+   const value=px*unitsPerPixel;
+   const points=measure.getPoints();
+   if(active&&context.site==='selected'&&context.canMeasure&&points.start&&points.end){
+    records[context.site]={value,saved:true,direction:Math.sign(points.end.x-points.start.x)||context.direction};
+    paint();queueMicrotask(()=>{measure.exit();measureHost.hidden=true;window.dispatchEvent(new Event('measurement-change'));});
+   }
+   return {value,unit:'cm',decimal:1};
+  }
+ });
+ window.addEventListener('pagehide',event=>{if(!event.persisted)measure.destroy();});
+ return {
+  snapshot:()=>structuredClone(records),
+  clearSelected,
+  setContext(next){
+   if(next.key!==key){records={selected:empty(),subsolar:{value:0,saved:false,read:false,reference:true}};key=next.key;measure.exit();}
+   if(next.site!==context.site)measure.exit();
+   context=next;active=true;measureHost.hidden=next.site==='subsolar'||records.selected.saved;measureHost.inert=!next.canMeasure;
+   if(next.site==='subsolar'&&!records.subsolar.read){records.subsolar.read=true;queueMicrotask(()=>window.dispatchEvent(new Event('measurement-change')));}
+   paint();
+  },
+  suspend(){if(active){measure.exit();active=false;}}
+ };
 }

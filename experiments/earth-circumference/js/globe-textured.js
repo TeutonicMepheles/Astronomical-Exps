@@ -78,16 +78,9 @@ if (!scene.ready()) {
   svg.replaceChildren(frag);
 })();
 
-/* ---------- 光束：五条平行光柱，中间一条同时经过投影球心与太阳直射点 ----------
-   几何（这两条是必须守住的，别退化成"对准标记坐标"）：
-   1. 方向 = 相机投影后「球心 → 直射点」的单位向量。直射点本就落在固定太阳方向上，
-      所以这条线就是太阳方向的屏幕投影，不写死参考图角度，也不修改太阳向量；
-   2. 每条光束的箭头尖端落在**受光球面交点**：轴上离球心最近点 + √(r²−o²) 沿方向前进，
-      因此既不穿透地球、也不在球外悬空。
-   素材归一（关键，别让图片边框决定对齐）：shaft-single.png 是斜置位图，实测
-   主轴角 149.77°（图像坐标 y 向下）、箭头尖端在像素 (0,118)、沿轴长度 234.5px。
-   于是每条光束做：translate(尖端) → rotate(d 与主轴的夹角) → scale(目标长度/234.5)
-   → translate(−0,−118)，把素材的**尖端点**精确映射到交点，透明留白不参与对齐。 */
+/* Parallel rays share the shader's projected Earth-to-Sun direction.
+ * Arrowheads stop outside the surface; the central ray extends through the
+ * projected subsolar normal and centre. */
 const BEAM = {
   count: 5,
   length: 200,      // 光束在屏幕上的长度（逻辑像素，尖端 → 尾端）
@@ -108,14 +101,6 @@ function layoutBeams() {
   if (len < r * 0.08) return;          // 直射点几乎与球心重合时方向退化，保持上一帧
   dx /= len;
   dy /= len;                            // 球心 → 直射点（朝太阳一侧）
-  // Sun and beams share the globe's current camera transform, including interrupted motion.
-  const sun = document.querySelector('.sun-glow');
-  if (sun) {
-    const sunRadius = r * (200 / (202 * 1.35));
-    sun.style.left = (C.x + dx * r * 3 - sunRadius) + 'px';
-    sun.style.top = (C.y + dy * r * 3 - sunRadius) + 'px';
-    sun.style.width = sun.style.height = (sunRadius * 2) + 'px';
-  }
   const px = -dy;
   const py = dx;
   const mid = (BEAM.count - 1) / 2;
@@ -128,7 +113,7 @@ function layoutBeams() {
   // 上一版就是被这种"虚拟尾端"验出 402px 而实际整条光束是朝里画的。
   const rot = beamDeg + 180 - BEAM.sprite.axisDeg;
   // 测量视角下球体放大到 3 倍，光束若维持 200 会显得过短；按 zoom 适度加长（上限 1.8×）
-  const lenNow = BEAM.length * Math.min(1.8, Math.max(1, cam.zoom));
+  const lenNow = (scene.measuring ? BEAM.length * Math.min(1.8, Math.max(1, cam.zoom)) : 135);
   const scale = lenNow / BEAM.sprite.lengthPx;
 
   beamEls.forEach((el, i) => {
@@ -203,8 +188,14 @@ import { mountPointGuides } from './point-guides.js';
 mountPointGuides(scene);
 import { mountCalculation } from './calculation.js';
 mountCalculation(scene);
-import { mountBackdrop } from './backdrop.js';
-mountBackdrop(scene.stage);
+// The quiet static stage needs no decorative WebGL animation.
 
 import { mountStageProgress } from './stage-progress.js';
 mountStageProgress(scene);
+import { mountOrbitOverview } from './orbit-overview.js';
+mountOrbitOverview(scene);
+import { mountViewMode } from './view-mode.js';
+mountViewMode(scene.stage);
+
+import { mountObservationTips } from './observation-tips.js';
+mountObservationTips(scene);
