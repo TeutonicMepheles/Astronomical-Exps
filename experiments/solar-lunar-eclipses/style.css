@@ -8,8 +8,10 @@ html, body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* fixed 而非 absolute：缩放到 s<1 时，absolute 的未缩放盒仍参与文档滚动区，
-   会让页面出现可滚动余量（如 1440×900 下 scrollWidth 1520），违背「16:9 不滚动」。 */
+/* fixed 而非 absolute：fit() 还没跑到的那一帧，stage 仍是 1600×900、scale=1，
+   absolute 会把这个未缩放的盒子算进文档滚动区（如 1440×900 下 scrollWidth 1520），
+   这一帧就能滚出余量。fit() 生效后两种定位都不产生余量；用 fixed 是为了连这一帧
+   也不留，守住「16:9 不滚动」。 */
 #stage {
   position: fixed; width: 1600px; height: 900px; left: 50%; top: 50%;
   transform: translate(-50%, -50%);
