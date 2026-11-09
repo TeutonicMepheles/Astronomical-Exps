@@ -692,10 +692,11 @@
     }
     ctx.restore();
 
-    /* 俯视圆（轨道在黄道面上的投影）：淡实线，与虚线的真轨道成对 */
+    /* 俯视圆（轨道在黄道面上的投影）：与虚线的真轨道同权重的实线。
+       两条环之间的缝就是黄纬，这一档的存在理由全在这里，所以它不能是背景 */
     ctx.save();
-    ctx.strokeStyle = 'rgba(150,178,222,0.20)';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(168,196,240,0.46)';
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
     for (var c = 0; c <= 120; c++) {
       var a0 = c / 120 * TAU;
@@ -759,19 +760,24 @@
     ax /= al; ay /= al;
     var nx = -ay, ny = ax;
 
+    /*
+     * 月影的两种颜色。原来半影是 0.16 的亮蓝——比背景亮，眼睛锁在亮的带上，
+     * 反而把真正的本影读成一根细线。现在两者都是「把背景压暗」：
+     * 半影 30% 的黑，本影 92%，先暗后更暗，层次才跟几何一致。
+     */
     var N = 16;
-    var poly = function (widthAt, fill, stroke, dash) {
+    var poly = function (len, widthAt, fill, stroke, dash) {
       var i2, t, q2, h;
       ctx.beginPath();
       for (i2 = 0; i2 <= N; i2++) {
-        t = L * i2 / N;
+        t = len * i2 / N;
         q2 = obAt({ x: P.x + ux * t, y: P.y + uy * t, z: P.z + uz * t });
         h = widthAt(t) * px;
         if (i2 === 0) ctx.moveTo(q2.x - nx * h, q2.y - ny * h);
         else ctx.lineTo(q2.x - nx * h, q2.y - ny * h);
       }
       for (i2 = N; i2 >= 0; i2--) {
-        t = L * i2 / N;
+        t = len * i2 / N;
         q2 = obAt({ x: P.x + ux * t, y: P.y + uy * t, z: P.z + uz * t });
         h = widthAt(t) * px;
         ctx.lineTo(q2.x + nx * h, q2.y + ny * h);
@@ -787,10 +793,18 @@
       }
     };
 
-    poly(function (t) { return SIDE_RM + t * (Rs + SIDE_RM) / Dm; },
-      'rgba(150,174,218,0.16)', null);
-    poly(function (t) { return Math.max(0.004, SIDE_RM * (1 - t / L)); },
-      'rgba(7,10,20,0.93)', 'rgba(158,182,226,0.22)');
+    /* 半影一直张开到画外：按本影长度截断会在锥尖处留一道悬空的直边。
+       用沿轴线的渐变收尾，越远越淡。 */
+    var penLen = L * 2.6;
+    var penEnd = obAt({ x: P.x + ux * penLen, y: P.y + uy * penLen, z: P.z + uz * penLen });
+    var penGrad = ctx.createLinearGradient(o0.x, o0.y, penEnd.x, penEnd.y);
+    penGrad.addColorStop(0, 'rgba(2,4,10,0.30)');
+    penGrad.addColorStop(Math.min(1, L / penLen), 'rgba(2,4,10,0.20)');
+    penGrad.addColorStop(1, 'rgba(2,4,10,0)');
+    poly(penLen, function (t) { return SIDE_RM + t * (Rs + SIDE_RM) / Dm; }, penGrad, null);
+
+    poly(L, function (t) { return Math.max(0.004, SIDE_RM * (1 - t / L)); },
+      'rgba(1,2,6,0.92)', 'rgba(158,182,226,0.30)');
 
     /* 地影只在月食档画：日食档它跟这一页无关，还会把黄道线整条吞掉 */
     if (state.mode === 'lunar') {
@@ -829,6 +843,14 @@
     ctx.moveTo(m0.x, m0.y);
     ctx.lineTo(foot.x, foot.y);
     ctx.stroke();
+    /* 两端各加一道横线，让它读成尺寸标注，而不是一条随手连的虚线 */
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(m0.x - 5, m0.y);
+    ctx.lineTo(m0.x + 5, m0.y);
+    ctx.moveTo(foot.x - 5, foot.y);
+    ctx.lineTo(foot.x + 5, foot.y);
+    ctx.stroke();
     ctx.restore();
 
     /* 月球按真值画只有 0.27 RE，屏幕上 7px——加一圈定位环，否则找不到它在哪 */
@@ -865,32 +887,33 @@
     }
 
     ctx.save();
-    ctx.font = '500 13px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
+    ctx.font = '500 15px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
     ctx.textBaseline = 'middle';
     var label = function (text, x, y, color, align) {
       ctx.textAlign = align || 'left';
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = 'rgba(6,11,22,0.88)';
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = 'rgba(6,11,22,0.9)';
       ctx.strokeText(text, x, y);
       ctx.fillStyle = color;
       ctx.fillText(text, x, y);
     };
     label('阳光 →', 60, 130, 'rgba(240,196,128,0.75)');
-    label('黄道面', 60, ey + 22, 'rgba(226,236,252,0.66)');
-    label('月球轨道面', 1224, 546, 'rgba(226,236,252,0.66)');
+    label('黄道面', 60, ey + 26, 'rgba(226,236,252,0.72)');
+    label('月球轨道面', 1224, 546, 'rgba(226,236,252,0.72)');
     label('升交点', nodes[0].x + 12, nodes[0].y, 'rgba(246,212,154,0.72)');
     label('降交点', nodes[1].x + 12, nodes[1].y, 'rgba(246,212,154,0.72)');
     /* 月球在右侧时标签翻到左边，别顶到食相轨 */
     var side = m0.x > ex ? -16 : 16;
     var align = m0.x > ex ? 'right' : 'left';
-    label((solarMode ? '新月' : '望月') + '离交点 90°', m0.x + side, m0.y - 34, 'rgba(214,226,246,0.62)', align);
-    label('黄纬 1.79', m0.x + side, m0.y + 22, 'rgba(246,212,154,0.80)', align);
+    label((solarMode ? '新月' : '望月') + '离交点 90°', m0.x + side, m0.y - 36, 'rgba(214,226,246,0.66)', align);
+    /* 单位跟着数字走：图上量的是 RE，就得写出来 */
+    label('黄纬 1.79 RE', m0.x + side, m0.y + 24, 'rgba(246,212,154,0.86)', align);
     if (solarMode) {
-      label('本影从地球上方掠过', ex - 176, ey - 84, 'rgba(206,222,250,0.62)');
-      label('余量 1.39', ex + 54, (gapTop + gapBot) / 2, 'rgba(246,212,154,0.86)');
+      label('本影从地球上方掠过', ex - 176, ey - 84, 'rgba(206,222,250,0.66)');
+      label('余量 1.39 RE', ex + 54, (gapTop + gapBot) / 2, 'rgba(246,212,154,0.88)');
     } else {
       label(m0.y > foot.y ? '地影从月球上方掠过' : '地影从月球下方掠过',
-        ex + 132, ey - 46, 'rgba(206,222,250,0.62)');
+        ex + 132, ey - 46, 'rgba(206,222,250,0.66)');
     }
     ctx.restore();
 
@@ -914,7 +937,7 @@
          '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
       : obl
         ? ['月球轨道按 20 个地球半径绘制（实际 60.34），黄纬为真值',
-           '俯角 25°，黄纬按 cos 25°、黄道进深按 sin 25° 投影',
+           '俯角 25°：黄纬 1.79 RE 投成 1.63 RE（44 px），余量 1.39 RE 已在球面上量',
            '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
         : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
     var x0 = 48, y0 = 824, w = re * view.px;
