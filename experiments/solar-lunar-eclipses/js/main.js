@@ -8,11 +8,13 @@
   var stage = document.getElementById('stage');
   var scene = new window.EclipseScene(document.getElementById('scene'));
   var sky = new window.EclipseSky(document.getElementById('sky'));
+  var rail = window.StageRail.create(document.getElementById('stageRail'), {
+    onPick: function (index) { jumpTo(index); }
+  });
 
   var stageName = document.getElementById('stageName');
   var stageType = document.getElementById('stageType');
   var stageFill = document.getElementById('stageFill');
-  var stepsEl = document.getElementById('nodeSteps');
   var live = document.getElementById('live');
   var phiRange = document.getElementById('phiRange');
   var phiTicks = document.getElementById('phiTicks');
@@ -67,22 +69,25 @@
     return M.clamp((phi - b[0]) / span, 0, 1) * 1000;
   }
 
-  function nearestIndex(phi) {
+  /* 已经越过的最后一个节点：轨道上的琥珀高亮挂在它身上，
+     而不是「最近的节点」——点在两节点之间时，文字不会无归属地来回跳 */
+  function crossedIndex(phi) {
     var list = nodesFor(state.mode);
-    var best = 0;
-    for (var i = 1; i < list.length; i++) {
-      if (Math.abs(list[i].phi - phi) < Math.abs(list[best].phi - phi)) best = i;
+    var idx = 0;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].phi <= phi) idx = i;
     }
-    return best;
+    return idx;
   }
 
-  /* 节点上是节点名，落在节点之间就是「偏食 / 全食」这两段之一 */
+  /* 节点上是节点名，落在节点之间就是「偏食 / 全食」这两段之一。
+     全食段是食既→生光，也就是已越过节点为 1 / 2 的那两段。 */
   function phaseName(phi) {
-    var idx = nearestIndex(phi);
+    var idx = crossedIndex(phi);
     if (Math.abs(nodesFor(state.mode)[idx].phi - phi) < 0.35 * M.DEG) {
       return nodesFor(state.mode)[idx].name;
     }
-    return (idx >= 1 && idx <= 3) ? '全食' : '偏食';
+    return (idx >= 1 && idx <= 2) ? '全食' : '偏食';
   }
 
   function buildTicks() {
@@ -111,26 +116,6 @@
     stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
   }
 
-  function buildSteps() {
-    var list = nodesFor(state.mode);
-    stepsEl.innerHTML = '';
-    for (var i = 0; i < list.length; i++) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'node-step';
-      b.setAttribute('aria-label', '第 ' + (i + 1) + ' 个节点：' + list[i].name);
-      var dot = document.createElement('i');
-      var label = document.createElement('span');
-      label.textContent = list[i].name;
-      b.appendChild(dot);
-      b.appendChild(label);
-      b.addEventListener('click', (function (idx) {
-        return function () { jumpTo(idx); };
-      })(i));
-      stepsEl.appendChild(b);
-    }
-  }
-
   function setLabels(name, type) {
     if (stageName.textContent === name && stageType.textContent === type) return;
     stageName.classList.add('is-swap');
@@ -150,13 +135,7 @@
     setLabels(name, M.MODES[state.mode].type);
     live.textContent = name + '，' + M.MODES[state.mode].type;
     stageFill.style.width = (valueFromPhi(state.phi) / 10).toFixed(1) + '%';
-    for (var i = 0; i < stepsEl.children.length; i++) {
-      var el = stepsEl.children[i];
-      el.classList.toggle('is-active', i === state.index);
-      el.classList.toggle('is-done', i < state.index);
-      if (i === state.index) el.setAttribute('aria-current', 'step');
-      else el.removeAttribute('aria-current');
-    }
+    rail.setProgress(state.phi, state.index);
     transport.classList.toggle('is-playing', state.playing);
     playBtn.setAttribute('aria-label', state.playing ? '暂停' : '播放');
     prevBtn.disabled = state.index === 0;
@@ -171,7 +150,7 @@
     state.free = true;
     state.playing = false;
     move = null;
-    if (andIndex !== false) state.index = nearestIndex(state.phi);
+    if (andIndex !== false) state.index = crossedIndex(state.phi);
     updateUI();
   }
 
@@ -287,7 +266,7 @@
     state.playing = false;
     state.index = 0;
     state.free = false;
-    buildSteps();
+    rail.setStages(nodesFor(mode), mode);
     buildTicks();
     /* 两套食象的角度区间不相邻，跨模式不做插值动画，直接落到初亏 */
     jumpTo(0, true);
@@ -322,6 +301,8 @@
     }
 
     if (!state.dragging) syncSlider();
+    /* 轨道上的琥珀点跟着 φ 连续走（内部按 t 去重，静止时不写 DOM） */
+    rail.setProgress(state.phi, state.index);
     scene.render(state);
     sky.render(state);
     window.requestAnimationFrame(frame);
@@ -348,10 +329,17 @@
 
   document.addEventListener('keydown', function (e) {
     var tag = (e.target && e.target.tagName) || '';
-    if (tag === 'BUTTON' || tag === 'INPUT') return;
-    if (e.key === 'ArrowLeft') { step(-1); }
-    else if (e.key === 'ArrowRight') { step(1); }
-    else if (e.key === ' ') { e.preventDefault(); togglePlay(); }
+    /* 进度条自己要用方向键；按钮上的空格由按钮自己响应（回车/空格=点击） */
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    if (e.key === ' ') {
+      if (tag === 'BUTTON') return;
+      e.preventDefault();
+      togglePlay();
+    } else if (e.key === 'ArrowLeft') {
+      step(-1);
+    } else if (e.key === 'ArrowRight') {
+      step(1);
+    }
   });
 
   window.addEventListener('resize', fit);
@@ -364,7 +352,7 @@
 
   fit();
   state.phi = nodesFor('solar')[0].phi;
-  buildSteps();
+  rail.setStages(nodesFor('solar'), 'solar');
   buildTicks();
   updateUI();
   window.requestAnimationFrame(frame);
