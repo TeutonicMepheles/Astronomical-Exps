@@ -167,33 +167,65 @@ html, body {
   transform: translateX(-0.5px);
 }
 
-/* 关键节点 */
-.node-steps {
-  position: absolute; left: 0; right: 0; bottom: 46px;
-  display: flex; justify-content: center; gap: 6px;
+/* 食相轨：右侧竖向阶段导航（读过的实线、未读的点线、琥珀点=当前位置） */
+.rail { position: absolute; inset: 0; pointer-events: none; }
+.rail-cv { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* 未走过的部分：1.2px 方点、间距 3.4，沿弧排开 */
+.rail-base {
+  stroke: rgba(150, 172, 210, 0.40); stroke-width: 1.4;
+  stroke-linecap: round; stroke-dasharray: 1.4 2.6;
 }
-.node-step {
-  display: flex; flex-direction: column; align-items: center; gap: 9px;
-  width: 92px; padding: 8px 0 4px;
+/* 走过的部分：实线，冷墨色；琥珀只留给当前点 */
+.rail-read { stroke: rgba(226, 234, 250, 0.75); stroke-width: 1; stroke-linecap: round; }
+.rail-trail { stroke: url(#railTrailFade); stroke-width: 2.4; stroke-linecap: round; }
+.rail-ticks line { stroke: rgba(150, 172, 210, 0.24); stroke-width: 1; }
+.rail-ticks line.is-node { stroke: rgba(226, 234, 250, 0.64); stroke-width: 1; }
+.rail-ticks line.is-node.is-on { stroke: rgba(246, 212, 154, 0.9); }
+.rail-end { fill: none; stroke: rgba(226, 234, 250, 0.62); stroke-width: 1; opacity: 0.35; }
+
+.rail-head {
+  position: absolute; right: 78px; top: 122px;
+  display: flex; align-items: baseline; gap: 14px; white-space: nowrap;
+  font-size: 13px; letter-spacing: 0.14em;
+  color: rgba(160, 178, 208, 0.55);
+}
+.rail-pct { color: #e8eefb; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; }
+/* 当前阶段的一句说明，跟着读数走：不压在轨旁的刻度列上 */
+.rail-sub { color: rgba(190, 208, 236, 0.62); }
+.rail-sub::before {
+  content: "·"; margin-right: 14px; color: rgba(160, 178, 208, 0.35);
+}
+.rail-rest { color: rgba(160, 178, 208, 0.55); }
+.rail-rest b { color: #f6d49a; font-weight: 500; padding: 0 2px; }
+.rail-rest::before { content: "·"; margin-right: 14px; color: rgba(160, 178, 208, 0.35); }
+
+/* 标签在轨道左侧，right/top 由 js 按弧点算 */
+.rail-node {
+  position: absolute; top: 0; right: 0;
+  transform: translateY(-50%);
+  display: block; padding: 4px 0 4px 14px;
   border: 0; background: transparent;
-  color: rgba(160, 178, 208, 0.62);
-  font: 400 13px/1 inherit;
-  letter-spacing: 0.1em;
-  cursor: pointer;
+  color: #c2d0e6;
+  font-family: inherit; font-size: 19px; font-weight: 400; line-height: 1.25;
+  letter-spacing: 0.14em; text-align: right; white-space: nowrap;
+  pointer-events: auto; cursor: pointer;
+  transition: opacity 0.35s ease, color 0.22s ease;
 }
-.node-step i {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: rgba(150, 172, 210, 0.32);
-  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+.rail-node-name { display: block; }
+.rail-node.is-on { color: #f6d49a; }
+.rail-node:hover { color: #eef4ff; }
+.rail-node.is-on:hover { color: #f6d49a; }
+.rail-node:focus-visible { outline: 2px solid #8fb4e8; outline-offset: 4px; border-radius: 10px; }
+
+.rail-glow { position: absolute; left: 0; top: 0; pointer-events: none; }
+.rail-glow .halo {
+  position: absolute; left: -30px; top: -30px; width: 60px; height: 60px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(246, 212, 154, 0.40) 0%, rgba(246, 212, 154, 0.13) 34%, rgba(246, 212, 154, 0) 68%);
 }
-.node-step.is-done i { background: rgba(232, 178, 95, 0.55); }
-.node-step.is-active { color: #f6d49a; }
-.node-step.is-active i {
-  background: #f6d49a;
-  transform: scale(1.5);
-  box-shadow: 0 0 0 5px rgba(232, 178, 95, 0.16);
+.rail-glow .core {
+  position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; border-radius: 50%;
+  background: #f6d49a; box-shadow: 0 0 12px 2px rgba(246, 212, 154, 0.7);
 }
-.node-step:focus-visible { outline: 2px solid #8fb4e8; outline-offset: 4px; border-radius: 10px; }
 
 /* 播放控制 */
 .transport {
@@ -233,6 +265,6 @@ html, body {
   .view-switch button,
   .stage-name, .stage-type,
   .stage-track i,
-  .node-step i,
+  .rail-node,
   .transport button { transition: none; }
 }

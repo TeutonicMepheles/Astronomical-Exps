@@ -42,7 +42,29 @@
       </div>
     </div>
 
-    <nav class="node-steps" id="nodeSteps" aria-label="关键节点"></nav>
+    <nav class="rail" id="stageRail" aria-label="食相阶段">
+      <svg class="rail-cv" viewBox="0 0 1600 900" aria-hidden="true">
+        <defs>
+          <linearGradient id="railTrailFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f6d49a" stop-opacity="0"/>
+            <stop offset="1" stop-color="#f6d49a" stop-opacity="0.5"/>
+          </linearGradient>
+        </defs>
+        <path class="rail-base" fill="none"/>
+        <path class="rail-read" fill="none"/>
+        <path class="rail-trail" fill="none" stroke="url(#railTrailFade)"/>
+        <g class="rail-ticks"></g>
+        <circle class="rail-end" r="2.5"/>
+      </svg>
+      <div class="rail-head" aria-hidden="true">
+        <span class="rail-head-label">食相</span>
+        <span class="rail-pct" id="railPct">0%</span>
+        <span class="rail-sub" id="railSub">月面边缘刚接触日面</span>
+        <span class="rail-rest" id="railRest">剩 <b>4</b> 步</span>
+      </div>
+      <div class="rail-list" id="railList"></div>
+      <div class="rail-glow" aria-hidden="true"><span class="halo"></span><span class="core"></span></div>
+    </nav>
 
     <div class="transport" role="group" aria-label="播放控制">
       <button type="button" id="prevBtn" aria-label="上一步">
@@ -65,6 +87,7 @@
   <script src="js/eclipse-model.js"></script>
   <script src="js/eclipse-scene.js"></script>
   <script src="js/sky-window.js"></script>
+  <script src="js/stage-rail.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
