@@ -508,14 +508,15 @@
     /* 阳光方向：太阳在画外，用一道带箭头的标注交代方向。
        原来是四道暖色长虚线，整体更像一层没有来源的暖雾，而且会穿过月影 */
     ctx.save();
-    ctx.strokeStyle = 'rgba(198,220,255,0.42)';
-    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = 'rgba(198,220,255,0.48)';
+    ctx.lineWidth = 1.6;
     ctx.beginPath();
-    ctx.moveTo(46, cy - 186);
-    ctx.lineTo(196, cy - 186);
-    ctx.moveTo(184, cy - 191);
-    ctx.lineTo(198, cy - 186);
-    ctx.lineTo(184, cy - 181);
+    /* 贴着黄道面上方 136px 走：再高就成了一条悬在空处的 UI 贴纸，离它要解释的东西太远 */
+    ctx.moveTo(46, cy - 136);
+    ctx.lineTo(196, cy - 136);
+    ctx.moveTo(184, cy - 141);
+    ctx.lineTo(198, cy - 136);
+    ctx.lineTo(184, cy - 131);
     ctx.stroke();
     ctx.restore();
 
@@ -590,20 +591,27 @@
     ctx.restore();
 
     var nodes = [{ x: cx - a, y: cy }, { x: cx + a, y: cy }];
-    ctx.save();
-    for (var i = 0; i < nodes.length; i++) {
-      ctx.beginPath();
-      ctx.arc(nodes[i].x, nodes[i].y, 4, 0, TAU);
-      ctx.strokeStyle = 'rgba(246,212,154,0.85)';
-      ctx.fillStyle = 'rgba(12,19,34,0.9)';
-      ctx.lineWidth = 1.3;
-      ctx.fill();
-      ctx.stroke();
-    }
-    ctx.restore();
 
     this.drawEarth(ctx, state);
     this.drawMoon(ctx, moon, state, { x: mx, y: my }, SIDE_RM);
+
+    /* 交点圈画在月面之上：月球正好过交点时（φ=180°）它是盖在月面上的，
+       画在下面就只剩左下一段弧，看着像渲染残缺。压在月面上时不再填地色，
+       否则 4px 的暗点会把月心挖掉一块。 */
+    ctx.save();
+    for (var i = 0; i < nodes.length; i++) {
+      var dNode = Math.hypot(nodes[i].x - mx, nodes[i].y - my);
+      ctx.beginPath();
+      ctx.arc(nodes[i].x, nodes[i].y, 4, 0, TAU);
+      ctx.strokeStyle = 'rgba(246,212,154,0.9)';
+      ctx.lineWidth = 1.3;
+      if (dNode > SIDE_RM * view.px + 6) {
+        ctx.fillStyle = 'rgba(12,19,34,0.9)';
+        ctx.fill();
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
 
     /* 两轨道面的夹角：地心处、黄道面之上的 5.145° */
     var arcR = 196;
@@ -628,7 +636,8 @@
       ctx.fillText(text, x, y);
     };
     label('黄道面', 44, cy + 26, 'rgba(226,236,252,0.72)');
-    label('阳光', 204, cy - 186, 'rgba(206,222,250,0.62)');
+    /* 箭头尖端在 x=198，字头留 16px，不然读起来是「→阳光」一个词 */
+    label('阳光', 214, cy - 136, 'rgba(206,222,250,0.62)');
     /* 轨道面标签放到偏右、黄道线与虚线椭圆的间距最大的那一段，别压在任何一条线上 */
     label('月球轨道面', cx + 470, cy - 62, 'rgba(226,236,252,0.72)');
     label('5.145°', cx + arcR + 14, cy - 20, 'rgba(240,196,128,0.92)');
@@ -743,17 +752,6 @@
 
     /* 两个交点：轨道与黄道面相交处，z = ±D */
     var nodes = [obAt({ x: 0, y: 0, z: D }), obAt({ x: 0, y: 0, z: -D })];
-    ctx.save();
-    for (var n = 0; n < 2; n++) {
-      ctx.beginPath();
-      ctx.arc(nodes[n].x, nodes[n].y, 4, 0, TAU);
-      ctx.strokeStyle = 'rgba(246,212,154,0.85)';
-      ctx.fillStyle = 'rgba(12,19,34,0.9)';
-      ctx.lineWidth = 1.3;
-      ctx.fill();
-      ctx.stroke();
-    }
-    ctx.restore();
 
     /*
      * 月影：沿日→月方向的三维锥，投影后用「轴线的屏幕方向 ± 半径」画两侧边。
@@ -873,6 +871,22 @@
     ctx.restore();
 
     this.drawMoon(ctx, moon, state, m0, SIDE_RM, true);
+
+    /* 交点圈放在月面之上，理由同侧视：月球走到交点上时会被自己盖住。
+       压在月面上时不填地色，免得 4px 暗点挖掉月心 */
+    ctx.save();
+    for (var n = 0; n < 2; n++) {
+      ctx.beginPath();
+      ctx.arc(nodes[n].x, nodes[n].y, 4, 0, TAU);
+      ctx.strokeStyle = 'rgba(246,212,154,0.9)';
+      ctx.lineWidth = 1.3;
+      if (Math.hypot(nodes[n].x - m0.x, nodes[n].y - m0.y) > SIDE_RM * px + 6) {
+        ctx.fillStyle = 'rgba(12,19,34,0.9)';
+        ctx.fill();
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
 
     /*
      * 这一档的四个数全部随 φ 走，没有一个写死：离交点的角度由 u 与交点（u = 90°/270°）差算，
