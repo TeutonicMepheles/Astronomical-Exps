@@ -144,7 +144,7 @@
     var pm = global.PlanetMaterials;
     if (pm && pm.moonFront.ready) {
       /* 观者站在日月之间，看到的是正面受光的满月；贴片来自同一套 shader */
-      var side = R * 2 / pm.fill;
+      var side = R / pm.fill;
       ctx.drawImage(pm.moonFront.canvas, cx - side / 2, cy - side / 2, side, side);
     } else {
       var base = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.32, R * 0.1, cx, cy, R * 1.05);

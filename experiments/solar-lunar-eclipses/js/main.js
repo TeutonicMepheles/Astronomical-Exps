@@ -116,8 +116,13 @@
     stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
   }
 
+  var labelTarget = '';
   function setLabels(name, type) {
-    if (stageName.textContent === name && stageType.textContent === type) return;
+    /* 比的是「正在排队的目标」而不是当前文本：拖月球时 170ms 内会连发多次，
+       若拿当前文本判重，旧的那次计时器会把名字改回去（初亏/偏食来回闪）。 */
+    var key = name + '|' + type;
+    if (labelTarget === key) return;
+    labelTarget = key;
     stageName.classList.add('is-swap');
     stageType.classList.add('is-swap');
     window.clearTimeout(labelTimer);
@@ -192,8 +197,13 @@
       return;
     }
     if (e.pointerId !== drag.id) return;
-    /* 屏幕 y 向下，公转角逆时针计，所以用由下往上的差值 */
-    scrubTo(Math.atan2(drag.cy - p.y, p.x - drag.cx));
+    /* 屏幕 y 向下，公转角逆时针计，所以用由下往上的差值。
+       日食窗口 172.6°–187.4° 跨着 ±180° 的间断点：atan2 超过 180° 会翻成负角，
+       不归一化就会被 clamp 回初亏，等于拖不过食甚。按窗口中点取最近的等价角。 */
+    var a = Math.atan2(drag.cy - p.y, p.x - drag.cx);
+    var b = bounds();
+    a += Math.PI * 2 * Math.round(((b[0] + b[1]) / 2 - a) / (Math.PI * 2));
+    scrubTo(a);
   });
 
   sceneCanvas.addEventListener('pointerup', function (e) {
