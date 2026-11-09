@@ -45,6 +45,7 @@ experiments/newton-telescope/assets/studio-candidates/
 experiments/newton-telescope/assets/studio-parts/
 experiments/newton-telescope/assets/studio-refinements/
 experiments/light-pollution/lib-static-demo/standalone-light.html
+experiments/light-pollution/lib-static-demo/standalone.html
 experiments/light-pollution/assets/lamp-variants/*.zip
 experiments/foucault-pendulum/tests/*.png
 
