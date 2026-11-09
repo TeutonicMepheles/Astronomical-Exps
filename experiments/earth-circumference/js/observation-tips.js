@@ -7,7 +7,7 @@ export function mountObservationTips(scene){
  button.addEventListener('click',()=>window.dispatchEvent(new CustomEvent('open-observation',{detail:{site:'selected',origin:button.getBoundingClientRect().toJSON()}})));
  scene.stage.append(button);
  function update(){
-  const ready=scene.stage.dataset.viewMode==='earth'&&!scene.measuring&&scene.stage.classList.contains('has-selection')&&!scene.stage.classList.contains('aligning-point');
+  const ready=scene.stage.dataset.viewMode==='earth'&&!scene.measuring&&scene.stage.classList.contains('has-selection')&&!scene.stage.classList.contains('aligning-point')&&!scene.stage.classList.contains('showing-reference');
   const geometry=scene.measureArc(),point=geometry.sel;
   button.hidden=!ready||point.visible===false;if(button.hidden)return;
   button.style.left=`${point.x+30}px`;button.style.top=`${Math.max(110,Math.min(680,point.y-48))}px`;

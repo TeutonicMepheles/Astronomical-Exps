@@ -103,6 +103,9 @@ body { position:relative;overflow:clip; }
 .stage[data-view-mode="earth"] .orbit-transport { visibility:hidden; }
 
 /* Selection -> local observation: the two context views make room centrally. */
+.geo-reference { display:none; }
+.stage.showing-reference .geo-reference { display:grid; }
+.geo-ref-mark { width:16px;height:16px;border:2px solid #d7efe4;background:#1c6b58;transform:rotate(45deg);box-shadow:0 0 0 4px #10242f; }
 .stage:not(.has-selection) .geo-selected,
 .stage:not(.has-selection) .point-guides [data-guide="site"],
 .stage:not(.has-selection) .point-guides text { display:none!important; }
@@ -161,21 +164,47 @@ body { position:relative;overflow:clip; }
 .simple-calculation .circumference-formula { margin:24px 0;color:#eed7aa;font-size:23px;line-height:1.8; }
 .simple-calculation .calculation-substitution { min-height:48px;color:#e4edf0;font-size:22px; }
 .simple-calculation .calculation-result { display:block;min-height:70px;margin-top:12px;font-size:38px;color:#f2d69c; }
-.simple-calculation [data-calculate] { width:100%;background:#dfc99f;color:#172a35;border:0; }
+.simple-calculation [data-calculate],.simple-calculation [data-confirm-distance] { width:100%;background:#dfc99f;color:#172a35;border:0; }
+.simple-calculation [data-confirm-distance][hidden] { display:none; }
+.meridian-distance-track { position:absolute;inset:0;width:100%;height:100%;z-index:7;pointer-events:none; }
+.meridian-distance-track[hidden] { display:none; }
+.distance-arc { fill:none;stroke:#f2d59a;stroke-width:4;stroke-linecap:round; }
+.distance-end { fill:#f2d59a;stroke:#1a3040;stroke-width:2; }
 .simple-calculation .is-active { outline:2px solid #f0d29c; }
 
-.calculation-rod { fill:none;stroke:#d8c6a4;stroke-width:9;stroke-linecap:butt;filter:drop-shadow(2px 2px 2px #06121b); }
+.calculation-local-evidence { display:none; }
+.calculation-rod { fill:none;stroke:#d8c6a4;stroke-width:11;stroke-linecap:butt;filter:drop-shadow(2px 2px 2px #06121b); }
+.calculation-shadow { fill:none;stroke:#2a2118;stroke-width:16;stroke-linecap:butt;filter:drop-shadow(0 0 1px #fff6df) drop-shadow(0 0 3px #fff1cc); }
+.solar-field { pointer-events:none; }
+.solar-ray { fill:none;stroke:#ffb56a;stroke-width:2;stroke-dasharray:10 12;opacity:.55; }
+.calculation-ray { fill:none;stroke:#ffe3a8;stroke-width:3.5;stroke-linecap:round; }
+.calculation-altitude,.calculation-zenith,.calculation-right { fill:none;stroke:#fff4ca;stroke-width:3; }
+.calculation-rods .zenith-label,.calculation-rods .altitude-label { font-size:16px; }
+.calculation-rods text { fill:#fff5ce;stroke:#101c38;stroke-width:3px;paint-order:stroke;font-size:16px;font-weight:600; }
+.stage.is-calculating .point-guides [data-guide=sun] .guide-meridian,
+.stage.is-measuring .point-guides [data-guide=sun] .guide-meridian,
+.stage.is-measuring .point-guides [data-guide=site] .guide-meridian { stroke:var(--noon-ink); }
+.stage.is-calculating .point-guides [data-guide=sun] .guide-parallel { stroke:var(--solar-guide); }
 
 .observation-viewport .site-scene { transform-origin:0 0;transition:transform .8s cubic-bezier(.22,.68,.2,1); }
 .shadow-remeasure { position:absolute;left:16px;bottom:16px;z-index:5;min-height:44px;padding:8px 16px;border:1px solid #a4bdc5;border-radius:10px;background:#203b47;color:#fff;cursor:pointer;font:inherit; }
 .shadow-remeasure[hidden] { display:none; }
-.has-shadow-result #site-ray { animation:explanation-grow .55s .12s both; }
-.has-shadow-result #altitude-arc { animation:explanation-grow .5s .38s both; }
-.has-shadow-result #altitude-label { animation:none; }
-.has-shadow-result .site-measurement-results { opacity:1;transform:none; }
+.site-scene:not(.is-revealed) :is(#site-ray,#altitude-arc,#altitude-label,#shadow-result) { visibility:hidden; }
+.site-scene.is-revealed #site-ray,
+.site-scene.is-revealed #altitude-arc { visibility:visible; stroke-dasharray:1; stroke-dashoffset:1; }
+.site-scene.is-revealed #shadow-result { visibility:visible; opacity:0; animation:measure-fade .25s .4s forwards; }
+.site-scene.is-revealed #site-ray { animation:measure-draw .4s .55s forwards; }
+.site-scene.is-revealed #altitude-arc { animation:measure-draw .35s .9s forwards; }
+.site-scene.is-revealed #altitude-label { visibility:visible; opacity:0; animation:measure-fade .25s 1.15s forwards; }
+@keyframes measure-draw { to { stroke-dashoffset:0; } }
+@keyframes measure-fade { to { opacity:1; } }
 #shadow-result { text-anchor:middle; }
 @keyframes explanation-grow { from { clip-path:inset(0 100% 0 0);opacity:0; } to { clip-path:inset(0);opacity:1; } }
-@media(prefers-reduced-motion:reduce){ .observation-viewport .site-scene { transition:none; }.has-shadow-result #site-ray,.has-shadow-result #altitude-arc,.has-shadow-result #altitude-label,.has-shadow-result .site-measurement-results { animation:none; } }
+@media(prefers-reduced-motion:reduce){
+  .observation-viewport .site-scene { transition:none; }
+  .site-scene.is-revealed :is(#site-shadow,#site-ray,#altitude-arc) { animation:none; stroke-dashoffset:0; }
+  .site-scene.is-revealed :is(#altitude-label,#shadow-result) { animation:none; opacity:1; }
+}
 
 .observation-viewport { overflow:hidden;border-radius:20px; }
 

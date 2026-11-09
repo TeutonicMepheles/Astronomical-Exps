@@ -20,14 +20,14 @@ async function runAt(browser, viewport) {
   await page.waitForTimeout(1100);
 
   const scene = await page.locator('.site-scene').boundingBox();
-  for (let step = 0; step < 4; step += 1) await page.locator('[data-rod-decrease]').click();
-  await page.locator('[data-rod-increase]').click();
-  const rodState = await page.evaluate(() => ({
+  const beforeMeasure = await page.evaluate(() => ({
     rod: window.__globe.calibration.rod,
     label: document.querySelector('#rod-label').textContent,
-    value: document.querySelector('[data-rod-value]').textContent,
+    altitudeHidden: getComputedStyle(document.querySelector('#altitude-label')).visibility === 'hidden',
+    shadowVisible: getComputedStyle(document.querySelector('#site-shadow')).visibility !== 'hidden'
+      && document.querySelector('#site-shadow').getAttribute('d').length > 4,
   }));
-  assert.deepEqual(rodState, { rod: 70, label: '70 cm', value: '70 cm' });
+  assert.deepEqual(beforeMeasure, { rod: 100, label: '100 cm', altitudeHidden: true, shadowVisible: true });
   await page.getByRole('button', { name: '进入测量模式', exact: true }).click();
   await page.waitForTimeout(1000);
 
@@ -46,46 +46,47 @@ async function runAt(browser, viewport) {
   assert.ok(confirmBox.y + confirmBox.height <= viewportBox.y + viewportBox.height - 10, JSON.stringify({ viewportBox, confirmBox }));
 
   await page.getByRole('button', { name: '确认测量', exact: true }).click();
-  await page.waitForTimeout(1250);
+  await page.waitForTimeout(2200);
   const measured = await page.evaluate(() => {
     const record = window.__globe.measurements.snapshot().selected;
     const altitude = Math.atan2(window.__globe.calibration.rod, record.value) * 180 / Math.PI;
     return {
       record,
       altitude,
-      resultVisible: !document.querySelector('.site-measurement-results').hidden,
-      resultOpacity: Number(getComputedStyle(document.querySelector('.site-measurement-results')).opacity),
-      resultShadow: document.querySelector('[data-result-shadow]').textContent,
-      resultAltitude: document.querySelector('[data-result-altitude]').textContent,
+      resultShadow: document.querySelector('#shadow-result').textContent,
+      resultAltitude: document.querySelector('#altitude-label').textContent,
       altitudeOpacity: Number(getComputedStyle(document.querySelector('#altitude-label')).opacity),
+      sceneScale: Number(getComputedStyle(document.querySelector('.site-scene')).transform.match(/matrix\(([^,]+)/)?.[1] || 1),
     };
   });
   assert.equal(measured.record.saved, true);
-  assert.equal(measured.resultVisible, true);
-  assert.ok(measured.resultOpacity > 0.95, JSON.stringify(measured));
   assert.match(measured.resultShadow, new RegExp(measured.record.value.toFixed(1)));
   assert.match(measured.resultAltitude, new RegExp(measured.altitude.toFixed(1)));
   assert.ok(measured.altitudeOpacity > 0.95, JSON.stringify(measured));
+  assert.ok(measured.sceneScale >= 1, JSON.stringify(measured));
 
   await page.locator('.stage-next').click();
   await page.waitForTimeout(1500);
   const calculation = await page.evaluate(() => {
-    const evidence = document.querySelector('.calculation-local-evidence');
-    const panel = document.querySelector('.calculation-panel');
-    const sun = document.querySelector('.point-guides [data-guide="sun"] path');
+    const note = document.querySelector('.calculation-rods [data-rod="site"]');
+    const sun = document.querySelector('.point-guides [data-guide="sun"] .guide-meridian');
     return {
-      evidenceVisible: !evidence.hidden,
-      evidenceShadow: evidence.querySelector('[data-evidence-shadow]').textContent,
-      evidenceAltitude: evidence.querySelector('[data-evidence-altitude]').textContent,
-      evidenceBox: evidence.getBoundingClientRect().toJSON(),
-      panelBox: panel.getBoundingClientRect().toJSON(),
+      evidenceHidden: document.querySelector('.calculation-local-evidence').hidden
+        || getComputedStyle(document.querySelector('.calculation-local-evidence')).display === 'none',
+      shadow: note.querySelector('.shadow-length').textContent,
+      altitude: note.querySelector('.altitude-label').textContent,
+      rod: note.querySelector('.rod-length').textContent,
+      ray: note.querySelector('.calculation-ray').getAttribute('d'),
+      subsolarShadow: document.querySelector('.calculation-rods [data-rod="subsolar"] .calculation-shadow').getAttribute('d'),
       solarGuide: getComputedStyle(sun).stroke,
     };
   });
-  assert.equal(calculation.evidenceVisible, true);
-  assert.match(calculation.evidenceShadow, new RegExp(measured.record.value.toFixed(1)));
-  assert.match(calculation.evidenceAltitude, new RegExp(measured.altitude.toFixed(1)));
-  assert.ok(calculation.evidenceBox.right < calculation.panelBox.left);
+  assert.equal(calculation.evidenceHidden, true);
+  assert.equal(calculation.shadow, '');
+  assert.equal(calculation.rod, '');
+  assert.equal(calculation.subsolarShadow, '');
+  assert.ok(calculation.ray && calculation.ray.includes('L'), JSON.stringify(calculation));
+  assert.match(calculation.altitude, new RegExp(measured.altitude.toFixed(1)));
   assert.equal(calculation.solarGuide, solarGuideBefore);
   assert.deepEqual(errors, []);
   await page.close();

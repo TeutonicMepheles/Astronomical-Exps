@@ -133,11 +133,11 @@ export function screenToLatLon(px, py, basis) {
   let ny = py;
   if (len > 0.999) { nx = (px / len) * 0.999; ny = (py / len) * 0.999; }
   const nz = Math.sqrt(Math.max(0, 1 - nx * nx - ny * ny));
-  const local = [
-    nx * basis.e2[0] + ny * basis.axis[0] + nz * basis.e3[0],
-    nx * basis.e2[1] + ny * basis.axis[1] + nz * basis.e3[1],
-    nx * basis.e2[2] + ny * basis.axis[2] + nz * basis.e3[2],
-  ];
+  // Screen (nx, ny, nz) is already in the same frame as the basis vectors.
+  // Recover local (e2, axis, e3) by projection; multiplying the basis forward
+  // maps local coordinates out to the screen and misses the clicked point.
+  const dot = (v) => nx * v[0] + ny * v[1] + nz * v[2];
+  const local = [dot(basis.e2), dot(basis.axis), dot(basis.e3)];
   const l = Math.hypot(local[0], local[1], local[2]) || 1;
   return {
     lat: (Math.asin(local[1] / l) * 180) / Math.PI,
@@ -202,6 +202,13 @@ export function createScene(sceneRenderer) {
   const spinValue = document.getElementById('spinValue');
   const tiltValue = document.getElementById('tiltValue');
   const seasons = [...document.querySelectorAll('.season')];
+  const reference = document.createElement('div');
+  reference.className = 'geo-marker geo-reference';
+  reference.dataset.latlon = '0,0';
+  reference.hidden = true;
+  reference.setAttribute('aria-label', '同经参考点');
+  reference.innerHTML = '<span class="geo-ref-mark" aria-hidden="true"></span>';
+  document.querySelector('[data-selectable]')?.after(reference);
   const markers = [...document.querySelectorAll('[data-latlon], [data-subsolar]')];
 
   /* ---------- 舞台缩放 ---------- */
@@ -246,6 +253,14 @@ export function createScene(sceneRenderer) {
 
     // 标记：直射点由当前日期的太阳方向换算；其余是固定地理点，转到背面自动隐藏
     for (const el of markers) {
+      if (el.classList.contains('geo-reference')) {
+        const selected = document.querySelector('[data-selectable]');
+        const show = stage.classList.contains('showing-reference') && selected;
+        el.hidden = !show;
+        if (!show) continue;
+        const lon = Number(selected.dataset.latlon.split(',')[1]);
+        el.dataset.latlon = `${subsolarNow(basis).lat.toFixed(2)},${lon.toFixed(2)}`;
+      }
       if (el.dataset.subsolar !== undefined) {
         const { lat, lon } = subsolarLatLon(basis, state.sun);
         const p = projectLatLon(lat, lon, basis);
@@ -339,6 +354,7 @@ export function createScene(sceneRenderer) {
   axisGrip.tabIndex = -1;
   axisGrip.setAttribute('aria-hidden', 'true');
   let clickStart = null;
+  let revealTimer = 0;
   canvas.addEventListener('pointerdown', (ev) => {
     if (state.measuring) return;
     clickStart = { x: ev.clientX, y: ev.clientY };
@@ -355,13 +371,39 @@ export function createScene(sceneRenderer) {
     if (nx*nx+ny*ny>1 || !picker) return;
     const {lat,lon} = screenToLatLon(nx,ny,basisVectors(state.tilt,state.spin));
     picker.dataset.latlon = `${lat.toFixed(2)},${lon.toFixed(2)}`;
-    const before = state.spin;
-    alignToSelected();
-    const targetSpin = state.spin; state.spin = before;
-    stage.classList.add('aligning-point','has-selection');
+    stage.classList.add('has-selection','showing-reference');
+    stage.classList.remove('aligning-point');
     picker.querySelector('.geo-ring')?.animate([{scale:'1'},{scale:'1.5'},{scale:'1'}],{duration:400});
-    animateCamera({zoom:state.zoom,fx:state.focus.x,fy:state.focus.y,spin:targetSpin,observation:0},1400);
     paintPicker(); updateUI();
+    clearTimeout(revealTimer);
+    const latP = lat, lonP = lon;
+    const declination = subsolarNow(basisVectors(state.tilt, state.spin)).lat;
+    const bothVisible = (spin) => {
+      const basis = basisVectors(state.tilt, spin);
+      return projectLatLon(latP, lonP, basis).visible && projectLatLon(declination, lonP, basis).visible;
+    };
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const startNoon = () => {
+      stage.classList.remove('showing-reference');
+      stage.classList.add('aligning-point');
+      const before = state.spin;
+      alignToSelected();
+      const targetSpin = state.spin;
+      state.spin = before;
+      animateCamera({zoom:state.zoom,fx:state.focus.x,fy:state.focus.y,spin:targetSpin,observation:0},1400);
+    };
+    if (reduced || bothVisible(state.spin)) {
+      revealTimer = setTimeout(startNoon, reduced ? 0 : 900);
+    } else {
+      let facing = state.spin;
+      for (let step = 4; step <= 120; step += 4) {
+        if (bothVisible(state.spin + step)) { facing = state.spin + step; break; }
+        if (bothVisible(state.spin - step)) { facing = state.spin - step; break; }
+      }
+      animateCamera({zoom:state.zoom,fx:state.focus.x,fy:state.focus.y,spin:facing,observation:0},700,()=>{
+        revealTimer = setTimeout(startNoon, 650);
+      });
+    }
   });
   canvas.addEventListener('pointercancel',()=>{clickStart=null;});
 
@@ -444,9 +486,9 @@ export function createScene(sceneRenderer) {
 
   /* 运镜过渡：缩放与焦点用缓动插值，避免硬切 */
   let camAnim = null;
-  function animateCamera(to, ms = 1600) {
+  function animateCamera(to, ms = 1600, onDone) {
     const from = { zoom: state.zoom, fx: state.focus.x, fy: state.focus.y, spin: state.spin, observation: state.observation || 0, roll:state.roll||0, gridOnly:state.gridOnly||0 };
-    camAnim = { from, to, t0: performance.now(), ms:matchMedia('(prefers-reduced-motion: reduce)').matches?1:ms };
+    camAnim = { from, to, t0: performance.now(), ms:matchMedia('(prefers-reduced-motion: reduce)').matches?1:ms, onDone };
   }
   function stepCamera(now) {
     if (!camAnim) return false;
@@ -467,7 +509,7 @@ export function createScene(sceneRenderer) {
     };
     dirty = true;
     updateUI();
-    if (k >= 1) { camAnim = null; stage.classList.remove('aligning-point'); }
+    if (k >= 1) { const done = camAnim.onDone; camAnim = null; stage.classList.remove('aligning-point'); done?.(); }
     return true;
   }
 
@@ -566,18 +608,32 @@ export function createScene(sceneRenderer) {
       state.observationCamera = { zoom:state.zoom, fx:state.focus.x, fy:state.focus.y, observation:1,roll:state.roll||0,gridOnly:0 };
       state.calculating = true;
       stage.classList.add('is-calculating');
+      stage.classList.remove('rods-ready');
+      const siteNormal = projectLatLon(...picker.dataset.latlon.split(',').map(Number), basisVectors(state.tilt, state.spin)).normal;
       animateCamera({zoom:1.9,fx:GLOBE_CENTER.x+(GLOBE_CENTER.x-430)/1.9,
-        fy:GLOBE_CENTER.y+(GLOBE_CENTER.y-690)/1.9,observation:1,gridOnly:1,roll:Math.atan2(state.sun[0],state.sun[1])},2000);
+        fy:GLOBE_CENTER.y+(GLOBE_CENTER.y-690)/1.9,observation:1,gridOnly:1,roll:Math.atan2(siteNormal[0], siteNormal[1])},2000,()=>{
+        stage.classList.add('rods-ready');
+        window.dispatchEvent(new Event('rods-ready'));
+      });
       window.dispatchEvent(new Event('globe-mode-change'));
     },
     exitCalculation() {
       if (!state.calculating) return;
       state.calculating = false;
-      stage.classList.remove('is-calculating');
+      stage.classList.remove('is-calculating','rods-ready');
       animateCamera(state.observationCamera,1800);
       window.dispatchEvent(new Event('globe-mode-change'));
     },
     measureArc,
+    pointerLatLon(clientX, clientY) {
+      const rect = stage.getBoundingClientRect();
+      const scale = rect.width / STAGE_W;
+      const point = fromStage((clientX - rect.left) / scale, (clientY - rect.top) / scale);
+      const nx = (point.x - GLOBE_CENTER.x) / GLOBE_RADIUS;
+      const ny = (GLOBE_CENTER.y - point.y) / GLOBE_RADIUS;
+      if (nx * nx + ny * ny > 1) return null;
+      return screenToLatLon(nx, ny, basisVectors(state.tilt, state.spin));
+    },
     centralAngle() {
       const basis = basisVectors(state.tilt, state.spin);
       const sub = subsolarNow(basis);

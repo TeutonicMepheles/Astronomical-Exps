@@ -30,7 +30,6 @@ export function mountObservation(scene){
   pin.firstElementChild.setAttribute('d',`M${left+1} ${anchor-28} L${target.x} ${target.y} L${left+1} ${anchor+28} Z`);
  }
  const measurement=mountShadowMeasurement(panel);scene.measurements=measurement;scene.calibration={rod:100,ground:100};
- let selected='selected',openingAnimation=null;
  function setRodLength(value){
   const next=Math.max(10,Math.min(100,Math.round(Number(value)/10)*10));
   if(next===scene.calibration.rod)return;
@@ -42,23 +41,20 @@ export function mountObservation(scene){
   measurement.clearSelected();
   update();
  }
+ let selected='selected',openingAnimation=null;
  function paintEvidence(){
   const saved=measurement.snapshot().selected;
   const evidence=saved.saved?{rod:scene.calibration.rod,shadow:saved.value,altitude:Math.atan2(scene.calibration.rod,saved.value)*180/Math.PI}:null;
-  const visible=scene.measuring&&!scene.calculating;
-  const showSceneResult=Boolean(visible&&selected==='selected'&&evidence);
   const sceneResults=q('.site-measurement-results');
-  sceneResults.hidden=!showSceneResult;
-  if(showSceneResult){
+  sceneResults.hidden=true;
+  if(evidence){
    q('[data-result-shadow]').textContent=`${evidence.shadow.toFixed(1)} cm`;
    q('[data-result-altitude]').textContent=`${evidence.altitude.toFixed(1)}°`;
-  }
-  localEvidence.hidden=!(scene.calculating&&evidence);
-  if(evidence){
    localEvidence.querySelector('[data-evidence-rod]').textContent=`${evidence.rod.toFixed(0)} cm`;
    localEvidence.querySelector('[data-evidence-shadow]').textContent=`${evidence.shadow.toFixed(1)} cm`;
    localEvidence.querySelector('[data-evidence-altitude]').textContent=`${evidence.altitude.toFixed(1)}°`;
   }
+  localEvidence.hidden=true;
  }
  function update(){
  const visible=scene.measuring&&!scene.calculating;
@@ -73,37 +69,52 @@ export function mountObservation(scene){
  const ratio=day?Math.tan(delta*Math.PI/180):0;
  const direction=lat>=a.subLat?1:-1;
  const rod=scene.calibration.rod;
- const pxPerCm=Math.min(1.75,270/Math.max(rod*ratio,1));
+ const pxPerCm=150/rod;
  const h=rod*pxPerCm,s=h*ratio,tip=330+direction*s,top=355-h;
  const saved=measurement.snapshot().selected;
- const measured=selected==='selected'&&saved.saved;
+ const measured=selected==='selected'&&saved.saved&&day;
  const measuredShadow=measured?saved.value*pxPerCm:s;
- const measuredTip=330+direction*measuredShadow;
+ const measuredTip=330+direction*(measured?saved.value*pxPerCm:s);
  const shownAltitude=measured?Math.atan2(rod,saved.value)*180/Math.PI:alt;
  panel.classList.toggle('has-shadow-result',measured);
- q('.measurement-explanation').style.visibility=measured?'visible':'hidden';
  const art=q('.site-scene');
- const zoom=measured?Math.min(1.8,550/Math.max(measuredShadow+80,220),300/(h+45)):1;
- const focusX=(330+measuredTip)/2,focusY=(top+355)/2;
- art.style.transform=measured?`translate(${(330-focusX*zoom)/660*100}%,${(215-focusY*zoom)/400*100}%) scale(${zoom})`:'none';
+ art.classList.toggle('is-revealed',measured);
  const rayLength=Math.hypot(measuredShadow,h)||1;
  const sx=330-direction*measuredShadow/rayLength*110,sy=top-h/rayLength*110;
  q('#site-background').setAttribute('href',selected==='selected'?'./assets/scene-open.png':'./assets/scene-dry.png');
  const pole=q('#site-pole'),w=h*71/794;pole.setAttribute('x',330-w/2);pole.setAttribute('y',top);pole.setAttribute('width',w);pole.setAttribute('height',h);
  q('#rod-label').textContent=`${rod.toFixed(0)} cm`;
  q('#site-shadow').setAttribute('stroke-width',Math.max(2,w*.72));
- q('#rod-label').setAttribute('x','345');q('#rod-label').setAttribute('y',(355+top)/2);
- q('#site-shadow').setAttribute('d',`M330 355H${tip}`);
- q('#site-ray').setAttribute('d',`M${sx} ${sy}L${measuredTip} 355`);
+ q('#rod-label').setAttribute('x','348');q('#rod-label').setAttribute('y',(355+top)/2);
+ q('#site-shadow').style.visibility=day?'visible':'hidden';
+ q('#site-shadow').setAttribute('d',day?`M330 355H${tip}`:'');
+ q('#site-ray').setAttribute('pathLength','1');
+ q('#site-ray').setAttribute('d',measured?`M${sx} ${sy}L${measuredTip} 355`:'');
  q('#site-sun').setAttribute('cx',sx);q('#site-sun').setAttribute('cy',sy);
  const start=direction>0?-Math.PI:0,end=Math.atan2(-h,-direction*measuredShadow);
  let span=end-start;if(span>Math.PI)span-=2*Math.PI;if(span< -Math.PI)span+=2*Math.PI;
- const r=Math.max(18,Math.min(42,h*.5));
- const path=Array.from({length:25},(_,i)=>{const t=start+span*i/24;return `${i?'L':'M'}${measuredTip+Math.cos(t)*r} ${355+Math.sin(t)*r}`;}).join(' ');
+ const r=Math.max(22,Math.min(48,h*.45));
+ const path=measured?Array.from({length:25},(_,i)=>{const t=start+span*i/24;return `${i?'L':'M'}${measuredTip+Math.cos(t)*r} ${355+Math.sin(t)*r}`;}).join(' '):'';
+ q('#altitude-arc').setAttribute('pathLength','1');
  q('#altitude-arc').setAttribute('d',path);
- q('#altitude-label').setAttribute('x',measuredTip+Math.cos(start+span*.5)*(r+23));q('#altitude-label').setAttribute('y',355+Math.sin(start+span*.5)*(r+23));q('#altitude-label').textContent=`${shownAltitude.toFixed(1)}°`;
- q('#shadow-result').setAttribute('x',(330+measuredTip)/2);q('#shadow-result').setAttribute('y',380);q('#shadow-result').textContent=measured?`${saved.value.toFixed(1)} cm`:'';
- for(const id of ['#site-shadow','#site-ray','#site-sun','#altitude-arc','#altitude-label'])q(id).style.visibility=day?'visible':'hidden';
+ const altitudeX=measuredTip+Math.cos(start+span*.5)*(r+26);
+ const altitudeY=355+Math.sin(start+span*.5)*(r+26);
+ q('#altitude-label').setAttribute('x',altitudeX);q('#altitude-label').setAttribute('y',altitudeY);q('#altitude-label').textContent=measured?`${shownAltitude.toFixed(1)}°`:'';
+ const shadowLabelX=(330+measuredTip)/2,shadowLabelY=372;
+ q('#shadow-result').setAttribute('x',shadowLabelX);q('#shadow-result').setAttribute('y',shadowLabelY);q('#shadow-result').textContent=measured?`${saved.value.toFixed(1)} cm`:'';
+ if(measured){
+  const xs=[330-w/2,330+w/2,tip,measuredTip,altitudeX,shadowLabelX,348];
+  const ys=[top,355,altitudeY,shadowLabelY,sy];
+  const minX=Math.min(...xs)-40,maxX=Math.max(...xs)+40,minY=Math.min(...ys)-28,maxY=Math.max(...ys)+22;
+  const zoom=Math.min(2.15,660/Math.max(1,maxX-minX),400/Math.max(1,maxY-minY));
+  let tx=330-((minX+maxX)/2)*zoom,ty=200-((minY+maxY)/2)*zoom;
+  const left=minX*zoom+tx,right=maxX*zoom+tx,topEdge=minY*zoom+ty,bottom=maxY*zoom+ty;
+  if(left<12)tx+=12-left;
+  if(right>648)tx-=right-648;
+  if(topEdge<12)ty+=12-topEdge;
+  if(bottom>388)ty-=bottom-388;
+  art.style.transform=`translate(${tx/660*100}%,${ty/400*100}%) scale(${zoom})`;
+ }else art.style.transform='none';
  q('.site-scene').dataset.altitude=alt;q('.site-scene').dataset.shadowTip=tip;q('.site-scene').dataset.pxPerCm=pxPerCm;
  paintEvidence();
  measurement.setContext({site:selected,key:[a.selLat,a.selLon,a.subLat,scene.phase,scene.observationDate,rod].join(','),pxPerCm,direction,canMeasure:day,reason:'太阳在地平线以下，暂无日照杆影'});
