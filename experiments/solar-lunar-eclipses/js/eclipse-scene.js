@@ -18,7 +18,9 @@
     earth: { ex: 912, ey: 432, px: 82 },
     system: { ex: 1240, ey: 372, px: 45 },
     /* 侧视自带比例尺：轨道按 20 RE 画，太阳远在画外。与另外两档的 4.6 RE 互不影响 */
-    side: { ex: 800, ey: 372, px: 32 }
+    side: { ex: 800, ey: 372, px: 32 },
+    /* 斜视与侧视同一把尺子（20 RE / 27px per RE），ey 抬高到 280 让椭圆下缘让开观察卡片 */
+    oblique: { ex: 900, ey: 280, px: 27 }
   };
   var view = { ex: VIEWS.earth.ex, ey: VIEWS.earth.ey, px: VIEWS.earth.px, mode: 'earth' };
   var TAU = Math.PI * 2;
@@ -124,6 +126,10 @@
       this.drawSide(ctx, moon, state);
       return;
     }
+    if (view.mode === 'oblique') {
+      this.drawOblique(ctx, moon, state);
+      return;
+    }
     this.drawOrbit(ctx);
     this.drawRays(ctx, moon, state);
     /* 月本影画到它真正收敛或落到地面的距离为止：落地点就与地面黑斑对得上 */
@@ -157,7 +163,7 @@
   /* 主视角里月球/地球的屏幕位置，供拖动命中与角度换算使用。
      侧视里月球画在示意椭圆上，屏幕上绕地心的角度不再是 phi，拖动会算错，所以不给命中点。 */
   Scene.prototype.moonScreen = function () {
-    if (!this.lastMoon || view.mode === 'side') return null;
+    if (!this.lastMoon || view.mode === 'side' || view.mode === 'oblique') return null;
     return { x: sx(this.lastMoon.x), y: sy(this.lastMoon.y), r: M.RM * view.px };
   };
 
@@ -624,6 +630,271 @@
     this.drawScale(ctx);
   };
 
+  /* ---------------- 斜视：相机抬高 25°，专讲「这一次新月离交点 90°」 ----------------
+   *
+   * 侧视把黄道面压成一条线，方位角整个丢了——在那个机位里新月只能画在交点上。
+   * 这里黄道面是一个看得见进深的平面（深度轴 z 投影到屏幕上），所以黄纬和方位
+   * 能同时出现：交点线沿 z（垂直于日地连线），新月就落在黄纬最大处 1.79 RE，
+   * 影锥整条从地球上边擦过去。这是「为什么不是每个月都有日食」唯一画得出来的机位。
+   *
+   * 相机：方位沿 +x 看（太阳在左），俯角 β = 25°。屏幕基：
+   *   ĥ = (1,0,0)，û = (0, cosβ, sinβ)  →  x 水平、黄纬按 cosβ、黄道进深按 sinβ 压缩。
+   */
+  var OB_ELEV = 25 * M.DEG;
+  var OB_C = Math.cos(OB_ELEV);
+  var OB_S = Math.sin(OB_ELEV);
+
+  function obAt(p) {
+    return {
+      x: view.ex + p.x * view.px,
+      y: view.ey - (p.y * OB_C + p.z * OB_S) * view.px
+    };
+  }
+
+  /* 轨道圆：交点线沿 z，e1 = (cos i, −sin i, 0) 指向月球一侧，u = 180° 即新月 */
+  function obOrbit(u) {
+    var ci = Math.cos(SIDE_TILT), si = Math.sin(SIDE_TILT), D = SIDE_ORBIT;
+    return { x: D * Math.cos(u) * ci, y: -D * Math.cos(u) * si, z: D * Math.sin(u) };
+  }
+
+  Scene.prototype.drawOblique = function (ctx, moon, state) {
+    var ex = view.ex, ey = view.ey, px = view.px;
+    var D = SIDE_ORBIT;
+    var u = state.phi;
+    var P = obOrbit(u);
+    var S3 = { x: -(D + SIDE_SUN_D), y: 0, z: 0 };
+    /* 与侧视同一个压缩太阳：食甚时本影长 21 RE，锥尖落远侧地表附近 */
+    var Rs = SIDE_RM + SIDE_SUN_D * (SIDE_RM / (D + M.RE));
+
+    /*
+     * 黄道面：网格 + 一圈「轨道投到黄道面上的圆」。两条环之间的缝隙就是黄纬——
+     * 任何时刻都能看出月球离这个平面有多远，比只写一个数字更像证据。
+     */
+    ctx.save();
+    ctx.lineWidth = 1;
+    var gx0 = ex - 24 * px, gx1 = ex + 13 * px;
+    for (var gz = -20; gz <= 20; gz += 5) {
+      var gy = ey - gz * OB_S * px;
+      ctx.strokeStyle = gz === 0 ? 'rgba(168,196,240,0.20)' : 'rgba(150,178,222,0.065)';
+      ctx.beginPath();
+      ctx.moveTo(gx0, gy);
+      ctx.lineTo(gx1, gy);
+      ctx.stroke();
+    }
+    for (var gx = -20; gx <= 10; gx += 5) {
+      ctx.strokeStyle = 'rgba(150,178,222,0.055)';
+      ctx.beginPath();
+      ctx.moveTo(ex + gx * px, ey - 21 * OB_S * px);
+      ctx.lineTo(ex + gx * px, ey + 21 * OB_S * px);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    /* 俯视圆（轨道在黄道面上的投影）：淡实线，与虚线的真轨道成对 */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(150,178,222,0.20)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (var c = 0; c <= 120; c++) {
+      var a0 = c / 120 * TAU;
+      var qc = obAt({ x: D * Math.cos(a0), y: 0, z: D * Math.sin(a0) });
+      if (c === 0) ctx.moveTo(qc.x, qc.y);
+      else ctx.lineTo(qc.x, qc.y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    /* 轨道圆：3D 采样后投影成虚线椭圆 */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(196,216,248,0.58)';
+    ctx.lineWidth = 1.4;
+    ctx.setLineDash([3, 7]);
+    ctx.beginPath();
+    for (var i = 0; i <= 180; i++) {
+      var q = obAt(obOrbit(i / 180 * TAU));
+      if (i === 0) ctx.moveTo(q.x, q.y);
+      else ctx.lineTo(q.x, q.y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    /* 交点线：两个交点与地心共线，这条线就是日食能发生的唯一方向 */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(246,212,154,0.28)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([2, 6]);
+    ctx.beginPath();
+    ctx.moveTo(ex, obAt({ x: 0, y: 0, z: D }).y);
+    ctx.lineTo(ex, obAt({ x: 0, y: 0, z: -D }).y);
+    ctx.stroke();
+    ctx.restore();
+
+    /* 两个交点：轨道与黄道面相交处，z = ±D */
+    var nodes = [obAt({ x: 0, y: 0, z: D }), obAt({ x: 0, y: 0, z: -D })];
+    ctx.save();
+    for (var n = 0; n < 2; n++) {
+      ctx.beginPath();
+      ctx.arc(nodes[n].x, nodes[n].y, 4, 0, TAU);
+      ctx.strokeStyle = 'rgba(246,212,154,0.85)';
+      ctx.fillStyle = 'rgba(12,19,34,0.9)';
+      ctx.lineWidth = 1.3;
+      ctx.fill();
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    /*
+     * 月影：沿日→月方向的三维锥，投影后用「轴线的屏幕方向 ± 半径」画两侧边。
+     * 轴线几乎躺在屏幕里，这个近似与正投影的差在 1px 以内。
+     */
+    var dx = P.x - S3.x, dy = P.y - S3.y, dz = P.z - S3.z;
+    var Dm = Math.hypot(dx, dy, dz);
+    var ux = dx / Dm, uy = dy / Dm, uz = dz / Dm;
+    var L = Dm * SIDE_RM / (Rs - SIDE_RM);
+    var o0 = obAt(P);
+    var ax = ux * px, ay = -(uy * OB_C + uz * OB_S) * px;
+    var al = Math.hypot(ax, ay) || 1;
+    ax /= al; ay /= al;
+    var nx = -ay, ny = ax;
+
+    var N = 16;
+    var poly = function (widthAt, fill, stroke, dash) {
+      var i2, t, q2, h;
+      ctx.beginPath();
+      for (i2 = 0; i2 <= N; i2++) {
+        t = L * i2 / N;
+        q2 = obAt({ x: P.x + ux * t, y: P.y + uy * t, z: P.z + uz * t });
+        h = widthAt(t) * px;
+        if (i2 === 0) ctx.moveTo(q2.x - nx * h, q2.y - ny * h);
+        else ctx.lineTo(q2.x - nx * h, q2.y - ny * h);
+      }
+      for (i2 = N; i2 >= 0; i2--) {
+        t = L * i2 / N;
+        q2 = obAt({ x: P.x + ux * t, y: P.y + uy * t, z: P.z + uz * t });
+        h = widthAt(t) * px;
+        ctx.lineTo(q2.x + nx * h, q2.y + ny * h);
+      }
+      ctx.closePath();
+      if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+      if (stroke) {
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 1;
+        ctx.setLineDash(dash || []);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    };
+
+    poly(function (t) { return SIDE_RM + t * (Rs + SIDE_RM) / Dm; },
+      'rgba(150,174,218,0.16)', null);
+    poly(function (t) { return Math.max(0.004, SIDE_RM * (1 - t / L)); },
+      'rgba(7,10,20,0.93)', 'rgba(158,182,226,0.22)');
+
+    /* 地影只在月食档画：日食档它跟这一页无关，还会把黄道线整条吞掉 */
+    if (state.mode === 'lunar') {
+      ctx.save();
+      /* 画到本影真正的锥尖（21.34 RE），才看得出「它伸到了月球那么远、只是侧过去了」 */
+      var ec = M.cone(M.EARTH, M.RE), EL = ec.umbraLength, EN = 16;
+      ctx.beginPath();
+      for (var j = 0; j <= EN; j++) {
+        var et = EL * j / EN;
+        var ew = ec.umbraRadiusAt(et) * px;
+        var qq = obAt({ x: et, y: 0, z: 0 });
+        if (j === 0) ctx.moveTo(qq.x, qq.y - ew);
+        else ctx.lineTo(qq.x, qq.y - ew);
+      }
+      for (j = EN; j >= 0; j--) {
+        var et2 = EL * j / EN;
+        var ew2 = ec.umbraRadiusAt(et2) * px;
+        var qq2 = obAt({ x: et2, y: 0, z: 0 });
+        ctx.lineTo(qq2.x, qq2.y + ew2);
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(9,13,25,0.55)';
+      ctx.fill();
+      ctx.restore();
+    }
+
+    this.drawEarth(ctx, state);
+
+    /* 月球到黄道面的垂足：这一段就是黄纬，直接量得出来 */
+    var m0 = obAt(P), foot = obAt({ x: P.x, y: 0, z: P.z });
+    ctx.save();
+    ctx.strokeStyle = 'rgba(246,212,154,0.55)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath();
+    ctx.moveTo(m0.x, m0.y);
+    ctx.lineTo(foot.x, foot.y);
+    ctx.stroke();
+    ctx.restore();
+
+    /* 月球按真值画只有 0.27 RE，屏幕上 7px——加一圈定位环，否则找不到它在哪 */
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(m0.x, m0.y, SIDE_RM * px + 5, 0, TAU);
+    ctx.strokeStyle = 'rgba(214,228,250,0.42)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.restore();
+
+    this.drawMoon(ctx, moon, state, m0, SIDE_RM, true);
+
+    /*
+     * 余量：本影轴线在地心经线上的高度减去地球半径。这是这一帧真正的结论——
+     * 差 1.39 RE 没打到，不是「擦了一下」。月食档这条量的是地影，另有数，不在这里画。
+     */
+    var solarMode = state.mode !== 'lunar';
+    var axisY = (P.y + (0 - P.x) * (uy / ux)) * OB_C * px;
+    var gapTop = ey - axisY, gapBot = ey - M.RE * px;
+    if (solarMode) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(246,212,154,0.62)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(ex + 44, gapTop);
+      ctx.lineTo(ex + 44, gapBot);
+      ctx.moveTo(ex + 40, gapTop);
+      ctx.lineTo(ex + 48, gapTop);
+      ctx.moveTo(ex + 40, gapBot);
+      ctx.lineTo(ex + 48, gapBot);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    ctx.save();
+    ctx.font = '500 13px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
+    ctx.textBaseline = 'middle';
+    var label = function (text, x, y, color, align) {
+      ctx.textAlign = align || 'left';
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgba(6,11,22,0.88)';
+      ctx.strokeText(text, x, y);
+      ctx.fillStyle = color;
+      ctx.fillText(text, x, y);
+    };
+    label('阳光 →', 60, 130, 'rgba(240,196,128,0.75)');
+    label('黄道面', 60, ey + 22, 'rgba(226,236,252,0.66)');
+    label('月球轨道面', 1224, 546, 'rgba(226,236,252,0.66)');
+    label('升交点', nodes[0].x + 12, nodes[0].y, 'rgba(246,212,154,0.72)');
+    label('降交点', nodes[1].x + 12, nodes[1].y, 'rgba(246,212,154,0.72)');
+    /* 月球在右侧时标签翻到左边，别顶到食相轨 */
+    var side = m0.x > ex ? -16 : 16;
+    var align = m0.x > ex ? 'right' : 'left';
+    label((solarMode ? '新月' : '望月') + '离交点 90°', m0.x + side, m0.y - 34, 'rgba(214,226,246,0.62)', align);
+    label('黄纬 1.79', m0.x + side, m0.y + 22, 'rgba(246,212,154,0.80)', align);
+    if (solarMode) {
+      label('本影从地球上方掠过', ex - 176, ey - 84, 'rgba(206,222,250,0.62)');
+      label('余量 1.39', ex + 54, (gapTop + gapBot) / 2, 'rgba(246,212,154,0.86)');
+    } else {
+      label(m0.y > foot.y ? '地影从月球上方掠过' : '地影从月球下方掠过',
+        ex + 132, ey - 46, 'rgba(206,222,250,0.62)');
+    }
+    ctx.restore();
+
+    this.drawScale(ctx);
+  };
+
   /*
    * 比例尺 + 压缩说明。两档不是同一个比例的两幅图，是两把尺子：
    * 特写 4.6 RE（为了地月同框）、侧视 20 RE（为了读得出黄纬）。
@@ -631,13 +902,19 @@
    */
   Scene.prototype.drawScale = function (ctx) {
     var side = view.mode === 'side';
-    var re = side ? 10 : 1;
-    var label = side ? '10 个地球半径' : '1 个地球半径';
+    var obl = view.mode === 'oblique';
+    var wide = side || obl;
+    var re = wide ? 10 : 1;
+    var label = wide ? '10 个地球半径' : '1 个地球半径';
     var notes = side
-      ? ['月轨按 20 个地球半径绘制（实际 60.34），夹角为真值',
+      ? ['月球轨道按 20 个地球半径绘制（实际 60.34），夹角为真值',
          '轨道按正圆绘制（e=0.055 忽略），椭圆为侧视投影',
          '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
-      : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
+      : obl
+        ? ['月球轨道按 20 个地球半径绘制（实际 60.34），黄纬为真值',
+           '俯角 25°，黄纬按 cos 25°、黄道进深按 sin 25° 投影',
+           '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
+        : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
     var x0 = 48, y0 = 824, w = re * view.px;
 
     ctx.save();
@@ -663,15 +940,16 @@
   };
 
   /* at 只在侧视里用：月球画在示意椭圆上，不在主几何的屏幕位置 */
-  /* rm 只在侧视里传（SIDE_RM）：那一档用自己的月球半径，其余各档仍用 M.RM */
-  Scene.prototype.drawMoon = function (ctx, moon, state, at, rm) {
+  /* rm 只在侧视里传（SIDE_RM）：那一档用自己的月球半径，其余各档仍用 M.RM。
+     lit：斜视的反例帧里月球不在任何影子中，2D 模型算出来的遮挡对这个机位不成立。 */
+  Scene.prototype.drawMoon = function (ctx, moon, state, at, rm, lit) {
     var rmUse = rm || M.RM;
     var cx = at ? at.x : sx(moon.x), cy = at ? at.y : sy(moon.y), r = rmUse * view.px;
-    var vis = M.sunVisible(moon, M.EARTH, M.RE);
+    var vis = lit ? 1 : M.sunVisible(moon, M.EARTH, M.RE);
     var shade = 1 - vis;
     /* 本影深度：只有整轮沉入本影，折射红光才会盖过灰暗的日面 */
     var depth = 0;
-    if (moon.x > 0) {
+    if (!lit && moon.x > 0) {
       var umbraR = M.cone(M.EARTH, M.RE).umbraRadiusAt(moon.x);
       depth = M.clamp((umbraR - Math.abs(moon.y)) / rmUse, 0, 1);
     }
