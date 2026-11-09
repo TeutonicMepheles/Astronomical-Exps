@@ -595,23 +595,8 @@
     this.drawEarth(ctx, state);
     this.drawMoon(ctx, moon, state, { x: mx, y: my }, SIDE_RM);
 
-    /* 交点圈画在月面之上：月球正好过交点时（φ=180°）它是盖在月面上的，
-       画在下面就只剩左下一段弧，看着像渲染残缺。压在月面上时不再填地色，
-       否则 4px 的暗点会把月心挖掉一块。 */
-    ctx.save();
-    for (var i = 0; i < nodes.length; i++) {
-      var dNode = Math.hypot(nodes[i].x - mx, nodes[i].y - my);
-      ctx.beginPath();
-      ctx.arc(nodes[i].x, nodes[i].y, 4, 0, TAU);
-      ctx.strokeStyle = 'rgba(246,212,154,0.9)';
-      ctx.lineWidth = 1.3;
-      if (dNode > SIDE_RM * view.px + 6) {
-        ctx.fillStyle = 'rgba(12,19,34,0.9)';
-        ctx.fill();
-      }
-      ctx.stroke();
-    }
-    ctx.restore();
+    /* 交点标记画在月面之后：月球正好过交点时（φ=180°）它才不会被自己盖掉 */
+    this.drawNodeMarks(ctx, nodes, { x: mx, y: my }, SIDE_RM * view.px);
 
     /* 两轨道面的夹角：地心处、黄道面之上的 5.145° */
     var arcR = 196;
@@ -872,21 +857,8 @@
 
     this.drawMoon(ctx, moon, state, m0, SIDE_RM, true);
 
-    /* 交点圈放在月面之上，理由同侧视：月球走到交点上时会被自己盖住。
-       压在月面上时不填地色，免得 4px 暗点挖掉月心 */
-    ctx.save();
-    for (var n = 0; n < 2; n++) {
-      ctx.beginPath();
-      ctx.arc(nodes[n].x, nodes[n].y, 4, 0, TAU);
-      ctx.strokeStyle = 'rgba(246,212,154,0.9)';
-      ctx.lineWidth = 1.3;
-      if (Math.hypot(nodes[n].x - m0.x, nodes[n].y - m0.y) > SIDE_RM * px + 6) {
-        ctx.fillStyle = 'rgba(12,19,34,0.9)';
-        ctx.fill();
-      }
-      ctx.stroke();
-    }
-    ctx.restore();
+    /* 交点标记放在月面之后，理由同侧视：月球走到交点上时会被自己盖住 */
+    this.drawNodeMarks(ctx, nodes, m0, SIDE_RM * px);
 
     /*
      * 这一档的四个数全部随 φ 走，没有一个写死：离交点的角度由 u 与交点（u = 90°/270°）差算，
@@ -1107,6 +1079,32 @@
     ctx.beginPath();
     ctx.arc(cx, cy, r - 0.5, 0, TAU);
     ctx.stroke();
+  };
+
+  /*
+   * 交点标记。离开月面时是空心圈（4px，填地色压掉下面的引导线）；
+   * 月球压在交点上时改画实心小点——圈和月面描边同心嵌套，读起来像
+   * 月亮自带的一圈结构，「这里有个交点」反而说不清。
+   * 判据用像素半径，与 drawMoon 的 rm 同一口径。
+   */
+  Scene.prototype.drawNodeMarks = function (ctx, nodes, moon, moonRpx) {
+    ctx.save();
+    for (var i = 0; i < nodes.length; i++) {
+      ctx.beginPath();
+      if (Math.hypot(nodes[i].x - moon.x, nodes[i].y - moon.y) <= moonRpx + 6) {
+        ctx.arc(nodes[i].x, nodes[i].y, 2.6, 0, TAU);
+        ctx.fillStyle = 'rgba(246,212,154,0.95)';
+        ctx.fill();
+      } else {
+        ctx.arc(nodes[i].x, nodes[i].y, 4, 0, TAU);
+        ctx.fillStyle = 'rgba(12,19,34,0.9)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(246,212,154,0.9)';
+        ctx.lineWidth = 1.3;
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
   };
 
   Scene.prototype.drawEarthSpot = function (ctx, moon, state) {
