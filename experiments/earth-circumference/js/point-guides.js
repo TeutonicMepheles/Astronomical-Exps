@@ -14,8 +14,8 @@ export function mountPointGuides(scene) {
       for (const [la, lo] of samples) {
         const p = scene.projectLatLon(la, lo);
         if (!p.visible) { connected = false; continue; }
-        const x = (p.x - cam.focus.x) * cam.zoom + 781;
-        const y = (p.y - cam.focus.y) * cam.zoom + 324;
+        const x = cam.centre.x + p.normal[0] * cam.radius;
+        const y = cam.centre.y - p.normal[1] * cam.radius;
         d += `${connected ? 'L' : 'M'}${x.toFixed(2)} ${y.toFixed(2)} `;
         connected = true;
       }
@@ -29,16 +29,16 @@ export function mountPointGuides(scene) {
       // Latitude text follows its parallel; the common meridian owns one longitude.
       const latPoint=scene.projectLatLon(lat,lon-35);
       const latitude=group.children[2];
-      latitude.setAttribute('x',(latPoint.x-cam.focus.x)*cam.zoom+781+8);
-      latitude.setAttribute('y',(latPoint.y-cam.focus.y)*cam.zoom+324+(i?24:-12));
+      latitude.setAttribute('x',cam.centre.x+latPoint.normal[0]*cam.radius+8);
+      latitude.setAttribute('y',cam.centre.y-latPoint.normal[1]*cam.radius+(i?24:-12));
       latitude.textContent=`${Math.abs(lat).toFixed(1)}°${lat<0?'S':'N'}`;
       latitude.style.display=latPoint.visible?'':'none';
       const longitude=group.children[3];
       const selectedLat=Number(points[1].dataset.latlon.split(',')[0]);
       const anchorLat=Math.max(-65,Math.min(65,Math.min(cam.subsolar.lat,selectedLat)-22));
       const lonPoint=scene.projectLatLon(anchorLat,lon);
-      longitude.setAttribute('x',(lonPoint.x-cam.focus.x)*cam.zoom+781+12);
-      longitude.setAttribute('y',(lonPoint.y-cam.focus.y)*cam.zoom+324+8);
+      longitude.setAttribute('x',cam.centre.x+lonPoint.normal[0]*cam.radius+12);
+      longitude.setAttribute('y',cam.centre.y-lonPoint.normal[1]*cam.radius+8);
       longitude.textContent=`${Math.abs(lon).toFixed(1)}°${lon<0?'W':'E'}`;
       longitude.style.display=i===0&&lonPoint.visible?'':'none';
 

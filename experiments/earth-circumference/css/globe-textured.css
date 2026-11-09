@@ -3,6 +3,8 @@
 :root {
   --stage-scale: 1;
   --ink: #eaf0ff;
+  --solar-guide: #ffe3a0;
+  --orbital-plane: #fff0b0;
   --ink-soft: #9fb0d4;
 }
 
@@ -583,6 +585,13 @@ html, body {
 .measurement-records { font-size:15px; }
 .observation-footer { display:flex;justify-content:space-between;margin-top:12px; }
 .observation-footer button { min-height:44px;border:1px solid #95b6e9;border-radius:10px;background:#36578a;color:#fff;padding:10px 20px;font:inherit; }
+.rod-length-control { display:grid;grid-template-columns:auto 44px minmax(120px,1fr) 76px 44px;align-items:center;gap:10px;width:100%;color:#b8cbcb;font-size:15px; }
+.rod-length-control[hidden] { display:none; }
+.rod-length-control button { width:44px;min-width:44px;height:44px;min-height:44px;padding:0;border-color:#607a84;background:#1b3542;font-size:24px;line-height:1; }
+.rod-length-control button:hover,.rod-length-control button:focus-visible { border-color:#dfcba1;background:#2f4c55;outline:none; }
+.rod-length-control button:disabled { opacity:.34;cursor:default; }
+.rod-length-control input { width:100%;height:44px;margin:0;accent-color:#e0c99e;cursor:pointer;touch-action:none; }
+.rod-length-control output { color:#f4e3ba;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap; }
 .point-guides text { fill:#fff2c7;stroke:#101c38;stroke-width:4px;paint-order:stroke;font-size:16px;font-weight:600; }
 .point-guides [data-guide=site] path { stroke:#c5e9ff; }
 .point-guides g path:nth-child(2) { stroke-dasharray:12 5; }
@@ -669,3 +678,496 @@ html, body {
 .selected-date small { color:#aabbd7;font-size:13px; }
 .seasons { left:300px;width:1000px;display:block; }
 .seasons .season { position:absolute;transform:translateX(-50%); }
+
+/* ---------- 第一阶段：公转总览 + 地球放大图 ---------- */
+.zoom-link-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+.zoom-link-fill {
+  fill: rgba(131, 174, 231, .025);
+  stroke: none;
+}
+.zoom-link-edge {
+  fill: none;
+  stroke: rgba(150, 190, 235, .26);
+  stroke-width: 1;
+  stroke-dasharray: 4 7;
+}
+
+.orbit-overview {
+  position: absolute;
+  left: 22px;
+  top: 102px;
+  width: 572px;
+  height: 526px;
+  z-index: 4;
+  pointer-events: none;
+}
+.orbit-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-left: 18px;
+  color: #dbe7fb;
+}
+.orbit-heading b { font-size: 17px; font-weight: 600; letter-spacing: .3px; }
+.orbit-heading span { color: #8298bd; font-size: 12.5px; }
+.orbit-diagram {
+  position: absolute;
+  inset: 24px 0 0;
+}
+.orbit-path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 500px;
+  overflow: visible;
+}
+.orbit-path .orbit-plane { fill: none; }
+
+.orbit-sun {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+}
+.orbit-sun i {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 36%, #fff9d9 0 18%, #ffd985 38%, #e9a73b 72%, #bd7028 100%);
+  box-shadow: 0 0 14px 6px rgba(255, 195, 82, .20), 0 0 44px 18px rgba(255, 177, 64, .09);
+}
+.orbit-sun b {
+  position: absolute;
+  top: 30px;
+  color: #c7b58d;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.orbit-ghost,
+.orbit-current {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+}
+.orbit-ghost { width: 30px; height: 30px; opacity: .56; }
+.orbit-ghost em {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + var(--label-y, 16px));
+  transform: translateX(-50%);
+  color: #8da2c5;
+  font-size: 12px;
+  font-style: normal;
+  white-space: nowrap;
+}
+.orbit-current { width: 116px; height: 116px; z-index: 3; }
+.orbit-current b {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 2px 7px;
+  border-radius: 8px;
+  color: #ffe6ac;
+  background: rgba(18, 29, 62, .88);
+  border: 1px solid rgba(255, 222, 151, .34);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.orbit-globe {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: visible;
+  filter: saturate(.9) brightness(.78);
+}
+.orbit-globe img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  box-shadow: inset 0 0 16px rgba(1, 8, 23, .72);
+}
+.orbit-globe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 72% 34%, rgba(255, 222, 151, .34), transparent 34%),
+    linear-gradient(100deg, rgba(1, 7, 20, .56), transparent 52%);
+  border: 1px solid rgba(203, 226, 255, .33);
+}
+.orbit-globe.is-lit { filter: saturate(1.05) brightness(1.03); }
+.orbit-current .orbit-globe img {
+  box-shadow: 0 0 0 2px rgba(255, 226, 163, .38), 0 0 24px rgba(125, 188, 255, .28), 0 0 42px rgba(255, 205, 111, .12);
+}
+.orbit-axis {
+  position: absolute;
+  left: 50%;
+  top: -9px;
+  bottom: -9px;
+  width: 1.4px;
+  transform: translateX(-50%) rotate(23.44deg);
+  transform-origin: 50% 50%;
+  border-radius: 2px;
+  background: rgba(245, 249, 255, .92);
+  box-shadow: 0 0 3px rgba(255, 255, 255, .65);
+  z-index: 2;
+}
+.orbit-current .orbit-axis { top: -13px; bottom: -13px; width: 1.8px; }
+.orbit-status {
+  position: absolute;
+  left: 18px;
+  top: 488px;
+  min-height: 28px;
+  color: #b8c9e9;
+  font-size: 13px;
+  letter-spacing: .1px;
+}
+
+.overview-readout {
+  position: absolute;
+  left: 1340px;
+  top: 548px;
+  width: 222px;
+  padding: 17px 17px 15px;
+  border: 1px solid rgba(139, 173, 224, .25);
+  border-radius: 15px;
+  background: linear-gradient(160deg, rgba(27, 42, 83, .78), rgba(12, 24, 55, .68));
+  box-shadow: 0 16px 40px rgba(2, 8, 24, .28), inset 0 1px 0 rgba(209, 229, 255, .09);
+  backdrop-filter: blur(8px);
+  z-index: 9;
+}
+.overview-readout-title {
+  margin-bottom: 14px;
+  color: #e5efff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.point-reading {
+  display: grid;
+  grid-template-columns: 9px 1fr;
+  gap: 3px 9px;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid rgba(142, 174, 220, .13);
+}
+.point-reading i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  grid-row: 1 / 3;
+}
+.point-reading-selected i { border: 2px solid #7fe5ea; background: rgba(127, 229, 234, .16); }
+.point-reading-sun i { background: #ffcb6d; box-shadow: 0 0 8px rgba(255, 203, 109, .45); }
+.point-reading span { color: #98acd0; font-size: 12px; }
+.point-reading b {
+  color: #f3f7ff;
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.meridian-reading {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 7px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(142, 174, 220, .17);
+  color: #a8bbda;
+  font-size: 12px;
+}
+.meridian-reading b { color: #ffe1a0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.overview-readout small {
+  display: block;
+  margin-top: 11px;
+  color: #7f93b7;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.overview-hint {
+  position: absolute;
+  left: 614px;
+  bottom: 35px;
+  margin: 0;
+  transform: translateX(-50%);
+  color: #849abd;
+  font-size: 12px;
+  z-index: 5;
+  white-space: nowrap;
+}
+
+/* The concise first-stage board keeps the orbit visible, while months stay
+ * attached to the left-side revolution rather than stretching across the page. */
+.seasons { display: none; }
+.timeline {
+  left: 42px;
+  top: 672px;
+  width: 526px;
+  height: 108px;
+}
+.timeline .ticks { display: flex; left: 0; right: 0; top: 20px; height: 25px; }
+.timeline .ticks i { height: 12px; }
+.timeline .ticks i.major { height: 24px; }
+.timeline-caret { top: 14px; height: 36px; }
+.timeline-end { top: 50px; }
+.selected-date { top: 68px; font-size: 20px; }
+
+.stage:not(.is-measuring) .axis-layer {
+  display: block !important;
+  visibility: visible !important;
+}
+.stage:not(.is-measuring) .axis-line {
+  stroke: #eef5ff;
+  stroke-width: 1.8;
+  stroke-dasharray: none;
+  opacity: .94;
+  filter: drop-shadow(0 0 4px rgba(224, 240, 255, .72));
+}
+.stage:not(.is-measuring) .axis-grip { display: none !important; }
+.stage:not(.is-measuring) .geo-label { display: none !important; }
+.stage:not(.is-measuring) .geo-selected {
+  transform: translate(-10px, -50%);
+}
+.stage:not(.is-measuring) .geo-dot {
+  background: #ffc968;
+  box-shadow: 0 0 0 4px rgba(255, 201, 104, .15), 0 0 14px rgba(255, 190, 78, .55);
+}
+.stage:not(.is-measuring) .geo-ring {
+  border-color: #78e2e8;
+  box-shadow: 0 0 0 4px rgba(120, 226, 232, .10), 0 0 12px rgba(120, 226, 232, .42);
+}
+
+.stage.is-measuring .orbit-overview,
+.stage.is-measuring .overview-readout,
+.stage.is-measuring .overview-hint,
+.stage.is-measuring .zoom-link-layer {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ghost,
+  .orbit-current {
+    transition: none;
+  }
+}
+
+/* Surface markers stay centred independently of their labels and touch targets. */
+.stage:not(.is-measuring) .geo-selected { transform:translate(-50%,-50%); }
+.geo-dot,.geo-ring { animation:none; }
+.stage:not(.is-measuring) .point-guides path { stroke-width:2; filter:none; }
+.stage:not(.is-measuring) .point-guides [data-guide=sun] path:first-child { stroke:var(--solar-guide); }
+.stage:not(.is-measuring) .point-guides [data-guide=site] path:first-child { display:none; }
+.stage:not(.is-measuring) .point-guides g path:nth-child(2) { opacity:.35;stroke-width:1; }
+.orbit-globe::after { background:linear-gradient(var(--sun-angle,90deg),rgba(1,7,20,.88),rgba(1,7,20,.45) 45%,rgba(255,222,151,.14) 85%); }
+.overview-hint { display:none; }
+
+/* Quiet close-up backdrop: static gradients, below every scientific overlay. */
+.stage::after { content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse 700px 620px at 430px 425px,#030c1ef5 0%,#030c1ee8 48%,#030c1eaa 70%,transparent 100%); }
+.stage.is-measuring::after { display:none; }
+.zoom-link-fill { fill:url(#overview-cone-shade); }
+.zoom-link-edge { stroke:rgba(150,190,235,.32);stroke-dasharray:none; }
+.overview-readout { left:40px;top:152px;width:278px;padding:12px 16px;background:#071429b8;backdrop-filter:none; }
+.overview-readout-title { margin-bottom:6px; }
+.point-reading { grid-template-columns:9px 80px 1fr;padding:5px 0; }
+.point-reading i { grid-row:auto; }
+.point-reading b { font-size:12px; }
+.overview-readout small { display:none; }
+.meridian-reading { margin-top:4px;padding-top:7px; }
+
+/* Overview: local globe on the left, revolution and date controls on the right. */
+.orbit-overview { left:1000px; }
+.overview-readout { left:1040px; }
+.stage:not(.is-measuring) .timeline { left:1020px; }
+
+.orbit-plane-section { position:absolute;inset:0;width:100%;height:100%;z-index:3;overflow:visible;pointer-events:none; }
+.orbit-plane-section path { fill:none;stroke:var(--solar-guide); }
+.orbit-plane-section .section-back { stroke-width:1.75;stroke-dasharray:2 3;opacity:.45; }
+.orbit-plane-section .section-front { stroke-width:2.25;filter:drop-shadow(0 1px 1px #031020); }
+
+/* Solar-reference guides share a warm semantic colour; site markers remain cyan. */
+.stage:not(.is-measuring) .point-guides [data-guide=sun] path { stroke:var(--solar-guide); }
+.stage:not(.is-measuring) .geo-dot,
+.point-reading-sun i { background:var(--solar-guide); }
+.orbit-path .orbit-plane { fill:var(--orbital-plane);fill-opacity:.12;stroke:var(--solar-guide);stroke-width:1.1; }
+.orbit-plane-section .section-plane { fill:var(--orbital-plane);fill-opacity:.18;stroke:none; }
+
+.orbit-earth-surface { display:block;width:100%;height:100%;border-radius:50%;box-shadow:0 0 0 2px #ffe3a066; }
+.orbit-current .orbit-globe { filter:none; }
+.orbit-current .orbit-globe::after { background:none; }
+
+.orbit-camera .camera-sight { fill:none;stroke:#a5cfff;stroke-width:1;stroke-dasharray:3 4;opacity:.8; }
+.orbit-camera .camera-icon { fill:#10213b;stroke:#b9daff;stroke-width:1.3;pointer-events:none; }
+.orbit-camera .camera-hit { fill:transparent;stroke:none;pointer-events:all;cursor:pointer; }
+.orbit-camera:hover .camera-hit,
+.orbit-camera:focus-visible .camera-hit { stroke:#fff1c5;stroke-width:1.5;stroke-opacity:.8; }
+.orbit-camera text { fill:#c4dfff;font-size:12px;text-anchor:middle; }
+
+.orbit-sun i { position:absolute;left:50%;top:50%;transform:translate(-50%,-50%); }
+
+.orbit-plane-section .orbit-section-join { stroke-width:1.1;stroke-linecap:round; }
+.orbit-plane-section path { vector-effect:non-scaling-stroke; }
+
+/* Overview mode tabs decide which scientific scene carries the visual weight. */
+#globe,
+.sun-arrows,
+.axis-layer,
+.geo-marker,
+.point-guides,
+.zoom-link-layer {
+  transition: opacity .18s ease;
+}
+.orbit-overview {
+  transition: left .42s cubic-bezier(.2,.75,.3,1);
+}
+.orbit-diagram {
+  transform-origin: 286px 352px;
+  transition: transform .42s cubic-bezier(.2,.75,.3,1);
+}
+.orbit-current {
+  transition: left .11s linear, top .11s linear;
+}
+.stage:not(.is-measuring)[data-view-mode="orbit"] .orbit-overview {
+  left: 514px;
+}
+.stage:not(.is-measuring)[data-view-mode="orbit"] .orbit-diagram {
+  transform: scale(2.5);
+}
+.stage:not(.is-measuring)[data-view-mode="orbit"] .timeline {
+  left: 537px;
+  top: 710px;
+}
+.stage:not(.is-measuring)[data-view-mode="orbit"] #globe,
+.stage:not(.is-measuring)[data-view-mode="orbit"] .sun-arrows,
+.stage:not(.is-measuring)[data-view-mode="orbit"] .axis-layer,
+.stage:not(.is-measuring)[data-view-mode="orbit"] .geo-marker,
+.stage:not(.is-measuring)[data-view-mode="orbit"] .point-guides {
+  opacity: 0;
+  visibility: hidden;
+}
+.stage:not(.is-measuring)[data-view-mode="orbit"] #globe,
+.stage:not(.is-measuring)[data-view-mode="orbit"] .geo-marker {
+  pointer-events: none;
+}
+.stage:not(.is-measuring)[data-view-mode="orbit"] .zoom-link-layer {
+  opacity: 0;
+  visibility: hidden;
+}
+.stage:not(.is-measuring)[data-view-mode="earth"] .orbit-overview {
+  left: 1000px;
+}
+.stage:not(.is-measuring)[data-view-mode="earth"] .orbit-diagram {
+  transform: scale(.8);
+}
+.stage:not(.is-measuring)[data-view-mode="earth"] #globe,
+.stage:not(.is-measuring)[data-view-mode="earth"] .sun-arrows,
+.stage:not(.is-measuring)[data-view-mode="earth"] .axis-layer,
+.stage:not(.is-measuring)[data-view-mode="earth"] .geo-marker,
+.stage:not(.is-measuring)[data-view-mode="earth"] .point-guides {
+  animation: earth-main-reveal .52s .3s both;
+}
+.stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-edge {
+  stroke-dasharray: 1;
+  animation: camera-link-draw .5s .52s both;
+}
+.stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-fill {
+  animation: camera-link-fill .45s .74s both;
+}
+@keyframes camera-link-draw {
+  from { opacity: .15; stroke-dashoffset: 1; }
+  to { opacity: 1; stroke-dashoffset: 0; }
+}
+@keyframes camera-link-fill {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes earth-main-reveal {
+  from { opacity: 0; visibility: visible; }
+  to { opacity: 1; visibility: visible; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-overview,
+  .orbit-diagram,
+  .orbit-current,
+  .stage:not(.is-measuring)[data-view-mode="earth"] #globe,
+  .stage:not(.is-measuring)[data-view-mode="earth"] .sun-arrows,
+  .stage:not(.is-measuring)[data-view-mode="earth"] .axis-layer,
+  .stage:not(.is-measuring)[data-view-mode="earth"] .geo-marker,
+  .stage:not(.is-measuring)[data-view-mode="earth"] .point-guides,
+  .stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-edge,
+  .stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-fill {
+    animation: none;
+  }
+}
+
+.view-mode-tabs {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid rgba(143, 177, 226, .28);
+  border-radius: 17px;
+  background: rgba(8, 18, 42, .88);
+  box-shadow: 0 12px 30px rgba(2, 8, 24, .32), inset 0 1px 0 rgba(222, 238, 255, .08);
+}
+.view-mode-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 128px;
+  min-height: 48px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #91a7cb;
+  background: transparent;
+  font: 500 14px/1.2 inherit;
+  cursor: pointer;
+}
+.view-mode-tab svg {
+  width: 23px;
+  height: 23px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.view-mode-tab:hover,
+.view-mode-tab[aria-selected="true"] {
+  color: #fff1c5;
+  border-color: rgba(255, 227, 160, .28);
+  background: rgba(47, 66, 105, .62);
+}
+.view-mode-tab[aria-selected="true"] svg {
+  filter: drop-shadow(0 0 7px rgba(255, 219, 139, .42));
+}
+.view-mode-tab:focus-visible {
+  outline: 2px solid #d7ebff;
+  outline-offset: 2px;
+}
+.stage.is-measuring .view-mode-tabs { display: none !important; }

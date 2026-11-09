@@ -13,55 +13,23 @@ import { SOLAR_MODEL_VERSION, daysInYear, calendarDay, declination, dateFromDay 
 export const STAGE_W = 1600;
 export const STAGE_H = 900;
 
-export const GLOBE_CENTER = { x: 781, y: 324 };   // 逻辑坐标（CSS y 向下）
+export const GLOBE_CENTER = { x: 400, y: 400 };  // 逻辑坐标（CSS y 向下）
 export const GLOBE_RADIUS = 202;                  // 逻辑像素
 
-/* Legacy pose constants remain for old callers; the active date model derives
- * orientation from Cooper N+284 declination with fixed sunlight. */
+/* The axial direction is fixed for the one-year teaching model. Dates move
+ * Earth along its orbit and change the sunlight direction; they never tilt
+ * or turn the axis. */
 export const AXIAL_TILT_DEG = 23.44;
-/** 年相位驱动的地轴摆幅（度）。以 23.5° 为中心、±12.5°，正好落在参考图量出的 11°–36° 扇形内。 */
-export const PHASE_TILT_SWING = 12.5;
-
-/** 由季节算出太阳方向：保持在同一平面内，与地轴夹角 90°−δ。
- *  δ>0 表示直射北半球。地轴固定 ⇒ 太阳在画面上随季节上下移动，这与地球固定、太阳赤纬变化的实际关系一致。 */
-export function sunForPhase(phase, axis) {
-  const delta = (subsolarLatFromPhase(phase) * Math.PI) / 180;
-  const a = axis;
-  const dot = SUN[0] * a[0] + SUN[1] * a[1] + SUN[2] * a[2];
-  let u = [SUN[0] - dot * a[0], SUN[1] - dot * a[1], SUN[2] - dot * a[2]];
-  const ul = Math.hypot(u[0], u[1], u[2]) || 1;
-  u = u.map((c) => c / ul);
-  const c = Math.cos(Math.PI / 2 - delta);   // = sin δ
-  const sn = Math.sin(Math.PI / 2 - delta);  // = cos δ
-  return [c * a[0] + sn * u[0], c * a[1] + sn * u[1], c * a[2] + sn * u[2]];
-}
+export const FIXED_AXIS_SCREEN_TILT = -AXIAL_TILT_DEG;
+export const TILT_MIN = AXIAL_TILT_DEG;
+export const TILT_MAX = AXIAL_TILT_DEG;
+export const TILT_INIT = FIXED_AXIS_SCREEN_TILT;
 
 export function subsolarLatFromPhase(phase, year=new Date().getFullYear()) {
   const n=1+Math.round(Math.min(1,Math.max(0,phase))*(daysInYear(year)-1));
   return declination(year,n);
 }
 
-export function tiltFromSubsolarLat(deltaDeg, sun) {
-  const A = -sun[0];
-  const B = sun[1];
-  const R = Math.hypot(A, B);
-  const C = Math.sin((deltaDeg * Math.PI) / 180);
-  const ratio = Math.min(1, Math.max(-1, C / R));
-  const psi = Math.atan2(B, A);
-  const t1 = Math.asin(ratio) - psi;
-  // 取落在 [−20°, 70°] 区间的那个解（另一半在另一侧，不是我们要的姿态）
-  const cands = [t1, Math.PI - Math.asin(ratio) - psi].map((t) => {
-    let d = (t * 180) / Math.PI;
-    d = ((d + 540) % 360) - 180;
-    return d;
-  });
-  const ok = cands.filter((d) => d > -20 && d < 70);
-  return ok.length ? ok[0] : cands[0];
-}
-
-export const TILT_MIN = 11;
-export const TILT_MAX = 36;
-export const TILT_INIT = 23.5;
 /** 初始自转角：让 (0°,0°) 的直射点落在可见的光照侧，与参考图一致 */
 export const SPIN_INIT = -33;
 
@@ -76,6 +44,25 @@ export const SUN = (() => {
   const n = Math.hypot(v[0], v[1], v[2]);
   return v.map((c) => c / n);
 })();
+
+/** Local-noon close-up, viewed from the sunward side of the selected meridian.
+ * This camera follows the orbit; it is not the fixed camera of the orbit diagram.
+ * The fixed equatorial viewing azimuth avoids the old tangent sign flip at equinox.
+ * The same unit vector drives lighting, rays and the subsolar surface normal.
+ */
+export function sunForOrbitDate(year, day) {
+  const {axis, e2} = basisVectors(FIXED_AXIS_SCREEN_TILT, 0);
+  const delta = declination(year, day) * Math.PI / 180;
+  const azimuth = 35 * Math.PI / 180;
+  return axis.map((v, i) => v * Math.sin(delta)
+    + (e2[i] * Math.cos(azimuth) + (i === 2 ? Math.sin(azimuth) : 0)) * Math.cos(delta));
+}
+
+/** Backwards-compatible phase helper shared by older exports and tests. */
+export function sunForPhase(phase, axis, year = new Date().getFullYear()) {
+  const day = 1 + Math.round(Math.min(1, Math.max(0, phase)) * (daysInYear(year) - 1));
+  return sunForOrbitDate(year, day);
+}
 
 /** 由朝向角和自转角求一组正交基（屏幕坐标，y 向上）。
  *  axis 为地轴（北），e2/e3 是赤道平面内的两个轴，已按自转角旋转。 */
@@ -120,9 +107,9 @@ export function projectLatLon(latDeg, lonDeg, basis) {
   };
 }
 
-/** 固定太阳方向 → 地球局部经纬度（直射点）。
- *  直射点不是固定在地表的地理点：它是"太阳正上方那一点"，随地球姿态改变而改变经度/纬度，
- *  但在屏幕上的位置恒定（始终朝向太阳）。 */
+/** 地球到太阳的方向 → 地球局部经纬度（直射点）。
+ *  直射点不是固定在地表的地理点：它是"太阳正上方那一点"，随日期和
+ *  当地正午自转对齐而改变经度/纬度。 */
 export function subsolarLatLon(basis, sun) {
   const local = [
     sun[0] * basis.e2[0] + sun[1] * basis.e2[1] + sun[2] * basis.e2[2],
@@ -164,7 +151,7 @@ export function createScene(sceneRenderer) {
   year,day,
   spin: SPIN_INIT,
   phase: (day-1)/(daysInYear(year)-1), // Calendar position, inclusive endpoints.
-  sun: SUN.slice(),              // 当前太阳方向（随季节变化，自转/选点不变）
+  sun: SUN.slice(),              // 当前太阳方向（随公转日期变化，地轴不变）
   tilt: TILT_INIT,
   zoom: 1,                       // 相机缩放（测量视角用）
   focus: { x: GLOBE_CENTER.x, y: GLOBE_CENTER.y },   // 相机对准的逻辑坐标
@@ -243,28 +230,29 @@ export function createScene(sceneRenderer) {
   function updateUI() {
     const basis = basisVectors(state.tilt, state.spin);
 
-    const t = (state.tilt * Math.PI) / 180;
-    const dir = { x: -Math.sin(t), y: -Math.cos(t) };   // 北极方向（CSS y 向下）
-    const out = GLOBE_RADIUS * 1.10;
-    const inn = GLOBE_RADIUS * 1.06;
-    axisLine.setAttribute('x1', String(GLOBE_CENTER.x - dir.x * inn));
-    axisLine.setAttribute('y1', String(GLOBE_CENTER.y - dir.y * inn));
-    axisLine.setAttribute('x2', String(GLOBE_CENTER.x + dir.x * out));
-    axisLine.setAttribute('y2', String(GLOBE_CENTER.y + dir.y * out));
+    const dir = { x: basis.axis[0], y: -basis.axis[1] };   // 北极方向（CSS y 向下）
+    const out = GLOBE_RADIUS * 1.14;
+    const inn = GLOBE_RADIUS * 1.14;
+    const south = toStage({x:GLOBE_CENTER.x-dir.x*inn,y:GLOBE_CENTER.y-dir.y*inn});
+    const north = toStage({x:GLOBE_CENTER.x+dir.x*out,y:GLOBE_CENTER.y+dir.y*out});
+    axisLine.setAttribute('x1', String(south.x));
+    axisLine.setAttribute('y1', String(south.y));
+    axisLine.setAttribute('x2', String(north.x));
+    axisLine.setAttribute('y2', String(north.y));
 
     axisGrip.style.left = GLOBE_CENTER.x + dir.x * out + 'px';
     axisGrip.style.top = GLOBE_CENTER.y + dir.y * out + 'px';
     axisGrip.setAttribute('aria-valuenow', state.tilt.toFixed(1));
 
-    // 标记：直射点由固定太阳方向换算；其余是固定地理点，随地球自转、转到背面自动隐藏
+    // 标记：直射点由当前日期的太阳方向换算；其余是固定地理点，转到背面自动隐藏
     for (const el of markers) {
       if (el.dataset.subsolar !== undefined) {
-        const { lat, lon } = subsolarLatLon(basis, SUN);
+        const { lat, lon } = subsolarLatLon(basis, state.sun);
         const p = projectLatLon(lat, lon, basis);
         const st = toStage(p);
         el.style.left = st.x + 'px';
         el.style.top = st.y + 'px';
-        el.hidden = false;                       // 太阳方向固定 ⇒ 直射点始终朝向观察者
+        el.hidden = false;                       // 求解时保留正向深度，直射点始终可见
         const latEl = el.querySelector('[data-lat]');
         const lonEl = el.querySelector('[data-lon]');
         if (latEl) latEl.textContent = fmtLat(lat);
@@ -326,30 +314,18 @@ export function createScene(sceneRenderer) {
     dirty = true;
   }
 
-  /** 设置年相位：同步更新地轴倾角（地轴姿态是派生量，不是用户直接控制的物理量） */
+  /** 设置年相位：只改变公转位置和太阳方向；地轴方向和倾角保持不变。 */
   function setPhase(phase) {
     if (state.measuring) return;
     camAnim = null;stage.classList.remove('aligning-point');
     const d=daysInYear(state.year);
     state.day=1+Math.round(Math.min(1,Math.max(0,phase))*(d-1));
     state.phase=(state.day-1)/(d-1);
-    state.sun=SUN;
-    state.tilt=tiltFromSubsolarLat(declination(state.year,state.day),SUN);
+    state.sun=sunForOrbitDate(state.year,state.day);
+    state.tilt=FIXED_AXIS_SCREEN_TILT;
 
-    alignToSelected();          // 换季后仍与所选点同经线
+    alignToSelected();          // 当地正午：直射点与所选点共用一条经线
     dirty = true;
-  }
-
-  /** 直接设定地轴倾角（拖手柄用）：反解出最接近当前相位的年相位 */
-  function setTiltFromPose(tiltDeg) {
-    if (state.measuring) return;
-    const target=subsolarLatLon(basisVectors(tiltDeg,0),SUN).lat;
-    let best=state.day,error=Infinity;
-    for(let n=1;n<=daysInYear(state.year);n++){
-      const diff=Math.abs(declination(state.year,n)-target)+Math.abs(n-state.day)*1e-8;
-      if(diff<error){best=n;error=diff;}
-    }
-    setPhase((best-1)/(daysInYear(state.year)-1));
   }
 
   function setSpin(value) {
@@ -470,7 +446,7 @@ export function createScene(sceneRenderer) {
   let camAnim = null;
   function animateCamera(to, ms = 1600) {
     const from = { zoom: state.zoom, fx: state.focus.x, fy: state.focus.y, spin: state.spin, observation: state.observation || 0, roll:state.roll||0, gridOnly:state.gridOnly||0 };
-    camAnim = { from, to, t0: performance.now(), ms };
+    camAnim = { from, to, t0: performance.now(), ms:matchMedia('(prefers-reduced-motion: reduce)').matches?1:ms };
   }
   function stepCamera(now) {
     if (!camAnim) return false;
@@ -496,6 +472,7 @@ export function createScene(sceneRenderer) {
   }
 
   function enterMeasure() {
+    if(!stage.classList.contains('has-selection')||stage.classList.contains('aligning-point')||state.measuring)return;
     state.measuring = true;
     stage.classList.add('is-measuring');
     window.dispatchEvent(new Event('globe-mode-change'));
@@ -503,25 +480,11 @@ export function createScene(sceneRenderer) {
     alignToSelected();
     const spinAligned = state.spin;
     state.spin = spinBefore;            // 先还原，让运镜把朝向一起过渡过去
-    // 按两点实际间距决定缩放：固定 1.75× 在高纬/跨赤道等情况下会把某一点裁掉
-    const basis = basisVectors(state.tilt, spinAligned);
-    const sub = subsolarNow(basis);
-    const [latP, lonP] = picker ? picker.dataset.latlon.split(',').map(Number) : [0, 0];
-    const a = projectLatLon(sub.lat, lonP, basis);
-    const b = projectLatLon(latP, lonP, basis);
-    const targetZoom = Math.min(1.65, 560 / Math.max(Math.abs(a.y - b.y), 1));
-    const dy = (a.y - b.y) * targetZoom;
-    const dx = (a.x - b.x) * targetZoom;
-    const targetX = Math.max(150 - Math.min(0, dx), Math.min(780 - Math.max(0, dx), 650));
-    const targetY = Math.max(150 - Math.min(0, dy), Math.min(700 - Math.max(0, dy), 540));
-    const targetFocus = { x: b.x - (targetX - GLOBE_CENTER.x) / targetZoom,
-      y: b.y - (targetY - GLOBE_CENTER.y) / targetZoom };
-    // Preserve the complete globe within the left viewing region while prioritizing the selected point.
-    const cx = (GLOBE_CENTER.x - targetFocus.x) * targetZoom + GLOBE_CENTER.x;
-    const cy = (GLOBE_CENTER.y - targetFocus.y) * targetZoom + GLOBE_CENTER.y;
-    targetFocus.x += (cx - Math.max(350, Math.min(430, cx))) / targetZoom;
-    targetFocus.y += (cy - Math.max(410, Math.min(460, cy))) / targetZoom;
-    animateCamera({ zoom: targetZoom, fx: targetFocus.x, fy: targetFocus.y, spin: spinAligned, observation: 1 });
+    // Leave a stable central observation area between the two context views.
+    const targetZoom=.94;
+    const targetFocus={x:GLOBE_CENTER.x+(GLOBE_CENTER.x-240)/targetZoom,
+      y:GLOBE_CENTER.y+(GLOBE_CENTER.y-440)/targetZoom};
+    animateCamera({zoom:targetZoom,fx:targetFocus.x,fy:targetFocus.y,spin:spinAligned,observation:1},900);
     updateUI();
     dirty = true;
   }
@@ -529,7 +492,7 @@ export function createScene(sceneRenderer) {
     state.measuring = false;
     stage.classList.remove('is-measuring');
     window.dispatchEvent(new Event('globe-mode-change'));
-    animateCamera({ zoom: overviewZoom, fx: overviewFocus.x, fy: overviewFocus.y, observation: 0 });
+    animateCamera({ zoom: overviewZoom, fx: overviewFocus.x, fy: overviewFocus.y, observation: 0 },900);
     updateUI();
     dirty = true;
   }
@@ -550,7 +513,7 @@ export function createScene(sceneRenderer) {
     stepCamera(performance.now());
     if (dirty) {
       const basis = basisVectors(state.tilt, state.spin);
-      sceneRenderer.draw({
+      if(stage.dataset.viewMode!=='orbit' || state.measuring)sceneRenderer.draw({
         basis: viewBasis(basis),
         sun: rotateView(state.sun),
         tilt: state.tilt,
@@ -574,6 +537,7 @@ export function createScene(sceneRenderer) {
 
   // 异步资源（贴图等）到达后必须重绘一次，否则会一直停在首帧的兜底画面
   window.addEventListener('globe-texture-ready', () => { dirty = true; });
+  window.addEventListener('view-mode-change', () => { dirty = true; });
 
   setPhase(state.phase);
   const ok = sceneRenderer.init(canvas);
@@ -587,9 +551,9 @@ export function createScene(sceneRenderer) {
     canvas,
     stage,
     get spin() { return state.spin; },
-    get tilt() { return state.tilt; },
+    get tilt() { return AXIAL_TILT_DEG; },
     set spin(v) { setSpin(v); updateUI(); },
-    set tilt(v) { setTiltFromPose(v); updateUI(); },
+    set tilt(v) { /* Axial tilt is fixed; the date timeline is the only seasonal control. */ },
     set debugMode(v) { debugMode = Number(v); dirty = true; },
     redraw() { dirty = true; },
     basis() { return basisVectors(state.tilt, state.spin); },
@@ -602,8 +566,8 @@ export function createScene(sceneRenderer) {
       state.observationCamera = { zoom:state.zoom, fx:state.focus.x, fy:state.focus.y, observation:1,roll:state.roll||0,gridOnly:0 };
       state.calculating = true;
       stage.classList.add('is-calculating');
-      animateCamera({zoom:2.8,fx:GLOBE_CENTER.x+(GLOBE_CENTER.x-280)/2.8,
-        fy:GLOBE_CENTER.y+(GLOBE_CENTER.y-800)/2.8,observation:1,gridOnly:1,roll:Math.atan2(state.sun[0],state.sun[1])},2000);
+      animateCamera({zoom:1.9,fx:GLOBE_CENTER.x+(GLOBE_CENTER.x-430)/1.9,
+        fy:GLOBE_CENTER.y+(GLOBE_CENTER.y-690)/1.9,observation:1,gridOnly:1,roll:Math.atan2(state.sun[0],state.sun[1])},2000);
       window.dispatchEvent(new Event('globe-mode-change'));
     },
     exitCalculation() {
@@ -652,7 +616,7 @@ export function createScene(sceneRenderer) {
     get phase() { return state.phase; },
     set phase(v) { setPhase(v); updateUI(); },
     get subsolarLat() { return subsolarNow(basisVectors(state.tilt, state.spin)).lat; },
-    get axisTilt() { return state.tilt; },
+    get axisTilt() { return AXIAL_TILT_DEG; },
     R_EARTH_KM,
     limits: { tiltMin: TILT_MIN, tiltMax: TILT_MAX },
     get sun() { return rotateView(state.sun); },
