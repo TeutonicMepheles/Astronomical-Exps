@@ -138,7 +138,11 @@
     var umbLen = M.cone(moon, M.RM).umbraLength;
     var lands = axisHit < umbLen;
     this.drawCone(ctx, M.EARTH, M.RE, 5.6, state, true, false);
-    this.drawCone(ctx, moon, M.RM, Math.max(0.4, Math.min(umbLen, axisHit)), state, false, lands);
+    /* 月本影只在日食档画。月食档月球在望月、影轴背向地球，整条锥朝画外走，
+       右端被画布切齐成一根黑杠——那一档里它不参与任何教学关系（VD 定性、Cindy 核对过坐标）。 */
+    if (state.mode === 'solar') {
+      this.drawCone(ctx, moon, M.RM, Math.max(0.4, Math.min(umbLen, axisHit)), state, false, lands);
+    }
     this.drawEarth(ctx, state);
     if (state.mode === 'solar') this.drawEarthSpot(ctx, moon, state);
     this.drawObserver(ctx, moon, state);
@@ -546,8 +550,11 @@
     var sunRe = SIDE_RM + SIDE_SUN_D * (SIDE_RM / umbRe);
     var sideSun = { x: -(nodeRe + SIDE_SUN_D), y: 0, r: sunRe };
 
-    /* 月本影：从月球沿日→月方向延伸，锥尖落在远侧地表；偏离交点就从地球旁边过去 */
-    this.drawCone(ctx, mw, SIDE_RM, umbRe, state, false, true, sideSun);
+    /* 月本影：从月球沿日→月方向延伸，锥尖落在远侧地表；偏离交点就从地球旁边过去。
+       只在日食档画：月食档月球在望月，影轴背向地球，锥会一路跑到画外被切齐（同主视图）。 */
+    if (state.mode === 'solar') {
+      this.drawCone(ctx, mw, SIDE_RM, umbRe, state, false, true, sideSun);
+    }
     /* 地本影：沿黄道面向右，略长于轨道半径即止。半影只在月食里有意义，日食时不画。
        日食档把整条地影压到 30%：这一档的主角是月影，地影抢镜又会吞掉黄道线与 5.145° */
     this.drawCone(ctx, M.EARTH, M.RE, nodeRe * 1.24, state, true, false, sideSun,
@@ -787,18 +794,22 @@
       }
     };
 
-    /* 半影一直张开到画外：按本影长度截断会在锥尖处留一道悬空的直边。
-       用沿轴线的渐变收尾，越远越淡。 */
-    var penLen = L * 2.6;
-    var penEnd = obAt({ x: P.x + ux * penLen, y: P.y + uy * penLen, z: P.z + uz * penLen });
-    var penGrad = ctx.createLinearGradient(o0.x, o0.y, penEnd.x, penEnd.y);
-    penGrad.addColorStop(0, 'rgba(2,4,10,0.30)');
-    penGrad.addColorStop(Math.min(1, L / penLen), 'rgba(2,4,10,0.20)');
-    penGrad.addColorStop(1, 'rgba(2,4,10,0)');
-    poly(penLen, function (t) { return SIDE_RM + t * (Rs + SIDE_RM) / Dm; }, penGrad, null);
+    /* 月影（半影 + 本影）只在日食档画。月食档月球在望月，影轴背向地球，
+       锥一路张开到画外、右端被画布切齐——那一档的主角是地影与红月亮，月影不参与叙事。 */
+    if (state.mode === 'solar') {
+      /* 半影一直张开到画外：按本影长度截断会在锥尖处留一道悬空的直边。
+         用沿轴线的渐变收尾，越远越淡。 */
+      var penLen = L * 2.6;
+      var penEnd = obAt({ x: P.x + ux * penLen, y: P.y + uy * penLen, z: P.z + uz * penLen });
+      var penGrad = ctx.createLinearGradient(o0.x, o0.y, penEnd.x, penEnd.y);
+      penGrad.addColorStop(0, 'rgba(2,4,10,0.30)');
+      penGrad.addColorStop(Math.min(1, L / penLen), 'rgba(2,4,10,0.20)');
+      penGrad.addColorStop(1, 'rgba(2,4,10,0)');
+      poly(penLen, function (t) { return SIDE_RM + t * (Rs + SIDE_RM) / Dm; }, penGrad, null);
 
-    poly(L, function (t) { return Math.max(0.004, SIDE_RM * (1 - t / L)); },
-      'rgba(1,2,6,0.92)', 'rgba(158,182,226,0.30)');
+      poly(L, function (t) { return Math.max(0.004, SIDE_RM * (1 - t / L)); },
+        'rgba(1,2,6,0.92)', 'rgba(158,182,226,0.30)');
+    }
 
     /* 地影只在月食档画：日食档它跟这一页无关，还会把黄道线整条吞掉 */
     if (state.mode === 'lunar') {
