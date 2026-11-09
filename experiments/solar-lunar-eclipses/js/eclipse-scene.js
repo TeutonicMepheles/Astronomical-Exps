@@ -143,7 +143,8 @@
     if (state.mode === 'solar') this.drawEarthSpot(ctx, moon, state);
     this.drawObserver(ctx, moon, state);
     this.drawMoon(ctx, moon, state);
-    if (view.mode === 'earth') this.drawScale(ctx);
+    /* 传 state.mode：影斑那行只在日食档出现，不传就永远落不到 */
+    if (view.mode === 'earth') this.drawScale(ctx, state.mode);
   };
 
   /*
@@ -959,7 +960,12 @@
              + (mode === 'lunar' ? '' : '；余量为三维净空（地心到影轴减 1 RE）')
              + '；影轴穿盘时不给「掠过」判定，看侧视档',
            '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
-        : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
+        /* 影斑只在日食档画，月食档没有可标的斑点；真实斑径约 0.025 RE，
+           这一档画出来 8.3px，是 4 倍多——画大了就得在图上说一句。 */
+        : mode === 'solar'
+          ? ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）',
+             '本影斑放大约 4 倍绘制（真实直径约 0.025 个地球半径）']
+          : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
     var x0 = 48, y0 = 806, w = re * view.px;
 
     ctx.save();
