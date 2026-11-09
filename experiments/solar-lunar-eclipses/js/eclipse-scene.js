@@ -292,7 +292,7 @@
     }
   };
 
-  Scene.prototype.drawCone = function (ctx, C, r, far, state, isEarth, solidTip, sun, noPenumbra) {
+  Scene.prototype.drawCone = function (ctx, C, r, far, state, isEarth, solidTip, sun, noPenumbra, alpha) {
     var cone = M.cone(C, r, sun);
     var u = cone.axis;
     var origin = { x: sx(C.x), y: sy(C.y) };
@@ -306,6 +306,8 @@
     var uw1 = cone.umbraRadiusAt(far) * view.px;
 
     ctx.save();
+    /* alpha：侧视里日食档要压淡地影，别让它吞掉黄道线；其余调用不传，等价于 1 */
+    ctx.globalAlpha = alpha === undefined ? 1 : alpha;
     ctx.translate(origin.x, origin.y);
     ctx.rotate(angle);
 
@@ -353,10 +355,10 @@
 
     ctx.restore();
 
-    if (isEarth) this.drawUmbraGlow(ctx, C, cone);
+    if (isEarth) this.drawUmbraGlow(ctx, C, cone, alpha);
   };
 
-  Scene.prototype.drawUmbraGlow = function (ctx, C, cone) {
+  Scene.prototype.drawUmbraGlow = function (ctx, C, cone, alpha) {
     var depth = 3.2;
     var ax = sx(C.x + depth), ay = sy(C.y);
     var rg = ctx.createRadialGradient(ax, ay, 0, ax, ay, 190);
@@ -364,6 +366,7 @@
     rg.addColorStop(0.45, 'rgba(120,40,26,0.16)');
     rg.addColorStop(1, 'rgba(90,30,20,0)');
     ctx.save();
+    ctx.globalAlpha = alpha === undefined ? 1 : alpha;
     ctx.globalCompositeOperation = 'lighter';
     ctx.fillStyle = rg;
     ctx.fillRect(ax - 200, ay - 200, 400, 400);
@@ -502,30 +505,21 @@
     var b = a * SIDE_FLAT;
     var th = SIDE_TILT;
 
-    /* 阳光方向：太阳在画外，用几道平行虚线交代光照方向 */
+    /* 阳光方向：太阳在画外，用一道带箭头的标注交代方向。
+       原来是四道暖色长虚线，整体更像一层没有来源的暖雾，而且会穿过月影 */
     ctx.save();
-    ctx.strokeStyle = 'rgba(255,214,150,0.16)';
-    ctx.lineWidth = 1.2;
-    ctx.setLineDash([10, 14]);
-    for (var k = 0; k < 4; k++) {
-      var ly = cy - 160 + k * 44;
-      ctx.beginPath();
-      ctx.moveTo(0, ly);
-      ctx.lineTo(cx - a - 24, ly);
-      ctx.stroke();
-    }
-    ctx.restore();
-
-    /* 黄道面：过地心的水平线 */
-    ctx.save();
-    ctx.strokeStyle = 'rgba(168,196,240,0.34)';
+    ctx.strokeStyle = 'rgba(198,220,255,0.42)';
     ctx.lineWidth = 1.3;
-    ctx.setLineDash([4, 10]);
     ctx.beginPath();
-    ctx.moveTo(24, cy);
-    ctx.lineTo(W - 24, cy);
+    ctx.moveTo(46, cy - 186);
+    ctx.lineTo(196, cy - 186);
+    ctx.moveTo(184, cy - 191);
+    ctx.lineTo(198, cy - 186);
+    ctx.lineTo(184, cy - 181);
     ctx.stroke();
     ctx.restore();
+
+    /* 黄道面：过地心的水平线。画在影锥之后（见下），否则右侧整段会被地影吞掉 */
 
     /*
      * 轨道 = 这一视角下的投影椭圆：半长轴 640px（20 RE），半短轴 = a·sin i = 57.4px，
@@ -552,8 +546,21 @@
 
     /* 月本影：从月球沿日→月方向延伸，锥尖落在远侧地表；偏离交点就从地球旁边过去 */
     this.drawCone(ctx, mw, SIDE_RM, umbRe, state, false, true, sideSun);
-    /* 地本影：沿黄道面向右，略长于轨道半径即止。半影只在月食里有意义，日食时不画 */
-    this.drawCone(ctx, M.EARTH, M.RE, nodeRe * 1.24, state, true, false, sideSun, state.mode !== 'lunar');
+    /* 地本影：沿黄道面向右，略长于轨道半径即止。半影只在月食里有意义，日食时不画。
+       日食档把整条地影压到 30%：这一档的主角是月影，地影抢镜又会吞掉黄道线与 5.145° */
+    this.drawCone(ctx, M.EARTH, M.RE, nodeRe * 1.24, state, true, false, sideSun,
+      state.mode !== 'lunar', state.mode !== 'lunar' ? 0.3 : 1);
+
+    /* 黄道线补画在影锥之上：它是这一档的基准面，任何时候都该看得见 */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(168,196,240,0.34)';
+    ctx.lineWidth = 1.3;
+    ctx.setLineDash([4, 10]);
+    ctx.beginPath();
+    ctx.moveTo(24, cy);
+    ctx.lineTo(W - 24, cy);
+    ctx.stroke();
+    ctx.restore();
 
     /* 轨道面本身：过地心、与黄道面成 5.145° 的直线，与上面那个椭圆同一个平面 */
     ctx.save();
@@ -620,11 +627,13 @@
       ctx.fillStyle = color;
       ctx.fillText(text, x, y);
     };
-    label('黄道面', 44, cy + 24, 'rgba(226,236,252,0.66)');
-    label('月球轨道面', cx + 300, cy - 56, 'rgba(226,236,252,0.66)');
+    label('黄道面', 44, cy + 26, 'rgba(226,236,252,0.72)');
+    label('阳光', 204, cy - 186, 'rgba(206,222,250,0.62)');
+    /* 轨道面标签放到偏右、黄道线与虚线椭圆的间距最大的那一段，别压在任何一条线上 */
+    label('月球轨道面', cx + 470, cy - 62, 'rgba(226,236,252,0.72)');
     label('5.145°', cx + arcR + 14, cy - 20, 'rgba(240,196,128,0.92)');
-    label('降交点', nodes[0].x + 10, nodes[0].y - 20, 'rgba(246,212,154,0.72)');
-    label('升交点', nodes[1].x - 10, nodes[1].y - 20, 'rgba(246,212,154,0.72)', 'right');
+    label('降交点', nodes[0].x + 12, nodes[0].y - 28, 'rgba(246,212,154,0.80)');
+    label('升交点', nodes[1].x - 12, nodes[1].y - 28, 'rgba(246,212,154,0.80)', 'right');
     ctx.restore();
 
     this.drawScale(ctx);
@@ -833,10 +842,11 @@
 
     this.drawEarth(ctx, state);
 
-    /* 月球到黄道面的垂足：这一段就是黄纬，直接量得出来 */
+    /* 月球到黄道面的垂足：这一段就是黄纬。画成尺寸标注（两端加横线），
+       1.79 RE 才是「倾角看得见」的证据，而不只是画面旁边的一个数 */
     var m0 = obAt(P), foot = obAt({ x: P.x, y: 0, z: P.z });
     ctx.save();
-    ctx.strokeStyle = 'rgba(246,212,154,0.55)';
+    ctx.strokeStyle = 'rgba(246,212,154,0.66)';
     ctx.lineWidth = 1;
     ctx.setLineDash([3, 4]);
     ctx.beginPath();
@@ -964,7 +974,7 @@
              + '；影轴穿盘时不给「掠过」判定，看侧视档',
            '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
         : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
-    var x0 = 48, y0 = 824, w = re * view.px;
+    var x0 = 48, y0 = 806, w = re * view.px;
 
     ctx.save();
     ctx.strokeStyle = 'rgba(184,200,226,0.52)';
@@ -978,13 +988,13 @@
     ctx.lineTo(x0 + w, y0 + 5);
     ctx.stroke();
 
-    ctx.font = '400 12px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
+    ctx.font = '400 15px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = 'rgba(184,200,226,0.56)';
-    ctx.fillText(label, x0 + w + 10, y0 + 4);
-    ctx.fillStyle = 'rgba(184,200,226,0.42)';
-    for (var i = 0; i < notes.length; i++) ctx.fillText(notes[i], x0, y0 + 26 + i * 17);
+    ctx.fillText(label, x0 + w + 10, y0 + 5);
+    ctx.fillStyle = 'rgba(184,200,226,0.48)';
+    for (var i = 0; i < notes.length; i++) ctx.fillText(notes[i], x0, y0 + 30 + i * 22);
     ctx.restore();
   };
 
@@ -1074,8 +1084,12 @@
     }
     ctx.restore();
 
-    ctx.strokeStyle = 'rgba(214,228,250,0.30)';
-    ctx.lineWidth = 1.2;
+    /* 小尺度的月球（侧视/斜视只有 7–9px）只靠贴片会糊成一团，加一圈更亮的边缘光，
+       影子里的那一轮才读得出是「被挡住的月亮」而不是一个墨点。
+       判据是「传了 rm」而不是「半径小」：主视图两档一个字都不动 */
+    var small = !!rm;
+    ctx.strokeStyle = small ? 'rgba(226,238,255,0.62)' : 'rgba(214,228,250,0.30)';
+    ctx.lineWidth = small ? 1.3 : 1.2;
     ctx.beginPath();
     ctx.arc(cx, cy, r - 0.5, 0, TAU);
     ctx.stroke();
