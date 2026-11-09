@@ -18,7 +18,9 @@
     earth: { ex: 912, ey: 432, px: 82 },
     system: { ex: 1240, ey: 372, px: 45 },
     /* 侧视自带比例尺：轨道按 20 RE 画，太阳远在画外。与另外两档的 4.6 RE 互不影响 */
-    side: { ex: 800, ey: 372, px: 32 }
+    side: { ex: 800, ey: 372, px: 32 },
+    /* 斜视与侧视同一把尺子（20 RE / 27px per RE），ey 抬高到 280 让椭圆下缘让开观察卡片 */
+    oblique: { ex: 900, ey: 280, px: 27 }
   };
   var view = { ex: VIEWS.earth.ex, ey: VIEWS.earth.ey, px: VIEWS.earth.px, mode: 'earth' };
   var TAU = Math.PI * 2;
@@ -124,6 +126,10 @@
       this.drawSide(ctx, moon, state);
       return;
     }
+    if (view.mode === 'oblique') {
+      this.drawOblique(ctx, moon, state);
+      return;
+    }
     this.drawOrbit(ctx);
     this.drawRays(ctx, moon, state);
     /* 月本影画到它真正收敛或落到地面的距离为止：落地点就与地面黑斑对得上 */
@@ -157,7 +163,7 @@
   /* 主视角里月球/地球的屏幕位置，供拖动命中与角度换算使用。
      侧视里月球画在示意椭圆上，屏幕上绕地心的角度不再是 phi，拖动会算错，所以不给命中点。 */
   Scene.prototype.moonScreen = function () {
-    if (!this.lastMoon || view.mode === 'side') return null;
+    if (!this.lastMoon || view.mode === 'side' || view.mode === 'oblique') return null;
     return { x: sx(this.lastMoon.x), y: sy(this.lastMoon.y), r: M.RM * view.px };
   };
 
@@ -191,11 +197,11 @@
   };
 
   Scene.prototype.drawSunGlow = function (ctx) {
-    /* 侧视档的太阳在 80 个地球半径外、远在画外。照搬下面那团以 22 RE 为心的径向光斑，
-       等于在画里凭空放了一个离地 22 RE 的亮源——图注说太阳在 80 RE，画面却指着 22 RE。
-       所以这一档不留任何画内的点光源：日光只在左缘铺一道沿 x 单调变暗的边缘光，
-       亮的那一端永远贴在画框外，方向由画面里的箭头交代。 */
-    if (view.mode === 'side') {
+    /* 侧视 / 斜视两档的太阳在 80 个地球半径外、远在画外。照搬下面那团以 22 RE 为心的
+       径向光斑，等于在画里凭空放了一个离地 22 RE 的亮源——图注说太阳在 80 RE，
+       画面却指着 22 RE。所以这两档不留任何画内的点光源：日光只在左缘铺一道沿 x
+       单调变暗的边缘光，亮的那一端永远贴在画框外，方向由画面里的箭头交代。 */
+    if (view.mode === 'side' || view.mode === 'oblique') {
       var day = ctx.createLinearGradient(0, 0, 640, 0);
       day.addColorStop(0, 'rgba(255,230,190,0.30)');
       day.addColorStop(0.09, 'rgba(250,206,150,0.14)');
@@ -624,20 +630,340 @@
     this.drawScale(ctx);
   };
 
+  /* ---------------- 斜视：相机抬高 25°，专讲「这一次新月离交点 90°」 ----------------
+   *
+   * 侧视把黄道面压成一条线，方位角整个丢了——在那个机位里新月只能画在交点上。
+   * 这里黄道面是一个看得见进深的平面（深度轴 z 投影到屏幕上），所以黄纬和方位
+   * 能同时出现：交点线沿 z（垂直于日地连线），新月就落在黄纬最大处 1.79 RE，
+   * 影锥整条从地球上边擦过去。这是「为什么不是每个月都有日食」唯一画得出来的机位。
+   *
+   * 相机：方位沿 +x 看（太阳在左），俯角 β = 25°。屏幕基：
+   *   ĥ = (1,0,0)，û = (0, cosβ, sinβ)  →  x 水平、黄纬按 cosβ、黄道进深按 sinβ 压缩。
+   */
+  var OB_ELEV = 25 * M.DEG;
+  var OB_C = Math.cos(OB_ELEV);
+  var OB_S = Math.sin(OB_ELEV);
+
+  function obAt(p) {
+    return {
+      x: view.ex + p.x * view.px,
+      y: view.ey - (p.y * OB_C + p.z * OB_S) * view.px
+    };
+  }
+
+  /* 轨道圆：交点线沿 z，e1 = (cos i, −sin i, 0) 指向月球一侧，u = 180° 即新月 */
+  function obOrbit(u) {
+    var ci = Math.cos(SIDE_TILT), si = Math.sin(SIDE_TILT), D = SIDE_ORBIT;
+    return { x: D * Math.cos(u) * ci, y: -D * Math.cos(u) * si, z: D * Math.sin(u) };
+  }
+
+  Scene.prototype.drawOblique = function (ctx, moon, state) {
+    var ex = view.ex, ey = view.ey, px = view.px;
+    var D = SIDE_ORBIT;
+    /* 月食档看的是「地球挡住太阳照向月球」，与日食档同一个相位数的是一个月之后的另一侧：
+       整体转 180°，进度条 50% 落新月（日食）或望月（月食），两边对比的才是同一件事 */
+    var u = state.phi + (state.mode === 'lunar' ? Math.PI : 0);
+    var P = obOrbit(u);
+    var S3 = { x: -(D + SIDE_SUN_D), y: 0, z: 0 };
+    /* 与侧视同一个压缩太阳：食甚时本影长 21 RE，锥尖落远侧地表附近 */
+    var Rs = SIDE_RM + SIDE_SUN_D * (SIDE_RM / (D + M.RE));
+
+    /*
+     * 黄道面：网格 + 一圈「轨道投到黄道面上的圆」。两条环之间的缝隙就是黄纬——
+     * 任何时刻都能看出月球离这个平面有多远，比只写一个数字更像证据。
+     */
+    ctx.save();
+    ctx.lineWidth = 1;
+    var gx0 = ex - 24 * px, gx1 = ex + 13 * px;
+    for (var gz = -20; gz <= 20; gz += 5) {
+      var gy = ey - gz * OB_S * px;
+      ctx.strokeStyle = gz === 0 ? 'rgba(168,196,240,0.20)' : 'rgba(150,178,222,0.065)';
+      ctx.beginPath();
+      ctx.moveTo(gx0, gy);
+      ctx.lineTo(gx1, gy);
+      ctx.stroke();
+    }
+    for (var gx = -20; gx <= 10; gx += 5) {
+      ctx.strokeStyle = 'rgba(150,178,222,0.055)';
+      ctx.beginPath();
+      ctx.moveTo(ex + gx * px, ey - 21 * OB_S * px);
+      ctx.lineTo(ex + gx * px, ey + 21 * OB_S * px);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    /* 俯视圆（轨道在黄道面上的投影）：与虚线的真轨道同权重的实线。
+       两条环之间的缝就是黄纬，这一档的存在理由全在这里，所以它不能是背景 */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(168,196,240,0.46)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    for (var c = 0; c <= 120; c++) {
+      var a0 = c / 120 * TAU;
+      var qc = obAt({ x: D * Math.cos(a0), y: 0, z: D * Math.sin(a0) });
+      if (c === 0) ctx.moveTo(qc.x, qc.y);
+      else ctx.lineTo(qc.x, qc.y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    /* 轨道圆：3D 采样后投影成虚线椭圆 */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(196,216,248,0.58)';
+    ctx.lineWidth = 1.4;
+    ctx.setLineDash([3, 7]);
+    ctx.beginPath();
+    for (var i = 0; i <= 180; i++) {
+      var q = obAt(obOrbit(i / 180 * TAU));
+      if (i === 0) ctx.moveTo(q.x, q.y);
+      else ctx.lineTo(q.x, q.y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    /* 交点线：两个交点与地心共线，这条线就是日食能发生的唯一方向 */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(246,212,154,0.28)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([2, 6]);
+    ctx.beginPath();
+    ctx.moveTo(ex, obAt({ x: 0, y: 0, z: D }).y);
+    ctx.lineTo(ex, obAt({ x: 0, y: 0, z: -D }).y);
+    ctx.stroke();
+    ctx.restore();
+
+    /* 两个交点：轨道与黄道面相交处，z = ±D */
+    var nodes = [obAt({ x: 0, y: 0, z: D }), obAt({ x: 0, y: 0, z: -D })];
+    ctx.save();
+    for (var n = 0; n < 2; n++) {
+      ctx.beginPath();
+      ctx.arc(nodes[n].x, nodes[n].y, 4, 0, TAU);
+      ctx.strokeStyle = 'rgba(246,212,154,0.85)';
+      ctx.fillStyle = 'rgba(12,19,34,0.9)';
+      ctx.lineWidth = 1.3;
+      ctx.fill();
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    /*
+     * 月影：沿日→月方向的三维锥，投影后用「轴线的屏幕方向 ± 半径」画两侧边。
+     * 轴线几乎躺在屏幕里，这个近似与正投影的差在 1px 以内。
+     */
+    var dx = P.x - S3.x, dy = P.y - S3.y, dz = P.z - S3.z;
+    var Dm = Math.hypot(dx, dy, dz);
+    var ux = dx / Dm, uy = dy / Dm, uz = dz / Dm;
+    var L = Dm * SIDE_RM / (Rs - SIDE_RM);
+    var o0 = obAt(P);
+    var ax = ux * px, ay = -(uy * OB_C + uz * OB_S) * px;
+    var al = Math.hypot(ax, ay) || 1;
+    ax /= al; ay /= al;
+    var nx = -ay, ny = ax;
+
+    /*
+     * 月影的两种颜色。原来半影是 0.16 的亮蓝——比背景亮，眼睛锁在亮的带上，
+     * 反而把真正的本影读成一根细线。现在两者都是「把背景压暗」：
+     * 半影 30% 的黑，本影 92%，先暗后更暗，层次才跟几何一致。
+     */
+    var N = 16;
+    var poly = function (len, widthAt, fill, stroke, dash) {
+      var i2, t, q2, h;
+      ctx.beginPath();
+      for (i2 = 0; i2 <= N; i2++) {
+        t = len * i2 / N;
+        q2 = obAt({ x: P.x + ux * t, y: P.y + uy * t, z: P.z + uz * t });
+        h = widthAt(t) * px;
+        if (i2 === 0) ctx.moveTo(q2.x - nx * h, q2.y - ny * h);
+        else ctx.lineTo(q2.x - nx * h, q2.y - ny * h);
+      }
+      for (i2 = N; i2 >= 0; i2--) {
+        t = len * i2 / N;
+        q2 = obAt({ x: P.x + ux * t, y: P.y + uy * t, z: P.z + uz * t });
+        h = widthAt(t) * px;
+        ctx.lineTo(q2.x + nx * h, q2.y + ny * h);
+      }
+      ctx.closePath();
+      if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+      if (stroke) {
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 1;
+        ctx.setLineDash(dash || []);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    };
+
+    /* 半影一直张开到画外：按本影长度截断会在锥尖处留一道悬空的直边。
+       用沿轴线的渐变收尾，越远越淡。 */
+    var penLen = L * 2.6;
+    var penEnd = obAt({ x: P.x + ux * penLen, y: P.y + uy * penLen, z: P.z + uz * penLen });
+    var penGrad = ctx.createLinearGradient(o0.x, o0.y, penEnd.x, penEnd.y);
+    penGrad.addColorStop(0, 'rgba(2,4,10,0.30)');
+    penGrad.addColorStop(Math.min(1, L / penLen), 'rgba(2,4,10,0.20)');
+    penGrad.addColorStop(1, 'rgba(2,4,10,0)');
+    poly(penLen, function (t) { return SIDE_RM + t * (Rs + SIDE_RM) / Dm; }, penGrad, null);
+
+    poly(L, function (t) { return Math.max(0.004, SIDE_RM * (1 - t / L)); },
+      'rgba(1,2,6,0.92)', 'rgba(158,182,226,0.30)');
+
+    /* 地影只在月食档画：日食档它跟这一页无关，还会把黄道线整条吞掉 */
+    if (state.mode === 'lunar') {
+      ctx.save();
+      /* 画到本影真正的锥尖（21.34 RE），才看得出「它伸到了月球那么远、只是侧过去了」 */
+      var ec = M.cone(M.EARTH, M.RE), EL = ec.umbraLength, EN = 16;
+      ctx.beginPath();
+      for (var j = 0; j <= EN; j++) {
+        var et = EL * j / EN;
+        var ew = ec.umbraRadiusAt(et) * px;
+        var qq = obAt({ x: et, y: 0, z: 0 });
+        if (j === 0) ctx.moveTo(qq.x, qq.y - ew);
+        else ctx.lineTo(qq.x, qq.y - ew);
+      }
+      for (j = EN; j >= 0; j--) {
+        var et2 = EL * j / EN;
+        var ew2 = ec.umbraRadiusAt(et2) * px;
+        var qq2 = obAt({ x: et2, y: 0, z: 0 });
+        ctx.lineTo(qq2.x, qq2.y + ew2);
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(9,13,25,0.55)';
+      ctx.fill();
+      ctx.restore();
+    }
+
+    this.drawEarth(ctx, state);
+
+    /* 月球到黄道面的垂足：这一段就是黄纬，直接量得出来 */
+    var m0 = obAt(P), foot = obAt({ x: P.x, y: 0, z: P.z });
+    ctx.save();
+    ctx.strokeStyle = 'rgba(246,212,154,0.55)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath();
+    ctx.moveTo(m0.x, m0.y);
+    ctx.lineTo(foot.x, foot.y);
+    ctx.stroke();
+    /* 两端各加一道横线，让它读成尺寸标注，而不是一条随手连的虚线 */
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(m0.x - 5, m0.y);
+    ctx.lineTo(m0.x + 5, m0.y);
+    ctx.moveTo(foot.x - 5, foot.y);
+    ctx.lineTo(foot.x + 5, foot.y);
+    ctx.stroke();
+    ctx.restore();
+
+    /* 月球按真值画只有 0.27 RE，屏幕上 7px——加一圈定位环，否则找不到它在哪 */
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(m0.x, m0.y, SIDE_RM * px + 5, 0, TAU);
+    ctx.strokeStyle = 'rgba(214,228,250,0.42)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.restore();
+
+    this.drawMoon(ctx, moon, state, m0, SIDE_RM, true);
+
+    /*
+     * 这一档的四个数全部随 φ 走，没有一个写死：离交点的角度由 u 与交点（u = 90°/270°）差算，
+     * 黄纬 = |D·cos u|·sin i，余量就直接量屏幕上那条括号。食季断言（本影/地影掠过、余量）
+     * 只在影子真的擦着天体过去时出现——越界不是换个数，是这一帧没有这句话。
+     */
+    var solarMode = state.mode !== 'lunar';
+    var uDeg = ((u * 180 / Math.PI) % 360 + 360) % 360;
+    var off = Math.abs(uDeg - 90);
+    if (off > 180) off = 360 - off;
+    if (off > 90) off = 180 - off;
+    var lat = D * Math.abs(Math.cos(u)) * SIDE_FLAT;
+    /* 相位名按表头那张四态表来，别在交点上二分：u = 0 望月 / 90 下弦 / 180 新月 / 270 上弦 */
+    var phase = ['望月', '下弦', '新月', '上弦'][Math.round(uDeg / 90) % 4];
+
+    var near, axisAbove = true, clear = 0;
+    if (solarMode) {
+      /* 地心到本影轴线的三维垂直距离（撞击参数 b），余量 = b − RE */
+      var cx3 = P.y * uz - P.z * uy;
+      var cy3 = P.z * ux - P.x * uz;
+      var cz3 = P.x * uy - P.y * ux;
+      var b = Math.hypot(cx3, cy3, cz3);
+      clear = b - M.RE;
+      /* 画出来的影轴走 obAt，带 z·sin25°，只用 y 算会搭不上。这里按完整投影求
+         x = ex+44 处的轴线高度，再量地心到这条屏幕直线的距离：小于圆盘半径就是
+         画面里影轴穿过地球。两侧投影不对称，这种帧「掠过」不成立，宁可不说话。 */
+      var bx = 44 / px;
+      var bt = (bx - P.x) / ux;
+      var axY = ey - ((P.y + bt * uy) * OB_C + (P.z + bt * uz) * OB_S) * px;
+      var ddx = ex + 44 - m0.x, ddy = axY - m0.y;
+      var sl = Math.hypot(ddx, ddy) || 1;
+      var sd = Math.abs((ex - m0.x) * ddy - (ey - m0.y) * ddx) / sl;
+      near = P.x < 0 && b < 6 && sd > M.RE * px;
+      /* 「上方/下方」跟画面走：25° 俯角下 z 反号，三维的上下和屏幕上的上下会翻 */
+      axisAbove = axY < ey;
+    } else {
+      /* 月食档：地影轴线就是 +x 轴，量的是月心到它的距离 √(y² + z²) */
+      near = P.x > 0 && Math.hypot(P.y, P.z) < 6;
+    }
+
+    ctx.save();
+    ctx.font = '500 15px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
+    ctx.textBaseline = 'middle';
+    var label = function (text, x, y, color, align) {
+      ctx.textAlign = align || 'left';
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = 'rgba(6,11,22,0.9)';
+      ctx.strokeText(text, x, y);
+      ctx.fillStyle = color;
+      ctx.fillText(text, x, y);
+    };
+    label('阳光 →', 60, 130, 'rgba(240,196,128,0.75)');
+    label('黄道面', 60, ey + 26, 'rgba(226,236,252,0.72)');
+    label('月球轨道面', 1224, 546, 'rgba(226,236,252,0.72)');
+    label('升交点', nodes[0].x + 12, nodes[0].y, 'rgba(246,212,154,0.72)');
+    label('降交点', nodes[1].x + 12, nodes[1].y, 'rgba(246,212,154,0.72)');
+    /* 月球在右侧时标签翻到左边，别顶到食相轨 */
+    var side = m0.x > ex ? -16 : 16;
+    var align = m0.x > ex ? 'right' : 'left';
+    label(phase + '离交点 ' + off.toFixed(0) + '°', m0.x + side, m0.y - 36,
+      'rgba(214,226,246,0.66)', align);
+    /* 单位跟着数字走：图上量的是 RE，就得写出来 */
+    label('黄纬 ' + lat.toFixed(2) + ' RE', m0.x + side, m0.y + 24,
+      'rgba(246,212,154,0.86)', align);
+    if (solarMode && near) {
+      label('本影从地球' + (axisAbove ? '上方' : '下方') + '掠过', ex - 176, ey - 84,
+        'rgba(206,222,250,0.66)');
+      label('余量 ' + clear.toFixed(2) + ' RE', ex - 176, ey - 62,
+        'rgba(246,212,154,0.88)');
+    } else if (!solarMode && near) {
+      label(m0.y > foot.y ? '地影从月球上方掠过' : '地影从月球下方掠过',
+        ex + 132, ey - 46, 'rgba(206,222,250,0.66)');
+    }
+    ctx.restore();
+
+    this.drawScale(ctx, state.mode);
+  };
+
   /*
    * 比例尺 + 压缩说明。两档不是同一个比例的两幅图，是两把尺子：
    * 特写 4.6 RE（为了地月同框）、侧视 20 RE（为了读得出黄纬）。
    * 放了尺子就必须写明哪一段是压缩的，否则尺子就是在替一组假数作保。
    */
-  Scene.prototype.drawScale = function (ctx) {
+  Scene.prototype.drawScale = function (ctx, mode) {
     var side = view.mode === 'side';
-    var re = side ? 10 : 1;
-    var label = side ? '10 个地球半径' : '1 个地球半径';
+    var obl = view.mode === 'oblique';
+    var wide = side || obl;
+    var re = wide ? 10 : 1;
+    var label = wide ? '10 个地球半径' : '1 个地球半径';
     var notes = side
-      ? ['月轨按 20 个地球半径绘制（实际 60.34），夹角为真值',
+      ? ['月球轨道按 20 个地球半径绘制（实际 60.34），夹角为真值',
          '轨道按正圆绘制（e=0.055 忽略），椭圆为侧视投影',
          '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
-      : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
+      : obl
+        ? ['月球轨道按 20 个地球半径绘制（实际 60.34），黄纬为真值',
+           /* 1.79 是这一档的最大黄纬；余量那句只对日食档成立 */
+           '俯角 25°：最大黄纬 1.79 RE 投成 1.63 RE（44 px）'
+             + (mode === 'lunar' ? '' : '；余量为三维净空（地心到影轴减 1 RE）')
+             + '；影轴穿盘时不给「掠过」判定，看侧视档',
+           '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
+        : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
     var x0 = 48, y0 = 824, w = re * view.px;
 
     ctx.save();
@@ -663,15 +989,16 @@
   };
 
   /* at 只在侧视里用：月球画在示意椭圆上，不在主几何的屏幕位置 */
-  /* rm 只在侧视里传（SIDE_RM）：那一档用自己的月球半径，其余各档仍用 M.RM */
-  Scene.prototype.drawMoon = function (ctx, moon, state, at, rm) {
+  /* rm 只在侧视里传（SIDE_RM）：那一档用自己的月球半径，其余各档仍用 M.RM。
+     lit：斜视的反例帧里月球不在任何影子中，2D 模型算出来的遮挡对这个机位不成立。 */
+  Scene.prototype.drawMoon = function (ctx, moon, state, at, rm, lit) {
     var rmUse = rm || M.RM;
     var cx = at ? at.x : sx(moon.x), cy = at ? at.y : sy(moon.y), r = rmUse * view.px;
-    var vis = M.sunVisible(moon, M.EARTH, M.RE);
+    var vis = lit ? 1 : M.sunVisible(moon, M.EARTH, M.RE);
     var shade = 1 - vis;
     /* 本影深度：只有整轮沉入本影，折射红光才会盖过灰暗的日面 */
     var depth = 0;
-    if (moon.x > 0) {
+    if (!lit && moon.x > 0) {
       var umbraR = M.cone(M.EARTH, M.RE).umbraRadiusAt(moon.x);
       depth = M.clamp((umbraR - Math.abs(moon.y)) / rmUse, 0, 1);
     }

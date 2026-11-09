@@ -52,8 +52,21 @@
     return cache[mode];
   }
 
+  /* 斜视档画的是另一个月份（新月离交点 90°），食相的五节点对它没有意义：
+     那一档的进度条走完整圈，四个台阶是 望 → 下弦 → 新月 → 上弦 → 望。 */
+  var TAU = Math.PI * 2;
+  var QUARTER = Math.PI / 2;
+  /* 进度条 50% 落在「离交点 90°」的那一帧：日食档是新月（φ=180°），
+     月食档是望月（φ=0，斜视里整体转了 180°），所以相位名两边是相反的 */
+  var QUARTER_NAMES = {
+    solar: ['望月', '下弦', '新月', '上弦', '望月'],
+    lunar: ['新月', '上弦', '望月', '下弦', '新月']
+  };
+  function orbitView() { return state.view === 'oblique'; }
+
   /* ---------------- 公转进度：节点角度区间就是可拖动范围 ---------------- */
   function bounds() {
+    if (orbitView()) return [0, TAU];
     var list = nodesFor(state.mode);
     return [list[0].phi, list[list.length - 1].phi];
   }
@@ -72,6 +85,7 @@
   /* 已经越过的最后一个节点：轨道上的琥珀高亮挂在它身上，
      而不是「最近的节点」——点在两节点之间时，文字不会无归属地来回跳 */
   function crossedIndex(phi) {
+    if (orbitView()) return M.clamp(Math.round(phi / QUARTER), 0, 4);
     var list = nodesFor(state.mode);
     var idx = 0;
     for (var i = 0; i < list.length; i++) {
@@ -83,6 +97,7 @@
   /* 节点上是节点名，落在节点之间就是「偏食 / 全食」这两段之一。
      全食段是食既→生光，也就是已越过节点为 1 / 2 的那两段。 */
   function phaseName(phi) {
+    if (orbitView()) return QUARTER_NAMES[state.mode][Math.round(phi / QUARTER)];
     var idx = crossedIndex(phi);
     if (Math.abs(nodesFor(state.mode)[idx].phi - phi) < 0.35 * M.DEG) {
       return nodesFor(state.mode)[idx].name;
@@ -94,6 +109,14 @@
     var b = bounds();
     var span = b[1] - b[0] || 1;
     phiTicks.innerHTML = '';
+    if (orbitView()) {
+      for (var q = 1; q <= 3; q++) {
+        var tq = document.createElement('i');
+        tq.style.left = ((q * QUARTER - b[0]) / span * 100).toFixed(2) + '%';
+        phiTicks.appendChild(tq);
+      }
+      return;
+    }
     var list = nodesFor(state.mode);
     for (var i = 0; i < list.length; i++) {
       var t = document.createElement('i');
@@ -138,13 +161,16 @@
     var list = nodesFor(state.mode);
     var name = state.free ? phaseName(state.phi) : list[state.index].name;
     setLabels(name, M.MODES[state.mode].type);
-    live.textContent = name + '，' + M.MODES[state.mode].type;
+    /* 斜视档这一框里没有发生食——只对辅助技术说话时也不能说反 */
+    live.textContent = state.view === 'oblique'
+      ? name + '，斜视图'
+      : name + '，' + M.MODES[state.mode].type;
     stageFill.style.width = (valueFromPhi(state.phi) / 10).toFixed(1) + '%';
     rail.setProgress(state.phi, state.index);
     transport.classList.toggle('is-playing', state.playing);
     playBtn.setAttribute('aria-label', state.playing ? '暂停' : '播放');
     prevBtn.disabled = state.index === 0;
-    nextBtn.disabled = state.index === list.length - 1;
+    nextBtn.disabled = state.index === stageCount() - 1;
     syncSlider();
   }
 
@@ -230,12 +256,14 @@
     return M.clamp(680 + deg * 9, 680, 1500);
   }
 
+  function stageCount() { return orbitView() ? 5 : nodesFor(state.mode).length; }
+
   function jumpTo(index, immediate) {
-    var list = nodesFor(state.mode);
-    index = Math.max(0, Math.min(list.length - 1, index));
+    index = Math.max(0, Math.min(stageCount() - 1, index));
     state.index = index;
-    state.free = false;
-    var target = list[index].phi;
+    /* 斜视档的台阶是四个相位，阶段名一律由 phi 推出来 */
+    state.free = orbitView();
+    var target = orbitView() ? index * QUARTER : nodesFor(state.mode)[index].phi;
     if (immediate || reduce) {
       state.phi = target;
       move = null;
@@ -262,7 +290,7 @@
       updateUI();
       return;
     }
-    if (state.index >= nodesFor(state.mode).length - 1) {
+    if (state.index >= stageCount() - 1) {
       jumpTo(0, false);
     }
     state.playing = true;
@@ -278,8 +306,9 @@
     state.free = false;
     rail.setStages(nodesFor(mode), mode);
     buildTicks();
-    /* 两套食象的角度区间不相邻，跨模式不做插值动画，直接落到初亏 */
-    jumpTo(0, true);
+    /* 两套食象的角度区间不相邻，跨模式不做插值动画，直接落到初亏。
+       斜视档落到「离交点 90°」那一帧：日食看新月、月食看望月，两边对比的正是同一件事 */
+    jumpTo(orbitView() ? 2 : 0, true);
     document.querySelectorAll('.mode-switch button').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.dataset.mode === mode));
     });
@@ -296,13 +325,15 @@
         state.phi = move.to;
         move = null;
         holdUntil = now + (reduce ? 1000 : 900);
+        /* 斜视档的阶段名按 phi 推，动画走完要补一次，否则名字停在上一档 */
+        if (state.free) updateUI();
       } else {
         state.phi = move.from + (move.to - move.from) * ease(t);
       }
     }
 
     if (state.playing && !move && now >= holdUntil) {
-      if (state.index < nodesFor(state.mode).length - 1) {
+      if (state.index < stageCount() - 1) {
         jumpTo(state.index + 1);
       } else {
         state.playing = false;
@@ -326,14 +357,27 @@
     b.addEventListener('click', function () { setMode(b.dataset.mode); });
   });
 
-  /* 换视角只动相机：公转进度、食象与节点全部沿用同一份 state */
+  /* 换视角只动相机：公转进度、食象与节点全部沿用同一份 state。
+     斜视档的进度区间变成整圈，切进切出时若 phi 落在新区间外，落到中点
+     （两种区间的中点都是「食甚 / 新月」那一帧）。 */
   viewButtons.forEach(function (b) {
     b.addEventListener('click', function () {
       state.view = b.dataset.view;
       scene.setView(state.view);
+      stage.dataset.view = state.view;
+      buildTicks();
+      var bb = bounds();
+      if (state.phi < bb[0] || state.phi > bb[1]) {
+        state.playing = false;
+        jumpTo(2, true);
+      } else if (orbitView()) {
+        state.index = crossedIndex(state.phi);
+        state.free = true;
+      }
       viewButtons.forEach(function (x) {
         x.setAttribute('aria-pressed', String(x.dataset.view === state.view));
       });
+      updateUI();
     });
   });
 
@@ -361,6 +405,7 @@
   }
 
   fit();
+  stage.dataset.view = state.view;
   state.phi = nodesFor('solar')[0].phi;
   rail.setStages(nodesFor('solar'), 'solar');
   buildTicks();
