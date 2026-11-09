@@ -16,10 +16,15 @@
       <button type="button" data-mode="lunar" aria-pressed="false">月食</button>
     </div>
 
+    <div class="view-switch" role="group" aria-label="选择视角">
+      <button type="button" data-view="earth" aria-pressed="true">地月</button>
+      <button type="button" data-view="system" aria-pressed="false">日地月</button>
+    </div>
+
     <section class="observer-card" aria-label="地面观察与当前阶段">
       <div class="sky-frame">
         <canvas id="sky" role="img" aria-label="地面观察视角"></canvas>
-        <span class="sky-caption" aria-hidden="true">地面观察</span>
+        <span class="sky-caption" aria-hidden="true">地面观察 · 观测点</span>
       </div>
       <div class="stage-line">
         <span class="stage-name" id="stageName">初亏</span>
@@ -27,6 +32,15 @@
       </div>
       <div class="stage-track" aria-hidden="true"><i id="stageFill"></i></div>
     </section>
+
+    <div class="scrub" role="group" aria-label="月球公转进度">
+      <span class="scrub-label" aria-hidden="true">公转进度</span>
+      <div class="scrub-track">
+        <input id="phiRange" type="range" min="0" max="1000" step="1" value="0"
+               aria-label="月球绕地球公转进度，拖动可停在任意时刻" aria-valuetext="">
+        <div class="scrub-ticks" id="phiTicks" aria-hidden="true"></div>
+      </div>
+    </div>
 
     <nav class="node-steps" id="nodeSteps" aria-label="关键节点"></nav>
 
@@ -46,6 +60,8 @@
     <p class="live" id="live" aria-live="polite"></p>
   </main>
 
+  <!-- 星体材质：复用 shared/components/globe-shader-renderer，模块脚本自行挂到 window -->
+  <script type="module" src="js/planet-materials.js"></script>
   <script src="js/eclipse-model.js"></script>
   <script src="js/eclipse-scene.js"></script>
   <script src="js/sky-window.js"></script>

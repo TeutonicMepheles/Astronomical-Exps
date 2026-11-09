@@ -141,31 +141,38 @@
     ctx.arc(cx, cy, R, 0, TAU);
     ctx.clip();
 
-    var base = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.32, R * 0.1, cx, cy, R * 1.05);
-    base.addColorStop(0, '#e6e9f0');
-    base.addColorStop(0.6, '#bcc2cf');
-    base.addColorStop(1, '#8e95a5');
-    ctx.fillStyle = base;
-    ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
+    var pm = global.PlanetMaterials;
+    if (pm && pm.moonFront.ready) {
+      /* 观者站在日月之间，看到的是正面受光的满月；贴片来自同一套 shader */
+      var side = R * 2 / pm.fill;
+      ctx.drawImage(pm.moonFront.canvas, cx - side / 2, cy - side / 2, side, side);
+    } else {
+      var base = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.32, R * 0.1, cx, cy, R * 1.05);
+      base.addColorStop(0, '#e6e9f0');
+      base.addColorStop(0.6, '#bcc2cf');
+      base.addColorStop(1, '#8e95a5');
+      ctx.fillStyle = base;
+      ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
 
-    var maria = [
-      [-0.24, -0.12, 0.30], [0.18, 0.02, 0.22], [0.04, 0.40, 0.17],
-      [-0.36, 0.34, 0.13], [0.32, -0.34, 0.12], [-0.06, 0.18, 0.10],
-      [0.30, 0.42, 0.09]
-    ];
-    for (var m = 0; m < maria.length; m++) {
-      var s = maria[m];
-      var mg = ctx.createRadialGradient(
-        cx + s[0] * R, cy + s[1] * R, 0,
-        cx + s[0] * R, cy + s[1] * R, s[2] * R * 1.6
-      );
-      mg.addColorStop(0, 'rgba(104,112,130,0.22)');
-      mg.addColorStop(0.6, 'rgba(104,112,130,0.11)');
-      mg.addColorStop(1, 'rgba(104,112,130,0)');
-      ctx.fillStyle = mg;
-      ctx.beginPath();
-      ctx.arc(cx + s[0] * R, cy + s[1] * R, s[2] * R * 1.6, 0, TAU);
-      ctx.fill();
+      var maria = [
+        [-0.24, -0.12, 0.30], [0.18, 0.02, 0.22], [0.04, 0.40, 0.17],
+        [-0.36, 0.34, 0.13], [0.32, -0.34, 0.12], [-0.06, 0.18, 0.10],
+        [0.30, 0.42, 0.09]
+      ];
+      for (var m = 0; m < maria.length; m++) {
+        var s0 = maria[m];
+        var mg = ctx.createRadialGradient(
+          cx + s0[0] * R, cy + s0[1] * R, 0,
+          cx + s0[0] * R, cy + s0[1] * R, s0[2] * R * 1.6
+        );
+        mg.addColorStop(0, 'rgba(104,112,130,0.22)');
+        mg.addColorStop(0.6, 'rgba(104,112,130,0.11)');
+        mg.addColorStop(1, 'rgba(104,112,130,0)');
+        ctx.fillStyle = mg;
+        ctx.beginPath();
+        ctx.arc(cx + s0[0] * R, cy + s0[1] * R, s0[2] * R * 1.6, 0, TAU);
+        ctx.fill();
+      }
     }
 
     ctx.globalCompositeOperation = 'multiply';
@@ -194,6 +201,7 @@
 
       /* 只有整轮进入本影后，月海才以暗红纹理透出 */
       var depth = M.clamp((Ru - Math.abs(scy - cy)) / R, 0, 1);
+      var maria = [[-0.24,-0.12,0.30],[0.18,0.02,0.22],[0.04,0.40,0.17],[-0.36,0.34,0.13],[0.32,-0.34,0.12],[-0.06,0.18,0.10],[0.30,0.42,0.09]];
       if (depth > 0.02) {
         for (var t = 0; t < maria.length; t++) {
           var tm = maria[t];

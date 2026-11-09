@@ -20,7 +20,8 @@ html, body {
   isolation: isolate;
 }
 
-#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* touch-action: none —— 拖动月球时不要被浏览器的滚动手势抢走指针 */
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
 
 /* 观测模式切换 */
 .mode-switch {
@@ -100,6 +101,72 @@ html, body {
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 视角切换：地月 / 日地月，只换相机，状态共用 */
+.view-switch {
+  position: absolute; right: 56px; top: 44px;
+  display: flex; gap: 4px; padding: 5px;
+  background: rgba(12, 19, 35, 0.72);
+  border: 1px solid rgba(120, 145, 190, 0.26);
+  border-radius: 16px;
+}
+.view-switch button {
+  width: 96px; height: 44px;
+  border: 0; border-radius: 11px;
+  background: transparent;
+  color: #9fb0cd;
+  font: 500 17px/1 inherit;
+  letter-spacing: 0.10em;
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease;
+}
+.view-switch button[aria-pressed="true"] {
+  background: rgba(122, 192, 250, 0.16);
+  color: #c9e4ff;
+  box-shadow: inset 0 0 0 1px rgba(122, 192, 250, 0.34);
+}
+.view-switch button:focus-visible { outline: 2px solid #8fb4e8; outline-offset: 2px; }
+
+/* 公转进度：拖动即可停在任意时刻，圆点标出五个关键节点的位置 */
+.scrub {
+  position: absolute; left: 50%; bottom: 96px;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 14px;
+  width: 620px;
+}
+.scrub-label {
+  font-size: 12px; letter-spacing: 0.18em; white-space: nowrap;
+  color: rgba(160, 178, 208, 0.62);
+}
+.scrub-track { position: relative; flex: 1; height: 20px; display: flex; align-items: center; }
+.scrub input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 3px; margin: 0;
+  border-radius: 2px; outline: none;
+  background: rgba(130, 154, 198, 0.24);
+  cursor: pointer;
+}
+.scrub input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: #f6d49a; border: 0;
+  box-shadow: 0 0 0 4px rgba(232, 178, 95, 0.16);
+}
+.scrub input[type="range"]::-moz-range-thumb {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: #f6d49a; border: 0;
+  box-shadow: 0 0 0 4px rgba(232, 178, 95, 0.16);
+}
+.scrub input[type="range"]:focus-visible { outline: 2px solid #8fb4e8; outline-offset: 6px; }
+.scrub-ticks {
+  position: absolute; left: 0; right: 0; bottom: -7px; height: 6px;
+  pointer-events: none;
+}
+.scrub-ticks i {
+  position: absolute; top: 0; width: 1px; height: 6px;
+  background: rgba(150, 172, 210, 0.40);
+  transform: translateX(-0.5px);
+}
+
 /* 关键节点 */
 .node-steps {
   position: absolute; left: 0; right: 0; bottom: 46px;
@@ -163,6 +230,7 @@ html, body {
 
 @media (prefers-reduced-motion: reduce) {
   .mode-switch button,
+  .view-switch button,
   .stage-name, .stage-type,
   .stage-track i,
   .node-step i,
