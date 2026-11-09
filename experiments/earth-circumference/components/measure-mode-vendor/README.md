@@ -7,3 +7,5 @@
 宿主换算与采集记录由 js/shadow-measurement.js 管理；不访问组件内部 DOM、root 或调试 state。
 
 2026-11-09 私有修正：placeConfirm 根据宿主局部尺寸选择端点另一侧并限制安全边距，防止确认按钮被实景视口裁切；交互 API 不变。此前交互代码原样说明仅适用于此修正之前。
+
+2026-11-09 经线测距：公开选项增加 prompts、resolvePoint、trace、autoCommit、onPhase。未传这些选项时，影长测量仍是任意点选、直线和确认按钮。经线测距用它们把两次点击限制在观测点和直射点，并沿经线重放连接动画。

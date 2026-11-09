@@ -8,34 +8,33 @@ export function mountCalculation(scene){
  <output class="calculation-result" aria-live="polite"></output><p class="formula-tip" role="status"></p>
  <small>角度由当前地点与日期计算；距离使用模拟地球模型。</small>`;
  scene.stage.append(panel);
- let distance=null,draft=null,placeKey='',measureKey='',picking=false,complete=false;
+ const host=document.createElement('div');
+ host.className='meridian-measure-host earth-measure-soft';
+ scene.stage.append(host);
+ const prompt='测量观测点到直射点在经度方向上的距离';
+ let distance=null,placeKey='',measureKey='',complete=false,applyingPhase=false;
  const q=s=>panel.querySelector(s);
- const track=document.createElementNS('http://www.w3.org/2000/svg','svg');
- track.setAttribute('viewBox','0 0 1600 900');track.classList.add('meridian-distance-track');
- track.innerHTML='<path class="distance-arc"/><circle class="distance-end" r="8"/>';
- scene.stage.append(track);
  const thetaOf=record=>record.saved?Math.atan(record.value/scene.calibration.rod)*180/Math.PI:null;
- function clearResult(){complete=false;scene.stage.dataset.calculationComplete='false';q('.calculation-result').textContent='';q('.calculation-substitution').textContent='';}
- function clearDistance(){distance=null;draft=null;picking=false;scene.stage.classList.remove('picking-distance');q('[data-confirm-distance]').hidden=true;clearResult();}
- function paintTrack(){
-  const arc=scene.measureArc();
-  const path=track.querySelector('.distance-arc'),end=track.querySelector('.distance-end');
-  const show=scene.calculating&&picking&&draft!==null&&arc;
-  track.hidden=!show;
-  if(!show)return;
-  const cam=scene.camera();
-  const samples=Array.from({length:25},(_,i)=>{
-   const lat=arc.selLat+(draft-arc.selLat)*i/24;
-   const p=scene.projectLatLon(lat,arc.selLon);
-   return {x:cam.centre.x+p.normal[0]*cam.radius,y:cam.centre.y-p.normal[1]*cam.radius,visible:p.visible};
-  }).filter(p=>p.visible);
-  path.setAttribute('d',samples.map((p,i)=>`${i?'L':'M'}${p.x} ${p.y}`).join(' '));
-  const tip=samples.at(-1);
-  if(!tip){end.setAttribute('cx',-20);return;}
-  end.setAttribute('cx',tip.x);end.setAttribute('cy',tip.y);
+ function markerPoint(marker){
+  const hostBox=host.getBoundingClientRect(),box=marker.getBoundingClientRect();
+  const sx=hostBox.width/(host.offsetWidth||hostBox.width||1);
+  const sy=hostBox.height/(host.offsetHeight||hostBox.height||1);
+  return {x:(box.left+box.width/2-hostBox.left)/sx,y:(box.top+box.height/2-hostBox.top)/sy};
  }
+ function hits(event,marker){
+  if(!marker||marker.hidden)return false;
+  const box=marker.getBoundingClientRect();
+  return event.clientX>=box.left-12&&event.clientX<=box.right+12&&event.clientY>=box.top-12&&event.clientY<=box.bottom+12;
+ }
+ function meridianKm(){
+  const arc=scene.measureArc();
+  return Math.abs(arc.selLat-arc.subLat)*Math.PI/180*arc.radiusKm;
+ }
+ function clearResult(){complete=false;scene.stage.dataset.calculationComplete='false';q('.calculation-result').textContent='';q('.calculation-substitution').textContent='';}
+ function clearDistance(){distance=null;if(host.classList.contains('is-measuring'))measure.exit();clearResult();}
  function update(){
   panel.hidden=!scene.calculating;
+  if(!scene.calculating&&host.classList.contains('is-measuring'))measure.exit();
   const arc=scene.measureArc(),record=scene.measurements.snapshot();
   const nextPlace=JSON.stringify([scene.observationDate,arc.selLat,arc.selLon,arc.subLat]);
   const nextMeasure=JSON.stringify([record.selected,scene.calibration.rod]);
@@ -43,43 +42,51 @@ export function mountCalculation(scene){
   if(nextMeasure!==measureKey){measureKey=nextMeasure;clearResult();}
   const theta=thetaOf(record.selected);
   q('[data-angle] strong').textContent=theta===null?'—':`${theta.toFixed(2)}°`;
-  q('#meridian-distance strong').textContent=distance===null?(draft===null?'沿经线测距':`${(Math.abs(draft-arc.selLat)*Math.PI/180*arc.radiusKm).toFixed(0)} km`):`${distance.toFixed(0)} km`;
+  q('#meridian-distance strong').textContent=distance===null?'沿经线测距':`${distance.toFixed(0)} km`;
   q('[data-calculate]').disabled=distance===null||!(theta>0);
-  q('[data-confirm-distance]').hidden=!(picking&&draft!==null);
   if(scene.calculating&&theta!==null&&theta<=1e-6)q('.formula-tip').textContent='杆影角为 0，无法计算周长。';
-  if(!scene.calculating){picking=false;scene.stage.classList.remove('picking-distance');}
-  paintTrack();
  }
+ const measure=window.SharedComponents.MeasureMode(host,{
+  label:'同经线距离',unit:'km',decimal:0,shape:'straight',autoCommit:true,scan:360,
+  prompts:{pickStart:prompt,pickEnd:prompt,pending:'',committing:'',done:''},
+  resolvePoint(phase,event){
+   const selected=scene.stage.querySelector('.geo-selected');
+   const subsolar=scene.stage.querySelector('.geo-subsolar');
+   if(phase==='pickStart'&&hits(event,selected))return markerPoint(selected);
+   if((phase==='pickEnd'||phase==='pending')&&hits(event,subsolar))return markerPoint(subsolar);
+   return null;
+  },
+  trace(){
+   const arc=scene.measureArc(),cam=scene.camera();
+   let d='',length=0,prev=null;
+   for(let i=0;i<=36;i++){
+    const lat=arc.selLat+(arc.subLat-arc.selLat)*i/36;
+    const p=scene.projectLatLon(lat,arc.selLon);
+    if(!p.visible){prev=null;continue;}
+    const point={x:cam.centre.x+p.normal[0]*cam.radius,y:cam.centre.y-p.normal[1]*cam.radius};
+    d+=`${prev?'L':'M'}${point.x.toFixed(1)} ${point.y.toFixed(1)} `;
+    if(prev)length+=Math.hypot(point.x-prev.x,point.y-prev.y);
+    prev=point;
+   }
+   return {d,length};
+  },
+  format(){return {value:meridianKm(),unit:'km',decimal:0};},
+  onPhase(next){
+   if(applyingPhase)return;
+   applyingPhase=true;
+   if(next==='scanning'){distance=null;clearResult();q('.formula-tip').textContent=prompt;}
+   if(next==='done'){distance=meridianKm();q('.formula-tip').textContent='已沿经线连接观测点和太阳直射点。';}
+   update();
+   applyingPhase=false;
+  }
+ });
+ window.addEventListener('pagehide',event=>{if(!event.persisted)measure.destroy();});
  q('[data-angle]').addEventListener('click',()=>{scene.stage.dataset.formulaFocus='theta';q('[data-angle]').classList.add('is-active');q('#meridian-distance').classList.remove('is-active');window.dispatchEvent(new Event('show-angle'));});
  q('#meridian-distance').addEventListener('click',()=>{
-  picking=true;draft=scene.measureArc().selLat;scene.stage.classList.add('picking-distance');scene.stage.dataset.formulaFocus='d';
-  q('#meridian-distance').classList.add('is-active');q('[data-angle]').classList.remove('is-active');
-  q('.formula-tip').textContent='按住地球，沿经线拖到太阳直射纬度，松开后确认距离。';
-  update();
- });
- let dragging=false;
- function placeDraft(event){
-  const hit=scene.pointerLatLon(event.clientX,event.clientY);
-  if(!hit)return;
-  const arc=scene.measureArc();
-  const lo=Math.min(arc.selLat,arc.subLat),hi=Math.max(arc.selLat,arc.subLat);
-  let lat=Math.min(hi,Math.max(lo,hit.lat));
-  if(Math.abs(lat-arc.subLat)<2)lat=arc.subLat;
-  draft=lat;update();
- }
- scene.canvas.addEventListener('pointerdown',event=>{
-  if(!scene.calculating||!picking)return;
-  dragging=true;scene.canvas.setPointerCapture(event.pointerId);placeDraft(event);
- });
- scene.canvas.addEventListener('pointermove',event=>{if(dragging)placeDraft(event);});
- scene.canvas.addEventListener('pointerup',()=>{dragging=false;});
- scene.canvas.addEventListener('pointercancel',()=>{dragging=false;});
- q('[data-confirm-distance]').addEventListener('click',()=>{
-  const arc=scene.measureArc();if(draft===null)return;
-  distance=Math.abs(draft-arc.selLat)*Math.PI/180*arc.radiusKm;
-  picking=false;complete=false;scene.stage.dataset.calculationComplete='false';scene.stage.classList.remove('picking-distance');
-  q('.formula-tip').textContent=Math.abs(draft-arc.subLat)<0.05?'已量到同经参考点。':'端点还没到同经参考点，这是当前拖动位置的距离。';
-  q('.calculation-result').textContent='';q('.calculation-substitution').textContent='';update();
+  scene.stage.dataset.formulaFocus='d';
+  q('#meridian-distance').classList.add('is-active');
+  q('[data-angle]').classList.remove('is-active');
+  measure.enter();
  });
  q('[data-calculate]').addEventListener('click',()=>{
   const angle=thetaOf(scene.measurements.snapshot().selected);if(distance===null||!(angle>0))return;

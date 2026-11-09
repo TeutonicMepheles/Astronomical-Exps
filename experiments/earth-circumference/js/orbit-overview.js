@@ -342,7 +342,7 @@ export function mountOrbitOverview(scene) {
       const model = scene.solarModel;
       const nextDay = ((model.day - 1 + step) % model.days) + 1;
       scene.phase = (nextDay - 1) / (model.days - 1);
-      if(controls.offset)scene.spin+=controls.offset;
+      if(scene.phaseAligned && controls.offset)scene.spin+=controls.offset;
     }
     const model = scene.solarModel;
     const start = orbitAngleForDate(model.year,model.day);

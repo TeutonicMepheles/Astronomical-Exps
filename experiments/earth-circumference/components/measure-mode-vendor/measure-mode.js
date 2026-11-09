@@ -72,7 +72,12 @@
       arcSide: opts.arcSide === -1 ? -1 : 1,
       // The host owns the science. By default the number is a linear scale of
       // the pixel length; pass `format(px)` when the mapping is anything else.
-      format: typeof opts.format === 'function' ? opts.format : null
+      format: typeof opts.format === 'function' ? opts.format : null,
+      prompts: Object.assign({}, PROMPT, opts.prompts || {}),
+      resolvePoint: typeof opts.resolvePoint === 'function' ? opts.resolvePoint : null,
+      trace: typeof opts.trace === 'function' ? opts.trace : null,
+      autoCommit: !!opts.autoCommit,
+      onPhase: typeof opts.onPhase === 'function' ? opts.onPhase : null
     };
 
     host.classList.add('mw-host');
@@ -135,9 +140,10 @@
     function phase(p) {
       st.phase = p;
       root.dataset.phase = p;
-      prompt.textContent = PROMPT[p] || '';
-      prompt.classList.toggle('visible', !!PROMPT[p]);
-      prompt.setAttribute('aria-hidden', PROMPT[p] ? 'false' : 'true');
+      prompt.textContent = cfg.prompts[p] || '';
+      prompt.classList.toggle('visible', !!cfg.prompts[p]);
+      prompt.setAttribute('aria-hidden', cfg.prompts[p] ? 'false' : 'true');
+      if (cfg.onPhase) cfg.onPhase(p);
       root.classList.toggle('is-measuring', p !== 'idle');
       host.classList.toggle('is-measuring', p !== 'idle');
       if (p === 'idle') toggle.setAttribute('aria-label', '进入测量模式');
@@ -183,7 +189,14 @@
     // Chord vs surface arc. The arc is a cubic bowed along the chord normal,
     // so a measurement can follow a globe limb or a crater rim instead of
     // cutting straight through the scene.
+    function traced() {
+      if (!cfg.trace || !st.start || !st.end) return null;
+      return cfg.trace(st.start, st.end);
+    }
+
     function pathData() {
+      var custom = traced();
+      if (custom && custom.d) return custom.d;
       var a = st.start, b = st.end;
       if (!a || !b) return '';
       if (cfg.shape !== 'arc') return 'M' + a.x + ' ' + a.y + 'L' + b.x + ' ' + b.y;
@@ -214,6 +227,8 @@
     }
 
     function lengthPx() {
+      var custom = traced();
+      if (custom && custom.length) return custom.length;
       if (!st.start || !st.end) return 0;
       var a = st.start, b = st.end;
       var dx = b.x - a.x, dy = b.y - a.y;
@@ -299,6 +314,7 @@
       st.start = st.end = null;
       line.setAttribute('d', '');
       line.removeAttribute('style');
+      line.removeAttribute('pathLength');
       startDot.classList.remove('on');
       endDot.classList.remove('on');
       readout.classList.remove('on');
@@ -322,6 +338,7 @@
       confirm.classList.remove('on');
       readout.classList.remove('on');
       line.setAttribute('d', '');
+      line.removeAttribute('pathLength');
       phase('idle');
       st.start = st.end = null;
     }
@@ -336,8 +353,9 @@
       st.end = p;
       setMark(endDot, p);
       syncLine('pending');
-      placeConfirm();
       phase('pending');
+      if (cfg.autoCommit) { commit(); return; }
+      placeConfirm();
     }
 
     function commit() {
@@ -347,6 +365,7 @@
       endDot.classList.add('locked');
       startDot.classList.add('locked');
       syncLine('drawing');
+      if (traced()) line.setAttribute('pathLength', '1');
       // Longer measurements take longer to draw, within a readable range.
       var drawMs = reduceMotion ? 140 :
         Math.max(T.drawMin, Math.min(T.drawMax, lengthPx() * T.drawPerPx));
@@ -418,9 +437,14 @@
 
     host.addEventListener('pointerdown', function (e) {
       if (e.target.closest && e.target.closest('.mw-btn')) return;
-      if (st.phase === 'pickStart') placeStart(pt(e));
-      else if (st.phase === 'pickEnd') placeEnd(pt(e));
-      else if (st.phase === 'pending') placeEnd(pt(e));   // re-pick the end point
+      var local = pt(e);
+      if (cfg.resolvePoint) {
+        var resolved = cfg.resolvePoint(st.phase, e, local);
+        if (!resolved) return;
+        local = resolved;
+      }
+      if (st.phase === 'pickStart') placeStart(local);
+      else if (st.phase === 'pickEnd' || st.phase === 'pending') placeEnd(local);
     });
 
     // Re-entering the measurement after a result keeps the drawn state until

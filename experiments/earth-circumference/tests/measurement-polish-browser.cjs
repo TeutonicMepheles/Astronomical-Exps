@@ -14,7 +14,7 @@ async function runAt(browser, viewport) {
   await page.locator('[data-view-mode-button=earth]').click();
   await page.waitForTimeout(650);
   await page.mouse.click(350, 300);
-  await page.waitForFunction(() => !document.querySelector('#stage').classList.contains('aligning-point'));
+  await page.evaluate(() => { window.__globe.spin = window.__globe.noonSpin(); });
   await page.locator('.observation-tip-selected').waitFor({ state: 'visible' });
   await page.locator('.observation-tip-selected').click();
   await page.waitForTimeout(1100);

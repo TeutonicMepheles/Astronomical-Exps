@@ -20,7 +20,9 @@ export function mountOrbitControls(scene, current, onReset) {
   function setPlaying(value){playing=value;toolbar.querySelector('[data-orbit-play]').setAttribute('aria-pressed',String(value));toolbar.querySelector('[data-orbit-pause]').setAttribute('aria-pressed',String(!value));scene.stage.dataset.orbitPlaying=String(value);if(value)close();}
   function setReading(value){range.value=String(value);output.value=`${value}°`;range.setAttribute('aria-valuetext',`${value} 度`);}
   button.addEventListener('click',()=>{if(!popover.hidden){close();return;}setPlaying(false);baseSpin=scene.spin-offset;popover.hidden=false;button.setAttribute('aria-expanded','true');range.focus({preventScroll:true});});
-  range.addEventListener('input',()=>{offset=Number(range.value);scene.spin=baseSpin+offset;setReading(offset);});
+  function applyOffset(next){offset=Math.min(360,Math.max(0,Number(next)));setReading(offset);scene.spin=baseSpin+offset;}
+  range.addEventListener('input',()=>applyOffset(range.value));
+  window.addEventListener('orbit-spin-offset',event=>applyOffset(event.detail));
   control.addEventListener('keydown',event=>{if(event.key==='Escape'){close();button.focus();event.preventDefault();}});
   scene.stage.addEventListener('pointerdown',event=>{if(!control.contains(event.target))close();});
   toolbar.querySelector('[data-orbit-play]').addEventListener('click',()=>setPlaying(true));

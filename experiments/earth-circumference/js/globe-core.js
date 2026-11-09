@@ -206,9 +206,21 @@ export function createScene(sceneRenderer) {
   reference.className = 'geo-marker geo-reference';
   reference.dataset.latlon = '0,0';
   reference.hidden = true;
-  reference.setAttribute('aria-label', '同经参考点');
-  reference.innerHTML = '<span class="geo-ref-mark" aria-hidden="true"></span>';
+  reference.setAttribute('aria-label', '同经度上的太阳直射点');
+  reference.innerHTML = '<span class="geo-ref-mark" aria-hidden="true"></span><span class="geo-ref-caption">同经直射点</span>';
   document.querySelector('[data-selectable]')?.after(reference);
+  const timeCard = document.createElement('section');
+  timeCard.className = 'local-time-card';
+  timeCard.hidden = true;
+  timeCard.innerHTML = '<span>所选经度的当地时间</span><output id="localSolarTime" aria-live="polite">--:--</output><p class="local-time-hint"></p><div class="local-time-spin"><label for="local-spin-range">自转进度</label><output id="localSpinValue" for="local-spin-range">0°</output></div><input id="local-spin-range" aria-label="自转进度" type="range" min="0" max="360" step="1" value="0">';
+  stage.append(timeCard);
+  const localSolarOut = timeCard.querySelector('#localSolarTime');
+  const localHint = timeCard.querySelector('.local-time-hint');
+  const localSpinOut = timeCard.querySelector('#localSpinValue');
+  const localSpinRange = timeCard.querySelector('#local-spin-range');
+  localSpinRange.addEventListener('input', () => {
+    window.dispatchEvent(new CustomEvent('orbit-spin-offset', { detail: Number(localSpinRange.value) }));
+  });
   const markers = [...document.querySelectorAll('[data-latlon], [data-subsolar]')];
 
   /* ---------- 舞台缩放 ---------- */
@@ -251,11 +263,15 @@ export function createScene(sceneRenderer) {
     axisGrip.style.top = GLOBE_CENTER.y + dir.y * out + 'px';
     axisGrip.setAttribute('aria-valuenow', state.tilt.toFixed(1));
 
+    const solarNow = stage.classList.contains('has-selection') ? localSolarTime() : null;
+    stage.classList.toggle('showing-reference', Boolean(solarNow) && !solarNow.noon && !state.measuring && !state.calculating);
+    stage.classList.toggle('at-local-noon', Boolean(solarNow?.noon) && !state.measuring);
+
     // 标记：直射点由当前日期的太阳方向换算；其余是固定地理点，转到背面自动隐藏
     for (const el of markers) {
       if (el.classList.contains('geo-reference')) {
         const selected = document.querySelector('[data-selectable]');
-        const show = stage.classList.contains('showing-reference') && selected;
+        const show = stage.classList.contains('showing-reference') && selected && !state.measuring;
         el.hidden = !show;
         if (!show) continue;
         const lon = Number(selected.dataset.latlon.split(',')[1]);
@@ -298,6 +314,24 @@ export function createScene(sceneRenderer) {
     timeline.setAttribute('aria-valuenow', String(Math.round(px)));
 
     spinValue.textContent = Math.round(((state.spin % 360) + 360) % 360) + '°';
+    const solar = solarNow;
+    const showTime = Boolean(solar) && !state.measuring && stage.dataset.viewMode !== 'orbit';
+    timeCard.hidden = !showTime;
+    const timeTag = picker?.querySelector('.local-time-tag');
+    if (timeTag) timeTag.hidden = !showTime || solar.noon;
+    if (showTime) {
+      localSolarOut.textContent = solar.text;
+      localHint.textContent = solar.noon
+        ? '已对齐当地正午'
+        : (reference.hidden ? '同经直射点在背面，继续调整自转进度' : '拖动自转进度，把当地时间调到 12:00');
+      timeCard.classList.toggle('is-noon', solar.noon);
+      if (timeTag) timeTag.textContent = `当地时间 ${solar.text}`;
+      const orbitRange = document.getElementById('orbit-spin-range');
+      if (orbitRange) {
+        localSpinOut.textContent = `${Math.round(Number(orbitRange.value))}°`;
+        if (document.activeElement !== localSpinRange) localSpinRange.value = orbitRange.value;
+      }
+    }
     const delta = subsolarNow(basis).lat;      // 实际呈现的直射纬度
     tiltValue.textContent = `${delta >= 0 ? 'N' : 'S'}${Math.abs(delta).toFixed(1)}°`;
     return basis;
@@ -317,19 +351,49 @@ export function createScene(sceneRenderer) {
     };
   }
 
+  const NOON_TOLERANCE_DEG = 0.51;
+
+  function selectedLongitude() {
+    if (!picker?.dataset.latlon) return null;
+    const lon = Number(picker.dataset.latlon.split(',')[1]);
+    return Number.isFinite(lon) ? lon : null;
+  }
+
+  function wrapLongitude(delta) {
+    return ((delta + 540) % 360) - 180;
+  }
+
   /** 让所选点与太阳直射点落在同一条经线上：把直射点经度对齐到所选点经度。
    *  自转角增加 s 会使局部经度整体减少 s，故 s = lon_sub(0) − lon_selected。 */
-  function alignToSelected() {
-    if (!picker) return;
-    const [latP, lonP] = picker.dataset.latlon.split(',').map(Number);
+  function noonSpinValue() {
+    const lonP = selectedLongitude();
+    if (lonP == null) return state.spin;
     const lonSub0 = subsolarNow(basisVectors(state.tilt, 0)).lon;
-    let s = lonSub0 - lonP;
-    s = ((s + 540) % 360) - 180;            // 取最短转向
-    state.spin = s;
+    return wrapLongitude(lonSub0 - lonP);
+  }
+
+  function alignToSelected() {
+    if (selectedLongitude() == null) return;
+    state.spin = noonSpinValue();
     dirty = true;
   }
 
-  /** 设置年相位：只改变公转位置和太阳方向；地轴方向和倾角保持不变。 */
+  /** Local solar time at the selected longitude. East of the subsolar meridian is afternoon. */
+  function localSolarTime(spin = state.spin) {
+    const lonP = selectedLongitude();
+    if (lonP == null) return null;
+    const delta = wrapLongitude(lonP - subsolarNow(basisVectors(state.tilt, spin)).lon);
+    const noon = Math.abs(delta) <= NOON_TOLERANCE_DEG;
+    if (noon) return { delta, text: '12:00', noon: true };
+    const minutes = Math.round((delta / 15) * 60);
+    const total = ((12 * 60 + minutes) % (24 * 60) + 24 * 60) % (24 * 60);
+    const hh = Math.floor(total / 60);
+    const mm = total % 60;
+    return { delta, text: `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`, noon: false };
+  }
+
+  /** 设置年相位：只改变公转位置和太阳方向；地轴方向和倾角保持不变。
+   *  点选之后的自转留给用户调整，日期变化不再把地球拉回正午。 */
   function setPhase(phase) {
     if (state.measuring) return;
     camAnim = null;stage.classList.remove('aligning-point');
@@ -339,13 +403,19 @@ export function createScene(sceneRenderer) {
     state.sun=sunForOrbitDate(state.year,state.day);
     state.tilt=FIXED_AXIS_SCREEN_TILT;
 
-    alignToSelected();          // 当地正午：直射点与所选点共用一条经线
+    const manualSpin = stage.classList.contains('has-selection');
+    state.phaseAligned = !manualSpin;
+    if (!manualSpin) alignToSelected();
     dirty = true;
   }
 
   function setSpin(value) {
     if (state.measuring) return;
     state.spin = value;
+    if (stage.classList.contains('has-selection') && !camAnim) {
+      const delta = wrapLongitude(noonSpinValue() - value);
+      if (Math.abs(delta) <= NOON_TOLERANCE_DEG) state.spin = noonSpinValue();
+    }
     dirty = true;
   }
 
@@ -354,7 +424,6 @@ export function createScene(sceneRenderer) {
   axisGrip.tabIndex = -1;
   axisGrip.setAttribute('aria-hidden', 'true');
   let clickStart = null;
-  let revealTimer = 0;
   canvas.addEventListener('pointerdown', (ev) => {
     if (state.measuring) return;
     clickStart = { x: ev.clientX, y: ev.clientY };
@@ -371,39 +440,11 @@ export function createScene(sceneRenderer) {
     if (nx*nx+ny*ny>1 || !picker) return;
     const {lat,lon} = screenToLatLon(nx,ny,basisVectors(state.tilt,state.spin));
     picker.dataset.latlon = `${lat.toFixed(2)},${lon.toFixed(2)}`;
-    stage.classList.add('has-selection','showing-reference');
+    stage.classList.add('has-selection');
     stage.classList.remove('aligning-point');
+    camAnim = null;
     picker.querySelector('.geo-ring')?.animate([{scale:'1'},{scale:'1.5'},{scale:'1'}],{duration:400});
     paintPicker(); updateUI();
-    clearTimeout(revealTimer);
-    const latP = lat, lonP = lon;
-    const declination = subsolarNow(basisVectors(state.tilt, state.spin)).lat;
-    const bothVisible = (spin) => {
-      const basis = basisVectors(state.tilt, spin);
-      return projectLatLon(latP, lonP, basis).visible && projectLatLon(declination, lonP, basis).visible;
-    };
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const startNoon = () => {
-      stage.classList.remove('showing-reference');
-      stage.classList.add('aligning-point');
-      const before = state.spin;
-      alignToSelected();
-      const targetSpin = state.spin;
-      state.spin = before;
-      animateCamera({zoom:state.zoom,fx:state.focus.x,fy:state.focus.y,spin:targetSpin,observation:0},1400);
-    };
-    if (reduced || bothVisible(state.spin)) {
-      revealTimer = setTimeout(startNoon, reduced ? 0 : 900);
-    } else {
-      let facing = state.spin;
-      for (let step = 4; step <= 120; step += 4) {
-        if (bothVisible(state.spin + step)) { facing = state.spin + step; break; }
-        if (bothVisible(state.spin - step)) { facing = state.spin - step; break; }
-      }
-      animateCamera({zoom:state.zoom,fx:state.focus.x,fy:state.focus.y,spin:facing,observation:0},700,()=>{
-        revealTimer = setTimeout(startNoon, 650);
-      });
-    }
   });
   canvas.addEventListener('pointercancel',()=>{clickStart=null;});
 
@@ -446,7 +487,14 @@ export function createScene(sceneRenderer) {
     if (label) label.textContent = `${fmtLat(lat)}, ${fmtLon(lon)}`;
   }
 
-  if (picker) { picker.style.pointerEvents = 'none'; paintPicker(); }
+  if (picker) {
+    picker.style.pointerEvents = 'none';
+    const timeTag = document.createElement('span');
+    timeTag.className = 'local-time-tag';
+    timeTag.hidden = true;
+    picker.append(timeTag);
+    paintPicker();
+  }
 
   const R_EARTH_KM = 6371;
   function measureArc() {
@@ -669,6 +717,9 @@ export function createScene(sceneRenderer) {
       setPhase((n-1)/(daysInYear(year)-1));updateUI();
     },
     get solarModel(){return {version:SOLAR_MODEL_VERSION,year:state.year,day:state.day,days:daysInYear(state.year),declination:declination(state.year,state.day)};},
+    get phaseAligned() { return Boolean(state.phaseAligned); },
+    noonSpin: noonSpinValue,
+    localSolarTime,
     get phase() { return state.phase; },
     set phase(v) { setPhase(v); updateUI(); },
     get subsolarLat() { return subsolarNow(basisVectors(state.tilt, state.spin)).lat; },
