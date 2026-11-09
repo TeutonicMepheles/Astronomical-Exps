@@ -1,0 +1,168 @@
+* { box-sizing: border-box; }
+html, body {
+  width: 100%; height: 100%; margin: 0; overflow: hidden;
+  background: #05080f;
+  color: #e8eefb;
+  font-family: "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* fixed 而非 absolute：缩放到 s<1 时，absolute 的未缩放盒仍参与文档滚动区，
+   会让页面出现可滚动余量（如 1440×900 下 scrollWidth 1520），违背「16:9 不滚动」。 */
+#stage {
+  position: fixed; width: 1600px; height: 900px; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* 观测模式切换 */
+.mode-switch {
+  position: absolute; left: 56px; top: 44px;
+  display: flex; gap: 4px; padding: 5px;
+  background: rgba(12, 19, 35, 0.72);
+  border: 1px solid rgba(120, 145, 190, 0.26);
+  border-radius: 16px;
+}
+.mode-switch button {
+  width: 112px; height: 48px;
+  border: 0; border-radius: 11px;
+  background: transparent;
+  color: #9fb0cd;
+  font: 500 18px/1 inherit;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease;
+}
+.mode-switch button::after { content: none; }
+.mode-switch button[aria-pressed="true"] {
+  background: rgba(232, 178, 95, 0.16);
+  color: #f6d49a;
+  box-shadow: inset 0 0 0 1px rgba(232, 178, 95, 0.34);
+}
+.mode-switch button:focus-visible { outline: 2px solid #8fb4e8; outline-offset: 2px; }
+
+/* 地面观察 + 当前阶段 */
+.observer-card {
+  position: absolute; left: 56px; top: 448px; width: 424px;
+  padding: 14px 14px 0;
+  background: rgba(10, 17, 32, 0.76);
+  border: 1px solid rgba(120, 145, 190, 0.22);
+  border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(2, 5, 12, 0.55);
+}
+.sky-frame {
+  position: relative; height: 232px;
+  border-radius: 14px; overflow: hidden;
+  background: #070c16;
+  box-shadow: inset 0 0 0 1px rgba(150, 178, 224, 0.16);
+}
+#sky { display: block; width: 100%; height: 100%; }
+.sky-caption {
+  position: absolute; left: 14px; top: 12px;
+  font-size: 12px; letter-spacing: 0.18em;
+  color: rgba(206, 222, 248, 0.5);
+}
+.stage-line {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 18px 8px 12px;
+}
+.stage-name {
+  font-size: 34px; font-weight: 600; letter-spacing: 0.08em;
+  color: #f4f7ff;
+  transition: opacity 0.18s ease;
+}
+.stage-name.is-swap { opacity: 0; }
+.stage-type {
+  font-size: 15px; letter-spacing: 0.14em;
+  color: #e8b25f;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(232, 178, 95, 0.10);
+  box-shadow: inset 0 0 0 1px rgba(232, 178, 95, 0.28);
+  transition: opacity 0.18s ease;
+}
+.stage-type.is-swap { opacity: 0; }
+.stage-track {
+  height: 2px; margin: 0 8px 16px;
+  background: rgba(130, 154, 198, 0.18);
+  border-radius: 2px; overflow: hidden;
+}
+.stage-track i {
+  display: block; height: 100%; width: 0%;
+  background: linear-gradient(90deg, rgba(232, 178, 95, 0.5), #f6d49a);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 关键节点 */
+.node-steps {
+  position: absolute; left: 0; right: 0; bottom: 46px;
+  display: flex; justify-content: center; gap: 6px;
+}
+.node-step {
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  width: 92px; padding: 8px 0 4px;
+  border: 0; background: transparent;
+  color: rgba(160, 178, 208, 0.62);
+  font: 400 13px/1 inherit;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+.node-step i {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: rgba(150, 172, 210, 0.32);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+.node-step.is-done i { background: rgba(232, 178, 95, 0.55); }
+.node-step.is-active { color: #f6d49a; }
+.node-step.is-active i {
+  background: #f6d49a;
+  transform: scale(1.5);
+  box-shadow: 0 0 0 5px rgba(232, 178, 95, 0.16);
+}
+.node-step:focus-visible { outline: 2px solid #8fb4e8; outline-offset: 4px; border-radius: 10px; }
+
+/* 播放控制 */
+.transport {
+  position: absolute; right: 56px; bottom: 40px;
+  display: flex; align-items: center; gap: 12px;
+}
+.transport button {
+  width: 60px; height: 60px;
+  display: grid; place-items: center;
+  border-radius: 16px;
+  border: 1px solid rgba(120, 145, 190, 0.28);
+  background: rgba(12, 19, 35, 0.78);
+  color: #cddcf5;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.16s ease;
+}
+.transport button:hover { background: rgba(24, 36, 62, 0.9); }
+.transport button:active { transform: scale(0.96); }
+.transport button:focus-visible { outline: 2px solid #8fb4e8; outline-offset: 3px; }
+.transport button:disabled { opacity: 0.32; cursor: default; }
+.transport button:disabled:active { transform: none; }
+.transport button svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.transport .transport-main { width: 76px; height: 76px; border-radius: 20px; background: rgba(232, 178, 95, 0.14); border-color: rgba(232, 178, 95, 0.36); color: #f6d49a; }
+.transport .transport-main:hover { background: rgba(232, 178, 95, 0.22); }
+.transport .transport-main svg { fill: currentColor; stroke: none; }
+.transport .i-pause { display: none; }
+.transport.is-playing .i-play { display: none; }
+.transport.is-playing .i-pause { display: block; }
+
+.live {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mode-switch button,
+  .stage-name, .stage-type,
+  .stage-track i,
+  .node-step i,
+  .transport button { transition: none; }
+}
