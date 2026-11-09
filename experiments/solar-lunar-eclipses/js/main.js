@@ -161,7 +161,10 @@
     var list = nodesFor(state.mode);
     var name = state.free ? phaseName(state.phi) : list[state.index].name;
     setLabels(name, M.MODES[state.mode].type);
-    live.textContent = name + '，' + M.MODES[state.mode].type;
+    /* 斜视档这一框里没有发生食——只对辅助技术说话时也不能说反 */
+    live.textContent = state.view === 'oblique'
+      ? name + '，斜视图'
+      : name + '，' + M.MODES[state.mode].type;
     stageFill.style.width = (valueFromPhi(state.phi) / 10).toFixed(1) + '%';
     rail.setProgress(state.phi, state.index);
     transport.classList.toggle('is-playing', state.playing);
