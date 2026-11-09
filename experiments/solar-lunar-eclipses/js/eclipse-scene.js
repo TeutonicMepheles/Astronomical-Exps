@@ -32,6 +32,20 @@
   function sx(x) { return view.ex + x * view.px; }
   function sy(y) { return view.ey - y * view.px; }
 
+  /*
+   * 影斑落点：日→月这条轴线（也就是影锥自己的轴）与地球球面的近侧交点。
+   * 不能用「y = 月球高度」的水平线去截球：月球偏离日地连线时，水平线与真轴线
+   * 在地球上要差出十几像素，地面黑斑就会落在投影锥尖旁边，看着像影区没和投影对齐。
+   */
+  function axisLanding(C, r) {
+    var u = M.cone(C, r).axis;
+    var b = M.dot(C, u);
+    var disc = b * b - (M.dot(C, C) - M.RE * M.RE);
+    if (disc < 0) return null;
+    var t = -b - Math.sqrt(disc);
+    return t > 0 ? { x: C.x + u.x * t, y: C.y + u.y * t, t: t } : null;
+  }
+
   function Scene(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
@@ -107,10 +121,8 @@
     this.drawOrbit(ctx);
     this.drawRays(ctx, moon, state);
     /* 月本影画到它真正收敛或落到地面的距离为止：落地点就与地面黑斑对得上 */
-    var my = Math.abs(moon.y);
-    var axisHit = my < M.RE
-      ? Math.abs(moon.x) - Math.sqrt(M.RE * M.RE - my * my)
-      : Infinity;
+    var landing = axisLanding(moon, M.RM);
+    var axisHit = landing ? landing.t : Infinity;
     var umbLen = M.cone(moon, M.RM).umbraLength;
     var lands = axisHit < umbLen;
     this.drawCone(ctx, M.EARTH, M.RE, 5.6, state, true, false);
@@ -525,16 +537,15 @@
   };
 
   Scene.prototype.drawEarthSpot = function (ctx, moon, state) {
-    /* 本影沿日→月方向延伸，只有整条轴线落到地球上时才在地面留下投影 */
-    if (Math.abs(moon.y) >= M.RE) return;
+    /* 本影沿日→月方向延伸，只有整条轴线落到地球上时才在地面留下投影。
+       落点与 drawCone 的锥尖用同一个 axisLanding，影斑才贴着投影锥。 */
+    var hit = axisLanding(moon, M.RM);
+    if (!hit) return;
     var cone = M.cone(moon, M.RM);
-    var xs = (moon.x < 0 ? -1 : 1) * Math.sqrt(M.RE * M.RE - moon.y * moon.y);
-    var P = M.v(xs, moon.y);
-    var d = M.dist(P, moon);
-    var spot = cone.umbraRadiusAt(d) * view.px;
-    var pen = cone.penumbraRadiusAt(d) * view.px;
+    var spot = cone.umbraRadiusAt(hit.t) * view.px;
+    var pen = cone.penumbraRadiusAt(hit.t) * view.px;
     if (spot <= 0 || pen <= 0) return;
-    var cx = sx(P.x), cy = sy(P.y);
+    var cx = sx(hit.x), cy = sy(hit.y);
     var r = M.RE * view.px;
 
     ctx.save();
