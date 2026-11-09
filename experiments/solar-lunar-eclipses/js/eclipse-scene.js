@@ -865,25 +865,42 @@
     this.drawMoon(ctx, moon, state, m0, SIDE_RM, true);
 
     /*
-     * 余量：本影轴线在地心经线上的高度减去地球半径。这是这一帧真正的结论——
-     * 差 1.39 RE 没打到，不是「擦了一下」。月食档这条量的是地影，另有数，不在这里画。
+     * 这一档的四个数全部随 φ 走，没有一个写死：离交点的角度由 u 与交点（u = 90°/270°）差算，
+     * 黄纬 = |D·cos u|·sin i，余量就直接量屏幕上那条括号。食季断言（本影/地影掠过、余量）
+     * 只在影子真的擦着天体过去时出现——越界不是换个数，是这一帧没有这句话。
      */
     var solarMode = state.mode !== 'lunar';
-    var axisY = (P.y + (0 - P.x) * (uy / ux)) * OB_C * px;
-    var gapTop = ey - axisY, gapBot = ey - M.RE * px;
+    var uDeg = ((u * 180 / Math.PI) % 360 + 360) % 360;
+    var off = Math.abs(uDeg - 90);
+    if (off > 180) off = 360 - off;
+    if (off > 90) off = 180 - off;
+    var lat = D * Math.abs(Math.cos(u)) * SIDE_FLAT;
+    /* 相位名按表头那张四态表来，别在交点上二分：u = 0 望月 / 90 下弦 / 180 新月 / 270 上弦 */
+    var phase = ['望月', '下弦', '新月', '上弦'][Math.round(uDeg / 90) % 4];
+
+    var near, axisAbove = true, clear = 0;
     if (solarMode) {
-      ctx.save();
-      ctx.strokeStyle = 'rgba(246,212,154,0.62)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(ex + 44, gapTop);
-      ctx.lineTo(ex + 44, gapBot);
-      ctx.moveTo(ex + 40, gapTop);
-      ctx.lineTo(ex + 48, gapTop);
-      ctx.moveTo(ex + 40, gapBot);
-      ctx.lineTo(ex + 48, gapBot);
-      ctx.stroke();
-      ctx.restore();
+      /* 地心到本影轴线的三维垂直距离（撞击参数 b），余量 = b − RE */
+      var cx3 = P.y * uz - P.z * uy;
+      var cy3 = P.z * ux - P.x * uz;
+      var cz3 = P.x * uy - P.y * ux;
+      var b = Math.hypot(cx3, cy3, cz3);
+      clear = b - M.RE;
+      /* 画出来的影轴走 obAt，带 z·sin25°，只用 y 算会搭不上。这里按完整投影求
+         x = ex+44 处的轴线高度，再量地心到这条屏幕直线的距离：小于圆盘半径就是
+         画面里影轴穿过地球。两侧投影不对称，这种帧「掠过」不成立，宁可不说话。 */
+      var bx = 44 / px;
+      var bt = (bx - P.x) / ux;
+      var axY = ey - ((P.y + bt * uy) * OB_C + (P.z + bt * uz) * OB_S) * px;
+      var ddx = ex + 44 - m0.x, ddy = axY - m0.y;
+      var sl = Math.hypot(ddx, ddy) || 1;
+      var sd = Math.abs((ex - m0.x) * ddy - (ey - m0.y) * ddx) / sl;
+      near = P.x < 0 && b < 6 && sd > M.RE * px;
+      /* 「上方/下方」跟画面走：25° 俯角下 z 反号，三维的上下和屏幕上的上下会翻 */
+      axisAbove = axY < ey;
+    } else {
+      /* 月食档：地影轴线就是 +x 轴，量的是月心到它的距离 √(y² + z²) */
+      near = P.x > 0 && Math.hypot(P.y, P.z) < 6;
     }
 
     ctx.save();
@@ -905,19 +922,23 @@
     /* 月球在右侧时标签翻到左边，别顶到食相轨 */
     var side = m0.x > ex ? -16 : 16;
     var align = m0.x > ex ? 'right' : 'left';
-    label((solarMode ? '新月' : '望月') + '离交点 90°', m0.x + side, m0.y - 36, 'rgba(214,226,246,0.66)', align);
+    label(phase + '离交点 ' + off.toFixed(0) + '°', m0.x + side, m0.y - 36,
+      'rgba(214,226,246,0.66)', align);
     /* 单位跟着数字走：图上量的是 RE，就得写出来 */
-    label('黄纬 1.79 RE', m0.x + side, m0.y + 24, 'rgba(246,212,154,0.86)', align);
-    if (solarMode) {
-      label('本影从地球上方掠过', ex - 176, ey - 84, 'rgba(206,222,250,0.66)');
-      label('余量 1.39 RE', ex + 54, (gapTop + gapBot) / 2, 'rgba(246,212,154,0.88)');
-    } else {
+    label('黄纬 ' + lat.toFixed(2) + ' RE', m0.x + side, m0.y + 24,
+      'rgba(246,212,154,0.86)', align);
+    if (solarMode && near) {
+      label('本影从地球' + (axisAbove ? '上方' : '下方') + '掠过', ex - 176, ey - 84,
+        'rgba(206,222,250,0.66)');
+      label('余量 ' + clear.toFixed(2) + ' RE', ex - 176, ey - 62,
+        'rgba(246,212,154,0.88)');
+    } else if (!solarMode && near) {
       label(m0.y > foot.y ? '地影从月球上方掠过' : '地影从月球下方掠过',
         ex + 132, ey - 46, 'rgba(206,222,250,0.66)');
     }
     ctx.restore();
 
-    this.drawScale(ctx);
+    this.drawScale(ctx, state.mode);
   };
 
   /*
@@ -925,7 +946,7 @@
    * 特写 4.6 RE（为了地月同框）、侧视 20 RE（为了读得出黄纬）。
    * 放了尺子就必须写明哪一段是压缩的，否则尺子就是在替一组假数作保。
    */
-  Scene.prototype.drawScale = function (ctx) {
+  Scene.prototype.drawScale = function (ctx, mode) {
     var side = view.mode === 'side';
     var obl = view.mode === 'oblique';
     var wide = side || obl;
@@ -937,7 +958,10 @@
          '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
       : obl
         ? ['月球轨道按 20 个地球半径绘制（实际 60.34），黄纬为真值',
-           '俯角 25°：黄纬 1.79 RE 投成 1.63 RE（44 px），余量 1.39 RE 已在球面上量',
+           /* 1.79 是这一档的最大黄纬；余量那句只对日食档成立 */
+           '俯角 25°：最大黄纬 1.79 RE 投成 1.63 RE（44 px）'
+             + (mode === 'lunar' ? '' : '；余量为三维净空（地心到影轴减 1 RE）')
+             + '；影轴穿盘时不给「掠过」判定，看侧视档',
            '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
         : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
     var x0 = 48, y0 = 824, w = re * view.px;
