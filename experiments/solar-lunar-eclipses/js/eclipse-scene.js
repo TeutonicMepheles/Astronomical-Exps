@@ -472,6 +472,9 @@
   var SIDE_TILT = 5.145 * M.DEG;   /* 白道对黄道：真值，本档唯一不做示意的量 */
   var SIDE_FLAT = Math.sin(SIDE_TILT);  /* 半短轴/半长轴 = sin i（见 VD 的侧视方案） */
   var SIDE_SUN_D = 60;             /* 太阳距离（示意，画外）：与下面那条一起定本影收敛角 */
+  /* 侧视用自己的月球半径（真值 0.2725 RE）。主视图的 M.RM = 0.2646 是为地面视比调的，
+     这一档既然另立比例尺，就用真值，别让尺子量到假数（→ 太阳半径 1.051、角半径 1.004°）。 */
+  var SIDE_RM = 0.2725;
 
   Scene.prototype.drawSide = function (ctx, moon, state) {
     var cx = view.ex, cy = view.ey;
@@ -524,11 +527,11 @@
      */
     var nodeRe = SIDE_ORBIT;
     var umbRe = nodeRe + M.RE;
-    var sunRe = M.RM + SIDE_SUN_D * (M.RM / umbRe);
+    var sunRe = SIDE_RM + SIDE_SUN_D * (SIDE_RM / umbRe);
     var sideSun = { x: -(nodeRe + SIDE_SUN_D), y: 0, r: sunRe };
 
     /* 月本影：从月球沿日→月方向延伸，锥尖落在远侧地表；偏离交点就从地球旁边过去 */
-    this.drawCone(ctx, mw, M.RM, umbRe, state, false, true, sideSun);
+    this.drawCone(ctx, mw, SIDE_RM, umbRe, state, false, true, sideSun);
     /* 地本影：沿黄道面向右，略长于轨道半径即止。半影只在月食里有意义，日食时不画 */
     this.drawCone(ctx, M.EARTH, M.RE, nodeRe * 1.24, state, true, false, sideSun, state.mode !== 'lunar');
 
@@ -573,7 +576,7 @@
     ctx.restore();
 
     this.drawEarth(ctx, state);
-    this.drawMoon(ctx, moon, state, { x: mx, y: my });
+    this.drawMoon(ctx, moon, state, { x: mx, y: my }, SIDE_RM);
 
     /* 两轨道面的夹角：地心处、黄道面之上的 5.145° */
     var arcR = 196;
@@ -619,7 +622,7 @@
     var notes = side
       ? ['月轨按 20 个地球半径绘制（实际 60.34），夹角为真值',
          '轨道按正圆绘制（e=0.055 忽略），椭圆为侧视投影',
-         '太阳角半径按 0.98° 绘制（真值 0.27°），本影才够得到地表']
+         '太阳角半径按 1.00° 绘制（真值 0.27°），本影才够得到地表']
       : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）'];
     var x0 = 48, y0 = 824, w = re * view.px;
 
@@ -646,15 +649,17 @@
   };
 
   /* at 只在侧视里用：月球画在示意椭圆上，不在主几何的屏幕位置 */
-  Scene.prototype.drawMoon = function (ctx, moon, state, at) {
-    var cx = at ? at.x : sx(moon.x), cy = at ? at.y : sy(moon.y), r = M.RM * view.px;
+  /* rm 只在侧视里传（SIDE_RM）：那一档用自己的月球半径，其余各档仍用 M.RM */
+  Scene.prototype.drawMoon = function (ctx, moon, state, at, rm) {
+    var rmUse = rm || M.RM;
+    var cx = at ? at.x : sx(moon.x), cy = at ? at.y : sy(moon.y), r = rmUse * view.px;
     var vis = M.sunVisible(moon, M.EARTH, M.RE);
     var shade = 1 - vis;
     /* 本影深度：只有整轮沉入本影，折射红光才会盖过灰暗的日面 */
     var depth = 0;
     if (moon.x > 0) {
       var umbraR = M.cone(M.EARTH, M.RE).umbraRadiusAt(moon.x);
-      depth = M.clamp((umbraR - Math.abs(moon.y)) / M.RM, 0, 1);
+      depth = M.clamp((umbraR - Math.abs(moon.y)) / rmUse, 0, 1);
     }
 
     var halo = ctx.createRadialGradient(cx, cy, r * 0.92, cx, cy, r * 1.45);
