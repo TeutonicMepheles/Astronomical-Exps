@@ -6,10 +6,7 @@
   let opened=false;
   function hitTest(clientX,clientY){
     const r=world.getBoundingClientRect(),x=(clientX-r.left)/r.width*2172,y=(clientY-r.top)/r.height*724;
-    // Perspective aperture remains selectable even when emission is fully off.
-    if(x<1222||x>1363)return false;
-    const t=(x-1222)/141;
-    return y>=362+13*t&&y<=447+7*t;
+    return window.BillboardSurface.contains(x,y);
   }
   function close(restoreFocus=false){
     const wasOpen=opened;opened=false;panel.hidden=true;target.setAttribute('aria-expanded','false');
@@ -18,7 +15,8 @@
   function positionPanel(){
     if(!opened)return;
     const s=stage.getBoundingClientRect(),w=world.getBoundingClientRect();
-    const x=w.left-s.left+1292.5/2172*w.width,y=w.top-s.top+408/724*w.height;
+    const points=window.BillboardSurface.getCorners(),cx=points.reduce((sum,p)=>sum+p[0],0)/4,cy=points.reduce((sum,p)=>sum+p[1],0)/4;
+    const x=w.left-s.left+cx/2172*w.width,y=w.top-s.top+cy/724*w.height;
     if(x<0||x>s.width){close();return;}
     const width=panel.offsetWidth,height=panel.offsetHeight;
     const left=x+26+width<s.width-12?x+26:x-width-26;
@@ -31,7 +29,7 @@
     stage.dispatchEvent(new Event('billboard-selected'));
   }
   target.addEventListener('click',event=>{if(event.detail===0)select();});
-  function updateSky(){window.SkyScene.update('billboard',[{x:1292.5,radius:360,strength:.6*Number(brightness.value)/100,color:[224,201,224]}]);}
+  function updateSky(){window.SkyScene.update('billboard',[{x:window.BillboardSurface.getCorners().reduce((sum,p)=>sum+p[0],0)/4,radius:360,strength:.6*Number(brightness.value)/100,color:[224,201,224]}]);}
   brightness.addEventListener('input',()=>{
     updateSky();
     image.style.opacity=String(Number(brightness.value)/100);
@@ -46,5 +44,6 @@
   document.addEventListener('pointerdown',dismissOutside);document.addEventListener('click',dismissOutside);
   new ResizeObserver(positionPanel).observe(stage);
   window.BillboardScene={hitTest,select,close,positionPanel};
+  window.BillboardSurface.subscribe(()=>{positionPanel();updateSky();});
   close();updateSky();
 })();

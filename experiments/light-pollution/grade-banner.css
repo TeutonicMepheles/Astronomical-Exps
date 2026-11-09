@@ -1,0 +1,61 @@
+.stage-top{
+  --grade-top:4.2%;
+  --grade-left:3.6%;
+  --grade-right:12%;
+  --grade-gap:1.2cqw;
+  --grade-pad-y:0.75cqw;
+  --grade-pad-x:1.3cqw;
+  --grade-radius:1.2cqw;
+  --grade-border:0.12cqw;
+  --grade-caption-size:1cqw;
+  --grade-number-size:2.6cqw;
+  --grade-unit-size:1.2cqw;
+  --grade-copy-size:1.1cqw;
+  --grade-copy-line:1.55;
+  --grade-ring-size:5.6cqw;
+  --grade-ring-width:0.22cqw;
+  --grade-ring-inset-x:0cqw;
+  --grade-ring-inset-y:0cqw;
+  --grade-ring-inset-bottom:0.5cqw;
+  --grade-number-shift-x:0cqw;
+  --grade-number-shift-y:0cqw;
+  --grade-unit-gap:0.55cqw;
+  --grade-unit-shift-x:0cqw;
+  --grade-unit-shift-y:0cqw;
+  --grade-level-width:10.2cqw;
+  --grade-divider:0.08cqw;
+  --grade-title-size:2.9cqw;
+  --grade-accent:#e8b453;
+  --grade-copy:#e4ecf7;
+  --grade-caption:#d5deeb;
+  --grade-bg:transparent;
+  --grade-border-color:#e8b45399;
+  position:absolute;top:var(--grade-top);left:var(--grade-left);right:var(--grade-right);z-index:6;display:flex;align-items:center;gap:var(--grade-gap);pointer-events:none
+}
+.stage-top header{position:relative;left:auto;top:auto;flex:0 0 auto;width:max-content;max-width:24cqw}
+.stage-top header h1{margin:0 0 .35cqw;font-size:var(--grade-title-size);white-space:nowrap}
+.grade-banner{flex:1;min-width:0;display:flex;align-items:center;gap:18px;padding:var(--grade-pad-y) var(--grade-pad-x) calc(var(--grade-pad-y) + var(--grade-ring-inset-bottom));border:var(--grade-border) solid var(--grade-border-color);border-radius:var(--grade-radius);background:var(--grade-bg);box-shadow:none}
+.grade-banner-level{flex:none;width:var(--grade-level-width)}
+.grade-banner-caption{margin:0 0 6px;font-size:var(--grade-caption-size);color:var(--grade-caption);letter-spacing:.04em;text-shadow:0 1px 8px #071428c0}
+.grade-banner-value{display:flex;align-items:center;gap:var(--grade-unit-gap);margin:var(--grade-ring-inset-y) 0 var(--grade-ring-inset-bottom) var(--grade-ring-inset-x)}
+.grade-banner-ring{display:grid;place-items:center;width:var(--grade-ring-size);height:var(--grade-ring-size);border:var(--grade-ring-width) solid var(--grade-accent);border-radius:50%;color:var(--grade-accent);font-size:var(--grade-number-size);font-weight:600;font-variant-numeric:tabular-nums;line-height:1}
+.grade-banner-ring [data-grade-int]{transform:translate(var(--grade-number-shift-x),var(--grade-number-shift-y))}
+.grade-banner-unit{color:var(--grade-accent);font-size:var(--grade-unit-size);font-weight:600;transform:translate(var(--grade-unit-shift-x),var(--grade-unit-shift-y))}
+.grade-banner-copy{flex:1;min-width:0;margin:0;padding-left:18px;border-left:var(--grade-divider) solid var(--grade-border-color);color:var(--grade-copy);font-size:var(--grade-copy-size);line-height:var(--grade-copy-line);text-shadow:0 1px 8px #071428c0}
+.grade-tuner-toggle{position:fixed;left:204px;top:12px;z-index:41;height:40px;padding:0 12px;border:1px solid #7693ba70;border-radius:10px;background:#17233df0;color:#eef2f8;cursor:pointer;font:13px "Microsoft YaHei",sans-serif}
+.grade-tuner-toggle[aria-expanded=true]{display:none}
+.grade-tuner{position:fixed;left:12px;top:12px;bottom:12px;z-index:40;width:280px;display:flex;flex-direction:column;border:1px solid #7693ba70;border-radius:14px;background:#10192cf2;color:#eef2f8;box-shadow:0 10px 32px #0006;font:13px "Microsoft YaHei",system-ui,sans-serif}
+.grade-tuner[hidden]{display:none}
+.grade-tuner-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #7693ba40}
+.grade-tuner-head h2{margin:0;font-size:14px}
+.grade-tuner-head button,.grade-tuner-actions button{height:32px;border:0;border-radius:8px;background:#2e3c59;color:#edf0f4;cursor:pointer;font:inherit}
+.grade-tuner-list{flex:1;overflow:auto;padding:8px 12px 12px}
+.grade-tuner-list label{display:flex;justify-content:space-between;gap:8px;margin-top:8px;color:#c5d2e4}
+.grade-tuner-list input{width:100%;margin:2px 0 0}
+.grade-tuner-actions{display:flex;gap:8px;padding:8px 12px 12px}
+.grade-tuner-actions button{flex:1}
+.grade-tuner-copy{margin:0 12px 12px;min-height:4.5em;padding:8px;border-radius:8px;background:#0b1220;color:#c5d2e4;font:11px/1.4 ui-monospace,monospace;white-space:pre-wrap}
+@media(max-width:600px){
+  .grade-tuner{width:min(280px,calc(100vw - 24px));bottom:auto;max-height:70dvh}
+  .stage-top{right:4%}
+}

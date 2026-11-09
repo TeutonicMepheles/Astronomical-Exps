@@ -1,0 +1,21 @@
+{
+  "app.js": "app/bootstrap.js",
+  "editor.js": "app/editor/layer-editor.js",
+  "objects.js": "features/objects/service.js",
+  "building-controls.js": "features/buildings/controller.js",
+  "gradient-editor.js": "app/editor/gradient-editor.js",
+  "navigation.js": "app/presentation/navigation.js",
+  "sky-settings.js": "features/sky/panel.js",
+  "lamps.js": "features/lamps/controller.js",
+  "scene-effects.js": "features/environment/controller.js",
+  "light-environment.js": "features/light-environment/controller.js",
+  "interaction-hints.js": "features/interaction-hints/controller.js",
+  "hint-contours.js": "scenes/candidate/hint-contours.js",
+  "candidates.js": "resources/candidate-loader.js",
+  "water-flow.js": "features/water/renderer.js",
+  "billboard-video.js": "features/billboard/renderer.js",
+  "building-light-masks.js": "resources/building-light-masks.js",
+  "masked-lighting.js": "rendering/masked-lighting.js",
+  "curtain-palette.js": "features/curtains/palette.js",
+  "style.css": "app/styles/scene.css"
+}

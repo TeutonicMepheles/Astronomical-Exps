@@ -1,0 +1,656 @@
+{
+  "format": "lib-static-layout",
+  "version": 2,
+  "sceneId": "candidates-20261027",
+  "width": 2172,
+  "height": 724,
+  "layers": [
+    {
+      "id": "environment",
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "opacity": 1,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "ground",
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "opacity": 1,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "residential",
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "opacity": 1,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "public",
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "opacity": 1,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "ad-building",
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "opacity": 1,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "trees",
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "opacity": 1,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "front-water",
+      "x": 0,
+      "y": 0,
+      "scale": 1,
+      "opacity": 1,
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "objects": {
+    "version": 1,
+    "items": [
+      {
+        "id": "residential-window-0",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 1",
+        "corners": [
+          [
+            24.509999999999998,
+            257.76596153846157
+          ],
+          [
+            62.34999999999999,
+            255.7027884615385
+          ],
+          [
+            62.34999999999999,
+            315.1221730769231
+          ],
+          [
+            24.509999999999998,
+            316.7727115384615
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-1",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 2",
+        "corners": [
+          [
+            86,
+            249.51326923076925
+          ],
+          [
+            146.2,
+            253.6396153846154
+          ],
+          [
+            146.2,
+            315.1221730769231
+          ],
+          [
+            86,
+            314.2969038461539
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-2",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 3",
+        "corners": [
+          [
+            309.59999999999997,
+            285.8251153846154
+          ],
+          [
+            372.38,
+            295.3157115384616
+          ],
+          [
+            372.38,
+            341.11815384615386
+          ],
+          [
+            309.59999999999997,
+            336.1665384615385
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-3",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 4",
+        "corners": [
+          [
+            24.509999999999998,
+            347.3076730769231
+          ],
+          [
+            41.28,
+            346.4824038461539
+          ],
+          [
+            41.28,
+            387.7458653846154
+          ],
+          [
+            24.509999999999998,
+            387.7458653846154
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-4",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 5",
+        "corners": [
+          [
+            86,
+            335.3412692307693
+          ],
+          [
+            146.2,
+            339.0549807692308
+          ],
+          [
+            146.2,
+            393.52275
+          ],
+          [
+            86,
+            393.52275
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-5",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 6",
+        "corners": [
+          [
+            309.59999999999997,
+            360.92461538461544
+          ],
+          [
+            372.38,
+            369.17730769230775
+          ],
+          [
+            372.38,
+            408.3775961538462
+          ],
+          [
+            309.59999999999997,
+            405.9017884615385
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-6",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 7",
+        "corners": [
+          [
+            24.509999999999998,
+            425.70825
+          ],
+          [
+            41.28,
+            424.4703461538462
+          ],
+          [
+            41.28,
+            464.90853846153846
+          ],
+          [
+            24.509999999999998,
+            465.73380769230766
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-7",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 8",
+        "corners": [
+          [
+            86,
+            415.39238461538463
+          ],
+          [
+            146.2,
+            418.6934615384615
+          ],
+          [
+            146.2,
+            473.5738653846154
+          ],
+          [
+            86,
+            473.98650000000004
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-8",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 9",
+        "corners": [
+          [
+            309.59999999999997,
+            431.0725
+          ],
+          [
+            372.38,
+            437.2620192307692
+          ],
+          [
+            372.38,
+            479.35075
+          ],
+          [
+            309.59999999999997,
+            477.2875769230769
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-9",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 10",
+        "corners": [
+          [
+            89.00999999999999,
+            490.07925
+          ],
+          [
+            168.13,
+            490.90451923076927
+          ],
+          [
+            168.13,
+            591.1747307692308
+          ],
+          [
+            89.00999999999999,
+            591.1747307692308
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "residential-window-10",
+        "parent": "residential",
+        "type": "window",
+        "label": "住宅窗 11",
+        "corners": [
+          [
+            309.16999999999996,
+            495.0308653846154
+          ],
+          [
+            374.09999999999997,
+            497.50667307692305
+          ],
+          [
+            374.09999999999997,
+            590.7620961538462
+          ],
+          [
+            309.16999999999996,
+            590.7620961538462
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "public-window-0",
+        "parent": "public",
+        "type": "window",
+        "label": "公共建筑窗 1",
+        "corners": [
+          [
+            514.2,
+            503.2255319148936
+          ],
+          [
+            631.24,
+            486.2024708304736
+          ],
+          [
+            631.24,
+            581.0225120109815
+          ],
+          [
+            514.2,
+            581.1816060398079
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "public-window-1",
+        "parent": "public",
+        "type": "window",
+        "label": "公共建筑窗 2",
+        "corners": [
+          [
+            673.04,
+            508.7938229238161
+          ],
+          [
+            852.4,
+            519.2940288263555
+          ],
+          [
+            852.4,
+            580.7043239533289
+          ],
+          [
+            673.04,
+            581.0225120109815
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "public-window-2",
+        "parent": "public",
+        "type": "window",
+        "label": "公共建筑窗 3",
+        "corners": [
+          [
+            932.2,
+            512.9302676733014
+          ],
+          [
+            1032.52,
+            521.0440631434454
+          ],
+          [
+            1032.52,
+            580.8634179821552
+          ],
+          [
+            932.2,
+            580.7043239533289
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "public-window-3",
+        "parent": "public",
+        "type": "window",
+        "label": "公共建筑窗 4",
+        "corners": [
+          [
+            1043.92,
+            521.5213452299246
+          ],
+          [
+            1081.92,
+            524.862319835278
+          ],
+          [
+            1081.92,
+            581.0225120109815
+          ],
+          [
+            1043.92,
+            581.0225120109815
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "public-window-4",
+        "parent": "public",
+        "type": "window",
+        "label": "公共建筑窗 5",
+        "corners": [
+          [
+            1166.2800000000002,
+            520.5667810569664
+          ],
+          [
+            1232.4,
+            527.2487302676733
+          ],
+          [
+            1232.4,
+            581.0225120109815
+          ],
+          [
+            1166.2800000000002,
+            580.7043239533289
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      },
+      {
+        "id": "billboard",
+        "parent": "ad-building",
+        "type": "billboard",
+        "label": "广告大屏",
+        "corners": [
+          [
+            1381.8,
+            371.3093726937269
+          ],
+          [
+            1552.71,
+            390.13963099630996
+          ],
+          [
+            1552.71,
+            470.2309963099631
+          ],
+          [
+            1381.8,
+            456.67321033210334
+          ]
+        ],
+        "brightness": 100,
+        "temperature": 3000,
+        "coverage": 0,
+        "material": "linen",
+        "bloom": 15,
+        "visible": true,
+        "locked": false,
+        "images": [],
+        "slide": 0,
+        "playing": true
+      }
+    ],
+    "layerImages": {}
+  }
+}

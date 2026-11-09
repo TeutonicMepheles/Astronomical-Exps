@@ -1,0 +1,3024 @@
+[
+  {
+    "path": "preview-all-lamps.png",
+    "bytes": 53983,
+    "sha256": "0d477e84d1ad4c3c8b80fe950dcb8852ada948951433e1b0cc64dcf73d9b3953",
+    "dimensions": "892 × 1117",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "preview-click-hint.png",
+    "bytes": 56903,
+    "sha256": "10dce684e33b6e346c9f8f5fabb31a7e55ff73e5882b14ada75bf09f9431244e",
+    "dimensions": "892 × 1117",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "preview-lamps.png",
+    "bytes": 75351,
+    "sha256": "0929c0e55f377fd490631b6e7464265514d44009bf170e8689850b55b6c82e68",
+    "dimensions": "1280 × 720",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "preview-v2.png",
+    "bytes": 109512,
+    "sha256": "34ddadeeff4d1b041ac4364a883f8582ffba22718660bb6d5133d0f6fad0f9fe",
+    "dimensions": "1267 × 1005",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "preview.png",
+    "bytes": 141711,
+    "sha256": "6b478540ae6594a40d8902383bd9ccacae40e17d5db4399d4bb63b6b3ce08c4b",
+    "dimensions": "1267 × 1005",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/city-layer-all-lamps.png",
+    "bytes": 1284333,
+    "sha256": "c1967b5df6e8a6e57cc0df71eed00e8da5490bbe036ec0af764bc323d99cdb38",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/city-layer.png",
+    "bytes": 1342831,
+    "sha256": "47e844a47de4adb13729dab222ded59eae7621ed75a57dac070886e192d43e5b",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/city-panorama-v2.png",
+    "bytes": 2204020,
+    "sha256": "c2e73a3f9f4a8fbded2050d7db8e2fa50cf0bf9465fd550c45065bb614a7f72a",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/city-panorama.png",
+    "bytes": 2276908,
+    "sha256": "fd8422a40d65beb31b25706099dc2ef05658b4c4f58fca5e73a14bd2e0d1ab1e",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/lamp-sprites.png",
+    "bytes": 1296053,
+    "sha256": "ee27a34e1fced20eed8aadd8e43e08f901689b49452309f45a5874424306bb18",
+    "dimensions": "1536 × 1024",
+    "resourceIds": [
+      "../assets/lamp-sprites.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/billboard-demo/city.svg",
+    "bytes": 923,
+    "sha256": "bb9786d6b8124299abfbcbc47b787b330ff5c494bf74615c085c258c77c678f3",
+    "dimensions": "viewBox 0 0 640 384",
+    "resourceIds": [
+      "../assets/billboard-demo/city.svg"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/billboard-demo/future.svg",
+    "bytes": 917,
+    "sha256": "fbdca092e4e3a792d2ebea8f85ebe36282be4e9f0ac0c8681b914a4a1d56b696",
+    "dimensions": "viewBox 0 0 640 384",
+    "resourceIds": [
+      "../assets/billboard-demo/future.svg"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/billboard-demo/orbit.svg",
+    "bytes": 917,
+    "sha256": "347c00d9333cfe7b3adb68b66da368b68955195efe95bab341c18220076d086e",
+    "dimensions": "viewBox 0 0 640 384",
+    "resourceIds": [
+      "../assets/billboard-demo/orbit.svg"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/01-distant-environment-contact.jpg",
+    "bytes": 340045,
+    "sha256": "724e3051b29b0a22bb430b4f5f4c6d8e41f21cdc45c6c69585f8ebdc63d41045",
+    "dimensions": "1200 × 2200",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/02-ground-planting-contact.jpg",
+    "bytes": 211485,
+    "sha256": "de1b2b9e7149f3dc35483681a5dc5d64b4ff7812f3e8becce79660792e177a5d",
+    "dimensions": "1200 × 2200",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/03-foreground-trees-contact.jpg",
+    "bytes": 234511,
+    "sha256": "7b3e01b81098fd61671f293db42e22ede6c7d82eddea1e648863e6d189d34226",
+    "dimensions": "1200 × 2200",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/04-foreground-water-contact.jpg",
+    "bytes": 168936,
+    "sha256": "ff10409b003181980847740096f5d478d6b4da6cef624d0698db0b74f6b88a69",
+    "dimensions": "1200 × 2200",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/05-residential-contact.jpg",
+    "bytes": 219017,
+    "sha256": "414f563727fabf7e5756fa375655043eab315fd90093b7dfdad04e94a90abdbd",
+    "dimensions": "1200 × 2200",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/06-public-building-contact.jpg",
+    "bytes": 266841,
+    "sha256": "af2fd17a5d049fa0ab8077b8b65f86e8c8a61f9edb64f42d021a7ff610a12a7c",
+    "dimensions": "1200 × 2200",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/07-billboard-building-contact.jpg",
+    "bytes": 205402,
+    "sha256": "bc3f7e2184b08cd2e85706c877cc71d4668962b511cc1779abfea765b5db6e86",
+    "dimensions": "1200 × 2200",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/billboard-review.jpg",
+    "bytes": 82786,
+    "sha256": "c5b19fd6eb085b04ef1024d8360009ec0380cea3b63591fac3a0f518c72a11ea",
+    "dimensions": "1000 × 1820",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/first-review.jpg",
+    "bytes": 152885,
+    "sha256": "5d64880cde1634fbe353e1273ec75bd94e0d5056687725a2e07f52844cc3d9e6",
+    "dimensions": "1000 × 2275",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/gallery-preview.png",
+    "bytes": 457201,
+    "sha256": "3d2c4284c35e7166131c4ce488bd03dbd68602da770545a6bc8d24e886eca173",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/ground-review.jpg",
+    "bytes": 84104,
+    "sha256": "db0460724ec5c81d3a258fc3c345a3317037210131b368623df695b3623d4fce",
+    "dimensions": "1000 × 1820",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/overview.jpg",
+    "bytes": 342819,
+    "sha256": "e88091bdeeb4e3db7a0f8add24c63d53de9c9d6ceb5b94bca760ebe69464233e",
+    "dimensions": "1800 × 1190",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/public-review.jpg",
+    "bytes": 103312,
+    "sha256": "e5b4bbf407aab63e412ae6ad286f18c0cbe7cde407884c893d047d12ff1ea1d9",
+    "dimensions": "1000 × 1820",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/reference.png",
+    "bytes": 1053244,
+    "sha256": "475c9ad4e7fd974ce32928007ebfde48f8b3898c4713e30dc9521a18571c5e1e",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/residential-review.jpg",
+    "bytes": 86900,
+    "sha256": "61a7ab65a5431ecca2978b73cca885db6a7da335afa22019ddf68a71dce7fb27",
+    "dimensions": "1000 × 1820",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/trees-review.jpg",
+    "bytes": 90750,
+    "sha256": "74d56062bd6515f1ed40de6198a9523349a4760601f06e8cb0c991a813fec54d",
+    "dimensions": "1000 × 1820",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/water-review.jpg",
+    "bytes": 70794,
+    "sha256": "0781663cbed5533a03d61c218eacdad2ec361cbaedf2dd0ecb66f3a759312125",
+    "dimensions": "1000 × 1820",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
+    "bytes": 709082,
+    "sha256": "81ce8328557ad28d3705039aaee69eedf873dfe5d3c6926e6cf7a4ae7e498bc8",
+    "dimensions": "2171 × 724",
+    "resourceIds": [
+      "../assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/02.png",
+    "bytes": 767519,
+    "sha256": "32ddd31e3f9224116983a1c2334240ea4bac536ae3103cfe6ce510678cbed63c",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/03.png",
+    "bytes": 774328,
+    "sha256": "d716101658984e9b03c740a1edb396880c24865f04abe0c984630bf703a660fd",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/04.png",
+    "bytes": 731680,
+    "sha256": "54ded800bb17537ae3aaebbe2860f2553eacc9e51088ab2ecce0f94d66e54013",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/05.png",
+    "bytes": 775047,
+    "sha256": "e7ec55ac90985eca861d6ae7ce05287d77a4c067c7d7a6287f620a852b66a82e",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/01.png",
+    "bytes": 391433,
+    "sha256": "d42676cf3026a76160c52baab9dc27359785cd7ca3ad8d4083513bfeaeb1f30f",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png",
+    "bytes": 416738,
+    "sha256": "8b75a8195031908f863d57e5ebc2d5408bf714543f22aea8153dae128116e40f",
+    "dimensions": "2171 × 724",
+    "resourceIds": [
+      "../assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/03.png",
+    "bytes": 330098,
+    "sha256": "0faf669000d3fca52deb9d08c61986125f80f0385d31af48fd3279414333a439",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/04.png",
+    "bytes": 355474,
+    "sha256": "3565598ad60ac7b4fbb8b88a87dc0dd7bc38902978dee79a09695ed117f0ade3",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/05.png",
+    "bytes": 344801,
+    "sha256": "378a3add32417bd7051dee22c9820d46e067ac6ad30d09b945e470d95daf54da",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/01.png",
+    "bytes": 413412,
+    "sha256": "a7a680657097b73c361e302b205f47fca3b751bf5ebe81b7e7a6690aa9e1bcc6",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/02.png",
+    "bytes": 293439,
+    "sha256": "c9cc211fe3a62058a9bbeac9ee8233565a5869ef7af5fda279a6219f32a278e4",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png",
+    "bytes": 289529,
+    "sha256": "3c40e604e8278ecce4c07e00f0ed12685fd8358b5bd9cfaab6db69083cea4645",
+    "dimensions": "2171 × 724",
+    "resourceIds": [
+      "../assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/04.png",
+    "bytes": 256791,
+    "sha256": "02306ab7d336a42ebb99a410ac22996222b61676076424c32472bd9e194e3e5f",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/05.png",
+    "bytes": 347933,
+    "sha256": "d52879725b26390a24ff3fa138181f0a6083a68f72c6031bd2c3aa35152db7f9",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png",
+    "bytes": 367297,
+    "sha256": "77839256c6c43e3420112e94ee6bbeaa987db9b3b89f25078d9e9c8c379be585",
+    "dimensions": "2171 × 724",
+    "resourceIds": [
+      "../assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/02.png",
+    "bytes": 315980,
+    "sha256": "708f9a0db6b20de8792e0fbe2bf1419769978a2401f95afde0659f9063c3a566",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/03.png",
+    "bytes": 411824,
+    "sha256": "51be3dcd92d77a22565ba9c3f5437f4835baf8db460c6fff4df4fba997583903",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/04.png",
+    "bytes": 346164,
+    "sha256": "d721ecde702aeeb9701201a69869dafc1be92500af298a2b76a9885e2c7b78f1",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/05.png",
+    "bytes": 386716,
+    "sha256": "16c907f99121828314579fc096e876b98f8468bf55c1c2c0635b9ef909d1e426",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/05-residential/01.png",
+    "bytes": 552804,
+    "sha256": "894dba8310b5a20d1f9ccd9d4c97c7a3cacbfbf5e4f922aff195f0244f1a4f2a",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/05-residential/02.png",
+    "bytes": 354138,
+    "sha256": "b9042daa3d6a710c541b65eb71633ad183b135c8563fcb9a8916766d431e2d2d",
+    "dimensions": "2171 × 724",
+    "resourceIds": [
+      "../assets/libtv-composite-options-20261027/panorama/05-residential/02.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/05-residential/03.png",
+    "bytes": 330728,
+    "sha256": "8a58b18d7380e4d5f58d47175b68d29675ebd2884427fd2166ae6d7668805e6d",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/05-residential/04.png",
+    "bytes": 335996,
+    "sha256": "04f1da18765514a0391e167f2fd951469caf158399628971a6064837a93dde96",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/05-residential/05.png",
+    "bytes": 448409,
+    "sha256": "88f2f42420629cdf0f23c8d9cd00d54270fc2fa1b619f98496e3b2e4db9dbc60",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/01.png",
+    "bytes": 523704,
+    "sha256": "d423cb73e9aa5053609d604198c8300ffe0275c712a967428eac593197ec1a54",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/02.png",
+    "bytes": 634292,
+    "sha256": "7350cdb6de9b284688995051390e5f1272912ca59a6460fe634f1d4218a01b66",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/03.png",
+    "bytes": 505921,
+    "sha256": "ef0522eb8b8bbb9fc88e252c24b77b5f33a1d567f49fb770f5799b43f32937da",
+    "dimensions": "2171 × 724",
+    "resourceIds": [
+      "../assets/libtv-composite-options-20261027/panorama/06-public-building/03.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/04.png",
+    "bytes": 539631,
+    "sha256": "018547dfce077a68544be30759f012cb9869e4fbe6b38217c416381da8d1aadf",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/05.png",
+    "bytes": 528919,
+    "sha256": "afa9c3a2171f91f913e4f59db6d5e3dc1e942b8ae32e88e05555687412d85f9c",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/01.png",
+    "bytes": 451769,
+    "sha256": "377b69618e4d5659a1801ec83849f28aa1bb5ec919d278311342bc3be3a35bbf",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png",
+    "bytes": 386215,
+    "sha256": "c3db4b5b942d634fb5232cfb6e6fd79aa59fdf3ee9b39d1b17d6a8076722efd4",
+    "dimensions": "2171 × 724",
+    "resourceIds": [
+      "../assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/03.png",
+    "bytes": 312835,
+    "sha256": "422a43246c6088a80e9608c31021f6032fd6443fef7fd73f456543275dead690",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/04.png",
+    "bytes": 417350,
+    "sha256": "b483e6ff687582a87db0584506cf367c81a80f2f9445b83c676637d2d8097c20",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/05.png",
+    "bytes": 294878,
+    "sha256": "f29f14609c3f8ce9a2b5ecd4193f0018b5d68030d9d0b76d9122eb769a76d024",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/01-distant-environment/A/composite-v2-01-distant-environment-A_1.png",
+    "bytes": 1382585,
+    "sha256": "5cc060a191ff9fc9539c43957807b708ffadeb05d60b02ad50deaafdcf014c35",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/01-distant-environment/A/composite-v2-01-distant-environment-A_2.png",
+    "bytes": 1389821,
+    "sha256": "44b4c864dd05752b072a848984b72c630d865c6e0b077c6fcd5ebd3ced10a534",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/01-distant-environment/A/composite-v2-01-distant-environment-A_3.png",
+    "bytes": 1416101,
+    "sha256": "e34fb156e6e3472e9d9e5afe0d58a47663a024f8a3878ab04407f54646aa2c15",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/01-distant-environment/A/composite-v2-01-distant-environment-A_4.png",
+    "bytes": 1396297,
+    "sha256": "d06551c1861d7f36e08167609acd326ccc13ff7d83083821ffc0f80f9d85f78d",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/01-distant-environment/B/composite-v2-01-distant-environment-B.png",
+    "bytes": 1404922,
+    "sha256": "4035e30e82dec4855c98c418dcc36ff25dacf51f824138e331d0ddeb697bfde0",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_1.png",
+    "bytes": 1201007,
+    "sha256": "2799dccb5a302667ce8226fc162c564d1768c6ab7e0b5c4baeea139662d1a345",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_2.png",
+    "bytes": 1211442,
+    "sha256": "0a803c43984f44f1d7dbd78601226f88f86b5fcf4fcc9a7720c967c2d6b45611",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_3.png",
+    "bytes": 1141860,
+    "sha256": "7d30156959cf0858d8c2d7d33c72f5ee3f509cb80cbc42178210b1b7143d97af",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_4.png",
+    "bytes": 1140387,
+    "sha256": "103fc326e48200821b4f97087c4ab2c6debdf353cd8f58097fcbb65de15e88a8",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/02-ground-planting/B/composite-v2-02-ground-planting-B.png",
+    "bytes": 1151442,
+    "sha256": "3ba530651bdecbd2c35fca9e2c98fa2c56cf5a2d770ed7c6eb2e7f358d037c40",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_1.png",
+    "bytes": 1221436,
+    "sha256": "07aa8e37c2aee5521d9db973c360946c773c66a08055b20be752d92088f4e113",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_2.png",
+    "bytes": 1072459,
+    "sha256": "146222541d39fcda28898ce57b9673d8f5c985e8df9d547b3c9c075666a4acfe",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_3.png",
+    "bytes": 1100453,
+    "sha256": "3dd3cb2dec70f5edb349165eee7730b4bfe02c50c52fabe32a6dc63cd12fce4a",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_4.png",
+    "bytes": 1083365,
+    "sha256": "6b904c48cc8b00c0b1800d25946a0a7ed143b5e0ea9b15332341e77f570896e8",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/03-foreground-trees/B/composite-v2-03-foreground-trees-B.png",
+    "bytes": 1144095,
+    "sha256": "d9f9a76abd0b1a0a19cba4abfa8ce446bb38a5def05450bf449476defa17bd96",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_1.png",
+    "bytes": 1161718,
+    "sha256": "087144f845655530a61ca95a425df88a2eb851feac28af3b5129937a52a7085b",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_2.png",
+    "bytes": 1114432,
+    "sha256": "60156d98491665a13e22f9b4ef1d87e17c2a5b3bda886293f531d9aea34c585b",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_3.png",
+    "bytes": 1186809,
+    "sha256": "c01c2eac5d9f4a3f2b6309f93c94fe94d8142a26cceb56e7d0399a9de9993421",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_4.png",
+    "bytes": 1135339,
+    "sha256": "64ff6f6613f9f35047b4b85f174fd2a3b0ea2b434be2e55b3799f394a7ed6950",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/04-foreground-water/B/composite-v2-04-foreground-water-B.png",
+    "bytes": 1177268,
+    "sha256": "01c00b246550e1f90756e4a4352683783586d6957367b1076f0aa0e0709b6027",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_1.png",
+    "bytes": 1286911,
+    "sha256": "13053ec40eec08db9a4ac44fde4e307921fa44c6bc0cb6cf62d7ef5fd0b5f5bd",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_2.png",
+    "bytes": 1142433,
+    "sha256": "86835390ae026aeeeb41cb153b5f5dd9af471c83d769ec447b6c9a8c5b9a147a",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_3.png",
+    "bytes": 1119044,
+    "sha256": "a67133385a121a3a6efb7cc18468a7bdf07333d259444a309252bf081a8aa42c",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_4.png",
+    "bytes": 1124360,
+    "sha256": "331382bf2d454a1bc97a458081e5f00e117077990d34d17003141d96c1d01c48",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/05-residential/B/composite-v2-05-residential-B.png",
+    "bytes": 1194051,
+    "sha256": "82c5ed5cbb9b9e89f53030dee38bf3f3edde1ccfa2769e0a28114ec57084ee20",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_1.png",
+    "bytes": 1260631,
+    "sha256": "05889d28b02237a739acffac76dbbf470c7239a916ca1d2d0838a6815a249b64",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_2.png",
+    "bytes": 1306352,
+    "sha256": "f257c3f2755b795a29c63bdcc18942354a9e660232717e13a5d5b1e82f4212a5",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_3.png",
+    "bytes": 1218178,
+    "sha256": "4461f995b4d424b4505fdb4c2dd35771c45e2ad36dfff1f915c7e40edaf1926f",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_4.png",
+    "bytes": 1256455,
+    "sha256": "16dcbd39e41389fd7905c7826d5d6d6d095db978ba6744fa0901fc723ed1ee7d",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/06-public-building/B/composite-v2-06-public-building-B.png",
+    "bytes": 1271093,
+    "sha256": "3e2ef153f23febbeb194706d5e132408672e102fe6d26983af46959c021a5267",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/07-billboard-building/A/composite-v2-07-billboard-building-A_1.png",
+    "bytes": 1221510,
+    "sha256": "c718f8cabd388414ebb112fb52a2410d110c4f15fb539a98592bd21698260062",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/07-billboard-building/A/composite-v2-07-billboard-building-A_2.png",
+    "bytes": 1176537,
+    "sha256": "cbdf5c76e304f37fe55ea19a811bed6924649cf61f172b29be2610a3be6a919a",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/07-billboard-building/A/composite-v2-07-billboard-building-A_3.png",
+    "bytes": 1111817,
+    "sha256": "94debedc3257a8424039c8791bc79bf974b770d47b8a8a80c8024641486c7b22",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/07-billboard-building/A/composite-v2-07-billboard-building-A_4.png",
+    "bytes": 1191736,
+    "sha256": "19cb8e826ed9865839db458dc109a07178e3f41b669387170b053c3416b647e7",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-composite-options-20261027/raw/07-billboard-building/B/composite-v2-07-billboard-building-B.png",
+    "bytes": 1109230,
+    "sha256": "73e7d308d7670ac66294ea82a5d8d6d9e8ce954e0eb8ee4bd066b679c3abf152",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/contact-sheet.jpg",
+    "bytes": 141928,
+    "sha256": "b7c8935c5db8f896c11f930d0679599803c7b2be33cf0021a5a6af9ca18ae70e",
+    "dimensions": "1500 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/reference-padded.png",
+    "bytes": 1060772,
+    "sha256": "97e6d686f934a39731453ce564d5c8653983290c39e0b5b0be46b5defbe9d438",
+    "dimensions": "2184 × 936",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/01-foreground-water.png",
+    "bytes": 307240,
+    "sha256": "1557dac2fa3ef3a6030db722204f442a0272d9983ff90b7a0b21ee549ac76f31",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/02-background-water.png",
+    "bytes": 105006,
+    "sha256": "7ed7b17d1da0fdb3b80b21f3e1ac9e5bb599b4e28ed01795cf625e5a0c3a547e",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/03-mountains.png",
+    "bytes": 182834,
+    "sha256": "b2fd4d8fc5e5c94b0789bfe0ab42c08831230e4a658e5caf30ac24a710f8e3d5",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/04-distant-city.png",
+    "bytes": 187005,
+    "sha256": "fdf772f66fa18e432a589cc79d3b84b802fc98d49b2d4379270842512f624deb",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/05-near-buildings.png",
+    "bytes": 387224,
+    "sha256": "9e6a8bce688bbf171e3e5c39da5ad5923f42ad188333365b9c255b5c1cd8f90d",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/06-residential-interiors.png",
+    "bytes": 91007,
+    "sha256": "3292db458311e835fd0332b20fe9f7d4d0c31261fd1d4f6ab137e9c35a336e0e",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/07-public-interiors.png",
+    "bytes": 99877,
+    "sha256": "aa83da4e1e9cebade2aada25731e095ae77d0851367662380b535c844505b3e1",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/08-billboard.png",
+    "bytes": 63457,
+    "sha256": "d85c0e21022279f4b3f1816692e66f0da1a9012fd3081aca9024dfe4145482a5",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/09-window-frames.png",
+    "bytes": 197612,
+    "sha256": "ea963e549488b503ebea2afea4989d210bda262dadd16607fa3b56a3ec9298d1",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/10-vegetation.png",
+    "bytes": 225153,
+    "sha256": "bda3207bde4e8aa90cc6988bbe30c1832bbd2134c6b05796094a4ca84fc0cb8c",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/11-shore-structures.png",
+    "bytes": 200167,
+    "sha256": "bb3f215665c52a3c4d060ba6bc49b18f31a0513d1098881b8ac4295f043d8ec7",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/panorama/12-water-reflections.png",
+    "bytes": 87930,
+    "sha256": "eeda2d16c915975c872b834f5e3f4f65dfcf04ca50218aaf9f4d9fa30937e527",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/01-foreground-water/01-foreground-water.png",
+    "bytes": 1135323,
+    "sha256": "c6b9a63335e174c8ad0fcf81a53cde4fc061ca3d8be356014c662f00c51cae77",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/02-background-water/02-background-water.png",
+    "bytes": 995922,
+    "sha256": "e185cecba3a98f1f2ba1f75ff103f01dde7ff7fbfbe5aaef3d31baef1b327f08",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/03-mountains/03-mountains.png",
+    "bytes": 1038894,
+    "sha256": "dcb094cb5dae9fe12fa8d5f48d251a49031420c239119deb68012a1fdf76201c",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/04-distant-city/04-distant-city.png",
+    "bytes": 1040802,
+    "sha256": "d3e2d420de0ae0f46137a1ee53435ef2d7c2bcfc061c8186756d92331fa2c66a",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/05-near-buildings/05-near-buildings.png",
+    "bytes": 1137580,
+    "sha256": "a902f5b832f4db41df919a571825a60addc623f2739c2c8d84536a7e0a5b4e52",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/06-residential-interiors/06-residential-interiors.png",
+    "bytes": 946952,
+    "sha256": "99620f6aa77c00577686e135a141d411105498a3c8ef9044778ad2ee3c9d7816",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/07-public-interiors/07-public-interiors.png",
+    "bytes": 898053,
+    "sha256": "ac6c285940a3c587d63126fc3d10f9d3f25a1931461dacdca244fa85a9a6e9bb",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/08-billboard/08-billboard.png",
+    "bytes": 959249,
+    "sha256": "2eb40dc22ae0956687bab1ef5efe92497a2155607a720084e4c93df2eed8d48f",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/09-window-frames/09-window-frames.png",
+    "bytes": 958789,
+    "sha256": "b9561f99406982128e355ab1242552cde2de3a611778c67925b91ed5bbb8e767",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/10-vegetation/10-vegetation.png",
+    "bytes": 1025337,
+    "sha256": "9518dce703d8e3be7a39d1051f646ce643357c79905d7259fe96af5b59ee847f",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/11-shore-structures/11-shore-structures.png",
+    "bytes": 1040153,
+    "sha256": "3813b8223c5e5bf91ca7ebfe8945f9f86ed336ccfffc9e45ed750f8e76e4203c",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/12-water-reflections/12-water-reflections.png",
+    "bytes": 1089662,
+    "sha256": "b5a502353a61019746c44cdc0d111ceeffd183532124b2ce4b775eb3989c920b",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/libtv-layers-20261027/raw/12-water-reflections-r2/12-water-reflections-r2.png",
+    "bytes": 986048,
+    "sha256": "81a16094f8c381bffcc7bcb563b277f153469903c14148c22963dd7efb73c546",
+    "dimensions": "2016 × 864",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v1/billboard-screen.png",
+    "bytes": 76603,
+    "sha256": "4faded9c6588c19ee44fc144b3ffc970b1eb9e29d458151d2833ab467f7d0caf",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v1/city-unlit.png",
+    "bytes": 1294361,
+    "sha256": "5b2c0ae40132347e9a5cd0a1241ee1d02ca491e7d83adc491dcbdf9c8f1cbe9c",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v1/public-building-windows.png",
+    "bytes": 177911,
+    "sha256": "c13dfb5dd1e47e43c91603d724069b3e8533a039fece65ab6c7aa4f20deb3f27",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v1/residential-windows.png",
+    "bytes": 209294,
+    "sha256": "2de5b0b25a3f4da365a98b479aa43000c1c55d607c38107b51584a5e863ce805",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v2/billboard-screen.svg",
+    "bytes": 1715853,
+    "sha256": "aceb228dd161795d37b046f38eb80f45f095589335dafee718e608408bc1d452",
+    "dimensions": "viewBox 0 0 2172 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v2/city-unlit-plate.png",
+    "bytes": 1285801,
+    "sha256": "70d1799aeefaddc38b2544e50f469ccadb5cc6d04904f1e187ab41146e584463",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v2/city-unlit.svg",
+    "bytes": 3431158,
+    "sha256": "1dba769091b6e0b00bd18b613f529318c3e15acef500fe858bbfb92cc1f96a0e",
+    "dimensions": "viewBox 0 0 2172 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v2/public-building-windows.svg",
+    "bytes": 1715879,
+    "sha256": "0324a66a1b709d264778f66478162f43fa5a22026ea0b67d812c7eee17c1a0f3",
+    "dimensions": "viewBox 0 0 2172 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "assets/source-layers-v2/residential-windows.svg",
+    "bytes": 1715878,
+    "sha256": "569d3c75f2962dfae1e1cb2351c5197953d97269674ca84e620f303b883a6c8d",
+    "dimensions": "viewBox 0 0 2172 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "docs/billboard-panel.png",
+    "bytes": 1140070,
+    "sha256": "8dc40615fcab30948c269455693bb3ac3d730951f742a0d5a3062af58a7e47b8",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "docs/chrome-billboard-panel.png",
+    "bytes": 1901206,
+    "sha256": "218a570ec906ff97e8146ae849c8387b8382c96caa480b4c13df54f8095fef22",
+    "dimensions": "2400 × 1350",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/preview.png",
+    "bytes": 840316,
+    "sha256": "c400f1cec132ff3c13e07a9bb0d7da144c7cafd2766dbeea4e0e59cd7e1c6d4e",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/01-foreground-water.png",
+    "bytes": 442553,
+    "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/02-background-water.png",
+    "bytes": 170430,
+    "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/03-mountains.png",
+    "bytes": 304360,
+    "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/04-distant-city.png",
+    "bytes": 323257,
+    "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/05-near-buildings.png",
+    "bytes": 734662,
+    "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/06-residential-interiors.png",
+    "bytes": 142985,
+    "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/07-public-interiors.png",
+    "bytes": 181076,
+    "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/08-billboard.png",
+    "bytes": 91696,
+    "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/09-window-frames.png",
+    "bytes": 345188,
+    "sha256": "7f131569acd1d84e43cd6e6531466235b783bb01d67e25641c7445a02b08e5d2",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/10-vegetation.png",
+    "bytes": 319158,
+    "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/11-shore-structures.png",
+    "bytes": 344776,
+    "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/12-water-reflections.png",
+    "bytes": 139169,
+    "sha256": "f6532d18b826b83442d585ef7cfe3f5e10feb944da3c342d5bd8df69607cc44f",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "layered-demo/assets/window-apertures.png",
+    "bytes": 21758,
+    "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/ad-building-controls-preview.png",
+    "bytes": 976917,
+    "sha256": "2193d206197fd0d9eed257dc59f4711ca62301be320ed7297f5692e5bf4c0ba7",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/building-street-preview.png",
+    "bytes": 1059835,
+    "sha256": "d2fe56e007c38c1cb3f693779637f5c63691f0d8e2de92f35c478be734bae7fe",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/candidate-billboard.png",
+    "bytes": 484188,
+    "sha256": "fd3c32de56fdac2d8f4bf9394f26069037098da72c7a6514d0b2e7ebd6c2f91b",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/candidate-editor-preview.png",
+    "bytes": 653227,
+    "sha256": "bfb3daff86df3cdd090d5865329bc95d2cdb11ac81637d88e2190520f07381a7",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/candidate-homes.png",
+    "bytes": 664645,
+    "sha256": "d4539c3760cf01e0bc17daee5ec8e3e047170cb1d005a400d0eb9db04a415681",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/candidate-preview.png",
+    "bytes": 1210309,
+    "sha256": "559533a6ae0d9cb302598fd1a29888dbf0dc20a6032353efeb14b11f48219ea6",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/clean-preview.png",
+    "bytes": 487196,
+    "sha256": "d98c6f790c87abc97795a5559426c33f89c0099fe748c6247d380c7d23b8e62e",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/distant-controls-preview.png",
+    "bytes": 1199865,
+    "sha256": "04afa7aec0ccefec6dbbc29bfc6e064e69a63641ab97a706c1454f66f02eee69",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/editor-preview.png",
+    "bytes": 653437,
+    "sha256": "fce05beb1fe0ff6ba34a55c2d899948f0217e6bbeb16f4c1da8c6396ef507ec1",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/future-03-preview.png",
+    "bytes": 1131222,
+    "sha256": "eccefbe419cd2d6bb4fb473d836a4ff036ac418b441567161443cb887aed2d6d",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/gradient-preview.png",
+    "bytes": 582223,
+    "sha256": "4ed29997028e7e8c2f056cb7b5bf63d83995dbb4b09afeb6819c6978b9e180aa",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/ground-cutout-preview.png",
+    "bytes": 1154215,
+    "sha256": "a6abd92234fb88e6279ae4a1cd9f008f800191343903b9ce34ebe10b7f2ea93c",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/hint-occlusion-preview.png",
+    "bytes": 1208457,
+    "sha256": "c037010c2d8a48973406f2a0061bb856c3df65f11bdaaf0370ad7ed8eb09c9c2",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/interaction-hints-preview.png",
+    "bytes": 1210736,
+    "sha256": "fc350c001c3e8b963a371e7913a1dfe60642d9d76b3f268e316ba3cd74af627f",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/lamps-editor-preview.png",
+    "bytes": 678844,
+    "sha256": "d99e006aab0d4d3dd86a7f16f1783a8ebae9c306246fbeb1b304985be89ff9e2",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/lamps-preview.png",
+    "bytes": 1115702,
+    "sha256": "6197b5677f2391e0980a4334d637d87784fff96ddfc2182e716348a9ca9211b8",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/light-environment-preview.png",
+    "bytes": 1041146,
+    "sha256": "87b2f465c0ad22f68e54ea8a769a7566c99741150190cf1d35c5568baa89aef8",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/objects-preview.png",
+    "bytes": 615420,
+    "sha256": "e4f564b87b96d62a38fef66d3962b024ae4c513688711a2ddff0a4674e3d0d19",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/presentation-preview.png",
+    "bytes": 1209755,
+    "sha256": "ea8ff4105eadb06163b865c084e645f92851455a3fbc75d70133dae051be3c99",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/preview.png",
+    "bytes": 607712,
+    "sha256": "d26d809c34f42058e9231b528231e8438c8cae94a3137c961bcf4e7b71a4541d",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/scene-effects-preview.png",
+    "bytes": 685723,
+    "sha256": "6ca74ca73b724ce4d338670bccd55e65a4cc73e0ff31023f1ddb61fcf22cc3a6",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/sky-settings-preview.png",
+    "bytes": 961141,
+    "sha256": "041f41e97aaffc9300d2811387aca672779b1f036d3cf9f43b1941c214b0b2f0",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/video-integration-preview.png",
+    "bytes": 500007,
+    "sha256": "cdb9f1601c52e54f8928c791d2629f6a52504eac95e52643a456b696f50ef686",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/water-diagnostic.png",
+    "bytes": 1004162,
+    "sha256": "2eed999bc7d5eb8b15338561595c54aa4b0c729c4c8a1af4576737ec234f1e83",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/water-flow-preview.png",
+    "bytes": 138705,
+    "sha256": "a989b1616bb8e37297fca69f216daab38e2d1270f67e7d920755c35118affbeb",
+    "dimensions": "1600 × 120",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/water-reflection-preview.png",
+    "bytes": 202289,
+    "sha256": "b445fbcf92a835613d02159f19884237db14eb35a29b8ed113ec6d53e961ca4c",
+    "dimensions": "1600 × 140",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/water-screen-reflection-preview.png",
+    "bytes": 934373,
+    "sha256": "9dac904907f56e96b0b7b931b5ef2d0b882d2a0b6eb6766083fccc022bf4cf55",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/zoom-preview.png",
+    "bytes": 489056,
+    "sha256": "05c44ea138769725da4744d48601d411f4012e3c52ae1261d3f0a70f8ff677af",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/01-foreground-water.png",
+    "bytes": 442553,
+    "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/01-foreground-water.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/02-background-water.png",
+    "bytes": 170430,
+    "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/02-background-water.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/03-mountains.png",
+    "bytes": 304360,
+    "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/03-mountains.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/04-distant-city.png",
+    "bytes": 323257,
+    "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/04-distant-city.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/05-near-buildings.png",
+    "bytes": 734662,
+    "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/05-near-buildings.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/06-residential-interiors.png",
+    "bytes": 142985,
+    "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/06-residential-interiors.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/07-public-interiors.png",
+    "bytes": 181076,
+    "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/07-public-interiors.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/08-billboard.png",
+    "bytes": 91696,
+    "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/08-billboard.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/10-vegetation.png",
+    "bytes": 319158,
+    "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/10-vegetation.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/11-shore-structures.png",
+    "bytes": 344776,
+    "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/11-shore-structures.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/reference.png",
+    "bytes": 1829669,
+    "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1",
+    "dimensions": "2171 × 724",
+    "resourceIds": [
+      "assets/reference.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/window-apertures.png",
+    "bytes": 21758,
+    "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed",
+    "dimensions": "2172 × 724",
+    "resourceIds": [
+      "assets/window-apertures.png"
+    ],
+    "usage": "manifest 内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/future-03-5s.mp4",
+    "bytes": 1979491,
+    "sha256": "6fb28cdd7ef051a4f718de5bb58235473ae1ca596656e5e3bb4a45087dfe11ad",
+    "dimensions": "未解析",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/motion-contact.png",
+    "bytes": 690180,
+    "sha256": "580da474dff99ee67f63b0eb5bcf189fdb91494a1fe656f8ceba7a8b644158cb",
+    "dimensions": "1008 × 568",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/reference.png",
+    "bytes": 3952436,
+    "sha256": "a560e6aad8f22d02b3c965340f8eb686ddd10bde7fbf95323a0d5ec4828695a4",
+    "dimensions": "2848 × 1600",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-001.png",
+    "bytes": 195289,
+    "sha256": "4050ba7d0910b49a9f064ba01e373d2efe96c47270830b6e7f07ab8aa9f3ed49",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-002.png",
+    "bytes": 195308,
+    "sha256": "5d36bbf4e97a870f40d0ee2f345f2aeb5923bbb967b9915a6dc71f3724d6134b",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-003.png",
+    "bytes": 195470,
+    "sha256": "d820f39686ef91a782b7e18e15505e3b020d6e1cd335bebcd4825975d7def802",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-004.png",
+    "bytes": 197434,
+    "sha256": "2cd1ec630f620607048bcd08893923cd47062dd6170100df7d6a3d3cc0e2eafc",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-005.png",
+    "bytes": 197662,
+    "sha256": "f99e1253952b7e71e15e5ac009c526b5e37eed7c0fa04cd7c5c803ba924dcdd9",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-006.png",
+    "bytes": 197870,
+    "sha256": "02e4b59e5e4c734244d3b0465ddce38b97936b7b61799a3fea1d5674df4638ff",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-007.png",
+    "bytes": 198086,
+    "sha256": "129fc1cc8593e24bc67c5b4633f34bb70693adbe17c0fd44bc2aa946776a0822",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-008.png",
+    "bytes": 198016,
+    "sha256": "1907df1858a9c45453183cb25746278a65fed51dae9f702e1aaaa3b65353fc2d",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-009.png",
+    "bytes": 198792,
+    "sha256": "0e7dd4ecf90e9b1433f416ab039c4471467d08d450b7a880528879a4d35baf6c",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-010.png",
+    "bytes": 199237,
+    "sha256": "0dda1cefef36301cb84f1f2ff5a45d2339b503e84ebf29566cc43b4f5a15f637",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-011.png",
+    "bytes": 199434,
+    "sha256": "34b7a4a178362d788be84c5b63ffaad651e7a7eac16c82deba3b322c9fccb549",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-012.png",
+    "bytes": 199240,
+    "sha256": "7d371f3cb3cd029a0fce7581f2611d7abfc5a7b422533eda503396795f0dcae5",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-013.png",
+    "bytes": 199547,
+    "sha256": "d47a0f853114c82eca2aadcee109b94cc6b190b71cd794e06ee58bc0ffcea161",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-014.png",
+    "bytes": 199984,
+    "sha256": "9bb2eebbc110b04a186d54694755413a04626640beb64589f8a61c8d562efdf8",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-015.png",
+    "bytes": 199789,
+    "sha256": "812f7db745895e36cf4b0b905a020f6b5021c245f2dbf777e9af8535199e536a",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-016.png",
+    "bytes": 200128,
+    "sha256": "501baf94431f3a132b11995adbeb2e4ac2c9478c70a793f0fadd3088eeb640b4",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-017.png",
+    "bytes": 200219,
+    "sha256": "689f1c04741ca8940b4f5daaa43f12b54af9474bf9f837672931a342d6c92411",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-018.png",
+    "bytes": 200742,
+    "sha256": "68c2eeedc00bfdae281186cbf001e7f717a8bfd29122fbf9e4bcf71f3a2ea323",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-019.png",
+    "bytes": 200982,
+    "sha256": "8c6b631708b395080b0047638ea959cec3f45b70ceba2adc011aba48b8a0e672",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-020.png",
+    "bytes": 201121,
+    "sha256": "3bb78007383977186bfe9d501a592b6e0cf57c42de8e8fa641a510f70822d385",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-021.png",
+    "bytes": 201609,
+    "sha256": "123f78e877fff7c708e49e633cc84bafc7796bdfb7534d520190cd551890d400",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-022.png",
+    "bytes": 202079,
+    "sha256": "9ddd640d6c7aa410a0d7d222653b92688787bf3e43bb25f4de46e7f1b8b3fbae",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-023.png",
+    "bytes": 201960,
+    "sha256": "2f3faa471d2500f9b465a9dd5d9670046d1d18a77bc83bb67e4d547cde7527e0",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-024.png",
+    "bytes": 202634,
+    "sha256": "bcb056c20a54f5bc2b612f5f229a3d01a8d62c95b5572c6f8b47aa2bb49a2adc",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-025.png",
+    "bytes": 202803,
+    "sha256": "e73d53f290c2c70810735b696f96f6347d3f54c0a2e23b8b56c36ef6c149ae9a",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-026.png",
+    "bytes": 202903,
+    "sha256": "f0e4c3474f75cf311fee445899cd4d404208935d8382708bab11b94211e1df48",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-027.png",
+    "bytes": 202967,
+    "sha256": "4d295d2c253568cc8ff4f27b43fe687891412e12eba813888ada86cb4964347f",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-028.png",
+    "bytes": 203353,
+    "sha256": "67de75bb5894b64d6b8162c0f8c58b0ce48a6c985a583f99ff894acb223ab266",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-029.png",
+    "bytes": 203809,
+    "sha256": "8e64df31a9be6e259e4e5a688ceac6687edf20e50daab7549bf0f427f2d857c6",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-030.png",
+    "bytes": 203868,
+    "sha256": "c1868d7fb02eab94dac57e6ea091bc40100e15c80a148260c0414d31b2ab3745",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-031.png",
+    "bytes": 204073,
+    "sha256": "0af95c3dede724e9899bc514c4fd0c7c3c2704fcf51c14d3f633b903135cc426",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-032.png",
+    "bytes": 203766,
+    "sha256": "a9145a7a0373f792ecdf28652496080cf4856e94c375a1e6f17665e62414b683",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-033.png",
+    "bytes": 203528,
+    "sha256": "97d22ba6611e12415296ae28d9c12cfb0fa1da901b9cb7d811fdcf7611904bba",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-034.png",
+    "bytes": 203336,
+    "sha256": "652164ef5093d9433e7fdd2951772f8f5302cb774021ceea452512b84bc2b3c7",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-035.png",
+    "bytes": 203756,
+    "sha256": "c46412a9821b387cea8b86799a229be33641c5528cadf5e75212f6fb2895254a",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-036.png",
+    "bytes": 204096,
+    "sha256": "6969300ac456d06d00171b1fdfd8c0db76cbf9c706b2190b84b55f27e310c54b",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-037.png",
+    "bytes": 204006,
+    "sha256": "d4e2ab74e063bcb05c439078e2a4209b0605eea922c30df4982bc0c541ec20fc",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-038.png",
+    "bytes": 204589,
+    "sha256": "4baacf88f88889cac4d5b46d11fcf576327f8fa06ffe039c9b725bf956185be1",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-039.png",
+    "bytes": 204770,
+    "sha256": "1261aee97f354dfa553774db5575ca8a4c4877b2992d989279343b8e115b6ebd",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-040.png",
+    "bytes": 204551,
+    "sha256": "aa5f79ada74f9a593ab9a86b3e02148d2acf1ef2b04984635e5827f711a52fee",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-041.png",
+    "bytes": 204197,
+    "sha256": "9471eef167ffe17ddb405d80cef544458745b8c35ce794fc08f7a366373577c2",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-042.png",
+    "bytes": 204043,
+    "sha256": "ce648fbc8900dd90edcc7f47aec9fb12e91e2e517e99492afbb0ad82180772a6",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-043.png",
+    "bytes": 204051,
+    "sha256": "8afa7e00135c35259817be5794c27c1802d7df8d04b9337412ac9f8730959034",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-044.png",
+    "bytes": 202542,
+    "sha256": "d9bbe6a47d6ec7f3b434e90d3093daf0a54d59ca892d5cb4b891763687d240a9",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-045.png",
+    "bytes": 202698,
+    "sha256": "dd779479db65a5a9365973c160c4ef65859a927a31dc282f0540d91cea888d62",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-046.png",
+    "bytes": 203069,
+    "sha256": "89368a0800876b98d3e1cc79d7df220afc1f66dfe793adf70fe0b460d4a27e2d",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-047.png",
+    "bytes": 203717,
+    "sha256": "90ef699d4f3043fca0ce0b1e432b1112b32c6909dc3de863d351610c81478fc2",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-048.png",
+    "bytes": 204369,
+    "sha256": "f6d56a2fd3c91316f96119324b3f1ff8cda7aa9fc82e6a8cfcfc96d13ce9aae2",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-049.png",
+    "bytes": 205217,
+    "sha256": "84ff36b259bac05ca28d04ba18815bd127fe6db427971a8f8438050224f94210",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-050.png",
+    "bytes": 205378,
+    "sha256": "d46c546e03d94963869f7f3622d49d5a958eaaddb297c234ab58b364d1f5d536",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-051.png",
+    "bytes": 205310,
+    "sha256": "6b69f4b2b91d04c48cfafb6329247bd2d044700964b75811cff4e36a0f88efd5",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-052.png",
+    "bytes": 205137,
+    "sha256": "58bae48011a4cba123defa9395326e3d7b8041273bbe4d0aa1895e212086e8d8",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-053.png",
+    "bytes": 205050,
+    "sha256": "15ec6acabad1a956ce689677769c788a6f12cf4e8084db305d175d77538d2f65",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-054.png",
+    "bytes": 204488,
+    "sha256": "d3688c9bfc20d9ebb0684ff3d8fc64b09a2d1db523dea3eedd1f68e327cefc63",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-055.png",
+    "bytes": 204288,
+    "sha256": "964fea209bcc8b71e548ce4d85515d6a27e0f11cd99f6d479dd10602c18a387b",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-056.png",
+    "bytes": 204345,
+    "sha256": "221a658dbc28e6d692f9fccf7e7e25e3c049ea4e3ac80d0690e6d6ea749234a2",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-057.png",
+    "bytes": 204247,
+    "sha256": "2b314fe5f7338cf03ef42a730d187aa92b77412b35643f79794aa0a178819b15",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-058.png",
+    "bytes": 204390,
+    "sha256": "c129ecc04d1aa7d1a6aabc4729100d6c2da081e7b39ce383867511ef8ae4b6b4",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-059.png",
+    "bytes": 205001,
+    "sha256": "a85ab6806fba05d3cf555a612132a5151c147b107f667f77810385ddcd12eb27",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-060.png",
+    "bytes": 205021,
+    "sha256": "6c3fd84018690548c530fc9529424c997e7383eb6c096360c394bb1995d3f742",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-061.png",
+    "bytes": 205280,
+    "sha256": "96f8b1aba4e3c8b1f61dd99676e84ee5641ecb67b2c500fe1486a036420ba3d8",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-062.png",
+    "bytes": 205429,
+    "sha256": "6ca56efe746fca4bf4044fd268127a5b89ee39fac61352dac639d4ec246b07c9",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-063.png",
+    "bytes": 205460,
+    "sha256": "389dbfb8c476c40b60550f9dab8b53bcec33b45ceecb4cea42c0d3547d270973",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-064.png",
+    "bytes": 206207,
+    "sha256": "c2114a56eba9ddea51dea3f6b33a35e593d2a280cd611f65c8c2180f7283a123",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-065.png",
+    "bytes": 206141,
+    "sha256": "7770b76d7beb8b2ed38c73a002fce4f643ea1528bb104edcabdddef22510ee24",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-066.png",
+    "bytes": 206414,
+    "sha256": "af9ff0ba5672c2bd03c9503e1eed9182f05e46da307b73455eaf7b9dea5f2106",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-067.png",
+    "bytes": 206354,
+    "sha256": "677c50ff4f0ddfbca91cae7877e229aa5ae4d08a97deede9487d7dcb04ffa569",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-068.png",
+    "bytes": 206575,
+    "sha256": "e6b09d0c1922452f5b76d05ae1b146cf3ebe8777d6d5e7ad9450551acc8c25d6",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-069.png",
+    "bytes": 205864,
+    "sha256": "a8309a5fa0b634a9f41acdc60085300f823c8e5fbe8b0401ba1cd2393413c4ab",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-070.png",
+    "bytes": 205866,
+    "sha256": "1e400cf049126881cf2c41d9fef4d854b5e1f248decf52be1d766f9488696df0",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-071.png",
+    "bytes": 206057,
+    "sha256": "e625f343b0761f003d1f599eb700ce882566bd258dc74393a09696e3127ebb1c",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-072.png",
+    "bytes": 205485,
+    "sha256": "d02664ad263d790cd9a093f986d7657cc3cdf9250942427eeb1dd40c88f15865",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-073.png",
+    "bytes": 205503,
+    "sha256": "78da2ca4af16fea6fa463ac9f7f6ca61d3803b557e1f897c13de1cf5d7638e25",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-074.png",
+    "bytes": 204981,
+    "sha256": "0a5c16d692b409a75e76a570bb87929d24edcbd6b5c1f975d1469e4a136d18a9",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-075.png",
+    "bytes": 204841,
+    "sha256": "7d0ff8792853ba47949aaf02de4ae920d55732af68444ca806d6791f114f0e6b",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-076.png",
+    "bytes": 204600,
+    "sha256": "179def0850522cdb5715f23cfd4608a55f1eae53a01e60bb2ceb8c25fc0b8d5c",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-077.png",
+    "bytes": 204351,
+    "sha256": "16183276ca46e4ccb59ba5f16c9094eb2eca9e9810d2bf50b960918eb29d7e04",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-078.png",
+    "bytes": 204707,
+    "sha256": "552bf0be0fea7c97d08be4c472a1df8c249498165b378c29c49b4093437670a8",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-079.png",
+    "bytes": 204634,
+    "sha256": "d093d64a7aa68921e43b4430c089397cedc74dd8693544f7d119679a27ce30a1",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-080.png",
+    "bytes": 204950,
+    "sha256": "381f1f4e3c5509c4829ba88bb1c0f838811eba7093b752a5e59f05b7ab36e522",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-081.png",
+    "bytes": 204767,
+    "sha256": "27a539e5f6535e6ab5611ffbd01fed28f146333dfe4a0955d2e5d2e5f4038938",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-082.png",
+    "bytes": 204836,
+    "sha256": "4f13a0f5c16a3c589a2c7288b89fe4539b73d9124565b4302715f4c2b0a26d15",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-083.png",
+    "bytes": 204753,
+    "sha256": "7781df065b5cf2fc2a41d88713e2edd03187281d5416dcf3d36daaf636615d1b",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-084.png",
+    "bytes": 205969,
+    "sha256": "3ef7d4cacecd65cdad74514340902a25c3879c4aa60bf1d4ba005a3c0c6b3eea",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-085.png",
+    "bytes": 206167,
+    "sha256": "444371bd1ea194e9f604555d556a0b95def273bbc27e29298064c0f3fa2b6c59",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-086.png",
+    "bytes": 206388,
+    "sha256": "04b0c1f39a83ef6b84b14932025ebc1536498cd1834fa7c3098f7d0107846698",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-087.png",
+    "bytes": 206725,
+    "sha256": "325b372a6e0084e973f9c61af671fabd5c173700acf65bf98229afc6ecf664c0",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-088.png",
+    "bytes": 207082,
+    "sha256": "199528cb4dfaec03ab1844f34b4f6f6590f57385e2f2569c60666d949a646a76",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-089.png",
+    "bytes": 206347,
+    "sha256": "e6279ba7fe3227f2dff25033f09301ba6c7a9b86e60bb00672339106c8a21077",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-090.png",
+    "bytes": 207257,
+    "sha256": "61ca3f675df1c3d58a68441c220eaf494807f4238946926673fbfed6f8f5afec",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-091.png",
+    "bytes": 207654,
+    "sha256": "f3ae0db384653db38b78bcb5acf7ba07da974102508ec214bb1f18f9eec2bb33",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-092.png",
+    "bytes": 206965,
+    "sha256": "e241c2dccea577eb8410a26c6aaa662a1798fbc8fa9f217d9915d4150a93c6cc",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-093.png",
+    "bytes": 206679,
+    "sha256": "bdc9670577bc2bf33d2dc38f8a2547732b6c5eb78ccc4c6144f8c3a506208840",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-094.png",
+    "bytes": 207640,
+    "sha256": "6a6ab5b467a408cebb8b042d04fc635e6c821526cf9759dd9adb24f96ce69e3d",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-095.png",
+    "bytes": 207913,
+    "sha256": "0c21fc39e5d1df542ef35a4334762e86451c9ea9300ced4a54420cd7c7ff4e5c",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-096.png",
+    "bytes": 207922,
+    "sha256": "e9febd84612e820f97adca4342ad6e0808f6a81c8d83f84725e3ecdb8ead588d",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-097.png",
+    "bytes": 207461,
+    "sha256": "762ae5364cfa5c3e7f2627451adbcd937d5c960fa2e8d2a26e62488dd541d66c",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-098.png",
+    "bytes": 207370,
+    "sha256": "80e3668f402290b4391b068664ed22ed8faf7bedf2fb8485ad2af9c99bf6a421",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-099.png",
+    "bytes": 206225,
+    "sha256": "295ce60fdadafee0e6fce8024e51098bfc5bd651bc2e2588ae72814e14b289a6",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/sequence-frames/frames/frame-100.png",
+    "bytes": 205541,
+    "sha256": "54f1f98f047792cca9c913c1eb603ac51f72f8187fb36fc66ae2abf9bf249553",
+    "dimensions": "504 × 284",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/future-03/source/billboard-future-03-video-5s-20261028.mp4",
+    "bytes": 4866763,
+    "sha256": "ce63b1715f84b895bad6ae948f44255d4626eb89f8161bcbe2b9a9959f01b796",
+    "dimensions": "未解析",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "lib-static-demo/assets/music-08/music-08-5s.mp4",
+    "bytes": 3270999,
+    "sha256": "16134fe0d13fe2ac95cbbce46a563f7467157bbb895118ebfb4c3134348cba30",
+    "dimensions": "未解析",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/preview-all.png",
+    "bytes": 572317,
+    "sha256": "5d9d5c9624395ccb26332c18d3673a60d8f6bfdecf79be8047f4aebe887cfb4e",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/preview-homes.png",
+    "bytes": 601590,
+    "sha256": "188d8d4fd83b3046a435ed455359cebb9c5fb94bd5f0ad354ce8f3c5a6a510d6",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/preview-public.png",
+    "bytes": 588992,
+    "sha256": "dcf525d21c1f5ea0ec8da986e87847fde21afafb5cbd51045d8384b826200e42",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/preview-water.png",
+    "bytes": 649914,
+    "sha256": "b6e117b309abaaf7f66dfcaa09212a283036cd2788f2b59254e68e89864d124b",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/preview.png",
+    "bytes": 572241,
+    "sha256": "7781d730169d88f4158d1fb66f55e90c5e987713617984cfdebedb57c7fcd056",
+    "dimensions": "1600 × 900",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/00-sky.png",
+    "bytes": 8325,
+    "sha256": "bda25e8c0d9238272ac764652afbaa227f8b12e636802c7eb22782cccc7e6d4d",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/01-scenery.png",
+    "bytes": 1161880,
+    "sha256": "b051cf02da95942c269714af0150b11926c17761f6c84ee806e4b02c2306fa03",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/02-foreground-water.png",
+    "bytes": 316378,
+    "sha256": "31ddf9c5d3f7996628e3ff1eeaf9ff734c80aee4b4940b746c25481ee344703f",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/03-background-water.png",
+    "bytes": 83670,
+    "sha256": "03bd5e96c131cd1f27f1d9065fb6dbaae3c34476255ffdb236e57fd6e76d8fdf",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/04-residential-emission.png",
+    "bytes": 135009,
+    "sha256": "5798195ab1b2a160402ef14cd852d5aca41a898d56081275252d415b3f48be02",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/05-public-emission.png",
+    "bytes": 141393,
+    "sha256": "4a37b3e745905c21f65f4b6d19611293d92e702cb9909002670d688f46c29772",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/06-billboard.png",
+    "bytes": 44221,
+    "sha256": "320ea6edc49099ff7c95a8e2777415cd18faf094632c7184d28739146fce9bea",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/07-warm-reflections.png",
+    "bytes": 62350,
+    "sha256": "b6f879f31b7fa7336b760eca0adb97441e432bb821e8ac0b7ddfa3b32e880fac",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/composite.png",
+    "bytes": 1829669,
+    "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/reference.png",
+    "bytes": 1829669,
+    "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "static-demo/assets/source.png",
+    "bytes": 1284333,
+    "sha256": "c1967b5df6e8a6e57cc0df71eed00e8da5490bbe036ec0af764bc323d99cdb38",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-building-mask.png",
+    "bytes": 50881,
+    "sha256": "f081d8db8721e0febc417050a7024312352a2ae797433a6eed72176f9b840b85",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-building-source.png",
+    "bytes": 153516,
+    "sha256": "60ba5758c2bfd22ff683bb8379c7c6f39bfc04e69c56c4d6b163e97ff371e1ab",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-raw.png",
+    "bytes": 386215,
+    "sha256": "c3db4b5b942d634fb5232cfb6e6fd79aa59fdf3ee9b39d1b17d6a8076722efd4",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-1-mask.png",
+    "bytes": 6966,
+    "sha256": "7a2417a59c352952e82fa3658c51ca48837fffa3149b713c03d646520b325b9c",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-1-source.png",
+    "bytes": 26466,
+    "sha256": "b805a12bb70aef50a6acbb3709521c0ff154166ae6bebdf558be235c741dcfca",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-2-mask.png",
+    "bytes": 6336,
+    "sha256": "1ede95c176a7b3a890a961ace545547ed341196dea8d6beaf5639c3984f4d46b",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-2-source.png",
+    "bytes": 21456,
+    "sha256": "19990dc1342ccd726c672aec0d6b964b25d76c121583adc358dd732f1f4e3d45",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-3-mask.png",
+    "bytes": 4712,
+    "sha256": "fa771d2a8573818381af50c017a2c0f72d2fa76bc301ab651b3bae388e832798",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-3-source.png",
+    "bytes": 14507,
+    "sha256": "057a7efa3850dcc579fb194dcc6cea5487b3e38cc9d95cd957a1478498c1ad17",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-4-mask.png",
+    "bytes": 4910,
+    "sha256": "cf10b6ba6f30c9e818f2f32328d4ae223343adafc219a70c0645982e21391d96",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-4-source.png",
+    "bytes": 14197,
+    "sha256": "4dfb9203006766a2bd7c85b4c37195ffcec45103a6fc62c424192addd33e9da6",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-5-mask.png",
+    "bytes": 4942,
+    "sha256": "6196fb7f7e915b31230ee96ae1028b9ccdb9922d34e2e3673aee342e91251b75",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-5-source.png",
+    "bytes": 13900,
+    "sha256": "e1f890e21fc8f0e34e4addf405f6d35ee1d73b0686205e4d2c6bce44944c7f49",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-6-mask.png",
+    "bytes": 4771,
+    "sha256": "a9e01737b3b29f39c006af55aa8f11a65b752dbbe06ee3c5c8351aefef286f52",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-6-source.png",
+    "bytes": 12409,
+    "sha256": "7a4c2662e61c4cf8024cda96a641ecc072c9f9028ade5a605236d013c1a19a34",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-7-mask.png",
+    "bytes": 6182,
+    "sha256": "88188fe03a8ae9b26fcbfa5d72db59837107b013bfbcebccf572f8ff3dacf8b1",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-7-source.png",
+    "bytes": 13891,
+    "sha256": "d6742030c12f9a44aaa2513b41a9c192d4df2263d57b82f43569ab6bf22dd524",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-8-mask.png",
+    "bytes": 6003,
+    "sha256": "86f0fa1bff1e80fad0d2567e9698925198de8e9543b3397b64d3d88ab185e516",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-8-source.png",
+    "bytes": 15967,
+    "sha256": "4fba8b76b614695b8bdcc2187161f34bf379d9ab06b5f787f2985c5a732abad1",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-9-mask.png",
+    "bytes": 4298,
+    "sha256": "2c3f796c907eccb72ca3bf14ba98ef6af98fa5e41de1e8ff77fed587469cbf1a",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/ad-building-window-9-source.png",
+    "bytes": 10292,
+    "sha256": "0617d61f578e7b32e406e0da960f99f4d9443d418a9704d67c334136b50dc766",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-building-mask.png",
+    "bytes": 59430,
+    "sha256": "19f0c30b28f025d00583782d33ae062a3a6fce2a4d4d0959047601e714245c08",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-building-source.png",
+    "bytes": 248927,
+    "sha256": "51cd7bd89e04fe369f81df9c108974760d4a933365426db43b72833661518460",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-raw.png",
+    "bytes": 505921,
+    "sha256": "ef0522eb8b8bbb9fc88e252c24b77b5f33a1d567f49fb770f5799b43f32937da",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-0-mask.png",
+    "bytes": 6331,
+    "sha256": "66640b9b4757209d5a1b84e43bbc8bae7014f8669a79c66b153abdf3b36ea719",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-0-source.png",
+    "bytes": 44465,
+    "sha256": "ab141235b4e0fa9df8b4962362f3cd1a7f9cc30b73eea14fe8d3ec97d9eed05f",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-1-mask.png",
+    "bytes": 12510,
+    "sha256": "b2f5acab816099580914739a4b6e3198c5f15f8ec6f1266a22974efff20614f1",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-1-source.png",
+    "bytes": 43702,
+    "sha256": "fcc5541048530a982e25f22d4b17c50792bd9716d4c5f82b1ec1a0bf18cb91f8",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-2-mask.png",
+    "bytes": 6585,
+    "sha256": "ff7e2f2461a74c3e0c88e75cde42d7f6af15684bfa34121d90b5fbab00b70483",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-2-source.png",
+    "bytes": 30602,
+    "sha256": "f4483d7f3a28150854d04717a2fba580f2415b02f472c3f92056eb99b9b85275",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-3-mask.png",
+    "bytes": 4162,
+    "sha256": "ef0ba3f0a28299da114144c01687a94e89551950606fae854d76ebc35b16050e",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-3-source.png",
+    "bytes": 13890,
+    "sha256": "e57df6e6cebf7f6b6134592a33f96effd888f00e420a9747248141cd913b6ede",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-4-mask.png",
+    "bytes": 5125,
+    "sha256": "bf89d493b57179c99446de5cebb8c0e8c886c51ad4e95721100fba7dee4c4619",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/public-window-4-source.png",
+    "bytes": 21674,
+    "sha256": "e06bedb148b30d3eddb06fcd60f99b0d9a177661408f3b91be83771f1e2119b7",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-building-mask.png",
+    "bytes": 88233,
+    "sha256": "c70fc622317ae89677bd31b4addf5b65f112cacee3cfa70c44242170b1366c88",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-building-source.png",
+    "bytes": 370115,
+    "sha256": "078c19ea2a560b8cc8bafe52f6c37fc06a44be1177ca59e4e640608c7bee3ef7",
+    "dimensions": "2172 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-raw.png",
+    "bytes": 354138,
+    "sha256": "b9042daa3d6a710c541b65eb71633ad183b135c8563fcb9a8916766d431e2d2d",
+    "dimensions": "2171 × 724",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-0-mask.png",
+    "bytes": 5231,
+    "sha256": "7d0544d8eb9ad035d098d105a705479438d7fbf97ea52f93c751645abd0f185d",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-0-source.png",
+    "bytes": 14268,
+    "sha256": "c843b1549aed999275e6e322cd6b5ceb7f8be13e97f57a6bc758a37567191110",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-1-mask.png",
+    "bytes": 6034,
+    "sha256": "366200a8992c98eef25760992f85ea032023246654e90ff24fcc0d9da310c5b3",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-1-source.png",
+    "bytes": 20128,
+    "sha256": "ae4ecb0a846e72204468a2d6c798f3f3779745f6118b014da7ba9d676b3c3e44",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-10-mask.png",
+    "bytes": 7906,
+    "sha256": "d07980244bcc64f8a18037349f65e3aa9309bef9fda1e2a89b92fe903adb2ba7",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-10-source.png",
+    "bytes": 25384,
+    "sha256": "ab3221245a254235c357b4ec7ad99ca5731a5301fd11c8da207b1f5dd5c86150",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-2-mask.png",
+    "bytes": 7023,
+    "sha256": "d3dc030742aa012a73f59e710aa9e5e8cb8dd89adf9cd80be094887e028bc9ed",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-2-source.png",
+    "bytes": 23758,
+    "sha256": "bfc30e338b82c8760bf40316f1fe43e22c2833b3f9ce6b46caff011c4e90deb7",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-3-mask.png",
+    "bytes": 3969,
+    "sha256": "13130c98eeb2293a30b9d73f02ef6ed28bf833f466ee8f7fffcd75c7ea4b42b5",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-3-source.png",
+    "bytes": 6217,
+    "sha256": "515f9a1116b198679f7f626f2eb9814c2840f88826699c624f7ced98c05f5580",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-4-mask.png",
+    "bytes": 4838,
+    "sha256": "6e243a29cd55cc735a26d6dd798e237ec48505e52db7f35c31e036f3a8f64ccc",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-4-source.png",
+    "bytes": 17710,
+    "sha256": "3c34b1b92b887052368ef50ad0b9193977d537f540076227ab934f5acd384fe2",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-5-mask.png",
+    "bytes": 6463,
+    "sha256": "7b0aefdbf5964b716b345e7f00175a8f77d0088ef245160424c78d3aff1336b9",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-5-source.png",
+    "bytes": 19915,
+    "sha256": "fa18e9c5ad97a5a96f6ec6de8c0477b6ee637b596426d9ef15385ce0fa2a7ae7",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-6-mask.png",
+    "bytes": 3149,
+    "sha256": "c5d3672c3878de4ff28048c2e0d401d88f05303994792608339b54eb62249bc8",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-6-source.png",
+    "bytes": 7062,
+    "sha256": "bbad9d210895e8c2c752b551db6b9317296bf6150b13a9c0991cd92514f70884",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-7-mask.png",
+    "bytes": 6119,
+    "sha256": "f537a223b9098246fe944e7ac3707acf588501ea0a854df0ee6b9a26528e53b6",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-7-source.png",
+    "bytes": 17430,
+    "sha256": "e1ed57c5c2add5980f892644d762a7c20ebce0f353b5d69f36e7ad0b6f5d737c",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-8-mask.png",
+    "bytes": 6279,
+    "sha256": "ea14031b54b5bb38edda4382a4059aa99113289b1733e2a5956f17d28e7b26e0",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-8-source.png",
+    "bytes": 18893,
+    "sha256": "738de6024ea6085191bfdc477476480b850a8924c3deb0f2e79b93e3e2a1192c",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-9-mask.png",
+    "bytes": 7956,
+    "sha256": "860423040b5a3c9d08ead4dda560de51a651736bed96186e89baaf984b56d217",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  },
+  {
+    "path": "tools/mask-editor/assets/residential-window-9-source.png",
+    "bytes": 27936,
+    "sha256": "484f338dd02259b2a45749b3f253192ba19362a27a44b42f9c948e1bdf3dd161",
+    "dimensions": "256 × 256",
+    "resourceIds": [],
+    "usage": "保留素材/独立入口/诊断图，未由主 manifest 直接内嵌"
+  }
+]

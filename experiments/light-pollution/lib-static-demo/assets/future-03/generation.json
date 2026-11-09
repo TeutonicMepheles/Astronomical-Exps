@@ -1,0 +1,9 @@
+{
+  "node": "billboard-future-03-video-5s-20261028",
+  "project": "5ba762ab872a4bd9a1866a96e7a626cc",
+  "model": "Kling 2.5",
+  "source": "billboard-20261028-clean-03",
+  "durationRequested": 5,
+  "prompt": "固定镜头的二维平面科技宣传海报动画。严格保留参考图片的蓝紫色手绘纸张颗粒、薄荷绿几何光门、抽象流线和完整构图。中文标题「未来视界」全程静止，保持原字形、位置和清晰度，不变形不闪烁。几何光门柔和呼吸发光，青绿色流线缓慢流动穿过光门，少量细小光点沿轨迹移动。平滑克制的五秒动画，结尾尽量回归起始状态便于循环。无镜头移动、推拉、剪辑，无新增文字、边框、建筑或人物，维持二维插画风格。",
+  "postprocess": "Original title region composited with feathered boundaries to remove model-added text; lower flow and right portal retain generated animation. Normal frame order, 5s, 20fps, 100 frames."
+}

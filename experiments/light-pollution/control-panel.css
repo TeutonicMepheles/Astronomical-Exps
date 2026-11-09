@@ -69,7 +69,26 @@
 footer{z-index:8}
 .panel-tuner{position:fixed;left:12px;top:12px;bottom:12px;z-index:40;width:280px;display:flex;flex-direction:column;border:1px solid #7693ba70;border-radius:14px;background:#10192cf2;color:#eef2f8;box-shadow:0 10px 32px #0006;font:13px "Microsoft YaHei",system-ui,sans-serif}
 .panel-tuner[hidden]{display:none}
-.panel-tuner-toggle{position:fixed;left:12px;top:12px;z-index:41;height:40px;padding:0 12px;border:1px solid #7693ba70;border-radius:10px;background:#17233df0;color:#eef2f8;cursor:pointer;font:13px "Microsoft YaHei",sans-serif}
+.panel-tuner-toggle,.pollution-meter-toggle{position:fixed;top:12px;z-index:41;height:40px;padding:0 12px;border:1px solid #7693ba70;border-radius:10px;background:#17233df0;color:#eef2f8;cursor:pointer;font:13px "Microsoft YaHei",sans-serif}
+.panel-tuner-toggle{left:12px}
+.pollution-meter-toggle{left:108px}
+.pollution-meter-toggle[aria-expanded=true]{display:none}
+.pollution-meter{position:fixed;left:12px;top:60px;bottom:12px;z-index:39;width:280px;display:flex;flex-direction:column;border:1px solid #7693ba70;border-radius:14px;background:#10192cf2;color:#eef2f8;box-shadow:0 10px 32px #0006;font:13px "Microsoft YaHei",system-ui,sans-serif}
+.pollution-meter[hidden]{display:none}
+.pollution-meter-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #7693ba40}
+.pollution-meter-head h2{margin:0;font-size:14px}
+.pollution-meter-head button{height:32px;border:0;border-radius:8px;background:#2e3c59;color:#edf0f4;cursor:pointer;font:inherit}
+.pollution-meter-grade{margin:12px 12px 0;font-size:42px;font-variant-numeric:tabular-nums;line-height:1}
+.pollution-meter-grade small{margin-left:6px;font-size:16px;color:#c5d2e4}
+.pollution-meter-round{margin:8px 12px 0;color:#c5d2e4}
+.pollution-meter-parts{flex:1;overflow:auto;margin:8px 0 0;padding:0 12px 8px}
+.pollution-meter-parts div{display:flex;justify-content:space-between;gap:8px;margin-top:8px}
+.pollution-meter-parts dt{color:#c5d2e4}
+.pollution-meter-parts dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.pollution-meter-parts small{display:block;color:#9aabc2;font-size:11px}
+.pollution-meter-note,.pollution-meter h3{margin:0 12px;color:#9aabc2;font-size:11px;line-height:1.45}
+.pollution-meter h3{margin-top:10px;font-size:12px;color:#c5d2e4}
+.pollution-meter-checks{margin:6px 12px 12px;padding-left:18px;color:#9aabc2;font-size:11px;line-height:1.45}
 .panel-tuner-toggle[aria-expanded=true]{display:none}
 .panel-tuner-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #7693ba40}
 .panel-tuner-head h2{margin:0;font-size:14px}
@@ -81,5 +100,5 @@ footer{z-index:8}
 .panel-tuner-actions button{flex:1}
 .panel-tuner-copy{margin:0 12px 12px;min-height:4.5em;padding:8px;border-radius:8px;background:#0b1220;color:#c5d2e4;font:11px/1.4 ui-monospace,monospace;white-space:pre-wrap}
 @media(max-width:600px){
-  .panel-tuner{width:min(280px,calc(100vw - 24px));bottom:auto;max-height:70dvh}
+  .panel-tuner,.pollution-meter{width:min(280px,calc(100vw - 24px));bottom:auto;max-height:70dvh}
 }

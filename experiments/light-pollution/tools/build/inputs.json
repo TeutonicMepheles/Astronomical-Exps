@@ -1,0 +1,405 @@
+{
+  "version": 1,
+  "inputs": [
+    {
+      "path": "app/page.html",
+      "bytes": 7946,
+      "sha256": "6618ded5534b53abd7b04625687804cd197352167d7ecdd85266c7291147aae8"
+    },
+    {
+      "path": "assets/billboard-demo/city.svg",
+      "bytes": 923,
+      "sha256": "bb9786d6b8124299abfbcbc47b787b330ff5c494bf74615c085c258c77c678f3"
+    },
+    {
+      "path": "assets/billboard-demo/future.svg",
+      "bytes": 917,
+      "sha256": "fbdca092e4e3a792d2ebea8f85ebe36282be4e9f0ac0c8681b914a4a1d56b696"
+    },
+    {
+      "path": "assets/billboard-demo/orbit.svg",
+      "bytes": 917,
+      "sha256": "347c00d9333cfe7b3adb68b66da368b68955195efe95bab341c18220076d086e"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
+      "bytes": 1174029,
+      "sha256": "60660eec59f15cc2d2a5568832f7232210d0186e0502318171bc9da3f6d4703a"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/08-city-ground/01.png",
+      "bytes": 573447,
+      "sha256": "6d32d9c524104ac92a539ae4a28a3e1e73a704e135cfcc3a0ceb88641d07fbd1"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png",
+      "bytes": 416738,
+      "sha256": "8b75a8195031908f863d57e5ebc2d5408bf714543f22aea8153dae128116e40f"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png",
+      "bytes": 289529,
+      "sha256": "3c40e604e8278ecce4c07e00f0ed12685fd8358b5bd9cfaab6db69083cea4645"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png",
+      "bytes": 367297,
+      "sha256": "77839256c6c43e3420112e94ee6bbeaa987db9b3b89f25078d9e9c8c379be585"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/05-residential/02.png",
+      "bytes": 1486525,
+      "sha256": "4c5e0c47a47947ab77d395e8ddbf6e66d28326e3c5e54c49a300bb4f3b0de705"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/03.png",
+      "bytes": 1560242,
+      "sha256": "da8cb0a901b101a58541813e90ce8643a221e0134b8fff5a92d91c87049dd533"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png",
+      "bytes": 1279105,
+      "sha256": "e38fc6b301e732dc8a6eb2f901896382e0ddc58d3438f3d33f2ce1ddbc63e701"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/09-stadium/01.png",
+      "bytes": 3753450,
+      "sha256": "67dacaaeb3bed3b5a9a2396a250da2fbe2f1d82c8878e2651e90236abe30fd57"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/09-stadium/02.png",
+      "bytes": 3135969,
+      "sha256": "8e1b001b396bbeba0e85f4ea5a269a6516a57f9489345f40d8ac28f8c7086da5"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/10-viaduct/01.png",
+      "bytes": 2269014,
+      "sha256": "1232c0049aa41e4a899ac83feafb875213b140398654b58b45405de3a799cf9e"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/10-viaduct/02.png",
+      "bytes": 1955351,
+      "sha256": "43ab0243c8e2297aff2147f0d40042e240cc18864fc03b923be84040ac235f58"
+    },
+    {
+      "path": "lib-static-demo/assets/01-foreground-water.png",
+      "bytes": 442553,
+      "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd"
+    },
+    {
+      "path": "lib-static-demo/assets/02-background-water.png",
+      "bytes": 170430,
+      "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1"
+    },
+    {
+      "path": "lib-static-demo/assets/03-mountains.png",
+      "bytes": 304360,
+      "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996"
+    },
+    {
+      "path": "lib-static-demo/assets/04-distant-city.png",
+      "bytes": 323257,
+      "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09"
+    },
+    {
+      "path": "lib-static-demo/assets/05-near-buildings.png",
+      "bytes": 734662,
+      "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563"
+    },
+    {
+      "path": "lib-static-demo/assets/06-residential-interiors.png",
+      "bytes": 142985,
+      "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18"
+    },
+    {
+      "path": "lib-static-demo/assets/07-public-interiors.png",
+      "bytes": 181076,
+      "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9"
+    },
+    {
+      "path": "lib-static-demo/assets/08-billboard.png",
+      "bytes": 91696,
+      "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8"
+    },
+    {
+      "path": "lib-static-demo/assets/10-vegetation.png",
+      "bytes": 319158,
+      "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3"
+    },
+    {
+      "path": "lib-static-demo/assets/11-shore-structures.png",
+      "bytes": 344776,
+      "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c"
+    },
+    {
+      "path": "lib-static-demo/assets/reference.png",
+      "bytes": 1829669,
+      "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1"
+    },
+    {
+      "path": "lib-static-demo/assets/window-apertures.png",
+      "bytes": 21758,
+      "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed"
+    },
+    {
+      "path": "assets/lamp-variants/open.png",
+      "bytes": 1067697,
+      "sha256": "c5234f626882cd15301c2f1971ad027567337f4f1b6fe8c3511732836accabb0"
+    },
+    {
+      "path": "assets/lamp-variants/cap.png",
+      "bytes": 1016920,
+      "sha256": "dd57abb3a912c4e35cf85ee004d970bcbb019aeb4092b3b900bde12d32485c26"
+    },
+    {
+      "path": "assets/lamp-variants/half.png",
+      "bytes": 1059162,
+      "sha256": "cf490031e2367e32a577a9f8897c8325d7906044ad6c188ce7ab2dfd8d5324ee"
+    },
+    {
+      "path": "assets/lamp-variants/full.png",
+      "bytes": 1047571,
+      "sha256": "9c659e55bb6474af0b8e02fce31805dbda7a4a4b4ea5f1c7d8ad60ef7eca4a2e"
+    },
+    {
+      "path": "assets/lamp-variants/sensor.png",
+      "bytes": 1052228,
+      "sha256": "b6299d53b9df1ac0a4561ea44df472d2b8c15e0aee66534e76936001e6e6e3bf"
+    },
+    {
+      "path": "../../shared/typography/typography.css",
+      "bytes": 300,
+      "sha256": "bd9f3a1c595ac9f71ccf114237c7042d6feb096a6f93ec3e149f2043951edea3"
+    },
+    {
+      "path": "../../shared/components/components.css",
+      "bytes": 6107,
+      "sha256": "25f6334cfe86e93ee31947595cc7a5e0ad95e6313a9988e48f8c56f2ab9e0d16"
+    },
+    {
+      "path": "app/styles/scene.css",
+      "bytes": 19258,
+      "sha256": "8c8a5510642a48776234a07603e9b139fce6d324dac389e1679290f11c9ad586"
+    },
+    {
+      "path": "core/runtime.js",
+      "bytes": 4516,
+      "sha256": "62bbcfbaf2c8126f263f6396f62bcdf30171773e5ee846141fe1ba139faef103"
+    },
+    {
+      "path": "scenes/candidate/definition.js",
+      "bytes": 701,
+      "sha256": "f697b17855ef967eb46198773e6ed3a9104e32d78f0439c59983ba2de8dfd08d"
+    },
+    {
+      "path": "scenes/legacy/definition.js",
+      "bytes": 318,
+      "sha256": "e6186442962583afad643a07aaef8a75e1f478df3909de769d7594433e947e22"
+    },
+    {
+      "path": "persistence/draft-storage.js",
+      "bytes": 144,
+      "sha256": "a08761f49fb918622630787591be22563654e8494c01673c061dec9bb3184466"
+    },
+    {
+      "path": "features/lamps/variants.js",
+      "bytes": 3525,
+      "sha256": "01d05626dec4a8850038b31bc4052ab6b09a5ceae1f0575266bb82626cd0538e"
+    },
+    {
+      "path": "features/light-environment/model.js",
+      "bytes": 1459,
+      "sha256": "67da73ed3642f5d8ad6b0faa0a1a2a8273ce17eded2564b8b59d493bb3c052d3"
+    },
+    {
+      "path": "resources/asset-registry.js",
+      "bytes": 1534,
+      "sha256": "024daf675b3220387875e032ab746607d4ce691ee2ce892847156f59abded09e"
+    },
+    {
+      "path": "core/history.js",
+      "bytes": 1283,
+      "sha256": "d76a88a45ae38593c752beccf80627b435e8a639dfd9ba2790c97aa85c71ee81"
+    },
+    {
+      "path": "persistence/scene-codec.js",
+      "bytes": 1501,
+      "sha256": "079f0f950424e9097f34c70873713050e5d6ab12f1ec1f91f81294464bb180f9"
+    },
+    {
+      "path": "core/scene-store.js",
+      "bytes": 4456,
+      "sha256": "bddc1fddccea77aa4b0607ea2c23ae9d9be8a186c6607e13fe0c65c520b8b963"
+    },
+    {
+      "path": "features/billboard/commands.js",
+      "bytes": 1460,
+      "sha256": "c5b7b5716ba38937f660439571bb3661383ab501af7bacdf52331105d99eb70b"
+    },
+    {
+      "path": "rendering/surface-projector.js",
+      "bytes": 4820,
+      "sha256": "07c581150b98d7e119a87fd263b351f56906e5172ef8460924784f4356ce5de8"
+    },
+    {
+      "path": "rendering/building-renderer.js",
+      "bytes": 2599,
+      "sha256": "3f4b90b1c109dc5996867efeee3e2f92265fe668f9d7e853848713824d719d39"
+    },
+    {
+      "path": "rendering/reflection-pass.js",
+      "bytes": 2758,
+      "sha256": "dbb31c42749d90367452f11c4e5329a0766da6ab0685e659a4b7733e66a2b40a"
+    },
+    {
+      "path": "rendering/compositor.js",
+      "bytes": 2244,
+      "sha256": "130b1f4cc1eff874693e7a319169d3a3942ecc42f03312d14c5198e3517f59e4"
+    },
+    {
+      "path": "components/pollution-starfield/starfield.js",
+      "bytes": 9174,
+      "sha256": "a43a95cdcb188835abf53af7cfbdab54e69e6cf1a6dcc487e05903c710204d75"
+    },
+    {
+      "path": "features/sky/panel.js",
+      "bytes": 5455,
+      "sha256": "8cfbc8c57363950f9be03a5a8dc1bd2170dadfe4d0721af7b93858be4ff749b2"
+    },
+    {
+      "path": "app/editor/layer-editor.js",
+      "bytes": 7861,
+      "sha256": "39f2bdc2487a7a7167bcc5ec640bb76561ddb74aa26bc2d55ca53727209d628e"
+    },
+    {
+      "path": "lib-static-demo/assets/music-08/atlas-data.js",
+      "bytes": 9142810,
+      "sha256": "9872dfe4ee28c34c45adb10bb541f8390c194470eb20ab2732a830da94d2a8fb"
+    },
+    {
+      "path": "lib-static-demo/assets/future-03/atlas-data.js",
+      "bytes": 9543541,
+      "sha256": "27aa1948ef48acedc6fb047003d399cbb6b854910af12d22ce32b8ef20ddf9cf"
+    },
+    {
+      "path": "features/billboard/renderer.js",
+      "bytes": 4560,
+      "sha256": "1e37c779dbaf971eda470dd0efcaf2b9c09163f45fb8ca04d7c2c2bc4533e55d"
+    },
+    {
+      "path": "app/editor/object-editor.js",
+      "bytes": 5205,
+      "sha256": "51e1a7f66d1369d4138cb8db53c8929a68889fd8d5b5c84a22e18c141a032a7c"
+    },
+    {
+      "path": "app/presentation/billboard-panel.js",
+      "bytes": 3391,
+      "sha256": "70c7bfb6a1b86838009cb8e14f528f949c108edb85307ea6da96fd0205102590"
+    },
+    {
+      "path": "features/objects/service.js",
+      "bytes": 19851,
+      "sha256": "3181c1e98013dd356984c00538625d3d585f08bcb7ee868998036cbd0e369f46"
+    },
+    {
+      "path": "resources/candidate-loader.js",
+      "bytes": 7846,
+      "sha256": "7fe5fcdaa1d8ea402a999519f287026c8c0ef72dc8f659ce1b1c8900ce384b9f"
+    },
+    {
+      "path": "app/presentation/navigation.js",
+      "bytes": 130,
+      "sha256": "f89a0367825c0e913233bd54c037587a4f43e4489fc21a3df144e907edc87a9c"
+    },
+    {
+      "path": "app/editor/gradient-editor.js",
+      "bytes": 14961,
+      "sha256": "bd9be0ae48850e04037c76937820adc943ba606fc4ab79d4f73b1e6ec2e250b0"
+    },
+    {
+      "path": "features/lamps/thumbnails.js",
+      "bytes": 1008,
+      "sha256": "a0e5072dfd3a4a907484f50817e8135f3bb6d94f50c399a63454107dfc5c9c5f"
+    },
+    {
+      "path": "features/lamps/carousel.js",
+      "bytes": 6455,
+      "sha256": "6a054ccc4fb2f818dbace01716682e3c6e33f560433bc690d76fa8000b81652f"
+    },
+    {
+      "path": "features/lamps/controller.js",
+      "bytes": 8195,
+      "sha256": "cf58f7206fe79972e4602e5910b648dc21820dde24e4ceeabe46e5ee81a722b6"
+    },
+    {
+      "path": "rendering/masked-lighting.js",
+      "bytes": 5616,
+      "sha256": "72e55d2904ad2c8742327bc735124a688b21c69dc567d3b9e9f0f8733ccf079f"
+    },
+    {
+      "path": "resources/building-light-masks.js",
+      "bytes": 6436,
+      "sha256": "b3c45b773bb09d1529b22d1fa54f6fa05cb7d3d2d7e1cf4f723f5836b0d6dbad"
+    },
+    {
+      "path": "features/buildings/controller.js",
+      "bytes": 12906,
+      "sha256": "32ff5a3d0fc6167275402de42ad11440936d6abb9a96f647db9c0e30e9d5be83"
+    },
+    {
+      "path": "features/water/renderer.js",
+      "bytes": 6857,
+      "sha256": "7b0fe72651f36900eb4ecc2345714f088b513cc3f2aefc236f558f61e7f3e356"
+    },
+    {
+      "path": "features/light-environment/controller.js",
+      "bytes": 4229,
+      "sha256": "d17938f1f873d920ceb257696b1ef44faf74ab682941bdb9af809fab6f4034ff"
+    },
+    {
+      "path": "../../shared/components/affordance.js",
+      "bytes": 1842,
+      "sha256": "4ee16f0650cf1808a0e1280a2c7ed6a801f83c4edf4a28e791cf42651d7eb6cc"
+    },
+    {
+      "path": "scenes/candidate/hint-contours.js",
+      "bytes": 4402,
+      "sha256": "7c44d5e96b2e3da6f464f09fc347146507041d28b324cbd1099fb7d2ecb11dcb"
+    },
+    {
+      "path": "adapters/affordance-adapter.js",
+      "bytes": 199,
+      "sha256": "87a03f777bdd49bbd31b95f5b9801b3526ebf3f50dbd595ce720611d4ef0931d"
+    },
+    {
+      "path": "features/interaction-hints/controller.js",
+      "bytes": 6501,
+      "sha256": "69cd1e08b7ab9fefe4e64350663a11920e5cb29da290d0ee4f3ca656eacde8ed"
+    },
+    {
+      "path": "features/environment/controller.js",
+      "bytes": 4938,
+      "sha256": "71dce4ccb7c13b438df3a6d25414c069896c54452c732bd3c248ee552594f22c"
+    },
+    {
+      "path": "features/environment/structure-lights.js",
+      "bytes": 5303,
+      "sha256": "ebdbe994f2d1cbf74aa479c5252bcd86d0998fd4f72c28a21c29902cc1e44525"
+    },
+    {
+      "path": "core/performance-probe.js",
+      "bytes": 1675,
+      "sha256": "b3f3c89406431c74df1cc2805dce3f02b079f812764a5a46e41e0fbcc054afcd"
+    },
+    {
+      "path": "app/bootstrap.js",
+      "bytes": 23251,
+      "sha256": "5288c382798fe6a56a6ece47cecfb8ae662e7cc024e56cc54a675b7173a13f3f"
+    }
+  ],
+  "output": {
+    "path": "lib-static-demo/standalone.html",
+    "bytes": 56819329,
+    "sha256": "0c04a6e49cc588a437a498f5b45d0a4bd53667f02858b0613a00d3f0123053d1"
+  }
+}

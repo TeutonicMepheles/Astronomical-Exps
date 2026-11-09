@@ -1,0 +1,296 @@
+[
+  {
+    "path": "experiments/light-pollution/assets/billboard-demo/city.svg",
+    "bytes": 923,
+    "sha256": "bb9786d6b8124299abfbcbc47b787b330ff5c494bf74615c085c258c77c678f3",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/billboard-demo/future.svg",
+    "bytes": 917,
+    "sha256": "fbdca092e4e3a792d2ebea8f85ebe36282be4e9f0ac0c8681b914a4a1d56b696",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/billboard-demo/orbit.svg",
+    "bytes": 917,
+    "sha256": "347c00d9333cfe7b3adb68b66da368b68955195efe95bab341c18220076d086e",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/lamp-sprites.png",
+    "bytes": 1296053,
+    "sha256": "ee27a34e1fced20eed8aadd8e43e08f901689b49452309f45a5874424306bb18",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
+    "bytes": 709082,
+    "sha256": "81ce8328557ad28d3705039aaee69eedf873dfe5d3c6926e6cf7a4ae7e498bc8",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png",
+    "bytes": 416738,
+    "sha256": "8b75a8195031908f863d57e5ebc2d5408bf714543f22aea8153dae128116e40f",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png",
+    "bytes": 289529,
+    "sha256": "3c40e604e8278ecce4c07e00f0ed12685fd8358b5bd9cfaab6db69083cea4645",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png",
+    "bytes": 367297,
+    "sha256": "77839256c6c43e3420112e94ee6bbeaa987db9b3b89f25078d9e9c8c379be585",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/02.png",
+    "bytes": 354138,
+    "sha256": "b9042daa3d6a710c541b65eb71633ad183b135c8563fcb9a8916766d431e2d2d",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/03.png",
+    "bytes": 505921,
+    "sha256": "ef0522eb8b8bbb9fc88e252c24b77b5f33a1d567f49fb770f5799b43f32937da",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png",
+    "bytes": 386215,
+    "sha256": "c3db4b5b942d634fb5232cfb6e6fd79aa59fdf3ee9b39d1b17d6a8076722efd4",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/components/pollution-starfield/starfield.js",
+    "bytes": 8912,
+    "sha256": "f24a598f374baac8dd33dda6b6c2cf1e78b71e171ddb88af4784163e5c034f2d",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/app.js",
+    "bytes": 22867,
+    "sha256": "c7ee87febcc9bcbf921ae41b0254bff40a2e8409a3ea36f6e035f7ef81753ca3",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/01-foreground-water.png",
+    "bytes": 442553,
+    "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/02-background-water.png",
+    "bytes": 170430,
+    "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/03-mountains.png",
+    "bytes": 304360,
+    "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/04-distant-city.png",
+    "bytes": 323257,
+    "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/05-near-buildings.png",
+    "bytes": 734662,
+    "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/06-residential-interiors.png",
+    "bytes": 142985,
+    "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/07-public-interiors.png",
+    "bytes": 181076,
+    "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/08-billboard.png",
+    "bytes": 91696,
+    "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/10-vegetation.png",
+    "bytes": 319158,
+    "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/11-shore-structures.png",
+    "bytes": 344776,
+    "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/future-03/atlas-data.js",
+    "bytes": 9543540,
+    "sha256": "f03867ad2cede6add4554fb9817e6b546b0b0af824c002346ca910bf57076f1a",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/music-08/atlas-data.js",
+    "bytes": 9142809,
+    "sha256": "358fda14c5e050696e735b7ec37adbbc1e9d90b166cbc803c1ce949c9f7b3c28",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/reference.png",
+    "bytes": 1829669,
+    "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/assets/window-apertures.png",
+    "bytes": 21758,
+    "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed",
+    "kind": "embedded-image"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/billboard-video.js",
+    "bytes": 3969,
+    "sha256": "73573de7cb0467b720229b7598e76b59103bbe10c3152e13fbb428fa304eb6ba",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/building-controls.js",
+    "bytes": 19338,
+    "sha256": "32eec648f3d837b11b7455d2dba933799193afd70c6464fe588233f073146c21",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/building-light-masks.js",
+    "bytes": 6436,
+    "sha256": "b3c45b773bb09d1529b22d1fa54f6fa05cb7d3d2d7e1cf4f723f5836b0d6dbad",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/candidates.js",
+    "bytes": 6549,
+    "sha256": "914432029affe76f6141623f254ae5a637b716f4deedbf85c839bd5ed0c4258d",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/curtain-palette.js",
+    "bytes": 1350549,
+    "sha256": "347618b94dad0829b81f980dca219fc2d87abb00db0b3de73904c29605472b91",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/editor.js",
+    "bytes": 10719,
+    "sha256": "6ca5a6347c968c3cb07d7902291e4ba38fc6d2c4bd9133f336f81956bebbdedb",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/gradient-editor.js",
+    "bytes": 15294,
+    "sha256": "1485f96d11506a699b0bbfafe17654f0878505b6d255243c4a3a74f340e874a9",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/hint-contours.js",
+    "bytes": 929,
+    "sha256": "930a67171a5cc486ffeb840df5fbcaa90e3a4fded79c7f7046a53f477bff1b90",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/index.html",
+    "bytes": 9402,
+    "sha256": "9597c6509abee34b25b0a514bf1aeb5616907dab01d767dab77741099aeb57a2",
+    "kind": "entry"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/interaction-hints.js",
+    "bytes": 5280,
+    "sha256": "398f2d1db204cd5aff18d7f8a665f0e6cb45194c34d469d04ba8533e8301b9ec",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/lamps.js",
+    "bytes": 7025,
+    "sha256": "0c1decf6067111e15fc6d1bb1cb03b6bc18b4b2f9c657c3cb96f6976d42b8205",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/light-environment.js",
+    "bytes": 5172,
+    "sha256": "0268f148dd22386210329206f08a10880a35292318347d669034db14ab159836",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/masked-lighting.js",
+    "bytes": 4035,
+    "sha256": "3f4bcfaec4a47197a947c939236b4581a25cf7c45ea091130826c5b840f5caac",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/navigation.js",
+    "bytes": 3003,
+    "sha256": "f49d0e0c58b1bca0a509a278a443e9efe5051f88a53272dc2be23d293ae90c4e",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/objects.js",
+    "bytes": 30648,
+    "sha256": "be40cbaa6715ab27020ab95cc53b6d8595b673e80031270f8ea1f7d06167f68c",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/scene-effects.js",
+    "bytes": 5389,
+    "sha256": "286cc5258d9ad2599f42447cca34ef35be1bad9b16231100cee1e8daadd35f6d",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/sky-settings.js",
+    "bytes": 5195,
+    "sha256": "fc398984f3c2d35983bdf41bc48528b7d1f7019f49f8c104683a4cb87595776a",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/style.css",
+    "bytes": 18499,
+    "sha256": "f9a8f8163c4ce1710af6be83f2c2d51a870cbf112355af1fcbbc94ff39da4ce3",
+    "kind": "style"
+  },
+  {
+    "path": "experiments/light-pollution/lib-static-demo/water-flow.js",
+    "bytes": 6879,
+    "sha256": "626e4dcfedff24ae0e4ce72a4105522f240dceb530321925a7420e7ccf0c3553",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "shared/components/affordance.js",
+    "bytes": 1842,
+    "sha256": "4ee16f0650cf1808a0e1280a2c7ed6a801f83c4edf4a28e791cf42651d7eb6cc",
+    "kind": "runtime-script"
+  },
+  {
+    "path": "shared/components/components.css",
+    "bytes": 6107,
+    "sha256": "25f6334cfe86e93ee31947595cc7a5e0ad95e6313a9988e48f8c56f2ab9e0d16",
+    "kind": "style"
+  },
+  {
+    "path": "shared/typography/typography.css",
+    "bytes": 300,
+    "sha256": "bd9f3a1c595ac9f71ccf114237c7042d6feb096a6f93ec3e149f2043951edea3",
+    "kind": "style"
+  }
+]

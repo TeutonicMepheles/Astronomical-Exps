@@ -5,7 +5,7 @@
   const stage=document.querySelector('.stage'),world=document.querySelector('.world');
   const image=document.querySelector('.residential-light'),panel=document.querySelector('.residential-editor');
   const temperature=document.querySelector('#residential-temperature'),brightness=document.querySelector('#residential-brightness');
-  const state={temperature:3000,brightness:100,curtain:0,anchor:null};
+  const state={temperature:3000,brightness:100,anchor:null};
   const targets=[];
   // Whole window apertures include dark mullions and furniture, not only bright pixels.
   const windows=[
@@ -31,36 +31,6 @@
     });
     targets.push(button);
   });
-  const svgNS='http://www.w3.org/2000/svg';
-  // The exporter embeds local asset literals in scripts for standalone delivery.
-  document.querySelector('#curtain-foreground image').setAttribute('href','assets/city-layer-all-lamps.png');
-  const curtainMask=document.createElementNS(svgNS,'mask');
-  curtainMask.id='residential-curtain-mask';
-  curtainMask.setAttribute('maskContentUnits','objectBoundingBox');
-  curtainMask.innerHTML='<rect width="1" height="1" fill="white"/>';
-  document.querySelector('.residential-filter-defs defs').append(curtainMask);
-  image.style.mask='url(#residential-curtain-mask)';
-  const cloth=document.querySelector('.curtain-cloth');
-  // Only the first sixteen apertures belong to the two near apartment buildings.
-  // Distant residential emission remains independent of these curtains.
-  const curtains=windows.slice(0,16).map(()=>{
-    const fabric=document.createElementNS(svgNS,'polygon');
-    const shade=document.createElementNS(svgNS,'polygon');shade.setAttribute('fill','black');
-    cloth.append(fabric);curtainMask.append(shade);return {fabric,shade};
-  });
-  function renderCurtains(){
-    updateSky();
-    curtains.forEach(({fabric,shade},i)=>{
-      const [x,y,w,h]=windows[i],left=x+w*(1-state.curtain/100);
-      const points=[[left,y],[x+w,y],[x+w,y+h],[left,y+h]];
-      fabric.setAttribute('points',points.map(p=>p.join(',')).join(' '));
-      shade.setAttribute('points',points.map(([px,py])=>`${px/W},${py/H}`).join(' '));
-    });
-    document.querySelectorAll('[data-curtain]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.curtain)===state.curtain)));
-  }
-  document.querySelectorAll('[data-curtain]').forEach(button=>button.addEventListener('click',()=>{
-    state.curtain=Number(button.dataset.curtain);renderCurtains();positionPanel();
-  }));
   let alpha=null;
   function prepareHitMap(){
     if(!image.naturalWidth)return;
@@ -90,7 +60,7 @@
   function color(k){const t=(k-2200)/4300;return [255-70*t,179+35*t,100+155*t];}
   function updateSky(){
     const colorValue=color(state.temperature),gain=state.brightness/100;
-    const near=[100,310].map(x=>({x,radius:420,strength:.52*gain*(1-state.curtain/100),color:colorValue}));
+    const near=[100,310].map(x=>({x,radius:420,strength:.52*gain,color:colorValue}));
     const distant=[450,600,750,950,1120,1400,1580,1780,2010].map(x=>({x,radius:320,strength:.09*gain,color:colorValue}));
     window.SkyScene.update('residential',[...near,...distant]);
   }
@@ -148,6 +118,5 @@
   new ResizeObserver(positionPanel).observe(stage);
   window.ResidentialScene={hitTest,point,select,close,positionPanel};
   close();
-  renderCurtains();
   render();
 })();
