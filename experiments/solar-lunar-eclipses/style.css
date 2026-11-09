@@ -8,8 +8,10 @@ html, body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* fixed 而非 absolute：缩放到 s<1 时，absolute 的未缩放盒仍参与文档滚动区，
+   会让页面出现可滚动余量（如 1440×900 下 scrollWidth 1520），违背「16:9 不滚动」。 */
 #stage {
-  position: absolute; width: 1600px; height: 900px; left: 50%; top: 50%;
+  position: fixed; width: 1600px; height: 900px; left: 50%; top: 50%;
   transform: translate(-50%, -50%);
   transform-origin: center;
   overflow: hidden;
