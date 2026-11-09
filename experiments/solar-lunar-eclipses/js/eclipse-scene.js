@@ -570,9 +570,10 @@
       this.drawCone(ctx, mw, SIDE_RM, umbRe, state, false, true, sideSun);
     }
     /* 地本影：沿黄道面向右，略长于轨道半径即止。半影只在月食里有意义，日食时不画。
-       日食档把整条地影压到 30%：这一档的主角是月影，地影抢镜又会吞掉黄道线与 5.145° */
+       日食档把整条地影压到 45%：这一档的主角是月影，地影抢镜又会吞掉黄道线与 5.145°。
+       0.30 只剩锥边两条线、0.50 压成黑杠，0.45 两头都还看得见（VD 定档） */
     this.drawCone(ctx, M.EARTH, M.RE, nodeRe * 1.24, state, true, false, sideSun,
-      state.mode !== 'lunar', state.mode !== 'lunar' ? 0.3 : 1);
+      state.mode !== 'lunar', state.mode !== 'lunar' ? 0.45 : 1);
 
     /* 黄道线补画在影锥之上：它是这一档的基准面，任何时候都该看得见 */
     ctx.save();
