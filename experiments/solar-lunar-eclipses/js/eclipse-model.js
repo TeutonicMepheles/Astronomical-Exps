@@ -79,24 +79,30 @@
     return clamp(1 - covered, 0, 1);
   }
 
-  /* 影锥：本影向远处收束到影锥顶点，半影向外张开。 */
-  function cone(C, r) {
-    var D = dist(SUN, C);
-    var u = unit(sub(C, SUN));
-    var umbraLength = D * r / (SUN_R - r);
-    var penumbraApex = -D * r / (SUN_R + r);
+  /*
+   * 影锥：本影向远处收束到影锥顶点，半影向外张开。
+   * sun 可选：{ x, y, r }。侧视用 20 RE 的示意轨道，太阳的位置和角半径都得跟着那个尺度走
+   * （见 eclipse-scene 的 drawSide）；缺省用全局 SUN / SUN_R。
+   */
+  function cone(C, r, sun) {
+    var S = sun || SUN;
+    var Rs = (sun && sun.r) || SUN_R;
+    var D = dist(S, C);
+    var u = unit(sub(C, S));
+    var umbraLength = D * r / (Rs - r);
+    var penumbraApex = -D * r / (Rs + r);
     return {
       axis: u,
       umbraLength: umbraLength,
-      penumbraHalfAngle: Math.asin(clamp((SUN_R + r) / D, -1, 1)),
-      umbraHalfAngle: Math.asin(clamp((SUN_R - r) / D, -1, 1)),
+      penumbraHalfAngle: Math.asin(clamp((Rs + r) / D, -1, 1)),
+      umbraHalfAngle: Math.asin(clamp((Rs - r) / D, -1, 1)),
       penumbraApex: add(C, mul(u, penumbraApex)),
       umbraApex: add(C, mul(u, umbraLength)),
       umbraRadiusAt: function (x) {
         return x < umbraLength ? r * (1 - x / umbraLength) : 0;
       },
       penumbraRadiusAt: function (x) {
-        return r + x * (SUN_R + r) / D;
+        return r + x * (Rs + r) / D;
       }
     };
   }
