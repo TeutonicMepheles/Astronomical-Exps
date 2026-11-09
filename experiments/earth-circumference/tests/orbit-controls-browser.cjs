@@ -33,6 +33,18 @@ const assert=require('node:assert/strict');
  const reset=await state();
  assert.equal(reset.date,initial.date);assert.equal(reset.spin,initial.spin);
  assert.equal(await page.locator('[data-orbit-pause]').getAttribute('aria-pressed'),'true');
+ await page.locator('.orbit-spin-button').click();
+ await page.locator('#orbit-spin-range').fill('40');
+ await page.waitForTimeout(40);
+ const held=await state();
+ await page.locator('[data-orbit-play]').click();
+ await page.waitForTimeout(700);
+ await page.locator('[data-orbit-pause]').click();
+ const played=await state();
+ const drift=await page.evaluate(()=>{const wrap=value=>((value+540)%360)-180;return Math.abs(wrap(window.__globe.spin-(window.__globe.noonSpin()+40)));});
+ assert.notEqual(played.date,held.date,'Playback still advances the date');
+ assert.ok(drift<0.6,`Spin stays at the new date alignment plus the slider offset, drift ${drift}`);
+ await page.locator('[data-orbit-reset]').click();
  for(const date of ['2026-03-22','2026-06-21','2026-09-21','2026-12-21']){
   await page.evaluate(date=>window.__globe.observationDate=date,date);await page.waitForTimeout(40);
   await page.locator('.orbit-spin-button').click();

@@ -100,8 +100,16 @@ export function mountOrbitOverview(scene) {
   window.addEventListener('resize',resizeSurface);
   const requestMiniFrame=()=>{ surfaceKey=''; scene.redraw(); };
   window.addEventListener('orbit-texture-ready',requestMiniFrame);
+  let disposed=false;
+  let motionFrame=0;
+  let transitionFrame=0;
+  let motionResumeTimer=0;
   window.addEventListener('pagehide',event=>{
     if(event.persisted)return;
+    disposed=true;
+    cancelAnimationFrame(motionFrame);
+    cancelAnimationFrame(transitionFrame);
+    clearTimeout(motionResumeTimer);
     window.removeEventListener('orbit-texture-ready',requestMiniFrame);
     window.removeEventListener('resize',resizeSurface);
     for(const name of ['globe-frame','globe-mode-change','view-mode-change'])window.removeEventListener(name,paint);
@@ -255,7 +263,9 @@ export function mountOrbitOverview(scene) {
     // Use the camera's rendered transform so the cone starts at its visible
     // centre even while the orbit diagram is scaled or transitioning.
     const cameraIcon = cameraGroup.querySelector('.camera-icon');
-    const cameraScreen = new DOMPoint(0, 0).matrixTransform(cameraIcon.getScreenCTM());
+    const cameraTransform = cameraIcon.getScreenCTM();
+    if(!cameraTransform)return;
+    const cameraScreen = new DOMPoint(0, 0).matrixTransform(cameraTransform);
     const stageRect = scene.stage.getBoundingClientRect();
     const stageScale = stageRect.width / 1600;
     const tailX = (cameraScreen.x - stageRect.x) / stageScale;
@@ -287,12 +297,13 @@ export function mountOrbitOverview(scene) {
     if (event.propertyName === 'transform') paint();
   });
 
-  let transitionFrame = 0;
   let transitionUntil = 0;
   window.addEventListener('view-mode-change', () => {
+    if(disposed)return;
     transitionUntil = performance.now() + 600;
     cancelAnimationFrame(transitionFrame);
     function updateTransition(now) {
+      if(disposed)return;
       paint();
       if (now < transitionUntil) transitionFrame = requestAnimationFrame(updateTransition);
     }
@@ -300,11 +311,9 @@ export function mountOrbitOverview(scene) {
   });
 
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let motionFrame = 0;
   let motionLast = 0;
   let motionCredit = 0;
   let motionHold = false;
-  let motionResumeTimer = 0;
   const holdMotion = () => {
     motionHold = true;
     clearTimeout(motionResumeTimer);
@@ -320,6 +329,7 @@ export function mountOrbitOverview(scene) {
   const controls=mountOrbitControls(scene,current,()=>{visualAngle=null;visualDay=null;motionCredit=0;});
   reducedMotion.addEventListener('change',()=>controls.setPlaying(!reducedMotion.matches));
   function animateRevolution(now) {
+    if(disposed)return;
     motionFrame = requestAnimationFrame(animateRevolution);
     const active = !scene.measuring
       && scene.stage.dataset.viewMode === 'orbit'
@@ -342,7 +352,9 @@ export function mountOrbitOverview(scene) {
       const model = scene.solarModel;
       const nextDay = ((model.day - 1 + step) % model.days) + 1;
       scene.phase = (nextDay - 1) / (model.days - 1);
-      if(scene.phaseAligned && controls.offset)scene.spin+=controls.offset;
+      // Date changes realign the preset longitude. Restore the slider as an
+      // absolute offset from that alignment, so playback cannot accumulate it.
+      if(scene.phaseAligned && controls.offset)scene.spin=scene.noonSpin()+controls.offset;
     }
     const model = scene.solarModel;
     const start = orbitAngleForDate(model.year,model.day);

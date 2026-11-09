@@ -42,20 +42,28 @@ export function mountPointGuides(scene) {
       };
       const latitude=group.children[2];
       const latPoint=scene.calculating?far(Array.from({length:37},(_,j)=>[lat,-180+j*10])):scene.projectLatLon(lat,lon-35);
-      const latXY=latPoint&&latPoint.x!=null?latPoint:{x:cam.centre.x+latPoint.normal[0]*cam.radius+8,y:cam.centre.y-latPoint.normal[1]*cam.radius+(i?24:-12),visible:latPoint.visible};
-      latitude.setAttribute('x',latXY.x+(scene.calculating?18:8));
-      latitude.setAttribute('y',latXY.y+(scene.calculating?0:(i?24:-12)));
-      latitude.textContent=`${Math.abs(lat).toFixed(1)}°${lat<0?'S':'N'}`;
-      latitude.style.display=(latPoint&&(latPoint.visible||latPoint.x!=null))?'':'none';
+      if(!latPoint){
+        latitude.style.display='none';
+      }else{
+        const latXY=latPoint.x!=null?latPoint:{x:cam.centre.x+latPoint.normal[0]*cam.radius+8,y:cam.centre.y-latPoint.normal[1]*cam.radius+(i?24:-12),visible:latPoint.visible};
+        latitude.setAttribute('x',latXY.x+(scene.calculating?18:8));
+        latitude.setAttribute('y',latXY.y+(scene.calculating?0:(i?24:-12)));
+        latitude.textContent=`${Math.abs(lat).toFixed(1)}°${lat<0?'S':'N'}`;
+        latitude.style.display=(latPoint.visible||latPoint.x!=null)?'':'none';
+      }
       const longitude=group.children[3];
       const selectedLat=Number(points[1].dataset.latlon.split(',')[0]);
       const anchorLat=Math.max(-65,Math.min(65,Math.min(cam.subsolar.lat,selectedLat)-22));
       const lonPoint=scene.calculating?far([[-78,lon],[78,lon]]):scene.projectLatLon(anchorLat,lon);
-      const lonXY=lonPoint&&lonPoint.x!=null?lonPoint:{x:cam.centre.x+lonPoint.normal[0]*cam.radius+12,y:cam.centre.y-lonPoint.normal[1]*cam.radius+8,visible:lonPoint.visible};
-      longitude.setAttribute('x',lonXY.x+(scene.calculating?0:12));
-      longitude.setAttribute('y',lonXY.y+(scene.calculating?(lonXY.y>markerPt.y?22:-16):8));
-      longitude.textContent=`${Math.abs(lon).toFixed(1)}°${lon<0?'W':'E'}`;
-      longitude.style.display=i===0&&lonPoint&&(lonPoint.visible||lonPoint.x!=null)?'':'none';
+      if(!lonPoint){
+        longitude.style.display='none';
+      }else{
+        const lonXY=lonPoint.x!=null?lonPoint:{x:cam.centre.x+lonPoint.normal[0]*cam.radius+12,y:cam.centre.y-lonPoint.normal[1]*cam.radius+8,visible:lonPoint.visible};
+        longitude.setAttribute('x',lonXY.x+(scene.calculating?0:12));
+        longitude.setAttribute('y',lonXY.y+(scene.calculating?(lonXY.y>markerPt.y?22:-16):8));
+        longitude.textContent=`${Math.abs(lon).toFixed(1)}°${lon<0?'W':'E'}`;
+        longitude.style.display=i===0&&(lonPoint.visible||lonPoint.x!=null)?'':'none';
+      }
 
     });
   }
