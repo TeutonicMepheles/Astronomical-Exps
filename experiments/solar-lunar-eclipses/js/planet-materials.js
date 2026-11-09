@@ -12,8 +12,8 @@
 import { createGlobeShaderRenderer } from '../../../shared/components/globe-shader-renderer/index.js';
 
 /*
- * 480 而不是 320：地月视角里地球画到 164px 半径、贴片实际边长 349px，
- * 320 会被放大，纹理会糊。
+ * 480 而不是 320：地月视角里地球半径 82px（直径 164px）、贴片实际边长 r/fill ≈ 175px，
+ * 480 会被缩小，留足余量；320 在系统视角放大时才会糊。
  */
 const SIZE = 480;
 /* 球半径占画布边长的比例：留边缘给 rim 光，别被裁掉 */

@@ -26,8 +26,10 @@
     lunar: ['月球开始进入地影', '月球完全进入本影', '月面中心最暗', '月球开始离开本影', '月球完全离开地影']
   };
 
-  /* 轨道曲线：顶端 x=1540，底端 1566，中段微微向内收一点 */
-  function railX(t) { return 1540 + 26 * t - 12 * Math.sin(Math.PI * t); }
+  /* 轨道曲线：两端同为 x=1566，中段向左收 26px（= 参考站 34px/632px 的比例）。
+     不能带线性项：sin(πt) 本身关于中点对称，加上 k*t 会让底端比顶端多偏 k，
+     整列标签跟着右移，看着就是「往下塌」。 */
+  function railX(t) { return 1566 - 26 * Math.sin(Math.PI * t); }
   function railY(t) { return TOP + (BOT - TOP) * t; }
   function point(t) { return { x: railX(t), y: railY(t) }; }
 

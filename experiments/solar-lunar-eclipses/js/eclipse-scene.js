@@ -342,8 +342,10 @@
 
     var pm = global.PlanetMaterials;
     if (pm && pm.earth.ready) {
-      /* 共用 globe-shader-renderer 烘好的星球贴片；fill 是球半径占画布边长的比例 */
-      var side = r * 2 / pm.fill;
+      /* 共用 globe-shader-renderer 烘好的星球贴片；fill 是球半径占画布边长的比例，
+         所以画布边长 = r / fill。写成 2r/fill 会把球画成两倍大：贴片圆盘盖住
+         大气与夜面裁剪圈，观测点、本影斑全部落进球体内部。 */
+      var side = r / pm.fill;
       ctx.drawImage(pm.earth.canvas, cx - side / 2, cy - side / 2, side, side);
       /* 贴片给的是材质与受光，场景的夜面仍按本页的太阳方向压暗，保证和影锥同一套光照 */
       ctx.save();
@@ -460,7 +462,7 @@
     var pm = global.PlanetMaterials;
     if (pm && pm.moonSide.ready) {
       /* 与地球同一套 shader 与光照常数烘出的月面贴片（侧向受光） */
-      var side = r * 2 / pm.fill;
+      var side = r / pm.fill;
       ctx.drawImage(pm.moonSide.canvas, cx - side / 2, cy - side / 2, side, side);
     } else {
       var base = ctx.createRadialGradient(cx - r * 0.45, cy - r * 0.4, r * 0.1, cx, cy, r * 1.1);
