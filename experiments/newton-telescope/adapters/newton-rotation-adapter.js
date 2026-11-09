@@ -4,9 +4,30 @@
  const stage=document.querySelector('.observatory'),template=document.querySelector('#newton-rotation-template');
  const entry=document.createElement('button');entry.type='button';entry.className='newton-rotation-entry';entry.textContent='360° 立体观察';entry.hidden=true;stage.append(entry);
  let panel,dispose,resetVersion,leaving;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let introFrame=0,introToken=0;const introAnimations=new Set();
+ function cancelIntro(){++introToken;cancelAnimationFrame(introFrame);introFrame=0;for(const a of introAnimations)a.cancel();introAnimations.clear();stage.classList.remove('newton-intro-active');panel?.classList.remove('is-introducing');}
+ function introduce(openingPanel){
+  cancelIntro();
+  if(reduced.matches){openingPanel.realViewer?.setIntroProgress?.(1);return;}
+  const token=introToken,start=performance.now();
+  stage.classList.add('newton-intro-active');openingPanel.classList.add('is-introducing');
+  const assembly=stage.querySelector('.assembly-preview'),view=openingPanel.querySelector('.rotation-stage');
+  for(const [element,keyframes] of [[assembly,[{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(1.035)'}]],[view,[{opacity:0,transform:'translate(25px, 20px) scale(1.18)'},{opacity:1,transform:'translate(0,0) scale(1)'}]]]){
+   if(element)introAnimations.add(element.animate(keyframes,{duration:2800,fill:'both',easing:'cubic-bezier(.25,.1,.25,1)'}));
+  }
+  function tick(now){
+   if(token!==introToken||panel!==openingPanel)return;
+   const progress=Math.min(1,(now-start)/3000);openingPanel.realViewer?.setIntroProgress?.(progress);
+   if(progress<1){introFrame=requestAnimationFrame(tick);return;}
+   cancelIntro();openingPanel.realViewer?.setIntroProgress?.(1);
+  }
+  introFrame=requestAnimationFrame(tick);
+ }
  const blocked=new Set();
  const eligible=s=>s.stage==='assembly'&&s.assemblyDone===true;
  function close(restoreFocus=false){
+  cancelIntro();
   if(!restoreFocus&&leaving){leaving.remove();leaving=null;}
   if(!panel)return;
   const old=panel;panel=null;document.removeEventListener('focusin',keepFocus);dispose?.();dispose=null;
@@ -36,6 +57,7 @@
   function reveal(){
    if(panel!==openingPanel)return;
    panel.classList.add('is-ready');stage.classList.add('newton-rotation-ready');
+   introduce(openingPanel);
    if(document.activeElement===panel)panel.querySelector('[data-rotation-back]').focus({preventScroll:true});
   }
   try{dispose=N.mountRotationViewer(panel,reveal);}catch(error){panel.querySelector('#r360-message').textContent='查看器加载失败';reveal();console.warn(error);}
