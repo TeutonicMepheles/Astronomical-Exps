@@ -61,6 +61,18 @@ html[data-editing=true] #billboard-video-controls{display:none}
 #sky-settings .sky-save-actions button{width:auto;flex:1;padding:.4cqw .5cqw}
 #gradient-overlay [data-gradient-line]{cursor:move;touch-action:none}
 
+/* Default visitor view: the 16:9 scene is primary and authoring entrances stay absent. */
+html[data-app-mode=user] #edit-toggle,html[data-app-mode=user] #sky-toggle,html[data-app-mode=user] #lamp-toggle,html[data-app-mode=user] #billboard-video-controls{display:none!important}
+html[data-app-mode=user] .developer-only,html[data-app-mode=editor] .user-only{display:none!important}
+html[data-app-mode=user] .observation-description,html[data-app-mode=user] .observation-label,html[data-app-mode=user] .observation-note{display:none!important}
+html[data-app-mode=user] .presentation-title{left:3%;top:4%;font-size:3cqw;line-height:1.1;letter-spacing:.06em;color:#f4e2bd;text-shadow:0 2px 16px #061127cc}
+html[data-app-mode=user] .street-controls{left:7%;right:7%;bottom:4%;width:auto;height:5%;justify-content:stretch;gap:1.4cqw;background:none;font-size:1cqw;text-shadow:0 1px 8px #061127}
+html[data-app-mode=user] .street-controls>span:first-child{white-space:nowrap;color:#dbe4ef}
+html[data-app-mode=user] #street-position{width:auto;min-width:0;flex:1;outline:0}
+html[data-app-mode=user] #street-position:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 .32cqw #f4cb8340,0 0 .8cqw #f4cb83}
+html[data-app-mode=user] #street-position:focus-visible::-moz-range-thumb{box-shadow:0 0 0 .32cqw #f4cb8340,0 0 .8cqw #f4cb83}
+html[data-app-mode=user] #street-location{min-width:9em;white-space:nowrap;color:#dbe4ef}
+
 /* Independent presentation controls; never activate the scene editor. */
 #billboard-controls{position:absolute;z-index:46;right:3%;top:12%;width:27%;padding:1cqw;background:#101d30f5;border:1px solid #576980;border-radius:.8cqw;color:#dae5f3;font-size:.9cqw;box-shadow:0 1cqw 3cqw #0006}
 #billboard-controls[hidden]{display:none}#billboard-controls label{display:flex;align-items:center;flex-wrap:wrap;gap:.4cqw;margin:.6cqw 0}#billboard-controls input[type=range]{width:100%;height:1.5cqw}#billboard-controls output{margin-left:auto;color:#e7c58c}#billboard-controls select{flex:1;min-width:0;background:#24354a;color:inherit;padding:.35cqw;border:1px solid #51637d;font:inherit}#billboard-controls p{font-size:.75cqw}

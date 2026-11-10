@@ -3,8 +3,8 @@
   "inputs": [
     {
       "path": "app/page.html",
-      "bytes": 8389,
-      "sha256": "3f2ccf7c3d2cbbb7a21178720421b4a729ab14b0da859180523d79ec8e66b4e2"
+      "bytes": 8480,
+      "sha256": "b55494a0f647004e2f8d38f4d30e477cef9b4b4e02d13bafe964026366e2bdd7"
     },
     {
       "path": "assets/billboard-demo/city.svg",
@@ -188,8 +188,8 @@
     },
     {
       "path": "app/styles/scene.css",
-      "bytes": 26156,
-      "sha256": "d63fb080b9b68eadb3cb0e0a423d8bc50363e460b8aa817bd31da212d34880d9"
+      "bytes": 27571,
+      "sha256": "c0158c04d92ecefbc9a84de0327c6271caa0a8e499439f8fea8a68cead6297c9"
     },
     {
       "path": "core/runtime.js",
@@ -313,8 +313,8 @@
     },
     {
       "path": "app/presentation/billboard-panel.js",
-      "bytes": 3391,
-      "sha256": "70c7bfb6a1b86838009cb8e14f528f949c108edb85307ea6da96fd0205102590"
+      "bytes": 3582,
+      "sha256": "835a071c3c46ad6df72cc571ba4dfed155cfe5a4a00bd2f85cfd4566a4527c04"
     },
     {
       "path": "features/objects/service.js",
@@ -333,8 +333,8 @@
     },
     {
       "path": "app/presentation/observation-panel.js",
-      "bytes": 18587,
-      "sha256": "32a05685e0624ed7a9bdd68c1c76cc499576b6d883a71312775af9b1fc3b02cf"
+      "bytes": 18602,
+      "sha256": "b7e48c60b665d82501fa87fa3ec3db79d26e06b48c86403e588199dbebb412d1"
     },
     {
       "path": "app/editor/gradient-editor.js",
@@ -373,8 +373,8 @@
     },
     {
       "path": "features/buildings/controller.js",
-      "bytes": 18079,
-      "sha256": "fd5781df4fdcc1f81ccf2c9186d051496ce5610bba4d77d4c405f4a2d0c82dce"
+      "bytes": 18315,
+      "sha256": "8b9496e6d421fbcf70a4e7b07874a5d1390d7b0ebcec5ad29d177c5270eec27f"
     },
     {
       "path": "features/water/renderer.js",
@@ -424,7 +424,7 @@
   ],
   "output": {
     "path": "lib-static-demo/standalone.html",
-    "bytes": 47887166,
-    "sha256": "8c4adafed50452c7b1e1ff75dcba0221784c6007f8740efa8a0ae2fdc7c27631"
+    "bytes": 47889114,
+    "sha256": "abb1be17acea5aaab413ba048ef9cc95bf6e243b40ad881c30509161418664a9"
   }
 }
