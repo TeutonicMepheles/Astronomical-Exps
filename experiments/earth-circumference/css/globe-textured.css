@@ -481,16 +481,8 @@ html, body {
 .angle-radius-site { stroke:#f2f7ff; }
 .is-drawing .angle-radius { opacity:.96; }
 .angle-arc { fill:none; stroke:#ffe5a3; stroke-width:2.5; stroke-linecap:round; opacity:0; transition:opacity .7s ease; }
-.angle-center { position:absolute; width:max(48px,calc(44px / var(--stage-scale))); height:max(48px,calc(44px / var(--stage-scale))); transform:translate(-50%,-50%); border:0; padding:0; background:transparent; border-radius:50%; cursor:pointer; pointer-events:auto; display:grid; place-items:center; }
-.angle-center span { width:10px; height:10px; border-radius:50%; background:#fff5d8; box-shadow:0 0 12px 5px #ffe6a65c; }
-.angle-center::before { content:""; position:absolute; inset:9px; border:1px solid #fff0c6aa; border-radius:50%; animation:angle-beacon 2.6s ease-in-out infinite; }
-.angle-center:focus-visible { outline:2px solid #fff2c5; outline-offset:4px; }
-.angle-center:disabled { cursor:default; }
-.is-drawing .angle-center::before { animation:none; opacity:0; }
 .angle-value { position:absolute; transform:translate(-50%,-50%); padding:8px 12px; border-radius:9px; background:#0b1739d9; color:#fff1ca; font-size:25px; font-variant-numeric:tabular-nums; opacity:0; transition:opacity .7s ease; white-space:nowrap; }
 .is-revealed .angle-arc,.is-revealed .angle-value { opacity:1; }
-@keyframes angle-beacon { 0%,100% { transform:scale(.7);opacity:.35; } 50% { transform:scale(1.35);opacity:.85; } }
-@media (prefers-reduced-motion:reduce) { .angle-center::before { animation:none; } }
 
 .line-style-defs { position:absolute; width:0; height:0; overflow:hidden; }
 .line-style-controls { position:absolute; left:40px; top:24px; display:flex; align-items:center; gap:6px; padding:6px; border:1px solid #52658f; border-radius:13px; background:#101b3be6; z-index:10; }
@@ -520,7 +512,6 @@ html, body {
 .measurement-actions button:disabled { opacity:.38; cursor:default; }
 .measurement-value { margin-left:auto; color:#fff0be; font-size:22px; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .measurement-instruction { margin:12px 0; min-height:22px; color:#acbddf; font-size:15px; }
-.measurement-records { display:flex; justify-content:space-between; border-top:1px solid #3a4c76; padding:10px 4px 0; color:#cfdbf3; font-size:15px; font-variant-numeric:tabular-nums; }
 .observation-tabs button[data-measured="true"]::after { content:" ✓"; color:#b8e7cf; }
 .site-readings { padding:12px 8px 5px; font-size:16px; align-items:center; }
 .site-readings b { font-size:20px; }.site-readings small { color:#93a8cd; font-size:13px; }
@@ -582,7 +573,6 @@ html, body {
 .site-scene .local-label,.site-scene .shadow-cm { display:block;fill:#fff5ce;stroke:#172641;stroke-width:3px;paint-order:stroke;font-size:19px;font-weight:600; }
 #site-sun { display:none!important; }
 .measurement-instruction { font-size:14px;margin:6px 0; }
-.measurement-records { font-size:15px; }
 .observation-footer { display:flex;justify-content:space-between;margin-top:12px; }
 .observation-footer button { min-height:44px;border:1px solid #95b6e9;border-radius:10px;background:#36578a;color:#fff;padding:10px 20px;font:inherit; }
 .rod-length-control { display:grid;grid-template-columns:auto 44px minmax(120px,1fr) 76px 44px;align-items:center;gap:10px;width:100%;color:#b8cbcb;font-size:15px; }
@@ -773,20 +763,6 @@ html, body {
   white-space: nowrap;
 }
 .orbit-current { width: 116px; height: 116px; z-index: 3; }
-.orbit-current b {
-  position: absolute;
-  left: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 2px 7px;
-  border-radius: 8px;
-  color: #ffe6ac;
-  background: rgba(18, 29, 62, .88);
-  border: 1px solid rgba(255, 222, 151, .34);
-  font-size: 11px;
-  font-weight: 500;
-  white-space: nowrap;
-}
 .orbit-globe {
   position: relative;
   display: block;

@@ -23,13 +23,54 @@ async function runAt(browser, viewport) {
   const beforeMeasure = await page.evaluate(() => ({
     rod: window.__globe.calibration.rod,
     label: document.querySelector('#rod-label').textContent,
+    selectedLat: Number(document.querySelector('.geo-selected').dataset.latlon.split(',')[0]),
+    subsolarLat: window.__globe.measureArc().subLat,
+    poleHeight: Number(document.querySelector('#site-pole').getAttribute('height')),
+    shadowTip: Number(document.querySelector('.site-scene').dataset.shadowTip),
+    rayCount: document.querySelectorAll('.site-solar-ray').length,
+    raysVisible: getComputedStyle(document.querySelector('#site-solar-rays')).display !== 'none',
+    rayAltitude: Number(document.querySelector('.site-scene').dataset.solarRayAltitude),
     altitudeHidden: getComputedStyle(document.querySelector('#altitude-label')).visibility === 'hidden',
     shadowVisible: getComputedStyle(document.querySelector('#site-shadow')).visibility !== 'hidden'
       && document.querySelector('#site-shadow').getAttribute('d').length > 4,
   }));
-  assert.deepEqual(beforeMeasure, { rod: 100, label: '100 cm', altitudeHidden: true, shadowVisible: true });
+  assert.equal(beforeMeasure.rod, 100);
+  assert.equal(beforeMeasure.label, '100 cm');
+  assert.ok(Math.abs(beforeMeasure.poleHeight - 150) < .01, JSON.stringify(beforeMeasure));
+  assert.equal(beforeMeasure.rayCount, 19);
+  assert.equal(beforeMeasure.raysVisible, true);
+  assert.ok(Math.abs(
+    beforeMeasure.rayAltitude - (90 - Math.abs(beforeMeasure.selectedLat - beforeMeasure.subsolarLat))
+  ) < .02);
+  assert.equal(beforeMeasure.altitudeHidden, true);
+  assert.equal(beforeMeasure.shadowVisible, true);
+
+  await page.locator('[data-rod-range]').evaluate((input) => {
+    input.value = '50';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await page.waitForTimeout(60);
+  const halfRod = await page.evaluate(() => ({
+    rod: window.__globe.calibration.rod,
+    label: document.querySelector('#rod-label').textContent,
+    poleHeight: Number(document.querySelector('#site-pole').getAttribute('height')),
+    shadowTip: Number(document.querySelector('.site-scene').dataset.shadowTip),
+  }));
+  assert.equal(halfRod.rod, 50);
+  assert.equal(halfRod.label, '50 cm');
+  assert.ok(Math.abs(halfRod.poleHeight - beforeMeasure.poleHeight / 2) < .01, JSON.stringify({ beforeMeasure, halfRod }));
+  assert.ok(Math.abs(
+    (halfRod.shadowTip - 330) / (beforeMeasure.shadowTip - 330) - .5
+  ) < .01, 'The geometric shadow scales with rod length');
+  await page.locator('[data-rod-range]').evaluate((input) => {
+    input.value = '100';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await page.waitForTimeout(60);
+
   await page.getByRole('button', { name: '进入测量模式', exact: true }).click();
   await page.waitForTimeout(1000);
+  assert.equal(await page.locator('#site-solar-rays').evaluate((el) => getComputedStyle(el).display), 'none', 'Parallel sunlight hides during measurement');
 
   // Pick the pole base first and the shadow tip second. This reverses the line
   // normal and used to place the confirm control against the clipped edge.
@@ -46,7 +87,8 @@ async function runAt(browser, viewport) {
   assert.ok(confirmBox.y + confirmBox.height <= viewportBox.y + viewportBox.height - 10, JSON.stringify({ viewportBox, confirmBox }));
 
   await page.getByRole('button', { name: '确认测量', exact: true }).click();
-  await page.waitForTimeout(2200);
+  await page.waitForFunction(() => window.__globe.measurements.snapshot().selected.saved, { timeout: 5000 });
+  await page.waitForFunction(() => Number(getComputedStyle(document.querySelector('#altitude-label')).opacity) > .95, { timeout: 4000 });
   const measured = await page.evaluate(() => {
     const record = window.__globe.measurements.snapshot().selected;
     const altitude = Math.atan2(window.__globe.calibration.rod, record.value) * 180 / Math.PI;
@@ -66,7 +108,9 @@ async function runAt(browser, viewport) {
   assert.ok(measured.sceneScale >= 1, JSON.stringify(measured));
 
   await page.locator('.stage-next').click();
-  await page.waitForTimeout(1500);
+  await page.waitForFunction(()=>document.querySelector('#stage').classList.contains('rods-ready'));
+  await page.locator('[data-angle]').click();
+  await page.waitForFunction(()=>document.querySelector('.calculation-ray').getAttribute('d')?.includes('L'));
   const calculation = await page.evaluate(() => {
     const note = document.querySelector('.calculation-rods [data-rod="site"]');
     const sun = document.querySelector('.point-guides [data-guide="sun"] .guide-meridian');
@@ -77,14 +121,14 @@ async function runAt(browser, viewport) {
       altitude: note.querySelector('.altitude-label').textContent,
       rod: note.querySelector('.rod-length').textContent,
       ray: note.querySelector('.calculation-ray').getAttribute('d'),
-      subsolarShadow: document.querySelector('.calculation-rods [data-rod="subsolar"] .calculation-shadow').getAttribute('d'),
+      subsolarRodCount: document.querySelectorAll('.calculation-rods [data-rod="subsolar"]').length,
       solarGuide: getComputedStyle(sun).stroke,
     };
   });
   assert.equal(calculation.evidenceHidden, true);
   assert.equal(calculation.shadow, '');
   assert.equal(calculation.rod, '');
-  assert.equal(calculation.subsolarShadow, '');
+  assert.equal(calculation.subsolarRodCount, 0);
   assert.ok(calculation.ray && calculation.ray.includes('L'), JSON.stringify(calculation));
   assert.match(calculation.altitude, new RegExp(measured.altitude.toFixed(1)));
   assert.equal(calculation.solarGuide, solarGuideBefore);

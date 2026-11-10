@@ -1,7 +1,7 @@
 import { mountOrbitControls } from './orbit-controls.js';
 import { subsolarLatLon } from './globe-core.js';
 import { createGlobeShaderRenderer } from '../../../shared/components/globe-shader-renderer/index.js';
-import { orbitFrame, orbitSectionJoins, noonMeridian, orbitalPlanePoints } from './orbit-frame.js';
+import { geographicMeridian, orbitFrame, orbitSectionJoins, noonMeridian, orbitalPlanePoints } from './orbit-frame.js';
 import { ORBIT_PITCH_DEG, orbitAngleForDate } from './solar-calendar.js';
 
 const ORBIT = {
@@ -21,6 +21,9 @@ function earthMarkup(className = '') {
       <path class="section-back" d="M.5 29 A28.5 ${28.5 * Math.sin(ORBIT_PITCH_DEG * Math.PI / 180)} 0 0 1 57.5 29"/>
       <path class="orbit-section-join"/>
       <path class="section-front" d="M.5 29 A28.5 ${28.5 * Math.sin(ORBIT_PITCH_DEG * Math.PI / 180)} 0 0 0 57.5 29"/>
+    </svg>
+    <svg class="orbit-prime" viewBox="0 0 58 58" role="img" aria-label="0°经线，蓝色虚线，背面为点线">
+      <path class="prime-back"/><path class="prime-front"/><path class="prime-label-leader"/><text class="orbit-prime-label">0°经线</text>
     </svg>
     <svg class="orbit-noon" viewBox="0 0 58 58" role="img" aria-label="正午位置经线，背面为虚线"><path class="noon-back"/><path class="noon-front"/></svg>
     <i class="orbit-axis" aria-hidden="true"></i>
@@ -51,7 +54,6 @@ export function mountOrbitOverview(scene) {
       </span>
       <span class="orbit-current" id="orbitCurrent">
         ${earthMarkup('is-lit')}
-        <b>当前</b>
       </span>
     </div>
 
@@ -131,13 +133,14 @@ export function mountOrbitOverview(scene) {
   closeupPlane.setAttribute('role','img');
   closeupPlane.setAttribute('aria-label','公转平面与地球的正面可见剖切线');
   closeupPlane.classList.add('closeup-orbital-plane');
-  closeupPlane.innerHTML='<path class="plane-front"/>';
+  closeupPlane.innerHTML='<path class="plane-front"/><path class="plane-label-leader"/><text class="plane-label">黄道面</text>';
   scene.stage.append(closeupPlane);
   const orbitalPoints=orbitalPlanePoints();
   function paintCloseupPlane(frame){
     if(scene.stage.dataset.viewMode!=='earth'||scene.measuring)return;
     const cam=scene.camera();
     let path='',previous=null;
+    const visible=[];
     const command=p=>`${(cam.centre.x+p[0]*cam.radius).toFixed(3)} ${(cam.centre.y-p[1]*cam.radius).toFixed(3)} `;
     for(const normal of orbitalPoints){
       const geo=subsolarLatLon(frame.basis,normal);
@@ -149,15 +152,56 @@ export function mountOrbitOverview(scene) {
         const rim=edge.map(v=>v/length);
         path+=(p[2]>=0?'M':'L')+command(rim);
       }
-      if(p[2]>=0)path+=(previous?'L':'M')+command(p);
+      if(p[2]>=0){
+        path+=(previous?'L':'M')+command(p);
+        visible.push({x:cam.centre.x+p[0]*cam.radius,y:cam.centre.y-p[1]*cam.radius});
+      }
       previous=p;
     }
     closeupPlane.firstElementChild.setAttribute('d',path);
+    if(visible.length){
+      const left=visible.reduce((best,point)=>point.x<best.x?point:best,visible[0]);
+      // Place the title beyond the globe silhouette and aim the leader back
+      // at the leftmost visible point of the same ecliptic projection.
+      const labelX=Math.max(24,left.x-24);
+      const labelY=Math.max(72,left.y-40);
+      closeupPlane.querySelector('.plane-label-leader').setAttribute('d',`M${labelX+8} ${labelY-5}H${Math.max(labelX+14,left.x-12)}L${left.x} ${left.y}`);
+      const label=closeupPlane.querySelector('.plane-label');
+      label.setAttribute('x',labelX);
+      label.setAttribute('y',labelY);
+      label.setAttribute('text-anchor','end');
+    }
   }
   let noonKey = '';
+  let primeKey = '';
   let surfaceKey = '';
   const noonFront=current.querySelector('.noon-front');
   const noonBack=current.querySelector('.noon-back');
+  const primeFront=current.querySelector('.prime-front');
+  const primeBack=current.querySelector('.prime-back');
+  const primeLabelLeader=current.querySelector('.prime-label-leader');
+  const primeLabel=current.querySelector('.orbit-prime-label');
+  function paintMeridian(points, backPath, frontPath) {
+    const paths=['',''];
+    let previous=null;
+    let previousSide=-1;
+    for(const point of points){
+      const side=point[2]>=0?1:0;
+      const command=p=>`${(29+p[0]*29).toFixed(4)} ${(29-p[1]*29).toFixed(4)} `;
+      if(previous && side!==previousSide){
+        const t=previous[2]/(previous[2]-point[2]);
+        const edge=previous.map((v,i)=>v+t*(point[i]-v));
+        const length=Math.hypot(...edge);
+        const rim=edge.map(v=>v/length);
+        paths[previousSide]+='L'+command(rim);
+        paths[side]+='M'+command(rim);
+      }
+      paths[side]+=(previous && side===previousSide?'L':previous?'L':'M')+command(point);
+      previous=point;previousSide=side;
+    }
+    backPath.setAttribute('d',paths[0]);
+    frontPath.setAttribute('d',paths[1]);
+  }
   function syncSurface(point) {
     const model=scene.solarModel;
     const frame=orbitFrame(model.year,model.day,scene.basis(),scene.sun);
@@ -172,26 +216,25 @@ export function mountOrbitOverview(scene) {
     const key=`${model.year}:${model.day}`;
     if(key!==noonKey){
       noonKey=key;
-      const points=noonMeridian(frame.basis.axis,frame.sun);
-      const paths=['',''];
-      let previous=null;
-      let previousSide=-1;
-      for(const point of points){
-        const side=point[2]>=0?1:0;
-        const command=p=>`${(29+p[0]*29).toFixed(4)} ${(29-p[1]*29).toFixed(4)} `;
-        if(previous && side!==previousSide){
-          const t=previous[2]/(previous[2]-point[2]);
-          const edge=previous.map((v,i)=>v+t*(point[i]-v));
-          const length=Math.hypot(...edge);
-          const rim=edge.map(v=>v/length);
-          paths[previousSide]+='L'+command(rim);
-          paths[side]+='M'+command(rim);
-        }
-        paths[side]+=(previous && side===previousSide?'L':previous?'L':'M')+command(point);
-        previous=point;previousSide=side;
-      }
-      noonBack.setAttribute('d',paths[0]);
-      noonFront.setAttribute('d',paths[1]);
+      paintMeridian(noonMeridian(frame.basis.axis,frame.sun),noonBack,noonFront);
+    }
+    const nextPrimeKey=JSON.stringify(frame.basis);
+    if(nextPrimeKey!==primeKey){
+      primeKey=nextPrimeKey;
+      const points=geographicMeridian(frame.basis,0);
+      paintMeridian(points,primeBack,primeFront);
+      const labelCandidates=points.slice(30,151);
+      const frontCandidates=labelCandidates.filter(point=>point[2]>=0);
+      const labelPoint=(frontCandidates.length?frontCandidates:labelCandidates)
+        .reduce((best,point)=>Math.abs(point[0])>Math.abs(best[0])?point:best,labelCandidates[90]);
+      const x=29+labelPoint[0]*29;
+      const y=29-labelPoint[1]*29;
+      primeLabel.setAttribute('x',x+(labelPoint[0]>=0?4:-4));
+      primeLabel.setAttribute('y',y-4);
+      primeLabel.setAttribute('text-anchor',labelPoint[0]>=0?'start':'end');
+      primeLabel.style.display='';
+      primeLabel.classList.toggle('is-back',labelPoint[2]<0);
+      primeLabelLeader.setAttribute('d',`M${x} ${y}L${x+(labelPoint[0]>=0?3:-3)} ${y-2.5}`);
     }
     const axis=frame.basis.axis;
     const axisLength=Math.hypot(axis[0],axis[1]);
@@ -200,6 +243,9 @@ export function mountOrbitOverview(scene) {
     axisEl.style.top='50%';axisEl.style.bottom='auto';
     const globeSize=current.offsetWidth||116;
     axisEl.style.height=`${globeSize*1.45*axisLength}px`;
+    // Fade only the segment inside the projected globe silhouette.
+    const outside=Math.max(0,(1-1/(1.45*axisLength))/2)*100;
+    axisEl.style.setProperty('--axis-outside',`${outside}%`);
     const standOff=globeSize*1.42/Math.max(.15,Math.hypot(frame.camera[0],frame.camera[1]));
     const eye={x:point.x+frame.camera[0]*standOff,y:point.y-frame.camera[1]*standOff};
     const bearing=Math.atan2(point.y-eye.y,point.x-eye.x)*180/Math.PI;
@@ -352,9 +398,6 @@ export function mountOrbitOverview(scene) {
       const model = scene.solarModel;
       const nextDay = ((model.day - 1 + step) % model.days) + 1;
       scene.phase = (nextDay - 1) / (model.days - 1);
-      // Date changes realign the preset longitude. Restore the slider as an
-      // absolute offset from that alignment, so playback cannot accumulate it.
-      if(scene.phaseAligned && controls.offset)scene.spin=scene.noonSpin()+controls.offset;
     }
     const model = scene.solarModel;
     const start = orbitAngleForDate(model.year,model.day);

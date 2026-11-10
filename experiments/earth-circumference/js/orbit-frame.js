@@ -64,6 +64,18 @@ export function noonMeridian(axis, sun) {
  });
 }
 
+/** Geographic meridian from south pole to north pole at a fixed longitude. */
+export function geographicMeridian(basis, longitudeDeg=0) {
+ const longitude=longitudeDeg*Math.PI/180;
+ return Array.from({length:181},(_,i)=>{
+  const latitude=(i-90)*Math.PI/180;
+  const east=Math.cos(latitude)*Math.cos(longitude);
+  const north=Math.sin(latitude);
+  const across=Math.cos(latitude)*Math.sin(longitude);
+  return basis.e2.map((v,j)=>v*east+basis.axis[j]*north+basis.e3[j]*across);
+ });
+}
+
 /** Great circle cut by the same orbital plane used by the overview. */
 export function orbitalPlanePoints() {
  const pitch=ORBIT_PITCH_DEG*Math.PI/180;

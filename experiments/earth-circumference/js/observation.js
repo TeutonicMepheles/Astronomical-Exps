@@ -1,9 +1,11 @@
 import { mountShadowMeasurement } from './shadow-measurement.js';
 export function mountObservation(scene){
  const panel=document.createElement('section');panel.className='observation-panel';panel.hidden=true;
- panel.innerHTML=`<div class="observation-tabs"><button data-site="selected" aria-selected="true">◎ 观测点</button><button data-site="subsolar" aria-selected="false">☀ 太阳直射点</button></div>
+ panel.innerHTML=`<h2 class="observation-heading">观测点影长测量</h2>
  <div class="observation-viewport style-soft"><svg class="site-scene" viewBox="0 0 660 400" role="group" aria-label="实景影长测量">
+ <defs><clipPath id="site-light-clip"><rect x="0" y="0" width="660" height="400"/></clipPath></defs>
  <image id="site-background" href="./assets/scene-dry.png" width="660" height="400" preserveAspectRatio="xMidYMax slice"/>
+ <g id="site-solar-rays" clip-path="url(#site-light-clip)" aria-hidden="true">${Array.from({length:19},()=>'<path class="site-solar-ray"/>').join('')}</g>
  <path id="site-shadow" stroke="#282b36" stroke-width="12" stroke-linecap="butt" opacity=".85"/>
  <image id="site-pole" href="./assets/scene-pole.png" preserveAspectRatio="none"/>
  <g class="measurement-explanation"><path id="site-ray" stroke="#fff4c8" stroke-width="3" stroke-dasharray="8 4" fill="none"/>
@@ -11,6 +13,7 @@ export function mountObservation(scene){
  <path id="altitude-arc" stroke="#fff4ca" stroke-width="3" fill="none"/>
  <text id="altitude-label" class="local-label"/><text id="shadow-result" class="local-label"/></g><text id="rod-label" class="local-label">100 cm</text>
  <circle cx="330" cy="355" r="4" fill="#fff4cb"/></svg><div class="subsolar-zero-note" hidden>太阳直射点：正午影长为0</div>
+ <div class="measure-entry-hint" role="note"><span>点击右上角尺子</span><b>开始测量影长</b></div>
  <div class="site-measurement-results" role="status" aria-live="polite" hidden>
   <div><span>影长 s</span><strong data-result-shadow>—</strong></div>
   <div><span>太阳高度角 α</span><strong data-result-altitude>—</strong></div>
@@ -22,6 +25,7 @@ export function mountObservation(scene){
  const localEvidence=document.createElement('aside');localEvidence.className='calculation-local-evidence';localEvidence.hidden=true;localEvidence.setAttribute('aria-label','观测点地面测量结果');
  localEvidence.innerHTML='<span>地面测量结果</span><div><small>杆长 L</small><strong data-evidence-rod>—</strong></div><div><small>影长 s</small><strong data-evidence-shadow>—</strong></div><div><small>太阳高度角 α</small><strong data-evidence-altitude>—</strong></div>';
  scene.stage.append(pin,panel,localEvidence);const q=s=>panel.querySelector(s);
+ const solarRayPaths=[...panel.querySelectorAll('.site-solar-ray')];
  function updatePin(){
   const target=selected==='selected'?scene.measureArc().sel:scene.camera().subsolar;
   const stageRect=scene.stage.getBoundingClientRect(),rect=panel.getBoundingClientRect(),scale=stageRect.width/1600;
@@ -56,12 +60,31 @@ export function mountObservation(scene){
   }
   localEvidence.hidden=true;
  }
+ function paintSolarRays(altitude,direction,day){
+  const group=q('#site-solar-rays');
+  group.style.display=day?'':'none';
+  const art=q('.site-scene');
+  art.dataset.solarRayAltitude=day?altitude.toFixed(2):'';
+  if(!day)return;
+  const angle=altitude*Math.PI/180;
+  const ux=direction*Math.cos(angle),uy=Math.sin(angle);
+  const px=-uy,py=ux;
+  const centre={x:330,y:195};
+  const spacing=42,span=760;
+  solarRayPaths.forEach((path,index)=>{
+   const offset=(index-(solarRayPaths.length-1)/2)*spacing;
+   const sx=centre.x-ux*span/2+px*offset,sy=centre.y-uy*span/2+py*offset;
+   const ex=centre.x+ux*span/2+px*offset,ey=centre.y+uy*span/2+py*offset;
+   path.setAttribute('d',`M${sx.toFixed(2)} ${sy.toFixed(2)}L${ex.toFixed(2)} ${ey.toFixed(2)}`);
+  });
+ }
  function update(){
  const visible=scene.measuring&&!scene.calculating;
  panel.hidden=false;panel.inert=!visible;panel.setAttribute('aria-hidden',String(!visible));
  paintEvidence();
  if(!visible){measurement.suspend();return;}
  updatePin();
+ panel.dataset.site=selected;
  q('.subsolar-zero-note').hidden=selected!=='subsolar';
  q('.rod-length-control').hidden=selected!=='selected';
  const a=scene.measureArc(),lat=selected==='selected'?a.selLat:a.subLat;
@@ -69,13 +92,14 @@ export function mountObservation(scene){
  const ratio=day?Math.tan(delta*Math.PI/180):0;
  const direction=lat>=a.subLat?1:-1;
  const rod=scene.calibration.rod;
- const pxPerCm=150/rod;
+ const pxPerCm=1.5;
  const h=rod*pxPerCm,s=h*ratio,tip=330+direction*s,top=355-h;
  const saved=measurement.snapshot().selected;
  const measured=selected==='selected'&&saved.saved&&day;
  const measuredShadow=measured?saved.value*pxPerCm:s;
  const measuredTip=330+direction*(measured?saved.value*pxPerCm:s);
  const shownAltitude=measured?Math.atan2(rod,saved.value)*180/Math.PI:alt;
+ paintSolarRays(alt,direction,day);
  panel.classList.toggle('has-shadow-result',measured);
  const art=q('.site-scene');
  art.classList.toggle('is-revealed',measured);
@@ -119,7 +143,6 @@ export function mountObservation(scene){
  paintEvidence();
  measurement.setContext({site:selected,key:[a.selLat,a.selLon,a.subLat,scene.phase,scene.observationDate,rod].join(','),pxPerCm,direction,canMeasure:day,reason:'太阳在地平线以下，暂无日照杆影'});
  }
- panel.querySelectorAll('[data-site]').forEach(b=>b.addEventListener('click',()=>{selected=b.dataset.site;panel.querySelectorAll('[data-site]').forEach(t=>t.setAttribute('aria-selected',String(t===b)));update();}));
  q('[data-rod-range]').addEventListener('input',event=>setRodLength(event.target.value));
  q('[data-rod-decrease]').addEventListener('click',()=>setRodLength(scene.calibration.rod-10));
  q('[data-rod-increase]').addEventListener('click',()=>setRodLength(scene.calibration.rod+10));
@@ -127,7 +150,6 @@ export function mountObservation(scene){
  q('[data-rod-increase]').disabled=scene.calibration.rod>=100;
  window.addEventListener('open-observation',event=>{
   selected=event.detail?.site==='subsolar'?'subsolar':'selected';
-  panel.querySelectorAll('[data-site]').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.site===selected)));
   openingAnimation?.cancel();
   scene.enterMeasure();update();
   const origin=event.detail?.origin;
@@ -139,6 +161,17 @@ export function mountObservation(scene){
     {transformOrigin:'0 0',transform:'translate(0,0) scale(1,1)',opacity:1}
    ],{duration:900,easing:'cubic-bezier(.22,.68,.2,1)'});
   }
+ });
+ document.querySelector('.geo-subsolar')?.addEventListener('click',event=>{
+  if(!scene.stage.classList.contains('has-selection')||scene.stage.classList.contains('aligning-point')||scene.calculating)return;
+  if(!scene.measuring&&!scene.stage.classList.contains('at-local-noon'))return;
+  event.stopPropagation();
+  window.dispatchEvent(new CustomEvent('open-observation',{detail:{site:'subsolar',origin:event.currentTarget.getBoundingClientRect().toJSON()}}));
+ });
+ document.querySelector('.geo-selected')?.addEventListener('click',event=>{
+  if(!scene.measuring||scene.calculating)return;
+  event.stopPropagation();
+  window.dispatchEvent(new CustomEvent('open-observation',{detail:{site:'selected',origin:event.currentTarget.getBoundingClientRect().toJSON()}}));
  });
  window.addEventListener('measurement-change',update);window.addEventListener('globe-frame',update);window.addEventListener('globe-mode-change',update);update();
 }

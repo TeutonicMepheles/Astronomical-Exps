@@ -25,17 +25,16 @@ body { position:relative;overflow:clip; }
 .orbit-plane-section .section-front { stroke-width:1.4;filter:none; }
 .orbit-plane-section .orbit-section-join { stroke-width:1.4; }
 .orbit-earth-surface { box-shadow:0 0 0 1px #d5c39b55; }
-.orbit-axis { box-shadow:none;background:#dce6e7; }
+.orbit-axis { box-shadow:none;background:linear-gradient(to bottom,#dce6e7 0 var(--axis-outside,15%),transparent var(--axis-outside,15%) calc(100% - var(--axis-outside,15%)),#dce6e7 calc(100% - var(--axis-outside,15%)) 100%); }
+.orbit-axis::after { content:"";position:absolute;left:0;right:0;top:var(--axis-outside,15%);bottom:var(--axis-outside,15%);background:repeating-linear-gradient(to bottom,#dce6e7 0 4px,transparent 4px 7.5px);opacity:.24; }
 .orbit-current .orbit-axis { width:.8px; }
-.orbit-current b { border:0;background:none;padding:0;font-size:8px;color:#d5c7ab; }
 .orbit-sun i { width:24px;height:24px;background:radial-gradient(circle at 38% 34%,#fff1c5,#e6be73 65%,#b98743);box-shadow:0 0 22px #e5bf6a25; }
 .orbit-sun b { font-size:8px;top:20px;color:#cbbd9e; }
 .orbit-camera text { font-size:8px;fill:#a9bec7; }
 .orbit-camera .camera-icon { stroke:#a9bec7;stroke-width:.8;fill:#152835; }
 .orbit-camera .camera-sight { opacity:.45;stroke-width:.65; }
 .stage[data-view-mode="earth"] .orbit-camera text { font-size:15px; }
-.stage[data-view-mode="earth"] .orbit-sun b,
-.stage[data-view-mode="earth"] .orbit-current b { font-size:15px; }
+.stage[data-view-mode="earth"] .orbit-sun b { font-size:15px; }
 .stage:not(.is-measuring) .sun-arrows { clip-path:inset(0 0 148px); }
 .stage:not(.is-measuring) .timeline,
 .stage:not(.is-measuring)[data-view-mode="orbit"] .timeline { left:480px;top:773px;width:640px;height:88px;z-index:20; }
@@ -74,7 +73,13 @@ body { position:relative;overflow:clip; }
 }
 
 /* Same orange as the solid core of assets/shaft-single.png. */
-.stage { --noon-ink:#fda36e; }
+.stage { --noon-ink:#fda36e; --prime-meridian-ink:#9fd8ff; --plane-ink:#ead49b; }
+.orbit-prime { position:absolute;inset:0;width:100%;height:100%;z-index:3;overflow:visible;pointer-events:none; }
+.orbit-prime path { fill:none;stroke:var(--prime-meridian-ink);stroke-width:1.8;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 4;opacity:.9; }
+.orbit-prime .prime-back { stroke-dasharray:2 4;opacity:.32; }
+.orbit-prime .prime-label-leader { stroke-width:.8;stroke-dasharray:none;opacity:.82; }
+.orbit-prime text { fill:var(--prime-meridian-ink);font-size:3.7px;font-weight:600;stroke:#10202b;stroke-width:1px;paint-order:stroke; }
+.orbit-prime text.is-back { opacity:.62; }
 .orbit-noon { position:absolute;inset:0;width:100%;height:100%;z-index:4;overflow:visible;pointer-events:none; }
 .orbit-noon path { fill:none;stroke:var(--noon-ink);stroke-width:1.7;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round; }
 .orbit-noon .noon-back { stroke-dasharray:2 3;opacity:.4; }
@@ -87,27 +92,32 @@ body { position:relative;overflow:clip; }
 .stage:not(.is-measuring)[data-view-mode="earth"] .closeup-orbital-plane { opacity:1;visibility:visible; }
 .closeup-orbital-plane path { stroke:#ffe3a0;stroke-width:1.7;fill:none;stroke-linejoin:round; }
 .closeup-orbital-plane .plane-front { stroke-opacity:.85; }
+.closeup-orbital-plane .plane-label-leader { stroke:var(--plane-ink);stroke-width:1;stroke-opacity:.9; }
+.closeup-orbital-plane .plane-label { fill:var(--plane-ink);font-family:var(--font-ui);font-size:20px;font-weight:600;letter-spacing:.4px;stroke:#10202b;stroke-width:4px;paint-order:stroke; }
 
 .orbit-transport { position:absolute;left:1150px;bottom:43px;display:flex;gap:8px;z-index:30; }
-.orbit-transport button,.orbit-spin-button { display:grid;place-items:center;width:48px;height:48px;padding:11px;border:1px solid #526b76;border-radius:50%;background:#152b38;color:#c9dadd;cursor:pointer; }
-.orbit-transport svg,.orbit-spin-button svg { width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
+.orbit-transport button { display:grid;place-items:center;width:48px;height:48px;padding:11px;border:1px solid #526b76;border-radius:50%;background:#152b38;color:#c9dadd;cursor:pointer; }
+.orbit-transport svg { width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
 .orbit-transport [data-orbit-play] svg { fill:currentColor;stroke:none; }
-.orbit-transport button:hover,.orbit-transport button[aria-pressed="true"],.orbit-spin-button:hover,.orbit-spin-button[aria-expanded="true"] { background:#3a5057;border-color:#dec99d;color:#f4dfb6; }
-.orbit-transport button:focus-visible,.orbit-spin-button:focus-visible { outline:2px solid #f4dfb6;outline-offset:4px; }
-.orbit-spin-control { position:absolute;left:50%;bottom:calc(100% + 12px);width:48px;height:48px;transform:translateX(-50%) scale(.4761904762);transform-origin:center bottom;pointer-events:auto;z-index:12; }
-.orbit-spin-popover { position:absolute;right:62px;top:-15px;width:300px;padding:18px 20px;background:#142936;border:1px solid #58717b;border-radius:12px;box-shadow:0 10px 24px #0005;display:grid;grid-template-columns:1fr auto;gap:6px 16px;color:#e2e9e8;font-size:16px; }
-.orbit-spin-popover[hidden] { display:none; }
-.orbit-spin-popover output { color:#f4dfb6;font-variant-numeric:tabular-nums; }
-.orbit-spin-popover input { grid-column:1/-1;width:100%;height:44px;margin:0;accent-color:#e4c997;cursor:pointer;touch-action:none; }
-.stage[data-view-mode="earth"] .orbit-spin-control,.stage.is-measuring .orbit-spin-control,.stage.is-measuring .orbit-transport { display:none; }
+.orbit-transport button:hover,.orbit-transport button[aria-pressed="true"] { background:#3a5057;border-color:#dec99d;color:#f4dfb6; }
+.orbit-transport button:focus-visible { outline:2px solid #f4dfb6;outline-offset:4px; }
+.stage.is-measuring .orbit-transport { display:none; }
 .stage[data-view-mode="earth"] .orbit-transport { visibility:hidden; }
+.observation-orbit-date-control { position:absolute;inset:0;z-index:8;pointer-events:none; }
+.observation-orbit-date-control[hidden] { display:none; }
+.observation-orbit-date { position:absolute;left:50%;top:202px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;color:#aebfbe;font-family:var(--font-ui);white-space:nowrap; }
+.observation-orbit-date span { font-size:16px; }
+.observation-orbit-date output { color:#c5e9ed;font-size:26px;font-weight:600;font-variant-numeric:tabular-nums; }
+.observation-orbit-axis { position:absolute;left:50%;top:510px;transform:translateX(-50%);display:grid;grid-template-columns:44px 236px 44px;grid-template-rows:44px 24px;align-items:center;gap:4px 12px;pointer-events:auto;color:#9fb5b8;font-family:var(--font-ui); }
+.observation-orbit-axis button { width:44px;height:44px;padding:0;border:1px solid #607a84;border-radius:10px;background:#1b3542;color:#dce9ed;font-size:24px;cursor:pointer; }
+.observation-orbit-axis button:hover,.observation-orbit-axis button:active { border-color:#dfcba1;background:#2f4c55; }
+.observation-orbit-axis button:disabled { opacity:.34;cursor:default; }
+.observation-orbit-axis input { width:100%;height:44px;margin:0;accent-color:#dfc99f;cursor:pointer;touch-action:none; }
+.observation-orbit-axis :is(input,button):focus-visible { outline:2px solid #f4dfb6;outline-offset:4px;border-radius:8px; }
+.observation-orbit-axis i { grid-column:2;display:flex;justify-content:space-between;font-style:normal;font-size:13px;color:#9fb5b8; }
 
 /* Selection -> local observation: the two context views make room centrally. */
-.geo-reference { display:none; }
-.stage.showing-reference .geo-reference { display:grid; }
-.geo-ref-mark { width:16px;height:16px;border:2px solid #d7efe4;background:#1c6b58;transform:rotate(45deg);box-shadow:0 0 0 4px #10242f; }
-.geo-ref-caption { position:absolute;left:28px;top:50%;transform:translateY(-50%);color:#d7efe4;font-size:15px;white-space:nowrap;text-shadow:0 1px 2px #041018;pointer-events:none; }
-.local-time-tag { position:absolute;left:50%;top:30px;transform:translateX(-50%);padding:4px 8px;border-radius:8px;background:#102331e6;color:#f4dfb6;font-size:14px;white-space:nowrap;pointer-events:none; }
+.local-time-tag { position:absolute;left:50%;top:54px;transform:translateX(-50%);padding:4px 8px;border-radius:8px;background:#102331e6;color:#f4dfb6;font-size:14px;white-space:nowrap;pointer-events:none; }
 .local-time-tag[hidden] { display:none; }
 .local-time-card { position:absolute;left:720px;top:150px;z-index:24;display:grid;grid-template-columns:1fr auto;gap:6px 12px;width:280px;padding:16px 18px;border:1px solid #526b76;border-radius:14px;background:#102331ee;color:#d5e4e4;box-shadow:0 10px 24px #06101866; }
 .local-time-card[hidden] { display:none; }
@@ -144,6 +154,17 @@ body { position:relative;overflow:clip; }
 
 .observation-viewport { position:relative;margin:12px 0;border-radius:18px; }
 .observation-panel .observation-viewport .site-scene { margin:0; }
+.observation-heading { margin:2px 0 18px;color:#f0f5f4;font-family:var(--font-ui);font-size:30px;font-weight:600;line-height:1.35;letter-spacing:.5px;text-align:center; }
+.measure-entry-hint { position:absolute;right:92px;top:25px;z-index:9;display:grid;gap:2px;padding:9px 13px;border:1px solid #e3ca98aa;border-radius:10px;background:#122d3be8;color:#f2e1bd;font-family:var(--font-ui);font-size:14px;line-height:1.35;text-align:left;pointer-events:none;box-shadow:0 5px 18px #07131c55;animation:measure-entry-prompt 2.2s ease-in-out infinite; }
+.measure-entry-hint::after { content:"";position:absolute;left:100%;top:50%;width:31px;border-top:1px dashed #e5c98f;transform:translateY(-50%); }
+.measure-entry-hint::before { content:"";position:absolute;left:calc(100% + 28px);top:50%;width:7px;height:7px;border-top:1px solid #e5c98f;border-right:1px solid #e5c98f;transform:translateY(-50%) rotate(45deg); }
+.measure-entry-hint b { color:#fff0c9;font-size:16px; }
+.observation-viewport:has(.shadow-measure-host.is-measuring) .measure-entry-hint,
+.observation-panel.has-shadow-result .measure-entry-hint,
+.observation-panel[data-site="subsolar"] .measure-entry-hint { display:none; }
+.stage:has(.shadow-measure-host.is-measuring) .sun-arrows { display:none!important; }
+@keyframes measure-entry-prompt { 0%,100% { border-color:#e3ca9866;box-shadow:0 5px 18px #07131c33; } 50% { border-color:#ffe1a6;box-shadow:0 5px 22px #d4aa572c; } }
+@media (prefers-reduced-motion:reduce) { .measure-entry-hint { animation:none; } }
 .site-measurement-results { position:absolute;left:16px;top:16px;z-index:8;display:flex;gap:8px;pointer-events:none; }
 .site-measurement-results[hidden] { display:none; }
 .site-measurement-results div { display:grid;grid-template-columns:auto auto;align-items:baseline;gap:8px;padding:9px 12px;border:1px solid #a9b8b166;border-radius:9px;background:#102331e8;box-shadow:0 5px 18px #07131c55; }
@@ -207,6 +228,10 @@ body { position:relative;overflow:clip; }
 .stage.is-calculating .point-guides [data-guide=sun] .guide-parallel { stroke:var(--solar-guide); }
 
 .observation-viewport .site-scene { transform-origin:0 0;transition:transform .8s cubic-bezier(.22,.68,.2,1); }
+.site-solar-ray { fill:none;stroke:#e5a452;stroke-width:1.8;stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.46;filter:drop-shadow(0 0 3px #f5c16c88);pointer-events:none; }
+.site-solar-ray:nth-child(3n+2) { stroke:#f7c873;opacity:.62; }
+.site-solar-ray:nth-child(3n) { opacity:.36; }
+.observation-viewport:has(.shadow-measure-host.is-measuring) #site-solar-rays { display:none!important; }
 .shadow-remeasure { position:absolute;left:16px;bottom:16px;z-index:5;min-height:44px;padding:8px 16px;border:1px solid #a4bdc5;border-radius:10px;background:#203b47;color:#fff;cursor:pointer;font:inherit; }
 .shadow-remeasure[hidden] { display:none; }
 .site-scene:not(.is-revealed) :is(#site-ray,#altitude-arc,#altitude-label,#shadow-result) { visibility:hidden; }
@@ -231,3 +256,256 @@ body { position:relative;overflow:clip; }
 .shadow-remeasure { width:44px;height:44px;padding:10px;display:grid;place-items:center; }
 .shadow-remeasure svg { width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
 .stage:not(.is-measuring)[data-view-mode="orbit"] :is(.closeup-orbital-plane,.zoom-link-layer) { transition:opacity .15s ease-out,visibility 0s .15s; }
+
+/* Selection guidance stays on the globe and never intercepts a point tap. */
+.earth-pick-hint { position:absolute;left:400px;top:560px;transform:translateX(-50%);z-index:8;display:flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid #8faeae80;border-radius:10px;background:#102530e8;color:#f2e1bd;font-size:18px;pointer-events:none; }
+.earth-pick-hint span { font-size:28px;line-height:1; }
+.stage[data-view-mode="orbit"] .earth-pick-hint,
+.stage.has-selection .earth-pick-hint,
+.stage.is-measuring .earth-pick-hint { display:none; }
+.stage .axis-layer #axisLine { stroke-dasharray:8 7;stroke-linecap:round;opacity:.24;filter:none; }
+.stage .axis-layer .axis-outer { opacity:.94; }
+.stage .point-guides .noon-caption path { stroke:var(--noon-ink);stroke-width:1.1;fill:none;filter:none;opacity:.9; }
+.stage .point-guides .noon-caption text { display:block!important;fill:var(--noon-ink);stroke:#10202b;stroke-width:4px;paint-order:stroke;font-family:var(--font-ui); }
+.stage .point-guides .noon-caption .noon-title { font-size:20px;font-weight:600;letter-spacing:.4px; }
+.stage.is-measuring .noon-caption { display:none; }
+
+/* Latitude belongs to its left limb; longitude belongs to its point/meridian. */
+.stage:not(.is-measuring) .local-time-card { left:850px; }
+.stage .point-guides .noon-caption .noon-longitude { font-size:14px;font-weight:500;opacity:.9; }
+.stage:not(.is-measuring) .point-guides [data-guide="sun"] :is(.latitude-label,.longitude-label) { fill:var(--solar-guide); }
+.stage:not(.is-measuring) .point-guides [data-guide="site"] :is(.latitude-label,.longitude-label) { fill:#c5e9ff; }
+.stage:not(.is-measuring) .point-guides :is(.latitude-label,.longitude-label) { font-family:var(--font-ui);font-size:15px;font-weight:600;stroke:#10202b;stroke-width:3.5px;paint-order:stroke; }
+.stage:not(.is-measuring) .point-guides .latitude-leader,
+.stage:not(.is-measuring) .point-guides .longitude-leader { stroke-width:1;filter:none;opacity:.84;fill:none; }
+.stage:not(.is-measuring) .point-guides [data-guide="sun"] :is(.latitude-leader,.longitude-leader) { stroke:var(--solar-guide); }
+.stage:not(.is-measuring) .point-guides [data-guide="site"] :is(.latitude-leader,.longitude-leader) { stroke:#c5e9ff; }
+
+.stage:not(.has-selection) .point-guides .latitude-leader { display:none; }
+
+/* Persistent selection feedback also works without hovering on a whiteboard. */
+.stage:not(.is-measuring).has-selection .point-guides [data-guide="site"] .guide-parallel {
+  stroke:#bdebf0;stroke-width:2.2;stroke-dasharray:none;opacity:1;
+}
+.stage:not(.is-measuring) .geo-selected .geo-ring {
+  position:relative;width:26px;height:26px;border:2px solid #c5f0f2;border-radius:50%;
+  background:#14344080;box-shadow:0 0 0 4px #91d9df25;animation:none;
+}
+.stage:not(.is-measuring) .geo-selected .geo-ring::after {
+  content:"";position:absolute;inset:8px;border-radius:50%;background:#d7f6f7;
+}
+.geo-selected:focus-visible { outline:2px solid #e5f7ff;outline-offset:7px;border-radius:50%; }
+.observation-tip { border-color:#d5e9d9;background:#304b50;box-shadow:0 0 0 3px #bdebf020; }
+.observation-tip::before { background:#304b50;border-color:#d5e9d9; }
+.observation-tip-action {
+  position:absolute;left:5px;right:5px;bottom:5px;display:flex;align-items:center;justify-content:space-between;
+  padding:5px 8px;border-radius:0 0 6px 6px;background:#102a36ed;color:#f1e3c5;font:600 14px/1.2 var(--font-ui);pointer-events:none;
+}
+.observation-tip:hover,.observation-tip:focus-visible,.observation-tip:active { border-color:#f4dfb6;background:#35515b; }
+.observation-tip:active .observation-tip-action { background:#f4dfb6;color:#18303a; }
+.local-time-card { gap:8px 12px; }
+.local-time-card #localSolarTime { font-size:44px;line-height:1.12;letter-spacing:1px; }
+.local-time-card .local-time-hint { color:#c5d5d4; }
+.local-time-card.is-noon .local-time-hint { color:#d7efe4; }
+.local-time-spin label { margin-top:8px;color:#a6bbbf;font-size:14px; }
+.local-time-card #localSpinValue { align-self:end;color:#a6bbbf;font-size:14px;font-weight:400;letter-spacing:0; }
+.local-time-card input:focus-visible { outline:2px solid #e5f7ff;outline-offset:3px;border-radius:6px; }
+
+/* Footer: local time, date/time axis, then icon-only view switching. */
+.stage:not(.is-measuring) .view-mode-tabs { left:auto;right:48px;bottom:43px; }
+.view-mode-tabs .view-mode-tab { min-width:56px;width:56px;min-height:52px;padding:12px; }
+.view-mode-tabs .view-mode-tab svg { width:26px;height:26px; }
+.stage:not(.is-measuring) .local-time-card { left:48px;top:auto;bottom:43px;width:280px;height:88px;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0;border:0;border-radius:0;background:none;box-shadow:none; }
+.stage:not(.is-measuring) .local-time-card[hidden] { display:none; }
+.local-time-card #localSolarTime { font-size:34px;line-height:1.1;transform-origin:left center; }
+.local-time-card .local-time-hint { font-size:13px;min-height:19px; }
+.timeline[data-axis="time"] .selected-date { color:#d7efe4; }
+.timeline[data-axis="time"] .ticks i:nth-child(49) { background:#d7efe4;height:30px; }
+.stage.at-local-noon .timeline-caret { background:#d7efe4; }
+
+/* EXP-04 private footer cards: visual reference is Foucault's time-speed
+   container (2026-11-10); independent markup/styles, no cross-experiment import. */
+.stage:not(.is-measuring) .local-time-card { display:flex;flex-direction:row;align-items:stretch;justify-content:flex-start;gap:12px;width:400px;height:64px;bottom:43px; }
+.calendar-card { position:relative;display:grid;grid-template-columns:40px 1fr;grid-template-rows:18px 28px;column-gap:10px;align-content:center;align-items:center;width:194px;height:64px;box-sizing:border-box;padding:8px 12px;border:1px solid #adcdee35;border-radius:16px;background:#102b39e8;color:#dce9ed;text-align:left;font-family:var(--font-ui);cursor:pointer; }
+.calendar-card svg { grid-row:1/3;width:40px;height:40px;box-sizing:border-box;padding:9px;border-radius:50%;background:#284957;box-shadow:inset 0 0 0 5px #41647455;fill:none;stroke:#d2e9ed;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
+.calendar-card > span:not(.local-time-hint) { font-size:13px;line-height:18px; }
+.calendar-card output,.local-time-card .calendar-card #localSolarTime { font-size:24px;font-weight:600;line-height:28px;letter-spacing:0;color:#c5e9ed;white-space:nowrap; }
+.calendar-card:hover:not(:disabled),.calendar-card[aria-pressed="true"] { border-color:#b8d3c0;background:#2b454d; }
+.calendar-card:focus-visible { outline:2px solid #e5f7ff;outline-offset:3px; }
+.calendar-card:disabled { cursor:default;color:#8fa6ae; }
+.calendar-card:disabled svg { opacity:.55; }
+.local-time-card .calendar-card .local-time-hint { position:absolute;right:12px;bottom:11px;font-size:12px;min-height:0;color:#a5b8bf; }
+.local-time-card.is-noon [data-axis-button="time"] output { color:#d7efe4; }
+.stage:not(.is-measuring) .view-mode-tabs { height:64px;box-sizing:border-box;align-items:center; }
+.stage:not(.is-measuring) .timeline,.stage:not(.is-measuring)[data-view-mode="orbit"] .timeline { top:auto;bottom:43px;height:64px; }
+.stage:not(.is-measuring) .timeline::before { top:-41px; }
+.timeline .ticks { top:8px; }
+.timeline-caret { top:0; }
+.timeline-end,.selected-date { top:34px; }
+.timeline[data-axis="date"] .selected-date { visibility:visible;top:-32px;left:var(--date-progress,50%);font-size:20px;line-height:24px; }
+.noon-alignment-tip {
+  --operation-tip-bg:#102b39f2;
+  --operation-tip-accent:#e5cc99;
+  --operation-tip-text:#f4e5c4;
+}
+
+/* Ordered arrival feedback: thumbnail first, guide flash second, point label last. */
+.stage.noon-arrival-tip .observation-tip-selected {
+  animation:noon-observation-tip-in .28s cubic-bezier(.2,.8,.2,1) both;
+}
+.stage:not(.noon-arrival-point):is(.noon-arrival-tip,.noon-arrival-lines) .geo-subsolar {
+  opacity:0!important;
+  visibility:hidden!important;
+}
+.stage.noon-arrival-lines :is(.closeup-orbital-plane .plane-front,.point-guides [data-guide="sun"] .guide-meridian) {
+  animation:noon-guide-flash .9s ease-in-out both;
+}
+.stage.noon-arrival-lines .noon-caption {
+  animation:noon-caption-flash .9s .08s ease-in-out both;
+}
+.stage.noon-arrival-point .geo-subsolar {
+  opacity:1!important;
+  visibility:visible!important;
+  transition:none;
+}
+.stage.noon-arrival-point .geo-subsolar::after {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:34px;
+  height:34px;
+  border:2px solid #ffe7a7;
+  border-radius:50%;
+  pointer-events:none;
+  animation:noon-intersection-ring .72s ease-out both;
+}
+.stage.noon-arrival-point .geo-subsolar .geo-dot {
+  animation:noon-intersection-dot .72s ease-out both;
+}
+.stage.noon-arrival-point .geo-subsolar .geo-label {
+  display:flex!important;
+  animation:noon-solar-label-in .32s .22s ease-out both;
+}
+.stage:not(.is-measuring).at-local-noon .geo-subsolar .geo-label {
+  display:flex!important;
+  position:absolute;
+  left:calc(100% + 10px);
+  top:50%;
+  transform:translateY(-50%);
+  padding:7px 12px;
+  border:1px solid #f2d59a88;
+  border-radius:9px;
+  background:#102b39ed;
+  color:#ffe8b0;
+  font-family:var(--font-ui);
+  font-size:17px;
+  font-weight:600;
+  white-space:nowrap;
+  box-shadow:0 5px 18px #030b14aa;
+}
+.stage:not(.is-measuring).at-local-noon .geo-subsolar[data-label-side="left"] .geo-label {
+  left:auto;
+  right:calc(100% + 10px);
+}
+.stage:not(.is-measuring).at-local-noon .geo-subsolar .geo-label i {
+  display:none;
+}
+@keyframes noon-observation-tip-in {
+  from { opacity:0; transform:translateY(12px) scale(.72); }
+  65% { opacity:1; transform:translateY(-3px) scale(1.04); }
+  to { opacity:1; transform:none; }
+}
+@keyframes noon-guide-flash {
+  0%,100% { filter:none; }
+  42% { filter:drop-shadow(0 0 7px #ffe7a8) drop-shadow(0 0 15px #f7c96f88); stroke-width:4; }
+  62% { filter:drop-shadow(0 0 3px #ffe7a8); stroke-width:2.3; }
+}
+@keyframes noon-caption-flash {
+  0%,100% { opacity:1; }
+  45% { opacity:1; filter:drop-shadow(0 0 7px #f5cf76); }
+}
+@keyframes noon-intersection-ring {
+  from { opacity:0; transform:translate(-50%,-50%) scale(.25); }
+  55% { opacity:1; transform:translate(-50%,-50%) scale(1.6); }
+  to { opacity:0; transform:translate(-50%,-50%) scale(2.2); }
+}
+@keyframes noon-intersection-dot {
+  0%,100% { filter:brightness(1); }
+  45% { filter:brightness(1.65); box-shadow:0 0 0 8px #ffe4a344,0 0 28px #ffd56dcc; }
+}
+@keyframes noon-solar-label-in {
+  from { opacity:0; transform:translateY(-42%) scale(.82); }
+  to { opacity:1; transform:translateY(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage :is(.observation-tip-selected,.closeup-orbital-plane .plane-front,.point-guides [data-guide="sun"] .guide-meridian,.noon-caption,.geo-subsolar,.geo-subsolar::after,.geo-subsolar .geo-dot,.geo-subsolar .geo-label) {
+    animation:none!important;
+  }
+}
+
+/* Reveal the subsolar latitude together with its marker after noon alignment. */
+.stage:not(.is-measuring):not(.at-local-noon) .point-guides [data-guide="sun"] :is(.guide-parallel,.latitude-label,.latitude-leader) { display:none!important; }
+
+.stage:not(.is-measuring) .point-guides .prime-meridian path { stroke:var(--prime-meridian-ink);stroke-width:1.8;fill:none;filter:none;stroke-dasharray:12 5;opacity:.9; }
+.stage .point-guides .prime-meridian .prime-back { stroke-dasharray:5 6;opacity:.34; }
+.stage .point-guides .prime-meridian .prime-leader { stroke-width:1.1;stroke-dasharray:none;opacity:.9; }
+.stage .point-guides .prime-meridian text { display:block!important;fill:var(--prime-meridian-ink);font-family:var(--font-ui);stroke:#10202b;paint-order:stroke; }
+.stage .point-guides .prime-meridian .prime-caption { font-size:20px;font-weight:600;letter-spacing:.4px;stroke-width:4px; }
+
+/* The centre is a calculation reference, never a measurement target. */
+.calculation-center-dot { fill:#fff5d5;filter:drop-shadow(0 0 5px #ffdf8e); }
+.calculation-center-halo { fill:#f5d58c22;stroke:#f5d58c;stroke-width:1.2;transform-box:fill-box;transform-origin:center; }
+.stage.is-calculating .calculation-center-halo { animation:calculation-center-flash 1.4s ease-in-out 3; }
+@keyframes calculation-center-flash { 0%,100% { opacity:.35;transform:scale(.6); } 50% { opacity:1;transform:scale(1.15); } }
+
+/* Calculation: replayable variables and substitution, in reading order. */
+.calculation-center-button { position:absolute;z-index:12;width:52px;height:52px;transform:translate(-50%,-50%);border:0;border-radius:50%;background:transparent;pointer-events:auto;cursor:pointer; }
+.calculation-center-button[hidden] { display:none; }
+.calculation-center-button:hover,.calculation-center-button:focus-visible { outline:2px solid #f4dfb6;outline-offset:2px;background:#f5d58c20; }
+.simple-calculation { top:116px;padding:24px; }
+.simple-calculation h2 { margin-bottom:16px; }
+.calculation-inputs { display:flex;gap:30px;color:#aebfc6;font-size:16px;margin-bottom:16px; }
+.calculation-inputs b { color:#e7edec;font-weight:500;margin-left:8px; }
+.calculation-steps { list-style:none;padding:0;margin:0;display:grid;gap:12px; }
+.calculation-steps li { border:1px solid #435c68;border-radius:12px;overflow:hidden;background:#1b3340; }
+.simple-calculation .calculation-steps button { display:grid;gap:12px;text-align:left;width:100%;margin:0;padding:16px 20px;background:transparent;color:#e4edef;border:0;border-radius:10px;cursor:pointer; }
+.simple-calculation .calculation-steps button:hover:not(:disabled),.simple-calculation .calculation-steps button.is-active { background:#2b454d;outline:1px solid #ddc79e;outline-offset:-1px; }
+.simple-calculation .calculation-steps button:focus-visible { outline:2px solid #f4dfb6;outline-offset:-3px; }
+.calculation-step-title { display:flex;align-items:center;gap:12px;font-size:18px;color:#d9e4e4; }
+.calculation-step-title i { display:grid;place-items:center;font-style:normal;font-size:14px;border:1px solid #829896;border-radius:50%;width:25px;height:25px; }
+.angle-equation,.central-equation,.distance-equation { display:flex;justify-content:space-between;align-items:baseline;padding-left:37px;font-size:20px;font-variant-numeric:tabular-nums; }
+.central-equation { color:#adbec5;font-size:18px; }
+.calculation-steps strong,.calculation-steps b { font-weight:500; }
+.simple-calculation .circumference-formula { margin:0;padding-left:37px;font-size:25px;line-height:1.4;color:#eed7aa; }
+.simple-calculation .calculation-substitution { min-height:0;font-size:22px;padding:0 20px 0 57px; }
+.simple-calculation .calculation-result { min-height:0;margin:12px 20px 16px 57px;font-size:32px; }
+.simple-calculation .calculation-result:empty { margin:0; }
+.simple-calculation .formula-tip:empty { display:none; }
+.simple-calculation small { margin-top:16px; }
+.simple-calculation[data-angle-phase="rod"] .angle-equation,
+.simple-calculation[data-angle-phase="center"] .central-equation,
+.simple-calculation[data-formula-phase="angle"] [data-slot="angle"],
+.simple-calculation[data-formula-phase="distance"] [data-slot="distance"] { color:#ffe6a5;text-shadow:0 0 9px #f5d58c88; }
+.angle-guide[data-angle-phase="rod"] :is(.calculation-zenith,.zenith-label),
+.angle-guide[data-angle-phase="center"] :is(.angle-arc,.angle-value) { filter:drop-shadow(0 0 7px #f5d58c);stroke-width:4; }
+.simple-calculation[data-formula-phase="result"] .calculation-result { animation:calculation-readout-in .45s ease-out; }
+@keyframes calculation-readout-in { from { opacity:.2;transform:translateY(6px); } to { opacity:1;transform:none; } }
+/* Offline mathematical typesetting: system OpenType math faces, stacked fractions. */
+.calculation-inputs b,.angle-equation,.central-equation b,.distance-equation strong,.circumference-formula,.calculation-substitution,.calculation-result,.angle-value { font-family:'Cambria Math','STIX Two Math','Latin Modern Math','Times New Roman',serif;font-weight:400; }
+.calculation-steps var { font-family:'Cambria Math','Times New Roman',serif;font-style:italic; }
+.simple-calculation .angle-equation { justify-content:flex-start;gap:12px;font-size:24px; }
+.simple-calculation .circumference-formula { display:flex;align-items:center;gap:12px;font-size:29px; }
+.math-fraction { display:inline-flex;vertical-align:middle;flex-direction:column;align-items:center;line-height:1.1;margin:0 5px; }
+.math-fraction>span:first-child { border-bottom:1px solid currentColor;padding:0 8px 5px; }
+.math-fraction>span:last-child { padding:5px 8px 0; }
+.simple-calculation .calculation-substitution:not(:empty) { display:flex;align-items:center;gap:10px;padding-top:14px;font-size:25px; }
+.calculation-step-check { display:block;margin-left:auto;color:#b6ddc8;font-size:23px;min-width:24px; }
+.calculation-steps li[data-complete="true"] .calculation-step-title i { border-color:#9fc9b6;color:#c8e7d6; }
+.meridian-measure-host { pointer-events:none!important; }
+.meridian-measure-host>svg { width:100%;height:100%;position:absolute;inset:0; }
+.calculation-distance-path { fill:none;stroke:#f3d8a0;stroke-width:4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0;filter:drop-shadow(0 0 4px #ffe5a555); }
+.calculation-distance-tip { left:64px!important;right:auto!important;transform:none!important;--operation-tip-bg:#102b39f2;--operation-tip-accent:#e5cc99;--operation-tip-text:#f4e5c4; }
+.geo-marker.distance-target { outline:2px solid #f4dfb6;outline-offset:5px;border-radius:50%; }
+.stage.is-calculating .angle-guide :is(.zenith-label,.altitude-label) { font-family:'Cambria Math','Times New Roman',serif;font-weight:400; }
+.simple-calculation[data-next-step="formula"] [data-calculate] { outline:2px solid #f4dfb6;outline-offset:-2px;background:#354f53;box-shadow:inset 0 0 24px #ecd3a015; }

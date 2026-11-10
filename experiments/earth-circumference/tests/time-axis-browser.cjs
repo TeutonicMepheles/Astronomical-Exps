@@ -1,0 +1,165 @@
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');
+(async()=>{
+ const browser=await chromium.launch({channel:'chrome',headless:true});
+ try {
+  const page=await browser.newPage({viewport:{width:1600,height:900}});
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.addInitScript(()=>{
+   window.toneCount=0;
+   const Audio=window.AudioContext;
+   window.AudioContext=class extends Audio { createOscillator(){window.toneCount++;return super.createOscillator();} };
+  });
+  await page.goto('http://127.0.0.1:8381/experiments/earth-circumference/');
+  const earth=page.getByRole('tab',{name:'自转观测'}),orbit=page.getByRole('tab',{name:'公转观测'});
+  assert.equal((await earth.innerText()).trim(),'');
+  assert.ok((await earth.boundingBox()).x>1400);
+  await earth.click();await page.waitForTimeout(650);
+  const axisStyles=await page.evaluate(()=>{
+    const read=id=>{const style=getComputedStyle(document.getElementById(id));return{dash:style.strokeDasharray,opacity:style.opacity};};
+    return {inner:read('axisLine'),outer:read('axisOuter')};
+  });
+  assert.notEqual(axisStyles.inner.dash,'none','Earth mode draws the axis inside the globe as a dashed line');
+  assert.equal(axisStyles.outer.dash,'none','The axis extensions outside the globe remain solid');
+  assert.match(await page.locator('#localSolarTime').innerText(),/^\d{2}:\d{2}$/);
+  assert.equal(await page.locator('#timeline').getAttribute('data-axis'),'date');
+  assert.match(await page.locator('[data-axis-button=time]').getAttribute('aria-label'),/0°经线时间/);
+  assert.equal(await page.locator('.prime-meridian').isVisible(),true);
+  const primeStyle=await page.locator('.prime-meridian').evaluate(el=>{
+    const front=el.querySelector('.prime-front');
+    return {color:getComputedStyle(front).stroke,dash:getComputedStyle(front).strokeDasharray};
+  });
+  assert.equal(primeStyle.color,'rgb(159, 216, 255)','Earth mode uses the shared blue prime meridian');
+  assert.notEqual(primeStyle.dash,'none','Earth mode prime meridian remains dashed');
+  const annotations=await page.evaluate(()=>{
+    const prime=document.querySelector('.prime-caption');
+    const noon=document.querySelector('.noon-title');
+    const plane=document.querySelector('.plane-label');
+    const primeLeader=document.querySelector('.prime-leader');
+    const noonLeader=document.querySelector('.noon-leader');
+    const planeLeader=document.querySelector('.plane-label-leader');
+    return {
+      primeText:prime.textContent,noonText:noon.textContent,planeText:plane.textContent,
+      primeFont:parseFloat(getComputedStyle(prime).fontSize),noonFont:parseFloat(getComputedStyle(noon).fontSize),planeFont:parseFloat(getComputedStyle(plane).fontSize),
+      primeLeader:primeLeader.getAttribute('d'),noonLeader:noonLeader.getAttribute('d'),planeLeader:planeLeader.getAttribute('d'),
+    };
+  });
+  assert.equal(annotations.primeText,'0°经线');
+  assert.equal(await page.locator('.prime-detail').count(),0,'The redundant prime-meridian subtitle is removed');
+  assert.equal(annotations.noonText,'正午经线');
+  assert.equal(annotations.planeText,'黄道面');
+  assert.ok(annotations.primeFont>=18&&annotations.noonFont>=18&&annotations.planeFont>=18,'Primary guide labels share the same title scale');
+  assert.ok(annotations.primeLeader.length>10&&annotations.noonLeader.length>10&&annotations.planeLeader.length>10,'All primary guide labels use leaders');
+  assert.equal(await page.locator('[data-axis-button=time]').isDisabled(),false);
+  assert.equal(await page.locator('#footerDate').innerText().then(text=>/月.*日/.test(text)),true);
+  const primeTimeBeforeDate=await page.locator('#localSolarTime').innerText();
+  await page.locator('#timeline').press('ArrowRight');
+  const primeTimeAfterDate=await page.locator('#localSolarTime').innerText();
+  assert.notEqual(primeTimeAfterDate,primeTimeBeforeDate,'Annual date movement advances the 0-degree meridian time');
+  const footer=await page.locator('.calendar-card, #timeline, .view-mode-tabs').evaluateAll(elements=>elements.map(el=>({top:el.getBoundingClientRect().top,height:el.getBoundingClientRect().height})));
+  assert.ok(footer.every(box=>Math.abs(box.top-footer[0].top)<1&&Math.abs(box.height-64)<1),'Footer controls share height and top edge');
+  await page.locator('[data-axis-button=time]').click();
+  const primeAxis=await page.locator('#timeline').boundingBox();
+  await page.mouse.click(primeAxis.x+primeAxis.width*720/1439,primeAxis.y+20);
+  await page.waitForTimeout(100);
+  assert.equal(await page.locator('#localSolarTime').innerText(),'12:00');
+  assert.equal(await page.locator('.geo-subsolar').isVisible(),false,'Prime-meridian noon does not unlock observation');
+  assert.equal(await page.locator('.geo-selected').isVisible(),false);
+  assert.equal(await page.locator('.observation-tip-selected').isVisible(),false);
+  assert.equal(await page.evaluate(()=>window.toneCount),0);
+  await page.mouse.click(350,300);await page.waitForTimeout(100);
+  assert.equal(await page.locator('.point-guides [data-guide=site] .longitude-label').isVisible(),false,'The selected point has no duplicate longitude readout');
+  assert.equal(await page.locator('.point-guides [data-guide=site] .longitude-leader').getAttribute('d'),'','The removed longitude readout leaves no leader');
+  assert.equal(await page.locator('.noon-alignment-tip').isVisible(),true,'Selecting a non-noon site shows the time-alignment prompt');
+  assert.match(await page.locator('.noon-alignment-tip').innerText(),/正午 12:00.*参考点/);
+  assert.equal(await page.locator('.noon-alignment-tip').getAttribute('role'),'status');
+  assert.equal(await page.locator('.prime-meridian').isVisible(),false);
+  assert.match(await page.locator('[data-axis-button=time]').getAttribute('aria-label'),/观测点/);
+  assert.equal(await page.locator('#timeline').getAttribute('data-axis'),'time');
+  let date=await page.evaluate(()=>window.__globe.observationDate);
+  const dateButton=page.locator('[data-axis-button=date]'),timeButton=page.locator('[data-axis-button=time]');
+  await dateButton.click();
+  assert.equal(await page.locator('#timeline').getAttribute('data-axis'),'date');
+  assert.equal(await dateButton.getAttribute('aria-pressed'),'true');
+  await page.locator('#timeline').press('ArrowLeft');
+  const changedDate=await page.evaluate(()=>window.__globe.observationDate);
+  assert.notEqual(changedDate,date,'Date selection routes the axis to the annual calendar');
+  date=changedDate;
+  await timeButton.click();
+  assert.equal(await page.locator('#timeline').getAttribute('data-axis'),'time');
+  assert.equal(await timeButton.getAttribute('aria-pressed'),'true');
+  await page.evaluate(()=>{window.noonCount=0;document.querySelector('#stage').addEventListener('noon-feedback',()=>window.noonCount++);});
+  const box=await page.locator('#timeline').boundingBox();
+  await page.mouse.move(box.x+box.width*.3,box.y+20);await page.mouse.down();
+  await page.mouse.move(box.x+box.width*720/1439,box.y+20,{steps:10});await page.mouse.up();
+  await page.waitForTimeout(120);
+  assert.equal(await page.locator('#localSolarTime').innerText(),'12:00');
+  assert.equal(await page.evaluate(()=>window.__globe.observationDate),date);
+  assert.equal(await page.evaluate(()=>window.noonCount),1);
+  assert.equal(await page.evaluate(()=>window.toneCount),1);
+  assert.equal(await page.locator('.noon-alignment-tip').isVisible(),false,'Reaching noon dismisses the time-alignment prompt');
+  assert.equal(await page.locator('#stage').getAttribute('data-noon-arrival'),'tip');
+  assert.equal(await page.locator('.observation-tip-selected').isVisible(),true,'The observation tip appears before the guide flash');
+  assert.equal(await page.locator('.geo-subsolar').isVisible(),false,'The solar marker waits for the final highlight phase');
+  await page.waitForFunction(()=>document.querySelector('#stage').dataset.noonArrival==='lines');
+  assert.equal(await page.locator('.geo-subsolar').isVisible(),false);
+  const flashAnimations=await page.evaluate(()=>({
+    ecliptic:getComputedStyle(document.querySelector('.closeup-orbital-plane .plane-front')).animationName,
+    meridian:getComputedStyle(document.querySelector('.point-guides [data-guide=sun] .guide-meridian')).animationName,
+  }));
+  assert.match(flashAnimations.ecliptic,/noon-guide-flash/);
+  assert.match(flashAnimations.meridian,/noon-guide-flash/);
+  await page.waitForFunction(()=>document.querySelector('#stage').dataset.noonArrival==='point');
+  await page.waitForTimeout(40);
+  assert.equal(await page.locator('.geo-subsolar').isVisible(),true,'The intersection point appears after the guide flash');
+  assert.equal(await page.locator('.geo-subsolar .geo-label').isVisible(),true);
+  assert.equal((await page.locator('.geo-subsolar .geo-label').innerText()).trim(),'太阳直射点');
+  await page.waitForFunction(()=>document.querySelector('#stage').dataset.noonArrival==='complete');
+  assert.equal(await page.locator('.noon-alignment-tip').isVisible(),true,'The observation prompt follows the completed arrival animation');
+  assert.equal((await page.locator('.noon-alignment-tip').innerText()).trim(),'点击观测点，开始测量');
+  await page.mouse.click(box.x+box.width*720/1439,box.y+20);
+  assert.equal(await page.evaluate(()=>window.noonCount),1,'No replay while staying at noon');
+  assert.equal(await page.locator('.observation-tip-selected').isVisible(),true);
+  await orbit.click();await page.waitForTimeout(650);
+  assert.equal(await page.locator('#timeline').getAttribute('data-axis'),'time','View does not override the chosen axis');
+  await earth.click();await page.waitForTimeout(650);
+  assert.equal(await page.locator('#localSolarTime').innerText(),'12:00');
+  assert.equal(await page.evaluate(()=>window.noonCount),1,'View switching stays silent');
+  await page.locator('#timeline').press('Shift+ArrowRight');await page.waitForTimeout(100);
+  assert.equal(await page.locator('#localSolarTime').innerText(),'12:15');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.locator('#timeline').press('Shift+ArrowLeft');await page.waitForTimeout(100);
+  assert.equal(await page.locator('#localSolarTime').innerText(),'12:00');
+  assert.equal(await page.locator('#localSolarTime').evaluate(el=>el.getAnimations().length),0);
+  await page.mouse.click(350,300);await page.waitForTimeout(100);
+  assert.equal(await page.locator('.geo-subsolar').isVisible(),false,'Selecting a new non-noon site hides the subsolar marker');
+  assert.equal(await page.locator('.noon-alignment-tip').isVisible(),true,'A new non-noon site restores the time-alignment prompt');
+
+  await orbit.click();await page.waitForTimeout(650);
+  await page.locator('[data-orbit-play]').click();
+  assert.equal(await page.locator('#stage').getAttribute('data-orbit-playing'),'true');
+  await page.locator('[data-axis-button=time]').click();
+  assert.equal(await page.locator('#stage').getAttribute('data-orbit-playing'),'false','The time-axis tab pauses orbit playback');
+  const pausedTimeState=await page.evaluate(()=>({date:window.__globe.observationDate,spin:window.__globe.spin,position:document.querySelector('.orbit-current').style.transform}));
+  await page.waitForTimeout(300);
+  assert.deepEqual(await page.evaluate(()=>({date:window.__globe.observationDate,spin:window.__globe.spin,position:document.querySelector('.orbit-current').style.transform})),pausedTimeState,'The manual pause persists');
+  await page.locator('[data-orbit-play]').click();
+  const timeBox=await page.locator('#timeline').boundingBox();
+  await page.mouse.move(timeBox.x+timeBox.width*.2,timeBox.y+20);await page.mouse.down();
+  await page.mouse.move(timeBox.x+timeBox.width*.35,timeBox.y+20,{steps:4});await page.mouse.up();
+  assert.equal(await page.locator('#stage').getAttribute('data-orbit-playing'),'false','Dragging the time axis pauses orbit playback');
+  await page.locator('[data-view-mode-button=orbit]').click();await page.waitForTimeout(650);
+  await page.locator('[data-axis-button=date]').click();
+  await page.locator('[data-orbit-play]').click();
+  await page.waitForTimeout(250);
+  const dateBox=await page.locator('#timeline').boundingBox();
+  await page.mouse.click(dateBox.x+dateBox.width*.6,dateBox.y+20);
+  assert.equal(await page.locator('#stage').getAttribute('data-orbit-playing'),'false','Dragging the date axis pauses orbit playback');
+  await page.waitForTimeout(100);
+  const pausedDateState=await page.evaluate(()=>({date:window.__globe.observationDate,spin:window.__globe.spin,position:document.querySelector('.orbit-current').style.transform}));
+  await page.waitForTimeout(300);
+  assert.deepEqual(await page.evaluate(()=>({date:window.__globe.observationDate,spin:window.__globe.spin,position:document.querySelector('.orbit-current').style.transform})),pausedDateState,'Date-axis pause persists');
+  assert.deepEqual(errors,[]);
+  console.log('PASS icon tabs, prime-meridian reference, manual-axis pause, time drag, date preservation, one-shot audio/feedback, mode switching, keyboard and reduced motion');
+ } finally {await browser.close();}
+})().catch(error=>{console.error(error);process.exitCode=1;});
