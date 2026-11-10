@@ -1,0 +1,27 @@
+{
+  "pass": true,
+  "meshCount": 132,
+  "hotspots": [
+    "tube",
+    "primary",
+    "secondary",
+    "eyepiece",
+    "mount",
+    "base"
+  ],
+  "mouseLongPress": true,
+  "checks": [
+    "background image",
+    "approved assembly",
+    "cinematic entered",
+    "132 meshes",
+    "click popover",
+    "long press",
+    "orbit",
+    "tool drawer",
+    "existing optical rays",
+    "back disposal",
+    "reduced motion"
+  ],
+  "errors": []
+}
