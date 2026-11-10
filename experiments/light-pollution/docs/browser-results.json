@@ -2,169 +2,169 @@
   {
     "file": "data-compatibility.cjs",
     "pass": true,
-    "ms": 13578,
+    "ms": 9811,
     "output": "PASS pre-refactor candidate fixture, persistent restore, legacy v1 missing optional fields and rejected import preserves scene\n"
   },
   {
     "file": "presentation-independent.cjs",
     "pass": true,
-    "ms": 15528,
+    "ms": 12051,
     "output": "PASS presentation without authoring DOM, shared commands, panel exclusion, draft restore and lazy authoring\n"
   },
   {
     "file": "source-entry.cjs",
     "pass": true,
-    "ms": 6923,
+    "ms": 4977,
     "output": "PASS HTTP source candidate/legacy, lazy UI and no external runtime requests\n"
   },
   {
     "file": "verify-ad-building.cjs",
     "pass": true,
-    "ms": 4817,
+    "ms": 3703,
     "output": "PASS ad-building click, 9 windows, brightness/temperature/curtains, independent screen, corners, old-layout migration\n"
   },
   {
     "file": "verify-buildings.cjs",
     "pass": true,
-    "ms": 9816,
-    "output": "PASS building clicks, group isolation, staggered curtains, palette replacement, four-corner route, pan isolation and persisted settings\n"
+    "ms": 12264,
+    "output": "PASS building clicks, single charcoal blackout texture, spill attenuation, staggered curtains, replacement, corners, pan isolation and persisted settings\n"
   },
   {
     "file": "verify-candidates.cjs",
     "pass": true,
-    "ms": 22404,
+    "ms": 17629,
     "output": "PASS: corners, geometry hit after parent move, object move/lock, brightness, curtain/material, image replacements, shared history, embedded JSON round-trip/rejection, reload, offline and continuous refresh.\n"
   },
   {
     "file": "verify-distant-controls.cjs",
     "pass": true,
-    "ms": 7782,
+    "ms": 5980,
     "output": "PASS presentation distant click, dark hit, drag separation, Escape, editor close, sky, reload, default 5x { x: 559.3922651933701, y: 515.8839779005525 }\n"
   },
   {
     "file": "verify-editor.cjs",
     "pass": true,
-    "ms": 9015,
+    "ms": 6855,
     "output": "PASS: properties, order, drag sorting, canvas drag at two zooms, lock, water constraint, undo/redo, JSON round-trip/rejection, draft reload, panel geometry.\n"
   },
   {
     "file": "verify-gradient-interaction.cjs",
     "pass": true,
-    "ms": 45147,
-    "output": "PASS: animated target stability, edge handles, whole-line drag, curve drag, horizon color with custom gradient, unified undo/redo, panel isolation and reload.\nScreenshot: C:\\Users\\ancha\\AppData\\Local\\Temp\\gradient-interaction-j56rPd\\preview.png\n"
+    "ms": 35856,
+    "output": "PASS: animated target stability, edge handles, whole-line drag, curve drag, horizon color with custom gradient, unified undo/redo, panel isolation and reload.\nScreenshot: C:\\Users\\Golajah\\AppData\\Local\\Temp\\gradient-interaction-Z9m2pO\\preview.png\n"
   },
   {
     "file": "verify-gradient.cjs",
     "pass": true,
-    "ms": 12925,
+    "ms": 10329,
     "output": "PASS: anchors/stops/curve, one-step history and cancel, raster direction/easing, resolution independence, panel fit, import validation/legacy compatibility, reload and offline.\n"
   },
   {
     "file": "verify-lamp-carousel.cjs",
     "pass": true,
-    "ms": 13752,
+    "ms": 10131,
     "output": "PASS direct lamp-head swipe, live light preview, pole alignment, no street pan, Escape rollback, one-step undo/redo, reload and shaft drag.\n"
   },
   {
     "file": "verify-lamps.cjs",
     "pass": true,
-    "ms": 19609,
+    "ms": 13770,
     "output": "PASS: nine equal-position lamp responses, shared shade/temperature/brightness, dark hit, drag isolation, undo, persistence, invalid import, offline.\n"
   },
   {
     "file": "verify-light-environment.cjs",
     "pass": true,
-    "ms": 9417,
+    "ms": 7491,
     "output": "PASS light budget: all-off/high, sky brightness, star budget, curtains, shade, JSON and reload { dark: 0, bright: 1, stars: [ 2100, 588 ] }\n"
   },
   {
     "file": "verify-light-masks.cjs",
     "pass": true,
-    "ms": 16668,
-    "output": "PASS: real GPU building/window synchronization, perspective sampling, single-window merge, import/export, undo/redo, bad dimensions and corrupt PNG rejection, lock, JSON round trip, reload, old-layout migration, offline page.\nScreenshot: C:\\Users\\ancha\\AppData\\Local\\Temp\\building-masks-A6Kfnh\\light-mask-import.png\n"
+    "ms": 12147,
+    "output": "PASS: real GPU building/window synchronization, perspective sampling, single-window merge, import/export, undo/redo, bad dimensions and corrupt PNG rejection, lock, JSON round trip, reload, old-layout migration, offline page.\nScreenshot: C:\\Users\\Golajah\\AppData\\Local\\Temp\\building-masks-0RxsBZ\\light-mask-import.png\n"
   },
   {
     "file": "verify-objects.cjs",
     "pass": true,
-    "ms": 17573,
+    "ms": 13733,
     "output": "PASS: corners, geometry hit after parent move, object move/lock, brightness, curtain/material, image replacements, shared history, embedded JSON round-trip/rejection, reload, offline and continuous refresh.\n"
   },
   {
     "file": "verify-observations.cjs",
     "pass": true,
-    "ms": 4181,
-    "output": "PASS: reusable observation hotspot, paired image load, comparison controls, panel lifecycle, mutual exclusion and editor hiding.\n"
+    "ms": 12074,
+    "output": "PASS: observation crop/brightness controls, editable hotspot drag, scene persistence and undo history.\n"
   },
   {
     "file": "verify-pan.cjs",
     "pass": true,
-    "ms": 4390,
+    "ms": 3353,
     "output": "PASS: outside click hides overlays, sprite click restores; space pan captures corner/layer gestures including early space release; no edits or history; presets reset.\n"
   },
   {
     "file": "verify-presentation.cjs",
     "pass": true,
-    "ms": 5201,
-    "output": "PASS: height-fitted panorama, arrows, slider, drag, wheel, keyboard, bounds, position survives editor and resize, 16:9 and 4:3 layout.\n"
+    "ms": 6496,
+    "output": "PASS: default user UI, in-scene title and slider, hidden authoring controls, panorama navigation, opt-in editor mode and responsive 16:9 stage.\n"
   },
   {
     "file": "verify-reflections.cjs",
     "pass": true,
-    "ms": 6283,
+    "ms": 4733,
     "output": "PASS position, actual scene water follows building temperature and brightness {\n  initial: { r: 1808187, b: 3614554 },\n  cool: { r: 1588259, b: 4185094 },\n  dark: { r: 797568, b: 3198937 }\n}\n"
   },
   {
     "file": "verify-scene-effects.cjs",
     "pass": true,
-    "ms": 9398,
+    "ms": 6794,
     "output": "PASS effects defaults, ranges, undo/redo, pause setting, persistence, JSON compatibility/rejection, sky budget, light-only pixels and temperature\n"
   },
   {
     "file": "verify-sky.cjs",
     "pass": true,
-    "ms": 14073,
+    "ms": 7489,
     "output": "PASS: offline sky, adjacent controls, presets, settings persistence, pause/play, shared zoom, Escape isolation, panel fit.\n"
   },
   {
     "file": "verify-video-playlist.cjs",
     "pass": true,
-    "ms": 21107,
+    "ms": 17386,
     "output": "PASS full-length 03→08→03, retained controls, pause, manual restart\n"
   },
   {
     "file": "verify-video-resources.cjs",
     "pass": true,
-    "ms": 19470,
+    "ms": 9054,
     "output": "PASS 03/08 switching, animation pixels, effect retention, persistence and offline\n"
   },
   {
     "file": "verify-video-transition.cjs",
     "pass": true,
-    "ms": 14855,
+    "ms": 10739,
     "output": "PASS screen click, full clip, crossfade, temporary glitch boost and next clip start\n"
   },
   {
     "file": "verify-video.cjs",
     "pass": true,
-    "ms": 45723,
+    "ms": 19441,
     "output": "PASS video pause/resume, each effect, persistence, offline and no errors\n"
   },
   {
     "file": "verify-water.cjs",
     "pass": true,
-    "ms": 5311,
+    "ms": 3583,
     "output": "PASS water motion, replacement texture, fixed alpha, continuous cycle { changed: true, alpha: true, seam: 0.001114555027173913 }\n"
   },
   {
     "file": "verify-zoom.cjs",
     "pass": true,
-    "ms": 4486,
+    "ms": 2926,
     "output": "PASS: plain wheel unchanged, Shift wheel anchored zoom, corner hit/drag at custom zoom, undo and preset reset.\n"
   },
   {
     "file": "verify.cjs",
     "pass": true,
-    "ms": 11167,
+    "ms": 5787,
     "output": "PASS: offline load, eight layers, reference isolation, three detail views, static stability.\n"
   }
 ]

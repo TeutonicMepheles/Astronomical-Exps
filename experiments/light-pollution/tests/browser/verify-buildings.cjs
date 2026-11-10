@@ -6,7 +6,7 @@ const {chromium}=require('playwright'),assert=require('assert/strict'),path=requ
  try{
   const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[];
   page.on('pageerror',error=>errors.push(error.message));
-  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href);
+  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href+'?mode=editor');
   await page.waitForSelector('html[data-ready=true]');
   const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('lib-candidate-layout-v1')));
   const point=async(x,y)=>{const rect=await page.locator('#scene').boundingBox();return{x:rect.x+x*rect.width/2172,y:rect.y+y*rect.height/724};};

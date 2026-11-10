@@ -39,7 +39,9 @@ const root=path.resolve(__dirname,'..');
    }else{
     assert.match(page.url(),/\/experiments\/light-pollution\/app\/index\.html$/);
     assert(await page.locator('#scene').isVisible());
-    // A real pointer click opens the candidate lamp editor.
+    // User mode keeps authoring controls hidden; verify lamp editing through the opt-in editor entry.
+    const editorUrl=new URL(page.url());editorUrl.searchParams.set('mode','editor');await page.goto(editorUrl.href);
+    await page.waitForSelector('html[data-ready=true]');
     await page.locator('#lamp-toggle').click({force:true});
     assert(await page.locator('#lamp-controls').isVisible());
    }

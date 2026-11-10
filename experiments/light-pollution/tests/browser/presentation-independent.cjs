@@ -1,7 +1,7 @@
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path'),{pathToFileURL}=require('node:url');
 (async()=>{const browser=await chromium.launch();try{
  const page=await browser.newPage({viewport:{width:1600,height:900}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(pathToFileURL(path.resolve(__dirname,'../../lib-static-demo/standalone.html')).href);await page.waitForSelector('html[data-ready=true]');
+ await page.goto(pathToFileURL(path.resolve(__dirname,'../../lib-static-demo/standalone.html')).href+'?mode=editor');await page.waitForSelector('html[data-ready=true]');
  assert.equal(await page.locator('#editor-panel').count(),0);assert.equal(await page.locator('#object-panel').count(),0);
  await page.click('#billboard-video-controls');await page.locator('#billboard-brightness').fill('0');await page.locator('#billboard-brightness').dispatchEvent('change');
  assert.equal(await page.evaluate(()=>LightPollution.store.snapshot().objects.items.find(o=>o.type==='billboard').brightness),0);
