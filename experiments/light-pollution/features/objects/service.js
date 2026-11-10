@@ -31,6 +31,7 @@ window.createSceneObjects=function({canvas,screen,W,H,apertures,interiors,images
  function imageData(s){return typeof s==='string'&&s.length<12000000&&/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(s);}
  function validate(value){
   if(value===undefined)return {version:1,items:clone(defaults),layerImages:{}};
+  if(value?.version===1&&Array.isArray(value.items))value={...value,items:value.items.filter(o=>o?.id!=='ad-building-window-9'&&o?.id!=='ad-building-window-12')};
   const added=defaults.filter(o=>o.parent==='ad-building'&&o.type==='window');if(added.length&&value?.version===1&&Array.isArray(value.items)&&value.items.length===defaults.length-added.length&&!value.items.some(o=>o?.id?.startsWith('ad-building-window-')))value={...value,items:[...value.items,...clone(added)]};
   if(!value||value.version!==1||!Array.isArray(value.items)||value.items.length!==defaults.length||!value.layerImages||typeof value.layerImages!=='object'||Array.isArray(value.layerImages))throw Error('对象配置格式不匹配');
   const seen=new Set(),items=value.items.map(o=>{const d=defaults.find(x=>x.id===o?.id);if(!d||seen.has(o.id)||o.type!==d.type||!validQuad(o.corners))throw Error('对象角点无效或重复');seen.add(o.id);

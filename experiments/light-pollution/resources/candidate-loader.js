@@ -20,17 +20,17 @@ window.loadCandidateScene=async function(W,H){
   g.putImageData(d,0,0);return {canvas:c,b:{x:x0,y:y0,w:x1-x0+1,h:y1-y0+1}};
  }
  function alphaBounds(im){const c=make(im.width,im.height),g=c.getContext('2d',{willReadFrequently:true});g.drawImage(im,0,0);const d=g.getImageData(0,0,c.width,c.height).data,n=c.width*c.height;let x0=c.width,y0=c.height,x1=0,y1=0;for(let p=0;p<n;p++)if(d[p*4+3]>8){const x=p%c.width,y=Math.floor(p/c.width);x0=Math.min(x0,x);x1=Math.max(x1,x);y0=Math.min(y0,y);y1=Math.max(y1,y);}return {canvas:c,b:x0<c.width?{x:x0,y:y0,w:x1-x0+1,h:y1-y0+1}:{x:0,y:0,w:c.width,h:c.height}};}
- const darkFiles=[['stadium','09-stadium/02'],['viaduct','10-viaduct/02']];
+ const darkFiles=[['stadium','09-stadium/02'],['viaduct','10-viaduct/02'],['roadside-billboard','11-roadside-billboard/02']];
  const darkImages=Object.fromEntries(darkFiles.map(([id,file])=>[id,new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('候选资源加载失败：'+file));im.src=window.LIB_STATIC_ASSETS?.[root+file+'.png']||root+file+'.png';})]));
  await Promise.all(choices.map(async([id,label,file,x,bottom,width])=>{
   const im=new Image();await new Promise((resolve,reject)=>{im.onload=resolve;im.onerror=()=>reject(Error('候选资源加载失败：'+file));im.src=window.LIB_STATIC_ASSETS?.[root+file+'.png']||root+file+'.png';});
-  const {canvas,b}=(id==='stadium'||id==='viaduct'?alphaBounds(im):transparent(im,id==='trees'||id==='ground')),s=width/b.w,y=bottom-b.h*s,c=make(),g=c.getContext('2d');
+  const {canvas,b}=(id==='stadium'||id==='viaduct'||id==='roadside-billboard'?alphaBounds(im):transparent(im,id==='trees'||id==='ground')),s=width/b.w,y=bottom-b.h*s,c=make(),g=c.getContext('2d');
   if(id==='front-water')g.drawImage(canvas,b.x,b.y+b.h-92,b.w,92,x,bottom-92*s,width,92*s);
   else g.drawImage(canvas,b.x,b.y,b.w,b.h,x,y,b.w*s,b.h*s);
   surfaces[id]=c;registrations[id]={source:file+'.png',sourceBounds:b,x,y,scale:s};
  }));
  const dark={};
- await Promise.all(darkFiles.map(async([id])=>{const im=await darkImages[id],{canvas,b}=alphaBounds(im),r=registrations[id],c=make(),g=c.getContext('2d');g.drawImage(canvas,b.x,b.y,b.w,b.h,r.x,r.y,r.sourceBounds.w*r.scale,r.sourceBounds.h*r.scale);dark[id]=c;}));
+ await Promise.all(darkFiles.map(async([id])=>{const im=await darkImages[id],{canvas,b}=alphaBounds(im),r=registrations[id],c=make(),g=c.getContext('2d');const src=id==='stadium'||id==='roadside-billboard'?r.sourceBounds:b;g.drawImage(canvas,src.x,src.y,src.w,src.h,r.x,r.y,r.sourceBounds.w*r.scale,r.sourceBounds.h*r.scale);dark[id]=c;}));
  // Quads are normalized against each building's visible bounds, then placed with its sprite.
  const quads={residential:[
   [.241,.24,.271,.24,.271,.343,.241,.343],[.296,.232,.367,.232,.367,.349,.296,.349],[.387,.223,.4,.223,.4,.343,.387,.343],[.429,.338,.441,.338,.441,.402,.429,.402],[.503,.316,.557,.316,.557,.424,.503,.424],[.587,.337,.599,.337,.599,.406,.587,.406],
@@ -40,7 +40,7 @@ window.loadCandidateScene=async function(W,H){
  ],public:[
   [.134,.477,.245,.477,.245,.685,.134,.685],[.302,.495,.499,.495,.499,.685,.302,.685],[.47,.357,.516,.357,.516,.401,.47,.401],[.518,.362,.532,.362,.532,.617,.518,.617],[.581,.451,.678,.451,.678,.619,.581,.619],[.696,.44,.733,.44,.733,.582,.696,.582],[.826,.439,.891,.439,.891,.593,.826,.593]
  ],'ad-building':[
-  [.53771,.26666,.79082,.17945,.78924,.38528,.53613,.48489],
+  [.43794,.22138,.69762,.17707,.69735,.38290,.43768,.43961],
   [.425,.331,.462,.331,.462,.475,.425,.475],[.466,.363,.487,.363,.487,.496,.466,.496],
   [.424,.465,.462,.465,.462,.598,.424,.598],[.466,.499,.487,.499,.487,.609,.466,.609],
   [.424,.623,.461,.623,.461,.795,.424,.795],[.465,.663,.487,.663,.487,.823,.465,.823],
@@ -51,6 +51,7 @@ window.loadCandidateScene=async function(W,H){
   const r=registrations[parent],surface=surfaces[parent],g=surface.getContext('2d',{willReadFrequently:true});
   const source=g.getImageData(0,0,W,H).data;
   list.forEach((values,i)=>{
+   if(parent==='ad-building'&&(i===9||i===12))return;
    const corners=Array.from({length:4},(_,j)=>[r.x+values[j*2]*r.sourceBounds.w*r.scale,r.y+values[j*2+1]*r.sourceBounds.h*r.scale]);
    const texture=make(256,256),tg=texture.getContext('2d'),pixels=tg.createImageData(256,256);
    // Rectify the quadrilateral using its projective map, inverse of the renderer's mapping.

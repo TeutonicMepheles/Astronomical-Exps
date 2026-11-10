@@ -24,7 +24,7 @@ node experiments/light-pollution/tests/unit/core.cjs
 
 ## 公开接口与数据
 
-公开入口：`createAssetRegistry`、`createBuildingLightMasks`、`loadCandidateScene`。具体参数与返回值以入口定义和专项测试为准。`loadCandidateScene` 另返回 `dark`，其中体育场和高架桥的关灯图使用各自开灯图的放置矩形。 AssetRegistry 的 pack/unpack 转换图片 payload 与 ID；collect 接收所有存活快照；destroy 释放注册项。
+公开入口：`createAssetRegistry`、`createBuildingLightMasks`、`loadCandidateScene`。具体参数与返回值以入口定义和专项测试为准。`loadCandidateScene` 另返回 `dark`，其中高架桥的关灯图使用自己的外框，再画入开灯图的放置矩形。体育场关灯图与开灯图同一画布，黑底已去掉，并按开灯图的像素范围裁切。公路广告牌按已有透明通道取外框，不去白色底；它的关灯图同样按开灯图的像素范围裁切，使牌面和立柱重合。 AssetRegistry 的 pack/unpack 转换图片 payload 与 ID；collect 接收所有存活快照；destroy 释放注册项。
 
 ## 依赖与解耦策略
 

@@ -6,7 +6,7 @@
  const W=2172,H=724,canvas=document.querySelector('#scene'),screen=canvas.getContext('2d');
  const files=['01-foreground-water','02-background-water','03-mountains','04-distant-city','05-near-buildings','06-residential-interiors','07-public-interiors','08-billboard','10-vegetation','11-shore-structures','window-apertures','reference'];
  const legacyLabels=['远山与山脚衔接','远景建筑','近景建筑与窗灯','广告屏','树木与灌木','远岸与近岸设施','背景水体','前景水体'];
- const labels=candidateMode?['远景整体 · 01','城市地面','地面与岸壁 · 02','住宅组 · 02','公共建筑 · 03','广告楼 · 02','前景树木 · 03','前景水体 · 01','体育场','高架桥','路灯']:legacyLabels;
+ const labels=candidateMode?LightPollution.candidateLayers.map(layer=>layer[1]).concat(['路灯']):legacyLabels;
  const visible=labels.map(()=>true),images={},parts={},make=()=>{const c=document.createElement('canvas');c.width=W;c.height=H;return c;};
  const scene=make(),mountainBase=make(),interiors=make(),sourceView=make();let ready=false,mode='generated',view='all';
  const views={all:{z:1,x:1086,y:362},homes:{z:2.1,x:430,y:390},public:{z:2.1,x:960,y:440},billboard:{z:3,x:1320,y:410},water:{z:2.1,x:1670,y:510}};
