@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>光污染 · 场景分层预览</title>
+  <link rel="stylesheet" href="../../shared/typography/typography.css">
+  <style>
+    :root{color-scheme:dark;font-family:var(--font-ui,system-ui,sans-serif);color:#e5edf8;background:#0b1325}
+    *{box-sizing:border-box}body{margin:0;min-height:100dvh;display:grid;place-items:center}
+    main{width:min(100vw,177.7778dvh);min-height:100dvh;padding:3%;display:flex;flex-direction:column;justify-content:center;gap:18px}
+    h1{font-size:clamp(18px,2.5vw,32px);margin:0}p{margin:0;color:#aebed5;font-size:clamp(12px,1.2vw,16px);line-height:1.6}
+    .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}button,label,a{min-height:44px;padding:10px 16px;border:1px solid #667da3;border-radius:8px;color:inherit;background:#1a2b47;font:inherit;cursor:pointer}
+    label{display:flex;align-items:center;gap:8px}input{accent-color:#f4cb83;width:18px;height:18px}a{text-decoration:none}
+    button:hover,label:hover,a:hover{background:#2b4366}button:focus-visible,label:focus-within,a:focus-visible{outline:2px solid #f4cb83;outline-offset:3px}
+    .scene{position:relative;width:100%;aspect-ratio:3/1;flex-shrink:0;background:linear-gradient(#101c46,#283662 65%,#39486e);overflow:hidden;border:1px solid #485e80;border-radius:8px}
+    .scene.checker{background:repeating-conic-gradient(#25324a 0% 25%,#172237 0% 50%) 0 0/20px 20px}
+    .scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+    .scene.zoom{aspect-ratio:1.5/1;overflow-x:auto}.scene.zoom img{width:200%;max-width:none}
+    [hidden]{display:none!important}output{color:#f4cb83;font-size:14px}
+  </style>
+</head>
+<body>
+<main>
+  <h1>光污染 · 场景分层预览</h1>
+  <p>此页仅检查图片分层。点击“打开住宅灯光互动页”体验反复点击窗灯、调色温和亮度。</p>
+  <div class="row" aria-label="对比模式">
+    <button type="button" data-mode="original">原始底图</button>
+    <button type="button" data-mode="off">全部关闭</button>
+    <button type="button" data-mode="layers">分层叠加</button>
+    <label><input type="checkbox" id="transparent">透明图层单独查看</label>
+    <button type="button" id="zoom" aria-pressed="false">放大检查</button>
+    <a href="./">打开住宅灯光互动页</a>
+  </div>
+  <div class="scene" role="region" tabindex="0" aria-label="住宅、公共建筑和广告屏的分层全景，放大后可横向查看">
+    <img id="base" src="assets/source-layers-v2/city-unlit.svg" alt="清理固定光照后的城市底图">
+    <img id="residential" src="assets/source-layers-v2/residential-windows.svg" alt="住宅窗灯独立透明图层">
+    <img id="public" src="assets/source-layers-v2/public-building-windows.svg" alt="公共建筑灯光独立透明图层">
+    <img id="billboard" src="assets/source-layers-v2/billboard-screen.svg" alt="广告屏独立透明图层">
+    <img id="original" src="assets/city-layer-all-lamps.png" alt="原始带光照底图" hidden>
+  </div>
+  <div class="row" aria-label="独立灯光图层">
+    <label><input type="checkbox" data-layer="residential" checked>住宅窗灯</label>
+    <label><input type="checkbox" data-layer="public" checked>公共建筑灯光</label>
+    <label><input type="checkbox" data-layer="billboard" checked>广告屏</label>
+    <output id="status" aria-live="polite">分层叠加</output>
+  </div>
+  <p>可分别检查三组灯光及熄灯效果。精修资源已接入互动实验，住宅支持色温与亮度；开启比例、窗帘和科学读数保持待办。</p>
+</main>
+<script>
+(() => {
+  const scene=document.querySelector('.scene');
+  const original=document.querySelector('#original');
+  const base=document.querySelector('#base');
+  const transparent=document.querySelector('#transparent');
+  const controls=[...document.querySelectorAll('[data-layer]')];
+  const status=document.querySelector('#status');
+  let mode='layers';
+  function render(){
+    original.hidden=mode!=='original';
+    base.hidden=mode==='original'||transparent.checked;
+    scene.classList.toggle('checker',mode!=='original'&&transparent.checked);
+    controls.forEach(input=>{
+      document.getElementById(input.dataset.layer).hidden=mode!=='layers'||!input.checked;
+    });
+    status.value=mode==='original'?'原始底图':mode==='off'?'全部关闭':transparent.checked?'独立透明图层':'分层叠加';
+    document.querySelectorAll('[data-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===mode)));
+  }
+  document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{
+    mode=button.dataset.mode;
+    if(mode==='off')transparent.checked=false;
+    if(mode==='layers')controls.forEach(input=>{input.checked=true;});
+    render();
+  }));
+  controls.forEach(input=>input.addEventListener('change',()=>{mode='layers';render();}));
+  transparent.addEventListener('change',()=>{mode='layers';render();});
+  document.querySelector('#zoom').addEventListener('click',event=>{
+    const zoomed=scene.classList.toggle('zoom');
+    event.currentTarget.setAttribute('aria-pressed',String(zoomed));
+    event.currentTarget.textContent=zoomed?'恢复全景':'放大检查';
+  });
+  document.querySelectorAll('.scene img').forEach(img=>img.addEventListener('error',()=>{status.value='资源加载失败，请检查图片文件。';}));
+  render();
+})();
+</script>
+</body>
+</html>

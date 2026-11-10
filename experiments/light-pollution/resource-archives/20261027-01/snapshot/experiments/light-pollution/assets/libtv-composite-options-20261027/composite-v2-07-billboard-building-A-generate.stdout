@@ -1,0 +1,166 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "5ba762ab872a4bd9a1866a96e7a626cc",
+  "newNodeKey": "0a15d5a4-0a83-4eae-8e98-fad8dd1e0619",
+  "reactFlowNode": {
+    "id": "0a15d5a4-0a83-4eae-8e98-fad8dd1e0619",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "composite-v2-07-billboard-building-A",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "以参考原图为唯一美术和构图标准，制作可叠合的2D城市夜景游戏背景素材。严格继承蓝紫色手绘插画风格、颗粒纹理、建筑透视、城市布局、尺度和原位。不是重新设计城市，不是写实照片，不做素材拼贴或九宫格。参考画布2184×936，原始全景2171×724位于x=6,y=106；输出21:9，所有位置按比例对应。顶部和底部留边保持纯白。仅画指定图层，其他区域均为纯白RGB255,255,255，不要灰底或棋盘格，不要天空、星星、云、文字、水印、标注、投影。原位输出，不要把主体放大居中，不改变视角。保持蓝紫环境色与原图暖色窗灯；不要整体调色。允许自然补全指定图层被其他物体遮挡的部分，使整块素材可复用。每张是一张完整独立候选图，不是在一张图内画多个版本。任务：只画中间偏右原有带橙白蓝广告屏的建筑整体，保留屋顶、外墙、屏幕边框和原图案、暖色窗内、底层商铺及家具，成为一个完整单体建筑。原位置约x=1070至1390、y=435至735，以原图实际轮廓为准。移除遮挡它的树木灌木及栏杆，补齐完整立面至地面。保持原透视、比例和位置，不放大居中。不要附带左侧公共楼、住宅、山、水、植物或路面。",
+        "model": "lib-image-2.5-s",
+        "count": 4,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "high",
+          "resolution": "2K",
+          "background": "opaque",
+          "ratio": "21:9"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ]
+      }
+    },
+    "position": {
+      "x": 6400,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "ba153f77-7a1a-4a83-856e-1da9cf1534af",
+      "source": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+      "target": "0a15d5a4-0a83-4eae-8e98-fad8dd1e0619"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "0a15d5a4-0a83-4eae-8e98-fad8dd1e0619"
+  ]
+}
+{
+  "nodeKey": "0a15d5a4-0a83-4eae-8e98-fad8dd1e0619",
+  "nodeType": "image",
+  "taskId": "20261027201603113847723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "composite-v2-07-billboard-building-A",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985979096_71df0a7078b5418f80ea43c61083aff5.png",
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985979096_9b771e80dda2412697390e5ae8402d00.png",
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985979096_a545af4a20f44947bb11dd04d58dfc1a.png",
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985979096_f9254e1f7453423194e759b072585301.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "以参考原图为唯一美术和构图标准，制作可叠合的2D城市夜景游戏背景素材。严格继承蓝紫色手绘插画风格、颗粒纹理、建筑透视、城市布局、尺度和原位。不是重新设计城市，不是写实照片，不做素材拼贴或九宫格。参考画布2184×936，原始全景2171×724位于x=6,y=106；输出21:9，所有位置按比例对应。顶部和底部留边保持纯白。仅画指定图层，其他区域均为纯白RGB255,255,255，不要灰底或棋盘格，不要天空、星星、云、文字、水印、标注、投影。原位输出，不要把主体放大居中，不改变视角。保持蓝紫环境色与原图暖色窗灯；不要整体调色。允许自然补全指定图层被其他物体遮挡的部分，使整块素材可复用。每张是一张完整独立候选图，不是在一张图内画多个版本。任务：只画中间偏右原有带橙白蓝广告屏的建筑整体，保留屋顶、外墙、屏幕边框和原图案、暖色窗内、底层商铺及家具，成为一个完整单体建筑。原位置约x=1070至1390、y=435至735，以原图实际轮廓为准。移除遮挡它的树木灌木及栏杆，补齐完整立面至地面。保持原透视、比例和位置，不放大居中。不要附带左侧公共楼、住宅、山、水、植物或路面。",
+      "model": "Lib Image 2.5 Pro",
+      "count": 4,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "high",
+        "resolution": "2K",
+        "background": "opaque",
+        "ratio": "21:9"
+      },
+      "imageListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261027201603113847723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    }
+  }
+}

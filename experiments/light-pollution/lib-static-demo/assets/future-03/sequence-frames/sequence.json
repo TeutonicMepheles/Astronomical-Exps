@@ -1,0 +1,14 @@
+{
+  "duration": 5,
+  "fps": 20,
+  "count": 100,
+  "columns": 4,
+  "perAtlas": 16,
+  "frameWidth": 504,
+  "frameHeight": 284,
+  "strideX": 508,
+  "strideY": 288,
+  "padding": 2,
+  "atlasWidth": 2032,
+  "atlasHeight": 1152
+}

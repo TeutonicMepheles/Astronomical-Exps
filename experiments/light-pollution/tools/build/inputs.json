@@ -1,0 +1,430 @@
+{
+  "version": 1,
+  "inputs": [
+    {
+      "path": "app/page.html",
+      "bytes": 8389,
+      "sha256": "3f2ccf7c3d2cbbb7a21178720421b4a729ab14b0da859180523d79ec8e66b4e2"
+    },
+    {
+      "path": "assets/billboard-demo/city.svg",
+      "bytes": 923,
+      "sha256": "bb9786d6b8124299abfbcbc47b787b330ff5c494bf74615c085c258c77c678f3"
+    },
+    {
+      "path": "assets/billboard-demo/future.svg",
+      "bytes": 917,
+      "sha256": "fbdca092e4e3a792d2ebea8f85ebe36282be4e9f0ac0c8681b914a4a1d56b696"
+    },
+    {
+      "path": "assets/billboard-demo/orbit.svg",
+      "bytes": 917,
+      "sha256": "347c00d9333cfe7b3adb68b66da368b68955195efe95bab341c18220076d086e"
+    },
+    {
+      "path": "assets/curtain-textures-v2/charcoal-blackout.png",
+      "bytes": 3200809,
+      "sha256": "d97b0ab793538ae3b6fedaea265e009f0a735ddbf4b8c0b0e292c8242ed2e6c8"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
+      "bytes": 709082,
+      "sha256": "81ce8328557ad28d3705039aaee69eedf873dfe5d3c6926e6cf7a4ae7e498bc8"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png",
+      "bytes": 416738,
+      "sha256": "8b75a8195031908f863d57e5ebc2d5408bf714543f22aea8153dae128116e40f"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png",
+      "bytes": 289529,
+      "sha256": "3c40e604e8278ecce4c07e00f0ed12685fd8358b5bd9cfaab6db69083cea4645"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png",
+      "bytes": 367297,
+      "sha256": "77839256c6c43e3420112e94ee6bbeaa987db9b3b89f25078d9e9c8c379be585"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/05-residential/02.png",
+      "bytes": 354138,
+      "sha256": "b9042daa3d6a710c541b65eb71633ad183b135c8563fcb9a8916766d431e2d2d"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/06-public-building/03.png",
+      "bytes": 505921,
+      "sha256": "ef0522eb8b8bbb9fc88e252c24b77b5f33a1d567f49fb770f5799b43f32937da"
+    },
+    {
+      "path": "assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png",
+      "bytes": 386215,
+      "sha256": "c3db4b5b942d634fb5232cfb6e6fd79aa59fdf3ee9b39d1b17d6a8076722efd4"
+    },
+    {
+      "path": "lib-static-demo/assets/01-foreground-water.png",
+      "bytes": 442553,
+      "sha256": "c67cdbb4910d1f3494be64fd208080b5e4b50cc149c84179a8b18febc115b5cd"
+    },
+    {
+      "path": "lib-static-demo/assets/02-background-water.png",
+      "bytes": 170430,
+      "sha256": "92c5d47a60fea79b53dc327c4b4001499148dfe98643f895a966a273daf47fa1"
+    },
+    {
+      "path": "lib-static-demo/assets/03-mountains.png",
+      "bytes": 304360,
+      "sha256": "c0d2ad4481e390fc3b24ab502fbac117dc504ae29bbd110dd19a6f49b931d996"
+    },
+    {
+      "path": "lib-static-demo/assets/04-distant-city.png",
+      "bytes": 323257,
+      "sha256": "f64c750e35eb86e9558b2043d1a6920f05790ad121684226e8bf0249b2b31b09"
+    },
+    {
+      "path": "lib-static-demo/assets/05-near-buildings.png",
+      "bytes": 734662,
+      "sha256": "90e8140177d9887154a6b7e4a231988d40fac7c02d2a3e98d98362409f616563"
+    },
+    {
+      "path": "lib-static-demo/assets/06-residential-interiors.png",
+      "bytes": 142985,
+      "sha256": "70e0467f8658da2c6426b5daceb4c6303c5494ef7df44bab20eb48cd7771df18"
+    },
+    {
+      "path": "lib-static-demo/assets/07-public-interiors.png",
+      "bytes": 181076,
+      "sha256": "8b6ff55b82499aaf3c73957da3afadc27d5f2a44d28045226ea19ff879a30dc9"
+    },
+    {
+      "path": "lib-static-demo/assets/08-billboard.png",
+      "bytes": 91696,
+      "sha256": "03b94982ae7bd766ff20a4bade259fd07cb6bcc8cab53fbe682ad19dc14befb8"
+    },
+    {
+      "path": "lib-static-demo/assets/10-vegetation.png",
+      "bytes": 319158,
+      "sha256": "deaf513c641b7c6d2bac4cf8293b6240072f5c5d52faf2f244bb2f67d77477f3"
+    },
+    {
+      "path": "lib-static-demo/assets/11-shore-structures.png",
+      "bytes": 344776,
+      "sha256": "513bd1d368f75aef477734da20e8ccf32342a3d0c2a2f89c4f641996317be87c"
+    },
+    {
+      "path": "lib-static-demo/assets/reference.png",
+      "bytes": 1829669,
+      "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1"
+    },
+    {
+      "path": "assets/source-layers-v2/city-unlit-plate.png",
+      "bytes": 1285801,
+      "sha256": "70d1799aeefaddc38b2544e50f469ccadb5cc6d04904f1e187ab41146e584463"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-00.webp",
+      "bytes": 990128,
+      "sha256": "8060b899f597ed28be8987c795039d6ac02cf8c367338d42647d416d25a2328b"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-01.webp",
+      "bytes": 990586,
+      "sha256": "c758c86339183f9fd6d74f6283053b9d6002ab4d93fde55281658b381865988c"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-02.webp",
+      "bytes": 1001558,
+      "sha256": "7af04d3987814f8da5e76a87ec6b7d3298adedbf000d47eda873b1fba2ccd891"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-03.webp",
+      "bytes": 993780,
+      "sha256": "0c269e57afecbb84a73fbd96201899b0a68103896d45f9f6e7fa471ea087f90e"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-04-final.webp",
+      "bytes": 50398,
+      "sha256": "6304297be551172b979c74c61dd686059c5adbf8e8d789b746a1e9725cddcffa"
+    },
+    {
+      "path": "lib-static-demo/assets/window-apertures.png",
+      "bytes": 21758,
+      "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed"
+    },
+    {
+      "path": "assets/lamp-variants/open.png",
+      "bytes": 1067697,
+      "sha256": "c5234f626882cd15301c2f1971ad027567337f4f1b6fe8c3511732836accabb0"
+    },
+    {
+      "path": "assets/lamp-variants/cap.png",
+      "bytes": 1016920,
+      "sha256": "dd57abb3a912c4e35cf85ee004d970bcbb019aeb4092b3b900bde12d32485c26"
+    },
+    {
+      "path": "assets/lamp-variants/half.png",
+      "bytes": 1059162,
+      "sha256": "cf490031e2367e32a577a9f8897c8325d7906044ad6c188ce7ab2dfd8d5324ee"
+    },
+    {
+      "path": "assets/lamp-variants/full.png",
+      "bytes": 1047571,
+      "sha256": "9c659e55bb6474af0b8e02fce31805dbda7a4a4b4ea5f1c7d8ad60ef7eca4a2e"
+    },
+    {
+      "path": "assets/lamp-variants/sensor.png",
+      "bytes": 1052228,
+      "sha256": "b6299d53b9df1ac0a4561ea44df472d2b8c15e0aee66534e76936001e6e6e3bf"
+    },
+    {
+      "path": "../../shared/typography/typography.css",
+      "bytes": 300,
+      "sha256": "bd9f3a1c595ac9f71ccf114237c7042d6feb096a6f93ec3e149f2043951edea3"
+    },
+    {
+      "path": "../../shared/components/components.css",
+      "bytes": 6107,
+      "sha256": "25f6334cfe86e93ee31947595cc7a5e0ad95e6313a9988e48f8c56f2ab9e0d16"
+    },
+    {
+      "path": "app/styles/scene.css",
+      "bytes": 26156,
+      "sha256": "d63fb080b9b68eadb3cb0e0a423d8bc50363e460b8aa817bd31da212d34880d9"
+    },
+    {
+      "path": "core/runtime.js",
+      "bytes": 4516,
+      "sha256": "62bbcfbaf2c8126f263f6396f62bcdf30171773e5ee846141fe1ba139faef103"
+    },
+    {
+      "path": "scenes/candidate/definition.js",
+      "bytes": 533,
+      "sha256": "114815ae688fa8b4d627f81352c93bc69a42c1b0aa751a286b968b78834eaf3a"
+    },
+    {
+      "path": "scenes/candidate/observations.js",
+      "bytes": 1294,
+      "sha256": "b6c49f034e065c289afffdde2c6cc073a75a21709860ad13c05b470a5e5b9e4f"
+    },
+    {
+      "path": "scenes/legacy/definition.js",
+      "bytes": 318,
+      "sha256": "e6186442962583afad643a07aaef8a75e1f478df3909de769d7594433e947e22"
+    },
+    {
+      "path": "persistence/draft-storage.js",
+      "bytes": 144,
+      "sha256": "a08761f49fb918622630787591be22563654e8494c01673c061dec9bb3184466"
+    },
+    {
+      "path": "features/curtains/motion.js",
+      "bytes": 974,
+      "sha256": "85001bdb596e0fe1713adae700d2eab1b0facb920ebcac4a5c4a14db6031f412"
+    },
+    {
+      "path": "features/lamps/variants.js",
+      "bytes": 3525,
+      "sha256": "01d05626dec4a8850038b31bc4052ab6b09a5ceae1f0575266bb82626cd0538e"
+    },
+    {
+      "path": "features/light-environment/model.js",
+      "bytes": 1565,
+      "sha256": "83bde6eb79b01a0dbdf83ac28e2eefcb4d6047d52a83ba9b1c68015783b3361d"
+    },
+    {
+      "path": "resources/asset-registry.js",
+      "bytes": 1534,
+      "sha256": "024daf675b3220387875e032ab746607d4ce691ee2ce892847156f59abded09e"
+    },
+    {
+      "path": "core/history.js",
+      "bytes": 1283,
+      "sha256": "d76a88a45ae38593c752beccf80627b435e8a639dfd9ba2790c97aa85c71ee81"
+    },
+    {
+      "path": "persistence/scene-codec.js",
+      "bytes": 1501,
+      "sha256": "079f0f950424e9097f34c70873713050e5d6ab12f1ec1f91f81294464bb180f9"
+    },
+    {
+      "path": "core/scene-store.js",
+      "bytes": 2096,
+      "sha256": "96925420fc25ce1b3e21d0c328ac508b6f57d21167a3a9566e0c1e09e9bedfd7"
+    },
+    {
+      "path": "features/billboard/commands.js",
+      "bytes": 1460,
+      "sha256": "c5b7b5716ba38937f660439571bb3661383ab501af7bacdf52331105d99eb70b"
+    },
+    {
+      "path": "rendering/surface-projector.js",
+      "bytes": 4820,
+      "sha256": "07c581150b98d7e119a87fd263b351f56906e5172ef8460924784f4356ce5de8"
+    },
+    {
+      "path": "rendering/building-renderer.js",
+      "bytes": 6032,
+      "sha256": "1d9f6e9d328fd5b89327b74f7cf0dae4f806d28d0c5cb6ce19ae44a8e682bfa3"
+    },
+    {
+      "path": "rendering/reflection-pass.js",
+      "bytes": 2792,
+      "sha256": "ff2890e7cdecfc7531cccc19a6eccab6eca476315be7ec50f6b94290401e90df"
+    },
+    {
+      "path": "rendering/compositor.js",
+      "bytes": 1923,
+      "sha256": "2211607bac4adcb7fff91f7af34a90abd4765a24ff71804f861e33c7f59e7484"
+    },
+    {
+      "path": "components/pollution-starfield/starfield.js",
+      "bytes": 9174,
+      "sha256": "a43a95cdcb188835abf53af7cfbdab54e69e6cf1a6dcc487e05903c710204d75"
+    },
+    {
+      "path": "features/sky/panel.js",
+      "bytes": 5455,
+      "sha256": "8cfbc8c57363950f9be03a5a8dc1bd2170dadfe4d0721af7b93858be4ff749b2"
+    },
+    {
+      "path": "app/editor/layer-editor.js",
+      "bytes": 7821,
+      "sha256": "4cfb089c9bdbf9a1b244477cf765e5ddee22b3991f2a974aa74188823137fbd7"
+    },
+    {
+      "path": "lib-static-demo/assets/music-08/atlas-data.js",
+      "bytes": 9142810,
+      "sha256": "9872dfe4ee28c34c45adb10bb541f8390c194470eb20ab2732a830da94d2a8fb"
+    },
+    {
+      "path": "lib-static-demo/assets/future-03/atlas-data.js",
+      "bytes": 9543541,
+      "sha256": "27aa1948ef48acedc6fb047003d399cbb6b854910af12d22ce32b8ef20ddf9cf"
+    },
+    {
+      "path": "features/billboard/renderer.js",
+      "bytes": 4560,
+      "sha256": "1e37c779dbaf971eda470dd0efcaf2b9c09163f45fb8ca04d7c2c2bc4533e55d"
+    },
+    {
+      "path": "app/editor/object-editor.js",
+      "bytes": 5573,
+      "sha256": "9a2be54acb28c4c31478ae447e9d66dac020e36458d2c4689f8a5d2c46ec7f42"
+    },
+    {
+      "path": "app/presentation/billboard-panel.js",
+      "bytes": 3391,
+      "sha256": "70c7bfb6a1b86838009cb8e14f528f949c108edb85307ea6da96fd0205102590"
+    },
+    {
+      "path": "features/objects/service.js",
+      "bytes": 22956,
+      "sha256": "b158a740ac23ee08ba1fb85cab88bb04832da8c39b82581e5963f2120c41a2c9"
+    },
+    {
+      "path": "resources/candidate-loader.js",
+      "bytes": 6784,
+      "sha256": "9db6f5f08b30f6d6902cefd948cc53c7a8a52e93dfb732205183d24169b5b87f"
+    },
+    {
+      "path": "app/presentation/navigation.js",
+      "bytes": 3067,
+      "sha256": "ecd38737116a52f80c33abea17474ca363169a28c5ff4a61ed47f1dfca5bb486"
+    },
+    {
+      "path": "app/presentation/observation-panel.js",
+      "bytes": 18587,
+      "sha256": "32a05685e0624ed7a9bdd68c1c76cc499576b6d883a71312775af9b1fc3b02cf"
+    },
+    {
+      "path": "app/editor/gradient-editor.js",
+      "bytes": 14961,
+      "sha256": "bd9be0ae48850e04037c76937820adc943ba606fc4ab79d4f73b1e6ec2e250b0"
+    },
+    {
+      "path": "features/lamps/thumbnails.js",
+      "bytes": 1008,
+      "sha256": "a0e5072dfd3a4a907484f50817e8135f3bb6d94f50c399a63454107dfc5c9c5f"
+    },
+    {
+      "path": "features/lamps/carousel.js",
+      "bytes": 6455,
+      "sha256": "6a054ccc4fb2f818dbace01716682e3c6e33f560433bc690d76fa8000b81652f"
+    },
+    {
+      "path": "features/lamps/controller.js",
+      "bytes": 7649,
+      "sha256": "e2bca80e9ca8077a9104887fa043d600b55c02a92883ffb55eacaa7404cf7df9"
+    },
+    {
+      "path": "rendering/masked-lighting.js",
+      "bytes": 4051,
+      "sha256": "5adf41dce4e7b2bedb0685c6f49df8ea2a547971451aa1df9e4ec6700a04cef1"
+    },
+    {
+      "path": "resources/building-light-masks.js",
+      "bytes": 6436,
+      "sha256": "b3c45b773bb09d1529b22d1fa54f6fa05cb7d3d2d7e1cf4f723f5836b0d6dbad"
+    },
+    {
+      "path": "features/curtains/palette.js",
+      "bytes": 287,
+      "sha256": "ee08d50aae596cb90bc8b59bd1de15e2d81a26d203d0129a74085429fc178ad5"
+    },
+    {
+      "path": "features/buildings/controller.js",
+      "bytes": 18079,
+      "sha256": "fd5781df4fdcc1f81ccf2c9186d051496ce5610bba4d77d4c405f4a2d0c82dce"
+    },
+    {
+      "path": "features/water/renderer.js",
+      "bytes": 6857,
+      "sha256": "7b0fe72651f36900eb4ecc2345714f088b513cc3f2aefc236f558f61e7f3e356"
+    },
+    {
+      "path": "features/light-environment/controller.js",
+      "bytes": 4297,
+      "sha256": "73b1d2521eb3a4a17bebc5e26d3caba60c51e50763d210479a1a0f8c2908cc76"
+    },
+    {
+      "path": "../../shared/components/affordance.js",
+      "bytes": 1842,
+      "sha256": "4ee16f0650cf1808a0e1280a2c7ed6a801f83c4edf4a28e791cf42651d7eb6cc"
+    },
+    {
+      "path": "scenes/candidate/hint-contours.js",
+      "bytes": 927,
+      "sha256": "09a9042bffc5b2e21ee83cbd8c928e9b9a5a558a4e448be13d294aee19bd173c"
+    },
+    {
+      "path": "adapters/affordance-adapter.js",
+      "bytes": 199,
+      "sha256": "87a03f777bdd49bbd31b95f5b9801b3526ebf3f50dbd595ce720611d4ef0931d"
+    },
+    {
+      "path": "features/interaction-hints/controller.js",
+      "bytes": 5538,
+      "sha256": "63c8f9d52d8b448a7d2c8505959c34e13a2de71ef6df933b41b7a57fc44882b9"
+    },
+    {
+      "path": "features/environment/controller.js",
+      "bytes": 4938,
+      "sha256": "71dce4ccb7c13b438df3a6d25414c069896c54452c732bd3c248ee552594f22c"
+    },
+    {
+      "path": "core/performance-probe.js",
+      "bytes": 1675,
+      "sha256": "b3f3c89406431c74df1cc2805dce3f02b079f812764a5a46e41e0fbcc054afcd"
+    },
+    {
+      "path": "app/bootstrap.js",
+      "bytes": 21313,
+      "sha256": "47db2b02c61b8973783fa524fcb949726e05f5ce12eb02336f59fa86609c6be6"
+    }
+  ],
+  "output": {
+    "path": "lib-static-demo/standalone.html",
+    "bytes": 47887166,
+    "sha256": "8c4adafed50452c7b1e1ff75dcba0221784c6007f8740efa8a0ae2fdc7c27631"
+  }
+}

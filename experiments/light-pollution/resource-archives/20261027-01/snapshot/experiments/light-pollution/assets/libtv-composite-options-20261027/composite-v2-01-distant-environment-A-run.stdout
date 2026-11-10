@@ -1,0 +1,100 @@
+{
+  "nodeKey": "4b0cdac8-32f4-4f6d-b0ef-9f21e731e949",
+  "nodeType": "image",
+  "taskId": "20261027200503111387723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "composite-v2-01-distant-environment-A",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985964253_0c02ff8e131b46439a23bb2f1ce60967.png",
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985964253_458c12dd4a144be59c7f0177042fa386.png",
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985964253_88ab3b2a2d744df99540e36b73563a40.png",
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985964253_b8423d9f47d7420ba99539dad96eae33.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "以参考原图为唯一美术和构图标准，制作可叠合的2D城市夜景游戏背景素材。严格继承蓝紫色手绘插画风格、颗粒纹理、建筑透视、城市布局、尺度和原位。不是重新设计城市，不是写实照片，不做素材拼贴或九宫格。参考画布2184×936，原始全景2171×724位于x=6,y=106；输出21:9，所有位置按比例对应。顶部和底部留边保持纯白。仅画指定图层，其他区域均为纯白RGB255,255,255，不要灰底或棋盘格，不要天空、星星、云、文字、水印、标注、投影。原位输出，不要把主体放大居中，不改变视角。保持蓝紫环境色与原图暖色窗灯；不要整体调色。允许自然补全指定图层被其他物体遮挡的部分，使整块素材可复用。每张是一张完整独立候选图，不是在一张图内画多个版本。任务：整体保留远山、右侧山顶小塔、后排小型城市楼群、远岸灯带与背景河水，形成自然融合的连续环境层。山脊位置保持原图。移除左侧两栋大住宅、中央公共建筑、广告屏建筑、全部近景树木、步道、栏杆及最底部前景河水。补全这些移除物体后面的远山、远景楼群和背景水面，不能留下建筑或树形白洞。背景水面止于原近岸位置约y=710，不延伸到最底部前景河水区域。保留后排窗灯及自然微弱背景水面反光。",
+      "model": "Lib Image 2.5 Pro",
+      "count": 4,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "high",
+        "resolution": "2K",
+        "background": "opaque",
+        "ratio": "21:9"
+      },
+      "imageListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261027200503111387723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        },
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    }
+  }
+}

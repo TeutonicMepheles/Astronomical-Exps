@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-28T15:01:52.276Z",
+  "chrome": "156.0.8078.49",
+  "results": [
+    {
+      "name": "default",
+      "seconds": 7.2,
+      "sceneFps": 72.6,
+      "renderP95": 1.5,
+      "renderMax": 34.5,
+      "gapP95": 14.1,
+      "gapMax": 35.8,
+      "longTasks": 0,
+      "heap": 82401203,
+      "dpr": 1.5,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "visibility": "visible"
+    },
+    {
+      "name": "all-curtains",
+      "seconds": 10,
+      "sceneFps": 70.7,
+      "renderP95": 19.4,
+      "renderMax": 39.4,
+      "gapP95": 26.9,
+      "gapMax": 41,
+      "longTasks": 0,
+      "heap": 86607926,
+      "dpr": 1.5,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "visibility": "visible"
+    }
+  ],
+  "errors": []
+}

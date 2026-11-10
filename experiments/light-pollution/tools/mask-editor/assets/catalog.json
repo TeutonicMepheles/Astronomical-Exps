@@ -1,0 +1,698 @@
+{
+  "provenance": {
+    "url": "file:///B:/GithubProject/Astronomical-Exps/experiments/light-pollution/lib-static-demo/standalone.html",
+    "state": "Fresh browser context, default saved-file scene; no user browser drafts",
+    "standaloneSHA256": "a76ebca930303598e31722336cec79a0cf0dda036b4551856ea8e130849504ae",
+    "records": {
+      "residential-building": {
+        "width": 2172,
+        "height": 724,
+        "nonzero": 51522,
+        "soft": 15608,
+        "invalid": 0,
+        "items": [
+          "residential-window-0",
+          "residential-window-1",
+          "residential-window-2",
+          "residential-window-3",
+          "residential-window-4",
+          "residential-window-5",
+          "residential-window-6",
+          "residential-window-7",
+          "residential-window-8",
+          "residential-window-9",
+          "residential-window-10"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 179,
+          "width": 430,
+          "height": 413
+        }
+      },
+      "residential-window-0": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 57613,
+        "soft": 7883,
+        "invalid": 0,
+        "items": [
+          "residential-window-0"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-1": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 54361,
+        "soft": 6423,
+        "invalid": 0,
+        "items": [
+          "residential-window-1"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-2": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 53021,
+        "soft": 8728,
+        "invalid": 0,
+        "items": [
+          "residential-window-2"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-3": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 60017,
+        "soft": 18863,
+        "invalid": 0,
+        "items": [
+          "residential-window-3"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-4": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 53263,
+        "soft": 4666,
+        "invalid": 0,
+        "items": [
+          "residential-window-4"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-5": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 49365,
+        "soft": 8693,
+        "invalid": 0,
+        "items": [
+          "residential-window-5"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-6": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 61612,
+        "soft": 4867,
+        "invalid": 0,
+        "items": [
+          "residential-window-6"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-7": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 55676,
+        "soft": 9312,
+        "invalid": 0,
+        "items": [
+          "residential-window-7"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-8": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 48781,
+        "soft": 9336,
+        "invalid": 0,
+        "items": [
+          "residential-window-8"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-9": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 65078,
+        "soft": 12621,
+        "invalid": 0,
+        "items": [
+          "residential-window-9"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "residential-window-10": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 65327,
+        "soft": 14229,
+        "invalid": 0,
+        "items": [
+          "residential-window-10"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "public-building": {
+        "width": 2172,
+        "height": 724,
+        "nonzero": 36435,
+        "soft": 5132,
+        "invalid": 0,
+        "items": [
+          "public-window-0",
+          "public-window-1",
+          "public-window-2",
+          "public-window-3",
+          "public-window-4"
+        ],
+        "crop": {
+          "x": 480,
+          "y": 433,
+          "width": 760,
+          "height": 159
+        }
+      },
+      "public-window-0": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 61192,
+        "soft": 3987,
+        "invalid": 0,
+        "items": [
+          "public-window-0"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "public-window-1": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 59003,
+        "soft": 11321,
+        "invalid": 0,
+        "items": [
+          "public-window-1"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "public-window-2": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 61208,
+        "soft": 5814,
+        "invalid": 0,
+        "items": [
+          "public-window-2"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "public-window-3": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 61151,
+        "soft": 6485,
+        "invalid": 0,
+        "items": [
+          "public-window-3"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "public-window-4": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 61687,
+        "soft": 5244,
+        "invalid": 0,
+        "items": [
+          "public-window-4"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-building": {
+        "width": 2172,
+        "height": 724,
+        "nonzero": 15731,
+        "soft": 2992,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-1",
+          "ad-building-window-2",
+          "ad-building-window-3",
+          "ad-building-window-4",
+          "ad-building-window-5",
+          "ad-building-window-6",
+          "ad-building-window-7",
+          "ad-building-window-8",
+          "ad-building-window-9"
+        ],
+        "crop": {
+          "x": 1290,
+          "y": 341,
+          "width": 270,
+          "height": 251
+        }
+      },
+      "ad-building-window-1": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 51147,
+        "soft": 9026,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-1"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-window-2": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 54568,
+        "soft": 10612,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-2"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-window-3": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 50617,
+        "soft": 5615,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-3"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-window-4": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 60617,
+        "soft": 7806,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-4"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-window-5": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 58526,
+        "soft": 7534,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-5"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-window-6": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 55498,
+        "soft": 8259,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-6"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-window-7": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 61127,
+        "soft": 13116,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-7"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-window-8": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 58947,
+        "soft": 9850,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-8"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      },
+      "ad-building-window-9": {
+        "width": 256,
+        "height": 256,
+        "nonzero": 53141,
+        "soft": 7527,
+        "invalid": 0,
+        "items": [
+          "ad-building-window-9"
+        ],
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256
+        }
+      }
+    }
+  },
+  "assets": [
+    {
+      "id": "residential-building",
+      "label": "住宅 · 实际调光整图",
+      "kind": "运行时建筑",
+      "source": "assets/residential-building-source.png",
+      "mask": "assets/residential-building-mask.png"
+    },
+    {
+      "id": "residential-window-0",
+      "label": "住宅 · 单窗 1",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-0-source.png",
+      "mask": "assets/residential-window-0-mask.png"
+    },
+    {
+      "id": "residential-window-1",
+      "label": "住宅 · 单窗 2",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-1-source.png",
+      "mask": "assets/residential-window-1-mask.png"
+    },
+    {
+      "id": "residential-window-2",
+      "label": "住宅 · 单窗 3",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-2-source.png",
+      "mask": "assets/residential-window-2-mask.png"
+    },
+    {
+      "id": "residential-window-3",
+      "label": "住宅 · 单窗 4",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-3-source.png",
+      "mask": "assets/residential-window-3-mask.png"
+    },
+    {
+      "id": "residential-window-4",
+      "label": "住宅 · 单窗 5",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-4-source.png",
+      "mask": "assets/residential-window-4-mask.png"
+    },
+    {
+      "id": "residential-window-5",
+      "label": "住宅 · 单窗 6",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-5-source.png",
+      "mask": "assets/residential-window-5-mask.png"
+    },
+    {
+      "id": "residential-window-6",
+      "label": "住宅 · 单窗 7",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-6-source.png",
+      "mask": "assets/residential-window-6-mask.png"
+    },
+    {
+      "id": "residential-window-7",
+      "label": "住宅 · 单窗 8",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-7-source.png",
+      "mask": "assets/residential-window-7-mask.png"
+    },
+    {
+      "id": "residential-window-8",
+      "label": "住宅 · 单窗 9",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-8-source.png",
+      "mask": "assets/residential-window-8-mask.png"
+    },
+    {
+      "id": "residential-window-9",
+      "label": "住宅 · 单窗 10",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-9-source.png",
+      "mask": "assets/residential-window-9-mask.png"
+    },
+    {
+      "id": "residential-window-10",
+      "label": "住宅 · 单窗 11",
+      "kind": "运行时单窗",
+      "source": "assets/residential-window-10-source.png",
+      "mask": "assets/residential-window-10-mask.png"
+    },
+    {
+      "id": "public-building",
+      "label": "公共建筑 · 实际调光整图",
+      "kind": "运行时建筑",
+      "source": "assets/public-building-source.png",
+      "mask": "assets/public-building-mask.png"
+    },
+    {
+      "id": "public-window-0",
+      "label": "公共建筑 · 单窗 1",
+      "kind": "运行时单窗",
+      "source": "assets/public-window-0-source.png",
+      "mask": "assets/public-window-0-mask.png"
+    },
+    {
+      "id": "public-window-1",
+      "label": "公共建筑 · 单窗 2",
+      "kind": "运行时单窗",
+      "source": "assets/public-window-1-source.png",
+      "mask": "assets/public-window-1-mask.png"
+    },
+    {
+      "id": "public-window-2",
+      "label": "公共建筑 · 单窗 3",
+      "kind": "运行时单窗",
+      "source": "assets/public-window-2-source.png",
+      "mask": "assets/public-window-2-mask.png"
+    },
+    {
+      "id": "public-window-3",
+      "label": "公共建筑 · 单窗 4",
+      "kind": "运行时单窗",
+      "source": "assets/public-window-3-source.png",
+      "mask": "assets/public-window-3-mask.png"
+    },
+    {
+      "id": "public-window-4",
+      "label": "公共建筑 · 单窗 5",
+      "kind": "运行时单窗",
+      "source": "assets/public-window-4-source.png",
+      "mask": "assets/public-window-4-mask.png"
+    },
+    {
+      "id": "ad-building-building",
+      "label": "广告楼 · 实际调光整图",
+      "kind": "运行时建筑",
+      "source": "assets/ad-building-building-source.png",
+      "mask": "assets/ad-building-building-mask.png"
+    },
+    {
+      "id": "ad-building-window-1",
+      "label": "广告楼 · 单窗 1",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-1-source.png",
+      "mask": "assets/ad-building-window-1-mask.png"
+    },
+    {
+      "id": "ad-building-window-2",
+      "label": "广告楼 · 单窗 2",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-2-source.png",
+      "mask": "assets/ad-building-window-2-mask.png"
+    },
+    {
+      "id": "ad-building-window-3",
+      "label": "广告楼 · 单窗 3",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-3-source.png",
+      "mask": "assets/ad-building-window-3-mask.png"
+    },
+    {
+      "id": "ad-building-window-4",
+      "label": "广告楼 · 单窗 4",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-4-source.png",
+      "mask": "assets/ad-building-window-4-mask.png"
+    },
+    {
+      "id": "ad-building-window-5",
+      "label": "广告楼 · 单窗 5",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-5-source.png",
+      "mask": "assets/ad-building-window-5-mask.png"
+    },
+    {
+      "id": "ad-building-window-6",
+      "label": "广告楼 · 单窗 6",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-6-source.png",
+      "mask": "assets/ad-building-window-6-mask.png"
+    },
+    {
+      "id": "ad-building-window-7",
+      "label": "广告楼 · 单窗 7",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-7-source.png",
+      "mask": "assets/ad-building-window-7-mask.png"
+    },
+    {
+      "id": "ad-building-window-8",
+      "label": "广告楼 · 单窗 8",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-8-source.png",
+      "mask": "assets/ad-building-window-8-mask.png"
+    },
+    {
+      "id": "ad-building-window-9",
+      "label": "广告楼 · 单窗 9",
+      "kind": "运行时单窗",
+      "source": "assets/ad-building-window-9-source.png",
+      "mask": "assets/ad-building-window-9-mask.png"
+    },
+    {
+      "id": "residential-raw",
+      "label": "住宅 · 原始素材（含白底）",
+      "kind": "原始素材",
+      "source": "assets/residential-raw.png",
+      "mask": null
+    },
+    {
+      "id": "public-raw",
+      "label": "公共建筑 · 原始素材（含白底）",
+      "kind": "原始素材",
+      "source": "assets/public-raw.png",
+      "mask": null
+    },
+    {
+      "id": "ad-building-raw",
+      "label": "广告楼 · 原始素材（含白底）",
+      "kind": "原始素材",
+      "source": "assets/ad-building-raw.png",
+      "mask": null
+    }
+  ]
+}

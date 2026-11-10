@@ -1,0 +1,494 @@
+[
+  {
+    "id": "01-foreground-water",
+    "raw": "raw\\01-foreground-water\\01-foreground-water.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        254,
+        253,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "02-background-water",
+    "raw": "raw\\02-background-water\\02-background-water.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        254,
+        253,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "03-mountains",
+    "raw": "raw\\03-mountains\\03-mountains.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        253,
+        253,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "04-distant-city",
+    "raw": "raw\\04-distant-city\\04-distant-city.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "05-near-buildings",
+    "raw": "raw\\05-near-buildings\\05-near-buildings.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        253,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "06-residential-interiors",
+    "raw": "raw\\06-residential-interiors\\06-residential-interiors.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "07-public-interiors",
+    "raw": "raw\\07-public-interiors\\07-public-interiors.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        254,
+        254,
+        255
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        255,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "08-billboard",
+    "raw": "raw\\08-billboard\\08-billboard.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        253,
+        253,
+        255
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "09-window-frames",
+    "raw": "raw\\09-window-frames\\09-window-frames.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        253,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "10-vegetation",
+    "raw": "raw\\10-vegetation\\10-vegetation.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        253,
+        255,
+        254
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        255,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "11-shore-structures",
+    "raw": "raw\\11-shore-structures\\11-shore-structures.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        253,
+        253,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  },
+  {
+    "id": "12-water-reflections",
+    "raw": "raw\\12-water-reflections-r2\\12-water-reflections-r2.png",
+    "raw_size": [
+      2016,
+      864
+    ],
+    "crop_box": [
+      6,
+      98,
+      2010,
+      766
+    ],
+    "output_size": [
+      2172,
+      724
+    ],
+    "raw_corner_rgb": [
+      [
+        253,
+        253,
+        254
+      ],
+      [
+        255,
+        255,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "white_background_normalized": true
+  }
+]

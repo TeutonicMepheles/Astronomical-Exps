@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-28T09:22:41.589Z",
+  "chrome": "156.0.8078.49",
+  "viewport": "1920x1080 DPR1 headless Chrome; fresh storage",
+  "readyMs": 2079,
+  "frames": 881,
+  "p50": 13.300000000001091,
+  "p95": 13.400000000001455,
+  "max": 26.799999999999272,
+  "over50": 0,
+  "longTasks": 0,
+  "longTaskMs": 0,
+  "heap": 86400000,
+  "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "topSamples": [
+    [
+      "(idle)",
+      6291
+    ],
+    [
+      "sync",
+      495
+    ],
+    [
+      "texImage2D",
+      484
+    ],
+    [
+      "(program)",
+      221
+    ],
+    [
+      "draw",
+      101
+    ],
+    [
+      "drawImage",
+      90
+    ],
+    [
+      "clone",
+      49
+    ],
+    [
+      "(garbage collector)",
+      30
+    ],
+    [
+      "update",
+      28
+    ],
+    [
+      "fill",
+      26
+    ],
+    [
+      "tick",
+      22
+    ],
+    [
+      "fillRect",
+      17
+    ],
+    [
+      "render",
+      14
+    ],
+    [
+      "compose",
+      11
+    ],
+    [
+      "addColorStop",
+      10
+    ],
+    [
+      "arc",
+      10
+    ],
+    [
+      "(anonymous)",
+      8
+    ],
+    [
+      "getData",
+      5
+    ]
+  ],
+  "errors": []
+}

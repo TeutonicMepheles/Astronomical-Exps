@@ -1,0 +1,316 @@
+{
+  "generatedMatchesStandalone": true,
+  "standaloneBytes": 32553592,
+  "standaloneSHA256": "175ad5e70c360b37be5dec91d656c9e5bb8ec4caa05fb3310c0dff164a43fe93",
+  "scriptCount": 22,
+  "packagedCount": 49,
+  "inventoryFiles": 1036,
+  "totals": {
+    "adapters": {
+      "files": 1,
+      "bytes": 165,
+      "packaged": 0
+    },
+    "(root files)": {
+      "files": 26,
+      "bytes": 552090,
+      "packaged": 0
+    },
+    "assets": {
+      "files": 306,
+      "bytes": 152186493,
+      "packaged": 11
+    },
+    "baseline-scroll": {
+      "files": 3,
+      "bytes": 7854,
+      "packaged": 0
+    },
+    "components": {
+      "files": 4,
+      "bytes": 13295,
+      "packaged": 1
+    },
+    "layered-demo": {
+      "files": 23,
+      "bytes": 9203506,
+      "packaged": 0
+    },
+    "lib-static-demo": {
+      "files": 106,
+      "bytes": 114293371,
+      "packaged": 34
+    },
+    "mask-editor": {
+      "files": 69,
+      "bytes": 10579807,
+      "packaged": 0
+    },
+    "resource-archives": {
+      "files": 457,
+      "bytes": 192907281,
+      "packaged": 0
+    },
+    "sky-preview": {
+      "files": 4,
+      "bytes": 9303,
+      "packaged": 0
+    },
+    "static-demo": {
+      "files": 26,
+      "bytes": 14229973,
+      "packaged": 0
+    },
+    "tests": {
+      "files": 11,
+      "bytes": 44562,
+      "packaged": 0
+    }
+  },
+  "metrics": [
+    {
+      "path": "experiments/light-pollution/components/pollution-starfield/starfield.js",
+      "bytes": 8912,
+      "lines": 84,
+      "domAccess": 0,
+      "raf": 1,
+      "syntheticClick": 0,
+      "globals": [
+        "PollutionStarfield"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/sky-settings.js",
+      "bytes": 5195,
+      "lines": 28,
+      "domAccess": 24,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "compositorSky"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/editor.js",
+      "bytes": 10719,
+      "lines": 66,
+      "domAccess": 4,
+      "raf": 0,
+      "syntheticClick": 3,
+      "globals": [
+        "createLayerEditor"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/billboard-video.js",
+      "bytes": 3969,
+      "lines": 29,
+      "domAccess": 0,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "createBillboardVideo",
+        "BILLBOARD_SEQUENCE",
+        "BILLBOARD_FUTURE_SEQUENCE"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/objects.js",
+      "bytes": 30648,
+      "lines": 125,
+      "domAccess": 9,
+      "raf": 2,
+      "syntheticClick": 4,
+      "globals": [
+        "createSceneObjects",
+        "createBillboardVideo",
+        "LIB_STATIC_ASSETS"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/candidates.js",
+      "bytes": 6549,
+      "lines": 59,
+      "domAccess": 0,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "loadCandidateScene",
+        "LIB_STATIC_ASSETS"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/navigation.js",
+      "bytes": 3003,
+      "lines": 26,
+      "domAccess": 8,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "createStreetNavigation"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/gradient-editor.js",
+      "bytes": 15294,
+      "lines": 82,
+      "domAccess": 5,
+      "raf": 0,
+      "syntheticClick": 7,
+      "globals": [
+        "createGradientEditor",
+        "compositorSky"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/lamps.js",
+      "bytes": 7025,
+      "lines": 49,
+      "domAccess": 4,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "createCompositorLamps",
+        "LIB_STATIC_ASSETS"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/masked-lighting.js",
+      "bytes": 4035,
+      "lines": 10,
+      "domAccess": 0,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "createLightMask",
+        "createMaskedLighting"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/building-light-masks.js",
+      "bytes": 6436,
+      "lines": 74,
+      "domAccess": 0,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "createBuildingLightMasks"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/curtain-palette.js",
+      "bytes": 1350549,
+      "lines": 1,
+      "domAccess": 0,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "STREET_CURTAINS"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/building-controls.js",
+      "bytes": 19338,
+      "lines": 72,
+      "domAccess": 4,
+      "raf": 0,
+      "syntheticClick": 8,
+      "globals": [
+        "createBuildingControls"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/water-flow.js",
+      "bytes": 6879,
+      "lines": 60,
+      "domAccess": 0,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "createWaterFlow"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/light-environment.js",
+      "bytes": 5172,
+      "lines": 38,
+      "domAccess": 7,
+      "raf": 0,
+      "syntheticClick": 1,
+      "globals": [
+        "createLightEnvironment"
+      ]
+    },
+    {
+      "path": "shared/components/affordance.js",
+      "bytes": 1842,
+      "lines": 31,
+      "domAccess": 0,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "ExperimentHints"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/hint-contours.js",
+      "bytes": 929,
+      "lines": 3,
+      "domAccess": 0,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "STREET_HINT_CONTOURS"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/interaction-hints.js",
+      "bytes": 5280,
+      "lines": 32,
+      "domAccess": 2,
+      "raf": 0,
+      "syntheticClick": 0,
+      "globals": [
+        "createStreetHints"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/scene-effects.js",
+      "bytes": 5389,
+      "lines": 24,
+      "domAccess": 13,
+      "raf": 0,
+      "syntheticClick": 1,
+      "globals": [
+        "createSceneEffects",
+        "createLightMask",
+        "createMaskedLighting"
+      ]
+    },
+    {
+      "path": "experiments/light-pollution/lib-static-demo/app.js",
+      "bytes": 22867,
+      "lines": 146,
+      "domAccess": 24,
+      "raf": 2,
+      "syntheticClick": 1,
+      "globals": [
+        "createBuildingControls",
+        "createCompositorLamps",
+        "createGradientEditor",
+        "createStreetNavigation",
+        "createSceneEffects",
+        "createLightEnvironment",
+        "compositorSky",
+        "compositorLightEnvironment",
+        "createStreetHints",
+        "createWaterFlow",
+        "addEventListener",
+        "LIB_STATIC_ASSETS",
+        "loadCandidateScene",
+        "createSceneObjects",
+        "createLayerEditor"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,858 @@
+{
+  "date": "2026-10-29T06:46:14.763Z",
+  "chrome": "156.0.8078.49",
+  "url": "http://127.0.0.1:8090/experiments/light-pollution/lib-static-demo/standalone.html",
+  "samples": [
+    {
+      "name": "default",
+      "elapsedMs": 12008,
+      "raf": {
+        "count": 863,
+        "p95": 13.400000000001455,
+        "max": 520
+      },
+      "framesOver50": 1,
+      "longTasks": {
+        "count": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "events": [],
+      "inputToTwoRafs": {
+        "count": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "heap": 81435236,
+      "visibility": "visible",
+      "dpr": 1.5,
+      "viewport": [
+        1600,
+        900
+      ],
+      "scene": {
+        "seconds": 12,
+        "sceneFps": 71.9,
+        "renderP95": 1.2,
+        "renderMax": 17.3,
+        "gapP95": 14,
+        "gapMax": 536.6,
+        "longTasks": 0,
+        "heap": 81435236,
+        "dpr": 1.5,
+        "viewport": [
+          1600,
+          900
+        ]
+      }
+    },
+    {
+      "name": "pan-and-billboard",
+      "elapsedMs": 5855,
+      "raf": {
+        "count": 438,
+        "p95": 13.400000000001455,
+        "max": 13.5
+      },
+      "framesOver50": 0,
+      "longTasks": {
+        "count": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "events": [
+        {
+          "name": "keydown",
+          "duration": 40,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "keyup",
+          "duration": 64,
+          "delay": 2.800000000046566
+        },
+        {
+          "name": "pointerdown",
+          "duration": 56,
+          "delay": 0.5
+        },
+        {
+          "name": "pointerup",
+          "duration": 56,
+          "delay": 1.3000000000465661
+        },
+        {
+          "name": "click",
+          "duration": 56,
+          "delay": 8.199999999953434
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.5
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 1.1000000000931323
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.7000000001862645
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.8000000000465661
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 3.5
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.8999999999068677
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.3000000000465661
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.6000000000931323
+        },
+        {
+          "name": "keydown",
+          "duration": 32,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "keyup",
+          "duration": 32,
+          "delay": 0
+        },
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.4000000001396984
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.9000000001396984
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.9000000001396984
+        },
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.39999999990686774
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.8000000000465661
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 1.9000000001396984
+        },
+        {
+          "name": "keydown",
+          "duration": 32,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "keyup",
+          "duration": 32,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.6000000000931323
+        },
+        {
+          "name": "keydown",
+          "duration": 32,
+          "delay": 0
+        },
+        {
+          "name": "keyup",
+          "duration": 32,
+          "delay": 0
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.2999999998137355
+        },
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.5999999998603016
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 1.6999999999534339
+        },
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.30000000004656613
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.6000000000931323
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.6999999999534339
+        },
+        {
+          "name": "pointerdown",
+          "duration": 48,
+          "delay": 0.20000000018626451
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.4000000001396984
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 0.4000000001396984
+        },
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.39999999990686774
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.5
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.5
+        },
+        {
+          "name": "keydown",
+          "duration": 32,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "keyup",
+          "duration": 32,
+          "delay": 0
+        },
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.30000000004656613
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.6999999999534339
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 1.8000000000465661
+        },
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.5999999998603016
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.9000000001396984
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.9000000001396984
+        },
+        {
+          "name": "keydown",
+          "duration": 24,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "keyup",
+          "duration": 40,
+          "delay": 3.5
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.8000000000465661
+        },
+        {
+          "name": "pointerup",
+          "duration": 40,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "click",
+          "duration": 40,
+          "delay": 0.2999999998137355
+        },
+        {
+          "name": "keydown",
+          "duration": 40,
+          "delay": 0.30000000004656613
+        },
+        {
+          "name": "keyup",
+          "duration": 32,
+          "delay": 0.5999999998603016
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.3999999999068677
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "keydown",
+          "duration": 32,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "keyup",
+          "duration": 32,
+          "delay": 0.30000000004656613
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.5999999998603016
+        },
+        {
+          "name": "pointerup",
+          "duration": 40,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "click",
+          "duration": 40,
+          "delay": 0.5
+        },
+        {
+          "name": "keydown",
+          "duration": 40,
+          "delay": 0
+        },
+        {
+          "name": "keyup",
+          "duration": 32,
+          "delay": 0.5
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.1000000000931323
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 0.6999999999534339
+        },
+        {
+          "name": "keydown",
+          "duration": 32,
+          "delay": 0
+        },
+        {
+          "name": "keyup",
+          "duration": 32,
+          "delay": 0.19999999995343387
+        }
+      ],
+      "inputToTwoRafs": {
+        "count": 148,
+        "p95": 28.899999999906868,
+        "max": 31.199999999953434
+      },
+      "heap": 82828899,
+      "visibility": "visible",
+      "dpr": 1.5,
+      "viewport": [
+        1600,
+        900
+      ],
+      "scene": {
+        "seconds": 5.9,
+        "sceneFps": 74.9,
+        "renderP95": 2.8,
+        "renderMax": 17.9,
+        "gapP95": 15.1,
+        "gapMax": 30.7,
+        "longTasks": 0,
+        "heap": 82828899,
+        "dpr": 1.5,
+        "viewport": [
+          1600,
+          900
+        ]
+      }
+    },
+    {
+      "name": "building-controls",
+      "elapsedMs": 5692,
+      "raf": {
+        "count": 405,
+        "p95": 26.599999999998545,
+        "max": 26.799999999999272
+      },
+      "framesOver50": 0,
+      "longTasks": {
+        "count": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "events": [
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.4000000001396984
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 3.1000000000931323
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 3.199999999953434
+        },
+        {
+          "name": "pointerdown",
+          "duration": 32,
+          "delay": 0.6000000000931323
+        },
+        {
+          "name": "pointerup",
+          "duration": 32,
+          "delay": 1.3000000000465661
+        },
+        {
+          "name": "click",
+          "duration": 32,
+          "delay": 7.400000000139698
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1.2999999998137355
+        },
+        {
+          "name": "pointerup",
+          "duration": 40,
+          "delay": 14.200000000186265
+        },
+        {
+          "name": "click",
+          "duration": 40,
+          "delay": 15.900000000139698
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 1
+        },
+        {
+          "name": "pointerup",
+          "duration": 40,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "click",
+          "duration": 40,
+          "delay": 1.3999999999068677
+        },
+        {
+          "name": "pointerdown",
+          "duration": 56,
+          "delay": 1.8999999999068677
+        },
+        {
+          "name": "pointerup",
+          "duration": 64,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "click",
+          "duration": 64,
+          "delay": 1.3999999999068677
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 0.30000000004656613
+        },
+        {
+          "name": "pointerup",
+          "duration": 40,
+          "delay": 0.8000000000465661
+        },
+        {
+          "name": "click",
+          "duration": 40,
+          "delay": 0.8000000000465661
+        },
+        {
+          "name": "keydown",
+          "duration": 40,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "keyup",
+          "duration": 40,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "pointerdown",
+          "duration": 64,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "pointerup",
+          "duration": 56,
+          "delay": 0.5
+        },
+        {
+          "name": "click",
+          "duration": 56,
+          "delay": 0.6999999999534339
+        },
+        {
+          "name": "pointerdown",
+          "duration": 56,
+          "delay": 0.6000000000931323
+        },
+        {
+          "name": "pointerup",
+          "duration": 56,
+          "delay": 1.0999999998603016
+        },
+        {
+          "name": "click",
+          "duration": 56,
+          "delay": 3.5999999998603016
+        },
+        {
+          "name": "pointerdown",
+          "duration": 64,
+          "delay": 3.300000000046566
+        },
+        {
+          "name": "pointerup",
+          "duration": 40,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "click",
+          "duration": 40,
+          "delay": 1.3999999999068677
+        },
+        {
+          "name": "pointerdown",
+          "duration": 56,
+          "delay": 2.300000000046566
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 1.2999999998137355
+        },
+        {
+          "name": "pointerdown",
+          "duration": 56,
+          "delay": 2.800000000046566
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 1.3000000000465661
+        },
+        {
+          "name": "pointerdown",
+          "duration": 48,
+          "delay": 0.39999999990686774
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.39999999990686774
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 0.39999999990686774
+        },
+        {
+          "name": "keydown",
+          "duration": 48,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "keyup",
+          "duration": 48,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "pointerdown",
+          "duration": 40,
+          "delay": 0.30000000004656613
+        },
+        {
+          "name": "pointerup",
+          "duration": 40,
+          "delay": 1.5
+        },
+        {
+          "name": "click",
+          "duration": 40,
+          "delay": 1.5
+        },
+        {
+          "name": "pointerdown",
+          "duration": 48,
+          "delay": 0.39999999990686774
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.8999999999068677
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 3.199999999953434
+        },
+        {
+          "name": "pointerdown",
+          "duration": 56,
+          "delay": 2
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.09999999986030161
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 1.5
+        },
+        {
+          "name": "pointerdown",
+          "duration": 56,
+          "delay": 2.699999999953434
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.19999999995343387
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 1.7999999998137355
+        },
+        {
+          "name": "pointerdown",
+          "duration": 56,
+          "delay": 2.1000000000931323
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 1.6000000000931323
+        },
+        {
+          "name": "pointerdown",
+          "duration": 48,
+          "delay": 0.39999999990686774
+        },
+        {
+          "name": "pointerup",
+          "duration": 48,
+          "delay": 0.5
+        },
+        {
+          "name": "click",
+          "duration": 48,
+          "delay": 0.6000000000931323
+        },
+        {
+          "name": "keydown",
+          "duration": 40,
+          "delay": 0.10000000009313226
+        },
+        {
+          "name": "keyup",
+          "duration": 40,
+          "delay": 0.09999999986030161
+        }
+      ],
+      "inputToTwoRafs": {
+        "count": 206,
+        "p95": 35,
+        "max": 51.60000000009313
+      },
+      "heap": 87807828,
+      "visibility": "visible",
+      "dpr": 1.5,
+      "viewport": [
+        1600,
+        900
+      ],
+      "scene": {
+        "seconds": 5.7,
+        "sceneFps": 71.2,
+        "renderP95": 21.1,
+        "renderMax": 32.7,
+        "gapP95": 30.3,
+        "gapMax": 44,
+        "longTasks": 0,
+        "heap": 87807828,
+        "dpr": 1.5,
+        "viewport": [
+          1600,
+          900
+        ]
+      }
+    },
+    {
+      "name": "all-curtains",
+      "elapsedMs": 16010,
+      "raf": {
+        "count": 329,
+        "p95": 13.400000000001455,
+        "max": 1013.2999999999956
+      },
+      "framesOver50": 11,
+      "longTasks": {
+        "count": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "events": [],
+      "inputToTwoRafs": {
+        "count": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "heap": 81752162,
+      "visibility": "visible",
+      "dpr": 1.5,
+      "viewport": [
+        1600,
+        900
+      ],
+      "scene": {
+        "seconds": 16,
+        "sceneFps": 20.6,
+        "renderP95": 2.9,
+        "renderMax": 27.6,
+        "gapP95": 22.4,
+        "gapMax": 1028.1,
+        "longTasks": 0,
+        "heap": 81752162,
+        "dpr": 1.5,
+        "viewport": [
+          1600,
+          900
+        ]
+      }
+    }
+  ],
+  "checks": [
+    "scene tap opens independent panel without editor DOM",
+    "live slider drags, single-gesture undo/redo, zero brightness hit, Esc cancellation, pause/resume, resource, restart, reopen and panel exclusion",
+    "real drags of brightness, temperature, curtains on all three buildings"
+  ],
+  "errors": [],
+  "pass": true
+}

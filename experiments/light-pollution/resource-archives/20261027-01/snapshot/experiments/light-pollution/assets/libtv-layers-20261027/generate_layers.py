@@ -1,0 +1,59 @@
+"""Generate source-aligned white-background layers through the official LibTV CLI."""
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+PROJECT = '5ba762ab872a4bd9a1866a96e7a626cc'
+REFERENCE = '4eb13f1f-6902-4c2b-8ec2-cd715213ee7d'
+CLI = str(Path.home() / '.libtv/libtv.exe')
+LAYERS = [
+    ('01-foreground-water', '前景水体', '仅保留画面最底部、横贯全宽的近景河水。水域大致位于参考画布 y=736 至830。保留水域原位置、边界、深蓝色与细腻插画水纹；移除水面全部黄色橙色灯光倒影并自然补成同色水纹。不要保留岸边、台阶、建筑、树木或背景水面。'),
+    ('02-background-water', '背景水体', '仅保留右侧远处城市与近岸栏杆之间的背景河水，约参考画布 x=1460至2177、y=610至700，以原图实际水域边界为准。保留原有前景遮挡留下的轮廓，不扩展水域。移除固定灯光倒影。不要保留底部前景河水、建筑、岸线灯点、栏杆、长椅、树木。'),
+    ('03-mountains', '远山', '仅保留原图紫蓝色山脉及右侧山顶小塔。保持山脊轮廓和原有纹理，建筑遮住的部分保持白色，不补画隐藏山体。其他内容全部白色。'),
+    ('04-distant-city', '远景城市结构', '仅保留原图后排小型城市楼群的建筑结构，排除左侧近景两栋住宅及中央近景公共建筑和广告屏所在建筑。楼群位置、大小、剪影严格不变。窗户熄灯，原黄色窗灯改成暗色窗孔。排除山、水、树木、岸边灯点。'),
+    ('05-near-buildings', '近景建筑结构', '仅保留左侧两栋近景住宅和中间低层公共建筑以及广告屏所在近景建筑的墙体、屋顶、阳台、固定结构。所有室内玻璃开口及广告屏显示面留纯白，以便另层填入；不要改变开口边界。树木等遮挡处保留白色缺口，不补画隐藏建筑。排除山、水、远景城市、道路及植物。'),
+    ('06-residential-interiors', '住宅室内与窗灯', '仅保留左侧两栋住宅窗内的暖色室内、人物、家具，以及远景小楼中的住宅发光窗。保留每一处在原图中的位置、面积、颜色、透视；排除窗框、墙、树木及公共建筑和广告屏。玻璃内原有暗色家具人物保留，不能只筛选黄色像素。不要新增窗帘。'),
+    ('07-public-interiors', '公共建筑室内与窗灯', '仅保留中部近景公共建筑与广告屏所在建筑底层的玻璃开口内室内景物及暖色灯光。保留原图家具、人物和原透视。排除左侧两栋住宅、远景小楼窗灯、广告屏、窗框、墙体、植物。所有室内块保持原坐标，不能排成素材九宫格。'),
+    ('08-billboard', '广告屏内容', '仅保留画面中偏右的唯一大广告屏显示面及其原有橙白蓝抽象图案，严格保持原图四角透视、尺寸和位置。排除屏幕外壳、建筑、环境光晕、其他内容。不要重新设计图案。'),
+    ('09-window-frames', '近景窗框结构', '仅提取近景住宅与公共建筑玻璃窗前方可见的细窗框、横梁、竖框与窗台边缘，保留原位和原色。室内玻璃、灯光、家具、人物、墙体、水体、植物全部白色。不要把室内人物家具误当窗框。不要新造或加粗框线。'),
+    ('10-vegetation', '前景树木与灌木', '仅保留原图所有前景树冠、树干与灌木，严格保持每棵树的位置、轮廓、尺寸、紫蓝色和插画纹理。其余全部白色；不补充新树，不移动或重新排列。'),
+    ('11-shore-structures', '岸边步道与设施', '仅保留横贯画面的近岸步道、石岸台阶、护岸、栏杆、立柱、右侧长椅等固定设施，以及远岸原有细岸线和灯点。移除水体、树木灌木、建筑、山体；原被其他物体遮挡区域保持白色，不补画。保留原有色调和位置。'),
+    ('12-water-reflections', '水面原有灯光倒影', '仅保留原图前景与背景水面上原有黄色、橙色、淡紫色的灯光倒影笔触，保留各条倒影的原位、大小、分段形态和颜色。除倒影外的水体、建筑、树木、岸边全部纯白。不要添加光晕，不重新排列，不创造新倒影。此层作为后续可控倒影的美术参考。'),
+]
+BASE = '''这是严格保持注册位置的图层提取，不是重新创作。唯一参考图是带白色留边的原始2D夜景全景插画。输出与参考相同21:9画布；原全景占参考2184×936画布中的(x=6,y=106,width=2171,height=724)。所有保留像素对应的物体必须保持原始位置、比例、透视、轮廓、画风、颜色与纹理。不裁切，不放大，不居中，不移动，不增加物体，不改构图。仅保留本任务指定内容，其他区域全部均匀纯白RGB(255,255,255)，包括顶部与底部留边；禁止透明、灰底、棋盘格、阴影、文字、标签、边框。边缘干净。被前方物体遮挡而不可见的部分保持白色，不臆造隐藏细节。任务：'''
+
+def run(args, log):
+    result = subprocess.run([CLI, *args], capture_output=True, text=True, encoding='utf-8', errors='replace')
+    (HERE / log).write_text(result.stdout + '\n' + result.stderr, encoding='utf-8')
+    if result.returncode:
+        print(result.stdout + result.stderr, flush=True)
+        raise RuntimeError(f'LibTV command failed: {log}')
+    return result.stdout
+
+def main():
+    selected = set(sys.argv[1:])
+    manifest = {'project': PROJECT, 'model': 'Lib Image 2.5 Pro', 'reference': REFERENCE, 'layers': [
+        {'id': key, 'name': name, 'prompt': BASE + prompt} for key, name, prompt in LAYERS]}
+    (HERE / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
+    for i, (key, name, prompt) in enumerate(LAYERS):
+        if selected and key not in selected:
+            continue
+        if (HERE / (key + '.done')).exists():
+            continue
+        print(f'GENERATING {key} {name}', flush=True)
+        args = ['node', '--x', str(600+(i%3)*550), '--y', str((i//3)*350), 'create', key,
+                '-p', PROJECT, '-t', 'image', '--left', REFERENCE, '--prompt', BASE+prompt,
+                '-s', 'model=Lib Image 2.5 Pro', '-s', 'modeType=image2image', '-s', 'count=1',
+                '-s', 'ratio=21:9', '-s', 'resolution=2K',
+                '-s', 'quality=high', '-s', 'background=opaque', '--run']
+        run(args, key + '-generation.json')
+        output = HERE / 'raw' / key
+        output.mkdir(parents=True, exist_ok=True)
+        run(['download', '-p', PROJECT, '-n', key, '-o', str(output), '--without-ai-watermark'], key+'-download.json')
+        (HERE / (key+'.done')).write_text('Generated and downloaded; visual QA pending.\n', encoding='utf-8')
+        print(f'DOWNLOADED {key}', flush=True)
+
+if __name__ == '__main__':
+    main()

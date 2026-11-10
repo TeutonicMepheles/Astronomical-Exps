@@ -1,0 +1,133 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "5ba762ab872a4bd9a1866a96e7a626cc",
+  "newNodeKey": "000d6868-b0f3-45ce-ab11-55d9ef816bbd",
+  "reactFlowNode": {
+    "id": "000d6868-b0f3-45ce-ab11-55d9ef816bbd",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "12-water-reflections-r2",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "严格抠图：只保留参考图底部水面上的黄色、橙色、淡紫色灯光倒影笔触。所有蓝色水面必须全部删除并替换为纯白RGB255。最终画面应是一组悬浮在纯白画布底部的橙黄色短横笔触，绝不能有蓝色矩形水面条带。每条倒影保持原参考位置、比例、纹理与颜色，不重新排版、不居中、不放大。参考图画布2184x936，原全景位于x6 y106宽2171高724。输出相同21:9画布，保留上下白色留边。不要建筑、树、岸线、文字、阴影、透明背景，不增加新倒影。",
+        "model": "lib-image-2.5-s",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "high",
+          "resolution": "2K",
+          "background": "opaque",
+          "ratio": "21:9"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+        ]
+      }
+    },
+    "position": {
+      "x": 2250,
+      "y": 1050
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "40d5d0d6-0d8a-41a2-99d9-9db9f191a58c",
+      "source": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+      "target": "000d6868-b0f3-45ce-ab11-55d9ef816bbd"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "000d6868-b0f3-45ce-ab11-55d9ef816bbd"
+  ]
+}
+{
+  "nodeKey": "000d6868-b0f3-45ce-ab11-55d9ef816bbd",
+  "nodeType": "image",
+  "taskId": "20261027171003197707723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "12-water-reflections-r2",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/985578488_a21e5d80a3af43fea73f097c7fb47c95.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "严格抠图：只保留参考图底部水面上的黄色、橙色、淡紫色灯光倒影笔触。所有蓝色水面必须全部删除并替换为纯白RGB255。最终画面应是一组悬浮在纯白画布底部的橙黄色短横笔触，绝不能有蓝色矩形水面条带。每条倒影保持原参考位置、比例、纹理与颜色，不重新排版、不居中、不放大。参考图画布2184x936，原全景位于x6 y106宽2171高724。输出相同21:9画布，保留上下白色留边。不要建筑、树、岸线、文字、阴影、透明背景，不增加新倒影。",
+      "model": "Lib Image 2.5 Pro",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "high",
+        "resolution": "2K",
+        "background": "opaque",
+        "ratio": "21:9"
+      },
+      "imageListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/7e82a30570760537b216a3182bf2c9d6a63c6651.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "4eb13f1f-6902-4c2b-8ec2-cd715213ee7d"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261027171003197707723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2016,
+          "height": 864
+        }
+      ]
+    }
+  }
+}
