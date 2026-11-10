@@ -10,7 +10,7 @@ const pause=ms=>new Promise(r=>setTimeout(r,ms));
 async function run(){let server,browser,context;
  try{
   fs.mkdirSync(out,{recursive:true});
-  server=spawn('python3',['tools/serve.py','--port','0'],{cwd:repo,stdio:['ignore','pipe','pipe']});
+  server=spawn(process.env.PYTHON||'python',['tools/serve.py','--port','0'],{cwd:repo,stdio:['ignore','pipe','pipe']});
   const base=await new Promise((resolve,reject)=>{
     const timeout=setTimeout(()=>reject(Error('server start timeout')),20000);
     let output='';

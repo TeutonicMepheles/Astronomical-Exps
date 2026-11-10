@@ -57,6 +57,6 @@ N.mountRotationViewer=function(root,onReady){
  root.realViewer=api;N.step2Viewer=api;
   hotspots=N.createStep2Hotspots?.({THREE:T,root,host,canvas,api,meshes,dock});
  updateStatus();resize();Promise.all(texturePromises).then(()=>{if(disposed)return;textureReady=true;schedule();});
- return function dispose(){if(disposed)return;disposed=true;cancelAnimationFrame(frame);controller.abort();observer.disconnect();touches.clear();hotspots?.dispose();bloom.dispose()optical.dispose();for(const m of meshes){m.geometry.dispose();m.material.dispose();}for(const t of textures)t.dispose();for(const r of resources)r.dispose();renderer.dispose();renderer.forceContextLoss();canvas.remove();delete root.realViewer;if(N.step2Viewer===api)delete N.step2Viewer;};
+ return function dispose(){if(disposed)return;disposed=true;cancelAnimationFrame(frame);controller.abort();observer.disconnect();touches.clear();hotspots?.dispose();bloom.dispose();optical.dispose();for(const m of meshes){m.geometry.dispose();m.material.dispose();}for(const t of textures)t.dispose();for(const r of resources)r.dispose();renderer.dispose();renderer.forceContextLoss();canvas.remove();delete root.realViewer;if(N.step2Viewer===api)delete N.step2Viewer;};
 };
 })(window.Newton=window.Newton||{});
