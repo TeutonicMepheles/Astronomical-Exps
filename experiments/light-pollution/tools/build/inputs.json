@@ -3,8 +3,8 @@
   "inputs": [
     {
       "path": "app/page.html",
-      "bytes": 8480,
-      "sha256": "b55494a0f647004e2f8d38f4d30e477cef9b4b4e02d13bafe964026366e2bdd7"
+      "bytes": 8681,
+      "sha256": "fe6dc79957bf3fe0f6938cd587e5d563ee5f3cbb0d7301d57d78745a96ab8fc3"
     },
     {
       "path": "assets/billboard-demo/city.svg",
@@ -188,8 +188,8 @@
     },
     {
       "path": "app/styles/scene.css",
-      "bytes": 27571,
-      "sha256": "c0158c04d92ecefbc9a84de0327c6271caa0a8e499439f8fea8a68cead6297c9"
+      "bytes": 27867,
+      "sha256": "f7ea2aec0e4b267b696d9ae61b473319bc9380452188dc8fde1cbb7c2dc07fd0"
     },
     {
       "path": "core/runtime.js",
@@ -353,8 +353,8 @@
     },
     {
       "path": "features/lamps/controller.js",
-      "bytes": 7649,
-      "sha256": "e2bca80e9ca8077a9104887fa043d600b55c02a92883ffb55eacaa7404cf7df9"
+      "bytes": 7831,
+      "sha256": "d4000f8f89753c89417eff7b0fb3d5ee239cca8bb5c69357d5b63592d975d5fa"
     },
     {
       "path": "rendering/masked-lighting.js",
@@ -424,7 +424,7 @@
   ],
   "output": {
     "path": "lib-static-demo/standalone.html",
-    "bytes": 47889114,
-    "sha256": "abb1be17acea5aaab413ba048ef9cc95bf6e243b40ad881c30509161418664a9"
+    "bytes": 47889793,
+    "sha256": "522dd71ca9f595af4519dc2de9c87a591907b7e0819368baa5f9b2eef222eb08"
   }
 }
