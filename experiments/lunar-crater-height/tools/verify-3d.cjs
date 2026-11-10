@@ -3,12 +3,14 @@ const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const os = require('node:os');
 
+let browser;
 (async () => {
-  const browser = await chromium.launch({ headless: true });
+  browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto(pathToFileURL(path.join(__dirname, '..', '月球环形山影长测量实验(2).html')).href);
+  await page.goto(pathToFileURL(path.join(__dirname, '..', 'index.html')).href);
+  await page.locator('#top').waitFor({ state: 'visible' });
   await page.screenshot({ path: path.join(os.tmpdir(), 'lunar-crater-3d-initial.png') });
   if(await page.locator('#sunHandle').count())throw new Error('Sun diagram visible before measurement');
   await page.locator('#angle').fill('45');
@@ -104,4 +106,8 @@ const os = require('node:os');
   if (errors.length) throw new Error(errors.join('\n'));
   console.log('3D page loaded; cut:', await page.locator('#cutValue').textContent(), 'top selection:', firstPoint, 'side selection:', secondPoint);
   await browser.close();
-})().catch(error => { console.error(error); process.exitCode = 1; });
+})().catch(async error => {
+  console.error(error);
+  if (browser) await browser.close();
+  process.exitCode = 1;
+});

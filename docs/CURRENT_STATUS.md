@@ -14,7 +14,7 @@
 | 实验 | 默认入口 | 当前实现 | 已知主要缺口 |
 | --- | --- | --- | --- |
 | EXP-01 傅科摆 | [index.html](../experiments/foucault-pendulum/index.html) | 可运行开发版 | 完整教学流程、最终参数与读数、白板触控及整页验收未完成 |
-| EXP-02 月面环形山高度 | 无 | 仅需求文档 | 尚未实现页面 |
+| EXP-02 月面环形山高度 | [index.html](../experiments/lunar-crater-height/index.html)，跳转至 [月球环形山影长测量实验(2).html](../experiments/lunar-crater-height/月球环形山影长测量实验(2).html) | 可运行 3D 开发版：程序化坑体、连续剖面、光照联动与选点测量 | 输出仍为模型单位；厘米比例尺、测量建模、真实白板触控和整页验收未完成 |
 | EXP-03 陨石坑撞击 | 无 | 需求文档与演示图片 | 尚未实现页面 |
 | EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 可运行三阶段开发版：手动对齐当地正午，单点杆影，依次点选后沿经线测距 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
 | EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [app/index.html](../experiments/light-pollution/app/index.html) | 可运行重构版 | 室外光源类型和逐类局部比较未全部覆盖；光污染等级、星数和光效参数未标定 |
