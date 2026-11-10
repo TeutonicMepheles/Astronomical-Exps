@@ -40,6 +40,13 @@ window.loadCandidateScene=async function(W,H){
  [.075,.385,.21,.32,.21,.535,.075,.575],[.075,.59,.21,.545,.21,.70,.075,.74],[.075,.795,.21,.77,.21,.975,.075,.975],
  [.35,.53,.52,.54,.52,.705,.35,.695],[.575,.545,.74,.555,.74,.72,.575,.71],[.81,.56,.94,.57,.94,.73,.81,.72],
  [.35,.76,.52,.765,.52,.98,.35,.98],[.575,.775,.78,.785,.78,.985,.575,.985],[.82,.785,.94,.79,.94,.985,.82,.985]]};
+ // The editable light quads intentionally stay tight around luminous pixels.
+ // Curtains need a wider, opaque aperture so baked balcony rails, furniture and
+ // people in the residential sprite cannot remain visible beside the fabric.
+ const residentialCurtainBounds={
+  1:[.18,.46],2:[.71,.97],4:[.18,.46],5:[.71,.97],
+  7:[.18,.46],8:[.71,.97],9:[.18,.46],10:[.71,.97]
+ };
  for(const [parent,list]of Object.entries(quads)){
   const r=registrations[parent],surface=surfaces[parent],g=surface.getContext('2d',{willReadFrequently:true});
   const source=g.getImageData(0,0,W,H).data;
@@ -50,7 +57,9 @@ window.loadCandidateScene=async function(W,H){
    const [a,b,c,d]=corners,dx=a[0]-b[0]+c[0]-d[0],dy=a[1]-b[1]+c[1]-d[1],bx=b[0]-c[0],by=b[1]-c[1],cx=d[0]-c[0],cy=d[1]-c[1],det=bx*cy-cx*by,k=(dx*cy-cx*dy)/det,l=(bx*dy-dx*by)/det;
    for(let y=0;y<256;y++)for(let x=0;x<256;x++){const u=(x+.5)/256,v=(y+.5)/256,z=k*u+l*v+1,sx=((b[0]-a[0]+k*b[0])*u+(d[0]-a[0]+l*d[0])*v+a[0])/z,sy=((b[1]-a[1]+k*b[1])*u+(d[1]-a[1]+l*d[1])*v+a[1])/z,p=(Math.max(0,Math.min(H-1,Math.floor(sy)))*W+Math.max(0,Math.min(W-1,Math.floor(sx))))*4,q=(y*256+x)*4;pixels.data.set(source.subarray(p,p+4),q);}
    tg.putImageData(pixels,0,0);
-   const billboard=parent==='ad-building'&&i===0;objects.push({id:billboard?'billboard':parent+'-window-'+i,parent,type:billboard?'billboard':'window',label:billboard?'广告大屏':(parent==='residential'?'住宅窗 ':parent==='ad-building'?'广告楼窗 ':'公共建筑窗 ')+(parent==='ad-building'?i:i+1),corners,texture});
+   const curtainValues=parent==='residential'&&residentialCurtainBounds[i]?values.map((value,index)=>index%2?value:(index===0||index===6?residentialCurtainBounds[i][0]:residentialCurtainBounds[i][1])):values;
+   const curtainCorners=Array.from({length:4},(_,j)=>[r.x+curtainValues[j*2]*r.sourceBounds.w*r.scale,r.y+curtainValues[j*2+1]*r.sourceBounds.h*r.scale]);
+   const billboard=parent==='ad-building'&&i===0;objects.push({id:billboard?'billboard':parent+'-window-'+i,parent,type:billboard?'billboard':'window',label:billboard?'广告大屏':(parent==='residential'?'住宅窗 ':parent==='ad-building'?'广告楼窗 ':'公共建筑窗 ')+(parent==='ad-building'?i:i+1),corners,curtainCorners,texture});
    g.beginPath();corners.forEach(([x,y],j)=>j?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.fillStyle='#10162b';g.fill();
   });
  }
