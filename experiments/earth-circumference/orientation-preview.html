@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>地球朝向 · 旧版原型（EXP-04）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/globe.css">
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- 中央地球：WebGL 逐像素光线求交，经纬网程序化生成 -->
+  <canvas id="globe" aria-label="可旋转的地球，拖动改变自转角度" role="img"></canvas>
+
+  <!-- 太阳平行光线（方向固定，不随地球变化） -->
+  <svg class="sun-arrows" viewBox="0 0 1600 900" aria-hidden="true">
+    <defs>
+      <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M10 0 L0 5 L10 10 z" fill="#E8703A"></path>
+      </marker>
+      <linearGradient id="rayA" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F7B48A" stop-opacity=".25"></stop>
+        <stop offset="1" stop-color="#E8703A" stop-opacity="1"></stop>
+      </linearGradient>
+      <linearGradient id="rayB" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F7B48A" stop-opacity=".25"></stop>
+        <stop offset="1" stop-color="#EF8A4C" stop-opacity="1"></stop>
+      </linearGradient>
+      <linearGradient id="rayC" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F7B48A" stop-opacity=".25"></stop>
+        <stop offset="1" stop-color="#F5A46F" stop-opacity="1"></stop>
+      </linearGradient>
+    </defs>
+    <g stroke-linecap="round" fill="none" marker-end="url(#arrowHead)">
+      <line x1="1094" y1="84"  x2="960" y2="152" stroke="url(#rayA)" stroke-width="5"></line>
+      <line x1="1116" y1="160" x2="982" y2="228" stroke="url(#rayB)" stroke-width="5"></line>
+      <line x1="1138" y1="228" x2="1004" y2="296" stroke="url(#rayC)" stroke-width="5"></line>
+    </g>
+  </svg>
+
+  <!-- 地轴与朝向手柄 -->
+  <svg class="axis-layer" id="axisLayer" viewBox="0 0 1600 900" aria-hidden="true">
+    <line id="axisLine" class="axis-line" x1="0" y1="0" x2="0" y2="0"></line>
+
+  </svg>
+  <div class="axis-grip" id="axisGrip" role="slider" tabindex="0"
+       aria-label="地球朝向（示意范围 11 度到 36 度）" aria-valuemin="11" aria-valuemax="36" aria-valuenow="23.5">
+    <span class="axis-grip-dot"></span>
+  </div>
+
+  <h1 class="title">A Year on Earth</h1>
+  <p class="subtitle">365 days · 4 seasons</p>
+
+  <div class="seasons" id="seasons">
+    <div class="season" data-pos="0">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9M12 9c0-4 3-6 6-6 0 4-3 6-6 6zM12 13c0-3-2.5-4.5-5-4.5 0 3 2.5 4.5 5 4.5z"/></svg>
+      <span>Spring</span>
+    </div>
+    <div class="season" data-pos="1">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+      <span>Summer</span>
+    </div>
+    <div class="season" data-pos="2">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20c6-1 12-6 16-16-9 1-14 6-16 16zM9 15l6-6"/></svg>
+      <span>Autumn</span>
+    </div>
+    <div class="season" data-pos="3">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.5 7l17 10M20.5 7l-17 10M12 6l-2.5-2.5M12 6l2.5-2.5M12 18l-2.5 2.5M12 18l2.5 2.5"/></svg>
+      <span>Winter</span>
+    </div>
+  </div>
+
+  <div class="timeline" id="timeline" role="slider" tabindex="0"
+       aria-label="年相位（示意）" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="ticks" id="ticks" aria-hidden="true"></div>
+    <div class="timeline-caret" id="caret" aria-hidden="true"></div>
+    <span class="timeline-end timeline-end-left">Jan 1</span>
+    <span class="timeline-end timeline-end-right">Dec 31</span>
+  </div>
+
+  <div class="geo-marker geo-selected" data-selectable data-latlon="-23.5,135" title="拖动我选择位置">
+    <span class="geo-ring"></span>
+    <span class="geo-label">已选位置 <b data-ll>-23.5°S / 135°E</b></span>
+  </div>
+
+  <button type="button" class="measure-btn" id="measureBtn">进入测量</button>
+  <svg class="measure-layer" id="measureLayer" viewBox="0 0 1600 900" aria-hidden="true" hidden>
+    <path id="arcPath" fill="none" stroke="#7f93b3" stroke-width="2.5" stroke-linecap="round"
+          stroke-dasharray="9 7" opacity="0"></path>
+  </svg>
+  <div class="measure-label" id="measureLabel" hidden></div>
+
+  <div class="readout" id="readout">
+    <span class="readout-item">所选位置 <b id="selectedLat">23.5° S</b> <b id="selectedLon">135.0° E</b></span>
+    <span class="readout-item">自转 <b id="spinValue">0°</b></span>
+    <span class="readout-item">朝向 <b id="tiltValue">23.5°</b></span>
+  </div>
+
+  <p class="note">
+    轴向摆动范围 <b>11°–36°</b> 来自参考图示测量，<b>属示意范围，非地轴倾角标定</b>；
+    太阳方向固定，改变朝向只是改变地球相对太阳的面向。自转与朝向互不影响。
+  </p>
+</div>
+<script type="module" src="js/globe.js"></script>
+</body>
+</html>

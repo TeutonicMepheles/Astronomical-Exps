@@ -1,0 +1,128 @@
+/* Style 2 — 手绘批注 / ink annotation.
+ * Pencil-ish ink on warm paper, slightly off-square labels. The stroke wobbles
+ * through an SVG turbulence filter so it reads as drawn, not plotted. */
+.style-ink .mw { --ink: #2c2620; --paper: #f6efe1; --accent: #d9713f; }
+
+.style-ink .mw-dim {
+  background: radial-gradient(120% 90% at 50% 40%, rgb(58 44 28 / 10%), rgb(58 44 28 / 26%));
+  transition: opacity .34s ease;
+}
+.style-ink .mw:not([data-phase="idle"]) .mw-dim { opacity: 1; }
+
+/* Enter scan: a broad paper wipe travels across, like turning a sheet. */
+.style-ink .mw-scan::before {
+  content: "";
+  position: absolute;
+  top: -20%; bottom: -20%;
+  left: -40%; width: 34%;
+  background: linear-gradient(100deg, transparent, rgb(255 252 244 / 55%) 45%, rgb(255 255 255 / 78%) 55%, transparent);
+  transform: skewX(-14deg);
+  opacity: 0;
+}
+.style-ink .mw-scan.run::before { animation: ink-wipe .92s cubic-bezier(.45,.05,.3,1) forwards; }
+@keyframes ink-wipe {
+  0% { left: -40%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { left: 118%; opacity: 0; }
+}
+
+.style-ink .mw-toggle {
+  width: 50px; height: 50px;
+  display: grid; place-items: center;
+  color: var(--ink);
+  background: rgb(250 244 232 / 92%);
+  border: 2px solid var(--ink);
+  border-radius: 50% 46% 52% 48% / 48% 52% 46% 54%;
+  box-shadow: 0 2px 0 rgb(44 38 32 / 18%);
+  transform: rotate(-3deg);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.style-ink .mw-toggle:hover { transform: rotate(2deg) scale(1.04); box-shadow: 0 4px 10px rgb(44 38 32 / 20%); }
+.style-ink .mw-toggle svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; }
+
+.style-ink .mw-line {
+  stroke: var(--ink);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url(#mw-wobble) drop-shadow(0 1px 0 rgb(255 250 240 / 65%));
+}
+.style-ink .mw-line[data-kind="pending"] {
+  stroke-dasharray: 9 7;
+  stroke-width: 2.6;
+  animation: ink-blink 1s steps(2, jump-none) infinite;
+}
+.style-ink .mw-line[data-kind="drawing"] { stroke-dasharray: 1 1; }
+@keyframes ink-blink { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+/* Start ring is dashed and slightly irregular, like a pencilled circle. */
+.style-ink .mw-mark::before,
+.style-ink .mw-mark::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.style-ink .mw-mark::before {
+  width: 26px; height: 26px;
+  border: 2px dashed rgb(44 38 32 / 75%);
+}
+.style-ink .mw-mark::after {
+  width: 7px; height: 7px;
+  background: var(--ink);
+  box-shadow: 0 0 0 2px rgb(255 250 240 / 85%);
+}
+.style-ink .mw-mark.mw-end::before {
+  width: 22px; height: 22px;
+  border: 2px solid rgb(255 252 245 / 92%);
+  box-shadow: 0 0 0 1.5px rgb(44 38 32 / 35%);
+}
+.style-ink .mw-mark.mw-end::after {
+  width: 13px; height: 13px;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px rgb(255 252 245 / 90%);
+}
+.style-ink .mw-mark.on::after { animation: ink-pop .3s cubic-bezier(.34,1.56,.64,1) both; }
+.style-ink .mw-mark.locked::before { animation: ink-lock .55s ease-out; }
+@keyframes ink-pop { from { scale: .2; opacity: 0; } }
+@keyframes ink-lock { 0% { box-shadow: 0 0 0 0 rgb(44 38 32 / 30%); } 100% { box-shadow: 0 0 0 16px rgb(44 38 32 / 0%); } }
+
+.style-ink .mw-confirm {
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  color: #fffdf7;
+  background: var(--accent);
+  border: 2px solid rgb(255 252 245 / 90%);
+  border-radius: 52% 48% 50% 50% / 50% 52% 48% 50%;
+  box-shadow: 0 3px 0 rgb(120 60 30 / 35%), 0 6px 16px rgb(80 45 20 / 22%);
+  animation: ink-pop .26s cubic-bezier(.34,1.56,.64,1);
+}
+.style-ink .mw-confirm svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; }
+
+.style-ink .mw-prompt {
+  font: 600 16px/1 "Segoe Print", "Bradley Hand", "Comic Sans MS", "Kaiti SC", cursive;
+  color: var(--ink);
+  padding: 8px 18px 9px;
+  background: rgb(255 252 244 / 88%);
+  border-radius: 3px 6px 4px 7px;
+  box-shadow: 1px 2px 0 rgb(44 38 32 / 12%);
+  transform: translate(-50%, 6px) rotate(-.8deg);
+}
+.style-ink .mw-prompt.visible { transform: translate(-50%, 0) rotate(-.8deg); }
+
+.style-ink .mw-readout {
+  padding: 9px 18px 10px;
+  background: rgb(255 252 244 / 95%);
+  border: 2px solid var(--ink);
+  border-radius: 6px 9px 5px 8px;
+  color: var(--ink);
+  font: 700 13px/1 "Segoe Print", "Bradley Hand", "Comic Sans MS", "Kaiti SC", cursive;
+  display: flex; align-items: baseline; gap: 8px;
+  rotate: -1.4deg;               /* independent of the inline translate */
+  box-shadow: 2px 3px 0 rgb(44 38 32 / 15%);
+  animation: ink-read .28s ease-out both;
+}
+.style-ink .mw-readout-value { font-size: 21px; color: var(--accent); }
+@keyframes ink-read { from { opacity: 0; scale: .9; } }

@@ -1,0 +1,97 @@
+/* Measurement widget — structure only. Every visible decision (colour,
+ * stroke character, motion feel) is made in the per-style CSS files. */
+.mw {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.mw-host.is-measuring { cursor: crosshair; }
+.mw-host.is-measuring .mw-cursor-safe { cursor: default; }
+
+.mw-dim,
+.mw-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .28s ease;
+}
+.mw-dim.on { opacity: 1; }
+
+.mw-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.mw-line { fill: none; }
+
+.mw-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+}
+.mw-mark.on { opacity: 1; }
+
+.mw-prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity .22s ease, transform .22s ease;
+}
+.mw-prompt.visible { opacity: 1; transform: translate(-50%, 0); }
+
+.mw-readout {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.mw-readout.on { opacity: 1; }
+
+.mw-btn {
+  position: absolute;
+  pointer-events: auto;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mw-btn svg { display: block; }
+.mw-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+.mw-toggle { top: 22px; right: 22px; }
+.mw-ico { display: block; }
+.mw[data-phase="idle"] .mw-ico-exit { display: none; }
+.mw:not([data-phase="idle"]) .mw-ico-enter { display: none; }
+
+.mw-confirm {
+  left: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  margin: -24px 0 0 -24px;   /* centre the 48px button on its point */
+  transition: opacity .18s ease, transform .18s ease;
+}
+.mw-confirm.on { opacity: 1; pointer-events: auto; }
+
+.mw-scan.run { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mw *, .mw *::before, .mw *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

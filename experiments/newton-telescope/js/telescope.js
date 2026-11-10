@@ -20,7 +20,7 @@
       this.tube = new T.Group(); this.root.add(this.tube);
       this.rayGroup = new T.Group(); this.tube.add(this.rayGroup);
       this.reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      this.state = N.store.get(); this.yaw = 0; this.pitch = 0; this.zoom = 1;
+      this.state = N.store.telescopeState(N.store.get()); this.yaw = 0; this.pitch = 0; this.zoom = 1;
       this.materials = {
         metal: new T.MeshPhongMaterial({color:0x30466d,specular:0x8caddd,shininess:65}),
         edge: new T.MeshStandardMaterial({color:0x6a91c9,metalness:.65,roughness:.28}),
@@ -29,8 +29,8 @@
         glass: new T.MeshPhongMaterial({color:0x527baa,shininess:110,transparent:true,opacity:.105,side:T.DoubleSide,depthWrite:false}),
         band: new T.MeshPhongMaterial({color:0x49638f,shininess:70,transparent:true,opacity:.48,side:T.DoubleSide,depthWrite:false})
       };
-      this.buildTube(); this.buildMount(); this.director=new N.CameraDirector(this); this.lab=new N.LabScene(this); this.importedModel=new N.ImportedTelescope(this);this.bindControls();
-      this.unsubscribe = N.store.subscribe(state => { this.state=state; this.updateRays(); this.dirty=true; });
+      this.buildTube(); this.buildMount(); this.director=new N.CameraDirector(this); this.lab=new N.LabScene(this); this.bindControls();
+      this.unsubscribe = N.store.subscribe(state => { this.state=N.store.telescopeState(state); this.updateRays(); this.dirty=true; });
       this.resizeObserver = new ResizeObserver(() => this.resize()); this.resizeObserver.observe(container);
       this.updateRays(); this.resize(); this.lastTime=0; this.elapsed=0; this.animate=this.animate.bind(this);
       this.dirty=true; this.frame=requestAnimationFrame(this.animate);
@@ -107,11 +107,9 @@
     }
     clearRays(){while(this.rayGroup.children.length){const o=this.rayGroup.children[0];this.rayGroup.remove(o);o.traverse(child=>{if(child.geometry)child.geometry.dispose();if(child.material)child.material.dispose();});}}
     updateRays(){
-      this.importedModel?.update(this.state);
       this.clearRays();
       const apertureScale=.85+((this.state.aperture||130)-80)/170*.51;
       this.tube.scale.set(1,apertureScale,apertureScale);
-      this.importedModel?.group.scale.set(1,1/apertureScale,1/apertureScale);
       this.rayGroup.scale.set(1,1/apertureScale,1/apertureScale);
       const positions=this.primary.geometry.attributes.position;
       for(let i=0;i<positions.count;i++){const y=positions.getY(i),z=positions.getZ(i);positions.setX(i,3-(y*y+z*z)/(4*(this.state.focal/100)));}
@@ -140,16 +138,15 @@
     }
     bindControls(){
       let drag=null;
-      this.container.addEventListener('pointerdown',e=>{if(this.lab.darkroom.beginDrag(e)){e.preventDefault();this.lab.darkroom.drag.target.setPointerCapture(e.pointerId);return;}if(N.course.get().stage==='mirrors'||e.target.closest('button')||this.director.busy)return;drag={x:e.clientX,y:e.clientY,yaw:this.yaw,pitch:this.pitch,moved:false};this.container.setPointerCapture(e.pointerId);});
-      this.container.addEventListener('pointermove',e=>{if(this.lab.darkroom.drag){this.lab.darkroom.moveDrag(e);return;}if(!drag)return;if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>6)drag.moved=true;if(!drag.moved||N.course.get().stage==='observation')return;this.yaw=drag.yaw+(e.clientX-drag.x)*.006;this.pitch=Math.max(-.85,Math.min(.85,drag.pitch+(e.clientY-drag.y)*.004));this.dirty=true;});
-      const end=e=>{if(e.type==='pointerup'&&drag&&!drag.moved&&N.course.get().stage==='observation')this.importedModel.activate(e.clientX,e.clientY);this.lab.darkroom.endDrag(e,e.type!=='pointerup');drag=null;};this.container.addEventListener('pointerup',end);this.container.addEventListener('pointercancel',end);this.container.addEventListener('lostpointercapture',end);
-      this.container.addEventListener('wheel',e=>{e.preventDefault();if(this.director.busy||N.course.get().stage!=='assembly')return;this.zoom=Math.max(.65,Math.min(1.7,this.zoom-e.deltaY*.0007));this.resize();},{passive:false});
+      this.container.addEventListener('pointerdown',e=>{if(this.lab.darkroom.beginDrag(e)){e.preventDefault();this.lab.darkroom.drag.target.setPointerCapture(e.pointerId);return;}if(N.course.get().stage==='mirrors'||e.target.closest('button')||this.director.busy)return;drag={x:e.clientX,y:e.clientY,yaw:this.yaw,pitch:this.pitch};this.container.setPointerCapture(e.pointerId);});
+      this.container.addEventListener('pointermove',e=>{if(this.lab.darkroom.drag){this.lab.darkroom.moveDrag(e);return;}if(!drag)return;this.yaw=drag.yaw+(e.clientX-drag.x)*.006;this.pitch=Math.max(-.85,Math.min(.85,drag.pitch+(e.clientY-drag.y)*.004));this.dirty=true;});
+      const end=e=>{this.lab.darkroom.endDrag(e,e.type!=='pointerup');drag=null;};this.container.addEventListener('pointerup',end);this.container.addEventListener('pointercancel',end);this.container.addEventListener('lostpointercapture',end);
+      this.container.addEventListener('wheel',e=>{e.preventDefault();if(this.director.busy||N.course.get().stage==='mirrors')return;this.zoom=Math.max(.65,Math.min(1.7,this.zoom-e.deltaY*.0007));this.resize();},{passive:false});
       this.container.addEventListener('keydown',e=>{
         if(e.target!==this.container)return;
-        if((e.key==='Enter'||e.key===' ')&&N.course.get().stage==='observation'){e.preventDefault();this.importedModel.toggle();return;}
         const keys=['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','+','=','-'];if(!keys.includes(e.key))return;e.preventDefault();
         if(e.key==='Home')return this.resetView();
-        if(N.course.get().stage!=='assembly')return;
+        if(N.course.get().stage==='mirrors')return;
         if(e.key==='ArrowLeft')this.yaw-=.1;if(e.key==='ArrowRight')this.yaw+=.1;
         if(e.key==='ArrowUp')this.pitch=Math.max(-.85,this.pitch-.08);if(e.key==='ArrowDown')this.pitch=Math.min(.85,this.pitch+.08);
         if(e.key==='+'||e.key==='=')this.zoom=Math.min(1.7,this.zoom+.1);if(e.key==='-')this.zoom=Math.max(.65,this.zoom-.1);this.resize();
@@ -173,14 +170,17 @@
       this.frame=requestAnimationFrame(this.animate);
       const dt=Math.min((time-this.lastTime)/1000,.05);this.lastTime=time;
       if(document.hidden)return;
-      this.director.tick(time);this.lab.tick(time);this.importedModel.tick(time);
-      if((this.state.running||N.course.get().stage==='assembly')&&!this.reducedMotion){this.elapsed+=dt;this.dirty=true;}
+      // The third-stage telescope owns its animated light path. Do not redraw
+      // this hidden first/second-stage WebGL scene on every automatic ray frame.
+      if(N.course.get().stage==='observation')return;
+      this.director.tick(time);this.lab.tick(time);
+      if((this.state.running||N.course.get().stage==='assembly')&&!this.reducedMotion){this.elapsed+=dt*(N.developer?.effect('photonSpeed')??1);this.dirty=true;}
       if(!this.dirty)return;
       // 45° is the default mount elevation; view projection is chosen to match the reference.
-      this.tube.rotation.z=N.course.get().stage==='assembly'?0:-.55+(45-this.state.angle)*Math.PI/180*.62;
+      this.tube.rotation.z=N.course.get().stage==='assembly'?0:-.31+(45-this.state.angle)*Math.PI/180*.62;
       this.root.rotation.y=this.yaw;this.root.rotation.x=this.pitch;this.lab.group.rotation.y=this.yaw;this.lab.group.rotation.x=this.pitch;
       this.particles.forEach(p=>{p.mesh.visible=(this.state.running||N.course.get().stage==='assembly')&&!this.reducedMotion;if(p.mesh.visible){const t=(this.elapsed*.28+p.index*.2+p.segment*.29)%1;p.mesh.position.copy(p.a).lerp(p.b,t);}});
-      this.importedModel.frame();this.scene.updateMatrixWorld(true);this.placeLabels();this.renderer.render(this.scene,this.camera);this.dirty=false;
+      this.scene.updateMatrixWorld(true);this.placeLabels();this.renderer.render(this.scene,this.camera);this.dirty=false;
     }
     dispose(){cancelAnimationFrame(this.frame);this.unsubscribe();this.lab.unsubscribe();this.resizeObserver.disconnect();this.scene.traverse(o=>{o.geometry?.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});this.renderer.dispose();}
   };

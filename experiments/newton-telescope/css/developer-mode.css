@@ -1,0 +1,35 @@
+/* Developer tools live outside the scaled whiteboard scene. */
+.developer-launch,.developer-panel,.developer-selection{font-family:var(--font-ui,system-ui,sans-serif);box-sizing:border-box}
+.developer-launch{position:fixed;right:16px;bottom:14px;z-index:1000;border:1px solid #718bab;border-radius:10px;background:#122238ed;color:#e4efff;padding:10px 15px;font:600 13px var(--font-ui,system-ui);cursor:pointer;box-shadow:0 4px 20px #0005}
+.developer-launch[aria-pressed=true]{border-color:#e4bd76;color:#f5d69e}
+.developer-panel{position:fixed;z-index:1001;right:12px;top:12px;bottom:64px;width:370px;max-width:calc(100vw - 24px);display:flex;flex-direction:column;border:1px solid #536780;border-radius:16px;background:#101d30f5;box-shadow:0 16px 64px #0008;color:#e4edfb;font-size:13px;line-height:1.55;color-scheme:dark}
+.developer-panel *{box-sizing:border-box}
+.developer-panel button,.developer-panel input,.developer-panel select,.developer-panel textarea{font:inherit;color:inherit;letter-spacing:normal}
+.developer-panel button{border:1px solid #435671;background:#21344f;border-radius:7px;padding:7px 10px;cursor:pointer;box-shadow:none;min-height:34px}
+.developer-panel button:hover,.developer-panel button[aria-pressed=true],.developer-panel button[aria-selected=true]{background:#345277;border-color:#86a9d7}
+.developer-panel button:disabled{opacity:.4;cursor:default}
+.developer-panel :focus-visible,.developer-launch:focus-visible{outline:2px solid #f5d69e;outline-offset:3px}
+.developer-panel header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px}
+.developer-panel header strong{font-size:17px}.developer-panel header small{display:block;font-size:10px;color:#e6c181;letter-spacing:2px}
+.developer-panel .developer-close{background:none;border:0;font-size:22px;padding:0 7px}
+.developer-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:6px 12px 12px;border-bottom:1px solid #32455f}
+.developer-tabs button{padding:7px 2px;font-size:12px}
+.developer-body{overflow:auto;min-height:0;padding:14px 16px;overscroll-behavior:contain;scrollbar-width:thin;flex:1}
+.developer-body h3{font-size:13px;margin:16px 0 9px;color:#e6c181;font-weight:600}.developer-body h3:first-child{margin-top:0}
+.developer-note{font-size:12px;color:#9cb0cb;margin:8px 0 12px}
+.developer-steps{display:grid;gap:8px}.developer-steps button{text-align:left;padding:10px 12px;display:flex;gap:10px;align-items:center}.developer-steps b{color:#e6c181;font:12px ui-monospace,monospace}.developer-steps span{flex:1}.developer-steps small{font-size:11px;color:#9cb0cb}
+.developer-pair,.developer-actions{display:flex;gap:7px;margin:9px 0}.developer-pair>*{flex:1;min-width:0}
+.developer-field{display:block;margin:10px 0}.developer-field>span,.developer-number>span{display:block;margin-bottom:6px;color:#becee3;font-size:12px}
+.developer-panel select,.developer-panel textarea,.developer-panel input[type=number]{width:100%;padding:7px 9px;border:1px solid #435671;border-radius:6px;background:#0b1627;min-height:34px}
+.developer-panel textarea{resize:vertical;min-height:92px;line-height:1.6}.developer-panel select{min-height:38px}
+.developer-number{display:block;margin:12px 0}.developer-number>div{display:grid;grid-template-columns:1fr 83px;gap:12px;align-items:center}
+.developer-panel input[type=range]{appearance:auto;width:100%;height:18px;box-shadow:none;border:0;border-radius:0;margin:0;background:transparent;accent-color:#d1ac68}
+.developer-panel input[type=range]::-webkit-slider-thumb{appearance:auto;box-shadow:none;border:0;width:auto;height:auto;border-radius:0;background:initial}
+.developer-nudge{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}
+.developer-status{font-size:11px;color:#abc6a8;min-height:18px;padding:0 16px 7px;margin:0}
+.developer-footer{padding:9px 12px 12px;border-top:1px solid #32455f;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.developer-footer button{font-size:12px;padding:6px 2px}.developer-footer .developer-exit{grid-column:span 3;color:#b5c6de;background:transparent}
+.developer-selection{position:fixed;z-index:999;pointer-events:none;border:2px solid #f3c877;box-shadow:0 0 0 1px #18233b}
+.developer-selection span{position:absolute;left:-2px;bottom:100%;background:#f3c877;color:#18233b;padding:2px 7px;white-space:nowrap;font-size:11px;font-weight:600}
+.developer-picking .observatory,.developer-picking .observatory *{cursor:crosshair!important;touch-action:none!important}
+.developer-text-override{white-space:pre-line}
+@media(max-width:700px){.developer-panel{width:320px}.developer-body{padding:10px 12px}.developer-panel header{padding:10px 12px 4px}}

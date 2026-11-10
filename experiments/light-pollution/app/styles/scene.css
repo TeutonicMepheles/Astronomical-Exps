@@ -62,3 +62,19 @@ html[data-editing=true] #billboard-video-controls{display:none}
 /* Independent presentation controls; never activate the scene editor. */
 #billboard-controls{position:absolute;z-index:46;right:3%;top:12%;width:27%;padding:1cqw;background:#101d30f5;border:1px solid #576980;border-radius:.8cqw;color:#dae5f3;font-size:.9cqw;box-shadow:0 1cqw 3cqw #0006}
 #billboard-controls[hidden]{display:none}#billboard-controls label{display:flex;align-items:center;flex-wrap:wrap;gap:.4cqw;margin:.6cqw 0}#billboard-controls input[type=range]{width:100%;height:1.5cqw}#billboard-controls output{margin-left:auto;color:#e7c58c}#billboard-controls select{flex:1;min-width:0;background:#24354a;color:inherit;padding:.35cqw;border:1px solid #51637d;font:inherit}#billboard-controls p{font-size:.75cqw}
+
+
+/* In-scene shade carousel. Its lower edge is exactly the fixed pole joint. */
+#lamp-controls{inset:0;width:auto;height:auto;transform:none;padding:0;background:none;border:0;border-radius:0;pointer-events:none;z-index:7}
+#lamp-controls[hidden]{display:none}
+#lamp-controls .group-lamp-shades{position:absolute;display:block;box-sizing:border-box;overflow:hidden;margin:0;padding:0;background:#dce1e2ed;border-radius:40px;touch-action:none;pointer-events:auto;cursor:ew-resize;user-select:none}
+#lamp-controls .group-lamp-shades button{position:absolute;top:0;display:block;min-height:0;padding:0;border:1.5px solid transparent;border-radius:28px;background:transparent;color:#213d4b;touch-action:none;cursor:ew-resize;user-select:none}
+#lamp-controls .group-lamp-shades svg{position:absolute;bottom:-1.5px;display:block;max-width:none;overflow:hidden;pointer-events:none}
+#lamp-controls .group-lamp-shades span{position:absolute;top:5px;left:0;width:100%;font-size:11px;line-height:16px;white-space:nowrap;pointer-events:none}
+#lamp-controls .group-lamp-shades button:hover,#lamp-controls .group-lamp-shades button[aria-pressed=true]{background:#f4faf7;border-color:#3b756c;color:#173f39}
+#lamp-controls .group-lamp-shades button:focus-visible{outline:2px solid #e1af58;outline-offset:-4px}
+#lamp-controls .lamp-settings{position:absolute;right:3%;bottom:11%;width:21%;padding:.8cqw 1cqw;background:#0b1726ef;border:1px solid #71899c66;border-radius:.8cqw;pointer-events:auto}
+#lamp-controls .lamp-settings .lamp-controls-heading{font-size:.8cqw}#lamp-controls .lamp-settings p{font-size:.65cqw}
+#lamp-controls .lamp-parameters{display:block}#lamp-controls input:disabled{opacity:.45}
+
+#lamp-controls #lamp-adjust,#lamp-controls #lamp-close{position:absolute;pointer-events:auto;width:auto;height:26px;min-width:28px;border:1px solid #71899c66;background:#0b1726ed;border-radius:13px;padding:0 9px;font-size:12px;line-height:24px;color:#edf3f8}#lamp-settings[hidden]{display:none}

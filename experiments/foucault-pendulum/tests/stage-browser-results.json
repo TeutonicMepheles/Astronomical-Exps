@@ -1,0 +1,16 @@
+{
+  "planeToggle": true,
+  "transitionMidpoint": "translate(1158.67px, 603.52px) scale(0.48128)",
+  "stationaryStage2": true,
+  "bounds": {
+    "sx": 710,
+    "sy": 140,
+    "ex": 710,
+    "ey": 798.327,
+    "background": "radial-gradient(60% 55% at 50% 47%, rgb(36, 59, 86) 0%, rgb(21, 38, 61) 64%, rgb(11, 23, 40) 100%)"
+  },
+  "restoredPose": true,
+  "resumed": true,
+  "rapidReversal": true,
+  "errors": []
+}

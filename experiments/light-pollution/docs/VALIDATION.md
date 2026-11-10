@@ -1,5 +1,7 @@
 # 重构交付与验证报告
 
+> 状态注记（2026-11-07）：实验根 `index.html` 现已默认进入候选重构版，原街景保留为 `legacy-preview.html`。下文 2026-10-29 的验证结果保留原报告语义，不追溯改写为新的入口验收。
+
 整理日期：2026-10-29。范围仅 `experiments/light-pollution/`；本次将已完成的重构与性能优化整理为评审提交。当前工程入口与契约见 [ARCHITECTURE.md](ARCHITECTURE.md)。
 
 ## 已落地
@@ -18,7 +20,7 @@
 
 - `npm run check`：0 错误。首次发现遮罩工具迁移后字体路径错误，修复后通过。
 - `npm test`：通过，包含 23 项 Python 工作流测试及项目原有计算/课程单元验证；测试日志中的示例提交/PR 来自临时测试仓库，不是本工程推送。
-- `npm run test:browser`：通过，覆盖根项目规定的正式页/预览 smoke；不代替候选页专项。
+- `npm run test:browser`：通过当时根项目规定的正式页/预览 smoke，不代替候选页专项。该报告不证明 2026-11-07 新默认入口的浏览器回归。
 - `node experiments/light-pollution/tests/unit/core.cjs`：资源历史引用保留/淘汰、事务取消、手势中 undo 锁定、命令范围/锁定、异步导入失败原子性通过。
 - 候选专项 26/26 通过（最近一轮整套串行运行），结果保存在 [browser-results.json](browser-results.json)：独立面板、candidate/legacy、楼体/灯具、角点/图层、渐变、反射、水体、天空、视频切换、遮罩、缩放、导航与草稿。错误导入不改变当前场景，旧版字段有迁移覆盖。
 - 源码 HTTP candidate/legacy 启动、无完整编辑器 DOM、无运行时外部请求通过；file 入口由既有专项覆盖。

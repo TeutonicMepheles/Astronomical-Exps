@@ -17,7 +17,7 @@
  function cancel(){if(!busy)return;++epoch;cleanup();}
  function focusArrow(value){if(N.course.get().stage==='mirrors')document.querySelector(value==='lenses'?'.table-page-previous':'.table-page-next')?.focus({preventScroll:true});}
  function animate(elements,frames,duration,delay=0,easing='cubic-bezier(.22,.7,.25,1)'){
-  return Promise.all(elements.map(el=>{const a=el.animate(frames,{duration,delay,easing,fill:'both'});animations.add(a);return a.finished.catch(()=>{});}));
+  return Promise.all(elements.map(el=>{const a=el.animate(frames,{duration:N.developer?.duration(duration)??duration,delay:N.developer?.duration(delay)??delay,easing,fill:'both'});animations.add(a);return a.finished.catch(()=>{});}));
  }
  function fade(elements,from,to,duration,delay=0,easing){return animate(elements,[{opacity:from},{opacity:to}],duration,delay,easing);}
  function driveBeams(){if(!busy)return;lab().setBeamOpacity(Number(getComputedStyle(driver).opacity));beamFrame=requestAnimationFrame(driveBeams);}

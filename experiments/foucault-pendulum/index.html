@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>傅科摆实验</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="stage" aria-label="傅科摆实验首页">
+    <img class="hall hall-background" src="assets/stage1-hall-displays.png" alt="" draggable="false">
+    <svg class="hall hall-displays" viewBox="0 0 2048 1152" aria-hidden="true">
+      <defs>
+        <path id="hallScreenLeftEdge" d="M486 260Q754 303 1023 313V546L486 554Z"/>
+        <clipPath id="hallScreenLeft"><use href="#hallScreenLeftEdge"/></clipPath>
+        <path id="hallScreenRightEdge" d="M1160 318Q1480 321 1816 295V552L1160 546Z"/>
+        <clipPath id="hallScreenRight"><use href="#hallScreenRightEdge"/></clipPath>
+      </defs>
+      <g clip-path="url(#hallScreenLeft)">
+        <image href="assets/hall-screen-pendulum.webp" x="486" y="260" width="537" height="294" preserveAspectRatio="none"/>
+        <foreignObject x="486" y="260" width="537" height="294">
+          <canvas class="hall-screen-fx" width="537" height="294"></canvas>
+        </foreignObject>
+        <use class="hall-screen-rim" href="#hallScreenLeftEdge"/>
+      </g>
+      <g clip-path="url(#hallScreenRight)">
+        <image class="city-screen-image" data-city="shanghai" href="assets/hall-screen-shanghai.webp" x="1160" y="295" width="656" height="257" preserveAspectRatio="none"/>
+        <foreignObject x="1160" y="295" width="656" height="257">
+          <canvas class="hall-screen-fx" width="656" height="257"></canvas>
+        </foreignObject>
+        <use class="hall-screen-rim" href="#hallScreenRightEdge"/>
+      </g>
+    </svg>
+    <svg class="hall skylight" viewBox="0 0 2048 1152" aria-hidden="true">
+      <defs>
+        <linearGradient id="skylightFalloff" x2="0" y2="1">
+          <stop stop-color="#bbd5ff" stop-opacity=".23"/>
+          <stop offset=".46" stop-color="#9fbfff" stop-opacity=".105"/>
+          <stop offset="1" stop-color="#9fbfff" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="skylightSoftness" x="-20%" width="140%" y="-15%" height="130%">
+          <feGaussianBlur stdDeviation="17"/>
+        </filter>
+        <clipPath id="belowSkylight">
+          <path d="M0 160H993Q1364 251 1735 160H2048V1152H0Z"/>
+        </clipPath>
+      </defs>
+      <g clip-path="url(#belowSkylight)">
+        <path d="M1110 174H1618L1800 751H928Z" fill="url(#skylightFalloff)" filter="url(#skylightSoftness)"/>
+      </g>
+    </svg>
+    <div class="scene-bloom" aria-hidden="true"></div>
+    <svg class="perspective-guide" viewBox="0 0 1600 900" aria-hidden="true">
+      <path fill="#22304b" d="M0 0H1600V900H0Z"/>
+      <path fill="#3f5270" d="M0 590L520 460H1350L1600 590V900H0Z"/>
+      <path fill="#637d9b" d="M540 900L850 460H1230L1540 900Z"/>
+      <ellipse id="perspectiveFootprint" fill="#91abc2"/>
+    </svg>
+    <div class="parameter-background" aria-hidden="true"></div>
+    <div class="earth-shadow" aria-hidden="true"></div>
+    <canvas id="trails" aria-hidden="true"></canvas>
+    <div class="ring-contact-ao" aria-hidden="true"></div>
+    <div class="meridian-base" aria-hidden="true">
+      <img src="assets/meridian-base.png" alt="" draggable="false">
+      <canvas width="1024" height="1024"></canvas>
+    </div>
+    <div class="ball-base-ao" aria-hidden="true"></div>
+    <canvas id="globe" tabindex="0" role="img" aria-label="可拖动旋转的地球，方向键旋转" ></canvas>
+    <div class="meridian-stem" aria-hidden="true">
+      <img src="assets/meridian-stem.png" alt="" draggable="false">
+      <canvas width="1024" height="1024"></canvas>
+    </div>
+    <svg id="cityMarkers" class="city-layer" viewBox="0 0 1600 900" aria-label="城市点位">
+      <defs>
+        <filter id="cityGlow" x="-150%" y="-150%" width="400%" height="400%">
+          <feGaussianBlur stdDeviation="3.5" result="b"/>
+          <feMerge>
+            <feMergeNode in="b"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+    </svg>
+    <svg class="pendulum" viewBox="0 0 1600 900" aria-label="持续摆动的傅科摆">
+      <defs>
+        <!-- Follow the upper rim and leave the cable continuous below it. -->
+        <clipPath id="hallCableClip">
+          <path d="M0 96H750A316 65 0 0 1 1382 96H1600V900H0Z"/>
+        </clipPath>
+        <filter id="swingGlow" filterUnits="userSpaceOnUse" x="580" y="520" width="920" height="330">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge>
+            <feMergeNode in="b"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <polygon id="swingSurface" fill="#a8d9ff" fill-opacity=".15" stroke="#b7d3ee" stroke-opacity=".5" stroke-width="1.4" hidden/>
+      <ellipse id="shadow" cx="1040" cy="680" rx="37" ry="10" fill="#49647a" opacity=".24"/>
+      <line id="swingPlane" x1="620" y1="680" x2="1460" y2="680" stroke="#b7d3ee" stroke-width="2" stroke-dasharray="8 7" stroke-linecap="round" opacity=".85" filter="url(#swingGlow)"/>
+      <g class="pendulum-cable">
+        <path id="cableBack" stroke="#eaf4f9" stroke-width="4.5" fill="none"/>
+        <path id="cable" stroke="#31546b" stroke-width="2" fill="none"/>
+      </g>
+      <circle id="bobJoint" r="3.5" fill="#b4bed0" stroke="#48586e" stroke-width="1.5"/>
+    </svg>
+    <svg id="scaleLines" class="scale-lines" viewBox="0 0 1600 900" aria-label="尺度标注"></svg>
+    <canvas id="bob" width="160" height="160" aria-label="摆锤"></canvas>
+    <button id="pendulumGizmo" type="button" aria-label="移动傅科摆中心，可用方向键调整">✥</button>
+    <section id="parameterControls" aria-label="单摆参数" hidden>
+      <div class="parameter-field">
+        <label>摆长</label>
+        <div class="length-tiers" role="group" aria-label="摆长档位">
+          <button type="button" data-length="28" aria-pressed="false">28 m</button>
+          <button type="button" data-length="67" aria-pressed="true">67 m</button>
+          <button type="button" data-length="100" aria-pressed="false">100 m</button>
+        </div>
+      </div>
+      <div class="parameter-field">
+        <label>摆重</label>
+        <div class="length-tiers mass-tiers" role="group" aria-label="摆重档位">
+          <button type="button" data-mass="25" aria-pressed="false">25 kg</button>
+          <button type="button" data-mass="28" aria-pressed="true">28 kg</button>
+          <button type="button" data-mass="50" aria-pressed="false">50 kg</button>
+        </div>
+      </div>
+      <div class="parameter-period">往返周期 <output id="swingPeriod">16.42 s</output></div>
+      <div class="simple-readouts">
+        <div>最大摆角 <output>27.5°</output></div><div>当前摆角 <output id="simpleAngle">0.0°</output></div>
+        <div>摆动计时 <output id="simpleTime">0.0 s</output></div>
+      </div>
+      <button id="simpleToggle" type="button" aria-pressed="false">摆动开始</button>
+      <p class="parameter-note">摆球与摆长按实物比例显示。</p>
+    </section>
+    <button id="previousStage" type="button" hidden>返回上一步</button>
+    <button id="paramButton" class="stage-control" aria-expanded="false" aria-controls="stage" tabindex="-1" aria-hidden="true">调整单摆参数</button>
+    <div id="stage1Readout" aria-live="polite"></div>
+    <dl id="precessionReadout" class="precession-readout" aria-label="偏转数据" aria-live="polite" aria-busy="false">
+      <div class="metric period-metric">
+        <dt>偏转周期</dt>
+        <dd class="metric-value period-value">
+          <span class="metric-delta" aria-hidden="true"></span>
+          <span class="metric-value-group"><output id="precessionPeriod">46.3</output><small id="precessionPeriodUnit" class="metric-unit unit-h">h</small></span>
+        </dd>
+      </div>
+      <div class="metric rate-metric">
+        <dt>每小时偏转角</dt>
+        <dd class="metric-value rate-value">
+          <span class="metric-delta" aria-hidden="true"></span>
+          <span class="metric-value-group"><output id="precessionRate">7.78</output><small class="metric-unit unit-degree">°</small></span>
+        </dd>
+      </div>
+    </dl>
+    <div class="stage1-hud" aria-label="第一阶段读数与演示速度">
+      <div class="time-speed" role="group" aria-label="演示速度">
+        <svg class="speed-icon" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M6.5 22.5a10.5 10.5 0 1 1 19 0M16 17.5l5.1-5.1"/>
+          <circle cx="16" cy="17.5" r="1.7" fill="currentColor" stroke="none"/>
+          <path d="M12.5 5h7M16 5v3"/>
+        </svg>
+        <div class="speed-reading">
+          <span class="speed-label">演示速度</span>
+          <output id="timeSpeedVal" aria-live="polite">1×</output>
+        </div>
+        <button id="speedDown" type="button" aria-label="降低演示速度"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 2 12l9 7ZM22 5l-9 7 9 7Z"/></svg></button>
+        <button id="speedUp" type="button" aria-label="提高演示速度"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 5 9 7-9 7Zm11 0 9 7-9 7Z"/></svg></button>
+        <button id="planeToggle" type="button" aria-label="摆平面" aria-pressed="false" aria-controls="swingSurface">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M3 16l7-9h11l-7 9zM12 3v18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button id="debugButton" class="stage-control" aria-expanded="false" aria-controls="debugPanel" tabindex="-1" aria-hidden="true">编辑</button>
+    <section id="debugPanel" aria-label="编辑面板" hidden>
+      <fieldset id="backgroundControls" class="stage-one-period">
+        <legend>背景图</legend>
+        <label>亮度<input id="backgroundBrightness" name="backgroundBrightness" aria-label="背景图亮度" type="range" min=".5" max="1.6" step=".01" value=".86"><output></output></label>
+        <label>对比度<input id="backgroundContrast" name="backgroundContrast" aria-label="背景图对比度" type="range" min=".5" max="1.5" step=".01" value="1.2"><output></output></label>
+        <button id="backgroundReset" type="button">恢复背景默认</button>
+      </fieldset>
+      <fieldset id="hallScreenControls" class="stage-one-period"><legend>屏幕效果</legend></fieldset>
+      <fieldset id="standShaderControls" class="stage-one-period">
+        <legend>支架纹理</legend>
+        <label>粗笔触<input aria-label="粗笔触强度" type="range" data-stand-param="brush" min="0" max="1" step=".01" value=".05"><output></output></label>
+        <label>细颗粒<input aria-label="细颗粒强度" type="range" data-stand-param="grain" min="0" max="1" step=".01" value=".59"><output></output></label>
+        <label>纹理尺寸<input aria-label="纹理尺寸" type="range" data-stand-param="size" min=".5" max="3" step=".05" value=".5"><output></output></label>
+        <button type="button">恢复支架纹理默认</button>
+      </fieldset>
+      <label class="stage-one-period"><span>无背景</span><input id="noBackground" type="checkbox"></label>
+      <label class="stage-one-period">往返周期 <span><input id="stageOnePeriod" type="number" min="4" step="0.01" placeholder="16.42"> s</span></label>
+    </section>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

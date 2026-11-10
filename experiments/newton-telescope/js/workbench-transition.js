@@ -4,15 +4,16 @@
   const stage=document.querySelector('.observatory'),viewport=document.querySelector('#viewport'),consolePanel=document.querySelector('.console');
   const table=document.createElement('div');table.className='workbench-table';table.setAttribute('aria-hidden','true');stage.append(table);
   const assembly=document.createElement('section');assembly.className='assembly-preview';assembly.setAttribute('aria-label','牛顿望远镜组装台');
-  assembly.innerHTML='<img class="assembly-telescope" src="assets/studio-final/rear-empty.png" alt="待组装的复古牛顿望远镜" draggable="false"><img class="assembly-telescope assembly-installed-primary" src="assets/studio-final/primary.png" alt="" hidden><img class="assembly-telescope assembly-installed-secondary" src="assets/studio-final/secondary.png" alt="" hidden><img class="assembly-telescope assembly-front" src="assets/studio-final/front.png" alt="" draggable="false"><div class="assembly-caption"><strong>组装牛顿望远镜</strong></div>';
+  assembly.innerHTML='<img class="assembly-telescope" src="assets/workbench/telescope.png" alt="待组装的牛顿望远镜" draggable="false"><div class="assembly-caption"><strong>组装牛顿望远镜</strong></div>';
   stage.append(assembly);
   const tray=document.createElement('div');tray.className='assembly-mirror-tray';tray.setAttribute('aria-label','组装镜片托盘');
   document.querySelectorAll('[data-mirror] .mirror-art').forEach(img=>{const copy=img.cloneNode();copy.alt=img.closest('button').getAttribute('aria-label');tray.append(copy);});stage.append(tray);
   let busy=false,epoch=0;const animations=new Set(),reduced=matchMedia('(prefers-reduced-motion: reduce)');
   function sync(s){const isAssembly=s.stage==='assembly';stage.classList.toggle('layered-assembly',isAssembly);assembly.hidden=tray.hidden=!isAssembly;viewport.inert=isAssembly;consolePanel.inert=isAssembly;}
-  function motion(el,frames,duration,delay=0){if(!el)return Promise.resolve();const a=el.animate(frames,{duration:reduced.matches?0:duration,delay:reduced.matches?0:delay,fill:'forwards',easing:'cubic-bezier(.22,.7,.25,1)'});animations.add(a);return a.finished.catch(()=>{});}
+  function motion(el,frames,duration,delay=0){if(!el)return Promise.resolve();const a=el.animate(frames,{duration:reduced.matches?0:N.developer?.duration(duration)??duration,delay:reduced.matches?0:N.developer?.duration(delay)??delay,fill:'forwards',easing:'cubic-bezier(.22,.7,.25,1)'});animations.add(a);return a.finished.catch(()=>{});}
   function cleanup(){animations.forEach(a=>a.cancel());animations.clear();busy=false;stage.classList.remove('workbench-transition');stage.removeAttribute('aria-busy');stage.inert=false;sync(N.course.get());}
   N.course.requestEnter=async function(target,{completionConfirmed=false}={}){
+    if(N.developer?.enabled){N.workbenchTransition.cancel();N.trayTransition?.cancel();return N.course.enter(target);}
     if(busy||target===N.course.get().stage||!N.course.canEnter(target))return false;
     const from=N.course.get().stage;if(from!=='mirrors'||target!=='assembly')return N.course.enter(target);
     if(!completionConfirmed)return N.courseCompletion?.requestMirrors()??false;
@@ -31,6 +32,7 @@
       return true;
     }catch(error){console.error('Workbench transition failed',error);return false;}finally{if(token===epoch)cleanup();}
   };
+  N.workbenchTransition={cancel(){++epoch;cleanup();},get busy(){return busy;}};
   N.course.subscribe(s=>{sync(s);if(busy&&s.stage!=='mirrors'&&s.stage!=='assembly'){++epoch;cleanup();}});sync(N.course.get());
   window.addEventListener('pagehide',()=>{++epoch;cleanup();});
 })(window.Newton);

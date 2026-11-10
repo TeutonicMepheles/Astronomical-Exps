@@ -1,0 +1,84 @@
+{
+  "browser": "156.0.8078.80",
+  "url": "http://127.0.0.1:8378/experiments/foucault-pendulum/",
+  "results": [
+    {
+      "change": {
+        "city": "north",
+        "lat": 90
+      },
+      "instantPoseIdentical": true,
+      "trailCleared": true,
+      "trailResumed": true,
+      "rotationErrorRadians": 0.000025931238961565684
+    },
+    {
+      "change": {
+        "speed": 4,
+        "lat": 90
+      },
+      "instantPoseIdentical": true,
+      "trailCleared": false,
+      "trailResumed": true,
+      "rotationErrorRadians": -0.000019795523806542814
+    },
+    {
+      "change": {
+        "city": "south",
+        "lat": -90
+      },
+      "instantPoseIdentical": true,
+      "trailCleared": true,
+      "trailResumed": true,
+      "rotationErrorRadians": 0.000019795523806542814
+    },
+    {
+      "change": {
+        "speed": 0.25,
+        "lat": -90
+      },
+      "instantPoseIdentical": true,
+      "trailCleared": false,
+      "trailResumed": true,
+      "rotationErrorRadians": 0.000007782259801494135
+    },
+    {
+      "change": {
+        "city": "north",
+        "lat": 90
+      },
+      "instantPoseIdentical": true,
+      "trailCleared": true,
+      "trailResumed": true,
+      "rotationErrorRadians": -0.000007782259801494135
+    },
+    {
+      "change": {
+        "speed": 2,
+        "lat": 90
+      },
+      "instantPoseIdentical": true,
+      "trailCleared": false,
+      "trailResumed": true,
+      "rotationErrorRadians": -0.00004877653374454893
+    },
+    {
+      "change": {
+        "city": "south",
+        "lat": -90
+      },
+      "instantPoseIdentical": true,
+      "trailCleared": true,
+      "trailResumed": true,
+      "rotationErrorRadians": 0.00004877653374454893
+    }
+  ],
+  "controlledClockMaxGapMs": 16,
+  "realClock": {
+    "frames": 77,
+    "maxGapMs": 26,
+    "p95GapMs": 20
+  },
+  "sameCityPreservesTrail": true,
+  "errors": []
+}

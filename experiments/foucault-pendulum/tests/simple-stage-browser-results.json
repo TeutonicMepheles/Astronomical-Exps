@@ -1,0 +1,28 @@
+{
+  "first": {
+    "length": 67,
+    "period": 16.4203713649454,
+    "expected": 16.420363465515862,
+    "minAngle": -0.47999862061362314,
+    "maxAngle": 0.4799948836254677,
+    "maxConnectionError": 0.006554036445466482,
+    "distanceRange": 0.012973405807429117
+  },
+  "second": {
+    "length": 28,
+    "period": 10.615117153694776,
+    "expected": 10.615107101146373,
+    "minAngle": -0.47999304416750865,
+    "maxAngle": 0.4800037675519791,
+    "maxConnectionError": 0.006559203091862198,
+    "distanceRange": 0.013062768702411631
+  },
+  "pauseResumeContinuous": true,
+  "parameterSwitchWhilePlaying": true,
+  "noPrecession": true,
+  "downEraseThenFastUpReveal": true,
+  "scaleSwitchFullyHidden": true,
+  "readouts": true,
+  "bottomRightBack": true,
+  "errors": []
+}
