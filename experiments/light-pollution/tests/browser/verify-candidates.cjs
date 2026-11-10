@@ -5,7 +5,7 @@ const path=require('node:path'),fs=require('node:fs'),assert=require('node:asser
 (async()=>{const browser=await chromium.launch();try{
  const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[],requests=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url()))requests.push(r.url());});
- await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href);await page.waitForSelector('html[data-ready=true]');
+ await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href+'?mode=editor');await page.waitForSelector('html[data-ready=true]');
  await page.locator('#edit-toggle').click();
  assert.equal(await page.locator('.editor-row').count(),7);
  const initialPixels=await page.locator('#scene').evaluate(async c=>{await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return c.toDataURL();});

@@ -8,7 +8,7 @@ const assert=require('node:assert/strict');
  try {
   const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href+'?scene=legacy');
+  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href+'?scene=legacy&mode=editor');
   await page.waitForSelector('html[data-ready="true"]');
   await page.locator('#edit-toggle').click();
   await page.waitForSelector('html[data-editing="true"]');
