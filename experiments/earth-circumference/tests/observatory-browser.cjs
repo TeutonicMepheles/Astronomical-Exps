@@ -35,13 +35,35 @@ const assert = require('node:assert/strict');
     await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
     const plane=await page.evaluate(()=>{
       const el=document.querySelector('.closeup-orbital-plane');
+      const cam=window.__globe.camera();
+      const stage=document.querySelector('#stage').getBoundingClientRect();
+      const scale=stage.width/1600;
+      const label=el.querySelector('.plane-label').getBoundingClientRect();
+      const labelBox={
+        x:(label.x-stage.x)/scale,y:(label.y-stage.y)/scale,
+        width:label.width/scale,height:label.height/scale,
+      };
+      const outside=[0,1].every(y=>[0,1].every(x=>{
+        const px=labelBox.x+x*labelBox.width,py=labelBox.y+y*labelBox.height;
+        return Math.hypot(px-cam.centre.x,py-cam.centre.y)>=cam.radius;
+      }));
+      const leader=[...el.querySelector('.plane-label-leader').getAttribute('d').matchAll(/-?\d+(?:\.\d+)?/g)].map(match=>Number(match[0]));
+      const planeNumbers=(el.querySelector('.plane-front').getAttribute('d').match(/-?\d+(?:\.\d+)?/g)||[]).map(Number);
+      const planePoints=Array.from({length:planeNumbers.length/2},(_,index)=>({x:planeNumbers[index*2],y:planeNumbers[index*2+1]}));
       return {visible:getComputedStyle(el).visibility,path:el.querySelector('.plane-front').getAttribute('d'),
        noon:document.querySelector('.noon-front').getAttribute('d')+document.querySelector('.noon-back').getAttribute('d'),
        color:getComputedStyle(document.querySelector('.noon-front')).stroke,
-       pathCount:el.querySelectorAll('path').length};
+       pathCount:el.querySelectorAll('.plane-front').length,
+       label:el.querySelector('.plane-label').textContent,
+       leader:el.querySelector('.plane-label-leader').getAttribute('d'),outside,labelBox,
+       leaderEnd:{x:leader.at(-2),y:leader.at(-1)},planePoints};
     });
     assert.equal(plane.visible,'visible');
-    assert.equal(plane.pathCount,1,'Only the visible section curve is drawn');
+    assert.equal(plane.pathCount,1,'Only one visible section curve is drawn');
+    assert.equal(plane.label,'黄道面');
+    assert.ok(plane.leader.length>10,'The section-plane label uses a leader');
+    assert.equal(plane.outside,true,'The section-plane title sits outside the visible globe');
+    assert.ok(Math.min(...plane.planePoints.map(point=>Math.hypot(plane.leaderEnd.x-point.x,plane.leaderEnd.y-point.y)))<.01,'The section-plane leader ends on the ecliptic curve');
     assert.ok(plane.path.length>1000 && !plane.path.includes('NaN'));
     assert.notEqual(plane.path,previousPlane,'Plane projection follows the date and camera');
     assert.ok(plane.noon.length>1000);
