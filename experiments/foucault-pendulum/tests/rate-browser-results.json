@@ -1,0 +1,80 @@
+{
+  "url": "http://127.0.0.1:8378/experiments/foucault-pendulum/",
+  "browser": "156.0.8078.80",
+  "mode": "Chrome headless, actual DOM animation, Playwright controlled clock at normal rAF cadence; 34 seconds per rate",
+  "results": [
+    {
+      "speed": 0.25,
+      "samples": 2125,
+      "periodSeconds": 16.42036330490523,
+      "minReach": -1.0000148109458362,
+      "maxReach": 1.000004437327594,
+      "minAngleDegrees": -27.502415959968754,
+      "maxAngleDegrees": 27.502106526534813,
+      "precessionDegPerSecond": 1.944303709852603
+    },
+    {
+      "speed": 1,
+      "samples": 2125,
+      "periodSeconds": 16.420363342878886,
+      "minReach": -1.0000274840475432,
+      "maxReach": 1.0000028384016022,
+      "minAngleDegrees": -27.5027939856042,
+      "maxAngleDegrees": 27.502058832437548,
+      "precessionDegPerSecond": 7.777126429384572
+    },
+    {
+      "speed": 2,
+      "samples": 2125,
+      "periodSeconds": 16.420363575058246,
+      "minReach": -1.000026764596969,
+      "maxReach": 0.9999750229498527,
+      "minAngleDegrees": -27.50277252509616,
+      "maxAngleDegrees": 27.501229133264435,
+      "precessionDegPerSecond": 15.554287382310294
+    },
+    {
+      "speed": 4,
+      "samples": 2125,
+      "periodSeconds": 16.42036323616817,
+      "minReach": -1.0000042897416848,
+      "maxReach": 1.0000250672524849,
+      "minAngleDegrees": -27.502102124218432,
+      "maxAngleDegrees": 27.50272189498434,
+      "precessionDegPerSecond": 31.108532756729332
+    }
+  ],
+  "switches": [
+    {
+      "to": 0.25,
+      "instantPositionJump": 0,
+      "instantAngleJump": 0,
+      "nextFrameRotationErrorRadians": -0.0000470327761726997
+    },
+    {
+      "to": 4,
+      "instantPositionJump": 0,
+      "instantAngleJump": 0,
+      "nextFrameRotationErrorRadians": 0.000033763330299724226
+    },
+    {
+      "to": 1,
+      "instantPositionJump": 0,
+      "instantAngleJump": 0,
+      "nextFrameRotationErrorRadians": 0.000008412912101039838
+    },
+    {
+      "to": 2,
+      "instantPositionJump": 0,
+      "instantAngleJump": 0,
+      "nextFrameRotationErrorRadians": -0.0000011180236318547587
+    },
+    {
+      "to": 0.25,
+      "instantPositionJump": 0,
+      "instantAngleJump": 0,
+      "nextFrameRotationErrorRadians": -0.00003819058509670244
+    }
+  ],
+  "errors": []
+}

@@ -2,7 +2,7 @@
 
 ## 当前功能与状态
 
-page.html 是页面模板；bootstrap 创建服务、恢复草稿并按需挂载完整编辑器。index.html 由构建生成。
+page.html 是页面模板；bootstrap 创建服务、恢复草稿并按需挂载完整编辑器。index.html 由构建生成，实验根 `index.html` 默认跳转到本入口；旧街景保留在实验根 `legacy-preview.html`。
 
 ## 职责边界
 

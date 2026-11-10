@@ -12,10 +12,9 @@
     get resetVersion(){return resetVersion;},
     get:()=>({...state,seen:[...state.seen],installed:[...state.installed],records:state.records.map(r=>({...r}))}),
     subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},
-    canEnter(stage){return stage==='mirrors'||stage==='assembly'&&state.seen.length===3||stage==='observation'&&state.assemblyDone;},
+    refresh(){emit();},
+    canEnter(stage){return ['mirrors','assembly','observation'].includes(stage)&&(N.developer?.enabled||stage==='mirrors'||stage==='assembly'&&state.seen.length===3||stage==='observation'&&state.assemblyDone);},
     enter(stage){if(!this.canEnter(stage))return false;patch({stage,selected:null,mirrorSelection:null,message:stage==='mirrors'?'将桌面镜片放入光路，比较三种镜面的光线与焦点。':stage==='assembly'?'选择零件，再点击安装位。':'保持主镜不变，对比 25、10、5 mm 目镜。'});return true;},
-    // Preview-only navigation: does not fabricate completed learning or assembly records.
-    testEnter(stage){if(!['mirrors','assembly','observation'].includes(stage))return false;patch({stage,testNavigation:true,selected:null,mirrorSelection:null});return true;},
     selectMirror(mirror){if(state.stage!=='mirrors'||state.mirrorMounted&&state.mirror===mirror||!['plane','concave','convex'].includes(mirror))return;patch({mirrorSelection:mirror,message:'已选择镜片。拖到夹具上安装。'});},
     clearMirrorSelection(){if(state.stage==='mirrors')patch({mirrorSelection:null});},
     mountLens(type){if(state.stage!=='mirrors'||!['concave','convex'].includes(type))return false;patch({lens:type,message:(type==='concave'?'凹透镜已安装：光束发散，蓝色虚线反向延伸到虚焦点。':'凸透镜已安装：平行光穿过透镜后会聚到实焦点。')+'可移动镜座或取下镜片。'});return true;},

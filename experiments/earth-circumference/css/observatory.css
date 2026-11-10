@@ -1,0 +1,233 @@
+/* EXP-04 presentation. All selectors belong to this experiment. */
+html, body { background:#080f19; font-family:var(--font-ui); overflow:clip; }
+body { position:relative;overflow:clip; }
+.stage { overflow:clip;background:radial-gradient(ellipse at 55% 43%,#172c3a 0%,#101d2a 48%,#0c1722 85%); }
+.stage::after { display:none; }
+.starfield { opacity:.12; }
+.experiment-heading { position:absolute;left:48px;top:32px;z-index:30;display:flex;align-items:center;gap:18px; }
+.experiment-heading > span { color:#96b7b9;font-size:14px;letter-spacing:2px;border-right:1px solid #40515b;padding-right:18px; }
+.experiment-heading h1 { margin:0;font-size:26px;font-weight:500;letter-spacing:2px; }
+.astro-stage-progress { left:auto;right:48px;top:28px;transform:none;padding:8px 0;background:none;box-shadow:none;border-radius:0; }
+.astro-stage-progress ol { gap:40px; }
+.astro-stage-progress li { font-size:16px;gap:10px;color:#8c9da9; }
+.astro-stage-progress li+li::before { width:16px;left:-28px;border-top:1px solid #40515b; }
+.astro-stage-progress .step-number { width:30px;height:30px;border-radius:50%;background:transparent;border:1px solid #52636e;font-size:15px; }
+.astro-stage-progress .current { color:#e9d9b6; }
+.astro-stage-progress .current .step-number { background:#ddc79e;color:#172530;border-color:#ddc79e;box-shadow:none; }
+.astro-stage-progress .current .step-number::after { display:none; }
+.orbit-heading { display:none; }
+.orbit-heading b { font-size:16px;font-weight:500;color:#abbcc5; }
+.orbit-heading span { display:none; }
+.stage:not(.is-measuring)[data-view-mode="orbit"] .orbit-overview { left:514px;top:78px; }
+.stage:not(.is-measuring)[data-view-mode="orbit"] .orbit-diagram { transform:scale(2.1); }
+.orbit-path .orbit-plane { fill-opacity:.035;stroke:#cfbb91;stroke-width:1.3;vector-effect:non-scaling-stroke; }
+.orbit-plane-section .section-plane { fill-opacity:.07; }
+.orbit-plane-section .section-front { stroke-width:1.4;filter:none; }
+.orbit-plane-section .orbit-section-join { stroke-width:1.4; }
+.orbit-earth-surface { box-shadow:0 0 0 1px #d5c39b55; }
+.orbit-axis { box-shadow:none;background:#dce6e7; }
+.orbit-current .orbit-axis { width:.8px; }
+.orbit-current b { border:0;background:none;padding:0;font-size:8px;color:#d5c7ab; }
+.orbit-sun i { width:24px;height:24px;background:radial-gradient(circle at 38% 34%,#fff1c5,#e6be73 65%,#b98743);box-shadow:0 0 22px #e5bf6a25; }
+.orbit-sun b { font-size:8px;top:20px;color:#cbbd9e; }
+.orbit-camera text { font-size:8px;fill:#a9bec7; }
+.orbit-camera .camera-icon { stroke:#a9bec7;stroke-width:.8;fill:#152835; }
+.orbit-camera .camera-sight { opacity:.45;stroke-width:.65; }
+.stage[data-view-mode="earth"] .orbit-camera text { font-size:15px; }
+.stage[data-view-mode="earth"] .orbit-sun b,
+.stage[data-view-mode="earth"] .orbit-current b { font-size:15px; }
+.stage:not(.is-measuring) .sun-arrows { clip-path:inset(0 0 148px); }
+.stage:not(.is-measuring) .timeline,
+.stage:not(.is-measuring)[data-view-mode="orbit"] .timeline { left:480px;top:773px;width:640px;height:88px;z-index:20; }
+.stage:not(.is-measuring) .timeline::before { content:"";position:absolute;left:-432px;right:-432px;top:-21px;height:1px;background:#52637155;pointer-events:none; }
+.timeline .ticks { top:18px; }
+.timeline .ticks i { background:#62798666;height:8px; }
+.timeline .ticks i.major { background:#a4b5ba99;height:18px; }
+.timeline-caret { top:10px;height:34px;background:#eed4a1;box-shadow:none; }
+.timeline-caret::before { content:"";position:absolute;left:-4px;top:-3px;width:10px;height:10px;background:#eed4a1;border-radius:50%; }
+.timeline-end { top:49px;font-size:13px;color:#9eb0b9; }
+.selected-date { top:48px;font-size:20px;color:#ead7b2; }
+.selected-date small { color:#9eb0b9; }
+.view-mode-tabs { left:48px;bottom:43px;transform:none;border:1px solid #455965;border-radius:12px;background:#101f2b;box-shadow:none;padding:4px;gap:4px; }
+.view-mode-tab { min-width:150px;min-height:52px;font-family:var(--font-ui);font-size:16px;font-weight:500;line-height:1.2;border-radius:8px;color:#a5b6bf; }
+.view-mode-tab:hover,.view-mode-tab[aria-selected="true"] { background:#2d434b;border-color:#597078;color:#f2e1bd; }
+.view-mode-tab[aria-selected="true"] svg { filter:none; }
+.stage-next { bottom:43px;right:48px;border-radius:10px;background:#dfc99f;border-color:#dfc99f;color:#182932;box-shadow:none;font-size:18px; }
+.stage-back { border-radius:10px;background:#1b303e;border-color:#526b79;box-shadow:none; }
+.observation-panel,.calculation-panel { background:#152735;border-color:#435c68;border-radius:16px;box-shadow:none; }
+.observation-tabs { border-color:#435c68;border-radius:10px; }
+.observation-tabs button { border-radius:7px; }
+.observation-tabs button:hover,.observation-tabs button[aria-selected="true"] { background:#304b56;box-shadow:none; }
+/* A single timing curve keeps the diagram, close-up and camera cone together. */
+.orbit-overview { transition:left .55s cubic-bezier(.4,0,.2,1),top .55s cubic-bezier(.4,0,.2,1); }
+.orbit-diagram { transition:transform .55s cubic-bezier(.4,0,.2,1); }
+.orbit-current { transition:none; }
+#globe,.sun-arrows,.axis-layer,.geo-marker,.point-guides,.zoom-link-layer { transition:opacity .55s cubic-bezier(.4,0,.2,1),visibility .55s; }
+.stage:not(.is-measuring)[data-view-mode="earth"] :is(#globe,.sun-arrows,.axis-layer,.geo-marker,.point-guides) { animation:none; }
+.stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-edge { animation:none;stroke-dasharray:none; }
+.stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-fill { animation:none; }
+@keyframes earth-main-reveal { from { opacity:0; } to { opacity:1; } }
+@keyframes camera-link-draw { from { opacity:0; } to { opacity:1; } }
+.zoom-link-edge { stroke:#90abb333; }
+@media(prefers-reduced-motion:reduce) {
+  .stage *, .stage *::before { animation:none!important;transition:none!important; }
+}
+
+/* Same orange as the solid core of assets/shaft-single.png. */
+.stage { --noon-ink:#fda36e; }
+.orbit-noon { position:absolute;inset:0;width:100%;height:100%;z-index:4;overflow:visible;pointer-events:none; }
+.orbit-noon path { fill:none;stroke:var(--noon-ink);stroke-width:1.7;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round; }
+.orbit-noon .noon-back { stroke-dasharray:2 3;opacity:.4; }
+.stage:not(.is-measuring) .point-guides [data-guide=sun] path:first-child { stroke:var(--noon-ink); }
+/* Keep the solar meridian orange through measurement and calculation too. */
+.stage.is-measuring .point-guides [data-guide=sun] path:first-child { stroke:var(--noon-ink); }
+.stage.is-measuring .point-guides [data-guide=sun] path:nth-child(2) { stroke:var(--solar-guide); }
+
+.closeup-orbital-plane { position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .55s,visibility .55s; }
+.stage:not(.is-measuring)[data-view-mode="earth"] .closeup-orbital-plane { opacity:1;visibility:visible; }
+.closeup-orbital-plane path { stroke:#ffe3a0;stroke-width:1.7;fill:none;stroke-linejoin:round; }
+.closeup-orbital-plane .plane-front { stroke-opacity:.85; }
+
+.orbit-transport { position:absolute;left:1150px;bottom:43px;display:flex;gap:8px;z-index:30; }
+.orbit-transport button,.orbit-spin-button { display:grid;place-items:center;width:48px;height:48px;padding:11px;border:1px solid #526b76;border-radius:50%;background:#152b38;color:#c9dadd;cursor:pointer; }
+.orbit-transport svg,.orbit-spin-button svg { width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
+.orbit-transport [data-orbit-play] svg { fill:currentColor;stroke:none; }
+.orbit-transport button:hover,.orbit-transport button[aria-pressed="true"],.orbit-spin-button:hover,.orbit-spin-button[aria-expanded="true"] { background:#3a5057;border-color:#dec99d;color:#f4dfb6; }
+.orbit-transport button:focus-visible,.orbit-spin-button:focus-visible { outline:2px solid #f4dfb6;outline-offset:4px; }
+.orbit-spin-control { position:absolute;left:50%;bottom:calc(100% + 12px);width:48px;height:48px;transform:translateX(-50%) scale(.4761904762);transform-origin:center bottom;pointer-events:auto;z-index:12; }
+.orbit-spin-popover { position:absolute;right:62px;top:-15px;width:300px;padding:18px 20px;background:#142936;border:1px solid #58717b;border-radius:12px;box-shadow:0 10px 24px #0005;display:grid;grid-template-columns:1fr auto;gap:6px 16px;color:#e2e9e8;font-size:16px; }
+.orbit-spin-popover[hidden] { display:none; }
+.orbit-spin-popover output { color:#f4dfb6;font-variant-numeric:tabular-nums; }
+.orbit-spin-popover input { grid-column:1/-1;width:100%;height:44px;margin:0;accent-color:#e4c997;cursor:pointer;touch-action:none; }
+.stage[data-view-mode="earth"] .orbit-spin-control,.stage.is-measuring .orbit-spin-control,.stage.is-measuring .orbit-transport { display:none; }
+.stage[data-view-mode="earth"] .orbit-transport { visibility:hidden; }
+
+/* Selection -> local observation: the two context views make room centrally. */
+.geo-reference { display:none; }
+.stage.showing-reference .geo-reference { display:grid; }
+.geo-ref-mark { width:16px;height:16px;border:2px solid #d7efe4;background:#1c6b58;transform:rotate(45deg);box-shadow:0 0 0 4px #10242f; }
+.geo-ref-caption { position:absolute;left:28px;top:50%;transform:translateY(-50%);color:#d7efe4;font-size:15px;white-space:nowrap;text-shadow:0 1px 2px #041018;pointer-events:none; }
+.local-time-tag { position:absolute;left:50%;top:30px;transform:translateX(-50%);padding:4px 8px;border-radius:8px;background:#102331e6;color:#f4dfb6;font-size:14px;white-space:nowrap;pointer-events:none; }
+.local-time-tag[hidden] { display:none; }
+.local-time-card { position:absolute;left:720px;top:150px;z-index:24;display:grid;grid-template-columns:1fr auto;gap:6px 12px;width:280px;padding:16px 18px;border:1px solid #526b76;border-radius:14px;background:#102331ee;color:#d5e4e4;box-shadow:0 10px 24px #06101866; }
+.local-time-card[hidden] { display:none; }
+.local-time-card > span,.local-time-card > output { grid-column:1/-1; }
+.local-time-card > span { color:#95b7b8;font-size:13px;letter-spacing:1px; }
+.local-time-card output { color:#f4dfb6;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums; }
+.local-time-hint { grid-column:1/-1;margin:0;color:#c5d5d4;font-size:14px;line-height:1.45; }
+.local-time-spin { display:contents; }
+.local-time-spin label { align-self:end;font-size:14px; }
+.local-time-spin output { font-size:16px;text-align:right; }
+.local-time-card input { grid-column:1/-1;width:100%;height:44px;margin:0;accent-color:#e4c997;cursor:pointer;touch-action:none; }
+.local-time-card.is-noon output { color:#d7efe4; }
+.stage[data-view-mode="orbit"] .local-time-card,.stage.is-measuring .local-time-card { display:none; }
+.stage:not(.has-selection) .geo-selected,
+.stage:not(.has-selection) .point-guides [data-guide="site"],
+.stage:not(.has-selection) .point-guides text { display:none!important; }
+.observation-tip { position:absolute;z-index:15;width:96px;height:96px;padding:5px;border:2px solid #b9cbd1;border-radius:12px;background:#203b47;cursor:pointer;box-shadow:0 5px 18px #08151d44; }
+.observation-tip[hidden] { display:none; }
+.observation-tip::before { content:"";position:absolute;left:-9px;top:38px;width:14px;height:14px;background:#203b47;border-left:2px solid #b9cbd1;border-bottom:2px solid #b9cbd1;transform:rotate(45deg); }
+.observation-tip svg { display:block;width:100%;height:100%;border-radius:6px;overflow:hidden; }
+.observation-tip:hover,.observation-tip:focus-visible { background:#35515b;border-color:#f4dfb6;outline:2px solid #f4dfb6;outline-offset:3px; }
+.observation-panel { left:480px;top:150px;width:640px;z-index:20;opacity:0;visibility:hidden;transform:translateY(32px) scale(.94);transform-origin:50% 60%;transition:opacity .45s,transform .7s cubic-bezier(.4,0,.2,1),visibility .7s;pointer-events:none; }
+.stage.is-measuring:not(.is-calculating) .observation-panel { opacity:1;visibility:visible;transform:none;pointer-events:auto;transition-delay:.15s; }
+.stage.is-measuring:not(.is-calculating) .orbit-overview { display:block!important;left:1070px;top:102px; }
+.stage.is-measuring:not(.is-calculating) .orbit-diagram { transform:scale(.78); }
+.stage.is-measuring:not(.is-calculating) .axis-layer { display:block!important;visibility:visible; }
+.stage.is-measuring:not(.is-calculating) .sun-arrows { clip-path:inset(100px 1160px 150px 0); }
+.stage.is-measuring:not(.is-calculating) .point-guides text { font-size:13px; }
+.stage.is-measuring:not(.is-calculating) .orbit-overview,
+.stage.is-measuring:not(.is-calculating) .orbit-diagram { transition-duration:.9s; }
+.stage.is-measuring:not(.is-calculating) .line-style-controls { display:none; }
+.stage.is-calculating .observation-panel { display:none; }
+@media(prefers-reduced-motion:reduce){.stage .observation-panel { transition:none; }}
+
+.observation-viewport { position:relative;margin:12px 0;border-radius:18px; }
+.observation-panel .observation-viewport .site-scene { margin:0; }
+.site-measurement-results { position:absolute;left:16px;top:16px;z-index:8;display:flex;gap:8px;pointer-events:none; }
+.site-measurement-results[hidden] { display:none; }
+.site-measurement-results div { display:grid;grid-template-columns:auto auto;align-items:baseline;gap:8px;padding:9px 12px;border:1px solid #a9b8b166;border-radius:9px;background:#102331e8;box-shadow:0 5px 18px #07131c55; }
+.site-measurement-results span { color:#b7c9c9;font-size:13px;white-space:nowrap; }
+.site-measurement-results strong { color:#f4e3ba;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap; }
+.subsolar-zero-note { position:absolute;top:20px;left:20px;right:76px;width:max-content;max-width:calc(100% - 96px);padding:10px 14px;border-radius:9px;background:#fff9e8eb;color:#354959;font-size:17px;font-weight:500;pointer-events:none; }
+.subsolar-zero-note[hidden] { display:none; }
+.measurement-instruction:empty { display:none; }
+
+.calculation-local-evidence { position:absolute;left:48px;top:98px;z-index:18;display:grid;gap:10px;width:250px;padding:16px 18px;border:1px solid #526b76;border-radius:14px;background:#102331e8;color:#dce9e9;box-shadow:0 12px 30px #050d1466;pointer-events:none; }
+.calculation-local-evidence[hidden] { display:none; }
+.calculation-local-evidence>span { margin-bottom:2px;color:#95b7b8;font-size:13px;letter-spacing:1px; }
+.calculation-local-evidence div { display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding-top:9px;border-top:1px solid #41576180; }
+.calculation-local-evidence small { color:#aebfbe;font-size:14px; }
+.calculation-local-evidence strong { color:#f3dfb0;font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap; }
+
+.stage.is-measuring:not(.is-calculating) .zoom-link-layer { display:block!important;visibility:visible;opacity:.8; }
+.stage.is-measuring:not(.is-calculating) .zoom-link-edge { stroke:#90abb355; }
+.observation-pin { position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:19;opacity:0;visibility:hidden;transition:opacity .45s,visibility .45s; }
+.observation-pin path { fill:#152735;stroke:#435c68;stroke-width:1;stroke-linejoin:round; }
+.stage.is-measuring:not(.is-calculating) .observation-pin { visibility:visible;opacity:1;transition-delay:.15s; }
+.stage.is-measuring:not(.is-calculating) .geo-marker { z-index:21; }
+
+.shadow-measure-host { position:absolute;inset:0; }
+.shadow-measure-host[hidden] { display:none; }
+.simple-calculation { top:130px;padding:28px; }
+.stage.is-calculating .sun-beams { visibility:hidden; }
+.simple-calculation h2 { margin:0 0 24px; }
+.simple-calculation .calculation-evidence { display:flex;gap:16px;margin-bottom:24px; }
+.simple-calculation .calculation-evidence button { flex:1;display:grid;gap:10px;text-align:left;margin:0;padding:16px;background:#203b47;border:1px solid #4b6571; }
+.simple-calculation .calculation-evidence span { color:#b8cbd2;font-size:16px; }
+.simple-calculation .calculation-evidence strong { font-size:25px;font-weight:500; }
+.simple-calculation .circumference-formula { margin:24px 0;color:#eed7aa;font-size:23px;line-height:1.8; }
+.simple-calculation .calculation-substitution { min-height:48px;color:#e4edf0;font-size:22px; }
+.simple-calculation .calculation-result { display:block;min-height:70px;margin-top:12px;font-size:38px;color:#f2d69c; }
+.simple-calculation [data-calculate],.simple-calculation [data-confirm-distance] { width:100%;background:#dfc99f;color:#172a35;border:0; }
+.simple-calculation [data-confirm-distance][hidden] { display:none; }
+.meridian-measure-host { position:absolute;inset:0;z-index:11;pointer-events:none; }
+.stage:not(.is-calculating) .meridian-measure-host { display:none; }
+.meridian-measure-host.is-measuring { pointer-events:auto; }
+.meridian-measure-host .mw-toggle { top:96px;left:48px;right:auto; }
+.meridian-measure-host .mw-prompt { left:112px;right:auto;top:120px;bottom:auto;width:max-content;max-width:340px;white-space:normal;font-family:var(--font-ui);transform:translate(12px,-50%); }
+.meridian-measure-host .mw-prompt.visible { transform:translate(0,-50%); }
+.meridian-measure-host .mw-readout { font-family:var(--font-ui); }
+.distance-arc { fill:none;stroke:#f2d59a;stroke-width:4;stroke-linecap:round; }
+.distance-end { fill:#f2d59a;stroke:#1a3040;stroke-width:2; }
+.simple-calculation .is-active { outline:2px solid #f0d29c; }
+
+.calculation-local-evidence { display:none; }
+.calculation-rod { fill:none;stroke:#d8c6a4;stroke-width:11;stroke-linecap:butt;filter:drop-shadow(2px 2px 2px #06121b); }
+.calculation-shadow { fill:none;stroke:#2a2118;stroke-width:16;stroke-linecap:butt;filter:drop-shadow(0 0 1px #fff6df) drop-shadow(0 0 3px #fff1cc); }
+.solar-field { pointer-events:none; }
+.solar-ray { fill:none;stroke:#ffb56a;stroke-width:2;stroke-dasharray:10 12;opacity:.55; }
+.calculation-ray { fill:none;stroke:#ffe3a8;stroke-width:3.5;stroke-linecap:round; }
+.calculation-altitude,.calculation-zenith,.calculation-right { fill:none;stroke:#fff4ca;stroke-width:3; }
+.calculation-rods .zenith-label,.calculation-rods .altitude-label { font-size:16px; }
+.calculation-rods text { fill:#fff5ce;stroke:#101c38;stroke-width:3px;paint-order:stroke;font-size:16px;font-weight:600; }
+.stage.is-calculating .point-guides [data-guide=sun] .guide-meridian,
+.stage.is-measuring .point-guides [data-guide=sun] .guide-meridian,
+.stage.is-measuring .point-guides [data-guide=site] .guide-meridian { stroke:var(--noon-ink); }
+.stage.is-calculating .point-guides [data-guide=sun] .guide-parallel { stroke:var(--solar-guide); }
+
+.observation-viewport .site-scene { transform-origin:0 0;transition:transform .8s cubic-bezier(.22,.68,.2,1); }
+.shadow-remeasure { position:absolute;left:16px;bottom:16px;z-index:5;min-height:44px;padding:8px 16px;border:1px solid #a4bdc5;border-radius:10px;background:#203b47;color:#fff;cursor:pointer;font:inherit; }
+.shadow-remeasure[hidden] { display:none; }
+.site-scene:not(.is-revealed) :is(#site-ray,#altitude-arc,#altitude-label,#shadow-result) { visibility:hidden; }
+.site-scene.is-revealed #site-ray,
+.site-scene.is-revealed #altitude-arc { visibility:visible; stroke-dasharray:1; stroke-dashoffset:1; }
+.site-scene.is-revealed #shadow-result { visibility:visible; opacity:0; animation:measure-fade .25s .4s forwards; }
+.site-scene.is-revealed #site-ray { animation:measure-draw .4s .55s forwards; }
+.site-scene.is-revealed #altitude-arc { animation:measure-draw .35s .9s forwards; }
+.site-scene.is-revealed #altitude-label { visibility:visible; opacity:0; animation:measure-fade .25s 1.15s forwards; }
+@keyframes measure-draw { to { stroke-dashoffset:0; } }
+@keyframes measure-fade { to { opacity:1; } }
+#shadow-result { text-anchor:middle; }
+@keyframes explanation-grow { from { clip-path:inset(0 100% 0 0);opacity:0; } to { clip-path:inset(0);opacity:1; } }
+@media(prefers-reduced-motion:reduce){
+  .observation-viewport .site-scene { transition:none; }
+  .site-scene.is-revealed :is(#site-shadow,#site-ray,#altitude-arc) { animation:none; stroke-dashoffset:0; }
+  .site-scene.is-revealed :is(#altitude-label,#shadow-result) { animation:none; opacity:1; }
+}
+
+.observation-viewport { overflow:hidden;border-radius:20px; }
+
+.shadow-remeasure { width:44px;height:44px;padding:10px;display:grid;place-items:center; }
+.shadow-remeasure svg { width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
+.stage:not(.is-measuring)[data-view-mode="orbit"] :is(.closeup-orbital-plane,.zoom-link-layer) { transition:opacity .15s ease-out,visibility 0s .15s; }

@@ -1,0 +1,141 @@
+/* Style 1 — 工程制图 / blueprint.
+ * Hairline cyan on a drafting grid; everything reads as an annotation on a
+ * technical drawing. Motion is crisp and mechanical. */
+.style-blueprint .mw { --ac: #5fd3ff; --ac-soft: rgb(95 211 255 / 18%); }
+
+.style-blueprint .mw-dim {
+  opacity: 0;
+  background:
+    linear-gradient(rgb(6 24 44 / 62%), rgb(6 24 44 / 62%)),
+    repeating-linear-gradient(0deg, rgb(120 190 230 / 7%) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(90deg, rgb(120 190 230 / 7%) 0 1px, transparent 1px 40px);
+  transition: opacity .3s ease;
+}
+.style-blueprint .mw:not([data-phase="idle"]) .mw-dim { opacity: 1; }
+
+/* Enter scan: a drafting scan line that sweeps the viewport once. */
+.style-blueprint .mw-scan::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; height: 2px;
+  top: 0;
+  background: linear-gradient(90deg, transparent, var(--ac), transparent);
+  box-shadow: 0 0 18px 2px rgb(95 211 255 / 55%);
+  opacity: 0;
+}
+.style-blueprint .mw-scan.run::before { animation: bp-sweep .9s cubic-bezier(.5,0,.5,1) forwards; }
+.style-blueprint .mw-scan.run::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgb(95 211 255 / 7%) 0 2px, transparent 2px 6px);
+  opacity: 0;
+  animation: bp-flash .9s ease-out forwards;
+}
+@keyframes bp-sweep {
+  0% { top: 0; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes bp-flash { 0%,100% { opacity: 0; } 30% { opacity: 1; } }
+
+/* Toggle: square drafting button with corner ticks. */
+.style-blueprint .mw-toggle {
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  color: var(--ac);
+  background: rgb(8 28 50 / 72%);
+  border: 1px solid rgb(95 211 255 / 55%);
+  box-shadow: inset 0 0 0 4px rgb(8 28 50 / 60%), 0 0 0 1px rgb(95 211 255 / 12%);
+  transition: background .18s ease, box-shadow .18s ease;
+}
+.style-blueprint .mw-toggle:hover { background: rgb(14 44 74 / 88%); box-shadow: inset 0 0 0 4px rgb(8 28 50 / 40%), 0 0 14px rgb(95 211 255 / 35%); }
+.style-blueprint .mw-toggle svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+
+/* The measured line: hairline + tick ends, like a dimension line. */
+.style-blueprint .mw-line {
+  stroke: var(--ac);
+  stroke-width: 1.6;
+  stroke-linecap: butt;
+  filter: drop-shadow(0 0 3px rgb(95 211 255 / 45%));
+}
+.style-blueprint .mw-line[data-kind="pending"] {
+  stroke-dasharray: 7 6;
+  animation: bp-blink 1.05s ease-in-out infinite;
+}
+.style-blueprint .mw-line[data-kind="drawing"] { stroke-dasharray: 1 1; }
+@keyframes bp-blink { 0%,100% { opacity: .32; } 50% { opacity: 1; } }
+
+/* Endpoint marks: a crosshair ring, then a solid node once confirmed. */
+.style-blueprint .mw-mark::before,
+.style-blueprint .mw-mark::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.style-blueprint .mw-mark::before {
+  width: 22px; height: 22px;
+  border: 1.4px dashed rgb(95 211 255 / 90%);
+  animation: bp-spin 6s linear infinite;
+}
+.style-blueprint .mw-mark::after {
+  width: 5px; height: 5px;
+  background: var(--ac);
+  box-shadow: 0 0 8px rgb(95 211 255 / 80%);
+}
+.style-blueprint .mw-mark.mw-end::before { border-style: solid; border-color: rgb(95 211 255 / 65%); }
+/* The mark itself is positioned by an inline transform, so animate the inner
+ * rings only — a transform animation here would snap it back to the origin. */
+.style-blueprint .mw-mark.on::after { animation: bp-pop .34s cubic-bezier(.34,1.56,.64,1) both; }
+.style-blueprint .mw-mark.locked::before { animation: bp-lock .5s ease-out; }
+@keyframes bp-spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes bp-pop { from { scale: .2; opacity: 0; } }
+@keyframes bp-lock { 0% { box-shadow: 0 0 0 0 rgb(95 211 255 / 55%); } 100% { box-shadow: 0 0 0 14px rgb(95 211 255 / 0%); } }
+
+/* Confirm: circular drafting stamp beside the end point. */
+.style-blueprint .mw-confirm {
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  color: #04121f;
+  background: var(--ac);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgb(95 211 255 / 22%), 0 0 22px rgb(95 211 255 / 45%);
+  animation: bp-confirm-in .26s cubic-bezier(.34,1.56,.64,1);
+}
+.style-blueprint .mw-confirm svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; }
+@keyframes bp-confirm-in { from { opacity: 0; scale: .5; } }
+
+.style-blueprint .mw-prompt {
+  font: 500 13px/1 "Cascadia Mono", "Consolas", ui-monospace, monospace;
+  letter-spacing: .18em;
+  color: var(--ac);
+  padding: 9px 16px;
+  background: rgb(6 24 44 / 78%);
+  border: 1px solid rgb(95 211 255 / 30%);
+  border-left: 2px solid var(--ac);
+}
+.style-blueprint .mw-prompt::before { content: "▸ "; opacity: .8; }
+
+/* Readout: dimension tag with corner brackets. */
+.style-blueprint .mw-readout {
+  padding: 8px 14px 7px;
+  background: rgb(6 24 44 / 88%);
+  border: 1px solid rgb(95 211 255 / 40%);
+  color: var(--ac);
+  font: 500 12px/1 "Cascadia Mono", "Consolas", ui-monospace, monospace;
+  letter-spacing: .1em;
+  display: flex; align-items: baseline; gap: 8px;
+  animation: bp-read .3s ease-out both;   /* opacity/scale only — see note below */
+}
+.style-blueprint .mw-readout::before {
+  content: "";
+  position: absolute; inset: -4px;
+  border: 1px solid rgb(95 211 255 / 18%);
+  clip-path: polygon(0 0, 26% 0, 26% 3px, 3px 3px, 3px 26%, 0 26%, 0 74%, 3px 74%, 3px calc(100% - 3px), 26% calc(100% - 3px), 26% 100%, 0 100%, 0 74%, 100% 74%, 100% 100%, 74% 100%, 74% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 74%, 100% 74%, 100% 26%, calc(100% - 3px) 26%, calc(100% - 3px) 3px, 74% 3px, 74% 0, 100% 0);
+}
+.style-blueprint .mw-readout-label { opacity: .72; }
+.style-blueprint .mw-readout-value { font-size: 19px; letter-spacing: .04em; }
+.style-blueprint .mw-readout-unit { opacity: .8; }
+@keyframes bp-read { from { opacity: 0; scale: .94; } }

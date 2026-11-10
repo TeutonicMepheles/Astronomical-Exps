@@ -4,7 +4,7 @@
 
 - 实验任务只修改 `experiments/meteor-impact/`。本目录目前仅有文档，尚未开始正式实现。
 - 公共组件通过公开 API 使用；不修改 shared，不读取内部 DOM，不引用其他实验私有实现。需要定制时在本目录 components 独立命名并记录来源和原因。
-- 独立配色，遵循根 shared/typography/README.md；牛顿望远镜与光污染均在开发中，不作为本实验完工模板。
+- 独立配色，遵循根 shared/typography/README.md；傅科摆、地球周长、光污染、牛顿望远镜虽有开发页面，但都不是本实验的完工模板。
 - 不引入 archive、prototypes、previews 或其他实验的运行依赖；资源默认可离线交付，不新增运行时 CDN、远程字体或密钥。
 - 开发、整页试玩、提交验收分开记录；根 check/test 通过不代表本实验已实现。页面接入后再做浏览器检查、离线验证和实际试玩。
 

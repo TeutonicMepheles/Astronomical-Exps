@@ -2,13 +2,15 @@
 
 ## 当前功能与状态
 
-从单一 manifest 读取页面、代码、样式和图片，输出两个入口、单文件页及输入哈希回执。
+从单一 manifest 读取页面、代码、样式和图片，输出 `app/index.html`、`lib-static-demo/index.html`、单文件页及输入哈希回执。实验根 `index.html` 作为默认入口跳转到 `app/index.html`；根 `npm run export -- light-pollution` 复制候选单文件到 `dist/light-pollution/index.html`。
 
 ## 职责边界
 
 显式清单、不扫描新增 PNG 自动入包；原始资源字节不改变。compatibility-readme.md 是 lib-static-demo/README.md 的生成模板，模板内链接以输出目录为基准。
 
 ## 文件与子目录索引
+
+- [export-lamp-shades.cjs](export-lamp-shades.cjs)：导出五种灯罩的自包含 SVG。
 
 - [compatibility-readme.md](compatibility-readme.md)
 

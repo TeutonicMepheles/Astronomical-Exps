@@ -24,3 +24,33 @@ TencentMeeting*
 *.xls
 *.pem
 *.key
+
+# Private meeting recordings, transcripts and related working notes.
+Function-Spec/meetings/
+
+# 生成/交付/录屏产物（已 bundle 归档，不进源码库，保留本机）
+**/concepts/
+**/delivery/
+**/docs/review/
+**/source-layers*/
+**/libtv-layers*/
+**/libtv-composite-options*/
+**/billboard-candidates*/
+**/billboard-demo/
+**/resource-archives/
+**/building-preview/
+**/mask-editor/assets/
+experiments/newton-telescope/assets/studio-body/
+experiments/newton-telescope/assets/studio-candidates/
+experiments/newton-telescope/assets/studio-parts/
+experiments/newton-telescope/assets/studio-refinements/
+experiments/light-pollution/lib-static-demo/standalone-light.html
+experiments/light-pollution/lib-static-demo/standalone.html
+experiments/light-pollution/assets/lamp-variants/*.zip
+experiments/foucault-pendulum/tests/*.png
+
+# 本地归档与工具状态
+archive/*.bundle
+.libtv/
+_chk.py
+_cmp2.py

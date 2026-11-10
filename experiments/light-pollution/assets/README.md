@@ -10,6 +10,8 @@
 
 ## 文件与子目录索引
 
+- [lamp-variants/](lamp-variants/README.md)：五种路灯方案及提示词。
+
 - [billboard-demo/](billboard-demo/README.md)
 - [libtv-composite-options-20261027/](libtv-composite-options-20261027/README.md)
 - [libtv-layers-20261027/](libtv-layers-20261027/README.md)
@@ -38,7 +40,7 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 | [city-layer.png](city-layer.png) | 2172 × 724 | 1,342,831 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
 | [city-panorama-v2.png](city-panorama-v2.png) | 2172 × 724 | 2,204,020 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
 | [city-panorama.png](city-panorama.png) | 2172 × 724 | 2,276,908 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [lamp-sprites.png](lamp-sprites.png) | 1536 × 1024 | 1,296,053 | manifest 内嵌 |
+| [lamp-sprites.png](lamp-sprites.png) | 1536 × 1024 | 1,296,053 | 原 index.html 使用；重构页使用 lamp-variants 五种方案 |
 
 ## 公开接口与数据
 

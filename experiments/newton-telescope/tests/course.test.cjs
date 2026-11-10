@@ -37,7 +37,7 @@ N.store.set({live:false});c.record();assert.equal(c.get().records.length,0);
 assert.match(c.get().message,/画面已冻结/);N.store.set({live:true});
 for(const eyepiece of [25,10,5]){N.store.set({eyepiece});c.record();}assert.equal(c.get().complete,true);
 for(const record of c.get().records){assert.equal(record.field,N.store.metrics({...N.store.get(),eyepiece:record.eyepiece}).field);}
-N.store.set({focal:900});c.record();assert.equal(c.get().records.length,1);assert.equal(c.get().complete,false);
+N.store.set({focal:610});c.record();assert.equal(c.get().records.length,1);assert.equal(c.get().complete,false);
 N.store.set({eyepiece:7});c.record();assert.equal(c.get().records.length,1);
 c.enter('assembly');c.resetStage();assert.equal(c.canEnter('observation'),false);assert.equal(c.get().records.length,0);
 c.restart();assert.equal(c.get().stage,'mirrors');assert.equal(c.get().seen.length,0);assert.equal(c.get().mirrorMounted,false);

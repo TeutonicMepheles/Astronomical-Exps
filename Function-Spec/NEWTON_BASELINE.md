@@ -2,6 +2,8 @@
 
 2026-10-12 静态核对当前 `experiments/newton-telescope` 工作区。本文记录本地实现，不等于 Word 原始需求，也不证明其与指定参考 Demo 为同一版本。该次整理未运行浏览器或功能测试；当前入口和检查方法见[实验说明](../experiments/newton-telescope/README.md)。
 
+2026-11-02 会议复核备注：2026-10-28 会议提出“固定剖面观察”并删除角度控制和手动模型旋转，与本文记录的角度滑块、拖动旋转、滚轮缩放及键盘旋转冲突。冲突先挂起，本文基线暂不修改；待确认项见[待确认决策](OPEN_DECISIONS.md)。
+
 ## 1. 依据
 
 - [index.html](../experiments/newton-telescope/index.html)：控件、选项、范围和步长。

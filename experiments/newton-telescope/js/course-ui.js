@@ -18,7 +18,7 @@
     $('.view-tools>span').firstChild.textContent=s.stage==='mirrors'?'拖入镜片':'拖动旋转';$('.view-tools .dot').nextSibling.textContent=s.stage==='mirrors'?'实时光路':'滚轮缩放';
     all('[data-panel]').forEach(panel=>panel.hidden=panel.dataset.panel!==s.stage);
     $('#controls-title').lastChild.textContent=' '+stageNames[s.stage];
-    $('#observation-feedback').hidden=s.stage!=='observation';$('#lesson-feedback').hidden=s.stage==='observation';$('#observation-task').hidden=true;$('#assembly-hotspots').hidden=s.stage!=='assembly';
+    $('#observation-feedback').hidden=s.stage!=='observation';$('#lesson-feedback').hidden=s.stage==='observation';$('#observation-task').hidden=s.stage!=='observation';$('#assembly-hotspots').hidden=s.stage!=='assembly';
     $('#scene-title').textContent=s.stage==='mirrors'?(s.mirrorMounted?m.title+' · 已放入光路':'空光路 · 等待镜片'):s.stage==='assembly'?'反射镜装配台':'牛顿望远镜 · 完整光路';
     $('#scene-subtitle').textContent=s.stage==='mirrors'?(s.mirrorMounted?'入射光 → 镜面反射 → '+(s.mirror==='convex'?'发散光束':s.mirror==='concave'?'实焦点':'折转光束'):'将桌面镜片拖到夹具 · 光源固定于导轨'):s.stage==='assembly'?'选择或拖放零件到安装位':'入射光 → 凹面主镜 → 平面副镜 → 目镜';
     $('#course-message').textContent=s.message;
@@ -73,6 +73,5 @@
   $('#aperture').addEventListener('input',e=>N.store.set({aperture:Number(e.target.value)}));$('#target').addEventListener('change',e=>N.store.set({target:e.target.value}));
   all('[data-eyepiece]').forEach(b=>b.addEventListener('click',()=>N.store.set({eyepiece:Number(b.dataset.eyepiece)})));
   $('#record-observation').addEventListener('click',()=>N.course.record());
-  all('[data-test-stage]').forEach(button=>button.addEventListener('click',()=>{N.course.testEnter(button.dataset.testStage);$('#test-stage-switch').open=false;N.app.telescope?.director.frame(button.dataset.testStage,null,true);}));
   N.course.subscribe(sync);N.store.subscribe(syncOptics);sync(N.course.get());
 })(window.Newton);

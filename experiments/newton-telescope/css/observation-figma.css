@@ -1,0 +1,170 @@
+/* Third stage only. Figma 12:14 (closed) and 14:365 (observation open), 1600 × 900. */
+.observation-scene{position:absolute;inset:0;z-index:10;overflow:clip;pointer-events:none}
+.observation-scene [hidden]{display:none!important}
+.observation-art,.observation-art img{position:absolute;pointer-events:none}
+.observation-art{inset:0;transform:scale(var(--environment-zoom,1));transform-origin:50% 50%}
+.observation-starfield,.observation-foreground{left:0;top:0;width:1600px;height:900px;object-fit:contain}
+.observation-legacy{left:-340px;top:-231.5px;width:2011px;height:1131.19px;object-fit:cover}
+.observation-art{--night-left:-86px}
+.observation-night,.observation-saturn-layer{position:absolute;left:var(--night-left);top:-191px;width:2091px;height:1176px;object-fit:cover;pointer-events:none}
+/* Same image point as the small star indicated by the user: (1939,1033) in 4K. */
+.observation-saturn-marker{position:absolute;left:1055.84px;top:562.42px;width:24px;height:24px;transform:translate(-50%,-50%);border:1px dashed #ffe3a1;border-radius:50%;box-shadow:0 0 8px #ffd89966;pointer-events:none;color:#ffe5b0}
+.observation-saturn-marker::before{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;transform:translate(-50%,-50%);background:#fff9dc;clip-path:polygon(50% 0,62% 36%,100% 50%,62% 64%,50% 100%,38% 64%,0 50%,38% 36%);filter:drop-shadow(0 0 3px #fff0b0)}
+.observation-saturn-marker::after{content:attr(data-name);position:absolute;left:50%;top:27px;transform:translateX(-50%);padding:1px 3px;border-radius:2px;background:#102545d9;font-size:6px;line-height:1.4;white-space:nowrap}
+.observation-saturn-marker[data-target=moon]::before{width:18px;height:18px;border-radius:50%;clip-path:none;background:radial-gradient(circle at 35% 33%,#9da7b7 0 12%,transparent 14%),radial-gradient(circle at 65% 60%,#9aa4b5 0 17%,transparent 19%),radial-gradient(circle at 30% 73%,#b2bac7 0 9%,transparent 11%),radial-gradient(circle at 32% 28%,#fff9e6,#d8dfec 68%,#8899b1);box-shadow:0 0 6px #e6edff80}
+.observation-saturn-marker[data-target=jupiter]::before{width:11px;height:11px;clip-path:none;border-radius:50%;background:repeating-linear-gradient(8deg,#e6c09b 0 2px,#a87e71 2px 3px);box-shadow:0 0 5px #ffe3bf99}
+.observation-saturn-marker[data-target=pleiades]::before{width:3px;height:3px;clip-path:none;border-radius:50%;background:#edf5ff;box-shadow:-5px -3px 2px #c7dcff,5px -4px 2px #c7dcff,-4px 4px 2px #c7dcff,4px 5px 2px #c7dcff,0 -7px 2px #c7dcff,7px 1px 2px #c7dcff}
+.observation-saturn-marker[data-acquired=true]{border-color:#b7efda;box-shadow:0 0 8px #83dbb866;color:#ceffe9}
+.observation-instrument{position:absolute;left:439px;top:246px;width:722px;height:541px;border:0;padding:0;background:none;pointer-events:auto;touch-action:none;user-select:none;cursor:grab}
+.observation-instrument canvas{position:absolute;display:block;pointer-events:none}
+.observation-click-hint{position:absolute;z-index:3;width:76px;height:76px;pointer-events:none;transform:translate(calc(-1 * var(--click-tip-x)),calc(-1 * var(--click-tip-y)));color:var(--hint-cream,#fff4d8);opacity:0;animation:observation-click-cycle 4.8s .7s infinite}
+.observation-click-hand{position:absolute;width:76px;height:76px;object-fit:contain;transform-origin:var(--click-tip-x) var(--click-tip-y);animation:observation-click-tap 2.8s infinite}
+.observation-click-ring{position:absolute;left:calc(var(--click-tip-x) - 14px);top:calc(var(--click-tip-y) - 14px);width:28px;height:28px;border:1px solid currentColor;border-radius:50%;animation:observation-click-ring 2.8s infinite}
+.observation-click-label{position:absolute;left:calc(var(--click-tip-x) + 13px);top:67px;white-space:nowrap;font:600 12px/1.5 var(--font-ui,system-ui);color:inherit;background:#152542e8;padding:5px 11px;border-radius:20px}
+.observation-instrument.model-unavailable .observation-click-hint{display:none}
+.observation-click-hint[hidden]{display:none!important}
+.observation-targets [data-observation-target]{position:relative}
+.observation-click-target{left:50%;top:50%;text-align:left;letter-spacing:0}
+.observation-click-target .observation-click-label{left:var(--click-tip-x);top:-43px;transform:translateX(-50%)}
+@keyframes observation-click-tap{0%,20%,75%,100%{transform:rotate(-12deg)}35%,48%{transform:translateY(7px) scale(.91) rotate(-12deg)}}
+@keyframes observation-click-ring{0%,25%,65%,100%{opacity:0;transform:scale(.55)}38%{opacity:.8}60%{opacity:0;transform:scale(1.3)}}
+@keyframes observation-click-cycle{0%,8%,78%,100%{opacity:0}18%,64%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.observation-click-hint{animation-timing-function:steps(1,end)}.observation-click-hand,.observation-click-ring{animation:none}.observation-click-ring{opacity:.5}}
+.observation-preparation-status{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;padding:12px 20px;border:1px solid #e7ce9b66;border-radius:10px;background:#14253de6;color:#e7ce9b;font-size:18px;pointer-events:none;z-index:2}
+.observation-instrument.is-dragging{cursor:grabbing}
+.observatory[data-stage=observation]{touch-action:none}
+.observation-model-fallback{display:none;position:absolute;inset:40% 15% auto;margin:0;font-size:18px;line-height:1.8;text-align:center;color:#dbe8ff}
+.observation-instrument.model-unavailable .observation-model-fallback{display:block}
+.observation-instrument.model-unavailable canvas{visibility:hidden}
+.observation-view-tools{position:absolute;left:548px;top:790px;width:504px;display:flex;align-items:center;justify-content:center;gap:22px;color:#c5d8ed;font-size:16px;pointer-events:auto}
+.observation-view-reset{min-height:44px;padding:8px 15px;border:1px solid #91abc54d;border-radius:7px;background:#0e2549bd;color:#e0d3b6;font-size:15px}
+.observation-view-reset:hover,.observation-view-reset:focus-visible{background:#304965}
+.observation-instrument:focus-visible{outline:2px solid #e7ce9b;outline-offset:8px;border-radius:20px}
+.observation-display-mode{position:absolute;left:580px;top:214px;display:flex;gap:8px;z-index:2;pointer-events:auto}
+.observation-display-mode button{min-width:118px;min-height:44px;padding:8px 16px;border:1px solid #95b3ce66;border-radius:8px;background:#112b48eb;color:#c8dcef;font-size:17px}
+.observation-display-mode button[aria-pressed=true],.observation-display-mode button:hover{background:#e8d5ae;color:#213c57;border-color:#f6e3bf}
+.observation-display-mode .observation-ray-play{min-width:108px;font-size:15px}
+.observation-transparency{position:absolute;left:548px;top:734px;width:504px;min-height:44px;display:grid;grid-template-columns:144px 1fr 48px;gap:12px;align-items:center;padding:0 14px;border:1px solid #95b3ce55;border-radius:8px;background:#102b48ed;color:#dce8f6;font-size:16px;pointer-events:auto}
+.observation-transparency[hidden]{display:none}
+.observation-transparency input{width:100%;height:44px;margin:0;padding:0;appearance:none;-webkit-appearance:none;background:transparent;border:0;box-shadow:none;touch-action:none;cursor:ew-resize}
+.observation-transparency input::-webkit-slider-runnable-track{height:6px;border:1px solid #8faac166;border-radius:4px;background:#6382a655}
+.observation-transparency input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:24px;height:24px;margin-top:-10px;border:2px solid #173550;border-radius:50%;background:#eed6a9;box-shadow:0 2px 4px #07162766}
+.observation-transparency input::-moz-range-track{height:6px;border:1px solid #8faac166;border-radius:4px;background:#6382a655}
+.observation-transparency input::-moz-range-thumb{width:22px;height:22px;border:2px solid #173550;border-radius:50%;background:#eed6a9}
+.observation-transparency output{text-align:right;color:#f0d7a5;font-variant-numeric:tabular-nums}
+.observation-section-caption{position:absolute;left:480px;top:270px;width:640px;text-align:center;color:#d7e4ef;pointer-events:none;font-size:13px;line-height:1.65}
+.observation-section-caption p{margin:0 0 3px}.observation-section-readout{color:#f0d7a5;font-size:16px}
+.observation-ray-legend{display:flex;justify-content:center;gap:20px;font-size:12px}
+.observation-ray-legend span:before{content:"";display:inline-block;width:22px;height:2px;margin:0 6px 4px 0;background:#ffd17e}
+.observation-ray-legend span:nth-child(2):before{background:#6fe8ff}.observation-ray-legend span:nth-child(3):before{background:#d3adff}
+.observation-section-labels{position:absolute;inset:0;pointer-events:none}
+.observation-section-labels span{position:absolute;transform:translate(-50%,-50%);padding:4px 9px;border:1px solid #b9d8ec55;border-radius:6px;background:#0d233de8;white-space:nowrap;color:#dcecff;font-size:14px;line-height:21px}
+.observation-section-labels [data-optical-label=focus]{padding:0 4px;border:0;background:none;color:#ffedaa;font-weight:700}
+/* Each view owns its framing. Preserve the original section close-up with the tripod attached. */
+.observation-section-mode .observation-instrument{left:335px;top:25px;width:930px;height:550px}
+.observation-section-mode .observation-display-mode{left:875px;top:214px}
+.observation-section-mode .observation-section-caption{left:480px;top:590px;padding:6px 10px;border-radius:8px;background:#102b48e6}
+.observatory[data-stage=observation] #sky,.observatory[data-stage=observation] .landscape,.observatory[data-stage=observation] #viewport,.observatory[data-stage=observation] .console{visibility:hidden;pointer-events:none}
+.observatory[data-stage=observation] .introduction{z-index:30;left:52.8px;top:45px;display:flex;flex-direction:column;gap:12px}
+.observatory[data-stage=observation] .introduction h1{order:0;font-size:50.88px;line-height:61.056px;letter-spacing:4px;font-weight:700;color:#dbe8ff;background:none;text-shadow:none}
+.observatory[data-stage=observation] .title-rule{order:-1;margin:0;width:59px;height:3px;box-shadow:none}
+.observatory[data-stage=observation] .english-title{order:2;margin:0;font-size:17.6px;letter-spacing:4.928px;line-height:22.5px}
+.observatory[data-stage=observation] #course-progress{left:auto;right:48px;top:48px}
+.observatory[data-stage=observation] #course-progress .experiment-progress__popup{left:auto;right:0;transform-origin:top right}
+.observation-sliders{position:absolute;left:90px;top:552px;width:290px;height:290px;pointer-events:auto}
+.observation-slider{position:absolute;left:0;top:0;width:133px;height:285px;text-align:center;font-variant-numeric:tabular-nums}
+.observation-slider:nth-child(2){left:80px}.observation-slider:nth-child(3){left:157px}
+.observation-slider-art{position:absolute;left:0;top:0;width:133px;height:236px;pointer-events:none}
+.observation-slider-art>img{width:133px;height:236px;clip-path:polygon(0 0,100% 0,100% 41%,0 41%,0 54%,100% 54%,100% 100%,0 100%)}
+/* The moving control uses the supplied bitmap as a sprite; the original PNG is untouched. */
+.observation-slider-track-patch{position:absolute;left:0;top:96.5px;width:133px;height:31px;background:url('../assets/observation-figma/slider.png') 0 -48px/133px 236px no-repeat}
+.observation-slider-knob{position:absolute;left:52.5px;top:calc(23px + var(--slider-position,88px));width:29px;height:29px;transform:translateY(-50%);background:url('../assets/observation-figma/slider.png') -52.5px -97.8px/133px 236px no-repeat;filter:drop-shadow(0 2px 2px #05142655)}
+.observation-slider input[type=range]{position:absolute;z-index:2;left:37px;top:10px;margin:0;width:60px;height:206px;writing-mode:vertical-lr;direction:rtl;opacity:0;touch-action:none;cursor:ns-resize}
+.observation-slider label{position:absolute;top:221px;left:30px;width:76px;font-size:17px;line-height:24px;font-weight:700;color:#dbe8ff;white-space:nowrap}
+.observation-slider output{position:absolute;top:250px;left:29px;width:76px;font:500 16px/28px var(--font-ui);color:#f4e1b8;background:#142b48cc;border:1px solid #829ab342;border-radius:6px}
+.observation-slider output span{font-size:12px;color:#adc2db}
+.observation-slider:focus-within .observation-slider-art{filter:drop-shadow(0 0 3px #ffdfa0)}
+.observation-launch{position:absolute;left:1240px;top:601px;display:grid;gap:15px;justify-items:center;pointer-events:auto}
+.observation-open{display:flex;align-items:center;justify-content:center;gap:18px;min-width:250px;min-height:58px;border:1px solid #ebd6ac;border-radius:8px;background:linear-gradient(#f7edd2,#ddc49b);color:#203b58;box-shadow:0 4px 0 #92734c,0 8px 20px #08132544;font-size:22px;font-weight:600}
+.observation-open span{font-size:27px}.observation-open:hover,.observation-open:focus-visible{background:#fff3d8}
+.observation-reset{min-height:44px;padding:8px 20px;color:#d1e3fa;background:#0e2549bd;border:1px solid #91abc54d;border-radius:7px;font-size:16px}
+.observation-message{position:absolute;left:450px;top:850px;margin:0;color:#e3d3bb;font-size:14px;line-height:24px}
+.observation-preview{display:none!important}
+/* Outside stage three, retain the original feedback card's containing block. */
+.observation-preview-reveal{display:contents}
+.observation-preview-reveal[hidden]{display:none!important}
+.observatory[data-stage=observation] .observation-preview-reveal{display:block;position:absolute;inset:0;z-index:25;pointer-events:none}
+.observation-targets,.observation-close,.observation-detail-toggle{display:none}
+.observation-is-open .observation-instrument{left:198px}
+.observation-is-open .observation-view-tools{left:307px;top:744px}
+.observation-is-open .observation-transparency{left:307px;top:688px}
+.observation-is-open .observation-display-mode{left:339px}
+.observation-is-open .observation-section-caption{left:239px}
+.observation-is-open .observation-section-mode .observation-instrument{left:80px}
+.observation-is-open .observation-section-mode .observation-display-mode{left:560px}
+.observation-is-open .observation-section-mode .observation-section-caption{left:390px;top:590px;width:540px}
+.observation-is-open .observation-section-mode .observation-transparency{left:390px;width:540px}
+.observation-is-open .observation-art{--night-left:-327px}
+.observation-is-open .introduction .title-rule{order:-1}
+.observation-is-open .observation-launch{display:none}
+.observation-is-open .observation-preview{display:block!important;left:984px;right:auto;top:170px;width:568px;min-width:0;max-width:none;padding:0;border:0;border-radius:0;background:none;box-shadow:none;z-index:25}
+.observation-is-open .preview-heading{position:absolute;left:0;right:0;top:-43px;margin:0}
+.observation-is-open .preview-heading h2{font-size:22px;letter-spacing:2px}
+.observation-is-open .live-control{font-size:16px}
+.observation-is-open .planet-viewport{width:568px;height:568px;border-radius:50%;overflow:hidden;border:1px solid #6c8db166;background:#050a21;box-shadow:0 0 0 8px #08182b44,0 12px 35px #030a1d66}
+.observation-aim-guide{position:absolute;inset:0;pointer-events:none;color:#efd9ad}
+.observation-aim-guide[hidden],.observation-aim-guide [hidden]{display:none!important}
+.observation-aim-reticle{position:absolute;left:50%;top:50%;width:28px;height:28px;border:1px solid #f0d5a766;border-radius:50%;transform:translate(-50%,-50%)}
+.observation-aim-reticle::before,.observation-aim-reticle::after{content:"";position:absolute;background:#f0d5a799;left:50%;top:50%;transform:translate(-50%,-50%);width:42px;height:1px}
+.observation-aim-reticle::after{width:1px;height:42px}
+.observation-aim-direction{position:absolute;font-size:23px;color:#ffe3a5;text-shadow:0 0 9px #e1bd6877}
+.observation-aim-hint{position:absolute;left:50%;bottom:13%;transform:translateX(-50%);padding:7px 14px;border-radius:18px;background:#0c1c38d9;font-size:14px;line-height:1.4;white-space:nowrap}
+.observation-aim-guide[data-acquired=true]{color:#c7f7e0}
+.observation-aim-guide[data-acquired=true] .observation-aim-reticle{border-color:#b4edcf66}
+.observation-is-open .preview-badge{bottom:24px;right:auto;left:50%;transform:translateX(-50%);font-size:18px;color:#c9d9f2}
+.observation-is-open .preview-paused{left:50%;top:45px;transform:translateX(-50%);font-size:16px;padding:6px 14px}
+.observation-is-open .preview-readout{font-size:18px;margin:16px 6px 0}
+.observation-is-open .preview-description{display:none}
+.observation-is-open .preview-assumption{position:absolute;top:690px;width:100%;text-align:center;font-size:12px;line-height:20px;margin:0;color:#d5dfec}
+.observation-is-open .observation-status{position:absolute;top:-10px;width:100%;padding:0 6px;font-size:12px;color:#b2c6e1}
+.observation-is-open .preview-refresh{position:absolute;top:480px;left:130px;width:308px;background:#203a5ceb;font-size:16px}
+.observation-is-open .observation-targets{display:flex;position:absolute;left:984px;top:800px;gap:12px;pointer-events:auto}
+.observation-targets button{width:133px;min-height:52px;border:1px solid #7c9ab777;border-radius:10px;background:#142c4ee8;color:#c8d9ed;font-size:21px;letter-spacing:2px}
+.observation-targets button[aria-pressed=true],.observation-targets button:hover{background:#e8d7b5;color:#1d3856;border-color:#f4e3bf;box-shadow:0 3px 0 #94764f}
+.observation-targets button[data-observed=true][aria-pressed=false]{background:#286b58;color:#effff5;border-color:#9bd6b8;box-shadow:0 3px 0 #164a3c}
+.observation-is-open .observation-close{display:flex;align-items:center;gap:14px;position:absolute;left:984px;top:56px;min-height:44px;padding:6px 12px;border:0;background:#10284a99;color:#c5d7ed;border-radius:6px;font-size:16px;pointer-events:auto}
+.observation-close span{font-size:25px}
+.observation-is-open .observation-detail-toggle{display:block;position:absolute;left:450px;top:800px;min-height:44px;padding:10px 22px;border:1px solid #e4cfaa88;border-radius:7px;background:#203952e6;color:#f0dfbd;font-size:17px;pointer-events:auto}
+.observation-detail-toggle:hover,.observation-detail-toggle[aria-expanded=true]{background:#3c5364;color:#fff0cf}
+.observation-details{position:absolute;left:423px;top:460px;width:522px;z-index:40;padding:20px 22px;background:#132b46f5;border:1px solid #93a7b888;border-radius:14px;box-shadow:0 14px 45px #030a1b66;pointer-events:auto;color:#dbe8ff}
+.observation-detail-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.observation-detail-heading h2{margin:0;font-size:20px}.observation-detail-close{border:0;background:none;font-size:26px;min-width:44px;min-height:44px}
+.observation-details #progress-page-observation{display:flex;height:auto;flex-wrap:wrap;gap:14px;align-items:center}
+.observation-details .control{border:0;padding:0;flex:1}
+.observation-details .parameter:has(#focal-value),.observation-details .parameter:has(#eyepiece-value){display:none}
+.observation-details .control legend,.observation-details .control label{font-size:14px;margin:0 0 6px}
+.observation-details .segmented{top:0;border-radius:8px}
+.observation-details .segmented button{font-size:14px;padding:9px;min-height:44px}
+.observation-details .parameter output{width:80px;line-height:24px;font-size:15px;margin:0 auto}
+.observation-details .range-ends{font-size:11px}
+.observatory[data-stage=observation] .observation-details .actions{display:flex!important;flex-basis:100%;justify-content:flex-start;gap:14px}
+.observation-details .actions .start-button,.observation-details .actions .reset-button{font-size:14px;padding:8px 18px;min-height:44px;border-radius:7px}
+.observation-details #start{display:none!important}
+.observation-details .actions .icon{width:17px;height:17px}
+.observation-details #observation-task{position:static;inset:auto;border:0;border-top:1px solid #87a7c133;border-radius:0;background:none;box-shadow:none;padding:14px 0 0;margin-top:14px}
+.observation-details .observation-task__tools{flex-wrap:wrap;gap:12px}
+.observation-details .observation-target-select{display:none}
+.observation-details .eyepiece-presets button,.observation-details .record-button{font-size:14px;min-height:44px;padding:8px 12px}
+.observation-details .optical-metrics{flex-wrap:wrap;gap:8px 18px;font-size:13px}
+.observation-details .observation-records{font-size:12px;line-height:1.8}
+@media(prefers-reduced-motion:no-preference){.observation-instrument,.observation-view-tools,.observation-transparency,.observation-display-mode,.observation-section-caption{transition:left .3s ease}.observation-night,.observation-saturn-layer{transition:left .3s ease}}
+@media(prefers-reduced-motion:no-preference){.observation-instrument{transition:left .74s ease,top .74s ease,width .74s ease,height .74s ease}}
+@keyframes observation-preview-enter{
+  from{transform:translateX(640px);opacity:0}
+  to{transform:translateX(0);opacity:1}
+}
+@media(prefers-reduced-motion:no-preference){
+  .observatory[data-stage=observation].observation-is-open .observation-preview-reveal{
+    animation:observation-preview-enter .74s cubic-bezier(.22,1,.36,1) both;
+  }
+}

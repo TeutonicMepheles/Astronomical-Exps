@@ -20,16 +20,28 @@ const root=path.resolve(__dirname,'..');
   page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
   page.on('requestfailed',r=>errors.push('REQUEST FAILED '+r.url()));
   async function images(){assert.deepEqual(await page.locator('img').evaluateAll(imgs=>imgs.filter(i=>i.getAttribute('src')&&!i.hidden&&(!i.complete||i.naturalWidth===0)).map(i=>i.src)),[]);}
-  for(const name of ['newton-telescope','light-pollution']){
+  for(const name of ['earth-circumference','foucault-pendulum','newton-telescope','light-pollution']){
    await page.goto(base+'/experiments/'+name+'/');await page.waitForTimeout(1600);await images();
-   if(name==='newton-telescope'){
+   if(name==='earth-circumference'){
+    const result=await page.evaluate(()=>{const globe=window.__globe;const canvas=document.getElementById('globe');const pixel=globe?.sample(781,324);const gl=canvas?.getContext('webgl');return {ready:globe?.ready(),pixel,glError:gl?.getError()??0,width:canvas?.width??0,height:canvas?.height??0};});
+    assert.equal(result.ready,true);assert(result.width>0&&result.height>0);assert.equal(result.glError,0);
+   }else if(name==='foucault-pendulum'){
+    const result=await page.evaluate(()=>{const canvas=document.getElementById('globe');const gl=canvas?.getContext('webgl');return {width:canvas?.width??0,height:canvas?.height??0,glError:gl?.getError()??0};});
+    assert(result.width>0&&result.height>0);assert.equal(result.glError,0);
+   }else if(name==='newton-telescope'){
+    assert.equal(await page.evaluate(()=>window.Newton?.app?.telescope?.lab?.opticalBeam instanceof window.SharedComponents?.OpticalBeam),true);
+    assert.equal(await page.evaluate(()=>'BeamVisual' in window.Newton),false);
+    await page.evaluate(()=>Newton.course.mountMirror('concave'));await page.waitForTimeout(350);
+    assert((await page.evaluate(()=>Newton.app.telescope.lab.opticalBeam.group.children.length))>0);
+    await page.screenshot({path:path.join(root,'artifacts','newton-telescope-rays.png')});
     const result=await page.evaluate(()=>{const c=Newton.course;const blocked=c.enter('assembly');for(const m of ['plane','concave','convex'])c.mountMirror(m);const entered=c.enter('assembly');return {blocked,entered};});
     assert.equal(result.blocked,false);assert.equal(result.entered,true);
    }else{
-    assert(await page.locator('.panorama').isVisible());
-    // A real pointer click opens the existing lamp editor.
-    const lamp=page.locator('.lamp-object').filter({visible:true}).first();
-    await lamp.click({force:true});assert(await page.locator('.lamp-editor').isVisible());
+    assert.match(page.url(),/\/experiments\/light-pollution\/app\/index\.html$/);
+    assert(await page.locator('#scene').isVisible());
+    // A real pointer click opens the candidate lamp editor.
+    await page.locator('#lamp-toggle').click({force:true});
+    assert(await page.locator('#lamp-controls').isVisible());
    }
    await page.screenshot({path:path.join(root,'artifacts',name+'.png')});
   }
@@ -44,6 +56,16 @@ const root=path.resolve(__dirname,'..');
   // Multi-instance IDs and destroy during animation must not call confirmation.
   const f=page.frames()[1];
   assert(await f.evaluate(async()=>{let called=0;const a=new StageCompletionDialog(),b=new StageCompletionDialog();const distinct=a.element.getAttribute('aria-labelledby')!==b.element.getAttribute('aria-labelledby');a.show({kicker:'',title:'A',body:'',action:'OK'},()=>called++);const closing=a.dismiss(true);a.destroy();b.destroy();await closing;return distinct&&!a.element.isConnected&&!b.element.isConnected&&called===0;}));
+  for(const name of ['globe-shader','optical-beam']){
+   await page.goto(base+'/previews/components/'+name+'.html');await page.waitForTimeout(900);
+   assert(await page.locator('canvas').first().isVisible());
+   await page.screenshot({path:path.join(root,'artifacts','component-'+name+'.png')});
+  }
+  await page.goto(base+'/previews/components/measure-mode.html');await page.waitForTimeout(500);
+  assert(await page.locator('.mw-toggle').isVisible());
+  await page.locator('.mw-toggle').click();await page.waitForTimeout(1300);
+  assert.equal(await page.locator('.mw').getAttribute('data-phase'),'pickStart');
+  await page.screenshot({path:path.join(root,'artifacts','component-measure-mode.png')});
   for(const name of ['newton-telescope','light-pollution']){
    const file=path.join(root,'dist',name,'index.html');if(!fs.existsSync(file))throw Error('Run npm run export -- '+name+' first');
    const offline=await browser.newContext({offline:true});const p=await offline.newPage();p.on('pageerror',e=>errors.push('OFFLINE '+e.message));p.on('requestfailed',r=>errors.push('OFFLINE REQUEST '+r.url().slice(0,120)));
@@ -51,6 +73,6 @@ const root=path.resolve(__dirname,'..');
    assert.deepEqual(await p.locator('img').evaluateAll(xs=>xs.filter(i=>i.getAttribute('src')&&(!i.complete||!i.naturalWidth)).map(i=>i.src.slice(0,100))),[]);
    await offline.close();
   }
-  assert.deepEqual(errors,[]);console.log('PASS both experiments, six preview pages, completion lifecycle, offline exports; not visual acceptance.');
+  assert.deepEqual(errors,[]);console.log('PASS four experiment entries, shared globe/beam integration, six preview pages, measure-mode preview, completion lifecycle, offline exports; not visual acceptance.');
  } finally {if(browser)await browser.close();if(server)server.kill();}
 })().catch(e=>{console.error(e);process.exitCode=1});

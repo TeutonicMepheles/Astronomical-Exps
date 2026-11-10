@@ -1,11 +1,26 @@
 """Build an offline review HTML; explicitly supports the two in-progress experiments."""
 from pathlib import Path
-import re,base64,mimetypes,json,hashlib,argparse
+import re,base64,mimetypes,json,hashlib,argparse,shutil,subprocess
 
 PROJECT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser();parser.add_argument('experiment',choices=['newton-telescope','light-pollution']);args=parser.parse_args()
 root=PROJECT/'experiments'/args.experiment
 out=PROJECT/'dist'/args.experiment;out.mkdir(parents=True,exist_ok=True)
+
+if args.experiment=='light-pollution':
+    subprocess.run(['node',str(root/'lib-static-demo'/'export.cjs')],cwd=PROJECT,check=True)
+    source=root/'lib-static-demo'/'standalone.html'
+    target=out/'index.html'
+    shutil.copyfile(source,target)
+    (out/'manifest.json').write_text(json.dumps({
+        'status':'in-development review export; not final acceptance',
+        'file':target.name,
+        'source':'experiments/light-pollution/lib-static-demo/standalone.html',
+        'sha256':hashlib.sha256(target.read_bytes()).hexdigest(),
+    },ensure_ascii=False,indent=2),encoding='utf-8')
+    print(str(target));print(f'{target.stat().st_size/1024/1024:.2f} MiB; self-contained candidate')
+    raise SystemExit(0)
+
 assets={}
 def data(path):
     p=path.resolve()

@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeasureMode · 公共组件预览</title>
+<link rel="stylesheet" href="../../shared/components/measure-mode/measure-mode.css">
+<link rel="stylesheet" href="../../shared/components/measure-mode/skins/blueprint.css">
+<link rel="stylesheet" href="../../shared/components/measure-mode/skins/ink.css">
+<link rel="stylesheet" href="../../shared/components/measure-mode/skins/hud.css">
+<link rel="stylesheet" href="../../shared/components/measure-mode/skins/soft.css">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0f15;
+    font: 14px/1.5 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 1600px; height: 900px;
+    transform-origin: 50% 50%; overflow: hidden; }
+  #scene { position: absolute; inset: 0; }
+  .scene { position: absolute; inset: 0; }
+  .scene[hidden] { display: none; }
+  .scene > svg { display: block; width: 100%; height: 100%; }
+
+  /* Review chrome only: not part of the component. */
+  .review-bar { position: absolute; left: 20px; bottom: 20px; z-index: 30;
+    display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px;
+    background: rgb(10 14 20 / 78%); border: 1px solid rgb(255 255 255 / 12%);
+    color: #cdd8e4; font-size: 13px; backdrop-filter: blur(8px); }
+  .review-bar span { opacity: .55; }
+  .review-bar button { padding: 4px 10px; border-radius: 7px; cursor: pointer;
+    color: #d6e2ee; background: rgb(255 255 255 / 7%); border: 1px solid rgb(255 255 255 / 14%);
+    font: inherit; }
+  .review-bar button[aria-pressed="true"] { color: #fff; background: #2f6f8f; border-color: #4f93b5; }
+  .review-bar button:focus-visible { outline: 2px solid #8ec6e6; outline-offset: 2px; }
+  .review-bar .sep { width: 1px; height: 18px; background: rgb(255 255 255 / 16%); }
+</style>
+</head>
+<body class="style-blueprint">
+<div id="stage">
+  <div id="scene">
+
+    <!-- 工程制图 -->
+    <div class="scene" data-scene="blueprint">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="none" aria-label="山体剖面示意">
+        <defs>
+          <pattern id="bp-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0H0V40" fill="none" stroke="#7cc4e8" stroke-opacity=".10" stroke-width="1"/>
+          </pattern>
+          <pattern id="bp-grid-lg" width="200" height="200" patternUnits="userSpaceOnUse">
+            <path d="M200 0H0V200" fill="none" stroke="#7cc4e8" stroke-opacity=".16" stroke-width="1"/>
+          </pattern>
+          <linearGradient id="bp-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#08192c"/>
+            <stop offset="1" stop-color="#0d2942"/>
+          </linearGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#bp-sky)"/>
+        <rect width="1600" height="900" fill="url(#bp-grid)"/>
+        <rect width="1600" height="900" fill="url(#bp-grid-lg)"/>
+        <circle cx="1216" cy="176" r="34" fill="none" stroke="#ffd27a" stroke-width="2"/>
+        <circle cx="1216" cy="176" r="22" fill="#ffd27a" fill-opacity=".28"/>
+        <g stroke="#ffd27a" stroke-width="1.6" stroke-opacity=".55">
+          <line x1="1146" y1="246" x2="520" y2="612"/>
+          <line x1="1200" y1="294" x2="596" y2="648"/>
+          <line x1="1252" y1="338" x2="676" y2="682"/>
+        </g>
+        <g stroke="#ffd27a" stroke-width="1.6" stroke-opacity=".3" stroke-dasharray="8 8">
+          <line x1="640" y1="470" x2="470" y2="742"/>
+        </g>
+        <path d="M0,742 L240,700 L430,560 L560,505 L640,470 L760,536 L900,632 L1090,700 L1290,726 L1600,742"
+              fill="none" stroke="#bfe6ff" stroke-width="2"/>
+        <path d="M0,742 L240,700 L430,560 L560,505 L640,470 L760,536 L900,632 L1090,700 L1290,726 L1600,742 L1600,900 L0,900 Z"
+              fill="#0a2136" fill-opacity=".85"/>
+        <circle cx="640" cy="470" r="6" fill="#071a2f" stroke="#bfe6ff" stroke-width="2"/>
+        <text x="664" y="462" fill="#8fd0f0" font-family="Consolas, monospace" font-size="15" letter-spacing="2">PEAK 1200 m</text>
+        <g fill="#6aa9cd" font-family="Consolas, monospace" font-size="13" letter-spacing="2">
+          <text x="36" y="60">SECTION A–A  /  SCALE 1:2000</text>
+          <text x="36" y="866">LONGITUDE 116.4°E  ·  SUN ALT 21.5°</text>
+          <text x="1440" y="866" text-anchor="end">REV 03</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 手绘批注 -->
+    <div class="scene" data-scene="ink" hidden>
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="none" aria-label="正午影长示意">
+        <defs>
+          <linearGradient id="ink-paper" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f8f2e4"/>
+            <stop offset=".62" stop-color="#f3ead8"/>
+            <stop offset="1" stop-color="#e9dcc3"/>
+          </linearGradient>
+          <linearGradient id="ink-dune" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#d8c49c"/>
+            <stop offset="1" stop-color="#c9b287"/>
+          </linearGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#ink-paper)"/>
+        <g stroke="#c9bda4" stroke-width="2" stroke-opacity=".35" fill="none" stroke-linecap="round">
+          <path d="M120,150 C 340,132 520,166 700,150"/>
+          <path d="M980,120 C 1180,104 1330,132 1470,120"/>
+          <path d="M240,236 C 420,222 560,246 700,236"/>
+        </g>
+        <path d="M0,604 C 180,556 300,590 420,566 C 560,538 660,584 800,566 C 960,546 1080,588 1220,566 C 1360,544 1480,578 1600,562 L1600,900 L0,900 Z"
+              fill="#cfbb96" fill-opacity=".55" stroke="#8d7a58" stroke-opacity=".45" stroke-width="2"/>
+        <path d="M0,700 C 220,660 380,700 560,676 C 760,650 900,700 1100,678 C 1300,656 1450,690 1600,672 L1600,900 L0,900 Z"
+              fill="url(#ink-dune)" stroke="#8d7a58" stroke-opacity=".5" stroke-width="2.4"/>
+        <g stroke-linecap="round">
+          <line x1="560" y1="690" x2="560" y2="430" stroke="#3b342b" stroke-width="13"/>
+          <path d="M560,690 L880,704" stroke="#3b342b" stroke-width="9" stroke-opacity=".82"/>
+          <circle cx="560" cy="690" r="7" fill="#f8f2e4" stroke="#3b342b" stroke-width="3"/>
+        </g>
+        <circle cx="1240" cy="200" r="46" fill="none" stroke="#c98a52" stroke-width="2.4" stroke-opacity=".8"/>
+        <g stroke="#c98a52" stroke-width="2" stroke-opacity=".55" stroke-linecap="round">
+          <line x1="1240" y1="128" x2="1240" y2="112"/>
+          <line x1="1240" y1="272" x2="1240" y2="288"/>
+          <line x1="1168" y1="200" x2="1152" y2="200"/>
+          <line x1="1312" y1="200" x2="1328" y2="200"/>
+          <line x1="1189" y1="149" x2="1178" y2="138"/>
+          <line x1="1291" y1="251" x2="1302" y2="262"/>
+          <line x1="1291" y1="149" x2="1302" y2="138"/>
+          <line x1="1189" y1="251" x2="1178" y2="262"/>
+        </g>
+        <g fill="#7c6b52" font-family="'Segoe Print','Bradley Hand','Comic Sans MS','Kaiti SC',cursive" font-size="19">
+          <text x="96" y="120" transform="rotate(-1.2 96 120)">正午影长测量 · 手绘记录</text>
+          <text x="96" y="856" transform="rotate(-.6 96 856)" font-size="16" opacity=".8">杆高 100 cm · 太阳高度角约 59.8°</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 观测仪器 HUD -->
+    <div class="scene" data-scene="hud" hidden>
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="none" aria-label="月面坑径测量示意">
+        <defs>
+          <radialGradient id="hud-sky" cx="50%" cy="18%" r="80%">
+            <stop offset="0" stop-color="#101b2b"/>
+            <stop offset="1" stop-color="#04070c"/>
+          </radialGradient>
+          <radialGradient id="hud-ground" cx="46%" cy="30%" r="80%">
+            <stop offset="0" stop-color="#8a8175"/>
+            <stop offset="1" stop-color="#3d3a35"/>
+          </radialGradient>
+          <radialGradient id="hud-crater" cx="42%" cy="36%" r="70%">
+            <stop offset="0" stop-color="#242220"/>
+            <stop offset=".72" stop-color="#4a453e"/>
+            <stop offset="1" stop-color="#9a9287"/>
+          </radialGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#hud-sky)"/>
+        <g fill="#cfe3ff">
+          <circle cx="180" cy="118" r="1.6" opacity=".8"/><circle cx="420" cy="76" r="1.2" opacity=".6"/>
+          <circle cx="880" cy="132" r="1.4" opacity=".7"/><circle cx="1180" cy="92" r="1.8" opacity=".85"/>
+          <circle cx="1420" cy="168" r="1.2" opacity=".55"/><circle cx="700" cy="60" r="1" opacity=".5"/>
+        </g>
+        <path d="M0,470 C 300,402 640,384 900,404 C 1180,426 1400,452 1600,486 L1600,900 L0,900 Z"
+              fill="url(#hud-ground)"/>
+        <ellipse cx="800" cy="612" rx="268" ry="96" fill="url(#hud-crater)"/>
+        <ellipse cx="800" cy="612" rx="268" ry="96" fill="none" stroke="#b6ac9c" stroke-opacity=".5" stroke-width="3"/>
+        <path d="M532,612 C 620,560 980,560 1068,612" fill="none" stroke="#ddd5c6" stroke-opacity=".35" stroke-width="2"/>
+        <ellipse cx="832" cy="640" rx="120" ry="34" fill="#1b1916" fill-opacity=".55"/>
+        <g fill="#ffb347" fill-opacity=".72" font-family="Consolas, monospace" font-size="13" letter-spacing="2.5">
+          <text x="40" y="62">LUNA · OPTICAL PAYLOAD</text>
+          <text x="40" y="86" fill-opacity=".45">EXPOSURE 1/250 · GAIN 4.2</text>
+          <text x="1560" y="62" text-anchor="end">LAT −23.4°  LON 41.7°</text>
+          <text x="1560" y="86" text-anchor="end" fill-opacity=".45">ALT 47 km</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 柔光现代 -->
+    <div class="scene" data-scene="soft" hidden>
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="none" aria-label="正午影长示意">
+        <defs>
+          <linearGradient id="soft-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#cfe3f4"/>
+            <stop offset=".5" stop-color="#e6eef3"/>
+            <stop offset=".78" stop-color="#f7efe1"/>
+            <stop offset="1" stop-color="#efdfc6"/>
+          </linearGradient>
+          <linearGradient id="soft-sand" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f3e4c8"/>
+            <stop offset="1" stop-color="#e4cfa9"/>
+          </linearGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#soft-sky)"/>
+        <rect y="690" width="1600" height="210" fill="url(#soft-sand)"/>
+        <path d="M0,664 C 160,624 300,650 460,630 C 620,610 740,648 900,634 C 1080,618 1220,652 1380,636 C 1480,626 1540,640 1600,632 L1600,700 L0,700 Z"
+              fill="#8fa9c4" fill-opacity=".55"/>
+        <path d="M0,690 C 200,668 380,692 560,678 C 760,662 920,694 1120,682 C 1300,672 1460,690 1600,680 L1600,720 L0,720 Z"
+              fill="#a8bcd2" fill-opacity=".45"/>
+        <rect x="716" y="330" width="17" height="360" rx="4" fill="#4a4038"/>
+        <path d="M733,690 L1022,706" stroke="#6b5a48" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+        <ellipse cx="733" cy="692" rx="16" ry="6" fill="#8c765c" opacity=".35"/>
+        <g stroke="#f6c98a" stroke-width="3" stroke-linecap="round" stroke-dasharray="12 14" opacity=".85">
+          <line x1="1180" y1="150" x2="760" y2="470"/>
+        </g>
+        <circle cx="1210" cy="132" r="42" fill="#ffe6b8" opacity=".85"/>
+        <circle cx="1210" cy="132" r="66" fill="#ffe6b8" opacity=".25"/>
+        <g fill="#6f8199" font-family="'PingFang SC','Microsoft YaHei',system-ui" font-size="18">
+          <text x="88" y="132" opacity=".8">正午 · 影长观测</text>
+          <text x="88" y="162" opacity=".5" font-size="15">杆高 100 cm</text>
+        </g>
+      </svg>
+    </div>
+
+  </div>
+
+  <div class="review-bar">
+    <span>风格</span>
+    <button type="button" data-skin="blueprint" aria-pressed="true">工程制图</button>
+    <button type="button" data-skin="ink" aria-pressed="false">手绘批注</button>
+    <button type="button" data-skin="hud" aria-pressed="false">观测仪器</button>
+    <button type="button" data-skin="soft" aria-pressed="false">柔光现代</button>
+    <i class="sep"></i>
+    <span>线形</span>
+    <button type="button" data-shape="straight" aria-pressed="true">直线</button>
+    <button type="button" data-shape="arc" aria-pressed="false">弧线</button>
+  </div>
+</div>
+
+<script src="../../shared/components/measure-mode/measure-mode.js"></script>
+<script>
+(function () {
+  'use strict';
+  var stage = document.getElementById('stage');
+  var scene = document.getElementById('scene');
+
+  function fit() {
+    var s = Math.min(window.innerWidth / 1600, window.innerHeight / 900);
+    stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+
+  // One instance, one unit, four skins: the point of the preview is that the
+  // visual language changes and the interaction script does not.
+  var mw = SharedComponents.MeasureMode(scene, { label: '距离', unit: 'm', pxPerUnit: 4, decimal: 1 });
+  window.__measurePreview = mw;
+
+  function selectSkin(name) {
+    document.body.className = 'style-' + name;
+    document.querySelectorAll('.scene').forEach(function (el) {
+      el.hidden = el.dataset.scene !== name;
+    });
+    document.querySelectorAll('[data-skin]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.skin === name));
+    });
+  }
+
+  document.querySelectorAll('[data-skin]').forEach(function (b) {
+    b.addEventListener('click', function () { selectSkin(b.dataset.skin); });
+  });
+  document.querySelectorAll('[data-shape]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      mw.setShape(b.dataset.shape);
+      document.querySelectorAll('[data-shape]').forEach(function (o) {
+        o.setAttribute('aria-pressed', String(o === b));
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

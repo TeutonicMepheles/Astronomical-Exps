@@ -3,7 +3,7 @@
   'use strict';const T=window.THREE;
   N.LabScene=class{
     constructor(view){
-      this.view=view;this.group=new T.Group();view.scene.add(this.group);this.beams=new T.Group();this.group.add(this.beams);
+      this.view=view;this.group=new T.Group();view.scene.add(this.group);this.beams=new T.Group();this.group.add(this.beams);this.opticalBeam=new window.SharedComponents.OpticalBeam({THREE:T,parent:this.beams});
       this.surface=null;this.lastMirror='';this.lastFrame='';this.lastStage='';this.beamOpacity=1;this.beamMaterialStates=new WeakMap();
       this.stand=new T.Mesh(new T.CylinderGeometry(.06,.09,1.4,20),view.materials.metal);this.stand.position.set(1,-1.4,0);this.group.add(this.stand);
       const base=new T.Mesh(new T.CylinderGeometry(.55,.65,.12,32),view.materials.edge);base.position.set(1,-2.1,0);this.group.add(base);
@@ -16,7 +16,7 @@
       this.unsubscribe=N.course.subscribe(s=>this.sync(s));this.sync(N.course.get(),true);
     }
     line(points,color=0xffd395,dashed=false){const geometry=new T.BufferGeometry().setFromPoints(points.map(p=>new T.Vector3(...p)));const material=dashed?new T.LineDashedMaterial({color,dashSize:.12,gapSize:.08,transparent:true,opacity:.6}):new T.LineBasicMaterial({color,transparent:true,opacity:.4});const line=new T.Line(geometry,material);if(dashed)line.computeLineDistances();this.beams.add(line);
-      if(!dashed)for(let i=0;i<points.length-1;i++)N.BeamVisual.addSegment(this.beams,points[i],points[i+1],color);
+      if(!dashed)for(let i=0;i<points.length-1;i++)this.opticalBeam.addSegment(points[i],points[i+1],{color});
       return line;}
     mirrorGeometry(type,focal){
       const vertices=[],indices=[],rings=18,segments=64,f=focal/300;
@@ -25,18 +25,18 @@
       const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(vertices,3));geometry.setIndex(indices);geometry.computeVertexNormals();return geometry;
     }
     setBeamOpacity(value){
-      this.beamOpacity=Math.max(0,Math.min(1,value));this.beams.visible=this.beamOpacity>0;
+      this.beamOpacity=Math.max(0,Math.min(1,value));const intensity=this.beamOpacity*(N.developer?.effect('beamStrength')??1);this.opticalBeam.setOpacity(intensity);this.beams.visible=intensity>0;
       this.beams.traverse(o=>{for(const m of o.material?(Array.isArray(o.material)?o.material:[o.material]):[]){
-        if(m.uniforms?.beamOpacity){m.uniforms.beamOpacity.value=this.beamOpacity;continue;}
+        if(m.uniforms?.beamOpacity){m.uniforms.beamOpacity.value=intensity;continue;}
         if(!this.beamMaterialStates.has(m))this.beamMaterialStates.set(m,{opacity:m.opacity,transparent:m.transparent});
-        const base=this.beamMaterialStates.get(m),transparent=this.beamOpacity<1||base.transparent;
-        if(m.transparent!==transparent){m.transparent=transparent;m.needsUpdate=true;}m.opacity=base.opacity*this.beamOpacity;
+        const base=this.beamMaterialStates.get(m),transparent=intensity<1||base.transparent;
+        if(m.transparent!==transparent){m.transparent=transparent;m.needsUpdate=true;}m.opacity=base.opacity*intensity;
       }});this.view.dirty=true;
     }
     buildMirror(s,lensPage=false){
       while(this.profile.children.length){const o=this.profile.children[0];this.profile.remove(o);o.geometry?.dispose();o.material?.dispose();}
       if(this.surface){this.group.remove(this.surface);this.surface.geometry.dispose();}
-      while(this.beams.children.length){const o=this.beams.children[0];this.beams.remove(o);o.traverse(child=>{child.geometry?.dispose();if(child.material)(Array.isArray(child.material)?child.material:[child.material]).forEach(material=>material.dispose());});}
+      this.opticalBeam.clear();for(const o of [...this.beams.children]){if(o===this.opticalBeam.group)continue;this.beams.remove(o);o.traverse(child=>{child.geometry?.dispose();if(child.material)(Array.isArray(child.material)?child.material:[child.material]).forEach(material=>material.dispose());});}
       const f=s.mirrorFocal/300,geometry=this.mirrorGeometry(s.mirror,s.mirrorFocal);this.surface=new T.Mesh(geometry,this.view.materials.silver);this.surface.visible=s.mirrorMounted;this.group.add(this.surface);
       if(s.mirror==='plane'){geometry.translate(-1,0,0);this.surface.rotation.z=-Math.PI/4;this.surface.position.x=1;}
       this.surface.position.x+=s.mirrorPosition-1;this.stand.position.x=s.mirrorPosition;this.base.position.x=s.mirrorPosition;this.stand.visible=this.base.visible=false;this.surface.visible=false;this.profile.visible=false;
@@ -65,7 +65,6 @@
       this.lastInstalled=[...s.installed];
       v.primaryParts.forEach(o=>o.visible=!isAssembly||s.installed.includes('primary'));v.secondaryParts.forEach(o=>o.visible=!isAssembly||s.installed.includes('secondary'));
       Object.entries(this.slots).forEach(([name,o])=>{o.visible=isAssembly&&!s.installed.includes(name);o.material.color.setHex(s.selected===name?0xffc474:0x81baff);});
-      v.importedModel?.sync(s);
       this.darkroom.sync(s);
       const lensPage=document.querySelector('.observatory').dataset.trayPage==='lenses';
       const key=[s.mirror,s.mirrorFocal,s.mirrorMounted,s.mirrorSource,s.mirrorPosition,lensPage,s.lens,s.convexShape,s.concaveShape].join('/');if(isMirror&&key!==this.lastMirror){this.buildMirror(s,lensPage);this.lastMirror=key;}
@@ -75,6 +74,6 @@
     }
     tick(time){
       this.flights=this.flights.filter(f=>{const t=this.view.reducedMotion?1:Math.min(1,(time-f.start)/500);f.group.position.copy(f.from).multiplyScalar(1-t*t*(3-2*t));this.view.dirty=true;return t<1;});
-      if(!this.group.visible||this.view.reducedMotion)return;this.beams.children.forEach((o,index)=>{const path=o.userData.path;if(!path)return;const phase=(time/3200+index*.12)%1,segments=path.length-1,t=phase*segments,i=Math.floor(t);o.position.copy(path[i]).lerp(path[i+1],t-i);});this.view.dirty=true;}
+      if(!this.group.visible||this.view.reducedMotion)return;this.beams.children.forEach((o,index)=>{const path=o.userData.path;if(!path)return;const phase=(time/3200*(N.developer?.effect('photonSpeed')??1)+index*.12)%1,segments=path.length-1,t=phase*segments,i=Math.floor(t);o.position.copy(path[i]).lerp(path[i+1],t-i);});this.view.dirty=true;}
   };
 })(window.Newton);
