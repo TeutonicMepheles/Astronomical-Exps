@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+ <radialGradient id="wall" cx="55%" cy="43%" r="76%"><stop stop-color="#4c4840"/><stop offset=".64" stop-color="#302f2c"/><stop offset="1" stop-color="#1d2424"/></radialGradient>
+ <linearGradient id="desk" x2="0" y2="1"><stop stop-color="#645240"/><stop offset=".14" stop-color="#4a3c30"/><stop offset="1" stop-color="#241f1b"/></linearGradient>
+ <linearGradient id="light"><stop stop-color="#d3c39a" stop-opacity=".09"/><stop offset="1" stop-color="#d3c39a" stop-opacity="0"/></linearGradient>
+ <filter id="paper" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" seed="17" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".045"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+</defs>
+<g filter="url(#paper)">
+ <path fill="url(#wall)" d="M0 0h1600v900H0z"/>
+ <!-- Sparse, deliberately imperfect chalk-and-ink architecture, never behind the optical subject. -->
+ <g fill="none" stroke="#b6a78c" stroke-width="1.3" opacity=".11"><path d="M0 215 235 211m-95 0-3 116M0 328l245-3M0 465l210-4m-71-134 2 133M0 580l235-4M1450 356l150-4m-72-117 3 118m-76 114 145 2M1488 468l2 113"/><path d="M7 214l225-2M1455 354l142-1"/></g>
+ <path d="M1325 396V193c0-84 124-85 124 0v203Z" fill="#263235" stroke="#857c67" stroke-opacity=".30" stroke-width="7"/>
+ <path d="M1341 380V194c0-62 92-63 92 0v186Z" fill="#59615b" opacity=".28"/>
+ <path d="M1387 147v241m-49-153 96-1m-94 77 94 2" fill="none" stroke="#9e9177" stroke-width="5" opacity=".27"/>
+ <path d="m1341 190-635 297 456 116 272-224V190Z" fill="url(#light)" opacity=".45"/>
+ <!-- Books stay at the far edge; the middle two thirds remain a quiet field. -->
+ <g stroke="#a99570" stroke-opacity=".23" stroke-width="1.6" fill="#33312a"><path d="M55 536h180v8H55zM76 438l22-2 7 98-22 2zM107 421h23l2 114h-22zM140 445l22-4 18 93-23 4zM183 457l19-5 27 82-20 6z"/><path d="m80 451 19-2m-17 9 19-2m11-24h16m-17 91h18m18-64 18-4"/></g>
+ <path d="M0 657Q750 649 1600 659v241H0Z" fill="url(#desk)"/>
+ <path d="M0 659Q755 653 1600 661M0 672Q750 665 1600 675" fill="none" stroke="#bd9d70" stroke-opacity=".28" stroke-width="2"/>
+ <g fill="none" stroke="#b79665" stroke-opacity=".075" stroke-width="1.6"><path d="M0 715Q364 697 705 716T1600 714M0 741Q489 727 1000 747T1600 742M0 805Q314 787 600 805T1600 806M0 852q546-19 1100 4t500-2"/><path d="m28 696 275-4m992 77 271-3M74 831l213-2m851-129 255-2"/></g>
+ <!-- An unlabelled scientific sketch, not a claim of Newton's historical apparatus. -->
+ <g transform="translate(1390 601) rotate(-8)" opacity=".22"><path fill="#a49674" d="m-54-4 126 3 12 58-137-4z"/><g fill="none" stroke="#37372e" stroke-width="1.5"><circle cx="6" cy="25" r="17"/><ellipse cx="6" cy="25" rx="32" ry="12"/><path d="M-33 27h75M7 3v44m48-28 17 1m-16 9h19"/></g></g>
+</g>
+</svg>

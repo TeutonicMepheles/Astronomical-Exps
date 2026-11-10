@@ -9,7 +9,7 @@
 .assembly-slot.hovered{border-color:#ffe3a1;background:#ffe3a133;box-shadow:0 0 22px #ffe3a166}
 .assembly-slot.installed{border-color:transparent;background:transparent}
 .mounted-surface{display:none;position:absolute;inset:8px 20px;border-radius:50%;background:linear-gradient(100deg,#577c9f,#dbf3ff 45%,#8eb5d6 65%,#324964);border:4px solid #92abc2;box-shadow:inset 5px 0 8px #173450}
-.installed .mounted-surface{display:block}
+.installed .mounted-surface{display:none}
 .plane .mounted-surface{inset:12px 38px;border-radius:3px;transform:rotate(-45deg);border-width:2px;background:linear-gradient(90deg,#7394b3,#e9f6ff)}
 .assembly-mirror-tray{pointer-events:auto}
 .loose-mirror{flex:0 0 180px;border:0;background:none;padding:0;color:#daebff;cursor:grab;touch-action:none;font:17px 'Microsoft YaHei'}
@@ -30,3 +30,12 @@
 
 /* Keep the assembly canvas free of instruction panels and tray captions. */
 .assembly-preview .assembly-caption,.assembly-mirror-tray .loose-mirror>span{display:none}
+
+/* Restore the approved studio-final composition from 3e6cd2c, not its review UI.
+   Installation is still owned by Newton.course; all layers share the art canvas. */
+.observatory[data-stage=assembly] .assembly-preview{z-index:15}
+.observatory[data-stage=assembly] .assembly-targets{z-index:16}
+.observatory[data-stage=assembly] .assembly-mirror-tray{top:744px;z-index:17}
+.observatory .assembly-telescope{left:390px;top:100px;width:860px;height:645px}
+.observatory .assembly-installed-secondary{left:493.5369873046875px;top:209.022216796875px;width:134.375px;height:134.375px;transform:none}
+.assembly-telescope[hidden]{display:none}

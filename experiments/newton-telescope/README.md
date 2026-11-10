@@ -1,5 +1,14 @@
 # 牛顿反射式望远镜实验
 
+2026-11-10 第二阶段桌面观察：材质复用傅科摆地球 Shader 的程序化双层笔触与纸纹算法，以本实验私有 Three.js 材质适配，保留木纹/配色。环视仅允许垂直 Y 轴方位变化；锁定约 7.5° 桌面俯角和交互距离，竖拖、上下键、滚轮和双指不再改变透视。来源见 [SOURCE](components/rotation-viewer/SOURCE.md)，验证及未通过的全仓检查见 [报告](review/tabletop-20261110/REPORT.md)。
+
+## 2026-11-10 Step2 夜间候选
+
+已选择性恢复浅木色/雾蓝 `studio-final` 四层组装；第二阶段立体观察使用独立 R2 的 132 个真实网格，不再运行 72 帧替代查看器。含有限镜面求交、法线反射和实际选择性 Bloom、独立研究室背景、可取消三秒转场。第三阶段来源及课程逻辑保持原有实现。
+
+启动：本目录 `START-NIGHTLY.bat`，或根目录 `npm run dev -- --experiment newton-telescope`。离线审查包：根目录 `python experiments/newton-telescope/tools/export-nightly.py`。真实光学参数是教学示意，用户美术验收尚未完成，详见 [夜间报告](review/NIGHTLY-20261110.md) 与 [R2来源/光学修正](components/rotation-viewer/REAL-MESH-SOURCE.md)。
+
+
 最新用户确认：光线改为沿镜筒圆周分布的一圈，而非单一剖面。入射截面均匀覆盖 360°，默认口径采用 12 条，80／130／250 mm 分别为 8／12／32 条；反射、45° 副镜折转和凸透镜出射均计算完整 XYZ 方向，出射光继续短距离渐隐。参考入瞳仍固定为 530 mm，各焦距下黄线的起点、主镜落点及数量保持一致；目镜调整仍只影响紫光和既有 50% 幅度的凸透镜形变。圆周取样依据同一个参考构型缓存，完整三维圆形通光孔、有限副镜和真实实体遮挡继续约束光束。望远镜硬件、原构图、口径/仰角机构及找星流程保留。验证：`tests/section-optics.test.cjs`、`tests/section-geometry.test.cjs`、`tests/ring-rays.browser.cjs`。
 
 2026-11-05 四目标观测与进度：土星、月球、木星、昴星团统一采用真实镜筒开口方向与固定天空标记的几何配准，选中并进入视野后才显示对应图像。月球为带月坑的月亮圆盘，木星为条带圆盘，昴星团为多星图案；三个新增位置属于用户授权的教学布置，不是星历。按用户最新要求取消五秒文字与等待限制，实时观测中一旦对准十字中心附近即完成该对象，并间歇提示下一项；偏离、背向、冻结或关闭观测时不新增完成状态。当前按钮保留金色，切换后已完成按钮使用绿色底与浅色文字；可自由选择及重访，重新开始第三阶段清空进度。没有对准计时器或计时轮询，手指自身的延迟/间歇 CSS 继续保留。验证见 `tests/observation-aim.test.cjs`、`tests/observation-flow.test.cjs`、`tests/observation-tour.browser.cjs`。

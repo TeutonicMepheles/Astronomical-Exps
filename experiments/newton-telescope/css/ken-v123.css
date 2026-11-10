@@ -1,0 +1,86 @@
+/* Newton Step2 V1-V3 — deliberately confined to the assembly and real-mesh viewer.
+   Background: user-approved Newton-era study illustration (optimized WebP of the supplied PNG).
+   Controls: discoverable on-object hotspots and a collapsible tool tray. */
+.observatory[data-stage="assembly"],
+.observatory[data-stage="assembly"] .study-scene {
+  background-color:#262927;
+  background-image:linear-gradient(90deg,rgba(23,25,24,.18),transparent 35%,transparent 70%,rgba(12,21,28,.13)),url('../assets/nightly-study/newton-study.webp');
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+/* A single physical study persists between the assembled view and the 3D view. */
+.newton-rotation.real-mesh-viewer {
+  background-color:#262927;
+  background-image:linear-gradient(90deg,rgba(23,25,24,.12),transparent 36%,transparent 75%,rgba(13,19,22,.14)),url('../assets/nightly-study/newton-study.webp');
+  background-position:center;background-size:cover;background-repeat:no-repeat;
+}
+.observatory[data-stage="assembly"] .workbench-table {background:transparent!important;}
+/* Preserve the original warm ambient glow without a distracting vignette on the telescope. */
+.newton-rotation.real-mesh-viewer::before {
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:linear-gradient(to bottom,rgba(12,16,19,.22),transparent 20%,transparent 76%,rgba(13,13,15,.18));
+}
+.newton-rotation.real-mesh-viewer :is(header,.rotation-stage,.rotation-dock){z-index:1;}
+.newton-rotation.real-mesh-viewer header h2{text-shadow:0 1px 9px #121820a8;}
+.newton-rotation.real-mesh-viewer .rotation-dock {
+  left:auto;right:42px;bottom:27px;width:auto;min-width:0;
+  padding:12px 14px 11px;border-radius:16px;gap:9px;
+  background:#262b2acc;backdrop-filter:blur(10px);border:1px solid #b7a78265;
+  box-shadow:0 10px 26px #0b141749;
+}
+.newton-rotation.real-mesh-viewer .rotation-controls{gap:9px;}
+.newton-rotation.real-mesh-viewer .rotation-controls button{
+  min-height:48px;height:48px;padding:0 17px;font-size:18px;letter-spacing:.015em;
+}
+.newton-rotation.real-mesh-viewer .real-viewer-parts[hidden]{display:none!important;}
+.newton-rotation.real-mesh-viewer .real-viewer-status {font-size:12px;min-height:16px;opacity:.78;text-align:right;max-width:300px;}
+.newton-rotation.real-mesh-viewer .newton-tools-panel {
+  display:flex;position:absolute;right:13px;bottom:calc(100% + 12px);
+  gap:7px;flex-wrap:wrap;max-width:370px;justify-content:flex-end;
+  padding:11px;border-radius:16px;border:1px solid #b7a78265;
+  background:#222c2aed;box-shadow:0 9px 27px #0e151a59;backdrop-filter:blur(10px);
+}
+.newton-rotation.real-mesh-viewer .newton-tools-panel[hidden]{display:none!important;}
+.newton-rotation.real-mesh-viewer .newton-tools-panel button{
+  font-size:15px;min-height:44px;padding:8px 12px;color:#f0e8d5;border-radius:11px;
+}
+/* In the cinematic, only the scene moves; interface does not slide into model space. */
+.newton-rotation.real-mesh-viewer.is-introducing :is(header,.rotation-dock){opacity:0;pointer-events:none;}
+.newton-rotation.real-mesh-viewer :is(header,.rotation-dock){transition:opacity 260ms ease;}
+.newton-rotation.real-mesh-viewer .rotation-stage{inset:110px 138px 155px;}
+/* The canvas is real WebGL. Hotspot buttons only occupy the corresponding small 3D points. */
+.newton-part-hotspots{position:absolute;inset:0;z-index:5;pointer-events:none;}
+.newton-part-dot{position:absolute;pointer-events:auto;transform:translate(-50%,-50%);
+  width:44px;height:44px;min-width:44px;min-height:44px;display:grid;place-items:center;
+  padding:0;border-radius:50%;border:0;background:transparent;
+  box-shadow:none;cursor:pointer;
+  touch-action:manipulation;transition:background .14s ease,box-shadow .14s ease,transform .14s ease;
+}
+.newton-part-dot[hidden]{display:none!important;}
+.newton-part-dot::before{content:"";position:absolute;width:24px;height:24px;border-radius:50%;border:1px solid #fbe0accc;background:#372b2280;box-shadow:0 0 0 4px #f1c9852b,0 3px 12px #1a171949;}
+.newton-part-dot span{position:relative;display:block;width:7px;height:7px;border-radius:50%;background:#f4d59b;box-shadow:0 0 8px #e4ba73a0;}
+.newton-part-dot:where(:focus-visible,.is-selected){outline:2px solid #fff4ce;outline-offset:0;background:#8b663d40;}
+.newton-part-dot:hover{background:#6d4f3240;transform:translate(-50%,-50%) scale(1.09);}
+.newton-part-popover{position:absolute;z-index:7;box-sizing:border-box;width:262px;max-width:calc(100% - 20px);pointer-events:auto;
+  text-align:left;border:1px solid #c6a871a8;background:#24302deb;border-radius:16px;
+  padding:15px 18px 16px;color:#faf0dc;backdrop-filter:blur(13px);
+  box-shadow:0 14px 38px #050e1166, inset 0 1px #fff1d221;
+}
+.newton-part-popover[hidden]{display:none!important;}
+.newton-part-eyebrow{font:600 10px/1.3 system-ui,sans-serif;color:#d4b986;letter-spacing:.12em;}
+.newton-part-popover h3{font-size:20px;font-weight:600;margin:5px 24px 7px 0;color:#ffebc7;}
+.newton-part-popover p{font-size:14px;line-height:1.65;margin:0;color:#e5dfd1;}
+.newton-part-popover .newton-part-close{
+  position:absolute;right:7px;top:7px;border:none;background:#ffffff12;
+  width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border-radius:50%;
+  display:grid;place-items:center;color:#f4e7cf;font-size:19px;cursor:pointer;
+}
+.newton-part-popover .newton-part-close:hover{background:#ffffff30;}
+/* Keep small independent controls on whiteboards, but do not cause scroll. */
+@media(prefers-reduced-motion:reduce){
+ .newton-part-dot,.newton-rotation.real-mesh-viewer :is(header,.rotation-dock){transition:none;}
+}
+.newton-rotation.real-mesh-viewer.is-introducing {background:transparent!important;}
+.newton-rotation.real-mesh-viewer.is-introducing::before {display:none;}
+.newton-rotation.real-mesh-viewer.is-introducing .rotation-stage {pointer-events:none;}
