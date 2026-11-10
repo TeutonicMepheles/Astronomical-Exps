@@ -42,6 +42,8 @@
 - [数据采集顺序](docs/DATA_COLLECTION_FLOW.md)
 - [观测—测量—计算流程说明](docs/OBSERVATION_MEASUREMENT_CALCULATION_FLOW.md)
 - [太阳直射纬度简化模型](docs/SOLAR_DECLINATION_MODEL.md)
+- [2026-11-09 UI/UX 调整](docs/2026-11-09-ui-ux.md)
+- [2026-11-10 时间轴与正午反馈](docs/2026-11-10-time-axis.md)
 
 ### 2026-11-04 会议反馈
 

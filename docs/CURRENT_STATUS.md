@@ -16,7 +16,7 @@
 | EXP-01 傅科摆 | [index.html](../experiments/foucault-pendulum/index.html) | 可运行开发版 | 完整教学流程、最终参数与读数、白板触控及整页验收未完成 |
 | EXP-02 月面环形山高度 | 无 | 仅需求文档 | 尚未实现页面 |
 | EXP-03 陨石坑撞击 | 无 | 需求文档与演示图片 | 尚未实现页面 |
-| EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 可运行三阶段开发版：手动对齐当地正午，单点杆影，依次点选后沿经线测距 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
+| EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 可运行三阶段开发版：日期/当地时间双轴、手动对齐正午、单点杆影、固定点经线测距与三步计算 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
 | EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [app/index.html](../experiments/light-pollution/app/index.html) | 可运行重构版 | 室外光源类型和逐类局部比较未全部覆盖；光污染等级、星数和光效参数未标定 |
 | EXP-06 日月食 | 无 | 仅需求文档 | 尚未实现页面 |
 | EXP-07 牛顿望远镜 | [index.html](../experiments/newton-telescope/index.html) | 可运行开发版 | 整页教学与真实设备验收未完成；[standalone.html](../experiments/newton-telescope/standalone.html) 和 `Export/` 是离线产物 |
