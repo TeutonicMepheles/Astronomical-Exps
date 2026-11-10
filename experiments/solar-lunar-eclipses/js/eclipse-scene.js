@@ -264,25 +264,34 @@
     ctx.restore();
   };
 
-  Scene.prototype.drawRays = function (ctx, moon, state) {
-    var step = 42;
-    var from = view.mode === 'system'
-      ? sx(-M.SUN_DIST) + M.SUN_R * view.px
-      : 0;
+  /*
+   * 平行日光：四档里只要太阳在画外，就用同一排水平光线表达方向（地月档一直是这么画的）。
+   * 侧视/斜视原先各留一个「阳光 →」箭头，两处措辞还不一样；统一到这一条之后，箭头撤掉。
+   * 遮挡按屏幕坐标算，所以四档可以共用——太阳都在 -x 方向，投影后光线一律水平。
+   * opts：{ ex, ey, er, ms, from } —— 地球圆心/半径、月球屏幕圆、光线起点，缺省取当前相机。
+   */
+  Scene.prototype.drawRays = function (ctx, moon, state, opts) {
+    var o = opts || {};
+    var step = o.step || 42;
+    var ex = o.ex === undefined ? view.ex : o.ex;
+    var ey = o.ey === undefined ? view.ey : o.ey;
+    var er = o.er === undefined ? M.RE * view.px : o.er;
+    var ms = o.ms || { x: sx(moon.x), y: sy(moon.y), r: M.RM * view.px };
+    var from = o.from === undefined
+      ? (view.mode === 'system' ? sx(-M.SUN_DIST) + M.SUN_R * view.px : 0)
+      : o.from;
     for (var y = 130; y <= 760; y += step) {
-      var wy = (view.ey - y) / view.px;
       var stop = W;
-      if (Math.abs(wy) < M.RE) {
-        var dx = Math.sqrt(M.RE * M.RE - wy * wy);
-        stop = Math.min(stop, view.ex - dx * view.px);
+      var dyE = y - ey;
+      if (Math.abs(dyE) < er) {
+        stop = Math.min(stop, ex - Math.sqrt(er * er - dyE * dyE));
       }
-      var dy = wy - moon.y;
-      if (Math.abs(dy) < M.RM) {
-        var dm = Math.sqrt(M.RM * M.RM - dy * dy);
-        stop = Math.min(stop, view.ex + (moon.x - dm) * view.px);
+      var dyM = y - ms.y;
+      if (Math.abs(dyM) < ms.r) {
+        stop = Math.min(stop, ms.x - Math.sqrt(ms.r * ms.r - dyM * dyM));
       }
       if (stop < 4) continue;
-      var near = Math.exp(-Math.pow((y - view.ey) / 240, 2));
+      var near = Math.exp(-Math.pow(dyE / 240, 2));
       var a = 0.09 + 0.17 * near;
       var g = ctx.createLinearGradient(from, y, stop, y);
       /* 地月视角光线从画外进来（首端透明）；总览里从日面边缘出发，首端就不该是 0 */
@@ -524,21 +533,6 @@
     var b = a * SIDE_FLAT;
     var th = SIDE_TILT;
 
-    /* 阳光方向：太阳在画外，用一道带箭头的标注交代方向。
-       原来是四道暖色长虚线，整体更像一层没有来源的暖雾，而且会穿过月影 */
-    ctx.save();
-    ctx.strokeStyle = 'rgba(198,220,255,0.48)';
-    ctx.lineWidth = 1.6;
-    ctx.beginPath();
-    /* 贴着黄道面上方 136px 走：再高就成了一条悬在空处的 UI 贴纸，离它要解释的东西太远 */
-    ctx.moveTo(46, cy - 136);
-    ctx.lineTo(196, cy - 136);
-    ctx.moveTo(184, cy - 141);
-    ctx.lineTo(198, cy - 136);
-    ctx.lineTo(184, cy - 131);
-    ctx.stroke();
-    ctx.restore();
-
     /* 黄道面：过地心的水平线。画在影锥之后（见下），否则右侧整段会被地影吞掉 */
 
     /*
@@ -551,6 +545,11 @@
     var my = cy - b * Math.sin(tm);
     /* 屏幕点换回这套比例尺里的世界坐标；y 就是该时刻的黄纬（最大 a·sin i / px = 1.79 RE） */
     var mw = { x: (mx - cx) / view.px, y: (cy - my) / view.px };
+
+    /* 日光：与地月档同一排平行光线（原先这里是一道「阳光 →」箭头，斜视另写了一个「阳光 →」文字，
+       两处措辞不一致，箭头也只交代方向不交代"光是从左面整片照过来的"） */
+    this.drawRays(ctx, mw, state, { ex: cx, ey: cy, er: M.RE * view.px,
+      ms: { x: mx, y: my, r: SIDE_RM * view.px } });
 
     /*
      * 侧视的太阳：钉在地心外 80 RE 的日地连线上，远在画外，只决定本影的收敛角。
@@ -644,8 +643,8 @@
       ctx.fillText(text, x, y);
     };
     label('黄道面', 44, cy + 26, 'rgba(226,236,252,0.72)');
-    /* 箭头尖端在 x=198，字头留 16px，不然读起来是「→阳光」一个词 */
-    label('阳光', 214, cy - 136, 'rgba(206,222,250,0.62)');
+    /* 箭头撤掉后这行只是给那排平行光线点名，位置压在最上面那条光的左上角 */
+    label('阳光', 44, 112, 'rgba(240,196,128,0.62)');
     /* 轨道面标签放到偏右、黄道线与虚线椭圆的间距最大的那一段，别压在任何一条线上 */
     label('月球轨道面', cx + 470, cy - 62, 'rgba(226,236,252,0.72)');
     label('5.145°', cx + arcR + 14, cy - 20, 'rgba(240,196,128,0.92)');
@@ -694,6 +693,11 @@
     var S3 = { x: -(D + SIDE_SUN_D), y: 0, z: 0 };
     /* 与侧视同一个压缩太阳：食甚时本影长 21 RE，锥尖落远侧地表附近 */
     var Rs = SIDE_RM + SIDE_SUN_D * (SIDE_RM / (D + M.RE));
+
+    /* 日光：与地月档同一排平行光线。斜视的黄道面有自己的网格，光线因此降一档密度，
+       免得两组横线互相干扰；遮挡按投影后的地月屏幕圆算 */
+    this.drawRays(ctx, moon, state, { ex: ex, ey: ey, er: M.RE * px,
+      ms: { x: obAt(P).x, y: obAt(P).y, r: SIDE_RM * px }, step: 84 });
 
     /*
      * 黄道面：网格 + 一圈「轨道投到黄道面上的圆」。两条环之间的缝隙就是黄纬——
@@ -938,7 +942,8 @@
       ctx.fillStyle = color;
       ctx.fillText(text, x, y);
     };
-    label('阳光 →', 60, 130, 'rgba(240,196,128,0.75)');
+    /* 箭头撤掉：那排平行光线自己交代了方向，这里只给它点名 */
+    label('阳光', 44, 112, 'rgba(240,196,128,0.62)');
     label('黄道面', 60, ey + 26, 'rgba(226,236,252,0.72)');
     label('月球轨道面', 1224, 546, 'rgba(226,236,252,0.72)');
     label('升交点', nodes[0].x + 12, nodes[0].y, 'rgba(246,212,154,0.72)');
