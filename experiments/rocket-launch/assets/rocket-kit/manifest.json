@@ -1,0 +1,78 @@
+{
+  "basis": "assembled rocket height = 700px",
+  "scale": 0.31167,
+  "assembled": {
+    "width": 283,
+    "height": 700
+  },
+  "stackedBody": {
+    "width": 108,
+    "height": 568
+  },
+  "booster": {
+    "width": 74,
+    "height": 135
+  },
+  "parts": [
+    {
+      "name": "fairing",
+      "label": "整流罩",
+      "width": 91,
+      "height": 108
+    },
+    {
+      "name": "payload",
+      "label": "有效载荷舱",
+      "width": 84,
+      "height": 64
+    },
+    {
+      "name": "upper-stage",
+      "label": "上级燃料箱",
+      "width": 90,
+      "height": 114
+    },
+    {
+      "name": "interstage",
+      "label": "级间段",
+      "width": 90,
+      "height": 63
+    },
+    {
+      "name": "lower-stage",
+      "label": "下级燃料箱（芯级）",
+      "width": 100,
+      "height": 144
+    },
+    {
+      "name": "engines",
+      "label": "发动机组",
+      "width": 108,
+      "height": 75
+    },
+    {
+      "name": "booster-left",
+      "label": "左助推器",
+      "width": 74,
+      "height": 134
+    },
+    {
+      "name": "booster-right",
+      "label": "右助推器",
+      "width": 74,
+      "height": 135
+    }
+  ],
+  "notes": {
+    "stackOrder": [
+      "fairing",
+      "payload",
+      "upper-stage",
+      "interstage",
+      "lower-stage",
+      "engines"
+    ],
+    "launcher": "组装时按 stackOrder 自上而下堆叠，x 居中，即可复现 assembled.png",
+    "scaleIfBodyWidth220": 2.037
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "balloon-deflated": {
+    "width": 559,
+    "height": 777
+  },
+  "balloon-normal": {
+    "width": 596,
+    "height": 822
+  },
+  "balloon-inflated": {
+    "width": 736,
+    "height": 965
+  },
+  "pump": {
+    "width": 373,
+    "height": 763
+  },
+  "cannon": {
+    "width": 2144,
+    "height": 1437
+  }
+}
