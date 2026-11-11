@@ -49,3 +49,5 @@ npm run dev -- --experiment components
 在根目录运行 `npm run test:browser`，检查组件分页、任务菜单和销毁行为。独立测试文件包括 `catalog.test.cjs`、`debug-panel.test.cjs` 和 `progress.test.cjs`；不把未执行的独立测试算作根检查结果。
 
 `measure.cjs` 是描边性能对照工具，旧测量结果只适用于当时的设备和页面，不能作为其他实验的性能结论。
+
+2026-11-11：progress 预览模拟五类镜片、两镜组装和四天体记录，调用实验公开课程 API；保留完成徽章、锁定、返回、重置与多实例回归。
