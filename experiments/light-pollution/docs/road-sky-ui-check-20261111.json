@@ -1,0 +1,29 @@
+{
+  "pass": true,
+  "maximum": {
+    "count": 2,
+    "pollution": 1
+  },
+  "intermediate": {
+    "count": 42,
+    "pollution": 0.5833115596517483
+  },
+  "dark": {
+    "count": 205,
+    "pollution": 0.00996761613170147
+  },
+  "checks": [
+    "nine restored shoreline lamps",
+    "shade controls isolated from highway lights",
+    "one highway user panel",
+    "road brightness, fixed pale-yellow lamps and binary high beams",
+    "shared undo/redo",
+    "all-max fresh defaults",
+    "title and demonstration Bortle HUD",
+    "actual visible-center star counts",
+    "gradual denser sky",
+    "all-lights action preserves layout",
+    "persisted lighting retained"
+  ],
+  "errors": []
+}

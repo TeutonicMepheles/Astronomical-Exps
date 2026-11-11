@@ -1,0 +1,19 @@
+{
+  "pass": true,
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+  "checks": [
+    "six titles",
+    "live brightness/temperature/curtains",
+    "five linked highway lamps",
+    "screen brightness",
+    "binary high beams and fixed lamp color",
+    "panel exclusion",
+    "gesture cancellation",
+    "15 rapid cycles",
+    "reduced motion",
+    "draft restore",
+    "developer mode",
+    "file offline assets"
+  ],
+  "errors": []
+}

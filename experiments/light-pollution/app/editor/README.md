@@ -33,3 +33,9 @@ node experiments/light-pollution/tests/browser/verify-editor.cjs
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+图层属性提供亮度（0–200%）、饱和度（0–200%）、色调（±180°）滑块与重置调色；拖动实时预览、松手一次历史，Esc/取消恢复。锁定图层禁用，旧 JSON 不含 color 时保持中性。
+
+`createLayerEditor` 可注入 onActiveChange(active) 和 getVisualBounds(id)。全景车辆通过这两个公开端口显示路径工具，并将路径预览后的车体范围用于命中/选框；未提供时保持普通图层行为，不读取车辆工具内部 DOM。
+
+选择远景建筑图层后，点击“远景窗口调光”可打开独立窗光面板，使用 building service 的 openLighting 公开接口。图层调色与窗口亮度分开。

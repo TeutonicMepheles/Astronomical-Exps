@@ -1,0 +1,67 @@
+{
+  "fixtures": "Configured LT-05 real 2048x2048 lossless images from the referenced generation chat",
+  "decodeAndOpenMs": 171,
+  "baseline": {
+    "name": "scene without modal",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "foreground": true,
+    "rAF": {
+      "count": 225,
+      "p95": 13.400000000000546,
+      "max": 13.599999999999454
+    },
+    "longTasks": [],
+    "heapStart": 118359716,
+    "heapEnd": 88505176,
+    "composition": {
+      "seconds": 3,
+      "sceneFps": 74.8,
+      "renderP95": 5.6,
+      "renderMax": 12,
+      "gapP95": 15.1,
+      "gapMax": 21.8,
+      "longTasks": 0,
+      "heap": 88505176,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  },
+  "playback": {
+    "name": "modal playback over animated scene",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "foreground": true,
+    "rAF": {
+      "count": 306,
+      "p95": 13.400000000000546,
+      "max": 13.800000000000182
+    },
+    "longTasks": [],
+    "heapStart": 92412293,
+    "heapEnd": 112272345,
+    "composition": {
+      "seconds": 4.1,
+      "sceneFps": 74.8,
+      "renderP95": 4.3,
+      "renderMax": 5.3,
+      "gapP95": 14.3,
+      "gapMax": 16.1,
+      "longTasks": 0,
+      "heap": 112272345,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  },
+  "cleanup": {
+    "dialogs": 1,
+    "imageSources": 0,
+    "animations": 0
+  }
+}

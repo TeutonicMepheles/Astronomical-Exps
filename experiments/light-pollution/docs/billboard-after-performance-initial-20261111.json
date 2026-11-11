@@ -1,0 +1,72 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "secondsPerState": 4,
+  "readyMs": 2666,
+  "environment": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "deviceMemory": 32,
+    "hardwareConcurrency": 32,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "url": "http://127.0.0.1:10954/experiments/light-pollution/app/index.html?mode=editor&scene=panorama-20261111&profile=1"
+  },
+  "samples": [
+    {
+      "kind": "neutral",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 40.09999999999991,
+      "seconds": 4.1,
+      "sceneFps": 28.1,
+      "renderP95": 39.5,
+      "renderMax": 45,
+      "gapP95": 40.9,
+      "gapMax": 46,
+      "longTasks": 0,
+      "heap": 106992755,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "kind": "three-colored",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 40.20000000000073,
+      "seconds": 4.1,
+      "sceneFps": 27,
+      "renderP95": 42.4,
+      "renderMax": 44.2,
+      "gapP95": 43.4,
+      "gapMax": 45.1,
+      "longTasks": 0,
+      "heap": 134090002,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "kind": "dragging",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 53.399999999999636,
+      "seconds": 4.1,
+      "sceneFps": 24.5,
+      "renderP95": 45.7,
+      "renderMax": 56.1,
+      "gapP95": 47.7,
+      "gapMax": 57.3,
+      "longTasks": 2,
+      "heap": 158184688,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  ]
+}

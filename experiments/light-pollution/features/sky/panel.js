@@ -3,14 +3,15 @@
 const storageKey='light-pollution.compositor-starfield-presets.v1';
 let saved={},active=0,storageError=false;
 try{const data=JSON.parse(localStorage.getItem(storageKey));if(data?.version===1){if(data.presets&&typeof data.presets==='object'&&!Array.isArray(data.presets))saved=data.presets;if(Number.isInteger(data.active)&&data.active>=0&&data.active<4)active=data.active;}}catch{storageError=true;}
-const sky=new PollutionStarfield(document.querySelector('#sky-background'),{gradientFrame:[0,11/27,1,16/27]});
+const panorama=(window.LIGHT_POLLUTION_SCENE||new URLSearchParams(location.search).get('scene'))==='panorama-20261111';
+const sky=new PollutionStarfield(document.querySelector('#sky-background'),{gradientFrame:[0,11/27,1,16/27],roundStars:panorama,starScale:panorama?1.25:1,transitionRate:panorama?1.4:6,minimumStarAlpha:panorama?.08:0});
 window.compositorSky=sky;sky.useScheduler(LightPollution.scheduler);LightPollution.disposers.push(()=>sky.destroy());
 const drafts={};
 const panel=document.querySelector('#sky-settings'),toggle=document.querySelector('#sky-toggle'),status=document.querySelector('#sky-save-status');
 const keys=['count','density','twinkle','speed','topColor','bottomColor','starColor','paused'];
 function parameters(value){const result={};if(value&&typeof value==='object')for(const key of keys)if(Object.hasOwn(value,key))result[key]=value[key];return result;}
 function load(level){sky.reset();sky.setLevel(level);sky.update(parameters(drafts[level]||saved[level]));drafts[level]=sky.getSettings();}
-load(active);
+load(active);if(panorama)sky.update({count:6000,density:1.5,twinkle:0,speed:0,paused:true});
 function message(){const s=sky.getSettings(),stored=parameters(saved[s.level]);const equal=keys.every(k=>stored[k]===s[k]);status.textContent=storageError?'浏览器存储不可用或记录损坏，可重试保存。':equal?'本档设置已保存到此浏览器。':'本档尚有未保存设置。';}
 function sync(){const s=sky.getSettings();for(const key of ['topColor','bottomColor']){const input=document.getElementById('sky-'+key);input.disabled=false;input.title=s.gradient?(key==='topColor'?'修改自定义渐变的首端色标':'修改自定义渐变的末端色标'):'';}document.querySelectorAll('[data-level]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.level)===s.level)));for(const key of keys.filter(k=>k!=='paused'))document.getElementById('sky-'+key).value=s.gradient&&['topColor','bottomColor'].includes(key)?s.gradient.stops[key==='topColor'?0:s.gradient.stops.length-1].color:s[key];document.querySelector('#sky-count-value').value=s.count;document.querySelector('#sky-density-value').value=s.density.toFixed(2)+'×';document.querySelector('#sky-twinkle-value').value=Math.round(s.twinkle*100)+'%';document.querySelector('#sky-speed-value').value=s.speed.toFixed(1)+'×';document.querySelector('#sky-pause').textContent=s.paused?'播放动态':'暂停动态';document.querySelector('#sky-pause').setAttribute('aria-pressed',String(s.paused));message();}
 function show(value){panel.hidden=!value;toggle.setAttribute('aria-expanded',String(value));toggle.setAttribute('aria-label',value?'收起星空调节':'打开星空调节');if(value)panel.querySelector('[data-level]').focus();else toggle.focus();}

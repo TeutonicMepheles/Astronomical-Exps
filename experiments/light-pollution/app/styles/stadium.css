@@ -1,0 +1,32 @@
+/* Raster art from the supplied reference via LibTV Seedream 5.5. */
+.stadium-ui{position:absolute;inset:0;z-index:46;pointer-events:none;color:#cbdcff;font-family:var(--font-ui,system-ui,sans-serif)}
+.stadium-ui button,.stadium-ui input{pointer-events:auto}
+.stadium-bubble{position:absolute;right:7%;top:57%;width:24cqw;padding:0;border:0;background:none;min-height:0;transition:opacity 140ms,transform 180ms}
+.stadium-bubble img{display:block;width:100%}.stadium-bubble:hover,.stadium-bubble[aria-expanded=true]{background:none;border:0;transform:scale(1.035)}
+.stadium-ui[data-expanded=true] .stadium-bubble{opacity:0;pointer-events:none}
+.stadium-sheet{position:absolute;right:3%;top:10%;width:38cqw;height:41cqw;pointer-events:auto;transform-origin:center;isolation:isolate}
+.stadium-plate{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.stadium-content{position:absolute;inset:9% 11% 9% 11%;display:flex;flex-direction:column;gap:0}
+.stadium-heading{display:flex;align-items:center;justify-content:space-between;height:25%;border-bottom:1px solid #7b8bd566;margin-bottom:1cqw}
+.stadium-heading>img{width:22cqw;max-height:100%;object-fit:contain;object-position:left center}
+.stadium-close{background:transparent;color:#bac9ff;border:1px solid #9baaff99;border-radius:1.1cqw;width:3cqw;height:3cqw;padding:0;min-height:0;font-size:2.5cqw;line-height:1}
+.stadium-close:hover{background:#7188db55;border-color:#b5c9ff;color:#e0ebff}
+.stadium-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8cqw;font-size:1.55cqw;min-height:25%;padding:1cqw 0;border-bottom:1px solid #7b8bd555}
+.stadium-row>span{display:flex;align-items:center;gap:1cqw}.stadium-row i{font-style:normal;font-size:2.5cqw;line-height:1;color:#b9d9ff;width:2.4cqw;text-align:center}
+.stadium-row output{color:#b6c1f4;font-size:1.4cqw;font-variant-numeric:tabular-nums}
+.stadium-row input{width:100%;margin:0;height:2.4cqw;appearance:none;background:transparent;cursor:pointer;touch-action:none}
+.stadium-row input::-webkit-slider-runnable-track{height:.68cqw;border-radius:1cqw;background:linear-gradient(to right,#a4b8ff var(--value),#3c5091 var(--value))}
+.stadium-temperature input::-webkit-slider-runnable-track{background:linear-gradient(90deg,#ffad83,#f6d4ad,#b8d9ff,#dcf2ff)}
+.stadium-row input::-webkit-slider-thumb{appearance:none;width:1.8cqw;height:1.8cqw;border:.2cqw solid #d4e9ff;border-radius:50%;background:#a3bdff;box-shadow:0 0 .6cqw #a0c7ff99;margin-top:-.56cqw}
+.stadium-row input::-moz-range-track{height:.68cqw;border-radius:1cqw;background:#8da9f3}.stadium-temperature input::-moz-range-track{background:linear-gradient(90deg,#ffad83,#d6efff)}
+.stadium-row input::-moz-range-thumb{width:1.5cqw;height:1.5cqw;border:.2cqw solid #d4e9ff;border-radius:50%;background:#a3bdff}
+.stadium-timing{border:0;padding-bottom:0}.stadium-options{display:flex;width:100%;border:1px solid #7d93db99;border-radius:3cqw;overflow:hidden}
+.stadium-options button{flex:1;font-size:1.15cqw;white-space:nowrap;padding:.8cqw .2cqw;min-height:3.5cqw;background:transparent;border:1px solid transparent;border-radius:3cqw;color:#aab9eb}
+.stadium-options button:hover,.stadium-options button[aria-pressed=true]{background:#6488e5b3;border-color:#a7c4ff;color:#ecf4ff}
+html[data-app-mode=editor] .stadium-ui{display:none}
+@media(prefers-reduced-motion:reduce){.stadium-ui *{transition:none!important}}
+.stadium-row i svg{width:1.8cqw;height:2.6cqw;display:block;margin:auto}
+
+.stadium-bubble{width:clamp(184px,18cqw,340px)}
+
+.stadium-bubble:focus,.stadium-bubble:focus-visible{outline:none;box-shadow:none}

@@ -1,0 +1,16 @@
+{
+  "suiteTotal": 38,
+  "initialPassed": 37,
+  "initialFailures": [
+    {
+      "file": "verify-paper-panels.cjs",
+      "output": "page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('html[data-ready=true]') to be visible\u001b[22m\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-stadium-ui\\experiments\\light-pollution\\tests\\browser\\verify-paper-panels.cjs:4:34 {\n  log: [ \"  - waiting for locator('html[data-ready=true]') to be visible\" ],\n  name: 'TimeoutError'\n}\n"
+    }
+  ],
+  "targetedRetry": {
+    "file": "verify-paper-panels.cjs",
+    "pass": true,
+    "evidence": "paper-panels-check-20261111.json"
+  },
+  "startupDiagnostic": "Same URL separately reached ready in 1762 ms; initial 30-second ready timeout not reproduced; no product root cause established."
+}

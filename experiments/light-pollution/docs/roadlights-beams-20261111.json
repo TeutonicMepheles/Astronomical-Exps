@@ -1,0 +1,119 @@
+{
+  "bloom": [
+    {
+      "face": [
+        209,
+        206,
+        201,
+        198
+      ],
+      "edge": 83,
+      "off": 0
+    },
+    {
+      "face": [
+        206,
+        204,
+        204,
+        196
+      ],
+      "edge": 83,
+      "off": 0
+    },
+    {
+      "face": [
+        211,
+        205,
+        204,
+        197
+      ],
+      "edge": 78,
+      "off": 0
+    },
+    {
+      "face": [
+        208,
+        207,
+        204,
+        195
+      ],
+      "edge": 88,
+      "off": 0
+    }
+  ],
+  "pixels": {
+    "highway": {
+      "outside": 87659,
+      "outsideChanged": 0,
+      "litChanged": 12036,
+      "black": 0
+    },
+    "roadlamp-1": {
+      "outside": 395,
+      "outsideChanged": 0,
+      "litChanged": 76,
+      "black": 0
+    },
+    "roadlamp-2": {
+      "outside": 255,
+      "outsideChanged": 0,
+      "litChanged": 55,
+      "black": 0
+    },
+    "roadlamp-3": {
+      "outside": 222,
+      "outsideChanged": 0,
+      "litChanged": 39,
+      "black": 0
+    },
+    "roadlamp-4": {
+      "outside": 165,
+      "outsideChanged": 0,
+      "litChanged": 30,
+      "black": 0
+    },
+    "roadlamp-5": {
+      "outside": 124,
+      "outsideChanged": 0,
+      "litChanged": 25,
+      "black": 0
+    }
+  },
+  "poolsOff": 0,
+  "poolsOn": 269361,
+  "poolsSingleOff": 137503,
+  "moved": 318617,
+  "hidden": 137503,
+  "beamsOff": 0,
+  "beamsOn": 5220363,
+  "continuity": [
+    [
+      173,
+      181,
+      169,
+      144,
+      119
+    ],
+    [
+      173,
+      181,
+      169,
+      144,
+      119
+    ],
+    [
+      173,
+      181,
+      169,
+      144,
+      119
+    ],
+    [
+      173,
+      181,
+      169,
+      144,
+      119
+    ]
+  ]
+}

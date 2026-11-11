@@ -1,0 +1,48 @@
+{
+  "anchorEnabled": true,
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "dpr": 1.0000000298023224,
+  "secondsPerState": 4,
+  "samples": [
+    {
+      "mode": "moving-car",
+      "focus": true,
+      "rafP95": 13.400000000000546,
+      "seconds": 4,
+      "sceneFps": 75,
+      "renderP95": 4.2,
+      "renderMax": 9.3,
+      "gapP95": 14.1,
+      "gapMax": 19.6,
+      "longTasks": 0,
+      "heap": 103300462,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "mode": "panning",
+      "focus": true,
+      "rafP95": 13.400000000000546,
+      "seconds": 4,
+      "sceneFps": 75,
+      "renderP95": 4,
+      "renderMax": 5.1,
+      "gapP95": 14.4,
+      "gapMax": 17.1,
+      "longTasks": 0,
+      "heap": 112422630,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  ]
+}

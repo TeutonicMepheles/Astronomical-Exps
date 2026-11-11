@@ -1,0 +1,206 @@
+[
+  {
+    "file": "data-compatibility.cjs",
+    "pass": true,
+    "ms": 8643,
+    "output": "PASS pre-refactor candidate fixture, persistent restore, legacy v1 missing optional fields and rejected import preserves scene\n"
+  },
+  {
+    "file": "presentation-independent.cjs",
+    "pass": true,
+    "ms": 11506,
+    "output": "PASS presentation without authoring DOM, shared commands, panel exclusion, draft restore and lazy authoring\n"
+  },
+  {
+    "file": "source-entry.cjs",
+    "pass": true,
+    "ms": 5606,
+    "output": "PASS HTTP source candidate/legacy, lazy UI and no external runtime requests\n"
+  },
+  {
+    "file": "verify-ad-building.cjs",
+    "pass": true,
+    "ms": 5082,
+    "output": "PASS ad-building click, 9 windows, brightness/temperature/curtains, independent screen, corners, old-layout migration\n"
+  },
+  {
+    "file": "verify-buildings.cjs",
+    "pass": true,
+    "ms": 12555,
+    "output": "PASS building clicks, single charcoal blackout texture, spill attenuation, staggered curtains, replacement, corners, pan isolation and persisted settings\n"
+  },
+  {
+    "file": "verify-candidates.cjs",
+    "pass": true,
+    "ms": 21759,
+    "output": "PASS: corners, geometry hit after parent move, object move/lock, brightness, curtain/material, image replacements, shared history, embedded JSON round-trip/rejection, reload, offline and continuous refresh.\n"
+  },
+  {
+    "file": "verify-distant-controls.cjs",
+    "pass": true,
+    "ms": 6892,
+    "output": "PASS presentation distant click, dark hit, drag separation, Escape, editor close, sky, reload, default 5x { x: 559.3922651933701, y: 515.8839779005525 }\n"
+  },
+  {
+    "file": "verify-editor.cjs",
+    "pass": true,
+    "ms": 8289,
+    "output": "PASS: properties, order, drag sorting, canvas drag at two zooms, lock, water constraint, undo/redo, JSON round-trip/rejection, draft reload, panel geometry.\n"
+  },
+  {
+    "file": "verify-far-layers.cjs",
+    "pass": true,
+    "ms": 6867,
+    "output": "PASS three editable distant layers, hide/undo/move, clean ground, old JSON migration, reload, offline\n"
+  },
+  {
+    "file": "verify-gradient-interaction.cjs",
+    "pass": true,
+    "ms": 38728,
+    "output": "PASS: animated target stability, edge handles, whole-line drag, curve drag, horizon color with custom gradient, unified undo/redo, panel isolation and reload.\nScreenshot: C:\\Users\\Golajah\\AppData\\Local\\Temp\\gradient-interaction-gmGKmz\\preview.png\n"
+  },
+  {
+    "file": "verify-gradient.cjs",
+    "pass": true,
+    "ms": 11305,
+    "output": "PASS: anchors/stops/curve, one-step history and cancel, raster direction/easing, resolution independence, panel fit, import validation/legacy compatibility, reload and offline.\n"
+  },
+  {
+    "file": "verify-lamp-carousel.cjs",
+    "pass": true,
+    "ms": 11585,
+    "output": "PASS direct lamp-head swipe, live light preview, pole alignment, no street pan, Escape rollback, one-step undo/redo, reload and shaft drag.\n"
+  },
+  {
+    "file": "verify-lamps.cjs",
+    "pass": true,
+    "ms": 14723,
+    "output": "PASS: nine equal-position lamp responses, shared shade/temperature/brightness, dark hit, drag isolation, undo, persistence, invalid import, offline.\n"
+  },
+  {
+    "file": "verify-light-environment.cjs",
+    "pass": true,
+    "ms": 8466,
+    "output": "PASS light budget: all-off/high, sky brightness, star budget, curtains, shade, JSON and reload { dark: 0, bright: 1, stars: [ 2100, 588 ] }\n"
+  },
+  {
+    "file": "verify-light-masks.cjs",
+    "pass": true,
+    "ms": 13038,
+    "output": "PASS: real GPU building/window synchronization, perspective sampling, single-window merge, import/export, undo/redo, bad dimensions and corrupt PNG rejection, lock, JSON round trip, reload, old-layout migration, offline page.\nScreenshot: C:\\Users\\Golajah\\AppData\\Local\\Temp\\building-masks-ZCzT0y\\light-mask-import.png\n"
+  },
+  {
+    "file": "verify-objects.cjs",
+    "pass": true,
+    "ms": 16054,
+    "output": "PASS: corners, geometry hit after parent move, object move/lock, brightness, curtain/material, image replacements, shared history, embedded JSON round-trip/rejection, reload, offline and continuous refresh.\n"
+  },
+  {
+    "file": "verify-observations.cjs",
+    "pass": true,
+    "ms": 10766,
+    "output": "PASS: observation crop/brightness controls, editable hotspot drag, scene persistence and undo history.\n"
+  },
+  {
+    "file": "verify-pan.cjs",
+    "pass": true,
+    "ms": 3478,
+    "output": "PASS: outside click hides overlays, sprite click restores; space pan captures corner/layer gestures including early space release; no edits or history; presets reset.\n"
+  },
+  {
+    "file": "verify-panorama-roadlights.cjs",
+    "pass": true,
+    "ms": 5715,
+    "output": "PASS road mask + natural base + linked pools + four continuous beams + UI/history/migration/off-state hit {\n  bloom: [\n    { face: [Array], edge: 83, off: 0 },\n    { face: [Array], edge: 83, off: 0 },\n    { face: [Array], edge: 78, off: 0 },\n    { face: [Array], edge: 88, off: 0 }\n  ],\n  pixels: {\n    highway: { outside: 88141, outsideChanged: 0, litChanged: 12065, black: 0 },\n    'roadlamp-1': { outside: 332, outsideChanged: 0, litChanged: 34, black: 0 },\n    'roadlamp-2': { outside: 277, outsideChanged: 0, litChanged: 23, black: 0 },\n    'roadlamp-3': { outside: 212, outsideChanged: 0, litChanged: 17, black: 0 },\n    'roadlamp-4': { outside: 128, outsideChanged: 0, litChanged: 13, black: 0 },\n    'roadlamp-5': { outside: 105, outsideChanged: 0, litChanged: 10, black: 0 }\n  },\n  poolsOff: 0,\n  poolsOn: 398086,\n  poolsSingleOff: 218204,\n  moved: 463508,\n  hidden: 218204,\n  beamsOff: 0,\n  beamsOn: 5220363,\n  continuity: [\n    [ 173, 181, 169, 144, 119 ],\n    [ 173, 181, 169, 144, 119 ],\n    [ 173, 181, 169, 144, 119 ],\n    [ 173, 181, 169, 144, 119 ]\n  ]\n}\n"
+  },
+  {
+    "file": "verify-panorama-stadium-merge.cjs",
+    "pass": true,
+    "ms": 6090,
+    "output": "PASS merged five-part alpha, one editor row, move/scale/hide/undo, old 37-layer migration and persistence\n"
+  },
+  {
+    "file": "verify-panorama-stadium.cjs",
+    "pass": true,
+    "ms": 8510,
+    "output": "{\n  stadium: {\n    exteriorCount: 58258,\n    exteriorChanged: 0,\n    interiorCount: 31058,\n    interiorChanged: 31058,\n    count: 93742,\n    black: 0,\n    changed: 34703,\n    sourceError: 0,\n    onMean: 137.74190864287087,\n    midMean: 124.87911146195586,\n    offMean: 102.90341931400367,\n    offRange: 205.33333333333334\n  },\n  'floodlight-1': {\n    exteriorCount: 971,\n    exteriorChanged: 0,\n    interiorCount: 23,\n    interiorChanged: 23,\n    count: 1315,\n    black: 0,\n    changed: 166,\n    sourceError: 0,\n    onMean: 87.40963244613435,\n    midMean: 83.40202788339671,\n    offMean: 76.45044359949303,\n    offRange: 128.33333333333334\n  },\n  'floodlight-2': {\n    exteriorCount: 817,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1126,\n    black: 0,\n    changed: 153,\n    sourceError: 0,\n    onMean: 87.12255772646536,\n    midMean: 83.18354055654233,\n    offMean: 76.3040260509177,\n    offRange: 134.66666666666666\n  },\n  'floodlight-3': {\n    exteriorCount: 831,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1144,\n    black: 0,\n    changed: 154,\n    sourceError: 0,\n    onMean: 87.03234265734265,\n    midMean: 83.22931235431236,\n    offMean: 76.58100233100232,\n    offRange: 173\n  },\n  'floodlight-4': {\n    exteriorCount: 1054,\n    exteriorChanged: 0,\n    interiorCount: 26,\n    interiorChanged: 26,\n    count: 1404,\n    black: 0,\n    changed: 168,\n    sourceError: 0,\n    onMean: 87.21486229819563,\n    midMean: 83.40788224121557,\n    offMean: 76.75759734093067,\n    offRange: 162.66666666666666\n  }\n}\nPASS stadium native texture, ambient detail, four linked floods, UI, undo/redo, persistence, old scene migration {\n  stadium: {\n    exteriorCount: 58258,\n    exteriorChanged: 0,\n    interiorCount: 31058,\n    interiorChanged: 31058,\n    count: 93742,\n    black: 0,\n    changed: 34703,\n    sourceError: 0,\n    onMean: 137.74190864287087,\n    midMean: 124.87911146195586,\n    offMean: 102.90341931400367,\n    offRange: 205.33333333333334\n  },\n  'floodlight-1': {\n    exteriorCount: 971,\n    exteriorChanged: 0,\n    interiorCount: 23,\n    interiorChanged: 23,\n    count: 1315,\n    black: 0,\n    changed: 166,\n    sourceError: 0,\n    onMean: 87.40963244613435,\n    midMean: 83.40202788339671,\n    offMean: 76.45044359949303,\n    offRange: 128.33333333333334\n  },\n  'floodlight-2': {\n    exteriorCount: 817,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1126,\n    black: 0,\n    changed: 153,\n    sourceError: 0,\n    onMean: 87.12255772646536,\n    midMean: 83.18354055654233,\n    offMean: 76.3040260509177,\n    offRange: 134.66666666666666\n  },\n  'floodlight-3': {\n    exteriorCount: 831,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1144,\n    black: 0,\n    changed: 154,\n    sourceError: 0,\n    onMean: 87.03234265734265,\n    midMean: 83.22931235431236,\n    offMean: 76.58100233100232,\n    offRange: 173\n  },\n  'floodlight-4': {\n    exteriorCount: 1054,\n    exteriorChanged: 0,\n    interiorCount: 26,\n    interiorChanged: 26,\n    count: 1404,\n    black: 0,\n    changed: 168,\n    sourceError: 0,\n    onMean: 87.21486229819563,\n    midMean: 83.40788224121557,\n    offMean: 76.75759734093067,\n    offRange: 162.66666666666666\n  }\n}\n"
+  },
+  {
+    "file": "verify-panorama-zones.cjs",
+    "pass": true,
+    "ms": 5317,
+    "output": "{\n  wallCount: 76769,\n  wallChanged: 0,\n  windows: 3186,\n  darkWindows: 3186,\n  leftChanged: 544,\n  otherChanged: 0,\n  coolChanged: 544\n}\nPASS native zone pixels + UI + undo/redo + restore + old scene migration: {\n  wallCount: 76769,\n  wallChanged: 0,\n  windows: 3186,\n  darkWindows: 3186,\n  leftChanged: 544,\n  otherChanged: 0,\n  coolChanged: 544\n}\n"
+  },
+  {
+    "file": "verify-panorama.cjs",
+    "pass": true,
+    "ms": 7600,
+    "output": "PASS panorama: 36 layers, pagination, hide, move, independent billboard/curtain, mask import/undo, undo, JSON round-trip, restore, repeated editor opening, zero remote requests.\n"
+  },
+  {
+    "file": "verify-presentation.cjs",
+    "pass": true,
+    "ms": 7540,
+    "output": "PASS: default user UI, in-scene title and slider, hidden authoring controls, panorama navigation, opt-in editor mode and responsive 16:9 stage.\n"
+  },
+  {
+    "file": "verify-reflections.cjs",
+    "pass": true,
+    "ms": 5641,
+    "output": "PASS position, actual scene water follows building temperature and brightness {\n  initial: { r: 1808187, b: 3614554 },\n  cool: { r: 1588259, b: 4185094 },\n  dark: { r: 797568, b: 3198937 }\n}\n"
+  },
+  {
+    "file": "verify-scene-effects.cjs",
+    "pass": true,
+    "ms": 7405,
+    "output": "PASS effects defaults, ranges, undo/redo, pause setting, persistence, JSON compatibility/rejection, sky budget, light-only pixels and temperature\n"
+  },
+  {
+    "file": "verify-sky.cjs",
+    "pass": true,
+    "ms": 8008,
+    "output": "PASS: offline sky, adjacent controls, presets, settings persistence, pause/play, shared zoom, Escape isolation, panel fit.\n"
+  },
+  {
+    "file": "verify-video-playlist.cjs",
+    "pass": true,
+    "ms": 19114,
+    "output": "PASS full-length 03→08→03, retained controls, pause, manual restart\n"
+  },
+  {
+    "file": "verify-video-resources.cjs",
+    "pass": true,
+    "ms": 11538,
+    "output": "PASS 03/08 switching, animation pixels, effect retention, persistence and offline\n"
+  },
+  {
+    "file": "verify-video-transition.cjs",
+    "pass": true,
+    "ms": 11094,
+    "output": "PASS screen click, full clip, crossfade, temporary glitch boost and next clip start\n"
+  },
+  {
+    "file": "verify-video.cjs",
+    "pass": true,
+    "ms": 22951,
+    "output": "PASS video pause/resume, each effect, persistence, offline and no errors\n"
+  },
+  {
+    "file": "verify-water.cjs",
+    "pass": true,
+    "ms": 3509,
+    "output": "PASS water motion, replacement texture, fixed alpha, continuous cycle { changed: true, alpha: true, seam: 0.001114555027173913 }\n"
+  },
+  {
+    "file": "verify-zoom.cjs",
+    "pass": true,
+    "ms": 3307,
+    "output": "PASS: plain wheel unchanged, Shift wheel anchored zoom, corner hit/drag at custom zoom, undo and preset reset.\n"
+  },
+  {
+    "file": "verify.cjs",
+    "pass": true,
+    "ms": 6791,
+    "output": "PASS: offline load, eight layers, reference isolation, three detail views, static stability.\n"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "browser": "157.0.8103.39",
+  "url": "http://127.0.0.1:8830/experiments/light-pollution/app/index.html?scene=panorama-20261111&mode=editor&profile=1",
+  "seconds": 6,
+  "sceneFps": 75,
+  "renderP95": 4.3,
+  "renderMax": 6,
+  "gapP95": 14.3,
+  "gapMax": 16.1,
+  "longTasks": 0,
+  "heap": 98645177,
+  "dpr": 1.0000000298023224,
+  "viewport": [
+    1920,
+    1080
+  ],
+  "rafP95": 13.400000000000546,
+  "rafMax": 13.5,
+  "focused": true,
+  "visibility": "visible",
+  "busy": false
+}

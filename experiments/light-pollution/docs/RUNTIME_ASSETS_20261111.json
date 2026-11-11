@@ -1,0 +1,425 @@
+{
+  "scope": "new runtime images only; selection/reference/source images remain local",
+  "files": [
+    {
+      "path": "assets/comparison/lt-01-after.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2875240,
+      "sha256": "dae80922b295cc56c12f4ac7216e197f6be0ee42b0475e724eb7611409f302de"
+    },
+    {
+      "path": "assets/comparison/lt-01-before.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2670514,
+      "sha256": "cd600ec2904f6347d71c99fb3e40a95092e6b981e060b913007c4cb20c757892"
+    },
+    {
+      "path": "assets/comparison/lt-02-after.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 3054936,
+      "sha256": "875ff9c48ba94942c9525a2d8b4e0789be4af5d68dd1425108ee877692d76073"
+    },
+    {
+      "path": "assets/comparison/lt-02-before.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 3070314,
+      "sha256": "6202e68cc7990cebc81fc88153d3010c9547cf8f3d733f81f4a56866ab228ac3"
+    },
+    {
+      "path": "assets/comparison/lt-03-after.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2760860,
+      "sha256": "dad4eda6b7753772e5cdf44e28b8f21c703edddf7759632b82df5eeb74da07fc"
+    },
+    {
+      "path": "assets/comparison/lt-03-before.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 3027508,
+      "sha256": "32c66397e01e28cc6c435b8eb3f8333fa7afc5997f2a9ef9c8c923a574fca4c3"
+    },
+    {
+      "path": "assets/comparison/lt-04-after.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2890226,
+      "sha256": "1c65fcb4ef94f94f533b7e3e3d92364d2b75263bce37aa383b9764e9e2b95f4c"
+    },
+    {
+      "path": "assets/comparison/lt-04-before.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2994564,
+      "sha256": "c2c33063bab90b4d7a1fe0eb6d73e82c09a58c2732c90ad621a5c9e04c1b7581"
+    },
+    {
+      "path": "assets/comparison/lt-05-after.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2968734,
+      "sha256": "f72265d12987e0cbc0ed02f0db327603877abce23b177937016b3548a1c5de8a"
+    },
+    {
+      "path": "assets/comparison/lt-05-before.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2988638,
+      "sha256": "86b844a35911ca577c21fd431cc06cd00c78a600dddb08bdfb15b44c3b983608"
+    },
+    {
+      "path": "assets/comparison/lt-07-after.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2736532,
+      "sha256": "86b686c2f06e87abc111f79d83c8733a71086d30068bc1581f9d6c03217dc546"
+    },
+    {
+      "path": "assets/comparison/lt-07-before.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 2975602,
+      "sha256": "444a9c465a09b5ddb818c34922ee46f91fc8695c6b290f1e4daa47bf34011cb7"
+    },
+    {
+      "path": "assets/comparison/residential-shield-after-20261111.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 3460096,
+      "sha256": "0f9ca040f8412cfc237ab37dd81fc8e5488ef22c6458ba9ace5b9121922b5bc8"
+    },
+    {
+      "path": "assets/comparison/residential-shield-before-20261111.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 3602310,
+      "sha256": "dfc9c82363e6e3c32f4e8a8bf7b9874bafb84f359241a4f0c2577008856e214d"
+    },
+    {
+      "path": "assets/panorama-20261111/mask-distant-windows-sr.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: distant-buildings",
+      "bytes": 13496,
+      "sha256": "f92c9d51af90e3fce8b8267511239d7b53f11ab5200a75439551da2aaa105910"
+    },
+    {
+      "path": "assets/panorama-20261111/mask-floodlight-1.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: floodlight-1",
+      "bytes": 2046,
+      "sha256": "85943236edb1fd5e489b10bea8398ce54baf124b2bef85213b013bf1237135b2"
+    },
+    {
+      "path": "assets/panorama-20261111/mask-floodlight-2.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: floodlight-2",
+      "bytes": 1964,
+      "sha256": "956722d94fce78c1e049e5ecd0c3f082b3d20b37fad0a35cc0a903514d7367a2"
+    },
+    {
+      "path": "assets/panorama-20261111/mask-floodlight-3.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: floodlight-3",
+      "bytes": 1973,
+      "sha256": "fdcadcf18f154596baec9e9b1f308e942537a6cad18e86186d9f6ad083f92d4a"
+    },
+    {
+      "path": "assets/panorama-20261111/mask-floodlight-4.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: floodlight-4",
+      "bytes": 2087,
+      "sha256": "7f51b7fc0aace4830e95015b34178b2199c0a183318c14792c8c79f313c0a53d"
+    },
+    {
+      "path": "assets/panorama-20261111/mask-highway.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: highway",
+      "bytes": 19186,
+      "sha256": "4934c1820b3782b9d931abef21bc5481d67cfffb4d6cd9a64749b9b65bebc6c6"
+    },
+    {
+      "path": "assets/panorama-20261111/mask-residential-backdrop.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: residential-backdrop",
+      "bytes": 7931,
+      "sha256": "d6436f6072fa6712cf3a12890d32cc1d001e9d920c9ce9640712ff8a16230a86"
+    },
+    {
+      "path": "assets/panorama-20261111/mask-stadium-interior-entry-v3.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: stadium",
+      "bytes": 6021,
+      "sha256": "13dc6b1e6eea9d798a6d2252d585074d0fed1547e9d6b673bd9cd6821b4cd3b3"
+    },
+    {
+      "path": "assets/panorama-20261111/reuse-mask-roadlamp-1.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: roadlamp-1",
+      "bytes": 1486,
+      "sha256": "f53910cad3e493dc8a038ba706b95e3937a2e8884110325d89ed0a49bc24bcc5"
+    },
+    {
+      "path": "assets/panorama-20261111/reuse-mask-roadlamp-2.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: roadlamp-2",
+      "bytes": 1445,
+      "sha256": "9a2e2b80da070ee7e868b28f91a357d94b1b7c358d1ee7013f68ebd4ab521543"
+    },
+    {
+      "path": "assets/panorama-20261111/reuse-mask-roadlamp-3.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: roadlamp-3",
+      "bytes": 1430,
+      "sha256": "1b80a839ac0382ebdebc3b58e7902a1802f9fb1fb5b631186158a185805c3d53"
+    },
+    {
+      "path": "assets/panorama-20261111/reuse-mask-roadlamp-4.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: roadlamp-4",
+      "bytes": 1395,
+      "sha256": "2eb3127ef07489d3558fa0834e68caace5d83dbfe4c0355b872570668793cd24"
+    },
+    {
+      "path": "assets/panorama-20261111/reuse-mask-roadlamp-5.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: roadlamp-5",
+      "bytes": 1361,
+      "sha256": "367af85dd68f32f8152be1709e2091255e6ef1d461c5458526cb4017262dc238"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-billboard.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: billboard",
+      "bytes": 4330562,
+      "sha256": "271be74d194e3e1acc9e16112a2c30e6c99440eaf97b9ff7cf19f8aa281718c4"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-distant-buildings.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: distant-buildings",
+      "bytes": 507872,
+      "sha256": "b790c6a62dce13bc9b78af3972085b9cb08917668badc408c46e0e4dcab93325"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-distant-mountains.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: distant-mountains",
+      "bytes": 1064479,
+      "sha256": "727857de05cf282d92e2e2aa2d059ee177a0b69163fe7a8d8641ccf0b5194b7e"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-distant-viaduct.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: distant-viaduct",
+      "bytes": 385117,
+      "sha256": "f108e7b1e67851e5c554284dab64a00d21a358f656f330c28bbee13c4c0484dd"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-floodlight-1.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: floodlight-4",
+      "bytes": 1641657,
+      "sha256": "7acce003357e267110133741d1afd4eac4d2d99c2557019054a469a5c9d17d64"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-foreground-water-restored.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: front-water",
+      "bytes": 348357,
+      "sha256": "1e959aca0e12f45162f66e43b5cf35ce0c4c90d67d7cd9a75e75122bf6fcd0e5"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-ground-only.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: environment",
+      "bytes": 1793998,
+      "sha256": "748dac4652e623eb61849f460fb9c364b8dc9f7a15f8bc8433807adccb3326cd"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-highway.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: highway",
+      "bytes": 3401310,
+      "sha256": "01639ccf4006f679e83ff0b94e03886f2970d2b0de8335effab2241850dc739e"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-residential-backdrop.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: residential-backdrop",
+      "bytes": 4578435,
+      "sha256": "1212443e54478fb85d75241533841d33f23cbfb3324347eeea9613c2e633d3fc"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-05-residential-01.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: residential",
+      "bytes": 5544871,
+      "sha256": "45967ae22e6a343ebd0834964ddc20ba1e053c3a27b65abbc6221655b80f24c2"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-06-public-building-02.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: public",
+      "bytes": 1775085,
+      "sha256": "d262d474246b13b0afaf798463ddccd93482af0a1f6688fb4a522967a8f42846"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-07-billboard-building-02.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: ad-building",
+      "bytes": 3799827,
+      "sha256": "467f0d443effd5aa2a330991a6b5350be76b7bb58ff5058c8400bbd6963508e9"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-lamp-half.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: roadlamp-5",
+      "bytes": 882100,
+      "sha256": "c5cf00fb21df6867a0e930169eea4236f9bc6e7bee4c86b78b88fd736ab094a0"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-promenade-rail.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: promenade-rail",
+      "bytes": 57865,
+      "sha256": "b484ec5c61463fb51d8efa164eef1c2275e5f31532b9eec91766574325e2069b"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-trees-01-01.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: trees-09",
+      "bytes": 1080701,
+      "sha256": "5597a599dddd8aa12bb5e9e268ba40f6bde42bd7123e4803f39494c844f3824e"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-trees-01-02.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: trees-06",
+      "bytes": 449141,
+      "sha256": "c29185f640b4e19e2a32967b800581a082e9fbdd980831c1cd446f1987e8b576"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-trees-01-03.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: trees-07",
+      "bytes": 509850,
+      "sha256": "b578682586084a08f308d2b076ac864f814ee78f82a5f15b594a683f4cd41d3c"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-trees-01-04.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: trees-03",
+      "bytes": 865188,
+      "sha256": "d409351fe06d102587b8771ce5f20a3dab32c3bb4a6425a7d4a427c821a977ce"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-trees-01-05.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: trees-04",
+      "bytes": 380166,
+      "sha256": "c5b562127423380edf99404cef0a77074de2117250309edc1c18fe20a0ad7459"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-reuse-trees-01-06.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: trees-05",
+      "bytes": 404288,
+      "sha256": "e9c7cfd92331f1017619c0f2beeb567f120dfa81fc45c69f3c7aa42a2ef86905"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-stadium.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: stadium",
+      "bytes": 4527009,
+      "sha256": "15c7590a5c080a84324aa42c96021adcd3f34e8159e153ed1d285e7fb96981f4"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-01.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-01",
+      "bytes": 167319,
+      "sha256": "99b863cffc088439c7ba6eb31e0e7943d6b5efe5c087c5736a4ba5b543912b6d"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-02.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-02",
+      "bytes": 283047,
+      "sha256": "ba363af7883950f87db79cfd6381dfa25612577ce1bb3e6dda90916112626087"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-03.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-03",
+      "bytes": 276476,
+      "sha256": "72e9fb0a7e27bd65f0548df358e8b7cd2d5624fd4b507a9ca040826bc15e9e17"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-04.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-04",
+      "bytes": 1051383,
+      "sha256": "17e117729f83ad40a290cdfc593e300072d2fcdd703300218573d3a582ccf533"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-05.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-05",
+      "bytes": 556956,
+      "sha256": "9a0118e7824232c7ff7fd0f7a89a88a189d6ecfd62d06641ef2694fa7244e470"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-06.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-06",
+      "bytes": 692226,
+      "sha256": "41a7565afdd89c2008a2b2376bea34cdad372297b14c86aaaa085812797e2d6d"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-07.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-07",
+      "bytes": 905770,
+      "sha256": "07fa2495f364459441ac9dc5fd478bb7de37f0aadf5d35b6f5c0cf3eb13a1458"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-08.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-08",
+      "bytes": 840180,
+      "sha256": "bccbcde3cd1d0552c0ee934a57b8c9622f64de4c57f9776740eb677ff1e0ac7d"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-09.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-09",
+      "bytes": 1213026,
+      "sha256": "09befa5f188fe5f7e6f80a99beec6f6129c350e92da49a107a072f796c2e5d6e"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-10.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-10",
+      "bytes": 1235341,
+      "sha256": "48f1bf868b3e7688da19f2bff329c5ec398e38e032aede5ed77da4de26e13314"
+    },
+    {
+      "path": "assets/panorama-20261111/sr-vehicles-11.png",
+      "referencedBy": "assets/panorama-20261111/layout.json: vehicles-11",
+      "bytes": 1013126,
+      "sha256": "cf4b864f2ec2f875f2a46538a832ea45da2c68bce8413e5fc650b705a73fbce0"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/blank-bubble.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 133118,
+      "sha256": "72029f9b6a76435a29e6a24350ce7c93a95c4901579e83074261939b95a22ec1"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/bubble.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 208410,
+      "sha256": "9add8801c0af5808f3a7ded3c0c49b292b2d8fa1702d1c9d8b61d960da1399e8"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/comparison-plate.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 914298,
+      "sha256": "fc33b365df778456a4f36bd8c811a6a60d371972345a9d19500f680d21c7b194"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/outdoor-screen.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 28418,
+      "sha256": "0cf61a06d1420eafca95a09a204413c2354d1e47ef73e0a13ae023cb761bbee2"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/panel.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 151248,
+      "sha256": "3bfef1150a8050452bd99bcb1849183f2bff074bdef11fcf53f4ea0b9fa5f10f"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/path-lamp.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 36644,
+      "sha256": "0d7b9a47dd0bb54c8288a98fcc41b51f27dd1ebfda8c6a700c06a74721c42545"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/public-building.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 32770,
+      "sha256": "52103096ae643622a561bc788c862fcef2cb2e3a0b30e5a007fdd5cca4f19d7f"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/public-group.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 32660,
+      "sha256": "c67910e7b1d1b2c1818120990a411615fd424ea5b9e17870622b4470694552ea"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/residential.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 34646,
+      "sha256": "4aae47eefca7b8270ee18b8a637663a49b5201bf0feca6a7a32edff87dfd156c"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/road-vehicles.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 32204,
+      "sha256": "b4aa78a6f3a5ffbaa81d245e0a99e186fe2f57ce7cf7a6226b0bb8dc762e7a40"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/title.webp",
+      "referencedBy": "assets/manifest.json",
+      "bytes": 91146,
+      "sha256": "282e01e07defbd772e5a78ad53dd85a60ce44cd0661b143ee1e21148b51a3a9c"
+    }
+  ]
+}

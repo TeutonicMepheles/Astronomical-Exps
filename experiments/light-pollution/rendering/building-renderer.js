@@ -1,5 +1,5 @@
 /* Building/window pixels only; callers provide state and resources. */
-window.createBuildingRenderer=function({W,H,getObjects,style,styleId,pictures,lightMasks}){
+window.createBuildingRenderer=function({W,H,getObjects,style,styleId,pictures,lightMasks,getLayer=()=>null}){
  const make=(w,h)=>Object.assign(document.createElement('canvas'),{width:w,height:h}),reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const lighting=createMaskedLighting(),maskCache=new WeakMap(),baseCache=new Map(),windowCache=new Map(),curtainCache=new Map();
  let curtainTime=0;
@@ -12,8 +12,8 @@ window.createBuildingRenderer=function({W,H,getObjects,style,styleId,pictures,li
   return mask;
  }
 
- function masked(image,items,owner,override){
-  return lighting.render(image,resolvedMask(image,override),items,owner);
+ function masked(image,items,owner,override,ambient=0,preserveMaterial=false){
+  return lighting.render(image,resolvedMask(image,override),items,owner,ambient,preserveMaterial);
  }
 
  function drawCurtain(context,curtain,object){
@@ -87,13 +87,13 @@ window.createBuildingRenderer=function({W,H,getObjects,style,styleId,pictures,li
  }
 
  function renderBase(context,id,source,definitions,originals,warp){
-  const list=getObjects().getData().items.filter(object=>object.parent===id&&object.type==='window');
+  const list=getObjects().getData().items.filter(object=>(object.parent===id||object.lightLinks?.includes(id))&&object.type==='window');
   const visibleKey=list.map(object=>object.visible).join();
   let record=baseCache.get(id);
   if(!record||record.source!==source||record.visibleKey!==visibleKey){
    const full=make(W,H),fullContext=full.getContext('2d');
    fullContext.drawImage(source,0,0);
-   for(const definition of definitions.filter(item=>item.parent===id&&list.find(object=>object.id===item.id)?.visible)){
+   for(const definition of definitions.filter(item=>!item.lightRegion&&item.parent===id&&list.find(object=>object.id===item.id)?.visible)){
     const result=warp(originals.get(definition.id)[0],definition.corners);
     fullContext.drawImage(result.canvas,result.x,result.y);
    }
@@ -110,13 +110,13 @@ window.createBuildingRenderer=function({W,H,getObjects,style,styleId,pictures,li
    baseCache.set(id,record);
   }
 
-  const key=JSON.stringify(list.map(object=>[object.brightness,object.temperature,object.coverage,object.material]));
+  const key=JSON.stringify(list.map(object=>[object.brightness,object.temperature,object.coverage,object.material,object.parent!==id?getLayer(object.parent):null]));
   if(record.key!==key){
    record.key=key;
-   const attenuated=list.map(object=>({...object,brightness:object.brightness*LightPollution.curtainTransmission(object.coverage,object.material)}));
+   const attenuated=list.map(object=>({...object,brightness:(object.lightRegion&&!object.visible?0:object.brightness)*(object.parent!==id?(getLayer(object.parent)?.visible===false?0:getLayer(object.parent)?.opacity??1):1)*LightPollution.curtainTransmission(object.coverage,object.material)}));
    const output=record.output.getContext('2d');
    output.clearRect(0,0,W,H);
-   output.drawImage(masked(record.full,attenuated,record.owner,lightMasks.fullMask(id,record.full)),0,0);
+   output.drawImage(masked(record.full,attenuated,record.owner,lightMasks.fullMask(id,record.full),list[0]?.parent===id?(list[0]?.ambientStrength||0):(list[0]?.linkedAmbientStrength||0),!!list[0]?.preserveMaterial),0,0);
   }
   context.drawImage(record.output,0,0);
  }

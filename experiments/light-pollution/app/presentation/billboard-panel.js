@@ -1,14 +1,14 @@
 /* Presentation-only advertisement controls; independent of authoring UI. */
-window.LightPollution.createBillboardPanel=function({getObject,locked,commands,getResource,select}){
- const $=id=>document.getElementById(id);
+window.LightPollution.createBillboardPanel=function({getObject,locked,commands,getResource,select,getAnchor}){
+ const $=id=>document.getElementById(id);let paperPanel=null;
  function closeBillboard(){LightPollution.panels.close('billboard');}
- function syncBillboard(){const panel=$('billboard-controls'),o=getObject();if(!panel||!o)return;
+ function syncBillboard(){paperPanel?.sync();const panel=$('billboard-controls'),o=getObject();if(!panel||!o)return;
   for(const k of ['brightness','bloom','glitch','dots']){const input=$('billboard-'+k);input.value=o[k];input.disabled=locked(o);$('billboard-'+k+'-value').textContent=o[k]+'%';}
   $('billboard-resource').value=getResource();$('billboard-resource').disabled=locked(o);$('billboard-play').textContent=o.playing?'暂停播放':'继续播放';for(const id of ['billboard-play','billboard-next'])$(id).disabled=locked(o);
  }
  function openBillboard(){LightPollution.panels.open('billboard');}
  function bindBillboard(){const panel=document.createElement('aside');panel.id='billboard-controls';panel.hidden=true;panel.setAttribute('aria-label','广告屏调节');panel.innerHTML=`<div class="building-heading"><strong><span class="user-only">广告屏亮度</span><span class="developer-only">广告屏编辑</span></strong><button id="billboard-close" aria-label="关闭广告屏调节">×</button></div>${[['brightness','亮度',200],['bloom','Bloom 光晕',100],['glitch','Glitch 故障',100],['dots','像素波点',100]].map(([k,label,max])=>`<label class="${k==='brightness'?'':'developer-only'}">${label}<output id="billboard-${k}-value"></output><input id="billboard-${k}" type="range" min="0" max="${max}" step="5"></label>`).join('')}<label class="developer-only">视频资源<select id="billboard-resource"><option value="08">08 · 音乐之夜</option><option value="03">03 · 未来视界</option></select></label><div class="building-presets developer-only"><button id="billboard-play">暂停播放</button><button id="billboard-next">从头播放</button></div><p class="developer-only">灯光与光晕为视觉演示。</p>`;document.querySelector('.stage').append(panel);
-  LightPollution.panels.register('billboard',()=>{select();panel.hidden=false;},()=>{commands.commitGesture();panel.hidden=true;});$('billboard-close').onclick=closeBillboard;
+  paperPanel=LightPollution.createPaperPanel({id:'screen-paper',getAnchor,read(){const o=getObject();return o?{brightness:o.brightness,locked:locked(o)}:null;},preview:commands.previewValue,commit:commands.commitGesture,cancel:commands.cancelGesture,close:closeBillboard});LightPollution.panels.register('billboard',()=>{select();const user=document.documentElement.dataset.appMode==='user';panel.hidden=user;if(user)paperPanel.open({title:'室外大屏',art:'outdoor-screen',compareKey:'billboard',fields:[{key:'brightness',label:'照明强度',min:0,max:200,step:5,unit:'%'}]});else paperPanel.hide();},()=>{commands.commitGesture();paperPanel.hide();panel.hidden=true;});$('billboard-close').onclick=closeBillboard;
   for(const k of ['brightness','bloom','glitch','dots']){const input=$('billboard-'+k);let dragging=false;
    // Chrome can emit the track's first input before blurring the previous slider.
    // Focus first so that previous blur cannot commit this new gesture halfway.

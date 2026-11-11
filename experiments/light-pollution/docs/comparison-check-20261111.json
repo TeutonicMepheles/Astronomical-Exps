@@ -1,0 +1,18 @@
+{
+  "pass": true,
+  "fixtures": "synthetic red/blue test images only; synthetic fixtures isolated from the configured shipping artwork",
+  "checks": [
+    "icon-only placement",
+    "six panel entries",
+    "unconfigured state",
+    "50% pixel split",
+    "drag and keyboard",
+    "play interrupt and replay",
+    "modal Escape preserves panel/focus",
+    "no document/history revision",
+    "12 repeated closes release images/animations",
+    "load failure",
+    "file offline"
+  ],
+  "errors": []
+}

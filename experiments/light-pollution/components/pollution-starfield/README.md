@@ -71,3 +71,7 @@ sky.destroy();
 构造参数 `gradientFrame:[x,y,width,height]` 指定渐变归一化坐标所对应的完整 Canvas 区域，默认全画布。Compositor 使用 `[0,11/27,1,16/27]` 对应可见全景；不是额外的动画速度。`getSettings()` 返回含独立渐变副本的设置，`reset()` 保持自定义渐变，由宿主明确调用 `update({gradient:null})` 清除。
 
 静态 `PollutionStarfield.validateGradient(value)` 返回校验后的独立副本；`PollutionStarfield.sampleGradient(validGradient,position)` 返回 RGB 三元组，供宿主色带预览与新增色标使用。自定义模式不叠加档位地平线泛光，仍保留星点及其档位可见度。
+
+### 2026-11-11 步道、高架道路与星空
+
+公开方法 setVisibleStarTest/getVisibilityStats/refresh 用于实绘计数，不反推科学星等。长场景使用 6000 星、密度 1.5、静止星点、约数秒的污染渐变；在宽场景下校正星点长宽比保持圆形。统计按发光可见性、当前视口和景物不透明遮挡后的星点中心计算，不是理论裸眼极限星数。

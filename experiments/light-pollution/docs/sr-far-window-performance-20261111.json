@@ -1,0 +1,27 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "seconds": 5,
+  "repeatedPanelOpen": 3,
+  "sample": {
+    "focus": true,
+    "dpr": 1.0000000298023224,
+    "inputs": 50,
+    "rafP95": 13.400000000000546,
+    "seconds": 5,
+    "sceneFps": 74.9,
+    "renderP95": 8.1,
+    "renderMax": 9.3,
+    "gapP95": 17.4,
+    "gapMax": 20.7,
+    "longTasks": 0,
+    "heap": 102012074,
+    "viewport": [
+      1600,
+      900
+    ]
+  }
+}

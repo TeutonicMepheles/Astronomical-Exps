@@ -1,0 +1,98 @@
+{
+  "pass": true,
+  "entries": [
+    {
+      "title": "居民住宅",
+      "loadMs": 231,
+      "dimensions": [
+        [
+          2048,
+          2048
+        ],
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "title": "公共建筑群",
+      "loadMs": 223,
+      "dimensions": [
+        [
+          2048,
+          2048
+        ],
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "title": "步道路灯",
+      "loadMs": 238,
+      "dimensions": [
+        [
+          2048,
+          2048
+        ],
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "title": "室外大屏",
+      "loadMs": 239,
+      "dimensions": [
+        [
+          2048,
+          2048
+        ],
+        [
+          2048,
+          2048
+        ]
+      ]
+    },
+    {
+      "title": "场馆照明",
+      "loadMs": 219,
+      "dimensions": [
+        [
+          2048,
+          2048
+        ],
+        [
+          2048,
+          2048
+        ]
+      ],
+      "visualPaddingPx": [
+        32.40625,
+        32.40625,
+        31.65625,
+        31.65625
+      ]
+    },
+    {
+      "title": "高架道路",
+      "loadMs": 224,
+      "dimensions": [
+        [
+          2048,
+          2048
+        ],
+        [
+          2048,
+          2048
+        ]
+      ]
+    }
+  ],
+  "errors": [],
+  "failed": [],
+  "traffic": "LT-01 temporary interaction-test pair; not a dedicated vehicle effect"
+}

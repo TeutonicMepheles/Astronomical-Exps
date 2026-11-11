@@ -24,7 +24,7 @@ class PollutionStarfield {
   if(!(canvas instanceof HTMLCanvasElement))throw new TypeError('A canvas is required');
   this.canvas=canvas;this.ctx=canvas.getContext('2d');if(!this.ctx)throw new Error('Canvas 2D unavailable');
   this.gradientFrame=options.gradientFrame||[0,0,1,1];if(!Array.isArray(this.gradientFrame)||this.gradientFrame.length!==4||!this.gradientFrame.every(Number.isFinite)||this.gradientFrame[2]<=0||this.gradientFrame[3]<=0)throw Error('Invalid gradient frame');this.gradientFill=null;
-  this.motion=matchMedia('(prefers-reduced-motion: reduce)');this.settings={level:0,count:2100,density:1,twinkle:.12,speed:1,topColor:presets[0][0],bottomColor:presets[0][1],starColor:'#dce8f7',paused:this.motion.matches,gradient:null};
+  this.roundStars=!!options.roundStars;this.starScale=options.starScale||1;this.transitionRate=options.transitionRate||6;this.minimumStarAlpha=options.minimumStarAlpha||0;this.visibleStarCount=0;this.visibilityTest=null;this.motion=matchMedia('(prefers-reduced-motion: reduce)');this.settings={level:0,count:2100,density:1,twinkle:.12,speed:1,topColor:presets[0][0],bottomColor:presets[0][1],starColor:'#dce8f7',paused:this.motion.matches,gradient:null};
   this.time=0;this.angle=0;this.last=0;this.frame=0;this.dead=false;this.p=0;this.colors=[rgb(presets[0][0]),rgb(presets[0][1])];
   let seed=4703;const random=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
   this.stars=Array.from({length:6000},()=>({x:(random()-.5)*2400,y:(random()-.5)*2400,b:Math.pow(random(),2.1),r:.45+random()*.9,phase:random()*Math.PI*2,f:1.1+random()*1.3}));
@@ -35,7 +35,10 @@ class PollutionStarfield {
   this.update(options);this.resize();
  }
  getSettings(){return {...this.settings,gradient:validateGradient(this.settings.gradient)};}
- setPollution(value){if(value!==null&&(!Number.isFinite(value)||value<0||value>1))throw Error('Invalid pollution amount');this.environmentPollution=value;this.start();}
+ setVisibleStarTest(test){this.visibilityTest=test;this.start();}
+ getVisibilityStats(){return {count:this.visibleStarCount,pollution:this.p};}
+ refresh(){this.start();}
+ setPollution(value,{immediate=false}={}){if(value!==null&&(!Number.isFinite(value)||value<0||value>1))throw Error('Invalid pollution amount');this.environmentPollution=value;if(immediate&&value!==null)this.p=value;this.start();}
  setLevel(level){this.update({level});}
  update(patch={}){
   if(this.dead)return;const next={...this.settings};
@@ -53,7 +56,7 @@ class PollutionStarfield {
  tick(now){
   this.frame=0;this.externalDirty=false;if(this.dead)return;const dt=this.last?Math.min((now-this.last)/1000,.05):1/60;this.last=now;const s=this.settings;
   if(!s.paused){this.time+=dt;this.angle+=dt*.00065*s.speed;}
-  const amount=this.motion.matches?1:1-Math.exp(-dt*6),target=this.environmentPollution??presets[s.level][2];this.p=mix(this.p,target,amount);if(Math.abs(this.p-target)<.0001)this.p=target;
+  const amount=this.motion.matches?1:1-Math.exp(-dt*this.transitionRate),target=this.environmentPollution??presets[s.level][2];this.p=mix(this.p,target,amount);if(Math.abs(this.p-target)<.0001)this.p=target;
   let moving=this.p!==target;
   [s.topColor,s.bottomColor].forEach((hex,i)=>rgb(hex).forEach((v,j)=>{this.colors[i][j]=mix(this.colors[i][j],v,amount);if(Math.abs(this.colors[i][j]-v)<.05)this.colors[i][j]=v;else moving=true;}));
   this.draw();if(moving||(!s.paused&&(s.speed>0||s.twinkle>0)))this.start();else this.last=0;
@@ -68,16 +71,18 @@ class PollutionStarfield {
   ctx.fillStyle=bg;ctx.fillRect(0,0,1600,900);
   if(!s.gradient)for(const [x,r,c] of [[340,640,'220,176,121'],[920,760,'163,185,218'],[1340,540,'207,179,177']]){ctx.save();ctx.translate(x,900);ctx.scale(1,.85);const g=ctx.createRadialGradient(0,0,0,0,0,r);g.addColorStop(0,`rgba(${c},${.025+p*.43})`);g.addColorStop(.48,`rgba(${c},${.01+p*.16})`);g.addColorStop(1,`rgba(${c},0)`);ctx.fillStyle=g;ctx.fillRect(-r,-r,r*2,r*2);ctx.restore();}
   if(this.environmentPollution!=null){ctx.fillStyle=`rgba(175,184,198,${p*.52})`;ctx.fillRect(0,0,1600,900);}
-  const co=Math.cos(this.angle),si=Math.sin(this.angle),starColor=rgb(s.starColor).join(',');
+  let visibleCount=0;const co=Math.cos(this.angle),si=Math.sin(this.angle),starColor=rgb(s.starColor).join(',');
   for(let i=0;i<s.count*(this.environmentPollution!=null?1-.72*p:1);i++){
    const star=this.stars[i],x=800+(star.x*co-star.y*si)/Math.sqrt(s.density),y=450+(star.x*si+star.y*co)/Math.sqrt(s.density);if(x<0||x>1600||y<0||y>900)continue;
    const low=Math.pow(y/900,1.65),local=Math.exp(-Math.pow((x-340)/420,2))*.10+Math.exp(-Math.pow((x-920)/480,2))*.13;
    const visibility=Math.max(0,Math.min(1,(star.b-(.018+p*.88+p*low*(.23+local)))/.12));if(!visibility)continue;
    const flicker=1-s.twinkle*.5+s.twinkle*.5*Math.sin(this.time*star.f+star.phase),alpha=visibility*(.28+star.b*.72)*flicker;
-   ctx.fillStyle=`rgba(${starColor},${alpha})`;ctx.beginPath();ctx.arc(x,y,star.r*(.65+star.b*.65),0,Math.PI*2);ctx.fill();
+   if(alpha<this.minimumStarAlpha)continue;if(!this.visibilityTest||this.visibilityTest(x,y))visibleCount++;ctx.fillStyle=`rgba(${starColor},${alpha})`;ctx.beginPath();const radius=star.r*(.65+star.b*.65)*this.starScale;if(this.roundStars)ctx.ellipse(x,y,radius*this.canvas.height*1600/(this.canvas.width*900),radius,0,0,Math.PI*2);else ctx.arc(x,y,radius,0,Math.PI*2);ctx.fill();
    if(star.b>.965){const r=6,g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${starColor},${alpha*.23})`);g.addColorStop(1,`rgba(${starColor},0)`);ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);}
   }
+  this.visibleStarCount=visibleCount;this.canvas.dispatchEvent(new Event('starfielddraw'));
  }
+ getVisibleStarCount(){return this.visibleStarCount;}
  destroy(){if(this.dead)return;this.dead=true;this.stopClock?.();cancelAnimationFrame(this.frame);this.frame=0;this.observer.disconnect();document.removeEventListener('visibilitychange',this.onVisibility);this.motion.removeEventListener('change',this.onMotion);}
 }
 window.PollutionStarfield=PollutionStarfield;

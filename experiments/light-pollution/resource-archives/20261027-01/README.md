@@ -10,7 +10,7 @@
 
 ## 文件与子目录索引
 
-- [.idea/](.idea/README.md)
+- `.idea/`（本地编辑器配置，不随源码交付）
 - [manifest.json](manifest.json)
 
 ## 使用方法

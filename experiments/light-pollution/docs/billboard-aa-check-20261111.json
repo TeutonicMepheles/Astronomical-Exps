@@ -1,0 +1,47 @@
+{
+  "pass": true,
+  "dimensions": [
+    [
+      640,
+      384
+    ],
+    [
+      640,
+      384
+    ],
+    [
+      640,
+      384
+    ]
+  ],
+  "coverage": [
+    {
+      "cpu": false,
+      "partial": 122,
+      "area": 1504.1098039215685,
+      "expected": 1503.995,
+      "reused": true
+    },
+    {
+      "cpu": true,
+      "partial": 346,
+      "area": 1503.1019607843136,
+      "expected": 1503.995,
+      "reused": true
+    }
+  ],
+  "seamDarkening": 1.2121212121212117,
+  "checks": [
+    "native sprite rectification",
+    "uncropped 640x384 texture",
+    "old default migration",
+    "custom image retained",
+    "custom layer override retained",
+    "brightness/layout and custom geometry retained",
+    "known old screen geometry corrected without black underlay",
+    "GPU and CPU fractional edge coverage",
+    "bounded output reuse",
+    "detached snapshots without copying immutable PNG strings"
+  ],
+  "errors": []
+}

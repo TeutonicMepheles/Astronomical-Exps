@@ -1,0 +1,29 @@
+{
+  "browser": "157.0.8103.39",
+  "readyMs": 2115,
+  "url": "http://127.0.0.1:8830/experiments/light-pollution/app/index.html?scene=panorama-20261111&profile=1",
+  "scenario": "full",
+  "seconds": 6.1,
+  "sceneFps": 72.7,
+  "renderP95": 5.4,
+  "renderMax": 20.6,
+  "gapP95": 14.7,
+  "gapMax": 67.3,
+  "longTasks": 0,
+  "heap": 88768633,
+  "dpr": 1.0000000298023224,
+  "viewport": [
+    1920,
+    1080
+  ],
+  "rafP95": 13.5,
+  "rafMax": 66.59999999999991,
+  "focused": true,
+  "visibility": "visible",
+  "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "traffic": {
+    "version": 1,
+    "glareRatio": 100,
+    "paused": false
+  }
+}

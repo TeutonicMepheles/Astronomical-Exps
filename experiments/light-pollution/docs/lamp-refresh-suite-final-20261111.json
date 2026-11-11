@@ -1,0 +1,74 @@
+[
+  {
+    "file": "verify-comparison-assets.cjs",
+    "pass_": true,
+    "seconds": 18.03,
+    "output": "PASS real supplied pairs, six panel buttons, auxiliary mappings, playback/replay, state isolation and offline\n"
+  },
+  {
+    "file": "verify-comparison.cjs",
+    "pass_": true,
+    "seconds": 18.83,
+    "output": "PASS comparison modal, clip pixels, drag, play/replay, focus, unchanged scene and offline\n"
+  },
+  {
+    "file": "verify-gradient-interaction.cjs",
+    "pass_": true,
+    "seconds": 34.68,
+    "output": "PASS: animated target stability, edge handles, whole-line drag, curve drag, horizon color with custom gradient, unified undo/redo, panel isolation and reload.\nScreenshot: C:\\Users\\Golajah\\AppData\\Local\\Temp\\gradient-interaction-xMTC0T\\preview.png\n"
+  },
+  {
+    "file": "verify-light-masks.cjs",
+    "pass_": true,
+    "seconds": 11.4,
+    "output": "PASS: real GPU building/window synchronization, perspective sampling, single-window merge, import/export, undo/redo, bad dimensions and corrupt PNG rejection, lock, JSON round trip, reload, old-layout migration, offline page.\nScreenshot: C:\\Users\\Golajah\\AppData\\Local\\Temp\\building-masks-Ady1QY\\light-mask-import.png\n"
+  },
+  {
+    "file": "verify-panorama-roadlights.cjs",
+    "pass_": true,
+    "seconds": 8.74,
+    "output": "PASS road mask + natural base + linked pools + four continuous beams + UI/history/migration/off-state hit {\n  bloom: [\n    { face: [Array], edge: 83, off: 0 },\n    { face: [Array], edge: 83, off: 0 },\n    { face: [Array], edge: 78, off: 0 },\n    { face: [Array], edge: 88, off: 0 }\n  ],\n  pixels: {\n    highway: { outside: 87659, outsideChanged: 0, litChanged: 12036, black: 0 },\n    'roadlamp-1': { outside: 395, outsideChanged: 0, litChanged: 76, black: 0 },\n    'roadlamp-2': { outside: 255, outsideChanged: 0, litChanged: 55, black: 0 },\n    'roadlamp-3': { outside: 222, outsideChanged: 0, litChanged: 39, black: 0 },\n    'roadlamp-4': { outside: 165, outsideChanged: 0, litChanged: 30, black: 0 },\n    'roadlamp-5': { outside: 124, outsideChanged: 0, litChanged: 25, black: 0 }\n  },\n  poolsOff: 0,\n  poolsOn: 269361,\n  poolsSingleOff: 137503,\n  moved: 318617,\n  hidden: 137503,\n  beamsOff: 0,\n  beamsOn: 5220363,\n  continuity: [\n    [ 173, 181, 169, 144, 119 ],\n    [ 173, 181, 169, 144, 119 ],\n    [ 173, 181, 169, 144, 119 ],\n    [ 173, 181, 169, 144, 119 ]\n  ]\n}\n"
+  },
+  {
+    "file": "verify-panorama-stadium.cjs",
+    "pass_": true,
+    "seconds": 12.17,
+    "output": "{\n  stadium: {\n    exteriorCount: 58140,\n    exteriorChanged: 0,\n    interiorCount: 31054,\n    interiorChanged: 31054,\n    count: 93618,\n    black: 0,\n    changed: 34695,\n    sourceError: 0,\n    onMean: 137.22936472330818,\n    midMean: 124.39079023264757,\n    offMean: 102.4562014427425,\n    offRange: 208.33333333333334\n  },\n  'floodlight-1': {\n    exteriorCount: 970,\n    exteriorChanged: 0,\n    interiorCount: 23,\n    interiorChanged: 23,\n    count: 1314,\n    black: 0,\n    changed: 166,\n    sourceError: 0,\n    onMean: 86.96067985794014,\n    midMean: 82.95915778792491,\n    offMean: 76.01420598680873,\n    offRange: 128\n  },\n  'floodlight-2': {\n    exteriorCount: 820,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1130,\n    black: 0,\n    changed: 153,\n    sourceError: 0,\n    onMean: 86.56135693215339,\n    midMean: 82.64424778761062,\n    offMean: 75.79941002949853,\n    offRange: 135\n  },\n  'floodlight-3': {\n    exteriorCount: 833,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1146,\n    black: 0,\n    changed: 154,\n    sourceError: 0,\n    onMean: 86.54479348458405,\n    midMean: 82.75683536940082,\n    offMean: 76.13379872018616,\n    offRange: 172.33333333333334\n  },\n  'floodlight-4': {\n    exteriorCount: 1057,\n    exteriorChanged: 0,\n    interiorCount: 26,\n    interiorChanged: 26,\n    count: 1407,\n    black: 0,\n    changed: 168,\n    sourceError: 0,\n    onMean: 86.70078180525941,\n    midMean: 82.91021085050936,\n    offMean: 76.29021558872306,\n    offRange: 163\n  }\n}\nPASS stadium native texture, ambient detail, four linked floods, UI, undo/redo, persistence, old scene migration {\n  stadium: {\n    exteriorCount: 58140,\n    exteriorChanged: 0,\n    interiorCount: 31054,\n    interiorChanged: 31054,\n    count: 93618,\n    black: 0,\n    changed: 34695,\n    sourceError: 0,\n    onMean: 137.22936472330818,\n    midMean: 124.39079023264757,\n    offMean: 102.4562014427425,\n    offRange: 208.33333333333334\n  },\n  'floodlight-1': {\n    exteriorCount: 970,\n    exteriorChanged: 0,\n    interiorCount: 23,\n    interiorChanged: 23,\n    count: 1314,\n    black: 0,\n    changed: 166,\n    sourceError: 0,\n    onMean: 86.96067985794014,\n    midMean: 82.95915778792491,\n    offMean: 76.01420598680873,\n    offRange: 128\n  },\n  'floodlight-2': {\n    exteriorCount: 820,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1130,\n    black: 0,\n    changed: 153,\n    sourceError: 0,\n    onMean: 86.56135693215339,\n    midMean: 82.64424778761062,\n    offMean: 75.79941002949853,\n    offRange: 135\n  },\n  'floodlight-3': {\n    exteriorCount: 833,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1146,\n    black: 0,\n    changed: 154,\n    sourceError: 0,\n    onMean: 86.54479348458405,\n    midMean: 82.75683536940082,\n    offMean: 76.13379872018616,\n    offRange: 172.33333333333334\n  },\n  'floodlight-4': {\n    exteriorCount: 1057,\n    exteriorChanged: 0,\n    interiorCount: 26,\n    interiorChanged: 26,\n    count: 1407,\n    black: 0,\n    changed: 168,\n    sourceError: 0,\n    onMean: 86.70078180525941,\n    midMean: 82.91021085050936,\n    offMean: 76.29021558872306,\n    offRange: 163\n  }\n}\n"
+  },
+  {
+    "file": "verify-panorama-traffic.cjs",
+    "pass_": false,
+    "seconds": 13.07,
+    "output": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(await source.locator('#lamp-controls').isVisible())\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-panorama-traffic.cjs:31:659 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n"
+  },
+  {
+    "file": "verify-panorama-zones.cjs",
+    "pass_": true,
+    "seconds": 7.3,
+    "output": "{\n  wallCount: 76870,\n  wallChanged: 0,\n  windows: 3186,\n  darkWindows: 3186,\n  leftChanged: 544,\n  otherChanged: 0,\n  coolChanged: 544\n}\nPASS native zone pixels + UI + undo/redo + restore + old scene migration: {\n  wallCount: 76870,\n  wallChanged: 0,\n  windows: 3186,\n  darkWindows: 3186,\n  leftChanged: 544,\n  otherChanged: 0,\n  coolChanged: 544\n}\n"
+  },
+  {
+    "file": "verify-panorama.cjs",
+    "pass_": true,
+    "seconds": 10.02,
+    "output": "PASS panorama: 38 layers, pagination, hide, move, independent billboard/curtain, mask import/undo, undo, JSON round-trip, restore, repeated editor opening, zero remote requests.\n"
+  },
+  {
+    "file": "verify-paper-panels.cjs",
+    "pass_": true,
+    "seconds": 24.12,
+    "output": "PASS paper user panels, lighting transactions, six titles, offline and editor isolation\n"
+  },
+  {
+    "file": "verify-presentation.cjs",
+    "pass_": true,
+    "seconds": 8.05,
+    "output": "PASS: default user UI, in-scene title and slider, hidden authoring controls, panorama navigation, opt-in editor mode and responsive 16:9 stage.\n"
+  },
+  {
+    "file": "verify-road-sky-ui.cjs",
+    "pass_": true,
+    "seconds": 15.96,
+    "output": "PASS shoreline shades, unified highway controls, maximum start, live demo HUD and gradual dense stars\n"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "file": "verify-panorama.cjs",
+    "pass": true,
+    "ms": 8471,
+    "output": "PASS panorama: 38 layers, pagination, hide, move, independent billboard/curtain, mask import/undo, undo, JSON round-trip, restore, repeated editor opening, zero remote requests.\n"
+  },
+  {
+    "file": "verify-layer-color.cjs",
+    "pass": true,
+    "ms": 8209,
+    "output": "PASS layer color: live saturation/hue, real pointer drag, one gesture one undo, redo, cancel, reset, lock, unchanged other layers, JSON/draft, invalid range, offline\n"
+  },
+  {
+    "file": "verify-panorama-water.cjs",
+    "pass": true,
+    "ms": 9281,
+    "output": "PASS restored painted water, moving ripples, fixed shoreline alpha, window-linked reflections, old draft migration, visibility/undo, fixed scale, offline {\n  motion: { changed: 215953, alphaChanges: 0 },\n  on: { r: 2540961, b: 5800454 },\n  off: { r: 1326247, b: 5300852 }\n}\n"
+  }
+]
