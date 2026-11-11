@@ -103,4 +103,4 @@
 
 页面级那层颗粒（`assets/grain-256.png`）是**单向亮尘**：单张全白砖以 `source-over` 叠上去，`globalAlpha` 0.18、alpha 均值 0.263，**等效不透明度 4.7%**。在深底上它的主要效果是**均匀提亮**——`Δ = 0.0474×(255−base)`，base=30 时约 **+10.7 灰阶**；颗粒本身的起伏只有 `0.18×0.1526×(255−base)` ≈ **±6.2 灰阶**。**它与参考一不同**：参考一是零均值加法颗粒（±7 对称、|p5|/p95 = 1.00），振幅与本页同档，但**负的那一半在这里被换成了平底**。复现需要白/黑成对叠（白 `plus-lighter`、黑 `multiply`），本轮没做，是取舍不是已完成项。
 
-**恢复路径**：要切贴图颗粒须全仓一起切（其它实验也都是 mode 0）。母版可从仓库历史取回：`git show bc15a51:experiments/rocket-launch/assets/grain-tex-512.png`（512²、RGBA、R=G=B=A、均值 .500、σ .040，sha256 `7dc6b89a…b1e351`；我用 `cmd` 重定向独立核过这个值，与素材线那份逐字节相同）。
+**恢复路径**：要切贴图颗粒须全仓一起切（其它实验也都是 mode 0）。母版在仓库历史里：`git show bc15a51:experiments/rocket-launch/assets/grain-tex-512.png`（512²、RGBA、R=G=B=A、均值 .500、σ .040，sha256 `7dc6b89a5fc71bdba93a3517f62db0a32cdcb347f0d4fac696180b5d83b1e351`）。这段是自足的，不指向仓库外的任何文件。**唯一硬约束是 R=G=B=A**：L 8bpp 或 RGB 分离的贴图接进 `u_grain` 会静默失效、不报错。
