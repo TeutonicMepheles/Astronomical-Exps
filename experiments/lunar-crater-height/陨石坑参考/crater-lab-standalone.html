@@ -245,7 +245,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   };
 
   var state = { scene: "earth", type: "stone", sizeD: 50, speedV: 20, angleDeg: 90, ground: "rock" };
-  var impacted=false,studyVar='size',records=[],recordPage=0,lastExperiment=null;
+  var impacted=false,studyVar='size',records=[],recordPage=0,lastExperiment=null,terrainBlend=null;
   var baseline={scene:'earth',type:'stone',sizeD:50,speedV:20,angleDeg:90,ground:'rock'};
   var clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
 
@@ -526,6 +526,25 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     document.getElementById('terrainStats').textContent =
       (geometry.index.count/3).toLocaleString()+' 三角形 · 生成 '+Math.round(rebuildMs)+' ms';
   }
+  function beginTerrainBlend(){
+    var attrs=geometry.attributes,from={};
+    ['position','normal','color'].forEach(function(key){from[key]=attrs[key].array.slice();});
+    impacted=true;rebuildTerrain();
+    var to={};
+    ['position','normal','color'].forEach(function(key){to[key]=attrs[key].array.slice();attrs[key].array.set(from[key]);attrs[key].needsUpdate=true;});
+    terrainBlend={from:from,to:to};
+  }
+  function blendTerrain(progress){
+    if(!terrainBlend)return;
+    var t=smooth(0,1,progress);
+    ['position','normal','color'].forEach(function(key){
+      var a=geometry.attributes[key],src=terrainBlend.from[key],dst=terrainBlend.to[key];
+      var step=key==='position'?3:1,start=key==='position'?2:0;
+      for(var i=start;i<a.array.length;i+=step)a.array[i]=src[i]+(dst[i]-src[i])*t;
+      a.needsUpdate=true;
+    });
+    if(progress>=1)terrainBlend=null;
+  }
   window.craterDebug = {renderer:renderer,mesh:mesh,material:material,
     stats:function(){return {builds:terrainBuilds,rebuildMs:rebuildMs,triangles:geometry.index.count/3};}};
 
@@ -550,20 +569,24 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   // Offline scene environments adapted from the source laboratory's sky/atmosphere.
   var environmentCanvases={};
   function environmentTexture(kind){
-    var c=document.createElement('canvas');c.width=1024;c.height=512;
-    var cx=c.getContext('2d'),g=cx.createLinearGradient(0,0,0,512),earth=kind==='earth';
-    g.addColorStop(0,earth?'#1B3A5B':'#05070C');
-    g.addColorStop(.75,earth?'#3E6E93':'#09101c');g.addColorStop(1,earth?'#8FB7C9':'#0B1120');
-    cx.fillStyle=g;cx.fillRect(0,0,1024,512);
-    if(earth){
-      var bands=[[0,.30,'rgba(76,138,186,.34)'],[.30,.62,'rgba(110,172,210,.30)'],[.62,.86,'rgba(158,200,222,.26)'],[.86,1,'rgba(196,222,235,.34)']];
-      bands.forEach(function(b){cx.fillStyle=b[2];cx.fillRect(0,b[0]*512,1024,(b[1]-b[0])*512);});
-      cx.fillStyle='rgba(255,255,255,.48)';
-      [[160,220,1],[560,130,1.3],[840,290,.9]].forEach(function(v){
-        cx.beginPath();cx.ellipse(v[0],v[1],48*v[2],12*v[2],0,0,Math.PI*2);
-        cx.ellipse(v[0]-15,v[1]-10,23*v[2],17*v[2],0,0,Math.PI*2);
-        cx.ellipse(v[0]+17,v[1]-6,25*v[2],16*v[2],0,0,Math.PI*2);cx.fill();
-      });
+    var c=document.createElement('canvas');c.width=1600;c.height=900;
+    var cx=c.getContext('2d'),g=cx.createLinearGradient(0,0,0,900);
+    g.addColorStop(0,'#080e24');g.addColorStop(.55,'#152847');g.addColorStop(1,'#305779');
+    cx.fillStyle=g;cx.fillRect(0,0,1600,900);
+    var skySeed=74519;
+    function skyRandom(){skySeed=(Math.imul(skySeed,1664525)+1013904223)>>>0;return skySeed/4294967296;}
+    var grain=cx.getImageData(0,0,1600,900);
+    for(var i=0;i<grain.data.length;i+=4){var v=(skyRandom()-.5)*13;grain.data[i]+=v;grain.data[i+1]+=v;grain.data[i+2]+=v;}
+    cx.putImageData(grain,0,0);
+    for(var s=0;s<360;s++){
+      var x=skyRandom()*1600,y=skyRandom()*900,r=skyRandom()<.08?1.8+skyRandom()*1.8:.35+skyRandom()*.8;
+      cx.fillStyle=s%5===0?'rgba(158,185,236,.65)':'rgba(246,237,220,'+(.25+skyRandom()*.65)+')';
+      cx.beginPath();cx.arc(x,y,r,0,Math.PI*2);cx.fill();
+    }
+    for(var b=0;b<14;b++){
+      var bx=skyRandom()*1600,by=skyRandom()*700,br=7+skyRandom()*16;
+      var halo=cx.createRadialGradient(bx,by,0,bx,by,br);halo.addColorStop(0,'rgba(113,155,218,.12)');halo.addColorStop(1,'rgba(113,155,218,0)');
+      cx.fillStyle=halo;cx.fillRect(bx-br,by-br,br*2,br*2);
     }
     var texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;
     environmentCanvases[kind]=texture;return texture;
@@ -602,29 +625,29 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   // One reusable, irregular stone mesh and a short, illustrative impact sequence.
   var impactGroup=new THREE.Group();scene.add(impactGroup);impactGroup.visible=false;
   var meteorGeometry=new THREE.IcosahedronGeometry(1,3),meteorPositions=meteorGeometry.attributes.position;
-  var meteorColors=[],meteorDark=new THREE.Color(0x332e2a),meteorLight=new THREE.Color(0x8a7766);
+  var meteorColors=[],meteorDark=new THREE.Color(0x252d49),meteorLight=new THREE.Color(0xa3adc1);
   for(var mi=0;mi<meteorPositions.count;mi++){
     var mx=meteorPositions.getX(mi),my=meteorPositions.getY(mi),mz=meteorPositions.getZ(mi);
     var ridge=Math.sin(mx*13+my*7)*Math.cos(mz*11-my*5),grain=Math.sin(mx*37+mz*23)*Math.sin(my*29-mz*17);
     var radius=1+ridge*.115+grain*.045;
     meteorPositions.setXYZ(mi,mx*radius,my*radius,mz*radius);
-    var tint=clamp(.38+ridge*.27+grain*.15,0,1),rockColor=meteorDark.clone().lerp(meteorLight,tint);
+    var tint=clamp(.52+ridge*.30+grain*.19,0,1),rockColor=meteorDark.clone().lerp(meteorLight,tint);
     meteorColors.push(rockColor.r,rockColor.g,rockColor.b);
   }
   meteorGeometry.setAttribute('color',new THREE.Float32BufferAttribute(meteorColors,3));
   meteorGeometry.computeVertexNormals();
   var meteorCanvas=document.createElement('canvas');meteorCanvas.width=256;meteorCanvas.height=256;
-  var meteorCx=meteorCanvas.getContext('2d');meteorCx.fillStyle='#c5b7a4';meteorCx.fillRect(0,0,256,256);
+  var meteorCx=meteorCanvas.getContext('2d');meteorCx.fillStyle='#ced3df';meteorCx.fillRect(0,0,256,256);
   var rockSeed=0x5141a7;
   function rockRandom(){rockSeed=(Math.imul(rockSeed,1664525)+1013904223)>>>0;return rockSeed/4294967296;}
   for(var mr=0;mr<9000;mr++){
     var shade=Math.floor(55+rockRandom()*150),alpha=.08+rockRandom()*.32;
-    meteorCx.fillStyle='rgba('+shade+','+Math.floor(shade*.9)+','+Math.floor(shade*.78)+','+alpha+')';
+    meteorCx.fillStyle='rgba('+Math.floor(shade*.86)+','+Math.floor(shade*.92)+','+shade+','+alpha+')';
     meteorCx.fillRect(rockRandom()*256,rockRandom()*256,1+rockRandom()*3,1+rockRandom()*3);
   }
   var meteorTexture=new THREE.CanvasTexture(meteorCanvas);meteorTexture.wrapS=meteorTexture.wrapT=THREE.RepeatWrapping;
   meteorTexture.colorSpace=THREE.SRGBColorSpace;
-  var meteorMaterial=new THREE.MeshStandardMaterial({map:meteorTexture,bumpMap:meteorTexture,bumpScale:.085,vertexColors:true,roughness:.94,metalness:.06,flatShading:true});
+  var meteorMaterial=new THREE.MeshStandardMaterial({map:meteorTexture,bumpMap:meteorTexture,bumpScale:.14,vertexColors:true,roughness:.94,metalness:.06,flatShading:true});
   var meteor=new THREE.Mesh(meteorGeometry,meteorMaterial);meteor.castShadow=true;impactGroup.add(meteor);
   function glowTexture(inner,outer){
     var c=document.createElement('canvas');c.width=c.height=128;var g=c.getContext('2d'),grad=g.createRadialGradient(64,64,4,64,64,63);
@@ -638,42 +661,95 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   for(var py=0;py<512;py++)for(var px=0;px<512;px++){
     var nx=(px-256)/256,ny=(py-256)/256,ang=Math.atan2(ny,nx);
     var radius=Math.hypot(nx,ny)/(1+.035*Math.sin(ang*9)+.025*Math.cos(ang*13));
-    var speck=rockRandom(),tone=rockRandom(),alpha=1-smooth(.70,.98,radius);
+    var speck=rockRandom(),tone=rockRandom(),alpha=(1-smooth(.08,.98,radius))*(.42+.28*noise(px*.035,py*.035));
     if(radius>.76)alpha*=speck>.25?1:.18;
     var shade=1-.12*tone-.09*noise(px*.025,py*.025),pi=(py*512+px)*4;
-    pixels.data[pi]=248*shade;pixels.data[pi+1]=222*shade;pixels.data[pi+2]=184*shade;pixels.data[pi+3]=255*alpha;
+    pixels.data[pi]=237*shade;pixels.data[pi+1]=220*shade;pixels.data[pi+2]=198*shade;pixels.data[pi+3]=255*alpha;
   }
   dc.putImageData(pixels,0,0);
   var dustTexture=new THREE.CanvasTexture(dustCanvas);dustTexture.colorSpace=THREE.SRGBColorSpace;
-  var cover=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTexture,transparent:true,depthTest:false,depthWrite:false,opacity:0}));
-  cover.renderOrder=20;impactGroup.add(cover);
+  // Dry-brush plume: stepped pigment washes and porous, irregular edges.
+  var brushCanvas=document.createElement('canvas');brushCanvas.width=brushCanvas.height=512;
+  var bc=brushCanvas.getContext('2d'),brushPixels=bc.createImageData(512,512);
+  for(var by=0;by<512;by++)for(var bx=0;bx<512;bx++){
+    var u=(bx-256)/256,v=(by-256)/256,a=Math.atan2(v,u);
+    var edge=1+.08*Math.sin(a*5+.6)+.05*Math.cos(a*9);
+    var rad=Math.hypot(u,v)/edge,n=noise(bx*.027,by*.021),fine=rockRandom();
+    var wash=Math.floor((n*.55+(v+1)*.18)*5)/5;
+    var pigment=.98-wash*.25-fine*.045,ba=(1-smooth(.55,.98,rad))*.87;
+    ba*=fine<(rad>.65?.32:.045)? .06:1;
+    var idx=(by*512+bx)*4;
+    brushPixels.data[idx]=245*pigment;brushPixels.data[idx+1]=222*pigment;brushPixels.data[idx+2]=192*pigment;brushPixels.data[idx+3]=ba*255;
+  }
+  bc.putImageData(brushPixels,0,0);
+  var brushTexture=new THREE.CanvasTexture(brushCanvas);brushTexture.colorSpace=THREE.SRGBColorSpace;
+  var wakeCanvas=document.createElement('canvas');wakeCanvas.width=wakeCanvas.height=512;
+  var wakePixels=bc.getImageData(0,0,512,512);
+  for(var wi=0;wi<wakePixels.data.length;wi+=4){
+    var value=wakePixels.data[wi];wakePixels.data[wi+1]=value;wakePixels.data[wi+2]=value;
+  }
+  wakeCanvas.getContext('2d').putImageData(wakePixels,0,0);
+  var wakeTexture=new THREE.CanvasTexture(wakeCanvas);wakeTexture.colorSpace=THREE.SRGBColorSpace;
+  var sandPositions=new Float32Array(720*3),sandColors=new Float32Array(720*3);
+  for(var si=0;si<720;si++){var tint=.72+(si%7)*.035;sandColors[si*3]=tint;sandColors[si*3+1]=tint*.89;sandColors[si*3+2]=tint*.75;}
+  var sandGeometry=new THREE.BufferGeometry();sandGeometry.setAttribute('position',new THREE.BufferAttribute(sandPositions,3));sandGeometry.setAttribute('color',new THREE.BufferAttribute(sandColors,3));
+  var sand=new THREE.Points(sandGeometry,new THREE.PointsMaterial({size:.085,vertexColors:true,transparent:true,opacity:0,depthWrite:false}));sand.frustumCulled=false;impactGroup.add(sand);
+  // The mouth is obscured by overlapping soft dust only, with no solid cover mesh.
+  var denseDust=[],dustDensity=0;
+  for(var ci=0;ci<80;ci++){
+    var densePuff=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTexture,color:ci%3===0?0xcbb9a3:0xeee6da,transparent:true,depthTest:true,depthWrite:false,opacity:0}));
+    impactGroup.add(densePuff);denseDust.push(densePuff);
+  }
   var debris=[],debrisGeometry=new THREE.IcosahedronGeometry(1,0),debrisMaterial=new THREE.MeshStandardMaterial({color:0x9d8063,roughness:1,flatShading:true});
   for(var bi=0;bi<32;bi++){var chip=new THREE.Mesh(debrisGeometry,debrisMaterial);chip.visible=false;impactGroup.add(chip);debris.push(chip);}
   var trails=[],dustCloud=[];
-  for(var ti=0;ti<12;ti++){
-    var trail=new THREE.Sprite(new THREE.SpriteMaterial({map:flameTexture,color:0xffbc67,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+  for(var ti=0;ti<24;ti++){
+    var trail=new THREE.Sprite(new THREE.SpriteMaterial({map:wakeTexture,color:0xf1d1ae,transparent:true,depthWrite:false,blending:THREE.NormalBlending}));
     impactGroup.add(trail);trails.push(trail);
   }
+  var airflow=[];
+  for(var ai=0;ai<18;ai++){
+    var air=new THREE.Sprite(new THREE.SpriteMaterial({map:wakeTexture,color:0xa9b9ca,transparent:true,depthWrite:false,opacity:0}));
+    impactGroup.add(air);airflow.push(air);
+  }
+  var entryGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:flameTexture,color:0xffac55,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0}));
+  impactGroup.add(entryGlow);
+  var entryLight=new THREE.PointLight(0xffad65,0,12,2);impactGroup.add(entryLight);
+  var projectedHead=new THREE.Vector3(),projectedTail=new THREE.Vector3();
   for(var di=0;di<28;di++){
-    var puff=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTexture,color:0xffffff,transparent:true,depthTest:false,depthWrite:false,opacity:0}));
-    puff.renderOrder=21;
+    var puff=new THREE.Sprite(new THREE.SpriteMaterial({map:brushTexture,color:0xffffff,transparent:true,depthTest:true,depthWrite:false,opacity:0}));
     impactGroup.add(puff);dustCloud.push(puff);
   }
   var flash=new THREE.Sprite(new THREE.SpriteMaterial({map:flameTexture,color:0xffd899,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0}));
   impactGroup.add(flash);flash.position.set(0,1,0);
   var shock=new THREE.Mesh(new THREE.RingGeometry(.82,1.05,64),new THREE.MeshBasicMaterial({color:0xe6d6bc,side:THREE.DoubleSide,transparent:true,opacity:0,depthWrite:false}));
   shock.rotation.x=-Math.PI/2;shock.position.y=.2;impactGroup.add(shock);
-  var impactMotion=null,impactStart=new THREE.Vector3(-15,27,-11),impactEnd=new THREE.Vector3(0,1.4,0);
+  var impactMotion=null,impactStart=new THREE.Vector3(-28,48,-20),impactEnd=new THREE.Vector3(0,1.4,0);
+  var burstSeed=0,burstValues=new Float32Array(1152*4),burstHeading=0;
+  function prepareBurst(preserve){
+    if(preserve&&burstSeed)return;
+    burstSeed=(Math.random()*4294967295)>>>0||1;var seed=burstSeed;
+    for(var i=0;i<burstValues.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;burstValues[i]=seed/4294967296;}
+    burstHeading=burstValues[0]*Math.PI*2;
+  }
+  function burstValue(i,c){return burstValues[i*4+c];}
   function cancelImpactFx(){
+    terrainBlend=null;
     if(!impactMotion)return;
-    impactMotion=null;impactGroup.visible=false;
+    impactMotion=null;impactGroup.visible=false;applyCam();
     var runButton=document.getElementById('runExperiment');if(runButton)runButton.disabled=false;
   }
-  function startImpactFx(onComplete){
+  function startImpactFx(onComplete,preserveSeed){
     cancelImpactFx();impacted=false;terrainDirty=true;dirty();
+    prepareBurst(preserveSeed);
     impactMotion={start:performance.now(),onComplete:onComplete,phase:'falling',coveredFrames:0,generated:false};
-    cover.material.opacity=0;debris.forEach(function(p){p.visible=false;});
+    var groundY=uniforms.uNoiseAmp.value*(1.25*fbm(uniforms.uSeed.value,0)+.32*fbm(0,0));
+    impactEnd.y=groundY+2.1;
+    dustDensity=0;sand.material.opacity=0;denseDust.forEach(function(p){p.material.opacity=0;});debris.forEach(function(p){p.visible=false;});
     meteorMaterial.metalness=state.type==='iron'?.32:.06;
+    debrisMaterial.map=material.map;debrisMaterial.bumpMap=material.bumpMap;
+    debrisMaterial.color.copy(fieldColor);debrisMaterial.bumpScale=material.bumpScale;
+    debrisMaterial.roughness=material.roughness;debrisMaterial.needsUpdate=true;
     impactGroup.visible=true;meteor.visible=true;flash.material.opacity=0;shock.material.opacity=0;
     document.getElementById('runExperiment').disabled=true;
     document.getElementById('experimentStatus').textContent='陨石正在坠落…';
@@ -681,54 +757,98 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   }
   function updateImpactFx(now){
     if(!impactMotion)return;
-    var elapsed=(now-impactMotion.start)/1000,fall=clamp(elapsed/2.15,0,1);
-    if(elapsed<2.15){
+    var elapsed=(now-impactMotion.start)/1000,fall=clamp(elapsed/3.2,0,1);
+    applyCam();
+    var shakeTime=elapsed-3.2;
+    if(shakeTime>=0&&shakeTime<.7){
+      var shake=.32*Math.pow(1-shakeTime/.7,2);
+      camera.position.x+=Math.sin(shakeTime*92)*shake;
+      camera.position.y+=Math.sin(shakeTime*113)*shake*.7;
+    }
+    if(elapsed<3.2){
       impactMotion.phase='falling';
       meteor.visible=true;meteor.position.copy(impactStart).lerp(impactEnd,fall*fall);
       meteor.scale.setScalar(2.1);meteor.rotation.set(elapsed*1.7,elapsed*2.3,elapsed*.8);
+      debris.forEach(function(p){p.visible=false;});
+      var atmosphere=state.scene==='earth';
+      projectedHead.copy(meteor.position).project(camera);projectedTail.copy(impactStart).project(camera);
+      var flowRotation=-Math.atan2((projectedTail.x-projectedHead.x)*camera.aspect,projectedTail.y-projectedHead.y);
+      entryGlow.visible=atmosphere;entryGlow.position.copy(meteor.position);entryGlow.scale.setScalar(5.8);entryGlow.material.opacity=.26;
+      entryLight.intensity=atmosphere?3.5:0;entryLight.position.copy(meteor.position).addScaledVector(impactEnd.clone().sub(impactStart).normalize(),2.8);
       trails.forEach(function(sprite,i){
-        var previous=clamp(fall-i*.028,0,1),visible=fall>i*.018;
+        var previous=clamp(fall-i*.016,0,1),visible=fall>i*.010;
         sprite.visible=visible&&state.scene==='earth';
         sprite.position.copy(impactStart).lerp(impactEnd,previous*previous);
-        sprite.scale.setScalar(1.9+i*.20);
-        sprite.material.opacity=visible?.42*(1-i/trails.length):0;
+        sprite.position.x+=Math.sin(i*1.7+elapsed*3)*(.12+i*.035);
+        sprite.position.z+=Math.cos(i*1.3+elapsed*2)*i*.025;
+        sprite.scale.set(2.4+(i%3)*.5+i*.055,5.2+(i%4)*.6,1);
+        sprite.material.rotation=flowRotation+Math.sin(i*1.8+elapsed)*.11;
+        sprite.material.color.setHex([0xf6dfbd,0xe9c6a7,0xf0d4b5][i%3]);
+        sprite.material.opacity=visible?.55*Math.pow(1-i/trails.length,.75):0;
+      });
+      airflow.forEach(function(p,i){
+        var previous=clamp(fall-.09-i*.018,0,1);
+        p.visible=atmosphere&&fall>.09+i*.018;
+        p.position.copy(impactStart).lerp(impactEnd,previous*previous);
+        p.position.x+=Math.sin(i*2.1+elapsed*2)*(.25+i*.07);
+        p.position.z+=Math.cos(i*1.4+elapsed*2)*(.25+i*.07);
+        p.scale.set(3.5+i*.24,5+i*.20,1);p.material.rotation=flowRotation+Math.sin(i+elapsed)*.16;
+        p.material.color.setHex(i%3===0?0x839bb7:0xb5c3d0);
+        p.material.opacity=.42*(1-i/airflow.length);
       });
       dustCloud.forEach(function(p){p.visible=false;});
     }else{
       if(impactMotion.phase!=='dust')document.getElementById('experimentStatus').textContent='陨石撞击 · 尘云正在散开…';
       impactMotion.phase='dust';meteor.visible=false;trails.forEach(function(p){p.visible=false;});
-      var spread=clamp((elapsed-2.15)/3.6,0,1),fade=1-smooth(.50,1,spread);
-      var expansion=smooth(0,.20,spread),extent=Math.max(24,uniforms.uRadius.value*uniforms.uRound.value*2);
-      // Cover the full visible terrain while its geometry changes, including the exterior apron.
-      var screenSpan=2*camera.position.distanceTo(target)*Math.tan(camera.fov*Math.PI/360)*Math.max(camera.aspect,1);
-      cover.position.copy(target);
-      // Brief full occlusion at the swap, then contract into the expanding dust plumes.
-      var veilScale=1-smooth(.23,.40,spread);
-      cover.scale.setScalar(screenSpan*(.55+1.65*veilScale));
-      cover.material.opacity=expansion*(1-smooth(.42,.88,spread));
+      airflow.forEach(function(p){p.visible=false;});entryGlow.visible=false;entryLight.intensity=0;
+      var spread=clamp((elapsed-3.2)/5.5,0,1),fade=1-smooth(.60,1,spread);
+      var expansion=smooth(0,.13,spread),extent=uniforms.uRadius.value,stretch=uniforms.uRound.value;
+      dustDensity=expansion*(1-smooth(.60,.98,spread));
+      denseDust.forEach(function(p,i){
+        var a=i*2.39996+burstHeading+(burstValue(i,0)-.5)*.30,r=Math.sqrt((i+.5)/denseDust.length)*extent*.93;
+        var drift=expansion*(1+smooth(.5,1,spread)*.25);
+        p.position.set(Math.cos(a)*r*stretch*drift,extent*(.16+(i%5)*.065+spread*.06),Math.sin(a)*r*drift);
+        p.scale.set(extent*(.98+(i%3)*.12)*expansion,extent*(.82+(i%4)*.10)*expansion,1);
+        p.material.rotation=a+spread*(i%2===0?.18:-.18);
+        p.material.opacity=dustDensity*.88;
+      });
       if(expansion===1&&!impactMotion.generated){
-        if(impactMotion.coveredFrames>=2){impacted=true;terrainDirty=true;rebuildTerrain();impactMotion.generated=true;}
+        if(impactMotion.coveredFrames>=2){beginTerrainBlend();impactMotion.generated=true;}
         else impactMotion.coveredFrames++;
       }
+      if(impactMotion.generated)blendTerrain(clamp((elapsed-3.7)/2.3,0,1));
       var moon=state.scene==='moon';
       dustCloud.forEach(function(p,i){
-        var angle=i*2.39996,ring=.25+(i%7)/7,reach=ring*extent*expansion;
-        p.visible=true;p.position.set(Math.cos(angle)*reach,1+Math.sin(spread*Math.PI)*extent*(.12+ring*.35),Math.sin(angle)*reach);
-        p.scale.set(extent*(.30+ring*.28),extent*(.35+ring*.5),1);
-        p.material.color.setHex(moon?0xf3eee5:0xffffff);
-        p.material.rotation=Math.sin(angle)*.35;
-        p.material.opacity=expansion*fade*.9;
+        var angle=i*2.39996+burstHeading+(burstValue(i+100,0)-.5)*.9,ring=.25+(i%7)/7;
+        var reach=ring*extent*expansion*(.8+spread*.45)*(.78+burstValue(i+100,1)*.44);
+        p.visible=true;p.position.set(Math.cos(angle)*reach*stretch,extent*(.12+Math.sin(spread*Math.PI)*(.3+ring*.65)*(.8+burstValue(i+100,2)*.45)),Math.sin(angle)*reach);
+        p.scale.set(extent*(.26+ring*.32)*expansion,extent*(.60+ring*.88)*expansion,1);
+        if(i%2===0){
+          p.position.set(Math.cos(angle)*extent*1.02*stretch*expansion,extent*.12,Math.sin(angle)*extent*1.02*expansion);
+          p.scale.set(extent*.8*expansion,extent*.6*expansion,1);
+        }
+        p.material.color.setHex(i%3===0?0xe0cbb0:moon?0xf3eee5:0xfff5e7);
+        p.material.rotation=Math.sin(angle)*.55+(burstValue(i+100,3)-.5)*.35;
+        p.material.opacity=expansion*fade*.83;
       });
+      for(var si=0;si<720;si++){
+        var sa=si*2.39996+burstHeading+(burstValue(si+200,0)-.5)*.7,seeded=burstValue(si+200,1),flight=clamp(spread*1.55-burstValue(si+200,2)*.09,0,1);
+        var distance=extent*(.25+seeded*1.5)*Math.sin(flight*Math.PI*.5);
+        sandPositions[si*3]=Math.cos(sa)*distance*stretch;
+        sandPositions[si*3+1]=.2+extent*(.18+seeded*.85)*Math.sin(flight*Math.PI);
+        sandPositions[si*3+2]=Math.sin(sa)*distance;
+      }
+      sandGeometry.attributes.position.needsUpdate=true;sand.material.opacity=expansion*fade*.8;
       debris.forEach(function(p,i){
-        var angle=i*2.39996,travel=spread*extent*(.8+(i%5)*.15);
-        p.visible=spread<.83;p.position.set(Math.cos(angle)*travel,Math.max(.2,Math.sin(spread*Math.PI)*extent*(.25+(i%4)*.12)),Math.sin(angle)*travel);
-        p.scale.setScalar((.16+(i%5)*.1)*(1-smooth(.65,.85,spread)));
+        var angle=i*2.39996+burstHeading+(burstValue(i+950,0)-.5)*.8,travel=spread*extent*(1.3+burstValue(i+950,1)*1.1);
+        p.visible=spread<.83;p.position.set(Math.cos(angle)*travel*stretch,impactEnd.y*(1-smooth(0,.15,spread))+Math.max(.2,Math.sin(spread*Math.PI)*extent*(.45+(i%4)*.2)),Math.sin(angle)*travel);
+        p.scale.setScalar((.24+(i%5)*.12)*(1-smooth(.65,.85,spread)));
         p.rotation.set(spread*(i+2),spread*(i+4),angle);
       });
-      flash.material.opacity=Math.max(0,1-(elapsed-2.15)/.48)*.9;
-      flash.scale.setScalar(3+(elapsed-2.15)*17);
+      flash.material.opacity=Math.max(0,1-(elapsed-3.2)/.48)*.9;
+      flash.scale.setScalar(3+(elapsed-3.2)*17);
       shock.material.opacity=0;
-      if(elapsed>=5.8&&impactMotion.generated){
+      if(elapsed>=8.75&&impactMotion.generated){
         var done=impactMotion.onComplete;impactMotion=null;impactGroup.visible=false;
         document.getElementById('runExperiment').disabled=false;
         done();
@@ -737,7 +857,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     }
     needsRender=true;
   }
-  Object.assign(window.craterDebug,{meteor:meteor,impact:function(){return {phase:impactMotion?impactMotion.phase:'idle',visible:impactGroup.visible,coverage:cover.material.opacity,generated:!!(impactMotion&&impactMotion.generated)};}});
+  Object.assign(window.craterDebug,{meteor:meteor,impact:function(){return {phase:impactMotion?impactMotion.phase:'idle',visible:impactGroup.visible,coverage:dustDensity,generated:!!(impactMotion&&impactMotion.generated)};}});
 
   var dragging = false, lastX = 0, lastY = 0;
   canvas.addEventListener("pointerdown", function (e) {
