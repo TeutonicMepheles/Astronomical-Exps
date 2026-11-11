@@ -1,7 +1,7 @@
 import { createGlobeShaderRenderer } from '../../shared/components/globe-shader-renderer/index.js';
 import { createVelocityScene, model, pathOf, MODEL } from './velocity.js';
 const $=s=>document.querySelector(s), c=$('#scene'),ctx=c.getContext('2d');
-const globeCanvas=document.createElement('canvas');globeCanvas.width=400;globeCanvas.height=400;const globe=createGlobeShaderRenderer({textureUrl:'assets/earth-eq-muted-1152x576.png',grainUrl:'assets/grain-tex-512.png',grainBrushUrl:'assets/grain-brush-512.png',reliefUrl:'assets/land-relief-1024x512.png',grid:{latitude:false,longitude:false,alpha:0},lighting:{highlightColor:[1,.94,.82],highlightStrength:.8,highlightRange:1,highlightGrain:0,highlightGrainScale:3,rimColor:[.72,.66,.58],rimStrength:.12,ambientColor:[1,1,1],ambientStrength:.34}});const globeOK=globe.init(globeCanvas);if(globeOK)globe.resize(400,400);
+const globeCanvas=document.createElement('canvas');globeCanvas.width=400;globeCanvas.height=400;const globe=createGlobeShaderRenderer({textureUrl:'assets/earth-eq-muted-1152x576.png',reliefUrl:'assets/land-relief-1024x512.png',grid:{latitude:false,longitude:false,alpha:0},lighting:{highlightColor:[1,.94,.82],highlightStrength:.8,highlightRange:1,highlightGrain:0,highlightGrainScale:3,rimColor:[.72,.66,.58],rimStrength:.12,ambientColor:[1,1,1],ambientStrength:.34}});const globeOK=globe.init(globeCanvas);if(globeOK)globe.resize(400,400);
 let lastDt=0.016;
 const velScene=createVelocityScene({onState(t){const el=document.getElementById('feedback');if(el.textContent!==t)el.textContent=t;}});
 const grainTile=document.createElement('canvas');grainTile.width=grainTile.height=256;
