@@ -483,7 +483,7 @@ function drawSolar(ctx, W, v) {
   const cxE = sx + Math.sqrt(rx * rx - ry * ry);   // 太阳在椭圆焦点上
 
   // 独立画框：这一框里的尺度与主图无关，必须写明（Cindy 16:46Z G4）
-  const FX = 96, FY = 88, FW = 936, FH = 404;
+  const FX = 96, FY = 118, FW = 936, FH = 374;   // 顶边下移 30 px：状态词下面那行结果说明（baseline 94）不再压在框线上
   ctx.save();
   ctx.beginPath();
   ctx.rect(FX, FY, FW, FH);
