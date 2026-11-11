@@ -3,8 +3,8 @@
   "inputs": [
     {
       "path": "app/page.html",
-      "bytes": 8708,
-      "sha256": "ee6206347ef118609f6089f1066645b4f34686c42ed6c09014fc573ad58d1adf"
+      "bytes": 8687,
+      "sha256": "f0c4c61711d44dabefb3001b470a400bd2ac1d62c46c8065390c653549929a4a"
     },
     {
       "path": "assets/billboard-demo/city.svg",
@@ -277,16 +277,6 @@
       "sha256": "f72265d12987e0cbc0ed02f0db327603877abce23b177937016b3548a1c5de8a"
     },
     {
-      "path": "assets/comparison/lt-06-before.webp",
-      "bytes": 3132446,
-      "sha256": "0396cba195645b866726ae84ad3a507568bdb86e4a791ac818034825def2fe12"
-    },
-    {
-      "path": "assets/comparison/lt-06-after.webp",
-      "bytes": 2680990,
-      "sha256": "ccec4f5b57d0793237d25f96e2e44cbad51a2aba96007ab669e202cfdc437932"
-    },
-    {
       "path": "assets/comparison/lt-07-before.webp",
       "bytes": 2975602,
       "sha256": "444a9c465a09b5ddb818c34922ee46f91fc8695c6b290f1e4daa47bf34011cb7"
@@ -323,23 +313,23 @@
     },
     {
       "path": "app/styles/scene.css",
-      "bytes": 33604,
-      "sha256": "a0b440fa8cd597f50c338596e03dcd9f0acedcb1befdeb52c78ae11c95337dad"
+      "bytes": 33440,
+      "sha256": "7e39d3e94769af8dbf9527695f731643df90295ab89a85efcecede4fb8018cae"
     },
     {
       "path": "app/styles/stadium.css",
-      "bytes": 3674,
-      "sha256": "2fa8f16be2cf9b2475b58805383753f4040e0ef43661800439e49a80a0ec7f11"
+      "bytes": 3642,
+      "sha256": "79af590faa59191d436da3dde50f13f5ba17221726a94b2092c96e20a9cebdbc"
     },
     {
       "path": "app/styles/paper.css",
-      "bytes": 6616,
-      "sha256": "e2c2bc9196ffa3d362ee27686b1d42b5e8997d14ca5044e7017de189bb618b73"
+      "bytes": 6572,
+      "sha256": "73bfa759fa46921ca5d2c22e51b9663cf8cf83f586c9e94c8859552abf131102"
     },
     {
       "path": "app/styles/comparison.css",
-      "bytes": 3101,
-      "sha256": "1501f932564b67a457a613511e9af727667220b7d20471470e7c01bd8e0ca62f"
+      "bytes": 3088,
+      "sha256": "52e23427be7506420c99ec0c8f5217616213d223760f94b817cd83d9a75fd926"
     },
     {
       "path": "core/runtime.js",
@@ -348,13 +338,13 @@
     },
     {
       "path": "scenes/candidate/comparisons.js",
-      "bytes": 1976,
-      "sha256": "9705faf5c753213be8b60d36188b6f6aa759c28853ffa36c720c2142df64f53a"
+      "bytes": 1924,
+      "sha256": "0cb1366e0ffe2bf5a949f01ca87317bba963c7cf005f25cf0ce1c5058cd5d15c"
     },
     {
       "path": "app/presentation/comparison-modal.js",
-      "bytes": 7523,
-      "sha256": "2332f415f78216e693fac74b26c7f134a5978bae40e8f3bff26bbe74dbd33045"
+      "bytes": 7499,
+      "sha256": "37259aa71c0a47a4d1d181babc056f60bfc1daa3eec6cc6147ae98982d8a431c"
     },
     {
       "path": "scenes/candidate/definition.js",
@@ -388,8 +378,8 @@
     },
     {
       "path": "features/light-environment/model.js",
-      "bytes": 1907,
-      "sha256": "6ca900a0f262041566345919e38bb5490be55d848f98d314a9760c72220a330e"
+      "bytes": 1889,
+      "sha256": "f6b745e851b612eddfe7fb1915a5401821286591b67036089a6a4024ae2dcf98"
     },
     {
       "path": "resources/asset-registry.js",
@@ -403,8 +393,8 @@
     },
     {
       "path": "persistence/scene-codec.js",
-      "bytes": 3459,
-      "sha256": "6d567a94a1409b274cee90404eb1d4a82f819a7d623d4e6516bce9b34d0cd19c"
+      "bytes": 3432,
+      "sha256": "90abcc1eb02370900e6b69fdec6afeb2760b3dc0074b9a9ee5ab586399e0b5b1"
     },
     {
       "path": "core/scene-store.js",
@@ -418,13 +408,13 @@
     },
     {
       "path": "rendering/surface-projector.js",
-      "bytes": 6082,
-      "sha256": "8a7ace2013207416b9f6c6ebaa5dc5d3541f49734ab8f3e8c994be88ee67d0ee"
+      "bytes": 6051,
+      "sha256": "de07ce95cb6fc332f8cdfdb1db4519275c1870c3c895adf06e55b0c93ed4e690"
     },
     {
       "path": "rendering/building-renderer.js",
-      "bytes": 6600,
-      "sha256": "7f2490759fcb075574ad1fb78081f85260f4255bae4bfed417f295667f2f7e6e"
+      "bytes": 6469,
+      "sha256": "85b2bbd5d85e73c5debceb115b7bef40d774dbad0152c021b07f2d6473e77bdd"
     },
     {
       "path": "rendering/reflection-pass.js",
@@ -433,48 +423,48 @@
     },
     {
       "path": "rendering/panorama-lighting.js",
-      "bytes": 7620,
-      "sha256": "b2e51791a149a083e18efa052c62eb0b9c11b5c660cb5532f428b15bc085261f"
+      "bytes": 7567,
+      "sha256": "7e5cca5286c673ba60d07d875849edfe4dc27024109c323c1687031fe20c7bde"
     },
     {
       "path": "rendering/vehicle-glare.js",
-      "bytes": 6710,
-      "sha256": "f7af99bd2bbaebd42a62b4669ccd6d3d4a84b0c153174358964efeb2f33f751b"
+      "bytes": 6593,
+      "sha256": "7d4afa56a8cfeb12eaefd3dbe9e9e5fbb44d4b0c80a9a56749cf79459ecde86a"
     },
     {
       "path": "rendering/vehicle-traffic.js",
-      "bytes": 7296,
-      "sha256": "4fd5922fe4c1da46dc22d88af19db05e24d1179d109c3ba7202f8e00b951b178"
+      "bytes": 7244,
+      "sha256": "34eaf2e68519a77c66db7db59a62bf12bb4fa88f0b14f7844e479625e73c36e5"
     },
     {
       "path": "features/vehicles/path-editor.js",
-      "bytes": 7884,
-      "sha256": "ca2e77242ca9234a4df2e77e782734e7bb732f36d1ae1657a4a34bff535eadb0"
+      "bytes": 7851,
+      "sha256": "afb0c8b662f1b0e2cb8675fb00dffa7f43c83108567698616ba8d0c02897fbe6"
     },
     {
       "path": "features/vehicles/controller.js",
-      "bytes": 9828,
-      "sha256": "d08e1774be294dfb42793d017c8e508a88d819cc6b8e6c8c849f2d16837338a1"
+      "bytes": 9797,
+      "sha256": "bf415820fa67b4e1402ff0673464046eac34a5860bd12b7cfb59fd450ad559f6"
     },
     {
       "path": "rendering/compositor.js",
-      "bytes": 3483,
-      "sha256": "3782d752bb57590a149398d23d25925c55ed81a7d03503c47671268fad697500"
+      "bytes": 3467,
+      "sha256": "ae82d86f1e7d75537e3f632c3e78db625811fc8c1f882c112efd05d81a5082c8"
     },
     {
       "path": "components/pollution-starfield/starfield.js",
-      "bytes": 10152,
-      "sha256": "5b42984271e00832cd45969c82bf4ebd82df41be4be8a5313988bf5bf616d2a0"
+      "bytes": 10063,
+      "sha256": "259e297dff2a82ff3f1d9fa0ed8c1d1a1781891f30718ea9f0713f7bec654622"
     },
     {
       "path": "features/sky/panel.js",
-      "bytes": 5791,
-      "sha256": "4d4d6f2c2637943ecbf8c517c267d23792455a09784baf05d94aa5a354770e03"
+      "bytes": 5762,
+      "sha256": "1006ce8fd0c715821df248ae40c680d884c5b5734e7f17f1d64be8aedeb64b2b"
     },
     {
       "path": "app/editor/layer-editor.js",
-      "bytes": 11307,
-      "sha256": "102fcd41312907d6a1bf61d4d78ab6330fca66d1bb6686a0c2a684fe27490fa4"
+      "bytes": 11234,
+      "sha256": "9d5ab4e6032a6c4252000176659efe4c2931c59436c22043e705bfb98128608a"
     },
     {
       "path": "lib-static-demo/assets/music-08/atlas-data.js",
@@ -498,18 +488,18 @@
     },
     {
       "path": "app/presentation/paper-panel.js",
-      "bytes": 11631,
-      "sha256": "d4b59df35ef97afcd501d56724892801d9aedb072e89b8703d8b463976d4de9a"
+      "bytes": 11574,
+      "sha256": "7d6949085c5f988f567012e4ea9fc765065e6d91709eab94a6cc0ad4f94fe23b"
     },
     {
       "path": "app/presentation/billboard-panel.js",
-      "bytes": 4201,
-      "sha256": "b71ea9447275eecdd31338062df57fcd9c6c1206cf2444c7e35d74b803f00b21"
+      "bytes": 4174,
+      "sha256": "d2283024677461fee8a388330f3da03be5a22b3702f25a555ba38daca9b3399b"
     },
     {
       "path": "features/objects/service.js",
-      "bytes": 26336,
-      "sha256": "a9bb40974232df8cab3f00459f940c367152056280ce15282ecc8aa091ed7472"
+      "bytes": 26196,
+      "sha256": "e7a66c9aabdf119972940e626b454c8015598a966ec9bb639b8f393aa18a852d"
     },
     {
       "path": "resources/candidate-loader.js",
@@ -518,18 +508,18 @@
     },
     {
       "path": "resources/panorama-loader.js",
-      "bytes": 11189,
-      "sha256": "ccd79233892b7b65639f54d25cad714ac13ea43f18e726298396e1899f871f52"
+      "bytes": 11125,
+      "sha256": "42dd1de4d9fcbaeffef5e394506fc19899c0275c188f884efd516b76e8aac1ca"
     },
     {
       "path": "app/presentation/navigation.js",
-      "bytes": 3270,
-      "sha256": "bd7556d2c5b9454813f7ccd5bacd257212dce2dfc187e2e660faa686cc375234"
+      "bytes": 3245,
+      "sha256": "89f4cd31fff8a8fb7550468b370839d5ec2c94fd2917b8d34412dc3695a1b61c"
     },
     {
       "path": "app/presentation/observation-panel.js",
-      "bytes": 18797,
-      "sha256": "f40ad2203c511ac110d51e7db71afdb1bacbb8c4622188d5302b01a508103c5d"
+      "bytes": 18752,
+      "sha256": "5619ceb46b70fc5459f5916c6485727b299f464615baf200ea6777ad74a16822"
     },
     {
       "path": "app/editor/gradient-editor.js",
@@ -548,18 +538,18 @@
     },
     {
       "path": "features/lamps/controller.js",
-      "bytes": 9978,
-      "sha256": "173a897f2e4bc2951a6c67b5aacd8a81541ccb0bdfb9dbc4fcdfe4c07402dc4c"
+      "bytes": 9932,
+      "sha256": "a1d6f83f1a9d3178ae3abd19d00859119b136be08c8fd22f1a0401ddbfbdd9f6"
     },
     {
       "path": "rendering/masked-lighting.js",
-      "bytes": 4388,
-      "sha256": "d178a35178c7d995cd8522c31b6f505d41d22ee61a7f5d52d5d84ee60ac58f21"
+      "bytes": 4379,
+      "sha256": "02f7b1506b19af4f22cea48e05ae42328424678348640337132b90b1f4912bd0"
     },
     {
       "path": "resources/building-light-masks.js",
-      "bytes": 6527,
-      "sha256": "e6868d00940366e735c4034627d562b5537d269b8b2e5754b05be5bc6e43d318"
+      "bytes": 6453,
+      "sha256": "678cbf587c176aa1e05fae400b80cbcd3954b85d31ad75977f7d5465c2a28e5c"
     },
     {
       "path": "features/curtains/palette.js",
@@ -568,13 +558,13 @@
     },
     {
       "path": "app/presentation/stadium-panel.js",
-      "bytes": 5696,
-      "sha256": "12f5f989d2826579462e6149efb6af60c3f61c24c01d21e0aad25c4748759031"
+      "bytes": 5671,
+      "sha256": "6652b000ce1fc4195404c860386a68dbbfa1a28a45807a3f0dea372486b73f0b"
     },
     {
       "path": "features/buildings/controller.js",
-      "bytes": 24712,
-      "sha256": "d5ce6319092de227b9dab43585e834b4a2d7b86b503b4ae64660a9c09087e8c4"
+      "bytes": 24640,
+      "sha256": "6f290dea03344eb8d4b7d189c688e5501da9267478bef1444611695d8483b4f9"
     },
     {
       "path": "features/water/renderer.js",
@@ -583,8 +573,8 @@
     },
     {
       "path": "features/light-environment/controller.js",
-      "bytes": 5449,
-      "sha256": "75aa10b23d006f3fce7aebea8e5669d00cc6438dbfcd3f047ade9a25bf4e3b3e"
+      "bytes": 5420,
+      "sha256": "0f47035b79cd8dffeba7993e2ddf59987e9e7d4cb8437a98587c5344ac6664f0"
     },
     {
       "path": "../../shared/components/affordance.js",
@@ -603,13 +593,13 @@
     },
     {
       "path": "features/interaction-hints/controller.js",
-      "bytes": 5732,
-      "sha256": "87da209b63d23408db81d19d4c62b2b3b747701dda05f0b36b814de460064059"
+      "bytes": 5700,
+      "sha256": "263f794d1fb3caefe45dacb71c42083a105c7778fa3bf6268ae0e268581135ba"
     },
     {
       "path": "features/environment/controller.js",
-      "bytes": 5104,
-      "sha256": "7073acfcece2e1c34f4894f630a771c35816ee7d23973633eed9bdbae9c46ada"
+      "bytes": 5083,
+      "sha256": "7a3f9b87175eed1315d8e4d9b30d0a15f6a561acf57b2ba16ed8e2c70e9c09cb"
     },
     {
       "path": "core/performance-probe.js",
@@ -618,23 +608,23 @@
     },
     {
       "path": "features/lamps/panorama-group.js",
-      "bytes": 1359,
-      "sha256": "9f71dd5c7e98438aa164cb41063bf77743fa55973b087f9f3c02bf58833821ef"
+      "bytes": 1354,
+      "sha256": "c129c991ccb9c1bd015a8833ea5d77ee1b915474013143971ec9997b61c1c1ee"
     },
     {
       "path": "app/presentation/experiment-status.js",
-      "bytes": 2037,
-      "sha256": "0052c06e503059448004f7cc2df72a80cd98d25cecfab9a42078f2b3c2fabfcf"
+      "bytes": 2027,
+      "sha256": "8d4368cd88816473195d6271307cde2576743415cd7c850e66f95ebb17da4546"
     },
     {
       "path": "app/bootstrap.js",
-      "bytes": 27802,
-      "sha256": "022e92e3af6a0c3cdc8327b107e8801e696d4e1b1de043d164d9badc85a9ab99"
+      "bytes": 27675,
+      "sha256": "63d08c79d370bb7d290bf75e5855da07ff57291fdf3789950a191425b8da85d5"
     }
   ],
   "output": {
     "path": "lib-static-demo/standalone.html",
-    "bytes": 114137494,
-    "sha256": "d49a866ec2bdc3a5e4ffa93a5648d1a4930e41618fb06f295e85ee446db983f6"
+    "bytes": 106384251,
+    "sha256": "0c68802a648dd025b00a7b23636cd0bd554ed1da5cfc7c5c714e74f7aa70aa6b"
   }
 }

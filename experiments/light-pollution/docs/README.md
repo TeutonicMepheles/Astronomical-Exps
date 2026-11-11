@@ -71,3 +71,5 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 - [ROAD-SKY-UI-20261111.md](ROAD-SKY-UI-20261111.md)：步道恢复、高架简化、隐藏入口、演示星空与验证。
 
 - [LAMP-REFRESH-20261111.md](LAMP-REFRESH-20261111.md)：灯罩图片、HUD、眩光与住宅方图更新及性能验证。
+
+- [运行资源清单](RUNTIME_ASSETS_20261111.json)：本批新增图片、引用位置、大小与哈希；不含本地选图或参考素材。

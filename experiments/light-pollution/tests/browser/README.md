@@ -98,3 +98,7 @@ verify-panorama.cjs、verify-layer-color.cjs、verify-panorama-water.cjs 可通�
 ### 2026-11-11 步道、高架道路与星空
 
 [verify-road-sky-ui.cjs](verify-road-sky-ui.cjs)：九盏步道路灯及灯罩隔离、高架道路统一面板、最大照明默认、合并事务、标题/演示等级/实绘星数、平滑密集星空、全部点亮的布局保留、草稿恢复与离线。
+
+## 整理交付复跑
+
+先执行 `node experiments/light-pollution/tools/build/build-panorama.cjs`。HTTP 专项使用环境变量 `LIGHT_STADIUM_URL` 指向当前工作树的 `app/index.html?scene=panorama-20261111`，避免测试另一份预览；随后执行 audit/run-tests.cjs。离线专项直接打开本目录资源构建出的 user.html/editor.html。verify-promoted-sr 通过 runtime-hashes.json 核对批准图像字节，保留布局及旧草稿迁移断言，无需提交生成母版。

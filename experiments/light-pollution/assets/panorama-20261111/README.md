@@ -59,7 +59,7 @@ sceneId 为 panorama-20261111；storageKey 为 lib-panorama-20261111-layout4-v1�
 远景山体、远景建筑、远景高架桥已拆为三个独立透明图层；地面与水体使用 ground-only.png，删除了旧远景像素。三层由 LibTV CLI + Seedream 5.5 基于原背景生成，遮挡区域为 AI 补全，不保证逐像素一致。支持移动、缩放、显隐、排序、撤销及 JSON；旧草稿自动补齐三层并继承原环境层变换。原 background.jpg 留作来源备份。far-source/ 为原始生成素材。
 
 
-- [far-source/](far-source/README.md)：LibTV CLI 下载的远景原始素材。
+- `far-source/`（本地来源资料）：LibTV CLI 下载的远景原始素材。
 
 修订 10：体育场馆与四组射灯成为一个编辑图层，支持整体移动、缩放、隐藏；照明遮罩内部保留。另提供 stadium-with-four-floodlights.png 原画合成透明素材及 stadium-merged-sprite.json 配准信息。无需重新生成图像。并行新增的远景拆层保留，因此场景当前层数以 layout.json 为准。
 

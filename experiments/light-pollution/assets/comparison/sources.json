@@ -113,28 +113,6 @@
       "losslessPixelsVerified": true
     },
     {
-      "id": "LT-06",
-      "side": "before",
-      "source": "C:\\Users\\Golajah\\Desktop\\光污染特写对比-20261111\\V4-交付-LT02至07\\LT-06-前.png",
-      "sourceSHA256": "9b3944a99968eddf89673a2eacc519684ceece154ea22a32d509982437c4d03a",
-      "file": "lt-06-before.webp",
-      "bytes": 3132446,
-      "width": 2048,
-      "height": 2048,
-      "losslessPixelsVerified": true
-    },
-    {
-      "id": "LT-06",
-      "side": "after",
-      "source": "C:\\Users\\Golajah\\Desktop\\光污染特写对比-20261111\\V4-交付-LT02至07\\LT-06-后.png",
-      "sourceSHA256": "39cd5ceaa3fc913efc3999013fef9f7cfa28e2a92459b4508bd29e34bd756739",
-      "file": "lt-06-after.webp",
-      "bytes": 2680990,
-      "width": 2048,
-      "height": 2048,
-      "losslessPixelsVerified": true
-    },
-    {
       "id": "LT-07",
       "side": "before",
       "source": "C:\\Users\\Golajah\\Desktop\\光污染特写对比-20261111\\V4-交付-LT02至07\\LT-07-前.png",
