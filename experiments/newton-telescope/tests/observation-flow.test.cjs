@@ -18,7 +18,7 @@ class Element{
 }
 const selectors=['.observatory','.observation-instrument','.observation-view-reset','.observation-sliders','#start',
  '#observation-details','#progress-page-observation','#observation-task','#target','#observation-feedback','.preview-card',
- '.observation-close','.observation-targets','.observation-detail-toggle','.observation-detail-close','#viewport','#observation-task .observation-task__tools>label','#observation-orbit-help','.observation-saturn-marker','.planet-viewport','#record-observation'];
+ '.observation-close','.observation-targets','.observation-detail-toggle','.observation-detail-close','#viewport','#observation-task .observation-task__tools>label','#observation-orbit-help','.observation-saturn-marker','.planet-viewport'];
 const nodes=new Map(selectors.map(s=>[s,new Element(s)]));
 nodes.get('#target').parentElement=new Element('target parent');
 function node(s){assert(nodes.has(s),'Unexpected presentation selector: '+s);return nodes.get(s);}
@@ -43,8 +43,15 @@ class Model{
 }
 const N={ObservationModel:Model,ObservationClickHint:class{setPhase(){}setObservationTargets(){}update(){}},app:{preview:{state:{},aim:null,draw(){},setAim(value){this.aim=value;this.state={...storeState};},subscribeDraw(){}}},
  store:{get:()=>({...storeState}),metrics:s=>({field:60*s.eyepiece/s.focal}),set(patch){storeState={...storeState,...patch};storeSubscribers.forEach(fn=>fn({...storeState}));},subscribe(fn){storeSubscribers.push(fn);}},
- course:{resetVersion:0,get:()=>({...courseState}),subscribe(fn){courseSubscribers.push(fn);}}};
+ course:{resetVersion:0,observationEyepieces:[25,10,5],get:()=>({records:[],complete:false,...courseState}),subscribe(fn){courseSubscribers.push(fn);}}};
 const context={window:{Newton:N},document,requestAnimationFrame:fn=>fn(),setTimeout:()=>1,clearTimeout(){}};vm.createContext(context);
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../js/observation-recording.js'),'utf8'),context);
+const recordingStatus=N.ObservationRecording.prototype.status;
+// The separate browser test owns DOM, input and animation checks for the recorder.
+N.ObservationRecording=class{
+  render(...args){this.last=recordingStatus.call(this,...args);return this.last;}
+  leave(){}
+};
 for(const name of ['observation-flow.js','observation-aim.js','observation-figma.js']){
   const source=fs.readFileSync(path.join(__dirname,'../js',name),'utf8');
   if(name==='observation-figma.js'){
@@ -75,16 +82,16 @@ activate('eyepiece');assert.equal(flow.phase,'observing');assert(storeState.runn
 assert(node('.observatory').classList.values.has('observation-is-open'));assert.equal(node('#observation-feedback').inert,false);
 assert.equal(reveal.hidden,false,'Opening reveals the shared animated preview layer');
 assert.equal(N.app.preview.aim.selected,false,'Default Saturn requires an explicit selection before finding');
-assert(node('.observation-saturn-marker').hidden);assert(node('#record-observation').disabled);
+assert(node('.observation-saturn-marker').hidden);assert(!N.observationRecording.last.ready);
 targets[0].click();assert.equal(node('.observation-saturn-marker').hidden,false);assert.equal(N.app.preview.aim.acquired,false);
 const goal=N.observationAim.target;model.pointing={horizontalError:0,verticalError:0,facing:true};N.store.set({angle:45});
-instrument.dispatchEvent({type:'pointingchange'});assert.equal(N.app.preview.aim.acquired,true);assert.equal(node('#record-observation').disabled,false);
-model.pointing={horizontalError:1,verticalError:0,facing:false};instrument.dispatchEvent({type:'pointingchange'});assert.equal(N.app.preview.aim.acquired,false);assert(node('#record-observation').disabled);
+instrument.dispatchEvent({type:'pointingchange'});assert.equal(N.app.preview.aim.acquired,true);assert.equal(N.observationRecording.last.ready,true);
+model.pointing={horizontalError:1,verticalError:0,facing:false};instrument.dispatchEvent({type:'pointingchange'});assert.equal(N.app.preview.aim.acquired,false);assert(!N.observationRecording.last.ready);
 const hint=node('.planet-viewport').children[0].children[2];
 assert(hint.textContent.includes('向左拖动镜筒'),'A target on the right tells the user to drag it left toward the center');
 model.pointing={horizontalError:-1,verticalError:0,facing:true};instrument.dispatchEvent({type:'pointingchange'});
 assert(hint.textContent.includes('向右拖动镜筒'),'A target on the left tells the user to drag it right toward the center');
-targets[1].click();assert.equal(node('.observation-saturn-marker').hidden,false);assert.equal(N.app.preview.aim.target,'moon');assert.equal(node('#record-observation').disabled,true);
+targets[1].click();assert.equal(node('.observation-saturn-marker').hidden,false);assert.equal(N.app.preview.aim.target,'moon');assert(!N.observationRecording.last.ready);
 targets[0].click();assert.equal(N.observationAim.target,goal,'Switching back selects the same fixed sky target');
 node('.observation-close').click();assert.equal(flow.phase,'section');assert(storeState.running);
 activate('eyepiece');assert.equal(flow.phase,'observing');activate('environment');

@@ -6,7 +6,7 @@
  const content={
   mirrors:{title:'镜面观察完成',body:'你已观察平面镜、凹面镜和凸面镜的光路。',action:'前往组装 →',next:'assembly'},
   assembly:{title:'望远镜组装完成',body:'凹面主镜与平面副镜已安装到位。',action:'360° 立体观察 →'},
-  observation:{title:'本次实验已完成',body:'你已完成三档目镜的观测与记录。',action:'完成实验 ✓'}
+  observation:{title:'本次实验已完成',body:'你已完成同一目标的三档目镜观测与记录。',action:'查看实验记录'}
  };
  const completed=s=>({mirrors:s.seen.length===3,assembly:s.assemblyDone,observation:s.complete});
  function show(stage){
@@ -14,6 +14,7 @@
   return dialog.show({...data,kicker:`阶段 0${steps.indexOf(stage)+1} 完成`},()=>{
    const latest=N.course.get();
    if(stage==='assembly'&&latest.stage===stage&&latest.assemblyDone){N.rotationObservation?.open();return;}
+   if(stage==='observation'&&latest.stage===stage&&latest.complete){N.observationRecording?.openBook();return;}
    if(data.next&&latest.stage===stage&&completed(latest)[stage])N.course.requestEnter(data.next,{completionConfirmed:true});
   });
  }

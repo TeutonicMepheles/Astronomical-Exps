@@ -34,7 +34,12 @@
   catch(error){$('.observation-instrument').classList.add('model-unavailable');console.error('Telescope model could not start:',error);}
   N.app.observationModel=model;
   model?.setPointingTarget(marker);
-  const clickHint=model?new N.ObservationClickHint(model):null;
+  const suggestTarget=()=>{
+    const course=N.course.get();
+    if(course.complete)return aim.suggestedTarget(course.records[0]?.target);
+    return course.records.length||aim.current?.selected?null:aim.suggestedTarget();
+  };
+  const clickHint=model?new N.ObservationClickHint(model,suggestTarget):null;
   let flow;
   $('.observation-view-reset').addEventListener('click',()=>model?.resetView());
   function syncMode(){
@@ -89,8 +94,10 @@
   const previewReveal=document.createElement('div');previewReveal.className='observation-preview-reveal';
   previewReveal.append(previewCard,close,scene.querySelector('.observation-targets'));stage.append(previewReveal);
   let active=false,lastStage='',lastReset=N.course.resetVersion,lastAimEnabled=false;
+  const recording=N.observationRecording=new N.ObservationRecording(stage,inputs[1],renderAimGuide);
   function renderAimGuide(){
-    const value=N.app.preview.aim;
+    const value=N.app.preview.aim,course=N.course.get();
+    const record=recording.render(active&&!document.hidden,value,N.store.get(),course);
     guide.hidden=!active||!value?.enabled||value.target!==N.app.preview.state.target||N.app.preview.state.mode!=='parallel';
     if(guide.hidden)return;
     guide.dataset.acquired=String(value.acquired);
@@ -101,14 +108,16 @@
       direction.style.transform=`translate(-50%,-50%) rotate(${Math.atan2(value.y,value.x)*180/Math.PI}deg)`;
     }
     const name=N.observationTargets[value.target]?.name||'目标';
-    let hint='点击下方「'+(N.observationTargets[aim.suggestedTarget()]?.name||name)+'」开始寻找';
+    let hint='点击下方「'+(N.observationTargets[suggestTarget()]?.name||name)+'」开始寻找';
     if(value.selected){
       const directions=[];
       if(Math.abs(value.x)>.3)directions.push(value.x>0?'向左拖动镜筒':'向右拖动镜筒');
       if(Math.abs(value.y)>.3)directions.push(value.y<0?'抬高镜筒':'压低镜筒');
       hint=!value.available?'正在定位目标':!value.facing?'开口背向目标 · '+directions.join(' · '):value.acquired?
-        (value.aligned?(value.observed?name+'观测完成':'已对准'+name):name+'已进入视野'):directions.join(' · ');
+        (value.aligned?(value.observed?name+'观测完成':'已对准准星'):name+'已进入视野'):directions.join(' · ');
     }
+    hint=record.hint??hint;
+    aimHint.hidden=!hint;
     if(aimHint.textContent!==hint)aimHint.textContent=hint;
   }
   function updateAim(s=N.store.get()){
@@ -120,22 +129,24 @@
     const enabled=Boolean(value);
     N.app.preview.setAim(value,{force:enabled&&!lastAimEnabled});lastAimEnabled=enabled;
     marker.dataset.acquired=String(Boolean(value?.acquired));
-    const record=$('#record-observation'),waiting=enabled&&!value.acquired;
-    record.disabled=!s.live||waiting;
-    record.textContent=!s.live?'恢复实时预览后记录':waiting?'先对准'+name+'再记录':'记录当前结果';
-    targetButtons.forEach(button=>{
-      const id=button.dataset.observationTarget,observed=aim.completed.has(id);
-      button.dataset.observed=String(observed);
-      button.setAttribute('aria-label',N.observationTargets[id].name+(observed?'，已观测':''));
-    });
+    updateTargetProgress(N.course.get());
     renderAimGuide();
     clickHint?.update();
+  }
+  function updateTargetProgress(course){
+    targetButtons.forEach(button=>{
+      const id=button.dataset.observationTarget,recorded=course.complete&&course.records[0]?.target===id;
+      const observed=recorded||aim.completed.has(id);
+      button.dataset.observed=String(observed);
+      button.setAttribute('aria-label',N.observationTargets[id].name+(recorded?'，三档记录完成':observed?'，已观测':''));
+    });
   }
   N.app.preview.subscribeDraw(renderAimGuide);
   document.addEventListener('visibilitychange',()=>updateAim());
   $('.observation-instrument').addEventListener('pointingchange',()=>updateAim());
   function open(value){
     active=value;stage.classList.toggle('observation-is-open',active);
+    if(!active)recording.leave();
     previewReveal.hidden=N.course.get().stage==='observation'&&!active;
     feedback.inert=!active;
     $('.observation-instrument').setAttribute('aria-expanded',String(active));
@@ -173,6 +184,14 @@
   }
   function course(s){
     const observing=s.stage==='observation';
+    if(lastStage===s.stage&&lastReset===N.course.resetVersion){
+      if(observing){
+        updateTargetProgress(s);
+        renderAimGuide();
+        clickHint?.update();
+      }
+      return;
+    }
     scene.hidden=!observing;
     model?.setEnabled(observing);
     clickHint?.update();

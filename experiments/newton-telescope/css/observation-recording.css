@@ -1,0 +1,160 @@
+.observation-draw {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.observation-is-open .planet-viewport.is-draw-ready {
+  border-color: #ead09b;
+  box-shadow: inset 0 0 0 2px #ead09b, 0 0 0 8px #08182b44;
+}
+.planet-viewport.is-draw-ready .observation-aim-hint {
+  color: #182742;
+  background: #f3dfb2;
+  font-weight: 700;
+}
+.observation-draw:focus-visible {outline: 3px solid #fff0bd; outline-offset: -6px}
+.observation-slider:has(.observation-eyepiece-drag) input {pointer-events: none}
+.observation-eyepiece-drag {
+  position: absolute;
+  left: 37px;
+  top: 10px;
+  z-index: 2;
+  width: 60px;
+  height: 206px;
+  cursor: ns-resize;
+  touch-action: none;
+}
+.observation-slider.is-draw-guided .observation-slider-art {filter: drop-shadow(0 0 3px #ffdfa0)}
+.observation-draw-slider-hint {
+  position: absolute;
+  z-index: 3;
+  top: -47px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 13px;
+  border: 1px solid #e8cd91;
+  border-radius: 10px;
+  color: #f4e0b7;
+  background: #11213cee;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.observation-draw-slider-hint::after {
+  content: "";
+  position: absolute;
+  left: calc(50% - 5px);
+  bottom: -6px;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid #e8cd91;
+  border-bottom: 1px solid #e8cd91;
+  background: #11213c;
+  transform: rotate(45deg);
+}
+.observation-record-book-button {
+  position: absolute;
+  top: 53px;
+  right: 139px;
+  z-index: 38;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 1px solid #e3ca8d;
+  border-radius: 9px;
+  color: #f6e7c4;
+  background: #172646f5;
+  font-size: 16px;
+  font-weight: 700;
+}
+.observation-record-book-button b {color: #d3e2f7; font-size: 14px; font-variant-numeric: tabular-nums}
+.observation-record-book-button i {
+  position: relative;
+  width: 15px;
+  height: 19px;
+  border-radius: 2px;
+  background: #f4e0b7;
+}
+.observation-record-book-button i::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 4px;
+  width: 6px;
+  height: 2px;
+  background: #587096;
+  box-shadow: 0 4px #587096, 0 8px #587096;
+}
+.observation-record-flight {
+  position: absolute;
+  z-index: 55;
+  width: 128px;
+  height: 128px;
+  border: 3px solid #f3dbad;
+  border-radius: 50%;
+  background: #101b32;
+  box-shadow: 0 0 0 6px #f3dbad40, 0 12px 30px #04091f88;
+  pointer-events: none;
+}
+.observation-record-book {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #25354f;
+  background: #060d23aa;
+}
+.observation-record-book[open] {display: grid; place-items: center}
+.observation-record-paper {
+  position: relative;
+  width: 1040px;
+  padding: 26px 32px 30px;
+  border: 1px solid #d3b98a;
+  border-radius: 20px;
+  background: #faefd9;
+  box-shadow: 0 14px 55px #030715ac;
+}
+.observation-record-paper h2 {margin: 0 0 4px; font-size: 32px}
+.observation-record-subtitle {margin: 0 0 16px; color: #596173; font-size: 16px}
+.observation-record-close {
+  position: absolute;
+  top: 24px;
+  right: 30px;
+  padding: 8px 12px;
+  border: 1px solid #c9b28c;
+  border-radius: 8px;
+  color: #25354f;
+  background: #fff8e8;
+  font-size: 16px;
+}
+.observation-record-cards {display: grid; grid-template-columns: repeat(3,1fr); gap: 14px}
+.observation-record-card {padding: 12px 13px 15px; border: 1px solid #d9c49e; border-radius: 13px; background: #fff8e8}
+.observation-record-card img,.observation-record-empty {
+  display: block;
+  width: 176px;
+  height: 176px;
+  margin: 0 auto 12px;
+  border: 1px solid #99825a;
+  border-radius: 50%;
+  background: #0d142c;
+}
+.observation-record-empty {display: grid; place-items: center; color: #655b4b; background: #efe1c6}
+.observation-record-card h3 {margin: 0 0 9px; font-size: 19px}
+.observation-record-card dl {display: grid; grid-template-columns: 1fr auto; gap: 5px 6px; margin: 0; font-size: 15px}
+.observation-record-card dt {color: #566072}
+.observation-record-card dd {margin: 0; font-weight: 650}

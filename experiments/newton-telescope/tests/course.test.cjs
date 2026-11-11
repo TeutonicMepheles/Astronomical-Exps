@@ -33,12 +33,18 @@ c.selectPart('primary');assert.equal(c.install('secondary'),false);assert.equal(
 assert.equal(c.install('primary'),true);assert.equal(c.enter('observation'),false);
 c.selectPart('secondary');assert.equal(c.install('secondary'),true);assert.equal(c.enter('observation'),true);
 c.enter('mirrors');c.enter('observation');assert.equal(c.get().installed.length,2);
-N.store.set({live:false});c.record();assert.equal(c.get().records.length,0);
-assert.match(c.get().message,/画面已冻结/);N.store.set({live:true});
-for(const eyepiece of [25,10,5]){N.store.set({eyepiece});c.record();}assert.equal(c.get().complete,true);
+const image='data:image/png;base64,AA==';
+const record=()=>c.recordDrawing({optical:N.store.get(),image});
+N.store.set({live:false});assert.equal(record(),false);assert.equal(c.get().records.length,0);
+N.store.set({live:true,eyepiece:10});assert.equal(record(),false);
+N.store.set({eyepiece:25});assert.equal(record(),true);
+N.store.set({target:'moon',eyepiece:10});assert.equal(record(),false);
+N.store.set({target:'saturn',focal:610});assert.equal(record(),false);
+N.store.set({focal:800});assert.equal(record(),true);
+N.store.set({eyepiece:5});assert.equal(record(),true);assert.equal(c.get().complete,true);
 for(const record of c.get().records){assert.equal(record.field,N.store.metrics({...N.store.get(),eyepiece:record.eyepiece}).field);}
-N.store.set({focal:610});c.record();assert.equal(c.get().records.length,1);assert.equal(c.get().complete,false);
-N.store.set({eyepiece:7});c.record();assert.equal(c.get().records.length,1);
+N.store.set({target:'moon',eyepiece:25});assert.equal(record(),false);
+assert.equal(c.get().records.length,3);assert.equal(c.get().complete,true);
 c.enter('assembly');c.resetStage();assert.equal(c.canEnter('observation'),false);assert.equal(c.get().records.length,0);
 c.restart();assert.equal(c.get().stage,'mirrors');assert.equal(c.get().seen.length,0);assert.equal(c.get().mirrorMounted,false);
 console.log('PASS: course progression and controlled-comparison invariants.');

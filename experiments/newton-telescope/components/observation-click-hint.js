@@ -2,8 +2,9 @@
 (function(N){
   'use strict';
   N.ObservationClickHint=class{
-    constructor(model){
+    constructor(model,suggestTarget=()=>N.observationAim?.suggestedTarget()){
       this.model=model;this.phase='initial';this.point=new THREE.Vector3();
+      this.suggestTarget=suggestTarget;
       this.node=this.createNode();model.container.append(this.node);
       model.container.addEventListener('viewrender',()=>this.update());
       for(const type of ['pointerdown','pointerup','pointercancel','lostpointercapture']){
@@ -35,7 +36,7 @@
     setPhase(phase){this.phase=phase;this.update();}
     update(){
       const m=this.model,eye=this.phase==='section';
-      const suggested=N.observationAim?.suggestedTarget();
+      const suggested=this.suggestTarget();
       for(const node of this.targetNodes||[])node.hidden=!m.enabled||document.hidden||this.phase!=='observing'||node.dataset.target!==suggested;
       this.node.hidden=!m.enabled||document.hidden||Boolean(m.transition||m.pendingViewMode||m.drag)||
         !['initial','section'].includes(this.phase);

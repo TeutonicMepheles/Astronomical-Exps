@@ -72,4 +72,33 @@ for(const blocked of [{error:.1},{active:false},{live:false},{facing:false}]){
  assert(tick('saturn').observed,'Valid alignment completes on the first update');
 }
 progress.reset();progress.select('saturn');tick('saturn');progress.select('moon');assert.equal(tick('moon',{error:.1}).observed,false,'Another target cannot inherit completion');assert(progress.completed.has('saturn'));assert(tick('moon').observed);
+
+// A tiny pointing offset grows on screen at 10 and 5 mm, even though the tube
+// has not moved. Eligibility follows the pointing, with a small dead band.
+for(const focal of [400,800,1600]){
+ const finder=new N.ObservationAim();
+ finder.select('saturn');
+ const radius=N.store.metrics({...defaultState,focal,eyepiece:25}).field*Math.PI/360;
+ const check=(eyepiece,offset,facing=true)=>finder.update({
+  active:true,state:{...defaultState,focal,eyepiece},
+  pointing:{horizontalError:radius*offset,verticalError:0,facing}
+ });
+ assert(check(25,.045).recordingCentered);
+ for(const eyepiece of [10,5]){
+  const value=check(eyepiece,.045);
+  assert(value.distance>.05&&value.recordingCentered);
+ }
+ assert(check(5,.13).recordingCentered,'A small wobble retains recording alignment');
+ assert(!check(5,.16).recordingCentered,'A real change in pointing releases recording alignment');
+ assert(!check(5,.13).recordingCentered,'Moving inside only the release band does not flicker back');
+ assert(check(5,.10).recordingCentered);
+ assert(!check(5,.10,false).recordingCentered);
+ finder.reset();
+ finder.select('saturn');
+ const pictured=check(10,.096);
+ assert(pictured.aligned&&pictured.recordingCentered,'The visible 10 mm center zone must work even on first acquisition');
+ assert(check(5,.096).recordingCentered,'A near-axis 10 mm record retains alignment after changing to 5 mm');
+ assert(!check(10,.18).recordingCentered,'A target outside the central zone still needs adjustment');
+ assert(check(5,.096).recordingCentered,'Reacquiring the same pointing at 5 mm cannot depend on a previous frame');
+}
 console.log(`PASS ${configurations} four-target pointing cases; canvas details require acquisition, frozen snapshots remain stable; immediate aligned completion, off-center/frozen/inactive/back-facing guards, independent completion and ordered hints.`);

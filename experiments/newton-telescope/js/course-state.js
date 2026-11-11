@@ -8,7 +8,9 @@
   let state=fresh(),resetVersion=0;const listeners=new Set();
   const emit=()=>listeners.forEach(fn=>fn(N.course.get()));
   const patch=p=>{state={...state,...p};emit();};
+  const observationEyepieces=Object.freeze([25,10,5]);
   N.course={
+    observationEyepieces,
     get resetVersion(){return resetVersion;},
     get:()=>({...state,seen:[...state.seen],installed:[...state.installed],records:state.records.map(r=>({...r}))}),
     subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},
@@ -41,16 +43,28 @@
       patch({installed,selected:null,assemblyDone:done,message:done?'两面镜子已就位，完整光路接通。观察两次反射后，进入参数观测。':'安装正确。观察镜面的作用，再安装另一面镜子。'});return true;
     },
     toggleCollapsed(){patch({collapsed:!state.collapsed});},
+    // The progress component preview still calls the numeric comparison API.
     record(){
-      const optical=N.store.get();if(state.stage!=='observation')return;
+      const optical=N.store.get();
+      if(state.stage!=='observation'||state.records[0]?.image)return;
       if(!optical.live){patch({message:'画面已冻结。请开启实时预览，再记录当前参数。'});return;}
-      if(![25,10,5].includes(optical.eyepiece)){patch({message:'本次对照任务请使用 25、10、5 mm 三档目镜。'});return;}
-      // A comparison is valid only at the same focal length, aperture, target and source.
+      if(!observationEyepieces.includes(optical.eyepiece)){patch({message:'本次对照任务请使用 25、10、5 mm 三档目镜。'});return;}
       const key=[optical.focal,optical.aperture,optical.target,optical.mode].join('/');
-      let records=state.records.filter(r=>r.key===key&&r.eyepiece!==optical.eyepiece);
+      const records=state.records.filter(r=>r.key===key&&r.eyepiece!==optical.eyepiece);
       const metrics=N.store.metrics(optical);
       records.push({key,eyepiece:optical.eyepiece,focal:optical.focal,aperture:optical.aperture,target:optical.target,magnification:metrics.magnification,field:metrics.field});
       patch({records,complete:records.length===3,message:records.length===3?'对照完成：目镜焦距越短，倍率越高，实际视场越窄。':'已记录。保持主镜、目标和光源不变，换一档目镜继续比较。'});
+    },
+    recordDrawing({optical,image}={}){
+      if(state.stage!=='observation'||state.complete||!optical?.live||optical.mode!=='parallel')return false;
+      if(optical.eyepiece!==observationEyepieces[state.records.length]||typeof image!=='string'||!image.startsWith('data:image/png;base64,'))return false;
+      const first=state.records[0];
+      if(first&&(!first.image||first.target!==optical.target||first.focal!==optical.focal||first.aperture!==optical.aperture))return false;
+      const metrics=N.store.metrics(optical);
+      const record={image,eyepiece:optical.eyepiece,focal:optical.focal,aperture:optical.aperture,target:optical.target,magnification:metrics.magnification,field:metrics.field};
+      const records=[...state.records,record],complete=records.length===observationEyepieces.length;
+      patch({records,complete,message:complete?'实验完成：目镜焦距越短，倍率越高，实际视场越窄。':'已收入实验记录，请继续下一档。'});
+      return true;
     },
     resetStage(){
       resetVersion++;

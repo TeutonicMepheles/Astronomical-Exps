@@ -121,10 +121,9 @@
       });
     }
     resize(){
-      const w=this.container.clientWidth,h=this.container.clientHeight;if(!w||!h)return;
-      const half=1.53,aspect=w/h;this.camera.left=-half*aspect;this.camera.right=half*aspect;
-      this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();
-      this.render();
+      // Keep the pointing camera at its last committed pose until render()
+      // can update the projection, camera and sky-marker mapping together.
+      if(this.container.clientWidth&&this.container.clientHeight)this.render();
     }
     updateRenderArea(){
       const el=this.container,w=el.clientWidth,h=el.clientHeight;
@@ -164,7 +163,8 @@
       const marker=this.pointingTarget&&!this.pointingTarget.hidden?this.pointingTarget.getBoundingClientRect():null;
       const rect=this.container.getBoundingClientRect();
       const css=getComputedStyle(this.container);
-      const pointingKey=[pose.yaw,this.state.angle,rect.left,rect.top,rect.width,rect.height,css.scale,css.rotate,marker?.left,marker?.top,marker?.width,marker?.height].join('/');
+      const pointingKey=[pose.yaw,this.state.angle,pose.span,pose.center.x,pose.center.y,pose.center.z,
+        rect.left,rect.top,rect.width,rect.height,css.scale,css.rotate,marker?.left,marker?.top,marker?.width,marker?.height].join('/');
       if(this.pointingKey!==pointingKey){
         this.pointingKey=pointingKey;
         this.container.dispatchEvent(new CustomEvent('pointingchange',{detail:{yaw:pose.yaw,angle:this.state.angle}}));
@@ -327,7 +327,8 @@
       return {pixelsPerDegree:-Math.sign(lever)*Math.max(minimum,Math.abs(slope))};
     }
     setAngle(value){
-      const precision=N.observationAim?.current?.selected?10:1;
+      // The recording reticle at high magnification is narrower than 0.1° steps.
+      const precision=N.observationAim?.current?.selected?100:1;
       const angle=Math.round(T.MathUtils.clamp(value,0,90)*precision)/precision;
       if(angle!==N.store.get().angle)N.store.set({angle});
     }
@@ -381,13 +382,18 @@
       surface.addEventListener('pointercancel',()=>this.end());surface.addEventListener('lostpointercapture',()=>this.end());
       el.addEventListener('keydown',e=>{
         if(!this.enabled||this.transition||e.target!==el)return;
-        const finding=Boolean(N.observationAim?.current?.selected);
+        const aim=N.observationAim?.current,finding=Boolean(aim?.selected);
+        const nearReticle=finding&&aim.distance<.35;
         if(e.key==='ArrowLeft'||e.key==='ArrowRight'){
           e.preventDefault();
-          const step=finding?N.store.metrics(N.store.get()).field*Math.PI/180/8:Math.PI/12;
+          const step=finding?N.store.metrics(N.store.get()).field*Math.PI/180/(nearReticle?100:8):Math.PI/12;
           this.yaw+=(e.key==='ArrowLeft'?1:-1)*step;this.render();
         }
-        if(this.viewMode==='section'&&(e.key==='ArrowUp'||e.key==='ArrowDown')){e.preventDefault();this.setAngle(N.store.get().angle+(e.key==='ArrowUp'?-1:1)*(finding ? .1 : 2));}
+        if(this.viewMode==='section'&&(e.key==='ArrowUp'||e.key==='ArrowDown')){
+          e.preventDefault();
+          const step=nearReticle ? .01 : finding ? .1 : 2;
+          this.setAngle(N.store.get().angle+(e.key==='ArrowUp'?-step:step));
+        }
         if(e.key==='Home'){e.preventDefault();this.resetView();}
         if(e.key==='Enter'||e.key===' '){e.preventDefault();this.activate(this.viewMode==='section'?'eyepiece':'telescope');}
       });

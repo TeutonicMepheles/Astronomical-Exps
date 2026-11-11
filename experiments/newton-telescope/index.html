@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="../../shared/components/components.css">
   <link rel="stylesheet" href="css/course-interactions.css">
 <link rel="stylesheet" href="../../shared/components/operation-tip.css">
-<link rel="stylesheet" href="css/workbench.css"><link rel="stylesheet" href="css/workbench-assembly.css"><link rel="stylesheet" href="css/table-specimens.css"><link rel="stylesheet" href="../../shared/components/stage-completion.css"><link rel="stylesheet" href="../../shared/typography/typography.css"><link rel="stylesheet" href="css/observation-figma.css"><link rel="stylesheet" href="components/rotation-viewer/style.css"></head>
+<link rel="stylesheet" href="css/workbench.css"><link rel="stylesheet" href="css/workbench-assembly.css"><link rel="stylesheet" href="css/table-specimens.css"><link rel="stylesheet" href="../../shared/components/stage-completion.css"><link rel="stylesheet" href="../../shared/typography/typography.css"><link rel="stylesheet" href="css/observation-figma.css"><link rel="stylesheet" href="css/observation-recording.css"><link rel="stylesheet" href="components/rotation-viewer/style.css"></head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
 <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4.2 4.2l2.1 2.1m11.4 11.4 2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
@@ -57,13 +57,13 @@
   <div class="view-tools" id="viewport-help"><svg class="icon"><use href="#icon-drag"/></svg><span>拖动旋转<span class="dot">·</span>滚轮缩放</span><button id="restore-view" title="恢复初始视角（Home）" aria-label="恢复初始视角"><svg class="icon"><use href="#icon-reset"/></svg></button></div>
   <aside class="preview-card" aria-labelledby="preview-heading">
     <div id="observation-feedback">
-    <div class="preview-heading"><h2 id="preview-heading">观测效果</h2><label class="live-control"><span>实时预览</span><input id="live-preview" type="checkbox" checked role="switch"><span class="switch" aria-hidden="true"></span></label></div>
+    <div class="preview-heading"><h2 id="preview-heading">观测效果</h2><label class="live-control" hidden><span>实时预览</span><input id="live-preview" type="checkbox" checked role="switch"><span class="switch" aria-hidden="true"></span></label></div>
     <div class="planet-viewport"><canvas id="planet" aria-label="土星的目镜成像示意"></canvas><span class="preview-paused" hidden>画面已冻结</span><div class="preview-badge"><span></span><span id="magnification">32×</span></div></div>
     <div class="preview-readout"><strong id="preview-target">土星</strong><span>图像视场 <output id="preview-field">1.88°</output></span></div>
     <button id="refresh-preview" class="preview-refresh" type="button" hidden>按当前参数更新画面</button>
     <p class="preview-description">倍率越高，视场越窄；目标超出画面时只显示局部。</p>
-    <p class="preview-assumption">按目镜视场 60° 估算；天体尺寸、间距与亮度为教学示意。</p>
-    <div class="observation-status"><span class="status-dot"></span><span id="observation-status" role="status">光路就绪</span><span class="simulation-tag">成像示意</span></div>
+    <p class="preview-assumption" hidden>按目镜视场 60° 估算；天体尺寸、间距与亮度为教学示意。</p>
+    <div class="observation-status"><span class="status-dot"></span><span id="observation-status" role="status">光路就绪</span><span class="simulation-tag" hidden>成像示意</span></div>
     </div>
     <div id="lesson-feedback" class="lesson-feedback">
       <span class="component-eyebrow" id="feedback-eyebrow">MIRROR LAB</span><h2 id="feedback-title"></h2>
@@ -112,7 +112,7 @@
   <section class="observation-task" id="observation-task" hidden aria-label="目镜对照实验">
     <div class="observation-task__tools"><label>主镜口径 <input id="aperture" type="range" min="80" max="250" step="10" value="130"><output id="aperture-value">130 mm</output></label>
       <label>目标 <select id="target"><option value="saturn">土星</option><option value="moon">月球</option><option value="jupiter">木星</option><option value="pleiades">昴星团</option></select></label>
-      <div class="eyepiece-presets" aria-label="对照目镜"><button data-eyepiece="25">25 mm</button><button data-eyepiece="10">10 mm</button><button data-eyepiece="5">5 mm</button></div><button id="record-observation" class="record-button">记录当前结果</button>
+      <div class="eyepiece-presets" aria-label="对照目镜"><button data-eyepiece="25">25 mm</button><button data-eyepiece="10">10 mm</button><button data-eyepiece="5">5 mm</button></div>
     </div><div class="optical-metrics" id="optical-metrics"></div><div class="observation-records" id="observation-records" role="status"></div>
   </section>
   <div id="toast" role="status" hidden></div>
@@ -169,5 +169,5 @@
   </div>
   <p id="r360-opticalDescription" class="rotation-sr-only" aria-live="polite">正在初始化光路。</p>
   <p id="r360-status" class="rotation-sr-only">加载初始画面…</p>
-</section></template><script src="components/rotation-viewer/calibration.js"></script><script src="components/rotation-viewer/optics.js"></script><script src="components/rotation-viewer/background-key.js"></script><script src="components/rotation-viewer/viewer.js"></script><script src="adapters/newton-rotation-adapter.js"></script><script src="../../shared/components/stage-completion.js"></script><script src="js/course-completion.js"></script><script src="js/table-lens-contours.js"></script><script src="js/tray-transition.js"></script><script src="js/table-specimens.js"></script><script src="assets/telescope-model/model.js"></script><script src="assets/telescope-model/section-model.js"></script><script src="js/section-optics.js"></script><script src="js/observation-section.js"></script><script src="js/observation-model.js"></script><script src="js/observation-flow.js"></script><script src="js/observation-aim.js"></script><script src="js/observation-figma.js"></script><script src="js/developer-mode.js"></script></body>
+</section></template><script src="components/rotation-viewer/calibration.js"></script><script src="components/rotation-viewer/optics.js"></script><script src="components/rotation-viewer/background-key.js"></script><script src="components/rotation-viewer/viewer.js"></script><script src="adapters/newton-rotation-adapter.js"></script><script src="../../shared/components/stage-completion.js"></script><script src="js/course-completion.js"></script><script src="js/table-lens-contours.js"></script><script src="js/tray-transition.js"></script><script src="js/table-specimens.js"></script><script src="assets/telescope-model/model.js"></script><script src="assets/telescope-model/section-model.js"></script><script src="js/section-optics.js"></script><script src="js/observation-section.js"></script><script src="js/observation-model.js"></script><script src="js/observation-flow.js"></script><script src="js/observation-aim.js"></script><script src="js/observation-recording.js"></script><script src="js/observation-figma.js"></script><script src="js/developer-mode.js"></script></body>
 </html>
