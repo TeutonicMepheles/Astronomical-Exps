@@ -223,3 +223,5 @@ panorama-preview/（本地保留：`panorama-preview/README.md`） 为独立素�
 ## 2026-11-11 整理交付
 
 长场景使用 `app/index.html?scene=panorama-20261111`，编辑模式追加 `&mode=editor`。源码只包含实际使用的图层、遮罩、纸质面板及前后对比图；未引用的选图和参考图保留本地。执行 `node experiments/light-pollution/tools/build/build-panorama.cjs` 重建离线 user.html/editor.html，生成页不提交。旧默认候选与 legacy 兼容入口继续保留。
+
+最终精简源码复核：49/49浏览器专项通过（含三项历史素材依赖修正后的复测），根三项检查和离线构建通过，详见 [本轮交付记录](docs/DELIVERY_20261111.md)。

@@ -1,5 +1,7 @@
 # 路灯、HUD 与住宅对比更新
 
+> 本文保留整理前的开发和采样记录；当前源码交付、资源筛选和复测状态见 [本轮交付记录](DELIVERY_20261111.md)。
+
 ## 范围
 
 工作区 B:/GithubProject/Astronomical-Exps-lp-latest-preview-20261111，分支 codex/light-pollution-latest-preview-20261111，基线 7b0b9d2，保留进入本轮前已有大量未提交工作。本轮不提交、不推送。
