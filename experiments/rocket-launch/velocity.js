@@ -385,11 +385,7 @@ export function createVelocityScene(hooks = {}) {
       }
 
       // 实时轨迹
-      const muzzle = project(cam, 0, R0);
-      const all = path.pts.map((p) => project(cam, p.x, p.y));
-      let i0 = 0;
-      while (i0 < all.length - 2 && Math.hypot(all[i0][0] - muzzle[0], all[i0][1] - muzzle[1]) < 9) i0++;
-      const scr = all.slice(i0);
+      const scr = path.pts.map((p) => project(cam, p.x, p.y));
       strokePolyline(ctx, scr, { color: 'rgba(228,190,134,0.96)', width: 2.4, glow: 10, wobble: 0.5 });
 
       // 初速矢量：长度就是速度
