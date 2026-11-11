@@ -15,7 +15,7 @@ export function createNoonFeedback(stage) {
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       for (const el of stage.querySelectorAll('.geo-selected .geo-ring, #localSolarTime')) {
         el.getAnimations().forEach(animation=>animation.cancel());
-        el.animate([{opacity:.55,scale:1},{opacity:1,scale:1.12},{opacity:1,scale:1}],{duration:520,easing:'ease-out'});
+        el.animate([{opacity:.55,scale:1},{opacity:1,scale:1.12},{opacity:1,scale:1}],{duration:884,easing:'ease-out'});
       }
     }
     if (audio?.state !== 'running') return;

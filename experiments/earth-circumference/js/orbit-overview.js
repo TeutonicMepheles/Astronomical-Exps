@@ -50,7 +50,7 @@ export function mountOrbitOverview(scene) {
         </g>
       </svg>
       <span class="orbit-sun" style="left:${ORBIT.cx}px;top:${ORBIT.cy}px">
-        <i aria-hidden="true"></i><b>太阳</b>
+        <i aria-hidden="true"></i><b>太阳<small class="sun-scale-note">（缩小显示527倍）</small></b>
       </span>
       <span class="orbit-current" id="orbitCurrent">
         ${earthMarkup('is-lit')}
@@ -83,7 +83,7 @@ export function mountOrbitOverview(scene) {
     textureReadyEvent:'orbit-texture-ready',
     grid:{latitude:false,longitude:false},
     lighting:{ambientColor:[1,1,1],ambientStrength:.18,highlightColor:[1,.91,.74],highlightStrength:1,highlightRange:1,highlightGrain:0,rimStrength:.55},
-    material:{contactAO:0,paperGrain:.075},
+    material:{contactAO:0,paperGrain:.14},
   });
   const miniReady=miniRenderer.init(surface);
   let surfacePixels=0;
@@ -242,6 +242,7 @@ export function mountOrbitOverview(scene) {
     axisEl.style.transform=`translate(-50%,-50%) rotate(${Math.atan2(axis[0],axis[1])*180/Math.PI}deg)`;
     axisEl.style.top='50%';axisEl.style.bottom='auto';
     const globeSize=current.offsetWidth||116;
+
     axisEl.style.height=`${globeSize*1.45*axisLength}px`;
     // Fade only the segment inside the projected globe silhouette.
     const outside=Math.max(0,(1-1/(1.45*axisLength))/2)*100;
@@ -372,7 +373,7 @@ export function mountOrbitOverview(scene) {
   timeline?.addEventListener('pointerup', releaseMotion);
   timeline?.addEventListener('pointercancel', releaseMotion);
   timeline?.addEventListener('keydown', () => { holdMotion(); releaseMotion(); });
-  const controls=mountOrbitControls(scene,current,()=>{visualAngle=null;visualDay=null;motionCredit=0;});
+  const controls=mountOrbitControls(scene,current);
   reducedMotion.addEventListener('change',()=>controls.setPlaying(!reducedMotion.matches));
   function animateRevolution(now) {
     if(disposed)return;
@@ -391,7 +392,7 @@ export function mountOrbitOverview(scene) {
     if (!motionLast) motionLast = now;
     motionCredit += Math.min(100, now - motionLast);
     motionLast = now;
-    const msPerDay = 110;
+    const msPerDay = 110 / controls.speed;
     if (motionCredit >= msPerDay) {
       const step = Math.floor(motionCredit / msPerDay);
       motionCredit %= msPerDay;

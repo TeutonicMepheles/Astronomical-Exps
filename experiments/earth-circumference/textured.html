@@ -15,7 +15,7 @@
 <body>
 <div class="stage" id="stage" data-overview-zoom="1.42" data-overview-offset-y="0" data-view-mode="orbit">
 
-  <header class="experiment-heading"><span>EXP. 04</span><h1>地球周长测量</h1></header>
+  <header class="experiment-heading"><h1>地球周长实验</h1></header>
 
   <!-- 星空：一次性生成，纯矢量 -->
   <svg class="starfield" id="starfield" viewBox="0 0 1600 900" aria-hidden="true"></svg>
@@ -108,6 +108,15 @@
     <div class="selected-date"><output id="selectedDate" aria-live="polite"></output></div>
     <span class="timeline-end timeline-end-left">1月1日</span>
     <span class="timeline-end timeline-end-right">12月31日</span>
+  </div>
+
+  <div class="timeline-stepper" id="timelineStepper" data-axis="date" role="group" aria-label="日期后退调节">
+    <button type="button" data-timeline-step="coarse" aria-controls="timeline" aria-label="日期后退一周">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 4 12l7 7M20 5l-7 7 7 7"/></svg>
+    </button>
+    <button type="button" data-timeline-step="fine" aria-controls="timeline" aria-label="日期后退一天">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 5-7 7 7 7"/></svg>
+    </button>
   </div>
 
   <div class="readout" id="readout">

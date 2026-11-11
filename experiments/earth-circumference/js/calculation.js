@@ -14,7 +14,7 @@ export function mountCalculation(scene){
  host.className='meridian-measure-host earth-measure-soft';
  scene.stage.append(host);
  function mark(step,done){const row=q(`[data-step="${step}"]`);row.dataset.complete=String(done);row.querySelector('.calculation-step-check').textContent=done?'✓':'';row.querySelector('.calculation-step-check').setAttribute('aria-label',done?'已完成':'未完成');}
- function refreshValue(element){if(!matchMedia('(prefers-reduced-motion:reduce)').matches)element.animate([{opacity:.2,transform:'translateY(5px)'},{opacity:1,transform:'none'}],{duration:380});}
+ function refreshValue(element){if(!matchMedia('(prefers-reduced-motion:reduce)').matches)element.animate([{opacity:.2,transform:'translateY(5px)'},{opacity:1,transform:'none'}],{duration:646});}
  let formulaTimers=[];
  function cancelFormula(){formulaTimers.forEach(clearTimeout);formulaTimers=[];panel.dataset.formulaPhase='';}
  function cancelAngle(){window.dispatchEvent(new Event('cancel-angle'));panel.dataset.anglePhase='';}
@@ -84,16 +84,16 @@ export function mountCalculation(scene){
  }
  q('#meridian-distance').addEventListener('click',startDistance);
  q('[data-calculate]').addEventListener('click',()=>{
-  const angle=thetaOf(scene.measurements.snapshot().selected);if(distance===null||!(angle>0))return;
+  const angle=thetaOf(scene.measurements.snapshot().selected);if(distance===null||!(Number(angle?.toFixed(2))>0))return;
   clearResult();focusStep('formula');panel.dataset.nextStep='';
   const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
   q('.calculation-substitution').innerHTML='<span class="math-fraction"><span>360°</span><span data-slot="angle">θ</span></span> · <span data-slot="distance">d</span>';
-  function later(delay,action){if(reduced)action();else formulaTimers.push(setTimeout(action,delay));}
+  function later(delay,action){if(reduced)action();else formulaTimers.push(setTimeout(action,delay*1.7));}
   later(250,()=>{panel.dataset.formulaPhase='angle';q('[data-slot="angle"]').textContent=`${angle.toFixed(2)}°`;refreshValue(q('[data-slot="angle"]'));});
   later(950,()=>{panel.dataset.formulaPhase='distance';q('[data-slot="distance"]').textContent=`${distance.toFixed(0)} km`;refreshValue(q('[data-slot="distance"]'));});
   later(1650,()=>{
    panel.dataset.formulaPhase='result';
-   q('.calculation-result').textContent=`≈ ${(360/angle*distance).toFixed(0)} km`;
+   q('.calculation-result').textContent=`≈ ${(360/Number(angle.toFixed(2))*Number(distance.toFixed(0))).toFixed(0)} km`;
    mark('formula',true);complete=true;scene.stage.dataset.calculationComplete='true';window.dispatchEvent(new Event('calculation-progress'));
   });
  });

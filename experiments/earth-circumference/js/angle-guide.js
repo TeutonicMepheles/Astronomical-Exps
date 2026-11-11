@@ -174,7 +174,7 @@ export function mountAngleGuide(scene) {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const start = performance.now();
     function frame(now) {
-      const elapsed = reduced ? 2600 : now - start;
+      const elapsed = reduced ? 2600 : (now - start) / 1.7;
       progress = Math.min(1, elapsed / 650);
       const phase = elapsed < 650 ? 'lines' : elapsed < 1550 ? 'rod' : elapsed < 2500 ? 'center' : 'done';
       if (host.dataset.anglePhase !== phase) {

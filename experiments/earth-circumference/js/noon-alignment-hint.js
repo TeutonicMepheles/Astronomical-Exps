@@ -4,7 +4,7 @@ export function mountNoonAlignmentHint(scene) {
   if (!OperationTip) return;
 
   const tip = new OperationTip(scene.stage, {
-    top: '702px',
+    top: '660px',
     className: 'noon-alignment-tip',
   });
   const alignmentMessage = '拖动时间轴，将当地时间调到正午 12:00，定位太阳参考点';

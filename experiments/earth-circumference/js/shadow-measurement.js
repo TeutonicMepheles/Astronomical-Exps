@@ -21,9 +21,10 @@ export function mountShadowMeasurement(panel) {
  }
  retry.addEventListener('click',()=>{clearSelected();measure.enter();});
  const measure=window.SharedComponents.MeasureMode(measureHost,{
+  onPhase(phase){panel.classList.toggle('is-shadow-measuring',phase!=='idle');queueMicrotask(()=>window.dispatchEvent(new Event('measurement-change')));},
   label:'影长',unit:'cm',decimal:1,shape:'straight',
   format(px){
-   const unitsPerPixel=660/(viewport.clientWidth*context.pxPerCm);
+   const unitsPerPixel=660/(viewport.clientWidth*context.pxPerCm*(Number(panel.dataset.measureZoom)||1));
    const value=px*unitsPerPixel;
    const points=measure.getPoints();
    if(active&&context.site==='selected'&&context.canMeasure&&points.start&&points.end){

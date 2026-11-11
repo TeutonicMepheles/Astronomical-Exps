@@ -6,9 +6,12 @@ const assert=require('node:assert/strict');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:8381/experiments/earth-circumference/');
  await page.waitForTimeout(1200);
+ await page.locator('[data-orbit-pause]').click();
+ await page.locator('[data-view-mode-button=earth]').click();
+ await page.waitForTimeout(700);
  const results=[];
  for(const date of ['2026-03-22','2026-06-21','2026-09-21','2026-12-21','2026-11-08']){
-  await page.evaluate(date=>window.__globe.observationDate=date,date);
+  await page.evaluate(date=>{window.__globe.observationDate=date;window.__globe.spin=window.__globe.noonSpin();},date);
   await page.waitForTimeout(100);
   results.push(await page.evaluate(()=>{
    const scene=window.__globe,cam=scene.camera(),stage=scene.stage.getBoundingClientRect(),scale=stage.width/1600;
@@ -21,13 +24,13 @@ const assert=require('node:assert/strict');
     const tangentError=Math.abs((ex-cam.centre.x)*(ex-sx)+(ey-cam.centre.y)*(ey-sy));
     if(radiusError>1e-7 || tangentError>1e-6)throw new Error('Detached zoom cone: '+selector);
    }
-   const marker=document.querySelector('.geo-subsolar .geo-dot').getBoundingClientRect();
+   const marker=document.querySelector('.geo-subsolar');
    const line=document.querySelector('#axisLine');
    const x=+line.getAttribute('x2'),y=+line.getAttribute('y2');
-   return {date:scene.observationDate,error:Math.hypot((marker.x+marker.width/2-stage.x)/scale-cam.subsolar.x,(marker.y+marker.height/2-stage.y)/scale-cam.subsolar.y),axisRatio:Math.hypot(x-cam.centre.x,y-cam.centre.y)/cam.radius,lon:cam.subsolar.lon,delta:cam.subsolar.lat-scene.solarModel.declination};
+   return {date:scene.observationDate,error:Math.hypot(parseFloat(marker.style.left)-cam.subsolar.x,parseFloat(marker.style.top)-cam.subsolar.y),axisRatio:Math.hypot(x-cam.centre.x,y-cam.centre.y)/cam.radius,lon:cam.subsolar.lon,delta:cam.subsolar.lat-scene.solarModel.declination};
   }));
  }
- for(const r of results){assert.ok(r.error<.1,JSON.stringify(r));assert.ok(r.axisRatio>1.1);assert.ok(Math.abs(r.delta)<1e-9);assert.ok(Math.abs(r.lon-135)<1e-8);}
+ for(const r of results){assert.ok(r.error<.1,JSON.stringify(r));assert.ok(r.axisRatio>1.1);assert.ok(Math.abs(r.delta)<1e-9);assert.ok(Math.abs(r.lon-135)<1e-8,'Manual noon alignment matches the selected longitude');}
  await page.screenshot({path:'experiments/earth-circumference/docs/after-solar-fix.png'});
  await page.locator('#timeline').focus();await page.keyboard.press('ArrowRight');
  assert.equal(await page.evaluate(()=>window.__globe.observationDate),'2026-11-09');

@@ -29,7 +29,7 @@ const renderer = createGlobeShaderRenderer({
     ambientStrength: 0.18,
   },
   material: {
-    paperGrain: 0.075,
+    paperGrain: 0.14,
     contactAO: 0,
   },
 });
@@ -172,8 +172,8 @@ scene.refresh = () => { _refresh(); paintMeasure(); };
 
 paintMeasure();
 window.__globe = scene;
-// Fixed approved reference-grain material.
-renderer.grainMode = 1;
+// Match the procedural brush-grain material used by the Foucault globe.
+renderer.grainMode = 0;
 scene.redraw();
 window.addEventListener('globe-frame', paintMeasure);
 window.addEventListener('globe-mode-change', paintMeasure);
@@ -188,7 +188,8 @@ import { mountPointGuides } from './point-guides.js';
 mountPointGuides(scene);
 import { mountCalculation } from './calculation.js';
 mountCalculation(scene);
-// The quiet static stage needs no decorative WebGL animation.
+import { mountBackdrop } from './backdrop.js';
+mountBackdrop(scene.stage);
 
 import { mountStageProgress } from './stage-progress.js';
 mountStageProgress(scene);
