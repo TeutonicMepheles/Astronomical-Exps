@@ -20,7 +20,7 @@
 | EXP-02 | 月面环形山高度 | 仅文档 | — | [阅读](experiments/lunar-crater-height/REQUIREMENTS.md) |
 | EXP-03 | 陨石坑撞击 | 仅文档 + 演示图片 | — | [阅读](experiments/meteor-impact/REQUIREMENTS.md) |
 | EXP-04 | 地球周长 | 可运行三阶段开发版；科学参数与整页验收待完成 | [index.html](experiments/earth-circumference/index.html) | [阅读](experiments/earth-circumference/REQUIREMENTS.md) |
-| EXP-05 | 光污染 | 可运行重构版；光效与科学参数尚未标定 | [index.html](experiments/light-pollution/index.html) | [阅读](experiments/light-pollution/REQUIREMENTS.md) |
+| EXP-05 | 光污染 | 长场景、局部面板与车流整合版；科学参数尚未标定 | [index.html](experiments/light-pollution/index.html) | [阅读](experiments/light-pollution/REQUIREMENTS.md) |
 | EXP-06 | 日月食 | 仅文档 | — | [阅读](experiments/solar-lunar-eclipses/REQUIREMENTS.md) |
 | EXP-07 | 牛顿望远镜 | 可运行开发版；整页验收待完成 | [index.html](experiments/newton-telescope/index.html) | [阅读](experiments/newton-telescope/REQUIREMENTS.md) |
 | EXP-08 | 火箭发射 | 仅文档 + 演示图片 | — | [阅读](experiments/rocket-launch/REQUIREMENTS.md) |
@@ -85,3 +85,5 @@ npm run test:browser
 仓库地址：[TeutonicMepheles/Astronomical-Exps](https://github.com/TeutonicMepheles/Astronomical-Exps)。本仓库已公开，任何人均可浏览、Clone 和 Pull，无需维护者授权。具有写入权限的协作者可 Push 自己的任务分支，并通过 PR 提交维护者审核；尚无写入权限的贡献者可先 Fork，将修改 Push 到自己的 Fork 后向本仓库发起 PR，或联系维护者添加协作者权限。请遵循上述协作流程，不直接向 main 推送。
 
 服务端保护的历史配置见 [GitHub 配置记录](docs/GITHUB_SETUP.md)，其中私有仓库及套餐限制的记录仅代表当时状态。
+
+2026-11-11 三实验整理与验收边界见 [交付记录](docs/LOCAL_EXPERIMENTS_DELIVERY_20261111.md)。
