@@ -492,7 +492,9 @@ function drawSolar(ctx, W, v) {
   ctx.stroke();
   ctx.restore();
   label(ctx, '换个参照系：太阳', FX + 16, FY + 27, { size: 15, color: 'rgba(226,192,140,0.92)', weight: 500, spacing: 1 });
-  label(ctx, '独立画框 · 示意尺度，不与主图同尺', FX + 16, FY + 48, { size: 12.5, color: C.inkFaint });
+  // 这行是"不与主图同尺"的合规声明：原先用 inkFaint 只有约 1.6:1，星空底上读不出来，
+  // 提到 0.92 的 inkSoft 级别（约 5:1）。它承担合规声明，不是装饰。
+  label(ctx, '独立画框 · 示意尺度，不与主图同尺', FX + 16, FY + 48, { size: 12.5, color: 'rgba(169,176,191,0.92)' });
 
   ctx.save();
   ctx.beginPath();
