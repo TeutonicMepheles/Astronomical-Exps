@@ -1,6 +1,6 @@
 // Fixed-endpoint calculation interaction; no free measurement viewport or tool button.
 export function mountCalculationDistance(scene, host, { onStart, onDone }) {
-  host.innerHTML='<svg viewBox="0 0 1600 900" aria-hidden="true"><path class="calculation-distance-path" pathLength="1"/></svg>';
+  host.innerHTML='<svg viewBox="0 0 1600 900" aria-hidden="true"><path class="calculation-distance-path" pathLength="1"/><text class="calculation-distance-label" text-anchor="middle" hidden=""></text></svg>';
   const path=host.querySelector('path');
   const tip=new window.ExperimentUI.OperationTip(scene.stage,{top:'116px',className:'calculation-distance-tip'});
   const selected=scene.stage.querySelector('.geo-selected');
@@ -8,13 +8,14 @@ export function mountCalculationDistance(scene, host, { onStart, onDone }) {
   let animation=null;
   function phase(value){
     host.dataset.phase=value;
+    scene.stage.classList.toggle('is-connecting-distance',value==='committing');
     selected.classList.toggle('distance-target',value==='pickStart');
     reference.classList.toggle('distance-target',value==='pickEnd');
     if(value==='pickStart')tip.show('点击观测点，确定测距起点');
     else if(value==='pickEnd')tip.show('点击太阳直射点，确定测距终点');
     else tip.hide();
   }
-  function exit(){animation?.cancel();animation=null;path.setAttribute('d','');phase('idle');}
+  function exit(){host.querySelector('text').setAttribute('hidden','');animation?.cancel();animation=null;path.setAttribute('d','');phase('idle');}
   function enter(){exit();onStart();phase('pickStart');}
   function connect(){
     phase('committing');
@@ -27,9 +28,16 @@ export function mountCalculationDistance(scene, host, { onStart, onDone }) {
       connected=true;
     }
     path.setAttribute('d',d);
-    const finish=()=>{phase('done');onDone();};
+    const finish=()=>{
+      phase('done');
+      const midpoint=path.getPointAtLength(path.getTotalLength()/2);
+      const label=host.querySelector('text');
+      label.setAttribute('x',midpoint.x);label.setAttribute('y',midpoint.y-16);
+      label.textContent=`${Math.round(Math.abs(arc.selLat-arc.subLat)*Math.PI/180*arc.radiusKm)} km`;
+      label.removeAttribute('hidden');onDone();
+    };
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){finish();return;}
-    animation=path.animate([{strokeDashoffset:1},{strokeDashoffset:0}],{duration:950,easing:'ease-in-out'});
+    animation=path.animate([{strokeDashoffset:1},{strokeDashoffset:0}],{duration:1615,easing:'ease-in-out'});
     animation.onfinish=finish;
   }
   function activate(event){

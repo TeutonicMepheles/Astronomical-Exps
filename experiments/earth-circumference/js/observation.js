@@ -138,7 +138,12 @@ export function mountObservation(scene){
   if(topEdge<12)ty+=12-topEdge;
   if(bottom>388)ty-=bottom-388;
   art.style.transform=`translate(${tx/660*100}%,${ty/400*100}%) scale(${zoom})`;
- }else art.style.transform='none';
+ }else if(panel.classList.contains('is-shadow-measuring')&&day){
+  const zoom=Math.min(8,480/Math.max(1,s));
+  const tx=330-(330+tip)/2*zoom,ty=345-355*zoom;
+  panel.dataset.measureZoom=String(zoom);
+  art.style.transform=`translate(${tx/660*100}%,${ty/400*100}%) scale(${zoom})`;
+ }else {art.style.transform='none';panel.dataset.measureZoom='1';}
  q('.site-scene').dataset.altitude=alt;q('.site-scene').dataset.shadowTip=tip;q('.site-scene').dataset.pxPerCm=pxPerCm;
  paintEvidence();
  measurement.setContext({site:selected,key:[a.selLat,a.selLon,a.subLat,scene.phase,scene.observationDate,rod].join(','),pxPerCm,direction,canMeasure:day,reason:'太阳在地平线以下，暂无日照杆影'});

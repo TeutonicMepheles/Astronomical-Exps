@@ -215,6 +215,8 @@ export function createScene(sceneRenderer) {
   let selectedAxis = 'date';
   const dateOut = timeCard.querySelector('#footerDate');
   const axisButtons = [...timeCard.querySelectorAll('[data-axis-button]')];
+  const timelineStepper = document.getElementById('timelineStepper');
+  const timelineStepButtons = [...document.querySelectorAll('[data-timeline-step]')];
   axisButtons.forEach(button=>button.addEventListener('click',()=>{
     if (button.disabled) return;
     window.dispatchEvent(new CustomEvent('manual-time-control'));
@@ -234,6 +236,19 @@ export function createScene(sceneRenderer) {
     updateUI();
     if (stage.classList.contains('has-selection') && !wasNoon && localSolarTime().noon) noonFeedback.play();
   }
+  function stepTimeline(direction,coarse){
+    if (state.measuring) return;
+    window.dispatchEvent(new CustomEvent('manual-time-control'));
+    if (timeAxis()) {
+      noonFeedback.unlock();
+      adjustTime(solarMinutes()+direction*(coarse?60:5));
+    } else {
+      setPhase(state.phase+direction*(coarse?7:1)/(daysInYear(state.year)-1));
+      updateUI();
+    }
+  }
+  timelineStepButtons.forEach(button=>button.addEventListener('click',()=>stepTimeline(-1,button.dataset.timelineStep==='coarse')));
+  stage.addEventListener('timeline-forward-step',event=>stepTimeline(1,event.detail.coarse));
   const markers = [...document.querySelectorAll('[data-latlon], [data-subsolar]')];
 
   /* ---------- 舞台缩放 ---------- */
@@ -345,6 +360,13 @@ export function createScene(sceneRenderer) {
       button.setAttribute('aria-pressed',String(isTimeButton===isTime));
     });
     timeline.dataset.axis = isTime ? 'time' : 'date';
+    timelineStepper.dataset.axis = isTime ? 'time' : 'date';
+    timelineStepper.setAttribute('aria-label', isTime ? '当地时间后退调节' : '日期后退调节');
+    timelineStepButtons.forEach(button=>{
+      const coarse=button.dataset.timelineStep==='coarse';
+      button.setAttribute('aria-label',isTime?(coarse?'当地时间后退1小时':'当地时间后退5分钟'):(coarse?'日期后退一周':'日期后退一天'));
+      button.disabled=isTime?solarMinutes()<=0:state.day<=1;
+    });
     timeline.setAttribute('aria-label', isTime ? (solarNow?'观测点当地时间':'0°经线时间（当地太阳时）') : '观测日期');
     timeline.setAttribute('aria-valuemax', isTime ? '1439' : '100');
     timeline.querySelector('.timeline-end-left').textContent = isTime ? '00:00' : '1月1日';

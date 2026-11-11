@@ -3,7 +3,8 @@ const assert = require('node:assert/strict');
 
 (async () => {
   const browser = await chromium.launch({ headless:true });
-  const page = await browser.newPage({ viewport:{width:1600,height:900}, reducedMotion:'reduce' });
+  const context = await browser.newContext({ viewport:{width:1600,height:900}, reducedMotion:'reduce' });
+  const page = await context.newPage();
   const errors=[];
   page.on('pageerror', error=>errors.push(error.message));
   await page.goto('http://127.0.0.1:8381/experiments/earth-circumference/textured.html');
@@ -106,8 +107,16 @@ const assert = require('node:assert/strict');
     const bounds=await page.evaluate(()=>({w:innerWidth,h:innerHeight,sw:document.documentElement.scrollWidth,sh:document.documentElement.scrollHeight,stage:document.querySelector("#stage").getBoundingClientRect().toJSON()}));
     assert.ok(bounds.sw===bounds.w&&bounds.sh===bounds.h,JSON.stringify(bounds));
   }
-  assert.equal(await page.locator('.brush-flow').count(),0,'No decorative WebGL render loop');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.waitForTimeout(100);
+  const readBrushFlow=()=>page.locator('.brush-flow').evaluate(canvas=>({hidden:canvas.hidden,flowTime:canvas.dataset.flowTime??null}));
+  const brushFlow=await readBrushFlow();
+  await page.waitForTimeout(120);
+  const stoppedBrushFlow=await readBrushFlow();
+  assert.equal(brushFlow.hidden,true,'Reduced motion keeps the textured sky static');
+  assert.equal(stoppedBrushFlow.flowTime,brushFlow.flowTime,'Reduced motion must stop the background render loop');
   assert.deepEqual(errors,[]);
   console.log(JSON.stringify({dates:12,transitions:4,worstJoinError,worstConeError,errors}));
+  await context.close();
   await browser.close();
 })().catch(error=>{console.error(error);process.exit(1);});
