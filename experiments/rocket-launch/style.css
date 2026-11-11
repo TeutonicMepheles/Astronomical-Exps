@@ -1,0 +1,140 @@
+/* EXP-08 向宇宙出发
+   视觉语言取自项目参考图 01/02：深靛蓝地面、非饱和粉彩色、细线手绘、自然笔触与颗粒噪点。
+   控件一律细线轮廓，不做实心色块；暖色只用于数值与当前状态，面积控制在画面 3% 以内。 */
+
+*{box-sizing:border-box}
+
+:root{
+  --ink:#e8e0cc;
+  --ink-dim:#a9b0bf;
+  --ink-faint:rgba(169,176,191,.42);
+  --line:rgba(232,224,204,.16);
+  --warm:#d8b074;
+  --warm-dim:rgba(216,176,116,.30);
+  --cool:#a8c4c6;
+  --panel:rgba(255,255,255,.025);
+}
+
+body{
+  margin:0;background:#070b16;color:var(--ink);overflow:hidden;
+  font-family:var(--font-ui,system-ui,"Microsoft YaHei",sans-serif);
+  -webkit-tap-highlight-color:transparent;
+}
+
+#app{
+  position:relative;width:1600px;height:900px;transform-origin:top left;padding:34px 44px;
+  display:flex;flex-direction:column;
+  background:
+    radial-gradient(900px 620px at 26% 24%,rgba(58,74,116,.24),rgba(14,20,42,0) 70%),
+    radial-gradient(760px 520px at 78% 74%,rgba(52,60,104,.20),rgba(14,20,42,0) 72%),
+    radial-gradient(1240px 780px at 58% 62%,#1c233f,#0e142a 78%);
+}
+/* 颗粒层：白 RGB + alpha，normal 混合（深底上加法等效），压在内容之下 */
+#app::before{
+  content:'';position:absolute;inset:0;background:url('assets/grain-256.png') repeat;
+  opacity:.045;pointer-events:none;
+}
+
+header{display:flex;align-items:flex-end;gap:26px;height:95px;border-bottom:1px solid var(--line);padding-bottom:14px}
+header>span{color:var(--warm);letter-spacing:.34em;font-size:13px;padding-bottom:6px}
+h1{font-family:var(--font-display,serif);font-weight:400;font-size:38px;margin:0;letter-spacing:.08em;color:#eef1f8}
+nav{margin-left:auto}
+
+button,select{
+  font:inherit;color:var(--ink);background:transparent;
+  border:1px solid var(--line);border-radius:4px;padding:12px 20px;min-height:50px;cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,color .18s ease;
+}
+button:hover,button:focus-visible{background-color:rgba(255,255,255,.035);border-color:rgba(232,224,204,.36);color:#f2ead8}
+button.active{background-color:rgba(216,176,116,.10);border-color:rgba(216,176,116,.55);color:var(--warm)}
+button:disabled{opacity:.30;cursor:default}
+button:focus-visible,select:focus-visible{outline:1px solid rgba(216,176,116,.55);outline-offset:3px}
+
+#chapters{display:flex;gap:30px}
+#chapters button{
+  background:none;border:0;border-bottom:1px solid transparent;border-radius:0;padding:8px 2px;min-height:44px;
+  color:var(--ink-dim);font-size:15px;letter-spacing:.14em;
+}
+#chapters button:hover{background:none;color:var(--ink);border-bottom-color:var(--warm-dim)}
+#chapters button.active{background:none;color:var(--warm);border-bottom-color:var(--warm)}
+#feedback.readout-big{font-size:30px;color:var(--warm);letter-spacing:.10em;margin-top:26px}
+
+.workspace{display:grid;grid-template-columns:330px minmax(0,1fr);gap:30px;flex:1;min-height:0;padding-top:22px}
+aside{padding:8px 20px 0 0;min-height:0}
+
+h2{font-family:var(--font-display,serif);font-weight:400;font-size:32px;margin:22px 0;letter-spacing:.08em;color:#eef1f8}
+
+#steps{display:flex;gap:10px}
+#steps button{
+  min-height:36px;padding:5px 15px;border-radius:3px;font-size:14px;letter-spacing:.08em;
+  color:var(--ink-faint);background:none;
+}
+#steps button.active{color:var(--warm);border-color:rgba(216,176,116,.5)}
+
+#controls{display:flex;flex-direction:column;gap:10px}
+#controls label{display:flex;justify-content:space-between;align-items:center;font-size:18px;gap:10px;color:var(--ink-dim)}
+#controls select{width:145px;background:transparent;border-radius:0;border:0;border-bottom:1px solid var(--line)}
+#controls>button{
+  border:0;border-bottom:1px solid rgba(232,224,204,.14);border-radius:0;background:none;
+  text-align:left;padding:11px 2px;min-height:44px;letter-spacing:.10em;color:var(--ink-dim);
+}
+#controls>button:hover{background:none;border-bottom-color:rgba(232,224,204,.42);color:#f2ead8}
+#controls>button.active{border-bottom-color:rgba(216,176,116,.62);color:var(--warm)}
+#feedback{font-size:21px;line-height:1.7;color:var(--ink);margin:16px 0 0;letter-spacing:.04em}
+
+.stage{position:relative;min-height:0;overflow:hidden}
+canvas{display:block;width:100%;height:100%;object-fit:contain;touch-action:none}
+#readout{position:absolute;bottom:14px;left:32px;right:20px;font-size:23px;color:var(--warm);letter-spacing:.06em;pointer-events:none}
+
+footer{
+  flex:none;height:58px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--line);padding-top:12px;
+}
+footer button{min-height:44px;padding:8px 20px;font-size:15px;letter-spacing:.12em;background:none}
+#position{color:var(--ink-faint);letter-spacing:.22em;font-size:14px}
+
+/* ---- 弹窗：发射记录 ---- */
+dialog{background:#141a30;color:var(--ink);border:1px solid rgba(232,224,204,.18);border-radius:6px;padding:30px;width:850px;max-height:75vh}
+dialog::backdrop{background:rgba(4,7,14,.72)}
+dialog h2{margin-top:0}
+#recordList{max-height:50vh;overflow:auto;line-height:2;font-size:19px;color:var(--ink-dim)}
+
+/* ---- 第三章：拖拽装配 ---- */
+.piece{
+  position:absolute;border:1px solid rgba(216,176,116,.42);background:rgba(18,26,44,.86);color:var(--ink);
+  border-radius:4px;touch-action:none;min-width:105px;min-height:52px;padding:10px;font-size:17px;
+}
+.piece.selected{outline:1px solid rgba(216,176,116,.85);outline-offset:2px}
+.piece.suggested{border-color:rgba(216,176,116,.75);box-shadow:0 0 22px rgba(216,176,116,.14)}
+.slot{background:rgba(255,255,255,.02);border-style:dashed;border-color:rgba(232,224,204,.22);color:var(--ink-faint)}
+.slot.filled{background:rgba(216,176,116,.12);border-style:solid;border-color:rgba(216,176,116,.5);color:var(--warm)}
+.slot img{pointer-events:none}
+#parts{position:absolute;inset:0;pointer-events:none}
+#parts button{pointer-events:auto}
+
+/* ---- 第一章：气泵主操作（泵本体就是控件，不是一块实心按钮） ---- */
+.pump-control{
+  position:absolute;right:9%;bottom:9%;width:150px;height:306px;
+  background:transparent url('assets/props/pump.png') no-repeat center/contain;
+  border:0;border-radius:0;padding:0;box-shadow:none;min-height:0;cursor:grab;
+  touch-action:none;filter:drop-shadow(0 14px 24px rgba(4,7,16,.55));
+}
+.pump-control:hover,.pump-control:focus-visible{background-color:transparent;border:0;transform:translateY(-2px)}
+.pump-control:active{transform:translateY(6px) scale(.985);filter:drop-shadow(0 6px 12px rgba(4,7,16,.5))}
+.pump-control:focus-visible{outline:1px solid rgba(216,176,116,.55);outline-offset:6px}
+.pump-hint{
+  position:absolute;right:9%;bottom:2%;width:150px;text-align:center;
+  font-size:15px;letter-spacing:.14em;color:var(--ink-dim);pointer-events:none;
+}
+.pump-hint::before{content:'';position:absolute;left:0;right:0;top:-10px;height:1px;background:rgba(232,224,204,.14)}
+.axis-handle{
+  position:absolute;right:3%;top:34%;font-size:15px;letter-spacing:.08em;touch-action:none;
+  border:0;border-left:1px solid rgba(232,224,204,.16);border-radius:0;background:none;color:var(--ink-dim);padding:8px 0 8px 12px;
+}
+
+/* ---- 第二章：速度配对（matching 紧凑排布） ---- */
+#controls.matching{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+#controls.matching button{font-size:15px;padding:8px;min-height:52px;letter-spacing:.04em}
+#controls.matching~#feedback{font-size:17px;line-height:1.5}
+.pair{display:flex;gap:8px}
+.pair button{font-size:16px;padding:10px;flex:1}
