@@ -130,6 +130,10 @@
   #topInset header{font-size:17px;font-weight:600;color:#f2e1bd;margin-bottom:10px}
   #topInsetCanvas{width:340px;height:220px;border-radius:11px;background:#1b3747}
   #topInset p{font-size:13px;color:#c4d8d9;border-top:1px solid #45616c;padding-top:9px;margin-top:10px}
+  #stage{top:72px;height:580px!important;border-radius:0;mask-image:linear-gradient(to right,transparent,#000 22px,#000 calc(100% - 22px),transparent),linear-gradient(to bottom,transparent,#000 22px,#000 calc(100% - 22px),transparent);mask-composite:intersect}
+  #topInset{top:88px}
+  #insetResize{position:absolute;left:2px;bottom:2px;width:36px;height:36px;min-height:36px;padding:0;border:0;background:transparent;color:#b7ced4;cursor:nesw-resize;touch-action:none;font-size:23px}
+  #insetResize:hover,#insetResize:focus-visible{background:#2b4857;color:#f2e1bd}
 </style>
 </head>
 <body>
@@ -353,13 +357,13 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     return;
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setSize(1184,540);
+  renderer.setSize(1184,580);
   renderer.setClearColor(0x0b0e14);
   if (THREE.SRGBColorSpace) renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0x0b0e14);
-  var camera = new THREE.PerspectiveCamera(50, 1184/540, 0.1, 800);
+  var camera = new THREE.PerspectiveCamera(50, 1184/580, 0.1, 800);
 
   var uniforms = {
     uRadius:       { value: 12 },
@@ -725,23 +729,14 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   var shock=new THREE.Mesh(new THREE.RingGeometry(.82,1.05,64),new THREE.MeshBasicMaterial({color:0xe6d6bc,side:THREE.DoubleSide,transparent:true,opacity:0,depthWrite:false}));
   shock.rotation.x=-Math.PI/2;shock.position.y=.2;impactGroup.add(shock);
   var impactMotion=null,impactStart=new THREE.Vector3(-28,48,-20),impactEnd=new THREE.Vector3(0,1.4,0);
-  var burstSeed=0,burstValues=new Float32Array(1152*4),burstHeading=0;
-  function prepareBurst(preserve){
-    if(preserve&&burstSeed)return;
-    burstSeed=(Math.random()*4294967295)>>>0||1;var seed=burstSeed;
-    for(var i=0;i<burstValues.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;burstValues[i]=seed/4294967296;}
-    burstHeading=burstValues[0]*Math.PI*2;
-  }
-  function burstValue(i,c){return burstValues[i*4+c];}
   function cancelImpactFx(){
     terrainBlend=null;
     if(!impactMotion)return;
     impactMotion=null;impactGroup.visible=false;applyCam();
     var runButton=document.getElementById('runExperiment');if(runButton)runButton.disabled=false;
   }
-  function startImpactFx(onComplete,preserveSeed){
+  function startImpactFx(onComplete){
     cancelImpactFx();impacted=false;terrainDirty=true;dirty();
-    prepareBurst(preserveSeed);
     impactMotion={start:performance.now(),onComplete:onComplete,phase:'falling',coveredFrames:0,generated:false};
     var groundY=uniforms.uNoiseAmp.value*(1.25*fbm(uniforms.uSeed.value,0)+.32*fbm(0,0));
     impactEnd.y=groundY+2.1;
@@ -805,7 +800,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
       var expansion=smooth(0,.13,spread),extent=uniforms.uRadius.value,stretch=uniforms.uRound.value;
       dustDensity=expansion*(1-smooth(.60,.98,spread));
       denseDust.forEach(function(p,i){
-        var a=i*2.39996+burstHeading+(burstValue(i,0)-.5)*.30,r=Math.sqrt((i+.5)/denseDust.length)*extent*.93;
+        var a=i*2.39996,r=Math.sqrt((i+.5)/denseDust.length)*extent*.93;
         var drift=expansion*(1+smooth(.5,1,spread)*.25);
         p.position.set(Math.cos(a)*r*stretch*drift,extent*(.16+(i%5)*.065+spread*.06),Math.sin(a)*r*drift);
         p.scale.set(extent*(.98+(i%3)*.12)*expansion,extent*(.82+(i%4)*.10)*expansion,1);
@@ -819,20 +814,20 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
       if(impactMotion.generated)blendTerrain(clamp((elapsed-3.7)/2.3,0,1));
       var moon=state.scene==='moon';
       dustCloud.forEach(function(p,i){
-        var angle=i*2.39996+burstHeading+(burstValue(i+100,0)-.5)*.9,ring=.25+(i%7)/7;
-        var reach=ring*extent*expansion*(.8+spread*.45)*(.78+burstValue(i+100,1)*.44);
-        p.visible=true;p.position.set(Math.cos(angle)*reach*stretch,extent*(.12+Math.sin(spread*Math.PI)*(.3+ring*.65)*(.8+burstValue(i+100,2)*.45)),Math.sin(angle)*reach);
+        var angle=i*2.39996,ring=.25+(i%7)/7;
+        var reach=ring*extent*expansion*(.8+spread*.45);
+        p.visible=true;p.position.set(Math.cos(angle)*reach*stretch,extent*(.12+Math.sin(spread*Math.PI)*(.3+ring*.65)),Math.sin(angle)*reach);
         p.scale.set(extent*(.26+ring*.32)*expansion,extent*(.60+ring*.88)*expansion,1);
         if(i%2===0){
           p.position.set(Math.cos(angle)*extent*1.02*stretch*expansion,extent*.12,Math.sin(angle)*extent*1.02*expansion);
           p.scale.set(extent*.8*expansion,extent*.6*expansion,1);
         }
         p.material.color.setHex(i%3===0?0xe0cbb0:moon?0xf3eee5:0xfff5e7);
-        p.material.rotation=Math.sin(angle)*.55+(burstValue(i+100,3)-.5)*.35;
+        p.material.rotation=Math.sin(angle)*.55;
         p.material.opacity=expansion*fade*.83;
       });
       for(var si=0;si<720;si++){
-        var sa=si*2.39996+burstHeading+(burstValue(si+200,0)-.5)*.7,seeded=burstValue(si+200,1),flight=clamp(spread*1.55-burstValue(si+200,2)*.09,0,1);
+        var sa=si*2.39996,seeded=(si*37%719)/719,flight=clamp(spread*1.55-(si%11)*.008,0,1);
         var distance=extent*(.25+seeded*1.5)*Math.sin(flight*Math.PI*.5);
         sandPositions[si*3]=Math.cos(sa)*distance*stretch;
         sandPositions[si*3+1]=.2+extent*(.18+seeded*.85)*Math.sin(flight*Math.PI);
@@ -840,7 +835,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
       }
       sandGeometry.attributes.position.needsUpdate=true;sand.material.opacity=expansion*fade*.8;
       debris.forEach(function(p,i){
-        var angle=i*2.39996+burstHeading+(burstValue(i+950,0)-.5)*.8,travel=spread*extent*(1.3+burstValue(i+950,1)*1.1);
+        var angle=i*2.39996,travel=spread*extent*(1.5+(i%5)*.2);
         p.visible=spread<.83;p.position.set(Math.cos(angle)*travel*stretch,impactEnd.y*(1-smooth(0,.15,spread))+Math.max(.2,Math.sin(spread*Math.PI)*extent*(.45+(i%4)*.2)),Math.sin(angle)*travel);
         p.scale.setScalar((.24+(i%5)*.12)*(1-smooth(.65,.85,spread)));
         p.rotation.set(spread*(i+2),spread*(i+4),angle);
@@ -971,9 +966,9 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   });
 
   window.addEventListener("resize", function () {
-    camera.aspect = 1184/540;
+    camera.aspect = 1184/580;
     camera.updateProjectionMatrix();
-    renderer.setSize(1184,540);
+    renderer.setSize(1184,580);
     dirty();
   });
 
@@ -1059,11 +1054,36 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   document.getElementById('advancedTab').onclick=function(){showAdvanced(true);};document.getElementById('teachingTab').onclick=function(){showAdvanced(false);};
   var inset=document.createElement('aside');inset.id='topInset';inset.setAttribute('aria-label','俯视观察窗');inset.innerHTML='<header>俯视视角 · 坑口形状</header><canvas width="680" height="440" id="topInsetCanvas"></canvas><p id="topInsetLabel"></p>';document.body.appendChild(inset);
   var insetCanvas=document.getElementById('topInsetCanvas'),insetContext=insetCanvas.getContext('2d');
+  var insetWidth=340,insetHeight=220,insetResizeDrag=null;
+  var insetResize=document.createElement('button');insetResize.id='insetResize';insetResize.textContent='⤢';
+  insetResize.setAttribute('aria-label','拖动调整俯视窗口大小，方向键微调');insetResize.title='拖动调整窗口大小';inset.appendChild(insetResize);
+  function sizeInset(w,h){
+    insetWidth=clamp(w,240,680);insetHeight=clamp(h,150,440);
+    inset.style.width=insetWidth+'px';insetCanvas.style.width=insetWidth+'px';insetCanvas.style.height=insetHeight+'px';dirty();
+  }
+  insetResize.addEventListener('pointerdown',function(e){
+    if(e.button!==0)return;e.preventDefault();
+    insetResizeDrag={x:e.clientX,y:e.clientY,w:insetWidth,h:insetHeight,scale:shell.getBoundingClientRect().width/1600};
+    insetResize.setPointerCapture(e.pointerId);
+  });
+  insetResize.addEventListener('pointermove',function(e){
+    if(!insetResizeDrag)return;var d=insetResizeDrag;
+    sizeInset(d.w-(e.clientX-d.x)/d.scale,d.h+(e.clientY-d.y)/d.scale);
+  });
+  ['pointerup','pointercancel','lostpointercapture'].forEach(function(name){insetResize.addEventListener(name,function(){insetResizeDrag=null;});});
+  insetResize.addEventListener('keydown',function(e){
+    var step=e.shiftKey?30:10;
+    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();
+    sizeInset(insetWidth+(e.key==='ArrowLeft'?step:e.key==='ArrowRight'?-step:0),insetHeight+(e.key==='ArrowDown'?step:e.key==='ArrowUp'?-step:0));
+  });
   var insetCamera=new THREE.OrthographicCamera(-34,34,22,-22,.1,500);insetCamera.position.set(0,150,0);insetCamera.up.set(0,0,-1);insetCamera.lookAt(0,0,0);
   function renderInset(){
+    var pixelW=Math.round(insetWidth*2),pixelH=Math.round(insetHeight*2);
+    if(insetCanvas.width!==pixelW||insetCanvas.height!==pixelH){insetCanvas.width=pixelW;insetCanvas.height=pixelH;}
+    insetCamera.left=-22*insetWidth/insetHeight;insetCamera.right=22*insetWidth/insetHeight;insetCamera.updateProjectionMatrix();
     var bg=scene.background,starVisible=stars.visible,fxVisible=impactGroup.visible;
     impactGroup.visible=false;stars.visible=false;scene.background=new THREE.Color(state.scene==='moon'?0x111622:0x3c3022);
-    try{renderer.render(scene,insetCamera);insetContext.drawImage(canvas,0,0,canvas.width,canvas.height,0,0,680,440);}
+    try{renderer.render(scene,insetCamera);insetContext.drawImage(canvas,0,0,canvas.width,canvas.height,0,0,pixelW,pixelH);}
     finally{impactGroup.visible=fxVisible;stars.visible=starVisible;scene.background=bg;}
     document.getElementById('topInsetLabel').textContent=impacted?'口径 '+fmtLen(computeResult(merged()).dia)+' · '+computeResult(merged()).roundName:'未撞击地表';
   }
@@ -1084,7 +1104,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   var zoomControls=document.createElement('div');zoomControls.id='zoomControls';zoomControls.innerHTML='<button id="zoomIn" aria-label="放大场景">＋</button><button id="zoomOut" aria-label="缩小场景">−</button>';shell.appendChild(zoomControls);
   document.getElementById('zoomIn').onclick=function(){sph.r=clamp(sph.r*.85,16,130);applyCam();dirty();};
   document.getElementById('zoomOut').onclick=function(){sph.r=clamp(sph.r/ .85,16,130);applyCam();dirty();};
-  function fitLab(){var scale=Math.min(innerWidth/1600,innerHeight/900);shell.style.transform='translate(-50%,-50%) scale('+scale+')';renderer.setPixelRatio((devicePixelRatio||1)*scale);renderer.setSize(1184,540);dirty();}
+  function fitLab(){var scale=Math.min(innerWidth/1600,innerHeight/900);shell.style.transform='translate(-50%,-50%) scale('+scale+')';renderer.setPixelRatio((devicePixelRatio||1)*scale);renderer.setSize(1184,580);dirty();}
   window.addEventListener('resize',fitLab);fitLab();
   syncControls();renderRecords();applyPhysics();
 
