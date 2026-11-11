@@ -8,8 +8,9 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  const tab=id=>page.locator(`[role=tab][data-step=${id}]`);
  assert.equal(await tab('assembly').getAttribute('aria-disabled'),'true');await tab('assembly').click({force:true});
  assert.equal(await page.evaluate(()=>Newton.course.get().stage),'mirrors');
+ for(const id of ['convex','concave'])await page.click(`[data-lens=${id}]`);
  for(const id of ['plane','concave','convex'])await page.click(`[data-observe=${id}]`);
- assert.equal(await tab('assembly').getAttribute('aria-disabled'),'false');assert.match(await tab('mirrors').innerText(),/3 \/ 3/);
+ assert.equal(await tab('assembly').getAttribute('aria-disabled'),'false');assert.match(await tab('mirrors').innerText(),/5 \/ 5/);
  await open();
  // Focus movement alone must not navigate.
  await tab('mirrors').focus();await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate(()=>Newton.course.get().stage),'mirrors');await page.keyboard.press('Enter');
@@ -35,7 +36,7 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
    first.destroy();second.destroy();if(a.childNodes.length||b.childNodes.length)throw Error('cleanup');a.remove();b.remove();
  });
  assert.equal(await page.locator('.experiment-progress__badge').isVisible(),false);
- await page.goto(pathToFileURL(path.resolve(__dirname,'progress.html')).href);await page.click('[data-observe=plane]');await open();assert.match(await tab('mirrors').innerText(),/1 \/ 3/);
+ await page.goto(pathToFileURL(path.resolve(__dirname,'progress.html')).href);await page.click('[data-observe=plane]');await open();assert.match(await tab('mirrors').innerText(),/1 \/ 5/);
  assert.deepEqual(errors,[]);await browser.close();console.log('PASS: actual course state sync, stage gates, keyboard tabs, review preservation, downstream reset, isolated instances, rejected navigation, unknown progress, lifecycle, desktop disclosure menu, file://');
 })().catch(e=>{console.error(e);process.exit(1)});
 
