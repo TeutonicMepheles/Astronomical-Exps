@@ -143,5 +143,5 @@ const BASE = process.env.ROCKET_BASE || 'http://127.0.0.1:8996/experiments/rocke
 
   assert.deepEqual(errs, []);
   await b.close();
-  console.log('PASS velocity instrument: e=|u-1| over 135 samples, 2 shape transitions, r0=1.08, 7.9 e=0 exactly, escape 11.172, gear-only control, u-gear marks 0/16.3/40.7/100%, 26-line spectrum fingerprint, frame switch, model→px transform');
+  console.log('PASS velocity instrument: e=|u-1| over 135 samples, 2 shape transitions, r0=1.08, 7.9 e=0 exactly, escape 11.172, gear-only control, u-gear marks 0/16.3/40.7/100%, 26-line spectrum fingerprint, one shared scale, per-gear result note, replay on re-press, frame switch, model->px transform');
 })();

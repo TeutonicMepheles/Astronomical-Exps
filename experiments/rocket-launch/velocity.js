@@ -23,11 +23,12 @@ const TAU = Math.PI * 2;
 
 const V_MIN = 4.5, V_MAX = 16.7;           // 谱轴两端就是最低/最高档：4.5→0%、7.9→16.3%、11.2→40.7%、16.7→100%
 const MARKS = [
-  { v: 4.5, label: '4.5', state: '落回地面' },
-  { v: 7.9, label: '7.9', state: '环绕地球' },
-  { v: 11.2, label: '11.2', state: '逃出地球' },
-  { v: 16.7, label: '16.7', state: '离开太阳系' },
+  { v: 4.5, label: '4.5', state: '落回地面', note: '不够快：升到最高点就被地球拉回来' },
+  { v: 7.9, label: '7.9', state: '环绕地球', note: '正好够：不掉下来，也不飞走' },
+  { v: 11.2, label: '11.2', state: '逃出地球', note: '过关：越过这个门槛就不再回来' },
+  { v: 16.7, label: '16.7', state: '离开太阳系', note: '再加上地球自己的 29.8，才够离开太阳' },
 ];
+const noteOf = (v) => (MARKS.find((m) => m.v === v) || MARKS[0]).note;
 const SNAP_TO_GEAR = 0.0;                  // 档位制：不产生档位之间的中间值
 
 // ---------------------------------------------------------------- 模型
@@ -249,6 +250,7 @@ export function createVelocityScene(hooks = {}) {
     dragging: false,
     pulse: 0,
     pulseMark: null,
+    replay: 1,
     ghosts: new Map(),
     cam: null,
     solar: 0,
@@ -267,26 +269,13 @@ export function createVelocityScene(hooks = {}) {
     return word;
   }
 
-  function camTarget(path) {
-    if (path.m.kind === 'open') {
-      return { s: 186, cx: SCENE.x + 292, cy: SCENE.y + 306 };
-    }
-    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-    // 落回 / 环绕：整颗地球同框，落点沿地面滑走这件事才看得见
-    if (path.m.kind !== 'open') {
-      x0 = -1; x1 = 1; y0 = -1; y1 = 1;
-    }
-    for (const p of path.pts) {
-      if (p.r > R_FAR) continue;
-      if (p.x < x0) x0 = p.x; if (p.x > x1) x1 = p.x;
-      if (p.y < y0) y0 = p.y; if (p.y > y1) y1 = p.y;
-    }
-    const w = Math.max(x1 - x0, 0.02), h = Math.max(y1 - y0, 0.02);
-    const pad = 42;
-    let s = Math.min((SCENE.w - pad * 2) / w, (SCENE.h - pad * 2) / h);
-    s = Math.max(92, Math.min(480, s));
-    const wcx = (x0 + x1) / 2, wcy = (y0 + y1) / 2;
-    return { s, cx: SCENE.x + SCENE.w / 2 - s * wcx, cy: SCENE.y + SCENE.h / 2 + s * wcy };
+  // 统一比例尺（规格 3.2-3）：四个地心档共用同一个 s 与同一个球心，
+  // 切档时球不会缩放、球心不会漂——「同一条曲线在变形」才成立。
+  const GEO_S = (SCENE.h - 84) / (2 * R0);          // ≈179.6 px / R
+  const GEO_CX = SCENE.x + SCENE.w / 2;
+  const GEO_CY = SCENE.y + 300;
+  function camTarget() {
+    return { s: GEO_S, cx: GEO_CX, cy: GEO_CY };
   }
 
   const project = (cam, x, y) => [cam.cx + cam.s * x, cam.cy - cam.s * y];
@@ -300,7 +289,8 @@ export function createVelocityScene(hooks = {}) {
     return best;
   }
   function setGear(mk) {
-    if (st.snapped === mk.v) return;
+    if (st.snapped === mk.v) { st.replay = 0; return; }   // 再按一次 = 重播
+    st.replay = 0;
     st.pulse = 1;
     st.pulseMark = mk.v;
     st.v = mk.v;
@@ -333,12 +323,13 @@ export function createVelocityScene(hooks = {}) {
     },
     up() { st.dragging = false; },
     spectrum: () => SPECTRUM.map((g) => g.v),
+    note: () => noteOf(st.v),
     cam: () => (st.cam ? { ...st.cam } : null),
     toPixel(x, y) { return st.cam ? project(st.cam, x, y) : null; },
     setGrain(pattern) { st.grain = pattern; },
     setGlobe(fn) { globeDraw = fn; },
     needsFrame() {
-      if (st.pulse > 0.001 || (st.hint > 0 && !st.touched)) return true;
+      if (st.pulse > 0.001 || st.replay < 1 || (st.hint > 0 && !st.touched)) return true;
       if (!st.cam) return true;
       const t = camTarget(pathOf(st.v));
       return Math.abs(t.s - st.cam.s) > 0.4 || Math.abs(t.cx - st.cam.cx) > 0.4 || Math.abs(t.cy - st.cam.cy) > 0.4;
@@ -356,6 +347,7 @@ export function createVelocityScene(hooks = {}) {
       st.cam.cx += (target.cx - st.cam.cx) * k;
       st.cam.cy += (target.cy - st.cam.cy) * k;
       if (st.pulse > 0) st.pulse = Math.max(0, st.pulse - dt * 1.6);
+      if (st.replay < 1) st.replay = Math.min(1, st.replay + dt / 0.9);
 
       const solarT = st.v >= 15 ? smoothstep(15, 16.7, st.v) : 0;
       st.solar = solarT;
@@ -419,6 +411,18 @@ export function createVelocityScene(hooks = {}) {
       ctx.fillStyle = C.ink;
       ctx.fill();
 
+      // 重播：沿曲线跑一颗光点（只增一小段暖像素，不改曲线本身）
+      if (st.replay < 1 && scr.length > 4) {
+        const fi = Math.min(scr.length - 1, Math.round(st.replay * (scr.length - 1)));
+        const head = scr[fi];
+        const tail = scr[Math.max(0, fi - 14)];
+        strokePolyline(ctx, [tail, head], { color: 'rgba(255,236,206,0.85)', width: 2.6 });
+        ctx.beginPath();
+        ctx.arc(head[0], head[1], 3.6, 0, TAU);
+        ctx.fillStyle = 'rgba(255,244,220,0.98)';
+        ctx.fill();
+      }
+
       if (m.kind === 'closed') {
         const t = (Math.sin(performance.now() / 620) + 1) / 2;
         ctx.beginPath();
@@ -460,6 +464,7 @@ export function createVelocityScene(hooks = {}) {
       // 状态词：不属于任何一层，换参照系后仍然在
       const word = readout();
       label(ctx, word, SCENE.x + 34, SCENE.y + 46, { size: 30, color: C.text, weight: 600, spacing: 2 });
+      label(ctx, noteOf(st.v), SCENE.x + 34, SCENE.y + 78, { size: 15, color: C.inkSoft, spacing: 0.5 });
 
       // ---- 日心图（16.7 那一档）
       if (solarT > 0.002) {
