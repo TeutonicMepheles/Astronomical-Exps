@@ -1,0 +1,1323 @@
+{
+  "timestamp": "2026-11-10T12:42:55.159Z",
+  "browserVersion": "157.0.4341.42",
+  "url": "http://127.0.0.1:1513/experiments/newton-telescope/tests/real-viewer-harness.html",
+  "errors": [],
+  "bloomDifference": {
+    "changedPixels": 22373,
+    "totalRGBDifference": 1657156,
+    "width": 1600,
+    "height": 650
+  },
+  "occlusion": [
+    {
+      "yaw": 2.791592653589793,
+      "checks": [
+        {
+          "ray": 0,
+          "occluder": "Tube_BackShell.001",
+          "x": 782,
+          "y": 255,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 1,
+          "occluder": "Tube_BackShell.001",
+          "x": 779,
+          "y": 259,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 2,
+          "occluder": "Tube_BackShell.001",
+          "x": 778,
+          "y": 266,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 3,
+          "occluder": "Tube_BackShell.001",
+          "x": 778,
+          "y": 276,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 4,
+          "occluder": "Tube_BackShell.001",
+          "x": 780,
+          "y": 287,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 5,
+          "occluder": "Tube_BackShell.001",
+          "x": 783,
+          "y": 298,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 6,
+          "occluder": "Tube_BackShell.001",
+          "x": 787,
+          "y": 307,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 7,
+          "occluder": "Tube_BackShell.001",
+          "x": 791,
+          "y": 313,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 8,
+          "occluder": "Tube_BackShell.001",
+          "x": 795,
+          "y": 315,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 9,
+          "occluder": "Tube_BackShell.001",
+          "x": 798,
+          "y": 311,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 10,
+          "occluder": "Tube_BackShell.001",
+          "x": 800,
+          "y": 304,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 11,
+          "occluder": "Tube_BackShell.001",
+          "x": 800,
+          "y": 293,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 12,
+          "occluder": "Tube_BackShell.001",
+          "x": 798,
+          "y": 282,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 13,
+          "occluder": "Tube_BackShell.001",
+          "x": 795,
+          "y": 270,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 14,
+          "occluder": "Tube_BackShell.001",
+          "x": 791,
+          "y": 262,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 15,
+          "occluder": "Tube_BackShell.001",
+          "x": 786,
+          "y": 256,
+          "maxRGBDifference": 0
+        }
+      ]
+    },
+    {
+      "yaw": 3.691592653589793,
+      "checks": [
+        {
+          "ray": 0,
+          "occluder": "Tube_BackShell.001",
+          "x": 789,
+          "y": 254,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 1,
+          "occluder": "Tube_BackShell.001",
+          "x": 795,
+          "y": 257,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 2,
+          "occluder": "Tube_BackShell.001",
+          "x": 801,
+          "y": 265,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 3,
+          "occluder": "Tube_BackShell.001",
+          "x": 805,
+          "y": 275,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 4,
+          "occluder": "Tube_BackShell.001",
+          "x": 806,
+          "y": 287,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 5,
+          "occluder": "Tube_BackShell.001",
+          "x": 805,
+          "y": 298,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 6,
+          "occluder": "Tube_BackShell.001",
+          "x": 802,
+          "y": 307,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 7,
+          "occluder": "Tube_BackShell.001",
+          "x": 797,
+          "y": 313,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 8,
+          "occluder": "Tube_BackShell.001",
+          "x": 791,
+          "y": 314,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 9,
+          "occluder": "Tube_BackShell.001",
+          "x": 785,
+          "y": 310,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 10,
+          "occluder": "Tube_BackShell.001",
+          "x": 779,
+          "y": 303,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 11,
+          "occluder": "Tube_BackShell.001",
+          "x": 775,
+          "y": 292,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 12,
+          "occluder": "Tube_BackShell.001",
+          "x": 774,
+          "y": 280,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 13,
+          "occluder": "Tube_BackShell.001",
+          "x": 774,
+          "y": 269,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 14,
+          "occluder": "Tube_BackShell.001",
+          "x": 778,
+          "y": 260,
+          "maxRGBDifference": 0
+        },
+        {
+          "ray": 15,
+          "occluder": "Tube_BackShell.001",
+          "x": 783,
+          "y": 255,
+          "maxRGBDifference": 0
+        }
+      ]
+    }
+  ],
+  "lifecycle": [
+    {
+      "disposed": true,
+      "contextLost": true,
+      "apiRemoved": true,
+      "canvases": 1,
+      "nextState": {
+        "surfaceStyle": {
+          "grain": 1,
+          "lighting": 1,
+          "contactShadow": true,
+          "floor": 0,
+          "shadowY": -0.008
+        },
+        "section": false,
+        "rays": false,
+        "bloom": true,
+        "bloomType": "selective-gaussian-two-pass",
+        "selected": null,
+        "yaw": -0.3520443143154173,
+        "pitch": 0.13094748194363778,
+        "distance": 21.060923531507353,
+        "meshCount": 129,
+        "visibleMeshes": 129,
+        "triangleCount": 111170,
+        "acceptedRays": 16,
+        "renderCount": 2,
+        "disposed": false,
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "rendererInfo": {
+          "memory": {
+            "geometries": 130,
+            "textures": 3
+          },
+          "render": {
+            "frame": 2,
+            "calls": 130,
+            "triangles": 111172,
+            "points": 0,
+            "lines": 0
+          },
+          "programs": 3
+        },
+        "canvasAlpha": true,
+        "clearAlpha": 0,
+        "materialOpacity": [
+          1
+        ],
+        "depthTest": true,
+        "depthWrite": true,
+        "bloomTargets": 3
+      }
+    },
+    {
+      "disposed": true,
+      "contextLost": true,
+      "apiRemoved": true,
+      "canvases": 1,
+      "nextState": {
+        "surfaceStyle": {
+          "grain": 1,
+          "lighting": 1,
+          "contactShadow": true,
+          "floor": 0,
+          "shadowY": -0.008
+        },
+        "section": false,
+        "rays": false,
+        "bloom": true,
+        "bloomType": "selective-gaussian-two-pass",
+        "selected": null,
+        "yaw": -0.3520443143154173,
+        "pitch": 0.13094748194363778,
+        "distance": 21.060923531507353,
+        "meshCount": 129,
+        "visibleMeshes": 129,
+        "triangleCount": 111170,
+        "acceptedRays": 16,
+        "renderCount": 2,
+        "disposed": false,
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "rendererInfo": {
+          "memory": {
+            "geometries": 130,
+            "textures": 3
+          },
+          "render": {
+            "frame": 2,
+            "calls": 130,
+            "triangles": 111172,
+            "points": 0,
+            "lines": 0
+          },
+          "programs": 3
+        },
+        "canvasAlpha": true,
+        "clearAlpha": 0,
+        "materialOpacity": [
+          1
+        ],
+        "depthTest": true,
+        "depthWrite": true,
+        "bloomTargets": 3
+      }
+    },
+    {
+      "disposed": true,
+      "contextLost": true,
+      "apiRemoved": true,
+      "canvases": 1,
+      "nextState": {
+        "surfaceStyle": {
+          "grain": 1,
+          "lighting": 1,
+          "contactShadow": true,
+          "floor": 0,
+          "shadowY": -0.008
+        },
+        "section": false,
+        "rays": false,
+        "bloom": true,
+        "bloomType": "selective-gaussian-two-pass",
+        "selected": null,
+        "yaw": -0.3520443143154173,
+        "pitch": 0.13094748194363778,
+        "distance": 21.060923531507353,
+        "meshCount": 129,
+        "visibleMeshes": 129,
+        "triangleCount": 111170,
+        "acceptedRays": 16,
+        "renderCount": 2,
+        "disposed": false,
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "rendererInfo": {
+          "memory": {
+            "geometries": 130,
+            "textures": 3
+          },
+          "render": {
+            "frame": 2,
+            "calls": 130,
+            "triangles": 111172,
+            "points": 0,
+            "lines": 0
+          },
+          "programs": 3
+        },
+        "canvasAlpha": true,
+        "clearAlpha": 0,
+        "materialOpacity": [
+          1
+        ],
+        "depthTest": true,
+        "depthWrite": true,
+        "bloomTargets": 3
+      }
+    }
+  ],
+  "state": {
+    "surfaceStyle": {
+      "grain": 1,
+      "lighting": 1,
+      "contactShadow": true,
+      "floor": 0,
+      "shadowY": -0.008
+    },
+    "section": false,
+    "rays": false,
+    "bloom": true,
+    "bloomType": "selective-gaussian-two-pass",
+    "selected": null,
+    "yaw": -0.3520443143154173,
+    "pitch": 0.13094748194363778,
+    "distance": 21.060923531507353,
+    "meshCount": 129,
+    "visibleMeshes": 129,
+    "triangleCount": 111170,
+    "acceptedRays": 16,
+    "renderCount": 2,
+    "disposed": false,
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendererInfo": {
+      "memory": {
+        "geometries": 130,
+        "textures": 3
+      },
+      "render": {
+        "frame": 2,
+        "calls": 130,
+        "triangles": 111172,
+        "points": 0,
+        "lines": 0
+      },
+      "programs": 3
+    },
+    "canvasAlpha": true,
+    "clearAlpha": 0,
+    "materialOpacity": [
+      1
+    ],
+    "depthTest": true,
+    "depthWrite": true,
+    "bloomTargets": 3
+  },
+  "optical": {
+    "mode": "mesh-intersections-and-normal-reflection",
+    "illustrative": true,
+    "focalLength": 7.535,
+    "units": "R2 model units, not measured millimetres",
+    "finiteSecondary": true,
+    "requested": 16,
+    "accepted": 16,
+    "rejected": [],
+    "boredMeshes": [
+      "Eyepiece_Saddle",
+      "Tube_BackInterior",
+      "Tube_BackShell",
+      "Tube_LowerInterior",
+      "Tube_RearClosure",
+      "Tube_RearEndStep",
+      "Tube_UpperInterior",
+      "Tube_BackShell.001"
+    ],
+    "rays": [
+      {
+        "index": 0,
+        "points": [
+          [
+            -4.457992236383054,
+            6.010675445865573,
+            0.12485780609032208
+          ],
+          [
+            3.3747762361908213,
+            3.6305616992083536,
+            0.12485780609032208
+          ],
+          [
+            -2.9646765329961697,
+            4.993287673735243,
+            0.017589853130279928
+          ],
+          [
+            -2.574047543343831,
+            5.976247959032546,
+            0.0000953405957702623
+          ]
+        ],
+        "primaryNormal": [
+          -0.9680396012203611,
+          0.2506607462006566,
+          -0.008277728145705406
+        ],
+        "secondaryNormal": [
+          0.8821456273734266,
+          0.4709767426333824,
+          0.000002095761830687543
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9775334893022783,
+          0.21013016822474972,
+          -0.016540546978598324
+        ],
+        "folded": [
+          0.3692567751315584,
+          0.9291802570882381,
+          -0.016537347334976502
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 1,
+        "points": [
+          [
+            -4.485775925960466,
+            5.919241493148242,
+            0.3555649491325454
+          ],
+          [
+            3.346992567708491,
+            3.5391277400809398,
+            0.3555649491325454
+          ],
+          [
+            -2.956302056586442,
+            4.977602156365691,
+            0.05068604076538791
+          ],
+          [
+            -2.573984963574522,
+            5.976228947776832,
+            0.0002582901493404649
+          ]
+        ],
+        "primaryNormal": [
+          -0.9661976192377519,
+          0.25672256506149604,
+          -0.023572975364725066
+        ],
+        "secondaryNormal": [
+          0.8821445784689899,
+          0.4709787072393505,
+          -0.000002217705085759282
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.97385284299682,
+          0.22224288778724077,
+          -0.04710349259873512
+        ],
+        "folded": [
+          0.35713965850896884,
+          0.9328623746659467,
+          -0.047106838704250885
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 2,
+        "points": [
+          [
+            -4.537113490236901,
+            5.750293578163949,
+            0.532140551873629
+          ],
+          [
+            3.2956550424359055,
+            3.3701798132446945,
+            0.532140551873629
+          ],
+          [
+            -2.940293422280717,
+            4.947617777376243,
+            0.07755747885477587
+          ],
+          [
+            -2.5738315208221025,
+            5.976182325536525,
+            0.0004011833963874084
+          ]
+        ],
+        "primaryNormal": [
+          -0.9627940803317777,
+          0.2679233458121369,
+          -0.035279450774019144
+        ],
+        "secondaryNormal": [
+          0.8821509700526418,
+          0.4709667355577368,
+          0.000005768192414337654
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9670518954207677,
+          0.24462427516090962,
+          -0.07049535846493818
+        ],
+        "folded": [
+          0.3347846533360038,
+          0.9396546389104836,
+          -0.07048684604023972
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 3,
+        "points": [
+          [
+            -4.60418925042745,
+            5.529552489452389,
+            0.6277025794580675
+          ],
+          [
+            3.2285791792519953,
+            3.1494387558293373,
+            0.6277025794580675
+          ],
+          [
+            -2.918262930769495,
+            4.906354524128489,
+            0.09424563953529919
+          ],
+          [
+            -2.573700629681586,
+            5.9761425536349995,
+            0.0004624900996287179
+          ]
+        ],
+        "primaryNormal": [
+          -0.9583471424477159,
+          0.28255787111862446,
+          -0.04161494961198645
+        ],
+        "secondaryNormal": [
+          0.8821439898261713,
+          0.47097980977272436,
+          1.1079932326885403e-7
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.958166029191832,
+          0.2738669670058972,
+          -0.0831549450468702
+        ],
+        "folded": [
+          0.30551335389468315,
+          0.9485498785531151,
+          -0.08315478632582002
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 4,
+        "points": [
+          [
+            -4.676791530086384,
+            5.290624056746945,
+            0.6277025794580675
+          ],
+          [
+            3.155976949624675,
+            2.9105103079209766,
+            0.6277025794580675
+          ],
+          [
+            -2.8928685888647574,
+            4.858790564733269,
+            0.09742746550836123
+          ],
+          [
+            -2.5735111056412627,
+            5.976084963145008,
+            0.00045891061651062715
+          ]
+        ],
+        "primaryNormal": [
+          -0.9535338115668226,
+          0.29839816716534817,
+          -0.04161494961198645
+        ],
+        "secondaryNormal": [
+          0.8821469792772891,
+          0.4709742104909877,
+          -0.000002084428668542117
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9485480368927907,
+          0.30551902857446556,
+          -0.08315494504687022
+        ],
+        "folded": [
+          0.27387307617303586,
+          0.9581640323417129,
+          -0.08315783351066705
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 5,
+        "points": [
+          [
+            -4.743867290276934,
+            5.069882968035385,
+            0.5321405518736291
+          ],
+          [
+            3.088901214179624,
+            2.6897692116900953,
+            0.5321405518736291
+          ],
+          [
+            -2.8678342530561904,
+            4.8119010536973645,
+            0.08525419723094718
+          ],
+          [
+            -2.573360294605304,
+            5.976039134593032,
+            0.00039635680712346577
+          ]
+        ],
+        "primaryNormal": [
+          -0.9490868736827608,
+          0.31303269247183574,
+          -0.03527945077401916
+        ],
+        "secondaryNormal": [
+          0.8821443846107495,
+          0.4709790703334756,
+          0.000002745403251262937
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9396621706638549,
+          0.33476172041945307,
+          -0.0704953584649382
+        ],
+        "folded": [
+          0.24462043588013344,
+          0.9670531352634215,
+          -0.07049167274933976
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 6,
+        "points": [
+          [
+            -4.7952048545533685,
+            4.900935053051092,
+            0.3555649491325454
+          ],
+          [
+            3.037563688712514,
+            2.5208212849129596,
+            0.3555649491325454
+          ],
+          [
+            -2.8475573493569875,
+            4.773922137704005,
+            0.0584041835239234
+          ],
+          [
+            -2.573224541971912,
+            5.975997879303839,
+            0.00024791639250273945
+          ]
+        ],
+        "primaryNormal": [
+          -0.9456833347767866,
+          0.3242334732224766,
+          -0.023572975364725066
+        ],
+        "secondaryNormal": [
+          0.8821468858007676,
+          0.470974385500539,
+          -0.00000862536836161683
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.932861223087803,
+          0.357143107793122,
+          -0.04710349259873511
+        ],
+        "folded": [
+          0.2222483044570448,
+          0.9738510604912862,
+          -0.04711478691415293
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 7,
+        "points": [
+          [
+            -4.82298854413078,
+            4.809501100333762,
+            0.1248578060903223
+          ],
+          [
+            3.0097799242026086,
+            2.4293873549650833,
+            0.1248578060903223
+          ],
+          [
+            -2.836150211719358,
+            4.752556632220248,
+            0.02079312322570044
+          ],
+          [
+            -2.5731680865170095,
+            5.975980720339807,
+            0.00011352143958746203
+          ]
+        ],
+        "primaryNormal": [
+          -0.9438413527941774,
+          0.330295292083316,
+          -0.00827772814570542
+        ],
+        "secondaryNormal": [
+          0.8821444810427804,
+          0.47097888953518374,
+          0.000013340498563503159
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9291805767823446,
+          0.36925582735561296,
+          -0.016540546978598348
+        ],
+        "folded": [
+          0.21012673189458886,
+          0.9775345193513729,
+          -0.016523317456857388
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 8,
+        "points": [
+          [
+            -4.82298854413078,
+            4.809501100333762,
+            -0.12485780609032215
+          ],
+          [
+            3.0097799242025864,
+            2.42938735496509,
+            -0.12485780609032215
+          ],
+          [
+            -2.836150211719357,
+            4.752556632220246,
+            -0.020793123225700844
+          ],
+          [
+            -2.573168086517008,
+            5.975980720339807,
+            -0.00011352143958786448
+          ]
+        ],
+        "primaryNormal": [
+          -0.9438413527941774,
+          0.330295292083316,
+          0.00827772814570541
+        ],
+        "secondaryNormal": [
+          0.8821444810427804,
+          0.47097888953518374,
+          -0.000013340498563503159
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9291805767823446,
+          0.36925582735561296,
+          0.016540546978598327
+        ],
+        "folded": [
+          0.21012673189458886,
+          0.9775345193513729,
+          0.016523317456857367
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 9,
+        "points": [
+          [
+            -4.7952048545533685,
+            4.900935053051092,
+            -0.35556494913254527
+          ],
+          [
+            3.0375636887125443,
+            2.5208212849129503,
+            -0.35556494913254527
+          ],
+          [
+            -2.8475573493569892,
+            4.773922137704007,
+            -0.05840418352392179
+          ],
+          [
+            -2.573224541971914,
+            5.975997879303839,
+            -0.00024791639250121983
+          ]
+        ],
+        "primaryNormal": [
+          -0.9456833347767866,
+          0.3242334732224766,
+          0.02357297536472506
+        ],
+        "secondaryNormal": [
+          0.8821468858007676,
+          0.470974385500539,
+          0.00000862536836161683
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.932861223087803,
+          0.357143107793122,
+          0.04710349259873509
+        ],
+        "folded": [
+          0.2222483044570448,
+          0.9738510604912862,
+          0.04711478691415292
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 10,
+        "points": [
+          [
+            -4.743867290276934,
+            5.069882968035385,
+            -0.532140551873629
+          ],
+          [
+            3.0889012141796792,
+            2.6897692116900784,
+            -0.532140551873629
+          ],
+          [
+            -2.8678342530561913,
+            4.811901053697368,
+            -0.08525419723094296
+          ],
+          [
+            -2.5733602946053056,
+            5.976039134593033,
+            -0.0003963568071195245
+          ]
+        ],
+        "primaryNormal": [
+          -0.9490868736827608,
+          0.31303269247183574,
+          0.035279450774019144
+        ],
+        "secondaryNormal": [
+          0.8821443846107495,
+          0.4709790703334756,
+          -0.000002745403251262937
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9396621706638549,
+          0.33476172041945307,
+          0.07049535846493817
+        ],
+        "folded": [
+          0.24462043588013344,
+          0.9670531352634215,
+          0.07049167274933973
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 11,
+        "points": [
+          [
+            -4.676791530086384,
+            5.290624056746945,
+            -0.6277025794580674
+          ],
+          [
+            3.1559769496247503,
+            2.910510307920954,
+            -0.6277025794580674
+          ],
+          [
+            -2.8928685888647565,
+            4.85879056473327,
+            -0.09742746550835457
+          ],
+          [
+            -2.573511105641262,
+            5.976084963145008,
+            -0.00045891061650407683
+          ]
+        ],
+        "primaryNormal": [
+          -0.9535338115668226,
+          0.29839816716534817,
+          0.041614949611986446
+        ],
+        "secondaryNormal": [
+          0.8821469792772891,
+          0.4709742104909877,
+          0.000002084428668542117
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9485480368927907,
+          0.30551902857446556,
+          0.08315494504687021
+        ],
+        "folded": [
+          0.27387307617303586,
+          0.9581640323417129,
+          0.08315783351066704
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 12,
+        "points": [
+          [
+            -4.60418925042745,
+            5.529552489452389,
+            -0.6277025794580675
+          ],
+          [
+            3.22857917925175,
+            3.149438755829412,
+            -0.6277025794580675
+          ],
+          [
+            -2.918262930769498,
+            4.906354524128495,
+            -0.09424563953532017
+          ],
+          [
+            -2.57370062968159,
+            5.976142553635,
+            -0.0004624900996500758
+          ]
+        ],
+        "primaryNormal": [
+          -0.9583471424477159,
+          0.28255787111862446,
+          0.04161494961198645
+        ],
+        "secondaryNormal": [
+          0.8821439898261713,
+          0.47097980977272436,
+          -1.1079932326885403e-7
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.958166029191832,
+          0.2738669670058972,
+          0.0831549450468702
+        ],
+        "folded": [
+          0.30551335389468315,
+          0.9485498785531151,
+          0.08315478632582002
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 13,
+        "points": [
+          [
+            -4.537113490236901,
+            5.750293578163949,
+            -0.5321405518736291
+          ],
+          [
+            3.2956550424355777,
+            3.370179813244794,
+            -0.5321405518736291
+          ],
+          [
+            -2.940293422280727,
+            4.947617777376262,
+            -0.07755747885479897
+          ],
+          [
+            -2.5738315208221176,
+            5.976182325536531,
+            -0.0004011833964115835
+          ]
+        ],
+        "primaryNormal": [
+          -0.9627940803317777,
+          0.2679233458121369,
+          0.03527945077401916
+        ],
+        "secondaryNormal": [
+          0.8821509700526418,
+          0.4709667355577368,
+          -0.000005768192414337654
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9670518954207677,
+          0.24462427516090962,
+          0.07049535846493821
+        ],
+        "folded": [
+          0.3347846533360038,
+          0.9396546389104836,
+          0.07048684604023975
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 14,
+        "points": [
+          [
+            -4.485775925960466,
+            5.919241493148242,
+            -0.3555649491325454
+          ],
+          [
+            3.346992567708268,
+            3.5391277400810073,
+            -0.3555649491325454
+          ],
+          [
+            -2.9563020565864537,
+            4.977602156365712,
+            -0.05068604076539818
+          ],
+          [
+            -2.573984963574539,
+            5.976228947776836,
+            -0.00025829014935149774
+          ]
+        ],
+        "primaryNormal": [
+          -0.9661976192377519,
+          0.2567225650614961,
+          0.023572975364725066
+        ],
+        "secondaryNormal": [
+          0.8821445784689899,
+          0.4709787072393505,
+          0.000002217705085759282
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.97385284299682,
+          0.22224288778724088,
+          0.04710349259873512
+        ],
+        "folded": [
+          0.3571396585089687,
+          0.9328623746659466,
+          0.04710683870425088
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      },
+      {
+        "index": 15,
+        "points": [
+          [
+            -4.457992236383054,
+            6.010675445865573,
+            -0.12485780609032239
+          ],
+          [
+            3.374776236190847,
+            3.6305616992083456,
+            -0.12485780609032239
+          ],
+          [
+            -2.964676532996168,
+            4.9932876737352405,
+            -0.017589853130279595
+          ],
+          [
+            -2.5740475433438283,
+            5.976247959032546,
+            -0.00009534059576984943
+          ]
+        ],
+        "primaryNormal": [
+          -0.9680396012203611,
+          0.2506607462006566,
+          0.008277728145705425
+        ],
+        "secondaryNormal": [
+          0.8821456273734266,
+          0.4709767426333824,
+          -0.000002095761830687543
+        ],
+        "incoming": [
+          0.9568021423210139,
+          -0.29073985012364273,
+          0
+        ],
+        "reflected": [
+          -0.9775334893022783,
+          0.21013016822474972,
+          0.016540546978598362
+        ],
+        "folded": [
+          0.3692567751315584,
+          0.9291802570882381,
+          0.01653734733497654
+        ],
+        "primaryMesh": "Primary_ParabolicSurface",
+        "secondaryMesh": "Secondary_PlaneMirror",
+        "eyepieceMesh": "Eyepiece_FieldLens"
+      }
+    ],
+    "beamTriangles": 672
+  }
+}

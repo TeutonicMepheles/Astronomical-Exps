@@ -15,7 +15,7 @@ const {spawn}=require('node:child_process');
     const errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto(url);
     await page.waitForFunction(()=>window.Newton?.app?.telescope&&Newton.app.observationModel);
-    await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+    await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
     await page.locator('.observation-open').click();
     await page.evaluate(()=>{Newton.developer.setEnabled(true);Newton.developer.update('layout','observation/observation-instrument',{x:-20,y:-60,scale:1.4});});
     await page.waitForTimeout(850);

@@ -104,7 +104,7 @@ const assert=require('node:assert/strict'),{chromium}=require('playwright'),path
     await page.getByRole('button',{name:'前往组装 →',exact:true}).click();
     await page.waitForFunction(()=>Newton.course.get().stage==='assembly'&&!document.querySelector('.observatory').hasAttribute('aria-busy'));
     assert(await page.locator('#optical-mirror-surface').isHidden());
-    await page.locator('.experiment-progress__toggle').click();await page.getByRole('tab',{name:/认识镜面/}).click();
+    await page.locator('.newton-task-progress__toggle').click();await page.getByRole('tab',{name:/认识五种镜片/}).click();
     await page.getByRole('button',{name:'取下镜片',exact:true}).click();
     await page.locator('[data-mirror=concave]').dragTo(page.locator('#rail-carriage'));
     await page.waitForFunction(()=>Newton.app.telescope.lab.darkroom.art.surfaceKey==='concave/'+Newton.mirrorParts.limits('concave').initial);

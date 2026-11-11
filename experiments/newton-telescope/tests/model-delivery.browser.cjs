@@ -16,7 +16,7 @@ const root=path.resolve(__dirname,'../../..');
   page.on('request',r=>{if(r.url()!==url&&!/^(data:|blob:)/.test(r.url()))external.push(r.url().slice(0,160));});
   const started=Date.now();await page.goto(url);
   await page.waitForFunction(()=>window.Newton?.app?.telescope?.importedModel);
-  await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+  await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
   await page.waitForFunction(()=>{const v=Newton.app.telescope;return !v.director.busy&&Object.values(v.importedModel.variants).every(g=>g.children.every(o=>o.material.map.image?.complete));});
   const loadMs=Date.now()-started;
   const info=()=>page.evaluate(()=>{const v=Newton.app.telescope,m=v.importedModel;return {exterior:m.variants.exterior.children.length,cutaway:m.variants.cutaway.children.length,memory:{...v.renderer.info.memory},children:m.group.children.length};});

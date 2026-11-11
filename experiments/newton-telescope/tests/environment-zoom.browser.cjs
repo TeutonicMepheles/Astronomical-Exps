@@ -23,7 +23,7 @@ const root=path.resolve(__dirname,'../../..');
       await page.goto(url);await page.waitForFunction(()=>Newton.app?.observationModel?.resourcesReady);
       const background=await page.locator('.observation-night').evaluate(async image=>{await image.decode();return {width:image.naturalWidth,height:image.naturalHeight};});
       assert.deepEqual(background,{width:3840,height:2160},'The webpage loads the native 4K asset, including offline');
-      await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+      await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
       await page.waitForFunction(()=>Newton.app.observationModel.enabled&&!Newton.app.observationModel.frame);
       async function read(){return page.evaluate(()=>{
         const v=Newton.app.observationModel,art=document.querySelector('.observation-art'),r=art.getBoundingClientRect(),stage=art.parentElement.getBoundingClientRect();

@@ -4,15 +4,16 @@ const {chromium}=require('playwright');
 assert.equal(await page.locator('#finish-mirrors').isDisabled(),true);
 const headingStyle=()=>page.locator('.introduction').evaluate(element=>{
   const properties=['fontSize','fontWeight','letterSpacing','lineHeight','color'];
-  return ['h1','.english-title','.description'].map(selector=>{const style=getComputedStyle(element.querySelector(selector));return properties.map(property=>style[property]);});
+  return ['h1','.description'].map(selector=>{const style=getComputedStyle(element.querySelector(selector));return properties.map(property=>style[property]);});
 });
 const mirrorHeadingStyle=await headingStyle();
 await page.evaluate(()=>window.originalExperimentHeading=document.querySelector('.introduction'));
-const placeMirror=async type=>{await page.click('[data-mirror='+type+']');await page.click('#rail-carriage');};
+const placeMirror=async type=>{await page.locator('[data-mirror='+type+']').dragTo(page.locator('#rail-carriage'));await page.waitForFunction(type=>Newton.course.get().seen.includes('mirror:'+type),type);};
+const enterAssembly=async()=>{await page.click('#finish-mirrors');await page.getByRole('button',{name:'前往组装 →',exact:true}).click();await page.waitForFunction(()=>Newton.course.get().stage==='assembly'&&!document.querySelector('.observatory').hasAttribute('aria-busy'));};
 await placeMirror('plane');
 await page.screenshot({path:'artifacts/mirrors.png'});
 await placeMirror('concave');await page.waitForTimeout(200);await page.screenshot({path:'artifacts/concave.png'});
-await placeMirror('convex');await page.click('#finish-mirrors');await page.waitForTimeout(1000);
+await placeMirror('convex');await page.evaluate(()=>{for(const lens of ['concave','convex'])Newton.course.mountLens(lens);});await enterAssembly();
 await page.click('[data-piece=primary]');await page.waitForTimeout(1000);await page.screenshot({path:'artifacts/assembly-detail.png'});
 // A wrong-slot attempt must leave both parts uninstalled.
 // Return to the overall framing so both slots are in view.
@@ -27,12 +28,12 @@ assert.equal(await page.evaluate(()=>document.querySelector('.introduction')===w
 assert.equal(await page.locator('.introduction h1').innerText(),'牛顿望远镜');
 await page.click('[data-eyepiece="25"]');await page.click('#record-observation');await page.click('[data-eyepiece="10"]');await page.click('#record-observation');await page.click('[data-eyepiece="5"]');await page.click('#record-observation');
 assert.equal(await page.evaluate(()=>Newton.course.get().complete),true);await page.screenshot({path:'artifacts/observation.png'});
-await page.click('.experiment-progress__toggle');await page.click('[data-step=mirrors]');await page.waitForTimeout(1000);await page.click('.experiment-progress__toggle');await page.click('[data-step=observation]');assert.equal(await page.evaluate(()=>Newton.course.get().installed.length),2);
-assert.equal(await page.locator('.experiment-progress__toggle').getAttribute('aria-expanded'),'false');await page.setViewportSize({width:1024,height:768});await page.waitForTimeout(500);await page.screenshot({path:'artifacts/compact.png'});
-await page.click('.experiment-progress__toggle');await page.click('#restart-course');assert.equal(await page.locator('[data-step=observation]').getAttribute('aria-disabled'),'true');
+await page.click('.newton-task-progress__toggle');await page.click('[data-step=mirrors]');await page.waitForTimeout(1000);await page.click('.newton-task-progress__toggle');await page.click('[data-step=observation]');assert.equal(await page.evaluate(()=>Newton.course.get().installed.length),2);
+assert.equal(await page.locator('.newton-task-progress__toggle').getAttribute('aria-expanded'),'false');await page.setViewportSize({width:1024,height:768});await page.waitForTimeout(500);await page.screenshot({path:'artifacts/compact.png'});
+await page.click('.newton-task-progress__toggle');await page.click('#restart-course');assert.equal(await page.locator('[data-step=observation]').getAttribute('aria-disabled'),'true');
 await page.reload();await page.waitForTimeout(500);assert.equal(await page.evaluate(()=>Newton.course.get().stage),'mirrors');
 await page.emulateMedia({reducedMotion:'reduce'});await page.reload();
-await placeMirror('plane');await placeMirror('concave');await placeMirror('convex');await page.click('#finish-mirrors');
+await placeMirror('plane');await placeMirror('concave');await placeMirror('convex');await page.evaluate(()=>{for(const lens of ['concave','convex'])Newton.course.mountLens(lens);});await enterAssembly();
 await page.locator('[data-piece=primary]').dragTo(page.locator('[data-slot=primary]'));assert.equal(await page.evaluate(()=>Newton.course.get().installed.includes('primary')),true);
 await page.locator('[data-piece=secondary]').dragTo(page.locator('[data-slot=secondary]'));assert.equal(await page.evaluate(()=>Newton.course.get().assemblyDone),true);
 assert.equal(await page.evaluate(()=>Newton.app.telescope.director.busy),false);
@@ -43,6 +44,6 @@ await page.click('.live-control');assert.equal(await page.locator('#live-preview
 await page.click('.live-control');assert.equal(await page.locator('#live-preview').isChecked(),true);await page.click('#reset');assert.equal(await page.evaluate(()=>Newton.store.get().eyepiece),25);
 // Direct file opening is a delivery requirement, separate from HTTP preview.
 await page.goto(require('node:url').pathToFileURL(require('node:path').resolve('index.html')).href);await page.waitForTimeout(500);assert.equal(await page.evaluate(()=>!!Newton.app.telescope),true);
-await page.emulateMedia({reducedMotion:'no-preference'});await page.reload();await placeMirror('plane');await placeMirror('concave');await placeMirror('convex');await page.click('#finish-mirrors');await page.waitForTimeout(1000);
+await page.emulateMedia({reducedMotion:'no-preference'});await page.reload();await placeMirror('plane');await placeMirror('concave');await placeMirror('convex');await page.evaluate(()=>{for(const lens of ['concave','convex'])Newton.course.mountLens(lens);});await enterAssembly();
 await page.locator('[data-piece=primary]').dragTo(page.locator('[data-slot=primary]'));await page.waitForTimeout(700);assert.equal(await page.evaluate(()=>Newton.course.get().installed.includes('primary')),true);
 assert.deepEqual(errors,[]);console.log('PASS: stage gates, wrong/correct placement, records, review, collapse, smaller viewport, restart, reload, drag/drop, reduced motion, targets, frozen preview, file://; no browser errors.');await browser.close();})().catch(e=>{console.error(e);process.exit(1);});

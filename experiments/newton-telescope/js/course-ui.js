@@ -3,13 +3,13 @@
   'use strict';const $=s=>document.querySelector(s),all=s=>document.querySelectorAll(s);
   const mirrors={plane:{title:'平面镜',summary:'改变传播方向',description:'平面镜折转光路，不使平行光自动会聚。牛顿望远镜的副镜利用这一作用，把会聚光导向目镜。',formula:'无有限焦点 · 不提供放大',hint:'沿箭头观察：光线经 45° 平面镜反射后转向。'},concave:{title:'凹面镜',summary:'平行光会聚到实焦点',description:'凹面主镜收集远方天体的光并形成像。缩短焦距，焦点靠近镜面；增大焦距，焦点远离镜面。',formula:'抛物面：轴上平行光汇聚于实焦点',hint:'调节焦距，比较焦点位置。实线是光线的实际传播路径。'},convex:{title:'凸面镜',summary:'反射光发散 · 镜后虚焦点',description:'凸面镜将光线向外发散。反向延长线交于镜后虚焦点，因此不作为牛顿望远镜的主镜。',formula:'抛物面：反射光反向延长线交于虚焦点',hint:'虚线是反向延长线，光子不会沿虚线传播。'}};
   const names={saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'};
-  const stageNames={mirrors:'认识镜面',assembly:'组装望远镜',observation:'参数观测'};
+  const stageNames={mirrors:'认识镜片',assembly:'组装望远镜',observation:'参数观测'};
   let lastStage='';
   const heading=new N.ExperimentHeading($('.introduction'));
   $('#mirror-workspace').appendChild($('#remove-mirror'));
   $('#mirror-workspace').appendChild($('#finish-mirrors'));
   function sync(s){
-    const optical=N.store.get(),m=mirrors[s.mirror];document.querySelector('.observatory').dataset.stage=s.stage;
+    const optical=N.store.get(),m=mirrors[s.mirror],stageRoot=document.querySelector('.observatory'),lensView=stageRoot.dataset.trayPage==='lenses';stageRoot.dataset.stage=s.stage;
     $('#mirror-workspace').hidden=s.stage!=='mirrors';$('#remove-mirror').disabled=!s.mirrorMounted;
     $('#mirror-drop-slot').classList.toggle('is-selected',!!s.mirrorSelection);$('#mirror-drop-slot').setAttribute('aria-label',s.mirrorSelection?'将所选镜片放入光路':'光路安装位，请拖入镜片');
     heading.update(s.stage);
@@ -22,14 +22,16 @@
     $('#scene-title').textContent=s.stage==='mirrors'?(s.mirrorMounted?m.title+' · 已放入光路':'空光路 · 等待镜片'):s.stage==='assembly'?'反射镜装配台':'牛顿望远镜 · 完整光路';
     $('#scene-subtitle').textContent=s.stage==='mirrors'?(s.mirrorMounted?'入射光 → 镜面反射 → '+(s.mirror==='convex'?'发散光束':s.mirror==='concave'?'实焦点':'折转光束'):'将桌面镜片拖到夹具 · 光源固定于导轨'):s.stage==='assembly'?'选择或拖放零件到安装位':'入射光 → 凹面主镜 → 平面副镜 → 目镜';
     $('#course-message').textContent=s.message;
-    all('[data-mirror]').forEach(button=>{button.disabled=s.mirrorMounted&&s.mirror===button.dataset.mirror;button.draggable=!button.disabled;if(button.disabled&&document.activeElement===button)button.blur();button.setAttribute('aria-pressed',String(!button.disabled&&button.dataset.mirror===s.mirrorSelection));button.classList.toggle('is-observed',s.seen.includes(button.dataset.mirror));button.classList.toggle('is-mounted',s.mirrorMounted&&s.mirror===button.dataset.mirror);});
-    $('#mirror-focal').disabled=!s.mirrorMounted||s.mirror==='plane';const range=N.mirrorParts.limits(s.mirror);$('#mirror-focal').min=range.min;$('#mirror-focal').max=range.max;$('#mirror-focal').step=1;$('#mirror-focal').value=s.mirrorFocal;$('#mirror-focal').style.setProperty('--fill',((s.mirrorFocal-range.min)/(range.max-range.min)*100)+'%');$('#mirror-focal-value').textContent=!s.mirrorMounted?'先放入镜片':s.mirror==='plane'?'无有限焦距':s.mirrorFocal+' mm';$('#mirror-hint').textContent=s.mirrorMounted?m.summary:'拖入镜片后实时显示反射光路';
-    $('#finish-mirrors').disabled=s.seen.length!==3;$('#finish-assembly').disabled=!s.assemblyDone;
+    all('[data-mirror]').forEach(button=>{const mounted=!lensView&&s.mirrorMounted&&s.mirror===button.dataset.mirror;button.disabled=mounted;button.draggable=!button.disabled;if(button.disabled&&document.activeElement===button)button.blur();button.setAttribute('aria-pressed',String(!button.disabled&&button.dataset.mirror===s.mirrorSelection));button.classList.toggle('is-observed',s.seen.includes('mirror:'+button.dataset.mirror));button.classList.toggle('is-mounted',mounted);});
+    $('#mirror-hint').textContent=s.mirrorMounted?m.summary:'拖入镜片后实时显示反射光路';
+    const stageOneDone=N.course.isStageOneComplete(s),stageOneCount=N.course.lessonTypes.filter(type=>s.seen.includes(type)).length;
+    $('#finish-mirrors').disabled=!stageOneDone;$('#finish-mirrors').title=stageOneDone?'五类镜片已全部认识':'还有'+(N.course.lessonTypes.length-stageOneCount)+'类镜片未认识';
+    $('#finish-assembly').disabled=!s.assemblyDone;
     all('[data-piece]').forEach(button=>{const installed=s.installed.includes(button.dataset.piece);button.disabled=installed;button.draggable=!installed;button.setAttribute('aria-pressed',String(s.selected===button.dataset.piece));button.classList.toggle('is-installed',installed);button.querySelector('i').textContent=installed?'已安装':'待安装';});
     all('[data-slot]').forEach(button=>{button.hidden=s.installed.includes(button.dataset.slot);button.classList.toggle('is-target',s.selected===button.dataset.slot);});
     $('#assembly-checklist').textContent=`${s.installed.includes('primary')?'✓':'○'} 凹面主镜　${s.installed.includes('secondary')?'✓':'○'} 平面副镜`;
-    if(s.stage==='mirrors'){$('#feedback-eyebrow').textContent='01 / DARKROOM';$('#feedback-title').textContent=s.mirrorMounted?m.title:'先观察空光路';$('#feedback-mirror').hidden=!s.mirrorMounted;$('#feedback-mirror').src='assets/optical/'+s.mirror+'.png';$('#feedback-mirror').alt=m.title;$('#feedback-symbol').hidden=true;$('#feedback-summary').textContent=s.mirrorMounted?m.summary:'光束直行 · 镜片尚未放入';$('#feedback-description').textContent=s.mirrorMounted?m.description:'实验台左侧发出平行光。将一块镜片放入光路，比较放入前后的变化。实际光束用暖金实线表示；虚焦点延长线使用蓝色虚线。';$('#feedback-formula').textContent=s.mirrorMounted?m.formula:'任务：实际放入并观察三种镜面';}
-    if(s.stage==='assembly'){$('#feedback-mirror').hidden=true;$('#feedback-symbol').hidden=false;$('#feedback-eyebrow').textContent='02 / ASSEMBLY';$('#feedback-title').textContent=s.assemblyDone?'光路已接通':'两面镜子的分工';$('#feedback-symbol').textContent=s.assemblyDone?'✓':`${s.installed.length} / 2`;$('#feedback-summary').textContent=s.assemblyDone?'主镜 → 副镜 → 目镜':'选择零件，寻找安装位';$('#feedback-description').textContent='凹面主镜位于镜筒后端；45° 平面副镜位于前部，将会聚光折向侧面的目镜。安装后可拖动查看。';$('#feedback-formula').textContent='目镜是透镜组件，不是第三面反射镜';}
+    if(s.stage==='mirrors'){$('#feedback-eyebrow').textContent='01 / 光学组件认识';$('#feedback-title').textContent=s.mirrorMounted&&!lensView?m.title:'先观察空光路';$('#feedback-mirror').hidden=!(s.mirrorMounted&&!lensView);$('#feedback-mirror').src='assets/optical/'+s.mirror+'.png';$('#feedback-mirror').alt=m.title;$('#feedback-symbol').hidden=true;$('#feedback-summary').textContent=s.mirrorMounted&&!lensView?m.summary:'光束直行 · 镜片尚未放入';$('#feedback-description').textContent=s.mirrorMounted&&!lensView?m.description:'实验台左侧发出平行光。将一块镜片放入光路，比较放入前后的变化。实际光束用暖金实线表示；虚焦点延长线使用蓝色虚线。';$('#feedback-formula').textContent=`任务：实际放入并观察五类镜片 · ${stageOneCount} / ${N.course.lessonTypes.length}`;}
+    if(s.stage==='assembly'){$('#feedback-mirror').hidden=true;$('#feedback-symbol').hidden=false;$('#feedback-eyebrow').textContent='02 / 望远镜组装';$('#feedback-title').textContent=s.assemblyDone?'光路已接通':'两面镜子的分工';$('#feedback-symbol').textContent=s.assemblyDone?'✓':`${s.installed.length} / 2`;$('#feedback-summary').textContent=s.assemblyDone?'主镜 → 副镜 → 目镜':'选择零件，寻找安装位';$('#feedback-description').textContent=s.assemblyDone?'望远镜已组装完成。点击望远镜，通过阶段完成提示进入自动 360° 检视。':'凹面主镜位于镜筒后端；45° 平面副镜位于前部，将会聚光折向侧面的目镜。';$('#feedback-formula').textContent='目镜是透镜组件，不是第三面反射镜';}
     if(lastStage!==s.stage){N.store.set({running:false});$('#part-tooltip').hidden=true;lastStage=s.stage;}
     syncOptics(optical);renderRecords(s);
   }
@@ -51,20 +53,20 @@
   $('#viewport').addEventListener('dragover',e=>{if(N.course.get().stage!=='mirrors'||!N.course.get().mirrorSelection)return;e.preventDefault();e.dataTransfer.dropEffect='copy';$('#viewport').classList.add('is-drop-target');});
   $('#viewport').addEventListener('dragleave',e=>{if(!$('#viewport').contains(e.relatedTarget))$('#viewport').classList.remove('is-drop-target');});
   const overClamp=e=>{const m=N.app.telescope.lab.darkroom.art.mount,v=$('#viewport').getBoundingClientRect(),scale=v.width/$('#viewport').clientWidth;return !!e.target.closest('#mirror-drop-slot')||(m&&Math.abs(e.clientX-(v.left+m.x*scale))<105*scale&&e.clientY>v.top+(m.y-150)*scale&&e.clientY<v.top+(m.y+290)*scale);};
+  const mountReflector=type=>{if(!['plane','concave','convex'].includes(type))return;if(N.course.get().lens)N.course.removeLens();N.course.mountMirror(type);};
   N.isOverMirrorClamp=overClamp;
-  $('#viewport').addEventListener('drop',e=>{if(N.course.get().stage!=='mirrors')return;e.preventDefault();$('#viewport').classList.remove('is-drop-target');$('#mirror-drop-slot').classList.remove('is-target');if(overClamp(e))N.course.mountMirror(e.dataTransfer.getData('text/plain'));});
+  $('#viewport').addEventListener('drop',e=>{if(N.course.get().stage!=='mirrors')return;e.preventDefault();$('#viewport').classList.remove('is-drop-target');$('#mirror-drop-slot').classList.remove('is-target');if(overClamp(e))mountReflector(e.dataTransfer.getData('text/plain'));});
   $('#rail-carriage').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();N.course.setMirrorPosition(N.course.get().mirrorPosition+(e.key==='ArrowLeft'?-.1:.1));});
   // Touch/pen uses pointer capture; desktop keeps native drag/drop and keyboard fallback.
   all('[data-mirror]').forEach(button=>{let gesture=null;
     button.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'||button.disabled)return;gesture={x:e.clientX,y:e.clientY,ghost:null};button.setPointerCapture(e.pointerId);N.course.selectMirror(button.dataset.mirror);});
     button.addEventListener('pointermove',e=>{if(!gesture)return;if(!gesture.ghost&&Math.hypot(e.clientX-gesture.x,e.clientY-gesture.y)>8){gesture.ghost=true;N.mirrorDragVisual.start(button,e);}if(gesture.ghost)N.mirrorDragVisual.move(e);});
-    const end=e=>{if(!gesture)return;if(gesture.ghost&&e.type==='pointerup'&&overClamp(e))N.course.mountMirror(button.dataset.mirror);N.mirrorDragVisual.end();gesture=null;$('#mirror-drop-slot').classList.remove('is-target');};
+    const end=e=>{if(!gesture)return;if(gesture.ghost&&e.type==='pointerup'&&overClamp(e))mountReflector(button.dataset.mirror);N.mirrorDragVisual.end();gesture=null;$('#mirror-drop-slot').classList.remove('is-target');};
     button.addEventListener('pointerup',end);button.addEventListener('pointercancel',end);button.addEventListener('lostpointercapture',end);
   });
   document.addEventListener('dragend',()=>{$('#viewport').classList.remove('is-drop-target');$('#mirror-drop-slot').classList.remove('is-target');});
   $('#mirror-position').addEventListener('input',e=>N.course.setMirrorPosition(Number(e.target.value)));
   $('#remove-mirror').addEventListener('click',()=>N.course.removeMirror());
-  $('#mirror-focal').addEventListener('input',e=>N.course.setMirrorFocal(e.target.value));
   $('#finish-mirrors').addEventListener('click',()=>N.course.requestEnter('assembly'));
   $('#finish-assembly').addEventListener('click',()=>N.course.requestEnter('observation'));
   all('[data-reset-stage]').forEach(b=>b.addEventListener('click',()=>{N.course.resetStage();N.app.telescope?.resetView();}));

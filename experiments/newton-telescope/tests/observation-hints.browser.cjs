@@ -18,7 +18,7 @@ const root=path.resolve(__dirname,'../../..');
       const context=await browser.newContext({viewport,hasTouch:touch,reducedMotion:reduced?'reduce':'no-preference',offline:url.startsWith('file:')});
       const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
       await page.goto(url);await page.waitForFunction(()=>window.Newton?.app?.observationModel?.resourcesReady);
-      await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+      await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
       await page.waitForFunction(()=>Newton.app.observationModel.enabled&&!Newton.app.observationModel.frame);
       const hint=page.locator('.observation-instrument .observation-click-hint');
       async function showDelayed(node,cycle=false){

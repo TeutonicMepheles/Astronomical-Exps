@@ -26,7 +26,7 @@ const root=path.resolve(__dirname,'../../..');
       page.on('console',message=>{if(message.type()==='error')errors.push(message.text().slice(0,400));});
       await page.goto(url);
       await page.waitForFunction(()=>window.Newton?.app?.telescope&&Newton.app.observationModel);
-      await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+      await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
       await page.waitForFunction(()=>{
         const m=Newton.app.observationModel?.material;
         return m&&[m.map,m.normalMap,m.aoMap,m.roughnessMap,m.metalnessMap].every(t=>t?.image?.complete&&t.image.naturalWidth===4096);
@@ -180,7 +180,7 @@ const root=path.resolve(__dirname,'../../..');
     const reduced=await browser.newContext({viewport:{width:1600,height:900},reducedMotion:'reduce',offline:url.startsWith('file:')});
     const rp=await reduced.newPage();rp.on('pageerror',e=>errors.push(e.message));await rp.goto(url);
     await rp.waitForFunction(()=>window.Newton?.app?.telescope&&Newton.app.observationModel);
-    await rp.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+    await rp.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
     await rp.locator('[data-view-mode="section"]').click();
     assert.deepEqual(await rp.evaluate(()=>{const v=Newton.app.observationModel;return {busy:!!v.transition,section:v.section.root.visible,rays:v.section.reveal};}),{busy:false,section:true,rays:1});
     await reduced.close();

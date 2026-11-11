@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'../../..');
   if(!url){server=spawn('python',['tools/serve.py','--port','0'],{cwd:root,stdio:['ignore','pipe','pipe']});url=await new Promise((resolve,reject)=>{let text='';const timer=setTimeout(()=>reject(Error('Server startup timed out')),15000);server.on('error',reject);server.stdout.on('data',d=>{text+=d;const m=text.match(/http:\/\/127\.0\.0\.1:\d+\/experiments\/newton-telescope\//);if(m){clearTimeout(timer);resolve(m[0]);}});});}
   browser=await chromium.launch();const context=await browser.newContext({viewport:{width:1600,height:900},reducedMotion:'reduce',offline:url.startsWith('file:')}),page=await context.newPage(),errors=[],mode=url.startsWith('file:')?'offline':'online';
   page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>errors.push(r.url().slice(0,120)));
-  await page.goto(url);await page.waitForFunction(()=>window.Newton?.trayTransition);await page.locator('.table-page-next').click();await page.waitForFunction(()=>!Newton.trayTransition.busy);
+  await page.goto(url);await page.waitForFunction(()=>window.Newton?.app?.telescope&&document.querySelector('[data-table-lens=convex]'));
   const input=page.locator('#mounted-focal');
   for(const [lens,min] of [['convex',92],['concave',85]]){
    await page.locator('[data-table-lens='+lens+']').dragTo(page.locator('#rail-carriage'));
@@ -54,8 +54,7 @@ const root=path.resolve(__dirname,'../../..');
    await page.mouse.move(1500,750);await page.screenshot({path:path.join(root,'artifacts/lens-focal-'+lens+'-'+mode+'.png')});
    console.log(lens+' rendered ray contrast: '+JSON.stringify(contrast));
   }
-  await page.locator('.table-page-previous').click();await page.waitForFunction(()=>!Newton.trayTransition.busy);assert.equal(await page.locator('#optical-frame-occlusion').isVisible(),false);
-  await page.locator('.table-page-next').click();await page.waitForFunction(()=>!Newton.trayTransition.busy);assert.equal(await input.inputValue(),'1200');
-  assert.deepEqual(errors,[]);console.log('PASS focal readouts, unchanged shapes, doubled focal distances, bright near rim, dim far rim, clear aperture, visible virtual focus and paging, '+mode+'.');
+  assert.equal(await page.locator('.table-page-next,.table-page-previous').count(),0);await page.locator('[data-mirror=plane]').click();await page.waitForFunction(()=>!Newton.app.telescope.lab.darkroom.art.roundActive);assert.equal(await page.locator('#optical-frame-occlusion').isVisible(),false);assert.equal(await page.evaluate(()=>Newton.course.get().concaveShape),85);
+  assert.deepEqual(errors,[]);console.log('PASS focal readouts, unchanged shapes, doubled focal distances, bright near rim, dim far rim, clear aperture, visible virtual focus and single-page tray, '+mode+'.');
  }finally{if(browser)await browser.close();if(server)server.kill();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

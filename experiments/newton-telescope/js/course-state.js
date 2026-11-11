@@ -2,6 +2,11 @@
 (function(N){
   'use strict';
   const fresh=()=>({stage:'mirrors',mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,selected:null,installed:[],assemblyDone:false,collapsed:false,records:[],complete:false,message:'将操作台上的镜片拖入光轴夹具，观察光路。'});
+  const lessonTypes=['mirror:plane','mirror:concave','mirror:convex','lens:concave','lens:convex'];
+  const markSeen=(seen,type)=>[...new Set([...seen,type])];
+  const stageOneComplete=s=>lessonTypes.every(type=>s.seen.includes(type));
+  const stageOneCount=s=>lessonTypes.filter(type=>s.seen.includes(type)).length;
+  const stageOneMessage=s=>stageOneComplete(s)?'五类镜片已全部认识，可以进入组装。':`已完成 ${stageOneCount(s)} / ${lessonTypes.length} 类镜片。继续安装其余镜片。`;
   // Reflecting faces sit at different distances from the common holder pivot.
   const mountOffset=type=>({plane:1,concave:1.192,convex:1.8}[type]||0);
   const bounded=(value,type)=>Math.max(-1-mountOffset(type),Math.min(5.3-mountOffset(type),value));
@@ -9,15 +14,21 @@
   const emit=()=>listeners.forEach(fn=>fn(N.course.get()));
   const patch=p=>{state={...state,...p};emit();};
   N.course={
+    lessonTypes:[...lessonTypes],
     get resetVersion(){return resetVersion;},
     get:()=>({...state,seen:[...state.seen],installed:[...state.installed],records:state.records.map(r=>({...r}))}),
     subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},
     refresh(){emit();},
-    canEnter(stage){return ['mirrors','assembly','observation'].includes(stage)&&(N.developer?.enabled||stage==='mirrors'||stage==='assembly'&&state.seen.length===3||stage==='observation'&&state.assemblyDone);},
-    enter(stage){if(!this.canEnter(stage))return false;patch({stage,selected:null,mirrorSelection:null,message:stage==='mirrors'?'将桌面镜片放入光路，比较三种镜面的光线与焦点。':stage==='assembly'?'选择零件，再点击安装位。':'保持主镜不变，对比 25、10、5 mm 目镜。'});return true;},
-    selectMirror(mirror){if(state.stage!=='mirrors'||state.mirrorMounted&&state.mirror===mirror||!['plane','concave','convex'].includes(mirror))return;patch({mirrorSelection:mirror,message:'已选择镜片。拖到夹具上安装。'});},
+    isStageOneComplete(courseState=state){return stageOneComplete(courseState);},
+    canEnter(stage){return ['mirrors','assembly','observation'].includes(stage)&&(N.developer?.enabled||stage==='mirrors'||stage==='assembly'&&stageOneComplete(state)||stage==='observation'&&state.assemblyDone);},
+    enter(stage){if(!this.canEnter(stage))return false;patch({stage,selected:null,mirrorSelection:null,message:stage==='mirrors'?'将桌面五类镜片依次放入光路，观察反射、会聚与发散。':stage==='assembly'?'选择零件，再点击安装位。':'保持主镜不变，对比 25、10、5 mm 目镜。'});return true;},
+    selectMirror(mirror){if(state.stage!=='mirrors'||state.mirrorMounted&&!state.lens&&state.mirror===mirror||!['plane','concave','convex'].includes(mirror))return;patch({mirrorSelection:mirror,message:'已选择镜片。拖到夹具上安装。'});},
     clearMirrorSelection(){if(state.stage==='mirrors')patch({mirrorSelection:null});},
-    mountLens(type){if(state.stage!=='mirrors'||!['concave','convex'].includes(type))return false;patch({lens:type,message:(type==='concave'?'凹透镜已安装：光束发散，蓝色虚线反向延伸到虚焦点。':'凸透镜已安装：平行光穿过透镜后会聚到实焦点。')+'可移动镜座或取下镜片。'});return true;},
+    mountLens(type){
+      if(state.stage!=='mirrors'||!['concave','convex'].includes(type))return false;
+      const seen=markSeen(state.seen,'lens:'+type);
+      patch({lens:type,seen,message:(type==='concave'?'凹透镜已安装：光束发散，蓝色虚线反向延伸到虚焦点。':'凸透镜已安装：平行光穿过透镜后会聚到实焦点。')+' '+stageOneMessage({seen})});return true;
+    },
     removeLens(){if(state.stage==='mirrors')patch({lens:null,message:'透镜已回到桌面，圆环镜座已清空。'});},
     setConvexShape(value){value=Number(value);if(state.stage!=='mirrors'||state.lens!=='convex'||!Number.isFinite(value))return;patch({convexShape:Math.max(92,Math.min(100,value))});},
     setConcaveShape(value){value=Number(value);if(state.stage!=='mirrors'||state.lens!=='concave'||!Number.isFinite(value))return;patch({concaveShape:Math.max(85,Math.min(100,value))});},
@@ -26,7 +37,8 @@
       const names={plane:'平面镜',concave:'凹面镜',convex:'凸面镜'};
       const carriage=state.mirrorPosition+(state.mirrorMounted?mountOffset(state.mirror):0);
       const target=Number.isFinite(position)?position:carriage-mountOffset(mirror);
-      patch({mirror,mirrorFocal:N.mirrorParts?N.mirrorParts.limits(mirror).initial:mirror==='convex'?270:mirror==='concave'?440:700,mirrorPosition:bounded(target,mirror),mirrorMounted:true,mirrorSelection:null,seen:[...new Set([...state.seen,mirror])],message:names[mirror]+'已放入光路。沿导轨拖动镜面，比较光路变化。'});return true;
+      const seen=markSeen(state.seen,'mirror:'+mirror);
+      patch({mirror,mirrorFocal:N.mirrorParts?N.mirrorParts.limits(mirror).initial:mirror==='convex'?270:mirror==='concave'?440:700,mirrorPosition:bounded(target,mirror),mirrorMounted:true,mirrorSelection:null,seen,message:names[mirror]+'已放入光路。沿导轨拖动镜面，比较光路变化。 '+stageOneMessage({seen})});return true;
     },
     removeMirror(){if(state.stage!=='mirrors')return;patch({mirrorPosition:state.mirrorPosition+(state.mirrorMounted?mountOffset(state.mirror):0),mirrorMounted:false,mirrorSelection:null,message:'镜片已回到桌面。比较空光路，或放入另一块镜片。'});},
     setMirrorFocal(value){value=Number(value);if(state.stage!=='mirrors'||!state.mirrorMounted||state.mirror==='plane'||!Number.isFinite(value))return;const range=N.mirrorParts?.limits(state.mirror)||{min:200,max:1200};patch({mirrorFocal:Math.max(range.min,Math.min(range.max,value))});},
@@ -54,7 +66,7 @@
     },
     resetStage(){
       resetVersion++;
-      if(state.stage==='mirrors')patch({mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,installed:[],assemblyDone:false,records:[],complete:false,message:'光路已清空，镜片回到操作台。请重新比较三种镜面。'});
+      if(state.stage==='mirrors')patch({mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,installed:[],assemblyDone:false,records:[],complete:false,message:'光路已清空，镜片回到操作台。请重新认识五类镜片。'});
       else if(state.stage==='assembly')patch({installed:[],selected:null,assemblyDone:false,records:[],complete:false,message:'零件已回到托盘，请重新组装。'});
       else{N.store.reset();patch({records:[],complete:false,message:'已恢复观测参数，重新进行三档目镜对照。'});}
     },

@@ -1,0 +1,6 @@
+
+> astronomical-exps@0.1.0 test:browser
+> node tools/smoke.cjs
+
+PASS: actual course state sync, stage gates, keyboard tabs, review preservation, downstream reset, isolated instances, rejected navigation, unknown progress, lifecycle, desktop disclosure menu, file://
+PASS four experiment entries, shared globe/beam integration, six preview pages, measure-mode preview, completion lifecycle, offline exports; not visual acceptance.
