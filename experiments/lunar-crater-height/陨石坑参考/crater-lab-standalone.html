@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>陨石坑地形与剖面实验 · 离线版</title>
+<title>陨石坑撞击实验 · 离线版</title>
 <style>
   html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; }
   body { font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; color: #d7dae0; }
@@ -40,6 +40,96 @@
   }
   .btns button:hover { background: #2a303d; }
   .hint { margin-top: 10px; font-size: 11px; color: #7c8490; }
+  [hidden]{display:none!important}
+  #panel{width:300px;background:rgba(21,38,60,.96);padding:12px;max-height:calc(100vh - 52px)}
+  button{cursor:pointer;background:#1d3248;color:#cfe3ef;border:1px solid #40586b;border-radius:7px;padding:6px 8px}
+  button:disabled{opacity:.45;cursor:default}
+  .segments{display:flex;gap:5px;flex-wrap:wrap}
+  .segments button{flex:1;white-space:nowrap;font-size:12px}
+  .segments button.on{background:#f2a65a;color:#142235;border-color:#f2a65a;font-weight:700}
+  .panel-tabs{margin:10px 0}
+  .study{border:1px solid #8a6944;border-radius:10px;padding:10px;background:#253243}
+  .study strong{font-size:11px;color:#f2a65a;display:block;margin-bottom:8px}
+  #studyFactors{display:grid;grid-template-columns:repeat(3,1fr)}
+  #studyNote{font-size:11px;line-height:1.5;color:#a5cadb;margin:6px 0 0}
+  .field>label{font-size:11px;color:#8fb7c9;align-items:center;gap:4px}
+  .field>label[data-lock]::after{content:attr(data-lock);font-size:9px;color:#f2a65a}
+  .field{margin:7px 0}.sec{margin:9px 0 5px}
+  .experiment-actions{display:grid;gap:7px;margin-top:10px}
+  #runExperiment{background:#f2a65a;color:#142235;font-weight:700;font-size:16px;padding:10px}
+  #experimentStatus{font-size:11px;margin:0;line-height:1.4;color:#8fb7c9}
+  #teachingControls .readouts{grid-template-columns:repeat(5,1fr);gap:4px}
+  #teachingControls .cell{padding:5px}#teachingControls .cell.wide{grid-column:auto}
+  #teachingControls .cell:last-child{grid-column:1/-1}
+  #teachingControls .v{font-size:12px;color:#f2a65a}#environmentNote{font-size:10px;margin-top:3px}
+  #recordPanel{position:fixed;left:354px;right:16px;bottom:14px;padding:12px;border-radius:14px;background:rgba(21,38,60,.97);border:1px solid #40586b;font-size:11px}
+  #recordPanel header{display:flex;justify-content:space-between;align-items:center;color:#8fb7c9;margin-bottom:6px}
+  #recordPanel header span{display:flex;gap:8px;align-items:center}#recordPanel button{font-size:11px;padding:4px 7px}
+  #recordPanel table{width:100%;border-collapse:collapse;text-align:center}#recordPanel th{color:#8fb7c9;font-weight:400}
+  #recordPanel th,#recordPanel td{padding:7px 3px;border-bottom:1px solid #304357}#recordPanel p{margin:8px 0 0;color:#8fb7c9;font-size:10px}
+  #topInset{position:fixed;right:18px;top:18px;width:240px;padding:9px;border-radius:12px;background:#15263c;border:1px solid #40586b}
+  #topInset header,#topInset p{font-size:12px;color:#8fb7c9;margin:0 0 6px}#topInset p{text-align:center;margin:6px 0 0}
+  #topInsetCanvas{display:block;width:240px;height:160px;border-radius:8px}
+  #teachingControls .field{margin:5px 0}#teachingControls .segments button{padding:5px 6px}
+  #teachingControls .cell .k{font-size:10px}#teachingControls .cell .v{font-size:11px}
+  :root{--font-ui:"Segoe UI","Microsoft YaHei",sans-serif;--ink:#e8eceb;--muted:#a9bdc6;--accent:#e6ca95;--surface:#172b38;--line:#425c67}
+  body{font-family:var(--font-ui);color:var(--ink);background:#080f16;font-variant-numeric:tabular-nums}
+  #labShell{position:absolute;left:50%;top:50%;width:1600px;height:900px;overflow:hidden;background:#0e1c27;transform-origin:center}
+  #labHeading{position:absolute;left:32px;right:32px;top:24px;display:flex;align-items:center;gap:24px}
+  #labHeading span{font-size:12px;color:var(--muted);letter-spacing:2px}#labHeading h1{font-size:30px;margin:0;font-weight:600}
+  #labHeading p{margin-left:auto;font-size:14px;color:var(--muted)}
+  #stage{position:absolute;left:384px;top:112px;width:880px!important;height:540px!important;border-radius:16px}
+  #panel{position:absolute;left:32px;top:112px;width:304px;height:516px;max-height:none;overflow:hidden;padding:12px;background:var(--surface);border:1px solid var(--line);backdrop-filter:none}
+  #panel h1{display:none}.panel-tabs{margin:0 0 12px}.panel-tabs button{font-size:12px;min-height:40px}
+  button,.segments button{min-height:40px;font-size:14px;border-radius:8px;background:#213b49;color:var(--ink);border-color:var(--line)}
+  button:hover:not(:disabled),button.on,.segments button.on{background:var(--accent);border-color:var(--accent);color:#152735}
+  button:focus-visible{outline:2px solid #bde9ed;outline-offset:2px}button:disabled{opacity:.62}
+  .study{padding:0;border:0;background:none}.study strong{font-size:13px;color:var(--muted)}
+  #studyFactors{grid-template-columns:repeat(3,1fr);gap:6px}#studyFactors button{font-size:12px;padding:4px}
+  #studyNote{font-size:12px;line-height:1.5;color:var(--muted);margin:8px 0}
+  #teachingControls>.sec,#environmentNote{display:none}
+  #teachingControls .field{margin:9px 0}#teachingControls .field>label{font-size:13px;color:var(--muted);margin-bottom:5px}
+  #teachingControls .field>label[data-lock]::after{font-size:10px;color:var(--accent)}
+  #teachingControls .segments button{font-size:13px;min-height:36px}
+  .fixed-conditions{font-size:12px;color:var(--muted);margin:8px 0}.experiment-actions{gap:6px;margin-top:8px}
+  #baselineReset{min-height:30px;font-size:12px;padding:3px}#runExperiment{min-height:42px;padding:7px;background:var(--accent)}
+  #experimentStatus{font-size:11px;line-height:1.4}#nextExperiment{min-height:30px;font-size:12px;padding:3px}
+  #advancedControls{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;align-content:start}
+  #advancedControls .sec,#advancedControls .btns{grid-column:1/-1;margin:4px 0}
+  #advancedControls .hint{display:none}#advancedControls .field{margin:1px 0}#advancedControls .field label{font-size:12px}#advancedControls select{font-size:12px;min-height:32px}
+  #advancedControls .btns button{min-height:32px;font-size:12px}#advancedControls input{min-height:24px}
+  #topInset{position:absolute;right:32px;top:112px;width:260px;padding:12px;background:var(--surface);border-color:var(--line)}
+  #topInsetCanvas{width:260px;height:173px}#topInset header,#topInset p{font-size:13px;color:var(--muted)}
+  #resultCard{position:absolute;right:32px;top:366px;width:260px;height:262px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+  #resultCard h2{font-size:18px;margin:0 0 8px}#resultCard h3{font-size:12px;color:var(--muted);font-weight:400;margin:8px 0}
+  #qualitative{font-size:14px;line-height:1.55;min-height:64px;margin:0;color:var(--accent)}
+  #resultCard .readouts{grid-template-columns:repeat(3,1fr);gap:5px}#resultCard .cell{padding:5px}#resultCard .cell.wide{grid-column:auto}#resultCard .cell:last-child{grid-column:1/-1}
+  #resultCard .cell .k{font-size:10px;color:var(--muted)}#resultCard .cell .v{font-size:11px;margin:2px 0;color:var(--ink)}
+  #recordPanel{position:absolute;left:32px;right:32px;bottom:24px;height:184px;box-sizing:border-box;padding:12px 16px;background:var(--surface);border-color:var(--line)}
+  #recordPanel header{font-size:16px;color:var(--ink)}#recordPanel table{font-size:12px}#recordPanel td,#recordPanel th{padding:6px 3px}
+  #recordPanel button{min-height:28px;font-size:12px}#recordPanel p{font-size:11px;color:var(--muted)}
+  #zoomControls{position:absolute;left:1180px;top:600px;display:flex;gap:6px}#zoomControls button{width:36px;min-height:36px;font-size:20px;padding:0}
+  #labShell>.panel-tabs{position:absolute;left:32px;top:72px;width:330px;margin:0;gap:6px}
+  #labShell>.panel-tabs button{min-height:30px;padding:3px;font-size:12px}
+  .study strong,#studyNote{display:none}
+  #qualitative{min-height:48px}#resultCard .cell:last-child .v{font-size:10px}
+  #labShell{background:linear-gradient(180deg,#102942 0%,#1c4160 38%,#0f273b 72%,#0c1c2e 100%)}
+  #stage{left:384px;top:112px;width:1184px!important;height:540px!important}
+  #panel{border:0;background:transparent;padding:0;width:330px;height:540px;left:32px;top:112px}
+  #topInset{right:48px;top:128px;z-index:3;border:0;background:rgba(16,38,56,.86);width:240px;padding:8px}
+  #topInsetCanvas{width:240px;height:160px}
+  #resultCard{left:32px;right:auto;top:660px;width:320px;height:216px;box-sizing:border-box;border:0;background:transparent;padding:0}
+  #recordPanel{left:384px;right:32px;bottom:24px;height:216px;border:0;background:transparent;padding:0}
+  #resultCard .readouts{grid-template-columns:repeat(3,1fr)}#resultCard .cell{background:rgba(18,44,62,.6)}
+  #zoomControls{left:auto;right:48px;top:600px}
+  #panel button,#recordPanel button,#zoomControls button{border:0}
+  #labShell>.panel-tabs button{border:0}
+  #recordPanel td,#recordPanel th{border-bottom:1px solid rgba(194,220,226,.13)}
+  #resultCard .cell:last-child{display:none}
+  #topInset{right:48px;top:128px;width:340px;padding:14px;background:#152b3a;border:1px solid #557481;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  #topInset header{font-size:17px;font-weight:600;color:#f2e1bd;margin-bottom:10px}
+  #topInsetCanvas{width:340px;height:220px;border-radius:11px;background:#1b3747}
+  #topInset p{font-size:13px;color:#c4d8d9;border-top:1px solid #45616c;padding-top:9px;margin-top:10px}
 </style>
 </head>
 <body>
@@ -106,15 +196,10 @@
     <input type="range" id="bg" min="0" max="10" step="1" value="6">
   </div>
 
-  <div class="sec">剖面</div>
-  <div class="field"><label>剖切显示</label><select id="section"><option value="off">完整地形</option><option value="on">显示剖面</option></select></div>
-  <div class="field"><label>剖切位置 <output id="cutV">0</output></label><input type="range" id="cut" min="-35" max="35" step="0.1" value="0"></div>
-  <div class="btns"><button id="sectionView" type="button">正对剖面</button><button id="section3d" type="button">剖面 3D</button></div>
-  <div class="hint">拖动橙色球或剖面左右移动切面。</div>
   <div class="sec">材质与光照</div>
-  <div class="field"><label>材质粗糙度 <output id="matRoughV">0.92</output></label><input type="range" id="matRough" min="0.05" max="1" step="0.01" value="0.92"></div>
-  <div class="field"><label>表面颗粒 <output id="grainV">0.055</output></label><input type="range" id="grain" min="0" max="0.2" step="0.005" value="0.055"></div>
-  <div class="field"><label>材质</label><select id="surface"><option value="dust">灰色岩屑</option><option value="basalt">深色玄武岩</option><option value="sand">沙土</option></select></div>
+  <div class="field"><label>材质粗糙度 <output id="matRoughV">0.95</output></label><input type="range" id="matRough" min="0.05" max="1" step="0.01" value="0.95"></div>
+  <div class="field"><label>表面颗粒 <output id="grainV">0.006</output></label><input type="range" id="grain" min="0" max="0.2" step="0.001" value="0.006"></div>
+  <div class="field"><label>材质</label><select id="surface"><option value="dust">浅色月面岩屑</option><option value="basalt">深色玄武岩</option><option value="sand">沙土</option></select></div>
   <div class="field"><label>太阳高度 <output id="sunV">30°</output></label><input type="range" id="sun" min="8" max="75" step="1" value="30"></div>
   <div class="field"><label>观察模式</label><select id="shadow"><option value="on">地形投影</option><option value="off">关闭投影</option></select></div>
   <div id="terrainStats" class="hint"></div>
@@ -160,6 +245,8 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   };
 
   var state = { scene: "earth", type: "stone", sizeD: 50, speedV: 20, angleDeg: 90, ground: "rock" };
+  var impacted=false,studyVar='size',records=[],recordPage=0,lastExperiment=null;
+  var baseline={scene:'earth',type:'stone',sizeD:50,speedV:20,angleDeg:90,ground:'rock'};
   var clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
 
   function merged() {
@@ -266,13 +353,13 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     return;
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(1184,540);
   renderer.setClearColor(0x0b0e14);
   if (THREE.SRGBColorSpace) renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   var scene = new THREE.Scene();
   scene.background = new THREE.Color(0x0b0e14);
-  var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 800);
+  var camera = new THREE.PerspectiveCamera(50, 1184/540, 0.1, 800);
 
   var uniforms = {
     uRadius:       { value: 12 },
@@ -289,7 +376,6 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   };
 
 
-  renderer.localClippingEnabled = true;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -304,22 +390,71 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   scene.add(sun);
   scene.add(new THREE.HemisphereLight(0xa7b5cc, 0x29231d, 0.35));
 
-  // One reusable micro-height texture; geometric relief is generated separately.
-  var detailCanvas = document.createElement('canvas');
-  detailCanvas.width = detailCanvas.height = 256;
-  var ctx = detailCanvas.getContext('2d'), pixels = ctx.createImageData(256,256);
-  for(var k=0;k<256*256;k++){
-    var g = 105 + 100 * fract(Math.sin(k*12.9898+71.2)*43758.5453);
-    pixels.data[k*4]=pixels.data[k*4+1]=pixels.data[k*4+2]=g;
-    pixels.data[k*4+3]=255;
+  // Material copied from ../src/crater-3d.js (2026-11-10); kept inline for offline standalone use.
+  let textureSeed = 0xa34f97c1;
+  const random = () => ((textureSeed = (Math.imul(textureSeed, 1664525) + 1013904223) >>> 0) / 4294967296);
+  const textureSize = 1024;
+  const texCanvas = document.createElement('canvas');
+  texCanvas.width = texCanvas.height = textureSize;
+  const tx = texCanvas.getContext('2d'), tex = tx.createImageData(textureSize, textureSize);
+  for (let i=0; i<textureSize*textureSize; i++) {
+    const shade=238+Math.floor(random()*12);
+    tex.data[4*i]=shade;
+    tex.data[4*i+1]=shade-3;
+    tex.data[4*i+2]=shade-9;
+    tex.data[4*i+3]=255;
   }
-  ctx.putImageData(pixels,0,0);
-  var bump = new THREE.CanvasTexture(detailCanvas);
-  bump.wrapS = bump.wrapT = THREE.RepeatWrapping;
-  bump.repeat.set(20,20);
-  var material = new THREE.MeshStandardMaterial({color:0x99958b,roughness:0.92,
-    metalness:0,bumpMap:bump,bumpScale:0.055});
+  tx.putImageData(tex,0,0);
+  for(let i=0;i<280;i++){
+    const x=random()*textureSize,y=random()*textureSize,rx=18+random()*100,ry=9+random()*50;
+    tx.fillStyle=i%3===0?'rgba(139,118,95,.025)':'rgba(255,251,237,.045)';
+    tx.beginPath();tx.ellipse(x,y,rx,ry,random()*Math.PI,0,Math.PI*2);tx.fill();
+  }
+  for(let i=0;i<13000;i++){
+    const x=random()*textureSize,y=random()*textureSize,r=.7+random()*3.2,rotation=random()*Math.PI*2;
+    tx.fillStyle=i%4===0?'rgba(255,255,246,.20)':'rgba(126,107,89,.13)';
+    tx.beginPath();
+    for(let j=0;j<5;j++){
+      const a=rotation+j*Math.PI*2/5,radius=r*(.55+random()*.45);
+      const px=x+Math.cos(a)*radius,py=y+Math.sin(a)*radius;
+      if(j===0)tx.moveTo(px,py);else tx.lineTo(px,py);
+    }
+    tx.closePath();tx.fill();
+  }
+  tx.fillStyle='rgba(121,106,90,.16)';
+  for(let i=0;i<55000;i++)tx.fillRect(random()*textureSize,random()*textureSize,.5+random()*1.5,.5+random()*1.2);
+  for(let i=0;i<90;i++){
+    const x=30+random()*(textureSize-60),y=30+random()*(textureSize-60);
+    const r=i<14?12+random()*13:2+random()*8;
+    tx.fillStyle='rgba(125,109,93,.12)';
+    tx.beginPath();tx.ellipse(x+1,y+1,r,r*.72,random()*Math.PI,0,Math.PI*2);tx.fill();
+    tx.strokeStyle='rgba(255,251,239,.46)';tx.lineWidth=1+random()*2;
+    tx.beginPath();tx.arc(x,y,r,Math.PI*.78,Math.PI*1.8);tx.stroke();
+  }
+  const lunarTexture = new THREE.CanvasTexture(texCanvas);
+  lunarTexture.colorSpace = THREE.SRGBColorSpace;
+  lunarTexture.anisotropy = 4;
+  // A separate, offline brown soil texture for Earth. The lunar canvas remains untouched.
+  const soilCanvas=document.createElement('canvas');soilCanvas.width=soilCanvas.height=textureSize;
+  const soilContext=soilCanvas.getContext('2d'),soilPixels=soilContext.createImageData(textureSize,textureSize);
+  for(let i=0;i<textureSize*textureSize;i++){
+    const detail=tex.data[i*4]-238,grain=(random()-.5)*18;
+    soilPixels.data[i*4]=Math.max(0,Math.min(255,137+detail*1.7+grain));
+    soilPixels.data[i*4+1]=Math.max(0,Math.min(255,99+detail*1.25+grain*.8));
+    soilPixels.data[i*4+2]=Math.max(0,Math.min(255,65+detail+grain*.6));
+    soilPixels.data[i*4+3]=255;
+  }
+  soilContext.putImageData(soilPixels,0,0);
+  const soilTexture=new THREE.CanvasTexture(soilCanvas);
+  soilTexture.colorSpace=THREE.SRGBColorSpace;soilTexture.anisotropy=4;
+  const base = { color: 0xffffff, vertexColors:true, roughness: 0.95, metalness: 0,
+    map: lunarTexture, bumpMap: lunarTexture, bumpScale: 0.006, side: THREE.DoubleSide };
+  var material = new THREE.MeshStandardMaterial(base);
   var geometry = new THREE.PlaneGeometry(100,100,384,384);
+  geometry.setAttribute('color',new THREE.BufferAttribute(new Float32Array(geometry.attributes.position.count*3),3));
+  var fieldColor=new THREE.Color(0xd9d2c7),floorColor=new THREE.Color(0xd8cbbd);
+  var outerColor=new THREE.Color(0xc7b7a5),wallColor=new THREE.Color(0xab9684),rimColor=new THREE.Color(0xfff4e3);
+  var terrainColor=new THREE.Color();
   var mesh = new THREE.Mesh(geometry,material);
   mesh.rotation.x = -Math.PI/2;
   mesh.castShadow = mesh.receiveShadow = true;
@@ -368,14 +503,25 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     for(var j=0;j<pos.count;j++){
       var x=pos.getX(j),y=pos.getY(j);
       var h=rough*(1.25*fbm(x*0.16+seed,y*0.16)+0.32*fbm(x*0.85,y*0.85));
-      h+=crater(x/uniforms.uRound.value,y,r,dep,seed,uniforms.uShape.value===2||uniforms.uShape.value===3,rough);
-      for(var n=0;n<bgs.length;n++){
+      if(impacted)h+=crater(x/uniforms.uRound.value,y,r,dep,seed,uniforms.uShape.value===2||uniforms.uShape.value===3,rough);
+      for(var n=0;impacted&&n<bgs.length;n++){
         var c=bgs[n];h+=crater(x-c.x,y-c.y,c.r,c.r*0.23,seed+n*13,false,rough*0.5);
       }
       pos.setZ(j,h);
+      // Match the source material's floor/wall/rim palette at this crater's own radius.
+      var angle=Math.atan2(y,x/uniforms.uRound.value);
+      var rr=r*(1+0.14*fbm(Math.cos(angle)*2.3+seed,Math.sin(angle)*2.3+seed)+0.025*Math.sin(angle*7+seed));
+      var d=(Math.hypot(x/uniforms.uRound.value,y)/rr-1)*100;
+      if(!impacted)d=100;
+      var floorTint=1-smooth(-68,-38,d),wallTint=smooth(-78,-48,d)*(1-smooth(-7,5,d));
+      var outerTint=smooth(9,25,d)*(1-smooth(40,62,d)),rimTint=Math.exp(-Math.pow(d/15,2))*.9;
+      terrainColor.copy(fieldColor).lerp(floorColor,floorTint).lerp(outerColor,outerTint*.48)
+        .lerp(wallColor,wallTint).lerp(rimColor,rimTint);
+      terrainColor.multiplyScalar(.96+.06*noise(x*100/r*.075+12,y*100/r*.075-7));
+      geometry.attributes.color.setXYZ(j,terrainColor.r,terrainColor.g,terrainColor.b);
     }
+    geometry.attributes.color.needsUpdate=true;
     pos.needsUpdate=true;geometry.computeVertexNormals();geometry.computeBoundingSphere();
-    if (typeof updateSection === "function" && sectionGroup) updateSection();
     terrainDirty=false;rebuildMs=performance.now()-start;terrainBuilds++;
     document.getElementById('terrainStats').textContent =
       (geometry.index.count/3).toLocaleString()+' 三角形 · 生成 '+Math.round(rebuildMs)+' ms';
@@ -384,83 +530,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     stats:function(){return {builds:terrainBuilds,rebuildMs:rebuildMs,triangles:geometry.index.count/3};}};
 
 
-  // Clip the surface, then cap its exact triangle/plane intersection.
-  var cutPlane = new THREE.Plane(new THREE.Vector3(-1,0,0),0);
-  material.clippingPlanes = [cutPlane];
-  material.clipShadows = true;
-  var sectionEnabled=false, cutX=0, sectionDirty=true;
-  var sectionGroup=new THREE.Group();scene.add(sectionGroup);sectionGroup.visible=false;
-  var capMaterial=new THREE.MeshStandardMaterial({color:0x66503b,emissive:0x66503b,emissiveIntensity:0.65,roughness:1,side:THREE.DoubleSide});
-  var edgeMaterial=new THREE.MeshBasicMaterial({color:0xffbc49,side:THREE.DoubleSide,depthTest:true});
-  var cap=new THREE.Mesh(new THREE.BufferGeometry(),capMaterial);sectionGroup.add(cap);
-  var edge=new THREE.Mesh(new THREE.BufferGeometry(),edgeMaterial);sectionGroup.add(edge);
-  var handle=new THREE.Mesh(new THREE.SphereGeometry(0.65,20,12),new THREE.MeshBasicMaterial({color:0xffbc49}));
-  sectionGroup.add(handle);
-  var handleStem=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({color:0xffbc49}));sectionGroup.add(handleStem);
-  var cutPoints=[];
-  function replaceGeometry(object,g){object.geometry.dispose();object.geometry=g;}
-  function updateSection(){
-    sectionDirty=false;cutPlane.constant=sectionEnabled?cutX:1000;
-    sectionGroup.visible=sectionEnabled;
-    if(!sectionEnabled)return;
-    var pos=geometry.attributes.position,idx=geometry.index.array,N=384;
-    var col=clamp(Math.floor((cutX+50)/100*N),0,N-1), points=[];
-    // Only visit the two triangles of each cell crossed by the plane.
-    for(var row=0;row<N;row++){
-      var base=(row*N+col)*6;
-      for(var t=0;t<2;t++){
-        var ids=[idx[base+t*3],idx[base+t*3+1],idx[base+t*3+2]];
-        for(var e=0;e<3;e++){
-          var ia=ids[e],ib=ids[(e+1)%3],xa=pos.getX(ia),xb=pos.getX(ib);
-          if(Math.abs(xb-xa)<1e-8)continue;
-          var f=(cutX-xa)/(xb-xa);
-          if(f>=-1e-7&&f<=1+1e-7){
-            points.push(new THREE.Vector3(cutX,pos.getZ(ia)+(pos.getZ(ib)-pos.getZ(ia))*f,-(pos.getY(ia)+(pos.getY(ib)-pos.getY(ia))*f)));
-          }
-        }
-      }
-    }
-    points.sort(function(a,b){return a.z-b.z;});
-    cutPoints=points.filter(function(p,i){return i===0||Math.abs(p.z-points[i-1].z)>1e-6;});
-    var verts=[],stripe=[];
-    for(var j=0;j<cutPoints.length-1;j++){
-      var a=cutPoints[j],b=cutPoints[j+1],x=cutX+0.015,bottom=-Math.max(8,uniforms.uDepth.value*1.4+3);
-      verts.push(x,a.y,a.z,x,bottom,a.z,x,b.y,b.z,x,b.y,b.z,x,bottom,a.z,x,bottom,b.z);
-      stripe.push(x+0.025,a.y,a.z,x+0.025,a.y-0.22,a.z,x+0.025,b.y,b.z,
-        x+0.025,b.y,b.z,x+0.025,a.y-0.22,a.z,x+0.025,b.y-0.22,b.z);
-    }
-    var cg=new THREE.BufferGeometry();cg.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));cg.computeVertexNormals();replaceGeometry(cap,cg);
-    var eg=new THREE.BufferGeometry();eg.setAttribute('position',new THREE.Float32BufferAttribute(stripe,3));replaceGeometry(edge,eg);
-    // Handle follows the section near the crater, above the ground.
-    var anchor=cutPoints.reduce(function(best,p){return Math.abs(p.z-8)<Math.abs(best.z-8)?p:best;},cutPoints[0]);
-    handle.position.set(cutX,anchor.y+3,anchor.z);
-    replaceGeometry(handleStem,new THREE.BufferGeometry().setFromPoints([anchor,handle.position.clone()]));
-  }
-  var cutRay=new THREE.Raycaster(),cutPointer=new THREE.Vector2(),cutDragging=false,cutStartX=0,cutStartValue=0;
-  function setCut(v){cutX=clamp(v,-35,35);document.getElementById('cut').value=cutX;
-    document.getElementById('cutV').textContent=cutX.toFixed(1);sectionDirty=true;dirty();}
-  function enableSection(){sectionEnabled=true;document.getElementById('section').value='on';sectionDirty=true;dirty();}
-  document.getElementById('section').addEventListener('change',function(e){sectionEnabled=e.target.value==='on';sectionDirty=true;dirty();});
-  document.getElementById('cut').addEventListener('input',function(e){enableSection();setCut(Number(e.target.value));});
-  document.getElementById('sectionView').addEventListener('click',function(){enableSection();target.set(cutX,-5,0);sph.theta=Math.PI/2;sph.phi=0;sph.r=72;applyCam();dirty();});
-  document.getElementById('section3d').addEventListener('click',function(){enableSection();target.set(0,-2,0);sph.theta=0.95;sph.phi=0.8;sph.r=58;applyCam();dirty();});
-  canvas.addEventListener('pointerdown',function(e){
-    if(!sectionEnabled)return;
-    var rect=canvas.getBoundingClientRect();cutPointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);
-    cutRay.setFromCamera(cutPointer,camera);
-    if(cutRay.intersectObjects([handle,cap],false).length){
-      cutDragging=true;cutStartX=e.clientX;cutStartValue=cutX;canvas.setPointerCapture(e.pointerId);
-      canvas.style.cursor='ew-resize';e.stopImmediatePropagation();e.preventDefault();
-    }
-  },true);
-  canvas.addEventListener('pointermove',function(e){if(!cutDragging)return;
-    setCut(cutStartValue+(e.clientX-cutStartX)*sph.r/canvas.clientWidth*1.2);
-    e.stopImmediatePropagation();e.preventDefault();
-  },true);
-  function endCut(){cutDragging=false;canvas.style.cursor='grab';}
-  window.addEventListener('pointerup',endCut);window.addEventListener('pointercancel',endCut);
-  canvas.addEventListener('lostpointercapture',endCut);
-  Object.assign(window.craterDebug,{cap:cap,handle:handle,section:function(){return {enabled:sectionEnabled,x:cutX,points:cutPoints.length};},camera:camera});
+  Object.assign(window.craterDebug,{camera:camera});
 
   var starCount = 500;
   var starPos = new Float32Array(starCount * 3);
@@ -477,6 +547,42 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   var stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x9aa4b8, size: 1.2, sizeAttenuation: false }));
   scene.add(stars);
 
+  // Offline scene environments adapted from the source laboratory's sky/atmosphere.
+  var environmentCanvases={};
+  function environmentTexture(kind){
+    var c=document.createElement('canvas');c.width=1024;c.height=512;
+    var cx=c.getContext('2d'),g=cx.createLinearGradient(0,0,0,512),earth=kind==='earth';
+    g.addColorStop(0,earth?'#1B3A5B':'#05070C');
+    g.addColorStop(.75,earth?'#3E6E93':'#09101c');g.addColorStop(1,earth?'#8FB7C9':'#0B1120');
+    cx.fillStyle=g;cx.fillRect(0,0,1024,512);
+    if(earth){
+      var bands=[[0,.30,'rgba(76,138,186,.34)'],[.30,.62,'rgba(110,172,210,.30)'],[.62,.86,'rgba(158,200,222,.26)'],[.86,1,'rgba(196,222,235,.34)']];
+      bands.forEach(function(b){cx.fillStyle=b[2];cx.fillRect(0,b[0]*512,1024,(b[1]-b[0])*512);});
+      cx.fillStyle='rgba(255,255,255,.48)';
+      [[160,220,1],[560,130,1.3],[840,290,.9]].forEach(function(v){
+        cx.beginPath();cx.ellipse(v[0],v[1],48*v[2],12*v[2],0,0,Math.PI*2);
+        cx.ellipse(v[0]-15,v[1]-10,23*v[2],17*v[2],0,0,Math.PI*2);
+        cx.ellipse(v[0]+17,v[1]-6,25*v[2],16*v[2],0,0,Math.PI*2);cx.fill();
+      });
+    }
+    var texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;
+    environmentCanvases[kind]=texture;return texture;
+  }
+  environmentTexture('earth');environmentTexture('moon');
+  var environmentNote=document.createElement('div');
+  environmentNote.className='hint';environmentNote.id='environmentNote';
+  document.getElementById('scene').parentElement.appendChild(environmentNote);
+  function applyEnvironment(){
+    var moon=state.scene==='moon';scene.background=environmentCanvases[state.scene];
+    stars.visible=true;stars.material.opacity=moon?.9:.42;stars.material.transparent=true;
+    material.map=moon?lunarTexture:soilTexture;
+    material.bumpMap=material.map;material.needsUpdate=true;
+    fieldColor.setHex(moon?0xd9d2c7:0xb99a79);floorColor.setHex(moon?0xd8cbbd:0x9f7654);
+    outerColor.setHex(moon?0xc7b7a5:0x927459);wallColor.setHex(moon?0xab9684:0x76543d);
+    rimColor.setHex(moon?0xfff4e3:0xd0ad82);terrainDirty=true;
+    environmentNote.textContent=moon?'月球无大气 · 撞击扬起月壤尘埃':'地球大气 · 陨石进入时受摩擦、烧蚀与减速';
+  }
+
   /* 视角控制 */
   var target = new THREE.Vector3(0, 0, 0);
   var sph = { r: 58, theta: 0.95, phi: 0.8 };
@@ -492,6 +598,146 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     camera.lookAt(target);
   }
   applyCam();
+
+  // One reusable, irregular stone mesh and a short, illustrative impact sequence.
+  var impactGroup=new THREE.Group();scene.add(impactGroup);impactGroup.visible=false;
+  var meteorGeometry=new THREE.IcosahedronGeometry(1,3),meteorPositions=meteorGeometry.attributes.position;
+  var meteorColors=[],meteorDark=new THREE.Color(0x332e2a),meteorLight=new THREE.Color(0x8a7766);
+  for(var mi=0;mi<meteorPositions.count;mi++){
+    var mx=meteorPositions.getX(mi),my=meteorPositions.getY(mi),mz=meteorPositions.getZ(mi);
+    var ridge=Math.sin(mx*13+my*7)*Math.cos(mz*11-my*5),grain=Math.sin(mx*37+mz*23)*Math.sin(my*29-mz*17);
+    var radius=1+ridge*.115+grain*.045;
+    meteorPositions.setXYZ(mi,mx*radius,my*radius,mz*radius);
+    var tint=clamp(.38+ridge*.27+grain*.15,0,1),rockColor=meteorDark.clone().lerp(meteorLight,tint);
+    meteorColors.push(rockColor.r,rockColor.g,rockColor.b);
+  }
+  meteorGeometry.setAttribute('color',new THREE.Float32BufferAttribute(meteorColors,3));
+  meteorGeometry.computeVertexNormals();
+  var meteorCanvas=document.createElement('canvas');meteorCanvas.width=256;meteorCanvas.height=256;
+  var meteorCx=meteorCanvas.getContext('2d');meteorCx.fillStyle='#c5b7a4';meteorCx.fillRect(0,0,256,256);
+  var rockSeed=0x5141a7;
+  function rockRandom(){rockSeed=(Math.imul(rockSeed,1664525)+1013904223)>>>0;return rockSeed/4294967296;}
+  for(var mr=0;mr<9000;mr++){
+    var shade=Math.floor(55+rockRandom()*150),alpha=.08+rockRandom()*.32;
+    meteorCx.fillStyle='rgba('+shade+','+Math.floor(shade*.9)+','+Math.floor(shade*.78)+','+alpha+')';
+    meteorCx.fillRect(rockRandom()*256,rockRandom()*256,1+rockRandom()*3,1+rockRandom()*3);
+  }
+  var meteorTexture=new THREE.CanvasTexture(meteorCanvas);meteorTexture.wrapS=meteorTexture.wrapT=THREE.RepeatWrapping;
+  meteorTexture.colorSpace=THREE.SRGBColorSpace;
+  var meteorMaterial=new THREE.MeshStandardMaterial({map:meteorTexture,bumpMap:meteorTexture,bumpScale:.085,vertexColors:true,roughness:.94,metalness:.06,flatShading:true});
+  var meteor=new THREE.Mesh(meteorGeometry,meteorMaterial);meteor.castShadow=true;impactGroup.add(meteor);
+  function glowTexture(inner,outer){
+    var c=document.createElement('canvas');c.width=c.height=128;var g=c.getContext('2d'),grad=g.createRadialGradient(64,64,4,64,64,63);
+    grad.addColorStop(0,inner);grad.addColorStop(.34,outer);grad.addColorStop(1,'rgba(0,0,0,0)');
+    g.fillStyle=grad;g.fillRect(0,0,128,128);return new THREE.CanvasTexture(c);
+  }
+  var flameTexture=glowTexture('rgba(255,242,181,1)','rgba(255,112,41,.42)');
+  // Opaque painted core hides the terrain swap; stippled edges retain a dry pastel texture.
+  var dustCanvas=document.createElement('canvas');dustCanvas.width=dustCanvas.height=512;
+  var dc=dustCanvas.getContext('2d'),pixels=dc.createImageData(512,512);
+  for(var py=0;py<512;py++)for(var px=0;px<512;px++){
+    var nx=(px-256)/256,ny=(py-256)/256,ang=Math.atan2(ny,nx);
+    var radius=Math.hypot(nx,ny)/(1+.035*Math.sin(ang*9)+.025*Math.cos(ang*13));
+    var speck=rockRandom(),tone=rockRandom(),alpha=1-smooth(.70,.98,radius);
+    if(radius>.76)alpha*=speck>.25?1:.18;
+    var shade=1-.12*tone-.09*noise(px*.025,py*.025),pi=(py*512+px)*4;
+    pixels.data[pi]=248*shade;pixels.data[pi+1]=222*shade;pixels.data[pi+2]=184*shade;pixels.data[pi+3]=255*alpha;
+  }
+  dc.putImageData(pixels,0,0);
+  var dustTexture=new THREE.CanvasTexture(dustCanvas);dustTexture.colorSpace=THREE.SRGBColorSpace;
+  var cover=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTexture,transparent:true,depthTest:false,depthWrite:false,opacity:0}));
+  cover.renderOrder=20;impactGroup.add(cover);
+  var debris=[],debrisGeometry=new THREE.IcosahedronGeometry(1,0),debrisMaterial=new THREE.MeshStandardMaterial({color:0x9d8063,roughness:1,flatShading:true});
+  for(var bi=0;bi<32;bi++){var chip=new THREE.Mesh(debrisGeometry,debrisMaterial);chip.visible=false;impactGroup.add(chip);debris.push(chip);}
+  var trails=[],dustCloud=[];
+  for(var ti=0;ti<12;ti++){
+    var trail=new THREE.Sprite(new THREE.SpriteMaterial({map:flameTexture,color:0xffbc67,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+    impactGroup.add(trail);trails.push(trail);
+  }
+  for(var di=0;di<28;di++){
+    var puff=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTexture,color:0xffffff,transparent:true,depthTest:false,depthWrite:false,opacity:0}));
+    puff.renderOrder=21;
+    impactGroup.add(puff);dustCloud.push(puff);
+  }
+  var flash=new THREE.Sprite(new THREE.SpriteMaterial({map:flameTexture,color:0xffd899,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0}));
+  impactGroup.add(flash);flash.position.set(0,1,0);
+  var shock=new THREE.Mesh(new THREE.RingGeometry(.82,1.05,64),new THREE.MeshBasicMaterial({color:0xe6d6bc,side:THREE.DoubleSide,transparent:true,opacity:0,depthWrite:false}));
+  shock.rotation.x=-Math.PI/2;shock.position.y=.2;impactGroup.add(shock);
+  var impactMotion=null,impactStart=new THREE.Vector3(-15,27,-11),impactEnd=new THREE.Vector3(0,1.4,0);
+  function cancelImpactFx(){
+    if(!impactMotion)return;
+    impactMotion=null;impactGroup.visible=false;
+    var runButton=document.getElementById('runExperiment');if(runButton)runButton.disabled=false;
+  }
+  function startImpactFx(onComplete){
+    cancelImpactFx();impacted=false;terrainDirty=true;dirty();
+    impactMotion={start:performance.now(),onComplete:onComplete,phase:'falling',coveredFrames:0,generated:false};
+    cover.material.opacity=0;debris.forEach(function(p){p.visible=false;});
+    meteorMaterial.metalness=state.type==='iron'?.32:.06;
+    impactGroup.visible=true;meteor.visible=true;flash.material.opacity=0;shock.material.opacity=0;
+    document.getElementById('runExperiment').disabled=true;
+    document.getElementById('experimentStatus').textContent='陨石正在坠落…';
+    needsRender=true;
+  }
+  function updateImpactFx(now){
+    if(!impactMotion)return;
+    var elapsed=(now-impactMotion.start)/1000,fall=clamp(elapsed/2.15,0,1);
+    if(elapsed<2.15){
+      impactMotion.phase='falling';
+      meteor.visible=true;meteor.position.copy(impactStart).lerp(impactEnd,fall*fall);
+      meteor.scale.setScalar(2.1);meteor.rotation.set(elapsed*1.7,elapsed*2.3,elapsed*.8);
+      trails.forEach(function(sprite,i){
+        var previous=clamp(fall-i*.028,0,1),visible=fall>i*.018;
+        sprite.visible=visible&&state.scene==='earth';
+        sprite.position.copy(impactStart).lerp(impactEnd,previous*previous);
+        sprite.scale.setScalar(1.9+i*.20);
+        sprite.material.opacity=visible?.42*(1-i/trails.length):0;
+      });
+      dustCloud.forEach(function(p){p.visible=false;});
+    }else{
+      if(impactMotion.phase!=='dust')document.getElementById('experimentStatus').textContent='陨石撞击 · 尘云正在散开…';
+      impactMotion.phase='dust';meteor.visible=false;trails.forEach(function(p){p.visible=false;});
+      var spread=clamp((elapsed-2.15)/3.6,0,1),fade=1-smooth(.50,1,spread);
+      var expansion=smooth(0,.20,spread),extent=Math.max(24,uniforms.uRadius.value*uniforms.uRound.value*2);
+      // Cover the full visible terrain while its geometry changes, including the exterior apron.
+      var screenSpan=2*camera.position.distanceTo(target)*Math.tan(camera.fov*Math.PI/360)*Math.max(camera.aspect,1);
+      cover.position.copy(target);
+      // Brief full occlusion at the swap, then contract into the expanding dust plumes.
+      var veilScale=1-smooth(.23,.40,spread);
+      cover.scale.setScalar(screenSpan*(.55+1.65*veilScale));
+      cover.material.opacity=expansion*(1-smooth(.42,.88,spread));
+      if(expansion===1&&!impactMotion.generated){
+        if(impactMotion.coveredFrames>=2){impacted=true;terrainDirty=true;rebuildTerrain();impactMotion.generated=true;}
+        else impactMotion.coveredFrames++;
+      }
+      var moon=state.scene==='moon';
+      dustCloud.forEach(function(p,i){
+        var angle=i*2.39996,ring=.25+(i%7)/7,reach=ring*extent*expansion;
+        p.visible=true;p.position.set(Math.cos(angle)*reach,1+Math.sin(spread*Math.PI)*extent*(.12+ring*.35),Math.sin(angle)*reach);
+        p.scale.set(extent*(.30+ring*.28),extent*(.35+ring*.5),1);
+        p.material.color.setHex(moon?0xf3eee5:0xffffff);
+        p.material.rotation=Math.sin(angle)*.35;
+        p.material.opacity=expansion*fade*.9;
+      });
+      debris.forEach(function(p,i){
+        var angle=i*2.39996,travel=spread*extent*(.8+(i%5)*.15);
+        p.visible=spread<.83;p.position.set(Math.cos(angle)*travel,Math.max(.2,Math.sin(spread*Math.PI)*extent*(.25+(i%4)*.12)),Math.sin(angle)*travel);
+        p.scale.setScalar((.16+(i%5)*.1)*(1-smooth(.65,.85,spread)));
+        p.rotation.set(spread*(i+2),spread*(i+4),angle);
+      });
+      flash.material.opacity=Math.max(0,1-(elapsed-2.15)/.48)*.9;
+      flash.scale.setScalar(3+(elapsed-2.15)*17);
+      shock.material.opacity=0;
+      if(elapsed>=5.8&&impactMotion.generated){
+        var done=impactMotion.onComplete;impactMotion=null;impactGroup.visible=false;
+        document.getElementById('runExperiment').disabled=false;
+        done();
+        if(terrainDirty)rebuildTerrain();
+      }
+    }
+    needsRender=true;
+  }
+  Object.assign(window.craterDebug,{meteor:meteor,impact:function(){return {phase:impactMotion?impactMotion.phase:'idle',visible:impactGroup.visible,coverage:cover.material.opacity,generated:!!(impactMotion&&impactMotion.generated)};}});
 
   var dragging = false, lastX = 0, lastY = 0;
   canvas.addEventListener("pointerdown", function (e) {
@@ -519,6 +765,10 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   /* 物理 → 3D 参数映射 */
   function setReadout(id, text) { document.getElementById(id).textContent = text; }
   function applyPhysics() {
+    cancelImpactFx();
+    impacted=false;
+    if(document.getElementById('qualitative'))document.getElementById('qualitative').textContent='尚未撞击。开始实验后对比坑口大小、深浅、形状与溅射范围。';
+    applyEnvironment();
     var R = computeResult(merged());
     // 真实口径 0.3m..40km 跨 5 个数量级，画面按对数压缩
     var lg = Math.log10(Math.max(0.3, R.dia));
@@ -544,6 +794,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     setReadout("outShape", R.roundName);
     setReadout("outType", R.typeName);
     setReadout("outNote", R.note);
+    if(document.getElementById('experimentStatus'))document.getElementById('experimentStatus').textContent='未撞击 · 下方为计算预览，点击开始实验生成坑洞';
     dirty();
   }
 
@@ -600,26 +851,131 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   });
 
   window.addEventListener("resize", function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = 1184/540;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(1184,540);
     dirty();
   });
 
   wireRange("matRough",function(v){material.roughness=v;});
   wireRange("grain",function(v){material.bumpScale=v;});
   wireRange("sun",function(v){var a=v*Math.PI/180;sun.position.set(-45*Math.cos(a),45*Math.sin(a),25*Math.cos(a));document.getElementById('sunV').textContent=v+'°';});
-  wireSelect("surface",function(v){material.color.setHex({dust:0x99958b,basalt:0x494b50,sand:0xb69b76}[v]);});
+  wireSelect("surface",function(v){material.color.setHex({dust:0xffffff,basalt:0x494b50,sand:0xb69b76}[v]);});
   wireSelect("shadow",function(v){sun.castShadow=v==='on';material.needsUpdate=true;});
-  applyPhysics();
+  // Teaching controls and records are local to this standalone page.
+  var factors={size:['陨石大小','sizeD',[[20,'小 20 m'],[50,'中 50 m'],[300,'大 300 m']]],speed:['进入速度','speedV',[[10,'低 10'],[20,'中 20'],[40,'高 40']]],angle:['入射角度','angleDeg',[[90,'90°'],[45,'45°'],[30,'30°']]],type:['陨石类型','type',[['stone','石陨石'],['iron','铁陨石']]],ground:['地面成分','ground',[['loose','松散地面'],['rock','致密地面']]],scene:['模拟场景','scene',[['earth','地球'],['moon','月球']]]};
+  var panel=document.getElementById('panel');
+  var study=document.createElement('section');study.className='study';
+  study.innerHTML='<strong>① 本轮研究哪个因素（一次只改一个）</strong><div id="studyFactors" class="segments"></div><p id="studyNote"></p>';
+  panel.querySelector('h1').textContent='陨击坑实验室 · 3D';
+  panel.querySelector('h1').after(study);
+  var factorBox=document.getElementById('studyFactors');
+  Object.keys(factors).forEach(function(id){
+    var button=document.createElement('button');button.textContent=(['size','speed','angle'].indexOf(id)+1)+' · '+factors[id][0];button.dataset.factor=id;
+    button.onclick=function(){studyVar=id;var currentScene=state.scene;Object.assign(state,baseline,{scene:currentScene});lastExperiment=null;syncControls();applyPhysics();};
+    if(['size','speed','angle'].includes(id))factorBox.appendChild(button);
+    var input=document.getElementById(id),field=input.closest('.field'),choices=document.createElement('div');
+    choices.className='segments';choices.id=id+'Choices';input.hidden=true;
+    factors[id][2].forEach(function(option){
+      var b=document.createElement('button');b.textContent=option[1];b.dataset.value=option[0];
+      b.onclick=function(){if(studyVar!==id&&id!=='scene')return;state[factors[id][1]]=option[0];syncControls();applyPhysics();};choices.appendChild(b);
+    });
+    field.appendChild(choices);
+  });
+  var actions=document.createElement('div');actions.className='experiment-actions';
+  actions.innerHTML='<button id="baselineReset">回到基准条件（重新开始对比）</button><button id="runExperiment">开始实验</button><p id="experimentStatus" role="status"></p>';
+  document.getElementById('ground').closest('.field').after(actions);
+  function syncControls(){
+    Object.keys(factors).forEach(function(id){
+      var editable=id==='scene'||id===studyVar;
+      document.getElementById(id).value=state[factors[id][1]];
+      document.getElementById(id).disabled=!editable;
+      document.querySelectorAll('#'+id+'Choices button').forEach(function(b){b.disabled=!editable;b.classList.toggle('on',String(state[factors[id][1]])===b.dataset.value);});
+      var label=document.getElementById(id).closest('.field').querySelector('label');
+      label.dataset.lock=id==='scene'?'同参数场景对比':editable?'自变量 · 可调':'控制变量 · 已锁定';
+    });
+    factorBox.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.factor===studyVar);});
+    document.getElementById('studyNote').textContent='只改变'+factors[studyVar][0]+'，其余参数保持基准。可切换地球 / 月球，对比同组参数。';
+    document.getElementById('speedV').textContent=state.speedV+' km/s';document.getElementById('angleV').textContent=state.angleDeg+'°';
+  }
+  document.getElementById('baselineReset').onclick=function(){Object.assign(state,baseline,{scene:state.scene});lastExperiment=null;syncControls();applyPhysics();};
+  var recordPanel=document.createElement('section');recordPanel.id='recordPanel';
+  recordPanel.innerHTML='<header>实验记录 <span><button id="previousRecords">上一页</button><span id="recordPage"></span><button id="nextRecords">下一页</button><button id="clearRecords">清空记录</button></span></header><table><thead><tr>'+['轮次','本轮改动（只允许一项）','场景','类型','大小','速度','角度','靶材','口径','深度','溅射','坑形','坑型'].map(function(t){return '<th>'+t+'</th>';}).join('')+'</tr></thead><tbody id="recordRows"></tbody></table><p>计算沿用原页面 Holsapple π-scaling 模型；地形、地层及俯视图为示意，画面尺寸不代表实际比例。记录仅保留在本次页面会话。</p>';
+  document.body.appendChild(recordPanel);
+  function renderRecords(){
+    var pages=Math.max(1,Math.ceil(records.length/3));recordPage=clamp(recordPage,0,pages-1);
+    var body=document.getElementById('recordRows');body.replaceChildren();
+    records.slice(recordPage*3,recordPage*3+3).forEach(function(row){var tr=document.createElement('tr');row.forEach(function(value){var td=document.createElement('td');td.textContent=value;tr.appendChild(td);});body.appendChild(tr);});
+    if(!records.length){var tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=13;td.textContent='尚无记录 · 设置本轮变量后点击开始实验';tr.appendChild(td);body.appendChild(tr);}
+    document.getElementById('recordPage').textContent=(recordPage+1)+' / '+pages;
+    document.getElementById('previousRecords').disabled=recordPage===0;document.getElementById('nextRecords').disabled=recordPage===pages-1;
+  }
+  document.getElementById('previousRecords').onclick=function(){recordPage--;renderRecords();};
+  document.getElementById('nextRecords').onclick=function(){recordPage++;renderRecords();};
+  document.getElementById('clearRecords').onclick=function(){records=[];lastExperiment=null;renderRecords();};
+  document.getElementById('runExperiment').onclick=function(){
+    if(impactMotion)return;
+    var R=computeResult(merged()),change=lastExperiment?(state.scene!==lastExperiment.scene?'同参数 · 场景对比':state[factors[studyVar][1]]===lastExperiment[factors[studyVar][1]]?'重复实验':factors[studyVar][0]):'基准组（本组首轮）';
+    startImpactFx(function(){
+      impacted=true;
+      records.push([records.length+1,change,state.scene==='earth'?'地球':'月球',state.type==='stone'?'石陨石':'铁陨石',state.sizeD+' m',state.speedV+' km/s',state.angleDeg+'°',state.scene==='moon'?'月壤':state.ground==='rock'?'致密地面':'松散地面',fmtLen(R.dia),fmtLen(R.depth),fmtLen(R.eject),R.roundName,R.typeName]);
+      lastExperiment=Object.assign({},state);recordPage=Math.floor((records.length-1)/3);renderRecords();
+      document.getElementById('experimentStatus').textContent='烟尘散去 · 陨石坑已在当前视角生成';
+      var ref=computeResult(Object.assign({},baseline,{scene:state.scene,ground:state.scene==='moon'?'moon':'rock'}));
+      document.getElementById('qualitative').textContent='相对本场景基准：坑口'+(R.dia>ref.dia?'更大':R.dia<ref.dia?'更小':'相近')+'，'+(R.depth>ref.depth?'更深':R.depth<ref.depth?'更浅':'深浅相近')+'；'+R.roundName+'；溅射范围'+(R.eject>ref.eject?'更广':R.eject<ref.eject?'更小':'相近')+'。';
+      dirty();
+    });
+  };
+  // Keep advanced controls together, without duplicating the teaching parameters.
+  var advanced=document.createElement('section');advanced.id='advancedControls';advanced.hidden=true;
+  var firstAdvanced=document.getElementById('rough').closest('.field').previousElementSibling;
+  while(firstAdvanced){var next=firstAdvanced.nextElementSibling;advanced.appendChild(firstAdvanced);firstAdvanced=next;}
+  panel.appendChild(advanced);
+  var teaching=document.createElement('section');teaching.id='teachingControls';
+  while(study.nextSibling&&study.nextSibling!==advanced)teaching.appendChild(study.nextSibling);
+  study.after(teaching);
+  var tabs=document.createElement('nav');tabs.className='segments panel-tabs';tabs.innerHTML='<button class="on" id="teachingTab">实验设置与结果</button><button id="advancedTab">地形与光照</button>';study.before(tabs);
+  function showAdvanced(on){advanced.hidden=!on;teaching.hidden=on;study.hidden=on;document.getElementById('advancedTab').classList.toggle('on',on);document.getElementById('teachingTab').classList.toggle('on',!on);}
+  document.getElementById('advancedTab').onclick=function(){showAdvanced(true);};document.getElementById('teachingTab').onclick=function(){showAdvanced(false);};
+  var inset=document.createElement('aside');inset.id='topInset';inset.setAttribute('aria-label','俯视观察窗');inset.innerHTML='<header>俯视视角 · 坑口形状</header><canvas width="680" height="440" id="topInsetCanvas"></canvas><p id="topInsetLabel"></p>';document.body.appendChild(inset);
+  var insetCanvas=document.getElementById('topInsetCanvas'),insetContext=insetCanvas.getContext('2d');
+  var insetCamera=new THREE.OrthographicCamera(-34,34,22,-22,.1,500);insetCamera.position.set(0,150,0);insetCamera.up.set(0,0,-1);insetCamera.lookAt(0,0,0);
+  function renderInset(){
+    var bg=scene.background,starVisible=stars.visible,fxVisible=impactGroup.visible;
+    impactGroup.visible=false;stars.visible=false;scene.background=new THREE.Color(state.scene==='moon'?0x111622:0x3c3022);
+    try{renderer.render(scene,insetCamera);insetContext.drawImage(canvas,0,0,canvas.width,canvas.height,0,0,680,440);}
+    finally{impactGroup.visible=fxVisible;stars.visible=starVisible;scene.background=bg;}
+    document.getElementById('topInsetLabel').textContent=impacted?'口径 '+fmtLen(computeResult(merged()).dia)+' · '+computeResult(merged()).roundName:'未撞击地表';
+  }
+  Object.assign(window.craterDebug,{experiment:function(){return {impacted:impacted,records:records.length,studyVar:studyVar,params:Object.assign({},state),impactPhase:impactMotion?impactMotion.phase:'idle'};}});
+  // One 16:9 teaching stage, scaled uniformly for whiteboard and desktop windows.
+  var shell=document.createElement('main');shell.id='labShell';document.body.appendChild(shell);
+  [canvas,panel,recordPanel,inset].forEach(function(el){shell.appendChild(el);});
+  shell.appendChild(tabs);
+  var heading=document.createElement('header');heading.id='labHeading';heading.innerHTML='<span>撞击与地形 / EXPLORE</span><h1>陨石坑撞击实验</h1><p>选择场景 → 大小 → 速度 → 入射角 · 每轮只改变一个变量</p>';shell.prepend(heading);
+  var resultCard=document.createElement('section');resultCard.id='resultCard';resultCard.innerHTML='<h2>观察与比较</h2><p id="qualitative"></p><h3>模型计算 · 非实测</h3>';resultCard.appendChild(document.querySelector('.readouts'));shell.appendChild(resultCard);
+  Array.from(teaching.querySelectorAll('.sec')).forEach(function(el){if(el.textContent==='计算结果')el.remove();});
+  ['type','ground'].forEach(function(id){document.getElementById(id).closest('.field').hidden=true;});
+  var constants=document.createElement('p');constants.className='fixed-conditions';constants.textContent='固定条件：石陨石；地球致密地面 / 月球月壤。';actions.before(constants);
+  study.querySelector('strong').textContent='三个独立小实验 · 依次研究';
+  var nextStep=document.createElement('button');nextStep.id='nextExperiment';nextStep.textContent='进入下一小实验';actions.appendChild(nextStep);
+  nextStep.onclick=function(){var ids=['size','speed','angle'],next=ids.indexOf(studyVar)+1;if(next<ids.length)factorBox.querySelector('[data-factor='+ids[next]+']').click();};
+  factorBox.addEventListener('click',function(){nextStep.disabled=studyVar==='angle';});
+  var zoomControls=document.createElement('div');zoomControls.id='zoomControls';zoomControls.innerHTML='<button id="zoomIn" aria-label="放大场景">＋</button><button id="zoomOut" aria-label="缩小场景">−</button>';shell.appendChild(zoomControls);
+  document.getElementById('zoomIn').onclick=function(){sph.r=clamp(sph.r*.85,16,130);applyCam();dirty();};
+  document.getElementById('zoomOut').onclick=function(){sph.r=clamp(sph.r/ .85,16,130);applyCam();dirty();};
+  function fitLab(){var scale=Math.min(innerWidth/1600,innerHeight/900);shell.style.transform='translate(-50%,-50%) scale('+scale+')';renderer.setPixelRatio((devicePixelRatio||1)*scale);renderer.setSize(1184,540);dirty();}
+  window.addEventListener('resize',fitLab);fitLab();
+  syncControls();renderRecords();applyPhysics();
 
   function render() {
     requestAnimationFrame(render);
+    if(impactMotion)updateImpactFx(performance.now());
     if (needsRender) {
       if (terrainDirty && performance.now()<rebuildAfter) return;
       needsRender = false;
       if (terrainDirty) rebuildTerrain();
-      if(sectionDirty) updateSection();
+      if(!impactMotion)renderInset();
       renderer.render(scene, camera);
     }
   }

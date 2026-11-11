@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><script>if(window.Slardar){Slardar("context.merge",{app_id:"app_17hesbk9zrc",user_id:"",tenant_id:"5503114562",app_type:"7",arch_type:"4"});Slardar("init",{bid:"apaas_miaoda",env:"online"});Slardar("start")}</script><script>(function(e,t){e.LogAnalyticsObject=t;if(!e[t]){function c(){c.q.push(arguments)}c.q=[];e[t]=c}e[t].l=+new Date})(window,"collectEvent");var s=document.createElement("script");s.src="https://lf3-cdn-tos.bytescm.com/obj/static/log-sdk/collect/5.1/collect.js";s.crossOrigin="anonymous";s.async=true;s.onerror=function(){console.warn("Failed to load Tea script")};document.head.appendChild(s)</script><script>window.appId="app_17hesbk9zrc";window.userId="";window.tenantId="5503114562";window.csrfToken="f964414518606863767c7aa3605bb8c6eaf1e5846892fe4b464ba0dd1331c8c1";window.appEnv="runtime";window.__teaChannelDomain__="https://mcs-bd.feishu.cn";window.ENVIRONMENT="online"</script><script>"use strict";var MiaodaRuntime=(()=>{var y=Object.defineProperty;var U=Object.getOwnPropertyDescriptor;var V=Object.getOwnPropertyNames;var j=Object.prototype.hasOwnProperty;var i=(t,e)=>y(t,"name",{value:e,configurable:!0});var H=(t,e)=>{for(var r in e)y(t,r,{get:e[r],enumerable:!0})},K=(t,e,r,n)=>{if(e&&typeof e=="object"||typeof e=="function")for(let o of V(e))!j.call(t,o)&&o!==r&&y(t,o,{get:()=>e[o],enumerable:!(n=U(e,o))||n.enumerable});return t};var X=t=>K(y({},"__esModule",{value:!0}),t);var ve={};H(ve,{name:()=>ge,version:()=>_e});var J=new Set(["text/babel","text/jsx"]),Y=3e3,z=15e3,G=1e3,q=20,P=!1;function D(){P||(P=!0,document.addEventListener("DOMContentLoaded",Q,{once:!0}))}i(D,"initCreativeBabelStages");function Q(){let t=W();if(!t.length)return;let e={fetchDur:0,transformDur:0,evalDur:0,externalCount:t.filter(o=>o.src).length},r={sent:!1,scriptsDone:!1,scriptsDoneAt:null,totalStart:null,renderStart:null,renderDur:null,takeover:!1,retries:0,hardTimer:null},n=window.Babel;if(!n||typeof n.transform!="function"||typeof n.disableScriptTags!="function"||e.externalCount>0&&typeof fetch!="function"){r.scriptsDone=!0,m(e,r);return}try{n.disableScriptTags()}catch{r.scriptsDone=!0,m(e,r);return}r.takeover=!0,r.totalStart=performance.now(),r.hardTimer=setTimeout(()=>m(e,r),z),te(e,r),ee(n,t,e,r)}i(Q,"onDomContentLoaded");function W(){let t=document.getElementsByTagName("script"),e=[];for(let r=0;r<t.length;r++){let n=t[r];J.has((n.type||"").split(";")[0])&&e.push(n)}return e}i(W,"collectBabelScripts");function S(t,e){let r=t.getAttribute(e);return r===""?[]:r?r.split(",").map(n=>n.trim()):null}i(S,"attrList");function Z(t,e){var o,a,c;let r=t.getAttribute("data-type"),n={browsers:(o=S(t,"data-targets"))!=null?o:void 0};return r==="module"&&(n.esmodules="intersect"),{filename:e,presets:(a=S(t,"data-presets"))!=null?a:r==="module"?["react",["env",{modules:!1}]]:["react","env"],plugins:(c=S(t,"data-plugins"))!=null?c:["transform-class-properties","transform-object-rest-spread","transform-flow-strip-types"],sourceMaps:"inline",sourceFileName:e,targets:n}}i(Z,"buildOptions");function ee(t,e,r,n){let o=0,a=i((l,d)=>{var h;let p;if(l.src)p=l.src;else{let f=l.getAttribute("data-module");f?p=f:(o++,p=o===1?"Inline Babel script":`Inline Babel script (${o})`)}try{let f=performance.now(),v=t.transform(d,Z(l,p)),b=performance.now(),g=document.createElement("script"),w=l.getAttribute("data-type");w&&g.setAttribute("type",w),l.nonce&&(g.nonce=l.nonce),g.text=(h=v==null?void 0:v.code)!=null?h:"",document.head.appendChild(g),r.transformDur+=b-f,r.evalDur+=performance.now()-b}catch(f){console.error("[creative-babel-stages] script failed:",p,f)}},"runOne"),c=0;for(;c<e.length&&!e[c].src;)a(e[c],e[c].innerHTML),c++;if(c>=e.length){A(r,n);return}let u=e.slice(c),s=u.map(l=>{if(!l.src)return Promise.resolve(l.innerHTML);let d=performance.now();return fetch(l.src).then(p=>{if(!p.ok)throw new Error(`HTTP ${p.status}`);return p.text()}).then(p=>(r.fetchDur+=performance.now()-d,p))});(async()=>{for(let l=0;l<u.length;l++){let d=null;try{d=await s[l]}catch(p){console.error("[creative-babel-stages] load failed:",u[l].src,p);continue}a(u[l],d)}A(r,n)})()}i(ee,"runScripts");function te(t,e){let r=window.ReactDOM;if(!r)return;let n=i(c=>{if(e.renderStart===null){e.renderStart=performance.now();try{let u=new MutationObserver(()=>{u.disconnect(),e.renderDur=performance.now()-e.renderStart,e.scriptsDone&&m(t,e)});u.observe(c,{childList:!0,subtree:!0})}catch{}}},"observeCommit"),o=r.createRoot;typeof o=="function"&&(r.createRoot=(c,u)=>{let s=o.call(r,c,u),l=s.render.bind(s);return s.render=d=>(n(c),l(d)),s});let a=r.render;typeof a=="function"&&(r.render=(c,u,s)=>(n(u),a.call(r,c,u,s)))}i(te,"instrumentRender");function A(t,e){e.scriptsDone=!0,e.scriptsDoneAt=performance.now(),e.renderStart===null||e.renderDur!==null?m(t,e):setTimeout(()=>m(t,e),Y)}i(A,"onScriptsDone");function m(t,e){var a;if(e.sent)return;let r=window.Slardar;if(!r){e.retries++<q&&setTimeout(()=>m(t,e),G);return}e.sent=!0,e.hardTimer!==null&&clearTimeout(e.hardTimer);let n=e.renderDur!==null&&e.renderStart!==null?e.renderStart+e.renderDur:(a=e.scriptsDoneAt)!=null?a:performance.now(),o=e.totalStart===null?0:Math.max(0,n-e.totalStart);r("sendEvent",{name:"creative_babel_stages",metrics:{babel_total_dur:Math.round(o),babel_fetch_dur:Math.round(t.fetchDur),babel_transform_dur:Math.round(t.transformDur),babel_eval_dur:Math.round(t.evalDur)},categories:{takeover:String(e.takeover),external:String(t.externalCount>0),render_observed:String(e.renderDur!==null)}})}i(m,"trySend");var re="https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/browser.cn.js",ne="miaoda:perf:fcp",R=!1;function M(){if(R)return;if(R=!0,ie(),window.Slardar){x();return}let t=document.createElement("script");t.src=re,t.onload=()=>{window.Slardar&&x()},t.onerror=()=>{},document.head.appendChild(t)}i(M,"initCreativePerf");function x(){var o,a,c;let t=window.Slardar;if(!t)return;let e=null;t("context.merge",{app_id:(o=window.__appId__)!=null?o:"",creative_type:(a=window.__creativeType__)!=null?a:"unknown",is_public:String((c=window.__isExternallyVisible__)!=null?c:!1)}),t("init",{bid:"apaas_miaoda",env:window.ENVIRONMENT||"online"}),t("start");try{new PerformanceObserver(u=>{for(let s of u.getEntries())if(s.name==="first-contentful-paint"){e=s.startTime,t("context.merge",{has_painted:"true"});break}}).observe({type:"paint",buffered:!0})}catch{}let r=!1,n=i(()=>{if(r||!window.Slardar)return;r=!0;let u=performance.getEntriesByType("resource"),s=performance.getEntriesByType("navigation")[0],l=e!=null?e:oe(),d={transfer_size:u.reduce((p,h)=>{var f;return p+((f=h.transferSize)!=null?f:0)},0)};s&&s.domContentLoadedEventEnd>=s.responseStart&&(d.ttfb_to_dom_ready_dur=Math.round(s.domContentLoadedEventEnd-s.responseStart)),s&&l!==null&&l>=s.domContentLoadedEventEnd&&(d.render_to_fcp_dur=Math.round(l-s.domContentLoadedEventEnd)),window.Slardar("sendEvent",{name:"creative_perf",metrics:d})},"send");window.addEventListener("load",()=>setTimeout(n,500)),setTimeout(n,15e3)}i(x,"bootstrap");function ie(){if(window.parent===window||typeof performance.timeOrigin!="number")return;let t=!1;try{new PerformanceObserver(e=>{var r;if(!t)for(let n of e.getEntries()){if(n.name!=="first-contentful-paint")continue;t=!0;let o={type:ne,fcpTime:performance.timeOrigin+n.startTime,creativeType:(r=window.__creativeType__)!=null?r:"unknown"};window.parent.postMessage(o,"*");break}}).observe({type:"paint",buffered:!0})}catch{}}i(ie,"postFcpToParent");function oe(){var r;let e=performance.getEntriesByType("paint").find(n=>n.name==="first-contentful-paint");return(r=e==null?void 0:e.startTime)!=null?r:null}i(oe,"getBufferedFcpStartTime");function k(){let t="inspector-id";document.addEventListener("DOMContentLoaded",()=>{let e=window.Babel;if(!e||!e.registerPlugin)return;let r=null,n=i(()=>{let a={},c=0;return document.querySelectorAll('script[type="text/babel"],script[type="text/jsx"]').forEach(u=>{let s=u.getAttribute("src");if(s){let l=s.split("?")[0],d=l.split("/").pop()||l;a[d]=d in a?"":l}else{c++;let l=c===1?"Inline Babel script":`Inline Babel script (${c})`;a[l]=u.getAttribute("data-filename")||`inline-${c-1}`}}),a},"buildFileMap");e.availablePlugins&&delete e.availablePlugins[t],e.registerPlugin(t,({types:a})=>({visitor:{JSXOpeningElement(c,u){let s=c.node;if(s.name&&s.name.type==="JSXMemberExpression")return;for(let T=0;T<s.attributes.length;T++){let E=s.attributes[T];if(E.type==="JSXAttribute"&&E.name&&E.name.name==="data-inspector-id")return}let l=u.file&&u.file.opts&&u.file.opts.filename||"?";r===null&&(r=n());let d=l.split("?")[0],p=d.split("/").pop()||d,h=r[l]||r[p]||d.replace(/^\/?[a-z][a-z0-9+.-]*:\/{1,2}[^/]+/i,"").replace(/^\/+/,"")||l,f=s.loc&&s.loc.start,v=f?f.line:0,b=f?f.column+1:0,g=s.name&&s.name.type==="JSXIdentifier"?s.name.name:h,w=`jsx:${h}:${g}:${v}:${b}`;s.attributes.push(a.jsxAttribute(a.jsxIdentifier("data-inspector-id"),a.stringLiteral(w)))}}}));let o="";try{let a=document.getElementById("__srcmap");if(a&&a.textContent){let c=JSON.parse(a.textContent),u=c==null?void 0:c.file;typeof u=="string"&&(o=u)}}catch{}document.querySelectorAll('script[type="text/babel"],script[type="text/jsx"]').forEach((a,c)=>{let u=a.getAttribute("data-plugins")||"";if(u.indexOf(t)<0&&a.setAttribute("data-plugins",u?`${u},${t}`:t),!a.hasAttribute("data-filename")){let s=o?`${o}#inline-${c}`:`inline-${c}`;a.setAttribute("data-filename",a.getAttribute("src")||s)}})})}i(k,"registerInspectorIdPlugin");function C(){if(typeof crypto!="undefined"&&crypto.getRandomValues){let e=new Uint8Array(8);return crypto.getRandomValues(e),Array.from(e).map(r=>r.toString(16).padStart(2,"0")).join("")}let t="";for(let e=0;e<16;e++)t+=Math.floor(Math.random()*16).toString(16);return t}i(C,"generateUUID");var L="x_sdk_device_id";function se(){try{let t=localStorage.getItem(L);return t||(t=C(),localStorage.setItem(L,t)),t}catch{return C()}}i(se,"getDeviceId");function ae(){let t=typeof navigator!="undefined"?navigator.userAgent:"";return t&&(/Android/i.test(t)&&/Mobile/i.test(t)||/iPhone|iPod/i.test(t)||/BlackBerry|IEMobile|Opera Mini/i.test(t))?"mobile":"desktop"}i(ae,"getDeviceType");var ce="pageSessionID";function le(){try{return new URLSearchParams(window.location.search).get(ce)||""}catch{return""}}i(le,"getPvId");function ue(t={}){let e=t.pvId||le();return{app_id:window.appId||"",tenant_id:window.tenantId||"",user_id:window.userId||"",did:se(),module:"app_web",app_env:"runtime",source_type:"user",device_type:ae(),release_commit_id:window.__RELEASE_COMMIT_ID__||"",...e?{pv_id:e}:{}}}i(ue,"getDefaultAttributes");function N(t){let e=Math.round(t);if(!Number.isFinite(e))throw new RangeError(`toNanoString: \u975E\u6CD5\u65F6\u95F4\u6233 ${t}`);return typeof BigInt!="function"?e===0?"0":`${e}000000`:String(BigInt(e)*BigInt(1e6))}i(N,"toNanoString");var de="1.0.2";function pe(t,e){let r=ue(e),n=N(Date.now());return{metricsData:{resource:{attributes:{sdk_version:de,sdk_lang:"javascript",sdk_type:"client-frontend"}},metrics:[{name:"apaas_internal_metrics_pv_uv",description:"Count of page views",unit:"",scopeName:"apaas_internal_metrics_pv_uv",sum:{aggregationTemporality:1,isMonotonic:!0,dataPoints:t.map(o=>({attributes:{...r,url:o.url,path:o.path,referrer:o.referrer},startTimeUnixNano:N(o.timestampMs),timeUnixNano:n,asDouble:1}))}}]}}}i(pe,"buildPayload");function fe(t,e,r={},n){if(e.length===0)return;let o;try{o=JSON.stringify(pe(e,n))}catch{return}try{fetch(t,{method:"POST",headers:{"Content-Type":"application/json","X-Suda-Csrf-Token":window.csrfToken||"",...r},body:o,keepalive:!0}).catch(()=>{})}catch{}}i(fe,"sendPvData");var I="__APAAS_PV_TRACKER_STARTED__";function he(){try{let t=window;return t[I]?!1:(t[I]=!0,!0)}catch{return!0}}i(he,"claimPvReporting");function B(){try{window[I]=!1}catch{}}i(B,"releasePvReporting");var _,me=(_=class{constructor(){this.started=!1,this.disposers=[],this.holdsPvReporting=!1,this.buffer=[]}static get instance(){return this._instance||(this._instance=new _),this._instance}start(e){var r;if(!this.started&&he()){this.holdsPvReporting=!0,this.config=e,this.started=!0;try{this.listenRouteChanges(),this.registerLifecycleListeners();let n=(r=e.flushIntervalMs)!=null?r:1e4;this.flushTimer=setInterval(()=>this.flush(),n)}catch(n){throw this.started=!1,this.flushTimer&&(clearInterval(this.flushTimer),this.flushTimer=void 0),this.holdsPvReporting=!1,B(),n}}}shutdown(){this.flush(),this.flushTimer&&(clearInterval(this.flushTimer),this.flushTimer=void 0),this.firstFlushTimer&&(clearTimeout(this.firstFlushTimer),this.firstFlushTimer=void 0),this.started=!1;for(let e of this.disposers.splice(0))try{e()}catch{}this.holdsPvReporting&&(this.holdsPvReporting=!1,B())}pageKey(){let{origin:e,pathname:r,search:n}=window.location;return`${e}${r}${n}`}scheduleFirstFlush(){var e;let r=(e=this.config)==null?void 0:e.firstFlushDelayMs;r==null||this.firstFlushTimer||(this.firstFlushTimer=setTimeout(()=>this.flush(),r))}recordPv(){let e=this.pageKey();this.lastKey!==e&&(this.lastKey=e,this.buffer.push({url:window.location.href,path:window.location.pathname,referrer:document.referrer,timestampMs:Date.now()}),this.scheduleFirstFlush())}flush(){if(!this.config||this.buffer.length===0)return;let e=this.buffer.splice(0);fe(this.config.collectorUrl,e,this.config.headers,{pvId:this.config.pvId})}listenRouteChanges(){this.recordPv();let e=i(()=>this.recordPv(),"onPopState");window.addEventListener("popstate",e),this.disposers.push(()=>window.removeEventListener("popstate",e)),this.patchHistory("pushState"),this.patchHistory("replaceState")}patchHistory(e){let r=history[e],n=i(()=>this.recordPv(),"recordPv");history[e]=function(...o){let a=r.apply(this,o);return n(),a},this.disposers.push(()=>{history[e]=r})}registerLifecycleListeners(){let e=i(()=>{document.visibilityState==="hidden"&&this.flush()},"onVisibilityChange");document.addEventListener("visibilitychange",e),this.disposers.push(()=>document.removeEventListener("visibilitychange",e));let r=i(()=>this.flush(),"onPageHide");window.addEventListener("pagehide",r),this.disposers.push(()=>window.removeEventListener("pagehide",r))}},i(_,"_PvTracker"),_),O=me.instance;function F(){return window.appId||null}i(F,"getAppId");function $(){var e;let t=(e=F())!=null?e:"";O.start({collectorUrl:`/app/${t}/__runtime__/api/v1/observability/metrics/collect`,firstFlushDelayMs:1e3})}i($,"initCreativePvTracking");var _e="0.0.18",ge="@lark-apaas/miaoda-coding-sdk";window.__CREATIVITY_RUNTIME__||(window.__CREATIVITY_RUNTIME__=!0,k(),M(),$(),D());return X(ve);})();
+</script><script>"use strict";var MiaodaRuntime=(()=>{var Pe=Object.create;var R=Object.defineProperty;var Be=Object.getOwnPropertyDescriptor;var Re=Object.getOwnPropertyNames;var De=Object.getPrototypeOf,Fe=Object.prototype.hasOwnProperty;var i=(t,e)=>R(t,"name",{value:e,configurable:!0});var V=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),He=(t,e)=>{for(var o in e)R(t,o,{get:e[o],enumerable:!0})},q=(t,e,o,u)=>{if(e&&typeof e=="object"||typeof e=="function")for(let f of Re(e))!Fe.call(t,f)&&f!==o&&R(t,f,{get:()=>e[f],enumerable:!(u=Be(e,f))||u.enumerable});return t};var Q=(t,e,o)=>(o=t!=null?Pe(De(t)):{},q(e||!t||!t.__esModule?R(o,"default",{value:t,enumerable:!0}):o,t)),Ne=t=>q(R({},"__esModule",{value:!0}),t);var te=V((ee,D)=>{"use strict";(function(t){"use strict";function e(n,h){var r=(n&65535)+(h&65535),w=(n>>16)+(h>>16)+(r>>16);return w<<16|r&65535}i(e,"safeAdd");function o(n,h){return n<<h|n>>>32-h}i(o,"bitRotateLeft");function u(n,h,r,w,C,S){return e(o(e(e(h,n),e(w,S)),C),r)}i(u,"md5cmn");function f(n,h,r,w,C,S,A){return u(h&r|~h&w,n,h,C,S,A)}i(f,"md5ff");function m(n,h,r,w,C,S,A){return u(h&w|r&~w,n,h,C,S,A)}i(m,"md5gg");function g(n,h,r,w,C,S,A){return u(h^r^w,n,h,C,S,A)}i(g,"md5hh");function b(n,h,r,w,C,S,A){return u(r^(h|~w),n,h,C,S,A)}i(b,"md5ii");function v(n,h){n[h>>5]|=128<<h%32,n[(h+64>>>9<<4)+14]=h;var r,w,C,S,A,a=1732584193,s=-271733879,c=-1732584194,l=271733878;for(r=0;r<n.length;r+=16)w=a,C=s,S=c,A=l,a=f(a,s,c,l,n[r],7,-680876936),l=f(l,a,s,c,n[r+1],12,-389564586),c=f(c,l,a,s,n[r+2],17,606105819),s=f(s,c,l,a,n[r+3],22,-1044525330),a=f(a,s,c,l,n[r+4],7,-176418897),l=f(l,a,s,c,n[r+5],12,1200080426),c=f(c,l,a,s,n[r+6],17,-1473231341),s=f(s,c,l,a,n[r+7],22,-45705983),a=f(a,s,c,l,n[r+8],7,1770035416),l=f(l,a,s,c,n[r+9],12,-1958414417),c=f(c,l,a,s,n[r+10],17,-42063),s=f(s,c,l,a,n[r+11],22,-1990404162),a=f(a,s,c,l,n[r+12],7,1804603682),l=f(l,a,s,c,n[r+13],12,-40341101),c=f(c,l,a,s,n[r+14],17,-1502002290),s=f(s,c,l,a,n[r+15],22,1236535329),a=m(a,s,c,l,n[r+1],5,-165796510),l=m(l,a,s,c,n[r+6],9,-1069501632),c=m(c,l,a,s,n[r+11],14,643717713),s=m(s,c,l,a,n[r],20,-373897302),a=m(a,s,c,l,n[r+5],5,-701558691),l=m(l,a,s,c,n[r+10],9,38016083),c=m(c,l,a,s,n[r+15],14,-660478335),s=m(s,c,l,a,n[r+4],20,-405537848),a=m(a,s,c,l,n[r+9],5,568446438),l=m(l,a,s,c,n[r+14],9,-1019803690),c=m(c,l,a,s,n[r+3],14,-187363961),s=m(s,c,l,a,n[r+8],20,1163531501),a=m(a,s,c,l,n[r+13],5,-1444681467),l=m(l,a,s,c,n[r+2],9,-51403784),c=m(c,l,a,s,n[r+7],14,1735328473),s=m(s,c,l,a,n[r+12],20,-1926607734),a=g(a,s,c,l,n[r+5],4,-378558),l=g(l,a,s,c,n[r+8],11,-2022574463),c=g(c,l,a,s,n[r+11],16,1839030562),s=g(s,c,l,a,n[r+14],23,-35309556),a=g(a,s,c,l,n[r+1],4,-1530992060),l=g(l,a,s,c,n[r+4],11,1272893353),c=g(c,l,a,s,n[r+7],16,-155497632),s=g(s,c,l,a,n[r+10],23,-1094730640),a=g(a,s,c,l,n[r+13],4,681279174),l=g(l,a,s,c,n[r],11,-358537222),c=g(c,l,a,s,n[r+3],16,-722521979),s=g(s,c,l,a,n[r+6],23,76029189),a=g(a,s,c,l,n[r+9],4,-640364487),l=g(l,a,s,c,n[r+12],11,-421815835),c=g(c,l,a,s,n[r+15],16,530742520),s=g(s,c,l,a,n[r+2],23,-995338651),a=b(a,s,c,l,n[r],6,-198630844),l=b(l,a,s,c,n[r+7],10,1126891415),c=b(c,l,a,s,n[r+14],15,-1416354905),s=b(s,c,l,a,n[r+5],21,-57434055),a=b(a,s,c,l,n[r+12],6,1700485571),l=b(l,a,s,c,n[r+3],10,-1894986606),c=b(c,l,a,s,n[r+10],15,-1051523),s=b(s,c,l,a,n[r+1],21,-2054922799),a=b(a,s,c,l,n[r+8],6,1873313359),l=b(l,a,s,c,n[r+15],10,-30611744),c=b(c,l,a,s,n[r+6],15,-1560198380),s=b(s,c,l,a,n[r+13],21,1309151649),a=b(a,s,c,l,n[r+4],6,-145523070),l=b(l,a,s,c,n[r+11],10,-1120210379),c=b(c,l,a,s,n[r+2],15,718787259),s=b(s,c,l,a,n[r+9],21,-343485551),a=e(a,w),s=e(s,C),c=e(c,S),l=e(l,A);return[a,s,c,l]}i(v,"binlMD5");function L(n){var h,r="",w=n.length*32;for(h=0;h<w;h+=8)r+=String.fromCharCode(n[h>>5]>>>h%32&255);return r}i(L,"binl2rstr");function x(n){var h,r=[];for(r[(n.length>>2)-1]=void 0,h=0;h<r.length;h+=1)r[h]=0;var w=n.length*8;for(h=0;h<w;h+=8)r[h>>5]|=(n.charCodeAt(h/8)&255)<<h%32;return r}i(x,"rstr2binl");function I(n){return L(v(x(n),n.length*8))}i(I,"rstrMD5");function E(n,h){var r,w=x(n),C=[],S=[],A;for(C[15]=S[15]=void 0,w.length>16&&(w=v(w,n.length*8)),r=0;r<16;r+=1)C[r]=w[r]^909522486,S[r]=w[r]^1549556828;return A=v(C.concat(x(h)),512+h.length*8),L(v(S.concat(A),640))}i(E,"rstrHMACMD5");function O(n){var h="0123456789abcdef",r="",w,C;for(C=0;C<n.length;C+=1)w=n.charCodeAt(C),r+=h.charAt(w>>>4&15)+h.charAt(w&15);return r}i(O,"rstr2hex");function T(n){return unescape(encodeURIComponent(n))}i(T,"str2rstrUTF8");function d(n){return I(T(n))}i(d,"rawMD5");function p(n){return O(d(n))}i(p,"hexMD5");function y(n,h){return E(T(n),T(h))}i(y,"rawHMACMD5");function _(n,h){return O(y(n,h))}i(_,"hexHMACMD5");function k(n,h,r){return h?r?y(h,n):_(h,n):r?d(n):p(n)}i(k,"md5"),typeof define=="function"&&define.amd?define(function(){return k}):typeof D=="object"&&D.exports?D.exports=k:t.md5=k})(ee)});var re=V((F,ne)=>{"use strict";(function(t,e){typeof F=="object"?ne.exports=F=e():typeof define=="function"&&define.amd?define([],e):t.CryptoJS=e()})(F,function(){var t=t||(function(e,o){var u=Object.create||(function(){function d(){}return i(d,"F"),function(p){var y;return d.prototype=p,y=new d,d.prototype=null,y}})(),f={},m=f.lib={},g=m.Base=(function(){return{extend:i(function(d){var p=u(this);return d&&p.mixIn(d),(!p.hasOwnProperty("init")||this.init===p.init)&&(p.init=function(){p.$super.init.apply(this,arguments)}),p.init.prototype=p,p.$super=this,p},"extend"),create:i(function(){var d=this.extend();return d.init.apply(d,arguments),d},"create"),init:i(function(){},"init"),mixIn:i(function(d){for(var p in d)d.hasOwnProperty(p)&&(this[p]=d[p]);d.hasOwnProperty("toString")&&(this.toString=d.toString)},"mixIn"),clone:i(function(){return this.init.prototype.extend(this)},"clone")}})(),b=m.WordArray=g.extend({init:i(function(d,p){d=this.words=d||[],p!=o?this.sigBytes=p:this.sigBytes=d.length*4},"init"),toString:i(function(d){return(d||L).stringify(this)},"toString"),concat:i(function(d){var p=this.words,y=d.words,_=this.sigBytes,k=d.sigBytes;if(this.clamp(),_%4)for(var n=0;n<k;n++){var h=y[n>>>2]>>>24-n%4*8&255;p[_+n>>>2]|=h<<24-(_+n)%4*8}else for(var n=0;n<k;n+=4)p[_+n>>>2]=y[n>>>2];return this.sigBytes+=k,this},"concat"),clamp:i(function(){var d=this.words,p=this.sigBytes;d[p>>>2]&=4294967295<<32-p%4*8,d.length=e.ceil(p/4)},"clamp"),clone:i(function(){var d=g.clone.call(this);return d.words=this.words.slice(0),d},"clone"),random:i(function(d){for(var p=[],y=i(function(r){var r=r,w=987654321,C=4294967295;return function(){w=36969*(w&65535)+(w>>16)&C,r=18e3*(r&65535)+(r>>16)&C;var S=(w<<16)+r&C;return S/=4294967296,S+=.5,S*(e.random()>.5?1:-1)}},"r"),_=0,k;_<d;_+=4){var n=y((k||e.random())*4294967296);k=n()*987654071,p.push(n()*4294967296|0)}return new b.init(p,d)},"random")}),v=f.enc={},L=v.Hex={stringify:i(function(d){for(var p=d.words,y=d.sigBytes,_=[],k=0;k<y;k++){var n=p[k>>>2]>>>24-k%4*8&255;_.push((n>>>4).toString(16)),_.push((n&15).toString(16))}return _.join("")},"stringify"),parse:i(function(d){for(var p=d.length,y=[],_=0;_<p;_+=2)y[_>>>3]|=parseInt(d.substr(_,2),16)<<24-_%8*4;return new b.init(y,p/2)},"parse")},x=v.Latin1={stringify:i(function(d){for(var p=d.words,y=d.sigBytes,_=[],k=0;k<y;k++){var n=p[k>>>2]>>>24-k%4*8&255;_.push(String.fromCharCode(n))}return _.join("")},"stringify"),parse:i(function(d){for(var p=d.length,y=[],_=0;_<p;_++)y[_>>>2]|=(d.charCodeAt(_)&255)<<24-_%4*8;return new b.init(y,p)},"parse")},I=v.Utf8={stringify:i(function(d){try{return decodeURIComponent(escape(x.stringify(d)))}catch{throw new Error("Malformed UTF-8 data")}},"stringify"),parse:i(function(d){return x.parse(unescape(encodeURIComponent(d)))},"parse")},E=m.BufferedBlockAlgorithm=g.extend({reset:i(function(){this._data=new b.init,this._nDataBytes=0},"reset"),_append:i(function(d){typeof d=="string"&&(d=I.parse(d)),this._data.concat(d),this._nDataBytes+=d.sigBytes},"_append"),_process:i(function(d){var p=this._data,y=p.words,_=p.sigBytes,k=this.blockSize,n=k*4,h=_/n;d?h=e.ceil(h):h=e.max((h|0)-this._minBufferSize,0);var r=h*k,w=e.min(r*4,_);if(r){for(var C=0;C<r;C+=k)this._doProcessBlock(y,C);var S=y.splice(0,r);p.sigBytes-=w}return new b.init(S,w)},"_process"),clone:i(function(){var d=g.clone.call(this);return d._data=this._data.clone(),d},"clone"),_minBufferSize:0}),O=m.Hasher=E.extend({cfg:g.extend(),init:i(function(d){this.cfg=this.cfg.extend(d),this.reset()},"init"),reset:i(function(){E.reset.call(this),this._doReset()},"reset"),update:i(function(d){return this._append(d),this._process(),this},"update"),finalize:i(function(d){d&&this._append(d);var p=this._doFinalize();return p},"finalize"),blockSize:512/32,_createHelper:i(function(d){return function(p,y){return new d.init(y).finalize(p)}},"_createHelper"),_createHmacHelper:i(function(d){return function(p,y){return new T.HMAC.init(d,y).finalize(p)}},"_createHmacHelper")}),T=f.algo={};return f})(Math);return t})});var oe=V((H,ie)=>{"use strict";(function(t,e){typeof H=="object"?ie.exports=H=e(re()):typeof define=="function"&&define.amd?define(["./core"],e):e(t.CryptoJS)})(H,function(t){return(function(){var e=t,o=e.lib,u=o.WordArray,f=o.Hasher,m=e.algo,g=[],b=m.SHA1=f.extend({_doReset:i(function(){this._hash=new u.init([1732584193,4023233417,2562383102,271733878,3285377520])},"_doReset"),_doProcessBlock:i(function(v,L){for(var x=this._hash.words,I=x[0],E=x[1],O=x[2],T=x[3],d=x[4],p=0;p<80;p++){if(p<16)g[p]=v[L+p]|0;else{var y=g[p-3]^g[p-8]^g[p-14]^g[p-16];g[p]=y<<1|y>>>31}var _=(I<<5|I>>>27)+d+g[p];p<20?_+=(E&O|~E&T)+1518500249:p<40?_+=(E^O^T)+1859775393:p<60?_+=(E&O|E&T|O&T)-1894007588:_+=(E^O^T)-899497514,d=T,T=O,O=E<<30|E>>>2,E=I,I=_}x[0]=x[0]+I|0,x[1]=x[1]+E|0,x[2]=x[2]+O|0,x[3]=x[3]+T|0,x[4]=x[4]+d|0},"_doProcessBlock"),_doFinalize:i(function(){var v=this._data,L=v.words,x=this._nDataBytes*8,I=v.sigBytes*8;return L[I>>>5]|=128<<24-I%32,L[(I+64>>>9<<4)+14]=Math.floor(x/4294967296),L[(I+64>>>9<<4)+15]=x,v.sigBytes=L.length*4,this._process(),this._hash},"_doFinalize"),clone:i(function(){var v=f.clone.call(this);return v._hash=this._hash.clone(),v},"clone")});e.SHA1=f._createHelper(b),e.HmacSHA1=f._createHmacHelper(b)})(),t.SHA1})});var St={};He(St,{TrackKey:()=>G,name:()=>kt,reportTeaEvent:()=>Z,version:()=>xt});var de=Q(te(),1),ue=Q(oe(),1);function M(){return window.appId||null}i(M,"getAppId");function N(){var o;let t="suda-csrf-token",e=document.cookie.split("; ");for(let u of e){let[f,m]=u.split("=");if(f===t)return decodeURIComponent(m)}return(o=window.csrfToken)!=null?o:null}i(N,"getCsrfToken");function $(){let t=globalThis.CLIENT_BASE_PATH||"/";return/^\/app\/[^/]/.test(t)}i($,"isNewPathEnabled");function j(){switch(globalThis.ENVIRONMENT){case"gray":return"PRE";case"online":return"ONLINE";default:return"BOE"}}i(j,"getEnv");function ae(){return window.appEnv!=null?window.appEnv==="runtime":!0}i(ae,"isOnlineEnv");function U(){let t=navigator.userAgent,e=/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i.test(t),o=/iPad|Tab|Tablet/i.test(t)&&navigator.maxTouchPoints>1;return e||o}i(U,"isMobile");async function se(){var t,e,o;try{let u=M();if(!u)return!0;let f=$()?`/app/${u}/__runtime__/api/v1/studio/get_published`:`/spark/b/${u}/get_published`,g=await(await fetch(f,{headers:{"X-Suda-Csrf-Token":(t=N())!=null?t:""}})).json();if(g.code===0||g.status_code==="0")return((o=(e=g.data)==null?void 0:e.app_info)==null?void 0:o.show_badge)!==!1}catch{}return!0}i(se,"fetchShowBadge");async function ce(){var u;let t=M();if(!t)return{code:1,msg:"appId is required",data:{}};let e=$()?`/app/${t}/__runtime__/api/v1/studio/lark/user_info`:`/spark/b/${t}/lark/user_info`;return await(await fetch(e,{headers:{"X-Suda-Csrf-Token":(u=N())!=null?u:""}})).json()}i(ce,"getLarkUserInfo");var G={VIEW:"aily_agent_artifact_page_view"},$e="08a441",je="42b91e";function le(t){let e=String(t);return(0,ue.default)($e+(0,de.default)(e+je)).toString()}i(le,"encryptTea");var z=!1;async function Ue(){var m,g,b,v;let{data:t}=await ce(),{tenantID:e,userID:o}=t||{},u=o&&o!=="0"?le(o):void 0,f=e&&e!=="0"?le(e):void 0;(m=window.collectEvent)==null||m.call(window,"init",{app_id:788827,channel:"cn",disable_auto_pv:!1,enable_ab_test:!1,enable_debug:!1,enable_stay_duration:!0,reportTime:1e3}),(b=window.collectEvent)==null||b.call(window,"config",{user_unique_id:u,device_type:U()?"mobile":"pc",evtParams:{open_from:(g=new URLSearchParams(window.location.search).get("open-from"))!=null?g:void 0,env:j(),user_id:u,tenant_id:f}}),z=!0,(v=window.collectEvent)==null||v.call(window,"start")}i(Ue,"createTracker");async function Z({trackKey:t,trackParams:e={}}){var o;try{z||(z=!0,await Ue()),(o=window.collectEvent)==null||o.call(window,t,e)}catch(u){console.error(u)}}i(Z,"reportTeaEvent");function fe(){return Z({trackKey:G.VIEW,trackParams:{artifact_uid:M(),agent_id:"agent_miaoda",url:window.location.href}})}i(fe,"reportPageView");function pe(){if(typeof crypto!="undefined"&&crypto.getRandomValues){let e=new Uint8Array(8);return crypto.getRandomValues(e),Array.from(e).map(o=>o.toString(16).padStart(2,"0")).join("")}let t="";for(let e=0;e<16;e++)t+=Math.floor(Math.random()*16).toString(16);return t}i(pe,"generateUUID");var he="x_sdk_device_id";function We(){try{let t=localStorage.getItem(he);return t||(t=pe(),localStorage.setItem(he,t)),t}catch{return pe()}}i(We,"getDeviceId");function Ve(){let t=typeof navigator!="undefined"?navigator.userAgent:"";return t&&(/Android/i.test(t)&&/Mobile/i.test(t)||/iPhone|iPod/i.test(t)||/BlackBerry|IEMobile|Opera Mini/i.test(t))?"mobile":"desktop"}i(Ve,"getDeviceType");var ze="pageSessionID";function Ge(){try{return new URLSearchParams(window.location.search).get(ze)||""}catch{return""}}i(Ge,"getPvId");function Ze(t={}){let e=t.pvId||Ge();return{app_id:window.appId||"",tenant_id:window.tenantId||"",user_id:window.userId||"",did:We(),module:"app_web",app_env:"runtime",source_type:"user",device_type:Ve(),release_commit_id:window.__RELEASE_COMMIT_ID__||"",...e?{pv_id:e}:{}}}i(Ze,"getDefaultAttributes");function ge(t){let e=Math.round(t);if(!Number.isFinite(e))throw new RangeError(`toNanoString: \u975E\u6CD5\u65F6\u95F4\u6233 ${t}`);return typeof BigInt!="function"?e===0?"0":`${e}000000`:String(BigInt(e)*BigInt(1e6))}i(ge,"toNanoString");var Ke="1.0.2";function Xe(t,e){let o=Ze(e),u=ge(Date.now());return{metricsData:{resource:{attributes:{sdk_version:Ke,sdk_lang:"javascript",sdk_type:"client-frontend"}},metrics:[{name:"apaas_internal_metrics_pv_uv",description:"Count of page views",unit:"",scopeName:"apaas_internal_metrics_pv_uv",sum:{aggregationTemporality:1,isMonotonic:!0,dataPoints:t.map(f=>({attributes:{...o,url:f.url,path:f.path,referrer:f.referrer},startTimeUnixNano:ge(f.timestampMs),timeUnixNano:u,asDouble:1}))}}]}}}i(Xe,"buildPayload");function Je(t,e,o={},u){if(e.length===0)return;let f;try{f=JSON.stringify(Xe(e,u))}catch{return}try{fetch(t,{method:"POST",headers:{"Content-Type":"application/json","X-Suda-Csrf-Token":window.csrfToken||"",...o},body:f,keepalive:!0}).catch(()=>{})}catch{}}i(Je,"sendPvData");var K="__APAAS_PV_TRACKER_STARTED__";function Ye(){try{let t=window;return t[K]?!1:(t[K]=!0,!0)}catch{return!0}}i(Ye,"claimPvReporting");function me(){try{window[K]=!1}catch{}}i(me,"releasePvReporting");var P,qe=(P=class{constructor(){this.started=!1,this.disposers=[],this.holdsPvReporting=!1,this.buffer=[]}static get instance(){return this._instance||(this._instance=new P),this._instance}start(e){var o;if(!this.started&&Ye()){this.holdsPvReporting=!0,this.config=e,this.started=!0;try{this.listenRouteChanges(),this.registerLifecycleListeners();let u=(o=e.flushIntervalMs)!=null?o:1e4;this.flushTimer=setInterval(()=>this.flush(),u)}catch(u){throw this.started=!1,this.flushTimer&&(clearInterval(this.flushTimer),this.flushTimer=void 0),this.holdsPvReporting=!1,me(),u}}}shutdown(){this.flush(),this.flushTimer&&(clearInterval(this.flushTimer),this.flushTimer=void 0),this.firstFlushTimer&&(clearTimeout(this.firstFlushTimer),this.firstFlushTimer=void 0),this.started=!1;for(let e of this.disposers.splice(0))try{e()}catch{}this.holdsPvReporting&&(this.holdsPvReporting=!1,me())}pageKey(){let{origin:e,pathname:o,search:u}=window.location;return`${e}${o}${u}`}scheduleFirstFlush(){var e;let o=(e=this.config)==null?void 0:e.firstFlushDelayMs;o==null||this.firstFlushTimer||(this.firstFlushTimer=setTimeout(()=>this.flush(),o))}recordPv(){let e=this.pageKey();this.lastKey!==e&&(this.lastKey=e,this.buffer.push({url:window.location.href,path:window.location.pathname,referrer:document.referrer,timestampMs:Date.now()}),this.scheduleFirstFlush())}flush(){if(!this.config||this.buffer.length===0)return;let e=this.buffer.splice(0);Je(this.config.collectorUrl,e,this.config.headers,{pvId:this.config.pvId})}listenRouteChanges(){this.recordPv();let e=i(()=>this.recordPv(),"onPopState");window.addEventListener("popstate",e),this.disposers.push(()=>window.removeEventListener("popstate",e)),this.patchHistory("pushState"),this.patchHistory("replaceState")}patchHistory(e){let o=history[e],u=i(()=>this.recordPv(),"recordPv");history[e]=function(...f){let m=o.apply(this,f);return u(),m},this.disposers.push(()=>{history[e]=o})}registerLifecycleListeners(){let e=i(()=>{document.visibilityState==="hidden"&&this.flush()},"onVisibilityChange");document.addEventListener("visibilitychange",e),this.disposers.push(()=>document.removeEventListener("visibilitychange",e));let o=i(()=>this.flush(),"onPageHide");window.addEventListener("pagehide",o),this.disposers.push(()=>window.removeEventListener("pagehide",o))}},i(P,"_PvTracker"),P),ve=qe.instance;function be(){var o;let t=(o=M())!=null?o:"",e=$()?`/app/${t}/__runtime__/api/v1/observability/metrics/collect`:`/spark/app/${t}/runtime/api/v1/observability/metrics/collect`;ve.start({collectorUrl:e})}i(be,"initPvTracking");var Qe=/\bLark\//i;function _e(){var e,o,u,f;let t=window;return typeof((u=(o=(e=t.webkit)==null?void 0:e.messageHandlers)==null?void 0:o.invokeNative)==null?void 0:u.postMessage)=="function"||typeof((f=t.Lark_Bridge)==null?void 0:f.invokeNative)=="function"?!0:Qe.test(navigator.userAgent)}i(_e,"isFeishuClient");function we({messageIds:t,token:e,docType:o=113}){var b,v;if(t.length===0||!e)return!1;let u={apiName:"markMiaodaFeedMessagesRead",data:{__v2__:!0,messageIds:t.map(String),token:e,docType:o}},f=window,m=(v=(b=f.webkit)==null?void 0:b.messageHandlers)==null?void 0:v.invokeNative;if(m!=null&&m.postMessage)return m.postMessage(u),!0;let g=f.Lark_Bridge;return g!=null&&g.invokeNative?(g.invokeNative(JSON.stringify(u)),!0):!1}i(we,"markMiaodaFeedMessagesRead");var et=113,tt="/app/",nt="/__runtime__/api/v1/devops/read_lark_messages";function rt(t){if(!t||typeof t!="object")return[];let{data:e}=t;return Array.isArray(e)?e.map(String):e&&Array.isArray(e.message_ids)?e.message_ids.map(String):[]}i(rt,"extractMessageIds");var ye=!1;async function it(t){var u;let e=await fetch(`${tt}${t}${nt}`,{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json","X-Suda-Csrf-Token":(u=N())!=null?u:""}});if(!e.ok)return[];let o=await e.json();return rt(o)}i(it,"fetchFeedMessageIds");async function Ce(){if(ye||!_e())return;ye=!0;let t=M();if(t)try{let e=await it(t);if(!e.length)return;we({messageIds:e,token:t,docType:et})}catch{}}i(Ce,"markFeedReadOnce");var J="https://lf3-static.bytednsdoc.com/obj/eden-cn/LMfspH/ljhwZthlaukjlkulzlp",ot=`${J}/miaoda-ui/doubao.svg`,at=`${J}/miaoda-ui/Doubao_watermark_aigc.svg`,st=`${J}/logo/miaodalogo.svg`,ke='<svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.08312 8.08298C8.2384 7.92769 8.23953 7.67705 8.08424 7.52176L5.3625 4.80002L8.08422 2.07829C8.23951 1.92301 8.23839 1.67236 8.0831 1.51708C7.92781 1.36179 7.67717 1.36066 7.52188 1.51595C7.36659 1.67124 4.80016 4.23767 4.80016 4.23767L2.07841 1.51593C1.92313 1.36064 1.67248 1.36177 1.5172 1.51705C1.36191 1.67234 1.36078 1.92298 1.51607 2.07827L4.23782 4.80002L1.51605 7.52178C1.36076 7.67707 1.36189 7.92771 1.51718 8.083C1.67246 8.23829 1.92311 8.23941 2.07839 8.08412L4.80016 5.36236L7.5219 8.0841C7.67719 8.23939 7.92783 8.23826 8.08312 8.08298Z" fill="currentColor"/></svg>',ct='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.6667 2H3.33333V14H6.66667V15.3334H3.33333C2.59695 15.3334 2 14.7364 2 14V2C2 1.26364 2.59695 0.666687 3.33333 0.666687H12.6667C13.403 0.666687 14 1.26364 14 2V7.33335H12.6667V2Z" fill="currentColor"/><path d="M5.33333 4.66669C4.96514 4.66669 4.66667 4.96516 4.66667 5.33335C4.66667 5.70154 4.96514 6 5.33333 6H10.6667C11.0349 6 11.3333 5.70154 11.3333 5.33335C11.3333 4.96516 11.0349 4.66669 10.6667 4.66669H5.33333Z" fill="currentColor"/><path d="M4.66667 8.33335C4.66667 7.96516 4.96514 7.66669 5.33333 7.66669H8C8.36819 7.66669 8.66667 7.96516 8.66667 8.33335C8.66667 8.70154 8.36819 9 8 9H5.33333C4.96514 9 4.66667 8.70154 4.66667 8.33335Z" fill="currentColor"/><path d="M13.5523 8.70017C13.9428 8.30964 14.576 8.30964 14.9665 8.70017C15.357 9.09069 15.357 9.72386 14.9665 10.1144L14.2594 10.8215L12.8452 9.40728L13.5523 8.70017Z" fill="currentColor"/><path d="M12.1381 10.1144L13.5523 11.5286L10.2309 14.85C10.0916 14.9892 9.91229 15.0815 9.71798 15.1138L8.45737 15.3234C8.42136 15.3294 8.38467 15.3177 8.35885 15.2918C8.33271 15.2657 8.32099 15.2284 8.32749 15.192L8.55128 13.9374C8.58465 13.7502 8.6746 13.5779 8.80901 13.4435L12.1381 10.1144Z" fill="currentColor"/></svg>',lt='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.13397 2.5C7.51887 1.83333 8.48113 1.83333 8.86603 2.5L14.0622 11.5C14.4471 12.1667 13.966 13 13.1962 13H2.80385C2.03405 13 1.55292 12.1667 1.93782 11.5L7.13397 2.5Z" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8 6.16667V8.83333" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="10.6667" r="0.6667" fill="currentColor"/></svg>',dt='<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.91685 2.08234C10.2097 2.37519 10.2096 2.8501 9.91685 3.143L7.06253 5.99732L9.91858 8.85337C10.2114 9.14627 10.2115 9.62115 9.91858 9.91403C9.62568 10.2068 9.15076 10.2068 8.85792 9.91403L6.00187 7.05798L3.14444 9.91541C2.85155 10.2083 2.37667 10.2083 2.08378 9.91541C1.791 9.62251 1.79093 9.14761 2.08378 8.85475L4.94121 5.99732L2.08551 3.14162C1.79267 2.84878 1.79278 2.37387 2.08551 2.08096C2.3784 1.78807 2.85327 1.78807 3.14617 2.08096L6.00187 4.93666L8.85619 2.08234C9.14906 1.78961 9.62399 1.7896 9.91685 2.08234Z" fill="white" fill-opacity="0.3"/></svg>',ut='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.9922 1.99221C12.5445 1.98895 12.9958 2.43407 12.999 2.98634L13.0762 16.1943L14.6387 14.6328L17.8926 11.3789C18.2831 10.9884 18.9171 10.9885 19.3076 11.3789C19.6977 11.7695 19.6979 12.4026 19.3076 12.793L16.0527 16.0479L12.7979 19.3018C12.7111 19.3884 12.6098 19.4566 12.5 19.5059H20.375C20.9271 19.5059 21.3748 19.9538 21.375 20.5059C21.375 21.0581 20.9273 21.5059 20.375 21.5059H3.625C3.07272 21.5059 2.625 21.0581 2.625 20.5059C2.62523 19.9538 3.07286 19.5059 3.625 19.5059H11.6816C11.572 19.4566 11.4704 19.3884 11.3838 19.3018L4.87402 12.793C4.48372 12.4026 4.4839 11.7694 4.87402 11.3789C5.26452 10.9884 5.89756 10.9885 6.28809 11.3789L11.0762 16.166L10.999 2.99806C10.9958 2.44603 11.4402 1.99582 11.9922 1.99221Z" fill="currentColor"/></svg>',ft='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.0754 7.57153C2.23188 9.44922 3.49231 11.053 5.27982 11.6488C5.31351 11.6601 5.33994 11.6865 5.35117 11.7202L5.72076 12.8289C5.88752 13.3292 6.3557 13.6667 6.88304 13.6667H9.11696C9.6443 13.6667 10.1125 13.3292 10.2792 12.8289L10.6488 11.7202C10.6601 11.6865 10.6865 11.6601 10.7202 11.6488C12.5077 11.053 13.7681 9.44922 13.9246 7.57153L14 6.66667C14 3.35296 11.3137 0.666668 8 0.666668C4.68629 0.666668 2 3.35296 2 6.66667L2.0754 7.57153ZM9.38392 11.2985L9.03899 12.3333H6.96101L6.61608 11.2985C6.47214 10.8667 6.13328 10.5279 5.70146 10.3839C4.41995 9.95675 3.51631 8.80696 3.40413 7.4608L3.33362 6.61462C3.36152 4.06127 5.44004 2 8 2C10.56 2 12.6385 4.06127 12.6664 6.61462L12.5959 7.4608C12.4837 8.80696 11.5801 9.95675 10.2985 10.3839C9.86672 10.5279 9.52786 10.8667 9.38392 11.2985Z" fill="currentColor"/><path d="M6.66667 14.3333C6.29848 14.3333 6 14.6318 6 15C6 15.3682 6.29848 15.6667 6.66667 15.6667H9.33333C9.70152 15.6667 10 15.3682 10 15C10 14.6318 9.70152 14.3333 9.33333 14.3333H6.66667Z" fill="currentColor"/><path d="M8.00864 4.13208L5.44578 6.94049C5.20258 7.18228 5.37835 7.56531 5.74361 7.58951L7.2181 7.6872L7.21814 9.60852C7.21814 9.96788 7.72139 10.1366 7.99168 9.86792C8.26197 9.59921 10.5545 7.05951 10.5545 7.05951C10.7977 6.81772 10.622 6.43469 10.2567 6.41049L8.78222 6.3128L8.78219 4.39148C8.78218 4.03212 8.27893 3.86336 8.00864 4.13208Z" fill="currentColor"/></svg>',Se=!0,pt="0px 8px 32px rgba(0,0,0,0.08), 0px 4px 16px rgba(0,0,0,0.04), 0px 2px 4px rgba(0,0,0,0.02)",ht="0px 4px 16px rgba(0,0,0,0.03), 0px 4px 10px rgba(0,0,0,0.03), 0px 2px 4px rgba(0,0,0,0.02)",Y="'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif",gt="'Doubao Sans', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif",W={doubao:{brandText:"\u8C46\u5305\u5DE5\u4F5C AI \u751F\u6210",logoSrc:ot,downloadUrl:"https://ugapk.com/FCtLH"},miaoda:{brandText:"\u5999\u642D\u751F\u6210",logoSrc:st,landingUrl:"https://miaoda.feishu.cn/landing"}},mt={BOE:"tns.feishu-boe.cn",PRE:"tns.feishu-pre.cn",ONLINE:"tns.feishu.cn"};function Le(){var o;let t=JSON.stringify({scene:"miaoda_app_report",entity_id:(o=M())!=null?o:"",entity_type:"miaoda_app",extra:""}),e=`https://${mt[j()]}/cust/lark_report/?type=common&params=${encodeURIComponent(t)}&lang=zh-CN`;window.open(e,"_blank","noopener,noreferrer")}i(Le,"openReport");var vt={feedback:ct,report:lt,close:ke,download:ut,efficiency:ft};function Ee(t){let e=document.createElement("span");Object.assign(e.style,{display:"inline-flex",width:`${t}px`,height:`${t}px`,flexShrink:"0"}),e.innerHTML=ke;let o=e.firstElementChild;return o&&(o.setAttribute("width",String(t)),o.setAttribute("height",String(t)),o.style.display="block"),e}i(Ee,"makeCloseIcon");function bt(t,e=16){if(t==="close")return Ee(e);let o=document.createElement("span");Object.assign(o.style,{display:"inline-flex",width:`${e}px`,height:`${e}px`,flexShrink:"0"}),o.innerHTML=vt[t];let u=o.firstElementChild;return u&&(u.style.display="block"),o}i(bt,"makeIcon");function _t(t,e){let o=document.createElement("img");return o.src=t,o.width=e,o.height=e,o.alt="",Object.assign(o.style,{width:`${e}px`,height:`${e}px`,maxWidth:"none",maxHeight:"none",borderRadius:"100px",flexShrink:"0",display:"block"}),o}i(_t,"makeLogo");function Ie(t,e,o){let u=e==="desktop",f=t==="doubao",m=W[t],g=document.createElement("div");f?Object.assign(g.style,{boxSizing:"border-box",display:"inline-flex",alignItems:"center",gap:"6px",padding:"6px 8px",background:"rgba(77,77,77,0.7)",borderRadius:"6px",cursor:"pointer"}):Object.assign(g.style,{boxSizing:"border-box",display:"inline-flex",alignItems:"center",gap:"4px",padding:u?"6px 12px 6px 8px":"5px 12px 5px 8px",background:"#363636",border:"0.5px solid rgba(255,255,255,0.1)",borderRadius:"100px",boxShadow:pt,cursor:"pointer"});let b;if(f){let v=document.createElement("img");v.src=at,v.alt=m.brandText,v.draggable=!1,Object.assign(v.style,{height:u?"12px":"14px",width:"auto",display:"block",flexShrink:"0"}),b=v}else{let v=_t(m.logoSrc,16),L=document.createElement("span");L.textContent=m.brandText,Object.assign(L.style,{fontFamily:Y,fontSize:u?"12px":"14px",lineHeight:u?"18px":"22px",color:"rgba(255,255,255,0.85)",whiteSpace:"nowrap"}),b=L,g.append(v)}if(g.append(b),u&&o){let v=document.createElement("span");v.setAttribute("role","button"),v.setAttribute("aria-label","\u5173\u95ED"),v.setAttribute("data-watermark-close",""),Object.assign(v.style,{display:"none",alignItems:"center",cursor:"pointer",flexShrink:"0"}),f?v.innerHTML=dt:(v.style.color="rgba(255,255,255,0.5)",v.appendChild(Ee(10))),v.addEventListener("click",L=>{L.stopPropagation(),o()}),g.appendChild(v)}return g}i(Ie,"buildPill");function B(t){let e=document.createElement("div");e.setAttribute("role","menuitem"),e.setAttribute("data-label",t.label),Object.assign(e.style,{boxSizing:"border-box",display:"flex",alignItems:"center",gap:"8px",minHeight:"38px",padding:"4px 10px",borderRadius:"6px",cursor:"pointer",color:"#000000"});let o=document.createElement("span");Object.assign(o.style,{display:"inline-flex",width:"16px",height:"16px",flexShrink:"0",color:"#000000"}),o.appendChild(bt(t.icon));let u=document.createElement("span");return u.textContent=t.label,Object.assign(u.style,{fontFamily:Y,fontSize:`${t.fontSize}px`,lineHeight:`${t.fontSize+8}px`,color:"#000000",whiteSpace:"nowrap"}),e.append(o,u),e.addEventListener("mouseenter",()=>{e.style.background="rgba(0,0,0,0.04)"}),e.addEventListener("mouseleave",()=>{e.style.background="transparent"}),e.addEventListener("click",t.onClick),e}i(B,"buildMenuRow");function wt(){let t=document.createElement("div");return Object.assign(t.style,{height:"1px",background:"rgba(0,0,0,0.08)",margin:"0 10px"}),t}i(wt,"buildDivider");function Te(t){var o;let e=document.createElement("div");if(Object.assign(e.style,{boxSizing:"border-box",display:"flex",flexDirection:"column",minWidth:`${t.minWidth}px`,background:"#ffffff",border:"0.5px solid rgba(0,0,0,0.1)",borderRadius:"10px",boxShadow:ht,overflow:"hidden",outline:"none"}),t.items.length){let u=document.createElement("div");Object.assign(u.style,{boxSizing:"border-box",padding:"4px",display:"flex",flexDirection:"column",gap:`${(o=t.itemGap)!=null?o:0}px`}),t.items.forEach(f=>u.appendChild(f)),e.appendChild(u)}if(t.extraItems&&t.extraItems.length){e.appendChild(wt());let u=document.createElement("div");Object.assign(u.style,{boxSizing:"border-box",padding:"4px"}),t.extraItems.forEach(f=>u.appendChild(f)),e.appendChild(u)}return e}i(Te,"buildMenuCard");function Ae(t,e=!1){let o=document.createElement("div");o.setAttribute("data-custom-element",`${t}-watermark${e?"-mobile":""}`);let u=o.attachShadow({mode:"open"}),f=t==="doubao"?gt:Y,m=document.createElement("style");m.textContent=`
+    :host {
+      all: initial !important;
+      display: block !important;
+      position: fixed !important;
+      right: 12px !important;
+      bottom: 12px !important;
+      z-index: 9999 !important;
+      direction: ltr !important;
+      unicode-bidi: isolate !important;
+    }
+    :host::before, :host::after { content: none !important; }
+    .watermark-root {
+      all: initial;
+      direction: ltr;
+      unicode-bidi: isolate;
+      font-family: ${f};
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+  `;let g=document.createElement("div");return g.className="watermark-root",u.append(m,g),{host:o,container:g}}i(Ae,"createWatermarkRoot");function yt(t){let{host:e,container:o}=Ae(t),u=[];t==="doubao"?u.push(B({icon:"download",label:"\u4E0B\u8F7D\u8C46\u5305\u5DE5\u4F5C",fontSize:14,onClick:i(()=>window.open(W.doubao.downloadUrl,"_blank","noopener,noreferrer"),"onClick")})):u.push(B({icon:"efficiency",label:"\u4E86\u89E3\u5999\u642D",fontSize:14,onClick:i(()=>window.open(W.miaoda.landingUrl,"_blank","noopener,noreferrer"),"onClick")})),Se&&u.push(B({icon:t==="doubao"?"report":"feedback",label:"\u6295\u8BC9\u4E0E\u4E3E\u62A5",fontSize:14,onClick:Le}));let f=Te({items:u,minWidth:160,itemGap:8});f.style.display="none";let m=Ie(t,"desktop",()=>e.remove()),g=m.querySelector("[data-watermark-close]");o.append(f,m);let b=null;return o.addEventListener("mouseenter",()=>{b&&clearTimeout(b),f.style.display="flex",g&&(g.style.display="inline-flex")}),o.addEventListener("mouseleave",()=>{b=setTimeout(()=>{f.style.display="none",g&&(g.style.display="none")},100)}),e}i(yt,"buildDesktopWatermark");function Ct(t){let{host:e,container:o}=Ae(t,!0);o.style.cursor="pointer";let u=[];t==="miaoda"&&u.push(B({icon:"efficiency",label:"\u4E86\u89E3\u5999\u642D",fontSize:16,onClick:i(()=>window.open(W.miaoda.landingUrl,"_blank","noopener,noreferrer"),"onClick")})),Se&&u.push(B({icon:t==="doubao"?"report":"feedback",label:"\u6295\u8BC9\u4E0E\u4E3E\u62A5",fontSize:16,onClick:Le}));let f=[B({icon:"close",label:"\u4E0D\u518D\u5C55\u793A",fontSize:16,onClick:i(v=>{v.stopPropagation(),document.removeEventListener("click",b),e.remove()},"onClick")})],m=Te({items:u,extraItems:f,minWidth:160});m.style.display="none";let g=Ie(t,"mobile");o.append(m,g),o.addEventListener("click",v=>{v.stopPropagation(),m.style.display=m.style.display==="none"?"flex":"none"});let b=i(()=>{m.style.display="none"},"onOutsideClick");return document.addEventListener("click",b),e}i(Ct,"buildMobileWatermark");var xe=!1,X=!1;async function Oe(t){if(xe||X||typeof document=="undefined")return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",()=>Oe(t),{once:!0});return}X=!0;let e=await se();if(xe=!0,X=!1,!e)return;let o=U()?Ct(t):yt(t);document.body.appendChild(o)}i(Oe,"mountWatermark");function Me(){return Oe("doubao")}i(Me,"mountDoubaoWatermark");var xt="0.0.1",kt="@lark-apaas/miaoda-coding-sdk";ae()&&(fe(),be());Me();Ce();return Ne(St);})();
+</script><meta property="og:title" content="陨击坑实验室 · 地球 vs 月球">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陨击坑实验室 · 地球 vs 月球</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    background: #0F1B2D; color: #E8ECF2; min-height: 100vh;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 18px 16px 28px; }
+
+  .topbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+  .topbar h1 { font-size: 24px; font-weight: 700; letter-spacing: 1px; }
+  .topbar h1 span { color: #F2A65A; }
+  .topbar .sub { font-size: 13px; color: #8FB7C9; }
+  .topbar .scene-tag {
+    margin-left: auto; font-size: 12px; color: #CFE3EF;
+    border: 1px solid rgba(143,183,201,0.4); border-radius: 20px; padding: 4px 12px;
+  }
+
+  .main { display: flex; gap: 16px; flex-wrap: wrap; align-items: stretch; }
+  .panel-canvas {
+    flex: 1 1 560px; min-width: 0; background: #15263C;
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 12px;
+  }
+  .panel-controls {
+    flex: 0 1 316px; min-width: 280px; background: #15263C;
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .canvas-box { position: relative; width: 100%; }
+  canvas { display: block; width: 100%; height: auto; border-radius: 10px; background: #0C1526; }
+
+  .topview {
+    position: absolute; top: 12px; right: 12px; width: 236px;
+    background: rgba(12,21,38,0.88); border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 12px; padding: 8px; backdrop-filter: blur(2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  }
+  .topview canvas { width: 100%; height: auto; border-radius: 8px; background: #0A0F1B; }
+  .tv-title { font-size: 11.5px; color: #8FB7C9; letter-spacing: 1px; margin-bottom: 6px; }
+  .tv-sub { font-size: 11.5px; color: #CFE3EF; margin-top: 6px; text-align: center; }
+
+  .scene-desc {
+    font-size: 12px; line-height: 1.6; color: #9FB2C4; margin-top: 10px;
+    border-left: 3px solid #8FB7C9; padding-left: 10px;
+  }
+  .hint-var {
+    display: none; font-size: 12.5px; line-height: 1.5; color: #FFD9A0;
+    background: rgba(242,166,90,0.12); border: 1px solid rgba(242,166,90,0.4);
+    border-radius: 8px; padding: 7px 10px; margin-top: 10px;
+  }
+  .hint-var.show { display: block; }
+
+  .ctl-title { font-size: 12px; color: #8FB7C9; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .ctl-title .tag { font-size: 10.5px; letter-spacing: 0; border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
+  .tag-on { color: #0F1B2D; background: #F2A65A; font-weight: 700; }
+  .tag-lock { color: #8FB7C9; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); }
+  .ctl.locked .seg button { opacity: .5; cursor: not-allowed; }
+  .ctl.locked .seg button.on { opacity: .7; }
+  .ctl-study { background: rgba(242,166,90,0.08); border: 1px solid rgba(242,166,90,0.35); border-radius: 12px; padding: 10px 12px; }
+  .ctl-study .ctl-title { color: #F2A65A; }
+  .study-note { font-size: 11.5px; color: #9FB2C4; line-height: 1.55; margin-top: 7px; }
+  .study-note b { color: #F2A65A; font-weight: 600; }
+  .btn-base {
+    width: 100%; padding: 8px 0; font-size: 12.5px; cursor: pointer; color: #CFE3EF;
+    background: #1D3248; border: 1px solid rgba(255,255,255,0.16); border-radius: 8px;
+  }
+  .btn-base:hover { border-color: rgba(242,166,90,0.7); color: #F2A65A; }
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  .seg button {
+    flex: 1 1 0; min-width: 68px; padding: 7px 6px; font-size: 13px; cursor: pointer;
+    color: #CFE3EF; background: #1D3248; border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 8px; transition: all .15s;
+  }
+  .seg button:hover { border-color: rgba(242,166,90,0.7); }
+  .seg button.on { color: #0F1B2D; background: #F2A65A; border-color: #F2A65A; font-weight: 600; }
+  .seg-scene button { font-weight: 600; letter-spacing: 1px; }
+  .seg-scene button.on-eco { background: #7FB3C8; border-color: #7FB3C8; color: #0F1B2D; }
+  .seg-scene button.on-moon { background: #A8A9AD; border-color: #A8A9AD; color: #0F1B2D; }
+
+  .fixed-note { font-size: 12.5px; color: #9FB2C4; padding: 6px 8px; background: #1D3248; border-radius: 8px; }
+
+  .btn-run {
+    width: 100%; padding: 12px 0; font-size: 16px; font-weight: 700; cursor: pointer;
+    color: #0F1B2D; background: #F2A65A; border: none; border-radius: 10px;
+    letter-spacing: 2px; transition: filter .15s, transform .1s;
+  }
+  .btn-run:hover { filter: brightness(1.08); }
+  .btn-run:active { transform: scale(0.99); }
+  .btn-run:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .readout {
+    background: #0C1526; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 10px 12px;
+  }
+  .readout .rt { font-size: 12px; color: #8FB7C9; margin-bottom: 6px; letter-spacing: 1px; }
+  .metrics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .metric { text-align: center; }
+  .metric .v { font-size: 15px; font-weight: 700; color: #F2A65A; }
+  .metric .l { font-size: 11px; color: #8FB7C9; margin-top: 2px; }
+  .metric .b { height: 4px; border-radius: 2px; background: rgba(242,166,90,0.25); margin-top: 4px; overflow: hidden; }
+  .metric .b i { display: block; height: 100%; background: #F2A65A; border-radius: 2px; }
+
+
+  .records {
+    margin-top: 16px; background: #15263C; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 14px 16px;
+  }
+  .rec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .rec-head .rt { font-size: 13px; color: #8FB7C9; letter-spacing: 1px; }
+  .rec-head .clear {
+    margin-left: auto; font-size: 12px; color: #8FB7C9; background: none;
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 7px; padding: 4px 10px; cursor: pointer;
+  }
+  .rec-head .clear:hover { color: #F0A8A0; border-color: rgba(240,168,160,0.6); }
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 1020px; }
+  th, td { padding: 7px 8px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.07); white-space: nowrap; }
+  th { color: #8FB7C9; font-weight: 500; }
+  td { color: #E8ECF2; }
+  td.num { color: #F2A65A; font-weight: 600; }
+  td.chg-ok { color: #7FD1A6; font-weight: 600; }
+  td.chg-bad { color: #F0A8A0; font-weight: 600; }
+  td.scn-e { color: #7FB3C8; }
+  td.scn-m { color: #B9BAC0; }
+  .empty-row td { color: #5A6B7C; }
+
+  .energy-note {
+    margin-top: 12px; font-size: 12px; color: #9FB2C4; line-height: 1.6;
+    border-left: 3px solid #F2A65A; padding-left: 10px;
+  }
+  .foot { margin-top: 14px; font-size: 11.5px; color: #5A6B7C; text-align: center; }
+
+  @media (max-width: 768px) {
+    .topbar h1 { font-size: 20px; }
+    .topbar .scene-tag { margin-left: 0; }
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .panel-controls { flex-basis: 100%; min-width: 0; }
+    .topview { position: static; width: 100%; margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <h1>陨击坑<span>实验室</span></h1>
+    <div class="sub">地球 vs 月球 · 严格单变量模拟 · 一轮只改一个条件</div>
+    <div class="scene-tag" id="sceneTag">当前场景：地球</div>
+  </div>
+
+  <div class="main">
+
+    <!-- 实验台 -->
+    <div class="panel-canvas">
+      <div class="canvas-box">
+        <canvas id="stage" width="900" height="500"></canvas>
+        <div class="topview" id="topview">
+          <div class="tv-title">俯视视角 · 坑口形状</div>
+          <canvas id="topCanvas" width="480" height="300"></canvas>
+          <div class="tv-sub" id="tvSub">等待撞击……</div>
+        </div>
+      </div>
+      <div class="scene-desc" id="sceneDesc">地球有大气层：陨石会在大气中摩擦、烧蚀、减速，石质小天体还可能半空解体。地面按孔隙度分两种：松散地面与致密地面。</div>
+      <div class="hint-var" id="hintVar"></div>
+    </div>
+
+    <!-- 控制台 -->
+    <div class="panel-controls">
+      <div class="ctl ctl-study" id="ctlStudy">
+        <div class="ctl-title">① 本轮研究哪个因素（一次只改一个）</div>
+        <div class="seg" id="segStudy">
+          <button data-v="size" class="on">陨石大小</button>
+          <button data-v="speed">进入速度</button>
+          <button data-v="angle">入射角度</button>
+          <button data-v="type">陨石类型</button>
+          <button data-v="ground">地面成分</button>
+          <button data-v="scene">模拟场景</button>
+        </div>
+        <div class="study-note" id="studyNote">当前自变量：<b>陨石大小</b>（只能改这一项）。<br>已锁定：模拟场景=地球、陨石类型=石陨石、进入速度=20 km/s、入射角度=90°、地面成分=致密地面。</div>
+      </div>
+
+      <div class="ctl locked" id="ctlScene">
+        <div class="ctl-title">模拟场景<span class="tag tag-lock">🔒 控制变量</span></div>
+        <div class="seg seg-scene" id="segScene">
+          <button data-v="earth" class="on on-eco" disabled="">地球</button>
+          <button data-v="moon" disabled="">月球</button>
+        </div>
+      </div>
+
+      <div class="ctl locked" id="ctlType">
+        <div class="ctl-title">陨石类型<span class="tag tag-lock">🔒 控制变量</span></div>
+        <div class="seg" id="segType">
+          <button data-v="stone" class="on" disabled="">石陨石</button>
+          <button data-v="iron" disabled="">铁陨石</button>
+        </div>
+      </div>
+
+      <div class="ctl" id="ctlSize">
+        <div class="ctl-title">陨石大小（直径）<span class="tag tag-on">自变量 · 可调</span></div>
+        <div class="seg" id="segSize">
+          <button data-v="small">小 20m</button>
+          <button data-v="medium" class="on">中 50m</button>
+          <button data-v="large">大 300m</button>
+        </div>
+      </div>
+
+      <div class="ctl locked" id="ctlSpeed">
+        <div class="ctl-title">进入大气速度（km/s）<span class="tag tag-lock">🔒 控制变量</span></div>
+        <div class="seg" id="segSpeed">
+          <button data-v="low" disabled="">10</button>
+          <button data-v="medium" class="on" disabled="">20</button>
+          <button data-v="high" disabled="">40</button>
+        </div>
+      </div>
+
+      <div class="ctl locked" id="ctlAngle">
+        <div class="ctl-title">入射角度（与地表夹角）<span class="tag tag-lock">🔒 控制变量</span></div>
+        <div class="seg" id="segAngle">
+          <button data-v="vertical" class="on" disabled="">90°</button>
+          <button data-v="mid" disabled="">45°</button>
+          <button data-v="low" disabled="">20°</button>
+        </div>
+      </div>
+
+      <div class="ctl locked" id="ctlGround">
+        <div class="ctl-title">地面成分<span class="tag tag-lock">🔒 控制变量</span></div>
+        <div class="seg" id="segGround">
+          <button data-v="loose" disabled="">松散地面</button>
+          <button data-v="rock" class="on" disabled="">致密地面</button>
+        </div>
+      </div>
+      <div class="fixed-note" id="groundNote"><b>地面松散还是致密，砸出来的坑完全不同：</b>松散地面孔隙度约 40%，能量大半耗在压碎孔隙上，坑又小又深、溅射少——曼桂坑 13 cm 宽、25 cm 深，深径比接近 2，就是这个样子；致密地面孔隙度约 3%，能量主要转为冲击波，坑更宽更浅，坑口外面那一层岩石被整体震碎、掀起、翻到坑外。<br><b>转折直径：</b>致密地面约 3.4 km。坑径超过它，坑底回弹才顶得出中央隆起。</div>
+
+      <button class="btn-base" id="btnBase">回到基准条件（重新开始对比）</button>
+
+      <button class="btn-run" id="btnRun">开始实验</button>
+
+      <div class="readout">
+        <div class="rt">计算读数（Holsapple π-scaling）</div>
+        <div class="metrics" id="metrics">
+          <div class="metric"><div class="v" id="mDia">—</div><div class="l">口径</div><div class="b"><i id="bDia" style="width:0%"></i></div></div>
+          <div class="metric"><div class="v" id="mDep">—</div><div class="l">深度</div><div class="b"><i id="bDep" style="width:0%"></i></div></div>
+          <div class="metric"><div class="v" id="mEje">—</div><div class="l">溅射距离</div><div class="b"><i id="bEje" style="width:0%"></i></div></div>
+          <div class="metric"><div class="v" id="mRound">—</div><div class="l">坑形</div><div class="b"><i id="bRound" style="width:0%"></i></div></div>
+          <div class="metric"><div class="v" id="mType">—</div><div class="l">坑型</div><div class="b"><i id="bType" style="width:0%"></i></div></div>
+        </div>
+        <div id="physNote" style="font-size:11.5px;color:#8FB7C9;line-height:1.6;margin-top:8px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 记录表 -->
+  <div class="records">
+    <div class="rec-head">
+      <div class="rt">实验记录</div>
+      <button class="clear" id="btnClear">清空记录</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>轮次</th><th>本轮改动（只允许一项）</th><th>场景</th><th>类型</th><th>大小</th><th>速度</th><th>角度</th><th>靶材</th>
+            <th>口径</th><th>深度</th><th>溅射</th><th>坑形</th><th>坑型</th>
+          </tr>
+        </thead>
+        <tbody id="recBody">
+          <tr class="empty-row"><td colspan="13">还没有实验记录——先做一次基准实验，之后每轮只改一个因素</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="energy-note">
+    计算依据：坑径用 Holsapple π-scaling（K₁/K₂/μ/ν/Y/ρ、K_r 取自 LPI 实验拟合表，两档对应 Dry Soil、Hard Rock，月球对应 Lunar Regolith），
+    再按孔隙度修正：多孔靶材能量耗于压实，坑更深窄、溅射更少，简单→复杂坑转折直径也更大。深径比按材料取定——松散 0.30、致密 0.17，与
+    孔隙靶材"更深更窄"、致密靶材"更浅更宽"的实验一致（Wünnemann &amp; Collins 2005；Chandnani et al. 2019）。低速碎片在松散层中按钻进坑估算，
+    深径比可超过 0.4，标定自曼桂坑（碎片约 9 cm，坑 13 cm 宽、25 cm 深）。<br>
+    真实对照：巴林杰坑 1.2 km / 深约 170 m——约 50 m 铁质撞击体，靶材是厚约 80 m 的 Kaibab 白云岩与石灰岩；岫岩坑 1.8 km / 深约 150 m，靶材为片麻岩、浅粒岩；曼桂坑 13 cm / 25 cm——茶园松散土中的低速碎片钻进坑。
+  </div>
+
+  <div class="foot">陨击坑探究课配套实验台 · 单变量模式：每轮只允许改动一个条件 · 坑径/深度按撞击物理计算，画面按对数压缩显示</div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ===== 场景与变量 ===== */
+  /* 基准条件：所有受控变量的固定值，只有 studyVar 允许改动 */
+  var BASE = { scene: "earth", type: "stone", size: "medium", speed: "medium", angle: "vertical", ground: "rock" };
+  var studyVar = "size";   // 当前唯一自变量：scene|type|size|speed|angle|ground
+  var STUDY_LABEL = {
+    scene: "模拟场景", type: "陨石类型", size: "陨石大小",
+    speed: "进入速度", angle: "入射角度", ground: "地面成分"
+  };
+  var state = {           // 初始即基准条件（earth: loose|rock ; moon: 固定 moon）
+    scene: BASE.scene, type: BASE.type, size: BASE.size,
+    speed: BASE.speed, angle: BASE.angle, ground: BASE.ground
+  };
+  var running = false;
+  var lastParams = null;
+  var studyBasePending = false;   // 切换研究因素后，下一次实验作为该组的新基准
+  var lastResult = null;
+  var records = [];
+
+  var LABEL = {
+    scene:  { earth: "地球", moon: "月球" },
+    type:   { stone: "石陨石", iron: "铁陨石" },
+    size:   { small: "20 m", medium: "50 m", large: "300 m" },
+    speed:  { low: "10 km/s", medium: "20 km/s", high: "40 km/s" },
+    angle:  { vertical: "90°", mid: "45°", low: "20°" },
+    ground: {
+      loose: "松散地面", rock: "致密地面", moon: "月壤"
+    }
+  };
+
+  var F = {
+    size:   { small: 0.8, medium: 1.0, large: 1.25 },
+    speed:  { low: 0.8, medium: 1.0, high: 1.3 },
+    type: {
+      stone: { mass: 1.0,  atmosDecay: 0.55 },
+      iron:  { mass: 1.25, atmosDecay: 0.75 }
+    },
+    angle: {
+      vertical: { depth: 1.00, round: 1.00 },
+      mid:      { depth: 0.82, round: 0.78 },
+      low:      { depth: 0.60, round: 0.50 }
+    }
+  };
+
+  /* ===== 物理模型 =====
+     坑径：Holsapple π-scaling，参数取自 LPI「Craters from Impacts and Explosions」拟合表（K1/K2/μ/ν/Y/ρ 与 Kr 为实验拟合值）：
+       松散地面 φ=0.40  干土 K1=0.132 K2=0.26  μ=0.41 Y=2E6  ρ=1.7  dR=0.30
+       致密地面 φ=0.03  硬岩 K1=0.095 K2=0.257 μ=0.55 Y=1E8  ρ=3.2  dR=0.17
+       月壤     φ=0.45  月壤 K1=0.132 K2=0.26  μ=0.41 Y=1E5  ρ=1.5  dR=0.28
+     多孔靶材坑更深窄、溅射更少（Wünnemann 2005；Chandnani 2019），转折直径随孔隙度增大；
+     中央隆起由坑底回弹形成，只在 D > D* 时出现。边缘直径=1.3×挖掘直径；复杂坑 d=0.2D*(D/D*)^0.301。 */
+  var PHYS = {
+    sizeD:  { small: 20, medium: 50, large: 300 },        // 撞击体直径 m
+    speedV: { low: 10, medium: 20, high: 40 },            // 进入大气速度 km/s
+    angleDeg: { vertical: 90, mid: 45, low: 20 },         // 与地表夹角
+    imp: { stone: 3.0, iron: 7.8 },                       // g/cm³
+    targ: {
+      // phi 孔隙度；dR 简单坑深径比（多孔更深窄）；kEj 溅射距离系数（多孔溅射少）
+      loose: { K1: 0.132, K2: 0.26,  mu: 0.41, nu: 0.33, Y: 2e6, rho: 1.7, Kr: 1.1, Kd: 0.6, phi: 0.40, dR: 0.30, kEj: 0.6 },
+      rock:  { K1: 0.095, K2: 0.257, mu: 0.55, nu: 0.33, Y: 1e8, rho: 3.2, Kr: 1.1, Kd: 0.6, phi: 0.03, dR: 0.17, kEj: 1.2 },
+      moon:  { K1: 0.132, K2: 0.26,  mu: 0.41, nu: 0.33, Y: 1e5, rho: 1.5, Kr: 1.1, Kd: 0.6, phi: 0.45, dR: 0.28, kEj: 0.6 }
+    },
+    g: { earth: 981, moon: 162 },                         // cm/s²
+    atm: { Cd: 1.0, rho0: 1.225e-3, H: 8e5 },             // 指数大气（cgs）
+    Dstar: { earth: 3.2e3, moon: 10.6e3 }                 // 简单→复杂坑转折直径 m
+  };
+
+  /* 进入大气→落地：指数大气阻力 + 石陨石空爆简化 */
+  function entry(p) {
+    var del = PHYS.imp[p.type];
+    var v0 = PHYS.speedV[p.speed] * 1e5;                  // cm/s
+    var d0 = PHYS.sizeD[p.size];
+    var sinT = Math.sin(PHYS.angleDeg[p.angle] * Math.PI / 180);
+    var out = { v0: v0, vLand: v0, dEq: d0, note: "月球无大气，全速抵达", burst: false };
+    if (p.scene !== "earth") return out;
+
+    // 石质小天体强度低：直径小者在大气中解体，按最大碎片落地估算
+    var burst = (p.type === "stone")
+      ? { small: { d: 2, v: 100 }, medium: { d: 6, v: 300 }, large: null }[p.size]
+      : null;
+    if (burst) {
+      out.dEq = burst.d;
+      // 碎片落地速度按进入速度折算（20 km/s 为参照），保证速度仍是有效变量
+      out.vLand = burst.v * 100 * (PHYS.speedV[p.speed] / 20);
+      out.note = "大气中解体成火流星，按最大碎片落地";
+      out.burst = true;
+      return out;
+    }
+    var a0 = d0 / 2 * 100;                                // cm
+    var idx = PHYS.atm.Cd * 3 * PHYS.atm.rho0 * PHYS.atm.H / (8 * a0 * del * sinT);
+    out.vLand = v0 * Math.exp(-idx);
+    var lose = 1 - Math.exp(-idx);
+    out.note = lose < 0.03 ? "大气几乎未减速" : "大气减速约 " + Math.round(lose * 100) + "%";
+    return out;
+  }
+
+  function landingSpeed() { return entry(merged()).vLand / 1e5; }   // km/s
+
+  function computeResult(p) {
+    var T = PHYS.targ[p.ground];
+    var del = PHYS.imp[p.type];
+    var en = entry(p);
+    var sinT = Math.sin(PHYS.angleDeg[p.angle] * Math.PI / 180);
+    var U = en.vLand * Math.pow(sinT, 0.5);               // 斜撞垂直分量（Gault 角度项≈sin^1/3）
+    var a = en.dEq / 2 * 100;                             // 撞击体半径 cm
+    var m = (4 / 3) * Math.PI * a * a * a * del;          // 质量 g
+    var g = PHYS.g[p.scene], rho = T.rho, mu = T.mu, nu = T.nu;
+
+    var pi2 = g * a / (U * U);
+    var pi3 = T.Y / (rho * U * U);
+    var e1 = (6 * nu - 2 - mu) / (3 * mu), e2 = (6 * nu - 2) / (3 * mu);
+    var d1 = Math.pow(rho / del, e1), d2 = Math.pow(rho / del, e2);
+    var term = pi2 * d1 + T.K2 * Math.pow(pi3 * d2, (2 + mu) / 2);
+    var piV = T.K1 * Math.pow(term, -3 * mu / (2 + mu));
+    var V = Math.max(1, piV * m / rho);                   // cm³
+
+    var Re = T.Kr * Math.pow(V, 1 / 3);                   // 挖掘半径 cm
+    var Drim = (1.3 * 2 * Re) / 100;                      // 边缘直径 m
+    // 孔隙调制：多孔靶材把能量耗在压碎孔隙上，简单→复杂坑的转折直径更大
+    var Ds = PHYS.Dstar[p.scene] * (1 + 1.6 * T.phi);
+    var complex = Drim > Ds;
+
+    // 低速碎片落入松散层：以钻进为主，形成深而窄的漏斗（标定自曼桂坑：D/L≈1.4、P/L≈2.7）
+    var pen = !!en.burst && p.ground === "loose";
+    var vms = en.vLand / 100;                             // 落地速度 m/s
+    var depth;
+    if (pen) {
+      var frag = en.dEq;
+      Drim = frag * (1.2 + 0.2 * (vms / 100));
+      depth = frag * (2.0 + 0.9 * (vms / 100));
+    } else {
+      depth = Drim * T.dR;                                // 材料固有深径比：多孔更深窄、致密更浅宽
+      if (complex) depth = 0.2 * Ds * Math.pow(Drim / Ds, 0.301);
+    }
+
+    var ratio = Drim / depth;
+    var roundX = 1 / Math.max(0.35, sinT);                // 斜撞拉长为椭圆
+    var typeName = pen
+      ? "漏斗形（钻进坑）"
+      : (complex
+        ? (Drim > 20e3 ? "中央峰 + 平底" : "平底 + 中央隆起")
+        : (T.dR >= 0.28 ? "深碗形（简单坑）" : (T.dR >= 0.19 ? "碗形（简单坑）" : "浅碗形（简单坑）")));
+    var roundName = roundX > 2.2 ? "椭圆" : (roundX > 1.3 ? "近圆" : "圆");
+    var E = 0.5 * (m / 1000) * Math.pow(en.vLand / 100, 2);   // J
+
+    return {
+      dia: Drim, depth: depth, eject: (pen ? 0.8 : 2.5 * T.kEj) * Drim, ratio: ratio,
+      round: roundX, roundName: roundName, typeName: typeName,
+      v0: en.v0 / 1e5, vLand: en.vLand / 1e5, massKg: m / 1000,
+      tnt: E / 4.184e9, note: en.note, complex: complex, burst: en.burst, phi: T.phi, pen: pen
+    };
+  }
+
+  /* 长度自适应单位 */
+  function fmtLen(m) {
+    if (m < 1) return Math.max(1, Math.round(m * 100)) + " cm";
+    if (m < 1000) return (m < 10 ? m.toFixed(1) : String(Math.round(m))) + " m";
+    return (m / 1000 < 10 ? (m / 1000).toFixed(1) : String(Math.round(m / 1000))) + " km";
+  }
+  function fmtNum(x) {
+    if (x >= 1e8) return (x / 1e8).toFixed(1) + " 亿";
+    if (x >= 1e4) return Math.round(x / 1e4) + " 万";
+    if (x >= 1000) return Math.round(x).toLocaleString();
+    if (x >= 10) return String(Math.round(x));
+    return x.toFixed(1);
+  }
+  function fmtTNT(t) {
+    if (t < 1) return Math.max(1, Math.round(t * 1000)) + " 千克 TNT";
+    return fmtNum(t) + " 吨 TNT";
+  }
+
+  /* ===== 画布 ===== */
+  var canvas = document.getElementById("stage");
+  var ctx = canvas.getContext("2d");
+  var W = canvas.width, H = canvas.height;
+  var groundY = H * 0.66;
+
+  var topCanvas = document.getElementById("topCanvas");
+  var tctx = topCanvas.getContext("2d");
+  var TW = topCanvas.width, TH = topCanvas.height;
+  var TC = { x: TW * 0.5, y: TH * 0.56 };
+  var TOP_SPOTS = (function () {
+    var arr = [];
+    for (var i = 0; i < 12; i++) {
+      arr.push({ x: (i * 97.3 + 41) % TW, y: (i * 61.7 + 23) % (TH - 30) + 14, r: 2.5 + (i % 3) * 2.2, a: 0.16 + (i % 4) * 0.07 });
+    }
+    return arr;
+  })();
+
+  var anim = {
+    phase: "idle",
+    t: 0,
+    ball: { x: 0, y: 0, r: 11 },
+    start: { x: 0, y: 0 },
+    impact: { x: W * 0.52, y: groundY },
+    crater: { x: W * 0.52, w: 0, d: 0, wFinal: 40, dFinal: 18 },
+    rings: [],
+    particles: [],
+    fire: [],
+    topParticles: [],
+    topSettled: [],
+    rays: [],
+    result: null
+  };
+  var stageFlash = { on: false };
+  var lastT = null;
+
+  function startAnim() {
+    var S = F.size[state.size];
+    var M = F.type[state.type].mass;
+    anim.ball.r = 10 * Math.pow(S * M, 1 / 3);
+    anim.impact.x = W * 0.52;
+    anim.impact.y = groundY;
+
+    var range = groundY - 74;
+    var a = state.angle;
+    if (a === "vertical") { anim.start = { x: anim.impact.x, y: 74 }; }
+    else if (a === "mid") { anim.start = { x: anim.impact.x - range * 0.60, y: 74 + range * 0.40 }; }
+    else { anim.start = { x: anim.impact.x - range * 0.85, y: 74 + range * 0.65 }; }
+
+    var R = computeResult(merged());
+    anim.crater.x = anim.impact.x;
+    // 真实坑径从 0.3 m 到 30 km 跨 5 个数量级：画面上按对数压缩，具体数值看读数
+    var lg = Math.log10(Math.max(0.3, R.dia));
+    var lnorm = Math.min(1, Math.max(0, (lg + 0.5) / 5));
+    anim.crater.wFinal = W * (0.20 + 0.34 * lnorm);
+    // 钻进型（松散地面里的低速碎片）：实景里就是又小又深的一眼井，画面上单独收窄
+    if (R.pen) anim.crater.wFinal *= 0.20;
+    // 深度上限：按真实深径比放大，但不超过坑宽 2.2 倍、也不越出画布
+    anim.crater.dFinal = Math.max(12, Math.min(
+      Math.min(anim.crater.wFinal * 2.2, H - groundY - 26),
+      anim.crater.wFinal * (R.depth / R.dia) * 2.2));
+    anim.crater.w = 0;
+    anim.crater.d = 0;
+    anim.rings = [];
+    anim.particles = [];
+    anim.fire = [];
+    anim.topParticles = [];
+    anim.topSettled = [];
+    anim.rays = [];
+    anim.result = R;
+    anim.phase = "drop";
+    anim.t = 0;
+    stageFlash.on = false;
+    lastT = null;
+    document.getElementById("tvSub").textContent = "撞击形成中……";
+    requestAnimationFrame(loop);
+  }
+
+  function merged() {
+    return {
+      scene: state.scene, type: state.type, size: state.size,
+      speed: state.speed, angle: state.angle, ground: state.scene === "earth" ? state.ground : "moon"
+    };
+  }
+
+  function loop(ts) {
+    if (!lastT) lastT = ts;
+    var dt = Math.min(0.05, (ts - lastT) / 1000);
+    lastT = ts;
+    update(dt);
+    draw();
+    if (anim.phase !== "settle" || anim.particles.length > 0 || anim.fire.length > 0 || anim.topParticles.length > 0) {
+      requestAnimationFrame(loop);
+    } else {
+      running = false;
+      document.getElementById("btnRun").disabled = false;
+      onSettled();
+    }
+  }
+
+  function update(dt) {
+    var a = anim;
+    if (a.phase === "drop") {
+      var dropTime = 1.1 - (F.speed[state.speed] - 0.8) * 0.35;
+      a.t += dt / dropTime;
+      if (a.t >= 1) {
+        a.t = 1;
+        a.phase = "impact";
+        a.ball.x = a.impact.x;
+        a.ball.y = a.impact.y;
+        spawnImpact();
+      } else {
+        a.ball.x = a.start.x + (a.impact.x - a.start.x) * easeIn(a.t);
+        a.ball.y = a.start.y + (a.impact.y - a.start.y) * easeIn(a.t);
+        if (state.scene === "earth") {
+          // 大气摩擦：火流星拖尾（每帧多个粒子，沿轨迹滞留在后方）
+          var cnt = 3;
+          for (var fi = 0; fi < cnt; fi++) {
+            var lag = (a.t * 0.5 + fi * 0.07) * 0.18;
+            a.fire.push({
+              x: a.ball.x - (a.ball.x - a.start.x) * lag,
+              y: a.ball.y - (a.ball.y - a.start.y) * lag,
+              life: 0.55, r: 7 + a.ball.r * 0.8
+            });
+          }
+        }
+      }
+    } else if (a.phase === "impact") {
+      a.t += dt / 0.45;
+      stageFlash.on = true;
+      if (a.t >= 1) { a.phase = "forming"; a.t = 0; stageFlash.on = false; }
+    } else if (a.phase === "forming") {
+      a.t += dt / 0.8;
+      if (a.t >= 1) { a.t = 1; a.phase = "settle"; }
+      var e = easeOut(a.t);
+      a.crater.w = a.crater.wFinal * e;
+      a.crater.d = a.crater.dFinal * e;
+    }
+
+    for (var i = a.rings.length - 1; i >= 0; i--) {
+      a.rings[i].r += dt * 260;
+      a.rings[i].life -= dt;
+      if (a.rings[i].life <= 0) a.rings.splice(i, 1);
+    }
+    for (var j = a.particles.length - 1; j >= 0; j--) {
+      var p = a.particles[j];
+      p.vy += 1500 * dt;
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.life -= dt;
+      if (p.y >= p.floor || p.life <= 0) a.particles.splice(j, 1);
+    }
+    for (var k = a.fire.length - 1; k >= 0; k--) {
+      a.fire[k].life -= dt;
+      if (a.fire[k].life <= 0) a.fire.splice(k, 1);
+    }
+    for (var t = a.topParticles.length - 1; t >= 0; t--) {
+      var tp = a.topParticles[t];
+      tp.x += tp.vx * dt;
+      tp.y += tp.vy * dt;
+      tp.vx *= 0.985;
+      tp.vy *= 0.985;
+      tp.life -= dt;
+      if (tp.life <= 0) {
+        // 落定：转成固定溅射痕迹，不再消失
+        a.topSettled.push({ x: tp.x, y: tp.y, r: tp.r * 0.85, a: 0.45 + Math.random() * 0.25 });
+        if (a.topSettled.length > 70) a.topSettled.shift();
+        a.topParticles.splice(t, 1);
+      }
+    }
+  }
+
+  function easeIn(t) { return t * t; }
+  function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+
+  function spawnImpact() {
+    var a = anim;
+    var S = F.size[state.size];
+    var M = F.type[state.type].mass;
+    var V = F.speed[state.speed];
+    for (var i = 0; i < 3; i++) {
+      a.rings.push({ x: a.impact.x, y: a.impact.y, r: 8 + i * 6, life: 0.7 - i * 0.15 });
+    }
+    var n = Math.round(16 + 16 * (S - 0.8) + 10 * (V - 0.8));
+    var dir = state.angle === "vertical" ? 1 : (state.angle === "mid" ? 1.4 : 2.0);
+    for (var j = 0; j < n; j++) {
+      var ang = Math.PI * (0.15 + Math.random() * 0.7);
+      var spd = (160 + Math.random() * 420) * (0.7 + V * 0.3);
+      a.particles.push({
+        x: a.impact.x + (Math.random() - 0.5) * 10,
+        y: a.impact.y - 2,
+        vx: Math.cos(ang) * spd * (Math.random() < 0.5 ? 1 : dir),
+        vy: -Math.sin(ang) * spd,
+        floor: groundY + 4 + Math.random() * 8,
+        life: 1.2 + Math.random() * 0.8,
+        r: 1.5 + Math.random() * 2.4
+      });
+    }
+    // 俯视视角的溅射粒子：从坑心沿径向向外抛洒
+    var nTop = Math.round(26 + 14 * (S - 0.8) + 12 * (V - 0.8));
+    for (var t = 0; t < nTop; t++) {
+      var ta = Math.random() * 6.283;
+      var tspd = (34 + Math.random() * 96) * (0.7 + V * 0.4);
+      a.topParticles.push({
+        x: TC.x, y: TC.y,
+        vx: Math.cos(ta) * tspd,
+        vy: Math.sin(ta) * tspd,
+        life: 1.0 + Math.random() * 0.7,
+        r: 1.1 + Math.random() * 1.7
+      });
+    }
+    // 辐射纹：撞击能量越大，放射条纹越多越长越亮（月球场景最明显）
+    var R = anim.result;
+    var energy = R.energy;
+    var rx = Math.min(R.dia * 13 * 2.0, TW * 0.30);
+    var nRays = Math.round(4 + energy * 8);
+    var rayLen = Math.min(rx * (2.0 + energy * 1.2), Math.min(TC.x, TW - TC.x, TC.y, TH - TC.y) - 8);
+    var w0 = 2 + rx * 0.06;
+    for (var ry2 = 0; ry2 < nRays; ry2++) {
+      a.rays.push({
+        ang: (ry2 / nRays) * 6.283 + (Math.random() - 0.5) * 0.3,
+        len: rayLen,
+        w0: w0,
+        a0: 0.14 + 0.3 * energy
+      });
+    }
+  }
+
+  /* ===== 绘制 ===== */
+  var LAYERS = {
+    earth: [
+      { y: groundY + 3,  h: 22, color: "#6B4A2F", name: "" },
+      { y: groundY + 25, h: 32, color: "#8A5A33", name: "" },
+      { y: groundY + 57, h: 0,  color: "#565B63", name: "" }
+    ],
+    moon: [
+      { y: groundY + 3,  h: 20, color: "#A9AAAE", name: "月壤层" },
+      { y: groundY + 23, h: 40, color: "#71737A", name: "风化层" },
+      { y: groundY + 63, h: 0,  color: "#3D4047", name: "下伏岩石" }
+    ]
+  };
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    drawSky();
+    drawAtmosphere();
+    drawGround();
+    drawTrajectory();
+    drawFire();
+    drawParticles();
+    drawRings();
+    drawBall();
+    drawFlash();
+    if (anim.phase === "settle" && anim.result) drawMeasure();
+    drawSceneTag();
+    drawTopview();
+  }
+
+  function drawSky() {
+    if (state.scene === "earth") {
+      var g = ctx.createLinearGradient(0, 0, 0, groundY);
+      g.addColorStop(0, "#1B3A5B");
+      g.addColorStop(0.75, "#3E6E93");
+      g.addColorStop(1, "#8FB7C9");
+      ctx.fillStyle = g;
+    } else {
+      var g2 = ctx.createLinearGradient(0, 0, 0, groundY);
+      g2.addColorStop(0, "#05070C");
+      g2.addColorStop(1, "#0B1120");
+      ctx.fillStyle = g2;
+    }
+    ctx.fillRect(0, 0, W, groundY);
+
+    // 星星（地球少、月球多）
+    var nStars = state.scene === "earth" ? 26 : 70;
+    ctx.fillStyle = "rgba(255,255,255,0.75)";
+    for (var i = 0; i < nStars; i++) {
+      var x = (i * 173.7) % W, y = (i * 97.3) % (groundY - 30);
+      var r = 0.5 + (i % 3) * 0.55;
+      ctx.globalAlpha = 0.3 + (i % 4) * 0.14;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /* 地球大气层：多层大气带 + 云层 + 醒目标注 */
+  function drawAtmosphere() {
+    if (state.scene !== "earth") return;
+    var bands = [
+      [0, groundY * 0.30, "rgba(76,138,186,0.34)"],
+      [groundY * 0.30, groundY * 0.62, "rgba(110,172,210,0.30)"],
+      [groundY * 0.62, groundY * 0.86, "rgba(158,200,222,0.26)"],
+      [groundY * 0.86, groundY, "rgba(196,222,235,0.34)"]
+    ];
+    for (var i = 0; i < bands.length; i++) {
+      ctx.fillStyle = bands[i][2];
+      ctx.fillRect(0, bands[i][0], W, bands[i][1] - bands[i][0]);
+    }
+    // 层边界亮线
+    ctx.strokeStyle = "rgba(220,240,250,0.35)";
+    ctx.lineWidth = 1;
+    for (var j = 1; j < bands.length; j++) {
+      ctx.beginPath();
+      ctx.moveTo(0, bands[j][0]);
+      ctx.lineTo(W, bands[j][0]);
+      ctx.stroke();
+    }
+    // 云层
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    cloud(120, groundY * 0.46, 1.0);
+    cloud(430, groundY * 0.70, 0.85);
+    cloud(700, groundY * 0.40, 1.25);
+    cloud(280, groundY * 0.86, 0.7);
+    // 大气标注（避开左上角状态标签）
+    ctx.fillStyle = "rgba(12,21,38,0.72)";
+    ctx.fillRect(14, groundY * 0.36, 196, 24);
+    ctx.strokeStyle = "rgba(242,166,90,0.7)";
+    ctx.strokeRect(14, groundY * 0.36, 196, 24);
+    ctx.fillStyle = "#F2A65A";
+    ctx.font = "12px PingFang SC, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText("大气层 · 摩擦 · 烧蚀 · 减速", 20, groundY * 0.36 + 16);
+  }
+
+  function cloud(x, y, s) {
+    ctx.beginPath();
+    ctx.arc(x, y, 16 * s, 0, 6.283);
+    ctx.arc(x + 18 * s, y - 6 * s, 13 * s, 0, 6.283);
+    ctx.arc(x + 34 * s, y, 14 * s, 0, 6.283);
+    ctx.fill();
+  }
+
+  /* 剖面：三层土壤/月壤，坑凹陷逐层衰减 */
+  function drawGround() {
+    var layers = LAYERS[state.scene];
+    var n = layers.length;
+    // 每条边界的 y 基准（0=顶面, 1..n-1, n=画布底）
+    var edges = [];
+    var baseY = groundY;
+    for (var e = 0; e <= n; e++) {
+      edges.push(e === 0 ? baseY : (e === n ? H : layers[e - 1].y + layers[e - 1].h));
+    }
+    // 凹陷因子（越深衰减越大）
+    var decayF = [1, 0.72, 0.38, 0];
+    // 生成每条边界的点列
+    var paths = [];
+    var steps = 100;
+    for (var i = 0; i <= n; i++) {
+      var pts = [];
+      for (var s = 0; s <= steps; s++) {
+        var x = (s / steps) * W;
+        var y = edges[i];
+        var a = anim;
+        if (a.crater.w > 0) {
+          var dx = Math.abs(x - a.crater.x);
+          if (dx < a.crater.w) {
+            var t = dx / a.crater.w;
+            y += a.crater.d * decayF[i] * Math.sqrt(1 - t * t);
+          }
+        }
+        pts.push([x, y]);
+      }
+      paths.push(pts);
+    }
+    // 逐层填充（从底到顶，每层只画自己的区域）
+    for (var l = n - 1; l >= 0; l--) {
+      ctx.fillStyle = layers[l].color;
+      ctx.beginPath();
+      ctx.moveTo(0, paths[l][0][1]);
+      for (var q = 0; q <= steps; q++) ctx.lineTo(paths[l][q][0], paths[l][q][1]);
+      ctx.lineTo(W, paths[l][steps][1]);
+      ctx.lineTo(W, paths[l + 1][steps][1]);
+      for (var r = steps; r >= 0; r--) ctx.lineTo(paths[l + 1][r][0], paths[l + 1][r][1]);
+      ctx.lineTo(0, paths[l + 1][0][1]);
+      ctx.closePath();
+      ctx.fill();
+    }
+    // 层名标签
+    ctx.fillStyle = "rgba(255,255,255,0.5)";
+    ctx.font = "11px PingFang SC, sans-serif";
+    ctx.textAlign = "right";
+    for (var m = 0; m < layers.length; m++) {
+      if (layers[m].h > 0 && layers[m].name) {
+        ctx.fillText(layers[m].name, W - 14, layers[m].y + layers[m].h / 2 + 4);
+      }
+    }
+    // 地面标签
+    ctx.textAlign = "center";
+    ctx.fillStyle = "rgba(255,255,255,0.65)";
+    ctx.fillText(state.scene === "earth" ? "地表 · " + LABEL.ground[state.ground] : "月面 · " + LABEL.ground.moon, W * 0.5, groundY + 24);
+    // 溅射堆积
+    var c = anim;
+    if (c.crater.w > 0) {
+      ctx.fillStyle = state.scene === "earth" ? "rgba(107,74,47,0.6)" : "rgba(169,170,174,0.6)";
+      var hw = c.crater.w;
+      ctx.beginPath();
+      ctx.ellipse(c.crater.x - hw * 0.55, groundY - 3, hw * 0.5, 5.5, 0, 0, 6.283);
+      ctx.fill();
+      var extra = state.angle === "vertical" ? 1 : 1.25;
+      ctx.beginPath();
+      ctx.ellipse(c.crater.x + hw * 0.6, groundY - 3, hw * 0.5 * extra, 5.5, 0, 0, 6.283);
+      ctx.fill();
+
+      // 致密地面：坑口外那层岩石被整块震碎、掀起、翻到坑外
+      if (state.ground === "rock" && state.scene === "earth") {
+        for (var b = 0; b < 7; b++) {
+          var side = (b % 2) ? 1 : -1;
+          var k = 0.60 + (b / 7) * 0.85;
+          var bx = c.crater.x + side * hw * k;
+          var bw = hw * (0.15 + (b % 3) * 0.05);
+          var bh = 4.5 + (b % 3) * 2.4;
+          ctx.save();
+          ctx.translate(bx, groundY - bh / 2 - 1);
+          ctx.rotate(side * (0.07 + (b % 2) * 0.06));
+          ctx.fillStyle = "#565B63";
+          ctx.fillRect(-bw / 2, -bh / 2, bw, bh);
+          ctx.fillStyle = "rgba(138,90,51,0.92)";
+          ctx.fillRect(-bw / 2, bh / 2 - 2.4, bw, 2.4);
+          ctx.restore();
+        }
+      }
+    }
+  }
+
+  function drawTrajectory() {
+    if (anim.phase !== "drop") return;
+    ctx.setLineDash([5, 5]);
+    ctx.strokeStyle = state.scene === "earth"
+      ? "rgba(143,183,201,0.5)" : "rgba(255,255,255,0.22)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(anim.start.x, anim.start.y);
+    ctx.lineTo(anim.impact.x, anim.impact.y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  function drawFire() {
+    for (var i = 0; i < anim.fire.length; i++) {
+      var f = anim.fire[i];
+      var g = ctx.createRadialGradient(f.x, f.y, 1, f.x, f.y, f.r * 4.2);
+      g.addColorStop(0, "rgba(255,205,130," + Math.max(0, f.life * 1.5) + ")");
+      g.addColorStop(0.35, "rgba(255,145,60," + Math.max(0, f.life * 1.2) + ")");
+      g.addColorStop(1, "rgba(255,120,40,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.r * 4.2, 0, 6.283);
+      ctx.fill();
+    }
+  }
+
+  function drawParticles() {
+    for (var i = 0; i < anim.particles.length; i++) {
+      var p = anim.particles[i];
+      ctx.fillStyle = state.scene === "earth"
+        ? "rgba(220,196,160," + Math.min(1, p.life) + ")"
+        : "rgba(220,220,226," + Math.min(1, p.life) + ")";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, 6.283);
+      ctx.fill();
+    }
+  }
+
+  function drawRings() {
+    for (var i = 0; i < anim.rings.length; i++) {
+      var r = anim.rings[i];
+      ctx.strokeStyle = "rgba(242,166,90," + Math.max(0, r.life) + ")";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.r, 0, 6.283);
+      ctx.stroke();
+    }
+  }
+
+  /* 陨石形状：确定性扰动轮廓（同大小+类型形状固定），带熔壳与坑洼纹理 */
+  var meteorShapeCache = {};
+  function meteorShape() {
+    var key = state.size + "|" + state.type;
+    if (meteorShapeCache[key]) return meteorShapeCache[key];
+    var seed = (key.charCodeAt(0) * 7 + key.charCodeAt(1) * 13 + key.charCodeAt(2) * 29) % 97;
+    var fs = [];
+    for (var i = 0; i < 14; i++) {
+      fs.push(0.75 + ((i * 37 + seed * 11) % 100) / 200);
+    }
+    meteorShapeCache[key] = fs;
+    return fs;
+  }
+
+  function drawMeteor(x, y, r) {
+    var fs = meteorShape();
+    var iron = state.type === "iron";
+    var main = iron ? "#A7ABB3" : "#40342A";
+    var dark = iron ? "#6E737A" : "#26201A";
+    var light = iron ? "#C7CBD2" : "#5C4A38";
+    ctx.fillStyle = main;
+    ctx.beginPath();
+    for (var i = 0; i < 14; i++) {
+      var ang = (i / 14) * 6.283;
+      var rr = r * fs[i];
+      var px = x + Math.cos(ang) * rr;
+      var py = y + Math.sin(ang) * rr;
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fill();
+    // 坑洼斑块
+    ctx.fillStyle = dark;
+    for (var b = 0; b < 3; b++) {
+      var bAng = b * 2.4 + 0.6;
+      ctx.beginPath();
+      ctx.arc(x + Math.cos(bAng) * r * 0.35, y + Math.sin(bAng) * r * 0.35, r * (0.2 + (b % 2) * 0.08), 0, 6.283);
+      ctx.fill();
+    }
+    // 受光面亮斑
+    ctx.fillStyle = light;
+    ctx.beginPath();
+    ctx.arc(x - r * 0.18, y - r * 0.22, r * 0.3, 0, 6.283);
+    ctx.fill();
+    // 铁陨石金属亮点
+    if (iron) {
+      ctx.fillStyle = "rgba(255,255,255,0.75)";
+      ctx.beginPath();
+      ctx.arc(x - r * 0.28, y - r * 0.3, r * 0.09, 0, 6.283);
+      ctx.fill();
+    }
+    // 熔壳暗边
+    ctx.strokeStyle = "rgba(20,16,12,0.6)";
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+  }
+
+  /* 高速穿过大气时陨石前方的激波锥 */
+  function drawShockCone(b) {
+    var dx = anim.impact.x - anim.start.x;
+    var dy = anim.impact.y - anim.start.y;
+    var len = Math.sqrt(dx * dx + dy * dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len;
+    var nx = -uy, ny = ux;
+    var tipX = b.x + ux * (b.r * 1.5);
+    var tipY = b.y + uy * (b.r * 1.5);
+    var back = b.r * 4.5;
+    var halfW = b.r * 2.4;
+    ctx.fillStyle = "rgba(190,225,245,0.20)";
+    ctx.beginPath();
+    ctx.moveTo(tipX, tipY);
+    ctx.lineTo(b.x - ux * back + nx * halfW, b.y - uy * back + ny * halfW);
+    ctx.lineTo(b.x - ux * back - nx * halfW, b.y - uy * back - ny * halfW);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = "rgba(210,235,250,0.45)";
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+  }
+
+  function drawBall() {
+    if (anim.phase === "idle") {
+      drawMeteor(W * 0.52, groundY - 110, 11);
+      return;
+    }
+    if (anim.phase === "impact" || anim.phase === "settle") return;
+    var b = anim.ball;
+    if (state.scene === "earth") {
+      // 穿过大气：本体燃烧辉光 + 激波锥
+      var fg = ctx.createRadialGradient(b.x, b.y, 1, b.x, b.y, b.r * 4.2);
+      fg.addColorStop(0, "rgba(255,190,110,0.75)");
+      fg.addColorStop(0.4, "rgba(255,130,55,0.4)");
+      fg.addColorStop(1, "rgba(255,110,40,0)");
+      ctx.fillStyle = fg;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r * 4.2, 0, 6.283);
+      ctx.fill();
+      drawShockCone(b);
+      drawMeteor(b.x, b.y, b.r);
+      // 表面灼烧橙光
+      ctx.fillStyle = "rgba(255,150,60,0.42)";
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r * 0.72, 0, 6.283);
+      ctx.fill();
+    } else {
+      drawMeteor(b.x, b.y, b.r);
+    }
+  }
+
+  function drawFlash() {
+    if (!stageFlash.on) return;
+    var g = ctx.createRadialGradient(anim.impact.x, anim.impact.y, 2, anim.impact.x, anim.impact.y, 72);
+    g.addColorStop(0, "rgba(255,220,170,0.85)");
+    g.addColorStop(1, "rgba(255,220,170,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(anim.impact.x, anim.impact.y, 72, 0, 6.283);
+    ctx.fill();
+  }
+
+  function drawMeasure() {
+    var a = anim, r = a.result;
+    ctx.strokeStyle = "rgba(143,183,201,0.9)";
+    ctx.fillStyle = "#CFE3EF";
+    ctx.lineWidth = 1.5;
+    ctx.font = "12px PingFang SC, sans-serif";
+
+    var hw = a.crater.w;
+    var y0 = groundY - 8;
+    ctx.beginPath();
+    ctx.moveTo(a.crater.x - hw, y0);
+    ctx.lineTo(a.crater.x + hw, y0);
+    ctx.stroke();
+    arrow(a.crater.x - hw, y0, -1);
+    arrow(a.crater.x + hw, y0, 1);
+    ctx.textAlign = "center";
+    ctx.fillText("口径 " + fmtLen(r.dia), a.crater.x, y0 - 8);
+
+    var dx = a.crater.x + hw + 24;
+    ctx.beginPath();
+    ctx.moveTo(dx, groundY);
+    ctx.lineTo(dx, groundY + a.crater.d);
+    ctx.stroke();
+    arrow(dx, groundY, -1, true);
+    ctx.textAlign = "center";
+    ctx.fillText("深 " + fmtLen(r.depth), dx, groundY + a.crater.d + 16);
+    ctx.fillStyle = "#F2A65A";
+    ctx.font = "600 12.5px PingFang SC, sans-serif";
+    ctx.fillText("坑型：" + r.typeName + "  口径/深度 " + r.ratio.toFixed(1), a.crater.x, groundY + a.crater.d + 34);
+  }
+
+  function arrow(x, y, dir, vertical) {
+    ctx.save();
+    ctx.translate(x, y);
+    if (vertical) ctx.rotate(Math.PI / 2);
+    ctx.beginPath();
+    ctx.moveTo(-dir * 7, -3);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-dir * 7, 3);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawSceneTag() {
+    var map = { idle: "等待实验", drop: state.scene === "earth" ? "穿过大气 · 减速" : "直抵月面", impact: "① 接触与压缩", forming: "② 挖掘", settle: "③ 改造" };
+    ctx.fillStyle = "rgba(12,21,38,0.72)";
+    ctx.fillRect(12, 38, 176, 26);
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    ctx.strokeRect(12, 38, 176, 26);
+    ctx.fillStyle = "#F2A65A";
+    ctx.font = "13px PingFang SC, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(map[anim.phase], 20, 56);
+  }
+
+  /* 俯视视角：坑口形状（入射角 → 圆/椭圆），与侧视动画同步 */
+  function drawTopview() {
+    tctx.clearRect(0, 0, TW, TH);
+    var moon = state.scene === "moon";
+    var g = tctx.createLinearGradient(0, 0, 0, TH);
+    if (moon) { g.addColorStop(0, "#171A20"); g.addColorStop(1, "#262A31"); }
+    else { g.addColorStop(0, "#3A2F22"); g.addColorStop(1, "#2A2118"); }
+    tctx.fillStyle = g;
+    tctx.fillRect(0, 0, TW, TH);
+
+    // 预置斑驳小坑（月球更多）
+    var spots = moon ? TOP_SPOTS : TOP_SPOTS.slice(0, 5);
+    for (var i = 0; i < spots.length; i++) {
+      tctx.fillStyle = "rgba(255,255,255," + spots[i].a + ")";
+      tctx.beginPath();
+      tctx.ellipse(spots[i].x, spots[i].y, spots[i].r, spots[i].r * 0.8, 0, 0, 6.283);
+      tctx.fill();
+    }
+
+    var a = anim;
+    if (a.crater.w <= 0) {
+      // 准星：表示陨石将落下的位置
+      tctx.strokeStyle = "rgba(242,166,90,0.5)";
+      tctx.lineWidth = 1.5;
+      tctx.setLineDash([5, 5]);
+      tctx.beginPath(); tctx.arc(TC.x, TC.y, 26, 0, 6.283); tctx.stroke();
+      tctx.setLineDash([]);
+      tctx.beginPath();
+      tctx.moveTo(TC.x - 40, TC.y); tctx.lineTo(TC.x + 40, TC.y);
+      tctx.moveTo(TC.x, TC.y - 30); tctx.lineTo(TC.x, TC.y + 30);
+      tctx.stroke();
+      return;
+    }
+
+    var round = F.angle[state.angle].round;
+    var rx = Math.min(a.crater.w * 2.0, TW * 0.30);
+    var ry = rx * round;
+
+    // 撞击闪光
+    if (stageFlash.on) {
+      var fg = tctx.createRadialGradient(TC.x, TC.y, 2, TC.x, TC.y, Math.min(rx * 2.2, TW * 0.55));
+      fg.addColorStop(0, "rgba(255,220,170,0.8)");
+      fg.addColorStop(1, "rgba(255,220,170,0)");
+      tctx.fillStyle = fg;
+      tctx.beginPath(); tctx.arc(TC.x, TC.y, Math.min(rx * 2.2, TW * 0.55), 0, 6.283); tctx.fill();
+    }
+
+    // 溅射毯
+    var blanket = Math.min(rx * 1.4, TW * 0.46);
+    tctx.fillStyle = moon ? "rgba(215,216,222,0.22)" : "rgba(200,170,120,0.25)";
+    tctx.beginPath();
+    tctx.ellipse(TC.x, TC.y, blanket, Math.min(ry * 1.4, TW * 0.46), 0, 0, 6.283);
+    tctx.fill();
+
+    // 坑体（中心深、边缘过渡）
+    var cg = tctx.createRadialGradient(TC.x, TC.y, 1, TC.x, TC.y, rx);
+    cg.addColorStop(0, moon ? "#16181D" : "#241B12");
+    cg.addColorStop(0.75, moon ? "#1D2026" : "#2E2318");
+    cg.addColorStop(1, moon ? "#3A3E46" : "#54402A");
+    tctx.fillStyle = cg;
+    tctx.beginPath();
+    tctx.ellipse(TC.x, TC.y, rx, ry, 0, 0, 6.283);
+    tctx.fill();
+
+    // 坑沿亮环
+    tctx.strokeStyle = moon ? "rgba(220,220,226,0.8)" : "rgba(220,196,160,0.8)";
+    tctx.lineWidth = 2;
+    tctx.beginPath();
+    tctx.ellipse(TC.x, TC.y, rx, ry, 0, 0, 6.283);
+    tctx.stroke();
+
+    // 中央峰（大坑才出现）
+    if (a.crater.wFinal >= 55) {
+      tctx.fillStyle = moon ? "#8A8D94" : "#A98E66";
+      tctx.beginPath();
+      tctx.ellipse(TC.x, TC.y, rx * 0.22, ry * 0.22, 0, 0, 6.283);
+      tctx.fill();
+      tctx.fillStyle = "rgba(255,255,255,0.65)";
+      tctx.beginPath();
+      tctx.ellipse(TC.x - rx * 0.05, TC.y - ry * 0.05, rx * 0.1, ry * 0.08, 0, 0, 6.283);
+      tctx.fill();
+    }
+
+    // 辐射纹：从坑沿向外放射，随坑形成逐渐显现
+    drawRays(rx, ry, moon);
+
+    // 俯视溅射粒子（飞行中）
+    for (var p = 0; p < a.topParticles.length; p++) {
+      var tp = a.topParticles[p];
+      tctx.fillStyle = moon
+        ? "rgba(220,220,226," + Math.min(1, tp.life) + ")"
+        : "rgba(220,196,160," + Math.min(1, tp.life) + ")";
+      tctx.beginPath();
+      tctx.arc(tp.x, tp.y, tp.r, 0, 6.283);
+      tctx.fill();
+    }
+
+    // 落定后的溅射痕迹（留在坑外）
+    for (var s = 0; s < a.topSettled.length; s++) {
+      var st = a.topSettled[s];
+      tctx.fillStyle = moon
+        ? "rgba(225,226,232," + st.a + ")"
+        : "rgba(216,192,150," + st.a + ")";
+      tctx.beginPath();
+      tctx.arc(st.x, st.y, st.r, 0, 6.283);
+      tctx.fill();
+    }
+
+    // 环形涟漪（俯视同心圆）
+    for (var rr = 0; rr < a.rings.length; rr++) {
+      var rg = a.rings[rr];
+      tctx.strokeStyle = "rgba(242,166,90," + Math.max(0, rg.life) + ")";
+      tctx.lineWidth = 2;
+      tctx.beginPath();
+      tctx.arc(TC.x, TC.y, rg.r * 2.2, 0, 6.283);
+      tctx.stroke();
+    }
+  }
+
+  /* 辐射纹：近坑沿粗亮、远端细淡，逐段描画 */
+  function drawRays(rx, ry, moon) {
+    var e = anim.phase === "forming" ? easeOut(anim.t) : (anim.phase === "settle" ? 1 : 0);
+    if (e <= 0 || !anim.rays.length) return;
+    var base = moon ? "225,226,232" : "222,200,160";
+    var segs = 4;
+    for (var i = 0; i < anim.rays.length; i++) {
+      var ray = anim.rays[i];
+      var a0 = ray.a0 * e;
+      if (a0 < 0.02) continue;
+      var sx = TC.x + Math.cos(ray.ang) * rx;
+      var sy = TC.y + Math.sin(ray.ang) * ry;
+      var dx = Math.cos(ray.ang) * ray.len;
+      var dy = Math.sin(ray.ang) * ray.len;
+      for (var s = 0; s < segs; s++) {
+        var t0 = s / segs, t1 = (s + 1) / segs;
+        tctx.strokeStyle = "rgba(" + base + "," + (a0 * (1 - t0 * 0.6)).toFixed(3) + ")";
+        tctx.lineWidth = Math.max(0.6, ray.w0 * (1 - t0 * 0.78));
+        tctx.beginPath();
+        tctx.moveTo(sx + dx * t0, sy + dy * t0);
+        tctx.lineTo(sx + dx * t1, sy + dy * t1);
+        tctx.stroke();
+      }
+    }
+  }
+
+  /* ===== UI ===== */
+  /* 核心规则：只有 studyVar（当前研究因素）可以改，其余控件一律锁死 */
+  var SEG_OF = { scene: "segScene", type: "segType", size: "segSize", speed: "segSpeed", angle: "segAngle", ground: "segGround" };
+  var BOX_OF = { scene: "ctlScene", type: "ctlType", size: "ctlSize", speed: "ctlSpeed", angle: "ctlAngle", ground: "ctlGround" };
+
+  function cLabel(k, v) {
+    return (LABEL[k] && LABEL[k][v]) ? LABEL[k][v] : String(v);
+  }
+
+  function syncSegClasses() {
+    for (var k in SEG_OF) {
+      var seg = document.getElementById(SEG_OF[k]);
+      if (!seg) continue;
+      var val = (k === "ground" && state.scene === "moon") ? "moon" : state[k];
+      var kids = seg.querySelectorAll("button");
+      for (var i = 0; i < kids.length; i++) {
+        kids[i].classList.toggle("on", kids[i].getAttribute("data-v") === val);
+      }
+    }
+    var sc = document.getElementById("segScene");
+    if (sc) {
+      var bs = sc.querySelectorAll("button");
+      for (var j = 0; j < bs.length; j++) {
+        bs[j].classList.remove("on-eco", "on-moon");
+        if (bs[j].classList.contains("on")) {
+          bs[j].classList.add(bs[j].getAttribute("data-v") === "earth" ? "on-eco" : "on-moon");
+        }
+      }
+    }
+  }
+
+  function updateGroundNote() {
+    var isEarth = state.scene === "earth";
+    var T = PHYS.targ[state.ground];
+    var Ds = PHYS.Dstar[state.scene] * (1 + 1.6 * T.phi);
+    if (isEarth) {
+      document.getElementById("groundNote").innerHTML =
+        "<b>地面松散还是致密，砸出来的坑完全不同：</b>松散地面孔隙度约 40%，能量大半耗在压碎孔隙上，坑又小又深、溅射少——曼桂坑 13 cm 宽、25 cm 深，深径比接近 2，就是这个样子；致密地面孔隙度约 3%，能量主要转为冲击波，坑更宽更浅，坑口外面那一层岩石被整体震碎、掀起、翻到坑外。<br><b>转折直径：</b>" +
+        LABEL.ground[state.ground] + "约 " + fmtLen(Ds) + "。坑径超过它，坑底回弹才顶得出中央隆起。";
+    } else {
+      document.getElementById("groundNote").innerHTML =
+        "<b>月壤孔隙度约 45%，盖在月壳基岩上：</b>月海厚约 4–5 m，高地约 10–15 m（Apollo 地震探测）。米级以下的坑只在月壤里，更大的坑会切进基岩——本模型按月壤参数计算。";
+    }
+  }
+
+  function syncSceneUI() {
+    var isEarth = state.scene === "earth";
+    document.getElementById("ctlGround").style.display = isEarth ? "" : "none";
+    updateGroundNote();
+    document.getElementById("sceneTag").textContent = "当前场景：" + LABEL.scene[state.scene];
+    var desc = document.getElementById("sceneDesc");
+    desc.textContent = isEarth
+      ? "地球有大气层：陨石会在大气中摩擦、烧蚀、减速，石质小天体还可能半空解体。地面按孔隙度分两种：松散地面与致密地面。"
+      : "月球没有大气：陨石全速砸下，速度几乎不衰减。月面是风化层覆盖月壳基岩，几十亿年的撞击痕迹原样保存。";
+  }
+
+  function applyLocks() {
+    for (var k in BOX_OF) {
+      var el = document.getElementById(BOX_OF[k]);
+      if (!el) continue;
+      var isVar = (k === studyVar);
+      el.classList.toggle("locked", !isVar);
+      var tag = el.querySelector(".tag");
+      if (tag) {
+        tag.textContent = isVar ? "自变量 · 可调" : "🔒 控制变量";
+        tag.className = "tag " + (isVar ? "tag-on" : "tag-lock");
+      }
+      var btns = el.querySelectorAll("button");
+      for (var i = 0; i < btns.length; i++) btns[i].disabled = !isVar;
+    }
+  }
+
+  function updateStudyNote() {
+    var locked = [];
+    for (var k in STUDY_LABEL) {
+      if (k === studyVar) continue;
+      if (k === "ground" && state.scene === "moon") continue;
+      locked.push(STUDY_LABEL[k] + "=" + cLabel(k, state[k]));
+    }
+    document.getElementById("studyNote").innerHTML =
+      "当前自变量：<b>" + STUDY_LABEL[studyVar] + "</b>（只能改这一项）。<br>已锁定：" + locked.join("、") + "。";
+  }
+
+  function applyStudy(v, reset, force) {
+    var factorChanged = (v !== studyVar);
+    studyVar = v;
+    if (reset && (factorChanged || force)) {
+      for (var k in BASE) {
+        if (k !== studyVar) state[k] = BASE[k];
+      }
+      if (studyVar === "ground") state.scene = "earth";
+      if (records.length) studyBasePending = true;
+      lastParams = null;      // 重新建立基准，之后每轮只允许一个变量变化
+      lastResult = null;
+    }
+    syncSegClasses();
+    syncSceneUI();
+    applyLocks();
+    updateStudyNote();
+    checkVarChange();
+    if (!running) resetToIdle();
+  }
+
+  function bindSeg(id, key, extra) {
+    var box = document.getElementById(id);
+    box.addEventListener("click", function (e) {
+      var btn = e.target.closest("button");
+      if (!btn || btn.disabled) return;
+      if (key !== studyVar) {    // 双保险：非当前变量的控件不接受任何改动
+        flashLocked(box);
+        return;
+      }
+      var kids = box.querySelectorAll("button");
+      for (var i = 0; i < kids.length; i++) kids[i].classList.remove("on");
+      btn.classList.add("on");
+      if (typeof extra === "function") extra(btn.getAttribute("data-v"));
+      else state[key] = btn.getAttribute("data-v");
+      updateStudyNote();
+      checkVarChange();
+      if (!running) resetToIdle();
+    });
+  }
+
+  /* 点到被锁定的控件时轻抖一下 */
+  function flashLocked(box) {
+    if (!box) return;
+    box.style.transition = "transform .12s";
+    box.style.transform = "translateX(3px)";
+    setTimeout(function () { box.style.transform = "translateX(-3px)"; }, 120);
+    setTimeout(function () { box.style.transform = ""; }, 240);
+  }
+
+  bindSeg("segType", "type");
+  bindSeg("segSize", "size");
+  bindSeg("segSpeed", "speed");
+  bindSeg("segAngle", "angle");
+  bindSeg("segGround", "ground", function (v) { state.ground = v; updateGroundNote(); });
+
+  bindSeg("segScene", "scene", function (v) {
+    state.scene = v;
+    syncSceneUI();
+  });
+
+  /* 研究因素选择器：切换后其他变量全部回到基准 */
+  document.getElementById("segStudy").addEventListener("click", function (e) {
+    var btn = e.target.closest("button");
+    if (!btn) return;
+    var kids = this.querySelectorAll("button");
+    for (var i = 0; i < kids.length; i++) kids[i].classList.remove("on");
+    btn.classList.add("on");
+    applyStudy(btn.getAttribute("data-v"), true);
+  });
+
+  /* 回到基准条件 */
+  document.getElementById("btnBase").addEventListener("click", function () {
+    applyStudy(studyVar, true, true);
+  });
+
+  /* 初始化：按默认自变量（陨石大小）锁定其余条件 */
+  applyStudy(studyVar, true, true);
+
+  function checkVarChange() {
+    if (!lastParams) { hideHint(); return; }
+    var n = 0, changed = [];
+    for (var k in state) {
+      if (state[k] !== lastParams[k]) { n++; changed.push(k); }
+    }
+    var hint = document.getElementById("hintVar");
+    if (n > 1) {
+      hint.textContent = "注意：这次同时改变了 " + n + " 个变量（" + changed.map(function (c) { return cName(c); }).join("、") + "）。结论说不清是哪个变量起的作用——试试一次只改一个变量！";
+      hint.classList.add("show");
+    } else {
+      hideHint();
+    }
+  }
+  function hideHint() { document.getElementById("hintVar").classList.remove("show"); }
+  function cName(k) {
+    var map = { scene: "模拟场景", type: "陨石类型", size: "陨石大小", speed: "进入速度", angle: "入射角度", ground: "地面成分" };
+    return map[k];
+  }
+
+  function resetToIdle() {
+    anim.phase = "idle";
+    anim.crater.w = 0; anim.crater.d = 0;
+    anim.rings = []; anim.particles = []; anim.fire = [];
+    anim.topParticles = []; anim.topSettled = []; anim.rays = [];
+    stageFlash.on = false;
+    document.getElementById("tvSub").textContent = "等待撞击……";
+    draw();
+  }
+
+  document.getElementById("btnRun").addEventListener("click", function () {
+    if (running) return;
+    running = true;
+    this.disabled = true;
+    startAnim();
+  });
+
+  document.getElementById("btnClear").addEventListener("click", function () {
+    records = [];
+    lastParams = null;
+    lastResult = null;
+    renderRecords();
+    resetToIdle();
+    var vs = document.querySelectorAll(".metric .v");
+    for (var i = 0; i < vs.length; i++) vs[i].textContent = "—";
+    var bs = document.querySelectorAll(".metric .b i");
+    for (var j = 0; j < bs.length; j++) bs[j].style.width = "0%";
+  });
+
+  function onSettled() {
+    var r = anim.result;
+    document.getElementById("mDia").textContent = fmtLen(r.dia);
+    document.getElementById("mDep").textContent = fmtLen(r.depth);
+    document.getElementById("mEje").textContent = fmtLen(r.eject);
+    document.getElementById("mRound").textContent = r.roundName;
+    document.getElementById("mType").textContent = r.typeName.split("（")[0];
+    document.getElementById("tvSub").textContent = "口径 " + fmtLen(r.dia) + " · " + r.roundName;
+    document.getElementById("bDia").style.width = Math.min(100, ((Math.log10(Math.max(0.3, r.dia)) + 0.5) / 5) * 100) + "%";
+    document.getElementById("bDep").style.width = Math.min(100, (r.depth / r.dia) * 400) + "%";
+    document.getElementById("bEje").style.width = Math.min(100, ((Math.log10(Math.max(0.3, r.eject)) + 0.5) / 5) * 100) + "%";
+    document.getElementById("bRound").style.width = Math.min(100, (r.round - 1) * 60) + "%";
+    document.getElementById("bType").style.width = (r.complex ? 100 : Math.min(90, 45 + (5 - Math.min(5, r.ratio)) * 9)) + "%";
+
+    var vTxt = r.vLand < 1
+      ? Math.round(r.vLand * 1000) + " m/s"
+      : r.vLand.toFixed(1) + " km/s";
+    document.getElementById("physNote").innerHTML =
+      "进入 " + r.v0 + " km/s → 落地 " + vTxt + "（" + r.note + "）<br>" +
+      "撞击体 " + fmtLen(PHYS.sizeD[state.size]) + " · " +
+      (state.type === "stone" ? "石质" : "铁质") +
+      (r.burst ? "（按最大碎片 " + fmtLen(entry(merged()).dEq) + " 估算）" : "") +
+      " · 当量 " + fmtTNT(r.tnt) + " · 坑径 " + fmtLen(r.dia);
+
+    var rec = {
+      changed: diffText(),
+      scene: LABEL.scene[state.scene],
+      type: LABEL.type[state.type],
+      size: LABEL.size[state.size],
+      speed: LABEL.speed[state.speed],
+      angle: LABEL.angle[state.angle],
+      ground: LABEL.ground[state.scene === "earth" ? state.ground : "moon"],
+      dia: fmtLen(r.dia), depth: fmtLen(r.depth), eject: fmtLen(r.eject),
+      round: r.roundName, typeName: r.typeName
+    };
+    records.push(rec);
+    if (records.length > 8) records.shift();
+    studyBasePending = false;
+    renderRecords();
+
+    lastParams = {
+      scene: state.scene, type: state.type, size: state.size,
+      speed: state.speed, angle: state.angle, ground: state.ground
+    };
+    lastResult = r;
+    hideHint();
+  }
+
+  /* 本轮相对上一轮改了哪一项（正常情况下只应有一项） */
+  function diffText() {
+    if (studyBasePending) return "新基准（研究因素：" + STUDY_LABEL[studyVar] + "）";
+    if (!lastParams) return "基准组（第一轮）";
+    var diffs = [];
+    for (var k in STUDY_LABEL) {
+      if (k === "ground" && state.scene === "moon") continue;
+      if (state[k] !== lastParams[k]) {
+        diffs.push(STUDY_LABEL[k] + "：" + cLabel(k, lastParams[k]) + "→" + cLabel(k, state[k]));
+      }
+    }
+    if (!diffs.length) return "（本次未改变条件）";
+    return diffs.length === 1 ? "✓ " + diffs[0] : "⚠ 同时改了 " + diffs.length + " 项：" + diffs.join("；");
+  }
+
+  function renderRecords() {
+    var tb = document.getElementById("recBody");
+    if (!records.length) {
+      tb.innerHTML = '<tr class="empty-row"><td colspan="13">还没有实验记录——先做一次基准实验，之后每轮只改一个因素</td></tr>';
+      return;
+    }
+    var html = "";
+    for (var i = 0; i < records.length; i++) {
+      var r = records[i];
+      var scnCls = r.scene === "地球" ? "scn-e" : "scn-m";
+      var chgCls = r.changed.indexOf("⚠") === 0 ? "chg-bad" : (r.changed.indexOf("✓") === 0 ? "chg-ok" : "");
+      html += "<tr>" +
+        "<td>" + (i + 1) + "</td>" +
+        '<td class="' + chgCls + '" style="white-space:normal;text-align:left;min-width:170px;">' + r.changed + "</td>" +
+        '<td class="' + scnCls + '">' + r.scene + "</td>" +
+        "<td>" + r.type + "</td><td>" + r.size + "</td><td>" + r.speed + "</td><td>" + r.angle + "</td><td>" + r.ground + "</td>" +
+        '<td class="num">' + r.dia + "</td>" +
+        '<td class="num">' + r.depth + "</td>" +
+        '<td class="num">' + r.eject + "</td>" +
+        "<td>" + r.round + "</td>" +
+        "<td>" + r.typeName + "</td>" +
+        "</tr>";
+    }
+    tb.innerHTML = html;
+  }
+
+  resetToIdle();
+})();
+</script>
+
+
+<div data-custom-element="doubao-watermark"></div></body></html>

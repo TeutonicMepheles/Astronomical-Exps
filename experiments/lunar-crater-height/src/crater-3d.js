@@ -7,7 +7,7 @@
   const topRenderer = new THREE.WebGLRenderer({ canvas: topCanvas, antialias: true });
   const sideRenderer = new THREE.WebGLRenderer({ canvas: sideCanvas, antialias: true, alpha:true });
   for (const renderer of [topRenderer, sideRenderer]) {
-    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
+    renderer.setPixelRatio(1);
     renderer.localClippingEnabled = true;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -36,11 +36,8 @@
   topCamera.lookAt(0, 0, 0);
   const sideCamera = new THREE.OrthographicCamera(-165, 165, 110, -110, 1, 600);
   const view = { measuring: false, cut: 0, angle: 35, points: [], length: null, height: null };
-  function setSideCamera() {
-    sideCamera.position.set(view.measuring ? 0 : 165, view.measuring ? -7 : 77, view.measuring ? 255 : 185);
-    sideCamera.lookAt(0, view.measuring ? -7 : -30, 0);
-  }
-  setSideCamera();
+  sideCamera.position.set(0, -7, 255);
+  sideCamera.lookAt(0, -7, 0);
 
   // 与标准受光测试页共用的演示高度场；测量长度仍以模型单位表示。
   const fract = x => x - Math.floor(x);
@@ -170,28 +167,22 @@
   const edge = new THREE.Mesh(new THREE.BufferGeometry(), referenceMaterial);
   edge.renderOrder=20;
   sideScene.add(cap, edge);
-  const line = new THREE.Mesh(new THREE.PlaneGeometry(310,1.3), referenceMaterial);
-  line.rotation.x=-Math.PI/2;
-  line.position.y=2;
-  line.renderOrder = 20;
-  line.visible = true;
-  topScene.add(line);
-  const markers = [0x75e4ff,0xffd965].map(color => {
+  const markers = [0xf2d59a,0xf2d59a].map(color => {
     const material=new THREE.MeshBasicMaterial({color,depthTest:false});
     const sphere=new THREE.SphereGeometry(3.2,16,12);
     const top=new THREE.Mesh(sphere,material),side=new THREE.Mesh(sphere,material);
     top.renderOrder=side.renderOrder=30;topScene.add(top);sideScene.add(side);
     return {top,side};
   });
-  const spanMaterial=new THREE.LineBasicMaterial({color:0xff6f80,depthTest:false});
+  const spanMaterial=new THREE.LineBasicMaterial({color:0xf2d59a,depthTest:false});
   const topSpan=new THREE.Line(new THREE.BufferGeometry(),spanMaterial);
   const sideSpan=new THREE.Line(new THREE.BufferGeometry(),spanMaterial);
   topSpan.renderOrder=sideSpan.renderOrder=29;topScene.add(topSpan);sideScene.add(sideSpan);
   function replaceGeometry(mesh, geo) { mesh.geometry.dispose(); mesh.geometry = geo; }
+  // 与剖切面深色阴影带共用同一份判定，避免视觉显示与可选区域不一致。
+  const sectionShadow=new Uint8Array(SEG);
   function rebuildSection() {
     cutPlane.constant = view.cut;
-    line.position.z = view.cut;
-    line.visible = true;
     const verts = [], outline = [], colors=[],capUV=[];
     const profile=Array.from({length:SEG+1},(_,i)=>heightAt(-160+i*SIZE/SEG,view.cut));
     const slope=Math.tan(view.angle*Math.PI/180);
@@ -206,6 +197,7 @@
         if(profile[j]>midHeight+(j-i-0.5)*SIZE/SEG*slope+0.15){shadow=true;break;}
       }
       const color=shadow?shadowColor:litColor;
+      sectionShadow[i]=shadow?1:0;
       for(let k=0;k<6;k++)colors.push(color.r,color.g,color.b);
       verts.push(x0,y0,z,x0,bottom,z,x1,y1,z, x1,y1,z,x0,bottom,z,x1,bottom,z);
       const u0=(x0+160)/SIZE,u1=(x1+160)/SIZE,v0=(y0+180)/240,v1=(y1+180)/240;
@@ -226,38 +218,96 @@
   function updateMarker() {
     markers.forEach(({top,side},i)=>{
       const visible=view.measuring && i<view.points.length;
-      top.visible=side.visible=visible;
-      if(visible){const x=view.points[i],y=heightAt(x,view.cut);top.position.set(x,y+6,view.cut);side.position.set(x,y+8,view.cut+0.5);}
+      top.visible=visible;side.visible=false;
+      if(visible){const x=view.points[i],y=heightAt(x,view.cut);top.position.set(x,y+.3,view.cut);side.position.set(x,y+.3,view.cut+0.5);}
     });
-    sideSpan.visible=false;
-    topSpan.visible=view.measuring&&view.points.length===1&&view.length!==null;
+    sideSpan.visible=view.measuring&&view.points.length===2;
+    topSpan.visible=sideSpan.visible;
     if(topSpan.visible){
-      const x=view.points[0];
-      const direction=heightAt(x,view.cut)<0?1:-1;
-      replaceGeometry(topSpan,new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x,2,view.cut),new THREE.Vector3(x+direction*view.length,2,view.cut)]));
+      replaceGeometry(topSpan,new THREE.BufferGeometry().setFromPoints(view.points.map(x=>new THREE.Vector3(x,40,view.cut))));
+      replaceGeometry(sideSpan,new THREE.BufferGeometry().setFromPoints(view.points.map(x=>new THREE.Vector3(x,heightAt(x,view.cut)+.3,view.cut+.5))));
     }
   }
+  function setStep(id){
+    const steps=['start','measure','height'],current=steps.indexOf(id);
+    for(const [index,element] of [...document.querySelectorAll('.measurement-steps [data-step]')].entries()){
+      const done=index<current||(index===2&&view.height!==null);
+      element.classList.toggle('active',index===current&&!done);element.classList.toggle('done',done);
+      if(index===current)element.setAttribute('aria-current','step');else element.removeAttribute('aria-current');
+    }
+    $('start').hidden=view.measuring;
+    $('pickTitle').textContent=current===0?'第一步 · 选取两点':'选点完成 ✓';
+    $('pickInstruction').textContent=current>0?'A、B 已同步到右侧。若需更换，点击“重新选点”或从阴影边界开始一组新选点。':!view.measuring?'先调整剖切位置与太阳高度角，再开始选点。':view.points.length===1?'已选 A 点。沿同一条剖切线，选择同一段阴影的另一端。':'在左侧点击阴影的开始边界，再选择同一段阴影的结束边界。';
+    $('pickInstruction').classList.toggle('completed-note',current>0);
+    $('pickGuide').hidden=current!==0;
+    $('sectionGuide').hidden=current===0;$('measureGuide').hidden=current!==1;$('heightGuide').hidden=current!==2;
+    $('height').hidden=view.height!==null;
+    $('height').textContent=measurementAnimation.angleShown?'计算高度差':'标出太阳高度角';
+    $('heightTitle').textContent=view.height===null?'第三步 · 太阳高度角与高度差':'测量完成 ✓';
+    $('heightInstruction').textContent=view.height===null?'用已测影长与太阳高度角计算 Δh = L × tan(α)。':'下方显示由所选影长估算的高度差；这不是直接读取的地形真实高差。';
+    $(current===0?'pickStatusHost':'rightStatusHost').append($('status'));
+  }
   function clearReadout() {
+    cancelMeasurementAnimation();
     view.length=null;view.height=null;
+    setStep('start');
     $('lengthLabel').textContent='影长 L';
     $('lengthValue').textContent='—';$('heightValue').textContent='—';$('formula').textContent='';
   }
-  function setPin(x) {
-    x=Math.max(-150,Math.min(150,x));
-    if(isShadowed(x)){
-      view.points=[];clearReadout();updateMarker();requestRender();
-      $('status').textContent='该点位于阴影中，请选择被阳光照亮的点。';return;
+  function isInSectionShadow(x,cut=view.cut){
+    if(!Number.isFinite(x)||x<-SIZE/2||x>=SIZE/2)return false;
+    const i=Math.floor((x+SIZE/2)*SEG/SIZE);
+    if(cut===view.cut)return sectionShadow[i]===1;
+    // 首次点选可选择新剖面；在改变已有状态前用相同的面片判定验证。
+    const x0=-SIZE/2+i*SIZE/SEG,x1=x0+SIZE/SEG;
+    const midHeight=(heightAt(x0,cut)+heightAt(x1,cut))/2;
+    const slope=Math.tan(view.angle*Math.PI/180);
+    for(let j=i+1;j<=SEG;j++){
+      if(heightAt(-SIZE/2+j*SIZE/SEG,cut)>midHeight+(j-i-.5)*SIZE/SEG*slope+.15)return true;
     }
-    view.points=[x];
-    clearReadout();updateMarker();requestRender();
-    $('status').textContent=`已同步放置图钉：横坐标 ${x.toFixed(1)}。点击“测量影长”。`;
-  }
-  function isShadowed(x){
-    const h=heightAt(x,view.cut),slope=Math.tan(view.angle*Math.PI/180);
-    // 坑底低于基准面时用反向延长线求有向海拔；不要求该点投下实体阴影。
-    if(h<0)return false;
-    for(let xx=x+0.5;xx<=160;xx+=0.8)if(heightAt(xx,view.cut)>h+(xx-x)*slope+0.4)return true;
     return false;
+  }
+  function rejectLitPoint(){
+    $('status').textContent='只能选择同一段阴影的开始点和结束点，请点击阴影边界。';
+  }
+  function shadowRanges(cut=view.cut){
+    const ranges=[];let start=null;
+    for(let i=0;i<=SEG;i++){
+      const x=-SIZE/2+i*SIZE/SEG;
+      const shaded=i<SEG&&(cut===view.cut?sectionShadow[i]===1:isInSectionShadow(x+SIZE/SEG/2,cut));
+      if(shaded&&start===null)start=x;
+      if(!shaded&&start!==null){
+        if(start>-SIZE/2&&i<SEG)ranges.push([start,x]);
+        start=null;
+      }
+    }
+    return ranges;
+  }
+  function boundaryHit(x,cut=view.cut){
+    const tolerance=10*(topCamera.right-topCamera.left)/topCanvas.clientWidth;
+    const ranges=shadowRanges(cut).filter(pair=>view.points.length!==1||pair.includes(view.points[0]));
+    let best=null;
+    for(const pair of ranges)for(const point of pair){
+      const distance=Math.abs(x-point);
+      if(distance<=tolerance&&(!best||distance<best.distance))best={point,distance};
+    }
+    return best;
+  }
+  function setPin(x) {
+    const candidate=boundaryHit(x);
+    if(!candidate){rejectLitPoint();return;}
+    x=candidate.point;
+    if(view.points.length===2)view.points=[];
+    if(view.points.length&&Math.abs(view.points[0]-x)<.5){
+      $('status').textContent='请选择与第一点不同的位置。';return;
+    }
+    view.points.push(x);
+    clearReadout();updateMarker();requestRender();
+    if(view.points.length===2){
+      view.points.sort((a,b)=>a-b);updateMarker();setStep('measure');
+      $('status').textContent='两端点已选好，点击“测量影长”绘制水平连线。';
+    }
+    else $('status').textContent='已选中阴影一端，请选择同一段阴影的另一端。';
   }
   function setCut(v) {
     const next=Math.max(-155,Math.min(155,Math.round(v)));
@@ -265,51 +315,100 @@
     view.cut=next;
     $('cut').value=view.cut;$('cutValue').textContent=view.cut;
     view.points=[];clearReadout();rebuildSection();
-    $('status').textContent=view.measuring?'剖切面已更新，请重新选点。':'剖切面已更新，可开始测量。';
+    $('status').textContent=view.measuring?'剖切面已更新，请重新选取两点。':'剖切面已更新，可开始测量。';
   }
   $('cut').addEventListener('input',e=>setCut(Number(e.target.value)));
+  $('intensity').addEventListener('input',e=>{
+    const percent=Number(e.target.value);
+    $('intensityValue').textContent=percent+'%';
+    // 相对视觉强度，100% 保持原有 1.6；不表示真实辐照度，也不改变几何测量。
+    for(const scene of [topScene,sideScene])scene.userData.sun.intensity=1.6*percent/100;
+    requestRender();
+  });
   $('angle').addEventListener('input',e=>{
     view.angle=Number(e.target.value);$('angleValue').textContent=view.angle+'°';
     // 光源始终位于剖面的 X/Y 平面内：俯视从正右方入射，高度角仅改变仰角。
     for(const scene of [topScene,sideScene]) scene.userData.sun.position.set(180*Math.cos(view.angle*Math.PI/180),180*Math.sin(view.angle*Math.PI/180),0);
     clearReadout();
-    if(view.points.length&&isShadowed(view.points[0])){
-      view.points=[];$('status').textContent='太阳角度改变后，原选点进入阴影，请重新选取受光点。';
-    }
+    view.points=[];
+    $('status').textContent='太阳角度已改变，请重新选择阴影两端。';
     rebuildSection();
   });
   $('start').addEventListener('click',()=>{
-    view.measuring=true;setSideCamera();rebuildSection();
-    sideCanvas.parentElement.classList.add('measuring');
-    $('start').classList.add('active');$('start').textContent='测量中';
-    $('sectionLabel').textContent='正对剖面 · 点击地形选点';
-    $('topHelp').textContent='沿剖切线点击一个受光点；重新点击替换图钉。';
-    $('sectionHelp').textContent='点击受光处放图钉，再测量影长；拖动上方光线或滑块调整太阳高度角。';
-    $('status').textContent='请在左侧剖切线上或右侧剖面选取一个受光点。';
+    view.measuring=true;view.points=[];clearReadout();rebuildSection();
+    setStep('start');
+    $('status').textContent='在左侧俯视图点击阴影的起止边界。';
   });
   $('clear').addEventListener('click',()=>{view.points=[];clearReadout();updateMarker();requestRender();$('status').textContent='已清除选点。';});
-  $('measure').addEventListener('click',()=>{
-    if(!view.measuring||view.points.length!==1){$('status').textContent='请先开始测量并选取一个受光点。';return;}
-    const h=heightAt(view.points[0],view.cut);
-    if(Math.abs(h)<0.5){$('status').textContent='该点接近水平基准面，距离和海拔都接近 0；请选择地形起伏更明显的点。';return;}
-    view.length=Math.round(Math.abs(h)/Math.tan(view.angle*Math.PI/180)*100)/100;
-    view.height=null;$('heightValue').textContent='—';$('formula').textContent='';
-    $('lengthLabel').textContent=h<0?'基准面距离 L':'影长 L';
-    $('lengthValue').textContent=view.length.toFixed(2)+' 模型单位';
-    $('status').textContent=h<0?'已显示该点到水平基准面的几何延长距离。点击“计算高度”得到负海拔。':'已显示该点投向水平基准面的几何影长。点击“计算高度”。';
-    updateMarker();
-    requestRender();
-  });
+  const measurementAnimation={frame:0,horizontal:0,vertical:0,angleShown:false,phase:'idle'};
+  function cancelMeasurementAnimation(){
+    if(measurementAnimation.frame)cancelAnimationFrame(measurementAnimation.frame);
+    Object.assign(measurementAnimation,{frame:0,horizontal:0,vertical:0,angleShown:false,phase:'idle'});
+    $('measure').disabled=$('height').disabled=false;
+  }
+  function updateMeasurementInk(){
+    document.querySelectorAll('[data-measure-axis]').forEach(path=>{
+      const progress=measurementAnimation[path.dataset.measureAxis];
+      path.setAttribute('stroke-dashoffset',String(1-progress));
+      path.style.visibility=progress>0?'visible':'hidden';
+    });
+    sideCanvas.parentElement.dataset.measurePhase=measurementAnimation.phase;
+  }
+  function animatedLeg(x1,y1,x2,y2,axis,color){
+    return `<path data-measure-axis="${axis}" d="M ${x1} ${y1} L ${x2} ${y2}" pathLength="1" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="1"/>`;
+  }
+  function startMeasurementAnimation(axis){
+    if(!view.measuring||view.points.length!==2||measurementAnimation.frame)return;
+    if(axis==='vertical'&&view.length===null)return;
+    measurementAnimation.phase=axis;measurementAnimation[axis]=0;
+    if(axis==='horizontal'){
+      view.length=null;view.height=null;measurementAnimation.vertical=0;
+      $('lengthValue').textContent=$('heightValue').textContent='—';$('formula').textContent='';
+      setStep('measure');
+    }
+    $('measure').disabled=$('height').disabled=true;
+    $('status').textContent=axis==='horizontal'?'正在连接水平影长线…':'正在连接垂直高度差线…';
+    const started=performance.now(),duration=axis==='horizontal'?1000:900;
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const tick=now=>{
+      const progress=reduced?1:Math.min(1,(now-started)/duration);
+      measurementAnimation[axis]=progress;
+      if(progress===1){
+        measurementAnimation.frame=0;
+        $('measure').disabled=$('height').disabled=false;
+        if(axis==='horizontal'){
+          view.length=Math.abs(view.points[1]-view.points[0]);
+          $('lengthLabel').textContent='水平影长 L';$('lengthValue').textContent=view.length.toFixed(2)+' 模型单位';
+          measurementAnimation.phase='horizontal-done';setStep('height');
+          $('status').textContent='水平连线已完成。先标出太阳高度角，再计算高度差。';
+        }else{
+          view.height=view.length*Math.tan(view.angle*Math.PI/180);
+          $('heightValue').textContent=view.height.toFixed(2)+' 模型单位';
+          $('formula').textContent=`Δh = L × tan(${view.angle}°) · 由所选影长估算`;
+          measurementAnimation.phase='done';setStep('height');
+          $('status').textContent='高度差连线已完成。';
+        }
+        requestRender();
+      }else measurementAnimation.frame=requestAnimationFrame(tick);
+      updateMeasurementInk();
+    };
+    requestRender();measurementAnimation.frame=requestAnimationFrame(tick);
+  }
+  $('measure').addEventListener('click',()=>startMeasurementAnimation('horizontal'));
   $('height').addEventListener('click',()=>{
-    if(view.length===null){$('status').textContent='请先测量影长。';return;}
-    const sign=heightAt(view.points[0],view.cut)<0?-1:1;
-    view.height=sign*Math.round(view.length*Math.tan(view.angle*Math.PI/180)*100)/100;
-    $('heightValue').textContent=view.height.toFixed(2)+' 模型单位';
-    $('formula').textContent=`h = ${sign<0?'−':''}L × tan(${view.angle}°)`;
-    $('status').textContent='计算完成；更换剖面、角度或选点可重新测量。';
-    requestRender();
+    if(view.length===null||measurementAnimation.frame)return;
+    if(!measurementAnimation.angleShown){
+      measurementAnimation.angleShown=true;setStep('height');requestRender();
+      $('status').textContent='太阳高度角已标出。点击“计算高度差”完成计算。';
+      return;
+    }
+    startMeasurementAnimation('vertical');
   });
-
+  function angleAnnotation(p,extent=70){
+    if(!measurementAnimation.angleShown)return '';
+    const a=view.angle*Math.PI/180,r=24;
+    return `<g data-solar-angle><path d="M ${p.x} ${p.y} l ${extent*Math.cos(a)} ${-extent*Math.sin(a)}" fill="none" stroke="#f2d59a" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M ${p.x+r} ${p.y} A ${r} ${r} 0 0 0 ${p.x+r*Math.cos(a)} ${p.y-r*Math.sin(a)}" fill="none" stroke="#fff0c9" stroke-width="2"/><text x="${p.x+38}" y="${p.y-10}" fill="#fff0c9" stroke="#132735" stroke-width="3" paint-order="stroke" font-size="14">α = ${view.angle}°</text></g>`;
+  }
   const ray = new THREE.Raycaster(), pointer = new THREE.Vector2();
   function hit(canvas,camera,objects,event) {
     const rect=canvas.getBoundingClientRect();
@@ -323,8 +422,8 @@
     const hitTop=hit(topCanvas,topCamera,[topMesh],e);
     if(!hitTop)return;
     const p=hitTop.point;
-    if(Math.abs(p.z-view.cut)>9)return;
-    dragLine={x:p.x,startY:e.clientY,cut:view.cut,moved:false};
+    if(!view.measuring&&Math.abs(p.z-view.cut)>9)return;
+    dragLine={x:p.x,z:p.z,startY:e.clientY,cut:view.cut,moved:false};
     topCanvas.setPointerCapture(e.pointerId);
   });
   topCanvas.addEventListener('pointermove',e=>{
@@ -334,7 +433,16 @@
     if(dragLine.moved)setCut(dragLine.cut+dy*(topCamera.top-topCamera.bottom)/topCanvas.getBoundingClientRect().height);
   });
   topCanvas.addEventListener('pointerup',()=>{
-    if(dragLine&&!dragLine.moved&&view.measuring)setPin(dragLine.x);
+    if(dragLine&&!dragLine.moved&&view.measuring){
+      const newCut=view.points.length===0||view.points.length===2;
+      const cut=newCut?Math.max(-155,Math.min(155,Math.round(dragLine.z))):view.cut;
+      if(!newCut&&Math.abs(dragLine.z-view.cut)>9){
+        $('status').textContent='请沿当前剖切线，在阴影区域选择第二点。';
+      }else if(boundaryHit(dragLine.x,cut)){
+        if(newCut)setCut(cut);
+        setPin(dragLine.x);
+      }else rejectLitPoint();
+    }
     dragLine=null;
   });
   topCanvas.addEventListener('pointercancel',()=>{dragLine=null;});
@@ -357,21 +465,44 @@
   function endSectionDrag(){sectionDrag=null;sideCanvas.style.cursor='grab';}
   sideCanvas.style.cursor='grab';
   sideCanvas.addEventListener('pointerup',()=>{
-    if(sectionDrag&&!sectionDrag.moved&&view.measuring)setPin(sectionDrag.x);
+    if(sectionDrag&&!sectionDrag.moved&&view.measuring)$('status').textContent='请在左侧俯视图选择阴影两端，右侧仅同步显示。';
     endSectionDrag();
   });
   sideCanvas.addEventListener('pointercancel',endSectionDrag);
   sideCanvas.addEventListener('lostpointercapture',endSectionDrag);
+  // 实验私有测量层：只显示用户已经选取的点，不预显答案或拦截剖切拖动。
+  const boundaryLayer=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  boundaryLayer.id='lunarBoundaryPicker';
+  boundaryLayer.style.cssText='position:absolute;inset:0;z-index:3;width:100%;height:100%;pointer-events:none;clip-path:circle(320px at 50% 50%)';
+  topCanvas.after(boundaryLayer);
+  function drawBoundaries(){
+    const w=topCanvas.clientWidth,h=topCanvas.clientHeight;
+    boundaryLayer.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    const cutPoint=new THREE.Vector3(0,0,view.cut).project(topCamera);
+    const cutY=(1-cutPoint.y)*h/2;
+    // Match the 9 7 dashed reference guide in earth-circumference/textured.html.
+    const cutGuide=`<line data-cut-guide x1="0" x2="${w}" y1="${cutY}" y2="${cutY}" stroke="#d6e9ef" stroke-width="3.5" stroke-dasharray="9 7" opacity=".85"/>`;
+    boundaryLayer.innerHTML=cutGuide+(view.measuring?view.points.map((x,i)=>{
+      const p=new THREE.Vector3(x,heightAt(x,view.cut),view.cut).project(topCamera);
+      const cx=(p.x+1)*w/2,cy=(1-p.y)*h/2;
+      return `<g class="lunar-picked-point" data-point="${i}" data-model-x="${x}" data-model-y="${heightAt(x,view.cut)}" transform="translate(${cx},${cy})"><circle r="11" fill="#152735" stroke="#f2d59a" stroke-width="1.8"/><circle r="4" fill="#f2d59a"/><text y="-20" text-anchor="middle" fill="#f2e1bd" stroke="#101d2a" stroke-width="4" paint-order="stroke" font-size="14">${i===0?'A':'B'}</text></g>`;    }).join(''):'');
+  }
   // 光线的天空部分接收拖动，地形区域仍用于选点与剖切。
+  // 光线独立置于透明 WebGL 月面之后；测量标注与命中区仍在前景。
+  const rayLayer=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  rayLayer.id='lunarSunRays';
+  rayLayer.setAttribute('aria-hidden','true');
+  rayLayer.style.cssText='position:absolute;z-index:1;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden';
+  sideCanvas.before(rayLayer);
+  sideCanvas.style.zIndex='2';
   const overlay=document.createElementNS('http://www.w3.org/2000/svg','svg');
   overlay.id='sunOverlay';
-  overlay.style.cssText='position:absolute;z-index:2;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden;touch-action:none';
+  overlay.style.cssText='position:absolute;z-index:3;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden;touch-action:none';
   sideCanvas.after(overlay);
   let rayDrag=null;
   function pointerAngle(event){
     const rect=overlay.getBoundingClientRect();
-    const origin=new THREE.Vector3(15,0,view.cut).project(sideCamera);
-    const x=rect.left+(origin.x+1)*rect.width/2,y=rect.top+(1-origin.y)*rect.height/2;
+    const x=rect.left+rect.width/2,y=rect.top+rect.height/2;
     return Math.atan2(y-event.clientY,event.clientX-x)*180/Math.PI;
   }
   overlay.addEventListener('pointerdown',event=>{
@@ -388,41 +519,112 @@
   });
   for(const event of ['pointerup','pointercancel','lostpointercapture'])overlay.addEventListener(event,()=>{rayDrag=null;});
   function drawAnnotations(){
-    if(!view.measuring){overlay.innerHTML='';return;}
     const w=sideCanvas.clientWidth,h=sideCanvas.clientHeight;
     overlay.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    rayLayer.setAttribute('viewBox',`0 0 ${w} ${h}`);
     const a=view.angle*Math.PI/180,c=Math.cos(a),s=Math.sin(a);
     const projectPlane=(x,y)=>{const p=new THREE.Vector3(x,y,view.cut).project(sideCamera);return {x:(p.x+1)*w/2,y:(1-p.y)*h/2};};
     const seg=(x1,y1,x2,y2,color,width=1.5,dash='')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width}" ${dash?`stroke-dasharray="${dash}"`:''}/>`;
-    let rays='';
-    for(let k=-3;k<=3;k++){
-      const x=15+90*c+k*20*s,y=90*s-k*20*c;
-      const from=projectPlane(x,y),to=projectPlane(x-c*260,y-s*260);
-      rays+=seg(from.x,from.y,to.x,to.y,'#e8ba4a55');
+    const origin=projectPlane(0,0),sunward=projectPlane(c,s);
+    const magnitude=Math.hypot(sunward.x-origin.x,sunward.y-origin.y);
+    const dx=(origin.x-sunward.x)/magnitude,dy=(origin.y-sunward.y)/magnitude;
+    const nx=-dy,ny=dx;
+    const centerOffset=(w*nx+h*ny)/2;
+    const offsets=[0,w*nx,h*ny,w*nx+h*ny].map(offset=>offset-centerOffset);
+    let rays='',hitRays='',gradients='';
+    // 以屏幕法向等距排列，逐条裁到视口边界，覆盖不同太阳角度下的整个视图。
+    for(let offset=Math.ceil(Math.min(...offsets)/32)*32,index=0;offset<Math.max(...offsets);offset+=32,index++){
+      const px=w/2+nx*offset,py=h/2+ny*offset;
+      let entry=-Infinity,exit=Infinity;
+      for(const [position,direction,limit] of [[px,dx,w],[py,dy,h]]){
+        if(Math.abs(direction)<1e-8){if(position<0||position>limit){entry=1;exit=0;}continue;}
+        const t0=-position/direction,t1=(limit-position)/direction;
+        entry=Math.max(entry,Math.min(t0,t1));exit=Math.min(exit,Math.max(t0,t1));
+      }
+      if(exit<=entry)continue;
+      const from={x:px+dx*entry,y:py+dy*entry},to={x:px+dx*exit,y:py+dy*exit};
+      const near=Math.exp(-Math.pow(offset/300,2));
+      const alpha=.09+.17*near,id=`lunarRayGradient${index}`;
+      // 视觉参考日月食 drawRays（01ee4f4）：淡金色、入射端渐显及细线层次；独立实现，无跨实验依赖。
+      gradients+=`<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}"><stop offset="0" stop-color="#fadcaa" stop-opacity="0"/><stop offset=".10" stop-color="#fadcaa" stop-opacity="${alpha*.55}"/><stop offset=".72" stop-color="#fce2b2" stop-opacity="${alpha}"/><stop offset="1" stop-color="#ffecc4" stop-opacity="${alpha*1.25}"/></linearGradient>`;
+      rays+=seg(from.x,from.y,to.x,to.y,`url(#${id})`,near>.55?1.9:1.2);
+      hitRays+=seg(from.x,from.y,to.x,to.y,'transparent',18);
     }
+    rayLayer.innerHTML=`<defs>${gradients}</defs>${rays}`;
+    if(!view.measuring){overlay.innerHTML='';return;}
     let measurement='';
-    if(view.length!==null&&view.points.length===1){
-      const x=view.points[0],below=heightAt(x,view.cut)<0;
-      const p=projectPlane(x,heightAt(x,view.cut)),q=projectPlane(x+(below?view.length:-view.length),0),foot=projectPlane(x,0);
-      const base=foot.y,mid=(p.x+q.x)/2,labelY=base+(below?60:12),heightY=base+(below?105:57);
-      measurement=seg(p.x,p.y,p.x,base,'#6fd4ff',1.8,'7 5')+seg(p.x,p.y,q.x,q.y,'#ffe18a',1.4,'3 5')
-        +seg(p.x,base,q.x,base,'#ff4d70',3.4)+seg(p.x,base-8,p.x,base+8,'#ff8098',2)+seg(q.x,base-8,q.x,base+8,'#ff8098',2)
-        +`<rect x="${mid-100}" y="${labelY}" width="200" height="26" rx="7" fill="#200e19e8" stroke="#ff8098"/><text x="${mid}" y="${labelY+18}" text-anchor="middle" fill="#ff9bad" font-size="14" font-weight="700">${below?'基准面距离':'影长'} ${view.length.toFixed(2)} 模型单位</text>`;
-      if(view.height!==null)measurement+=`<text x="${mid}" y="${heightY}" text-anchor="middle" fill="#6cf0b0" font-size="14">计算海拔 h = ${view.height.toFixed(2)}</text>`;
+    if(view.points.length===2){
+      const [x0,x1]=view.points,p=projectPlane(x0,heightAt(x0,view.cut)),q=projectPlane(x1,heightAt(x1,view.cut));
+      const mid=(p.x+q.x)/2,base=p.y,labelY=base+24;
+      measurement=`<g id="lunarHeightTriangle">${seg(p.x,p.y,q.x,q.y,'#ffe18a',1.4,'5 5')}${animatedLeg(p.x,base,q.x,base,'horizontal','#f2d59a')}${animatedLeg(q.x,base,q.x,q.y,'vertical','#a9d8df')}<text x="${p.x-10}" y="${p.y-12}" fill="#fff0d5" font-size="14">A</text><text x="${q.x+10}" y="${q.y-12}" fill="#fff0d5" font-size="14">B</text></g>`;
+      measurement+=angleAnnotation(p)+`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#fff0c9"/><circle cx="${q.x}" cy="${q.y}" r="4" fill="#fff0c9"/>`;
+      if(view.height!==null)measurement+=`<text x="${mid}" y="${labelY}" text-anchor="middle" fill="#f2e1bd" stroke="#102330" stroke-width="4" paint-order="stroke" font-size="14">水平影长 L = ${view.length.toFixed(2)}</text>`;
+      if(view.height!==null)measurement+=`<text x="${mid}" y="${labelY+24}" text-anchor="middle" fill="#a9d8df" stroke="#102330" stroke-width="4" paint-order="stroke" font-size="14">测量估算 Δh = ${view.height.toFixed(2)}</text>`;
     }
     // 仅天空内设置较宽的拖动命中区，避免光线挡住地形选点。
     const skyBottom=Math.max(0,Math.min(...Array.from({length:SEG+1},(_,i)=>{
       const x=-160+i*SIZE/SEG;return projectPlane(x,heightAt(x,view.cut)).y;
     }))-8);
-    const hitRays=rays.replaceAll('stroke="#e8ba4a55"','stroke="transparent"').replaceAll('stroke-width="1.5"','stroke-width="18"');
-    overlay.innerHTML=`${rays}${measurement}<defs><clipPath id="rayDragSky"><rect width="${w}" height="${skyBottom}"/></clipPath></defs><g data-ray-drag="true" aria-label="拖动光线调整太阳高度角" style="pointer-events:stroke;cursor:grab" clip-path="url(#rayDragSky)">${hitRays}</g>`;
+    overlay.innerHTML=`${measurement}<defs><clipPath id="rayDragSky"><rect width="${w}" height="${skyBottom}"/></clipPath></defs><g data-ray-drag="true" aria-label="拖动光线调整太阳高度角" style="pointer-events:stroke;cursor:grab" clip-path="url(#rayDragSky)">${hitRays}</g>`;
   }
   let pending=false;
+  // 复用剖面渲染器，以局部相机重新光栅化；不放大主视图已有像素。
+  const closeupCanvas=$('closeupCanvas'),closeupContext=closeupCanvas.getContext('2d');
+  const closeupCamera=sideCamera.clone();
+  function drawCloseup(){
+    const panel=$('lunarCloseup');
+    const project=x=>{const p=new THREE.Vector3(x,heightAt(x,view.cut),view.cut).project(sideCamera);return {x:(p.x+1)*sideCanvas.clientWidth/2,y:(1-p.y)*sideCanvas.clientHeight/2};};
+    const projected=view.points.map(project);
+    const displayScale=sideCanvas.getBoundingClientRect().width/sideCanvas.clientWidth;
+    const span=projected.length===2?Math.abs(projected[1].x-projected[0].x)*displayScale:0;
+    panel.hidden=!view.measuring||view.points.length!==2||span>=120;
+    panel.dataset.sourceSpan=span.toFixed(1);
+    if(panel.hidden){$('closeupOverlay').innerHTML='';return;}
+    const w=closeupCanvas.clientWidth,h=closeupCanvas.clientHeight;
+    const screenRatio=closeupCanvas.getBoundingClientRect().width/w*(devicePixelRatio||1);
+    const bw=Math.max(1,Math.round(w*screenRatio)),bh=Math.max(1,Math.round(h*screenRatio));
+    if(closeupCanvas.width!==bw||closeupCanvas.height!==bh){closeupCanvas.width=bw;closeupCanvas.height=bh;}
+    const [a,b]=projected;
+    const zoom=Math.min(12,(w-100)/Math.max(1,Math.abs(a.x-b.x)),(h-90)/Math.max(1,Math.abs(a.y-b.y)));
+    if(zoom<=1.15){panel.hidden=true;$('closeupOverlay').innerHTML='';return;}
+    const centerX=(a.x+b.x)/2,centerY=(a.y+b.y)/2;
+    const cropW=w/zoom,cropH=h/zoom,cropX=centerX-cropW/2,cropY=centerY-cropH/2;
+    closeupCamera.copy(sideCamera);
+    closeupCamera.setViewOffset(sideCanvas.clientWidth,sideCanvas.clientHeight,cropX,cropY,cropW,cropH);
+    // 三维参考带会随局部相机放大；放大框改用固定屏幕线宽描边。
+    const edgeVisible=edge.visible;
+    edge.visible=false;
+    try{sideRenderer.render(sideScene,closeupCamera);}finally{edge.visible=edgeVisible;}
+    closeupContext.clearRect(0,0,bw,bh);
+    closeupContext.drawImage(sideCanvas,0,0,sideCanvas.width,sideCanvas.height,0,0,bw,bh);
+    closeupContext.save();
+    closeupContext.scale(bw/w,bh/h);
+    closeupContext.beginPath();
+    for(let i=0;i<=SEG;i++){
+      const point=project(-SIZE/2+i*SIZE/SEG);
+      const x=(point.x-cropX)*zoom,y=(point.y-cropY)*zoom;
+      if(i===0)closeupContext.moveTo(x,y);else closeupContext.lineTo(x,y);
+    }
+    closeupContext.strokeStyle='#f3cc62';closeupContext.lineWidth=1.25;
+    closeupContext.lineJoin='round';closeupContext.stroke();
+    closeupContext.restore();
+    const p={x:(a.x-cropX)*zoom,y:(a.y-cropY)*zoom},q={x:(b.x-cropX)*zoom,y:(b.y-cropY)*zoom};
+    const mid=(p.x+q.x)/2,base=p.y;
+    const label=(x,y,text,color='#fff0c9')=>`<text x="${x}" y="${y}" text-anchor="middle" fill="${color}" stroke="#132735" stroke-width="4" paint-order="stroke" font-size="15" font-weight="600">${text}</text>`;
+    $('closeupOverlay').setAttribute('viewBox',`0 0 ${w} ${h}`);
+    $('closeupOverlay').innerHTML=`<path d="M ${p.x} ${p.y} L ${q.x} ${q.y}" stroke="#f2d59a" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>${animatedLeg(p.x,base,q.x,base,'horizontal','#f2d59a')}${animatedLeg(q.x,base,q.x,q.y,'vertical','#a9d8df')}<circle cx="${p.x}" cy="${p.y}" r="5" fill="#fff0c9"/><circle cx="${q.x}" cy="${q.y}" r="5" fill="#fff0c9"/>${label(p.x,p.y-12,'A')}${label(q.x,q.y-12,'B')}${angleAnnotation(p)}${view.height===null?'':label(mid,Math.min(h-8,base+20),`L = ${view.length.toFixed(2)} 模型单位`)}`;
+    $('closeupScale').textContent=`${zoom.toFixed(1)}× · 跟随 A / B`;
+    $('closeupCaption').textContent=view.height===null?'先连线，再标出太阳高度角，最后计算高度差。':`按所选影长估算 Δh = ${view.height.toFixed(2)} 模型单位 · 太阳高度角 ${view.angle}°`;
+  }
   function requestRender() { if(!pending){pending=true;requestAnimationFrame(render);} }
   function fit(renderer,canvas,camera,halfHeight) {
     const w=canvas.clientWidth,h=canvas.clientHeight;
     if(!w||!h)return;
-    renderer.setSize(w,h,false);
+    // CSS 舞台可能放大至 1920/4K；绘图缓冲匹配屏幕物理像素，避免低分辨率画布被拉大。
+    const displayScale=canvas.getBoundingClientRect().width/w;
+    const pixelRatio=(devicePixelRatio||1)*displayScale;
+    if(Math.abs(renderer.getPixelRatio()-pixelRatio)>0.001)renderer.setPixelRatio(pixelRatio);
+    if(canvas.width!==Math.floor(w*pixelRatio)||canvas.height!==Math.floor(h*pixelRatio))renderer.setSize(w,h,false);
     const ratio=w/h;
     // 月面宽度为 320：宽画布按宽度取景，避免在模型两侧露出背景。
     halfHeight=Math.min(halfHeight,160/ratio);
@@ -433,9 +635,14 @@
   function render() {
     pending=false;
     fit(topRenderer,topCanvas,topCamera,160);
-    fit(sideRenderer,sideCanvas,sideCamera,view.measuring?165:130);
-    topRenderer.render(topScene,topCamera);sideRenderer.render(sideScene,sideCamera);
+    fit(sideRenderer,sideCanvas,sideCamera,165);
+    topRenderer.render(topScene,topCamera);
+    drawCloseup();
+    // 局部帧复制后恢复主视图，保证屏幕与后续命中使用原剖面相机。
+    sideRenderer.render(sideScene,sideCamera);
+    drawBoundaries();
     drawAnnotations();
+    updateMeasurementInk();
   }
   new ResizeObserver(requestRender).observe(topCanvas.parentElement);
   new ResizeObserver(requestRender).observe(sideCanvas.parentElement);
