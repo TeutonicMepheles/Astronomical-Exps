@@ -6,13 +6,14 @@
  const content={
   mirrors:{title:'镜片认识完成',body:'你已观察平面镜、凹面镜、凸面镜、凹透镜和凸透镜的光路。',action:'前往组装 →',next:'assembly'},
   assembly:{title:'望远镜组装完成',body:'凹面主镜与平面副镜已安装到位。你已完成一圈立体观察。',stayAction:'继续观察',action:'前往星空观测 →',next:'observation'},
-  observation:{title:'本次实验已完成',body:'你已完成三档目镜的观测与记录。',action:'完成实验 ✓'}
+  observation:{title:'本次实验已完成',body:'你已完成土星、月球、木星和昴星团的观测。',stayAction:'继续观察',action:'查看实验记录 →'}
  };
  const completed=s=>({mirrors:N.course.isStageOneComplete(s),assembly:s.assemblyDone,observation:s.complete});
  function show(stage){
   const data=content[stage];
   return dialog.show({...data,kicker:`阶段 0${steps.indexOf(stage)+1} 完成`},()=>{
    const latest=N.course.get();
+   if(stage==='observation'&&latest.stage===stage&&latest.complete){N.observationRecording?.openBook();return;}
    if(data.next&&latest.stage===stage&&completed(latest)[stage])N.course.requestEnter(data.next,{completionConfirmed:true});
   });
  }

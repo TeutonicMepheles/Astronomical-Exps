@@ -1,0 +1,33 @@
+{
+  "browser": "157.0.8103.39",
+  "exterior": {
+    "p50": 13.300000000001091,
+    "p95": 13.400000000001455,
+    "max": 13.600000000000364,
+    "long": [],
+    "draws": 8,
+    "memory": {
+      "geometries": 8,
+      "textures": 8
+    },
+    "programs": 12,
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "focus": true
+  },
+  "section": {
+    "p50": 13.300000000001091,
+    "p95": 13.5,
+    "max": 66.60000000000036,
+    "long": [],
+    "draws": 108,
+    "memory": {
+      "geometries": 115,
+      "textures": 8
+    },
+    "programs": 12,
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "focus": true
+  },
+  "errors": [],
+  "missing": []
+}

@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),asse
 const {section,state,T,N}=require('./section-geometry.test.cjs');
 class Matrix{constructor(m=new T.Matrix4()){this.value=m;}scale(x,y=x){this.value.multiply(new T.Matrix4().makeScale(x,y,1));return this;}rotate(a){this.value.multiply(new T.Matrix4().makeRotationZ(a*Math.PI/180));return this;}inverse(){return new Matrix(this.value.clone().invert());}}
 class Point{constructor(x,y,z,w){Object.assign(this,{x,y,z,w});}matrixTransform(m){return new T.Vector4(this.x,this.y,this.z,this.w).applyMatrix4(m.value);}}
-let current={...state,target:'saturn',live:true};N.store={get:()=>({...current}),metrics:s=>({field:60*s.eyepiece/s.focal})};
+let current={...state,target:'saturn',live:true};N.store={focusBlur:()=>16,focusAcceptable:()=>false,get:()=>({...current}),metrics:s=>({field:60*s.eyepiece/s.focal})};
 const container={clientWidth:930,clientHeight:550,getBoundingClientRect:()=>({left:80,top:25,width:930,height:550}),closest:()=>({getBoundingClientRect:()=>({width:1600})}),dispatchEvent(){}};
 const context={window:{THREE:T,Newton:N},DOMMatrix:Matrix,DOMPoint:Point,CustomEvent:class{constructor(type,options){Object.assign(this,{type},options);}},getComputedStyle:()=>({scale:'none',rotate:'none'})};vm.createContext(context);
 for(const file of ['observation-aim.js','observation-model.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../js',file),'utf8'),context);
@@ -54,25 +54,14 @@ function grip(){
 }
 const event=(p,x=0,y=0)=>({pointerId:1,isPrimary:true,button:0,clientX:p.x+x,clientY:p.y+y,target:{closest:()=>null}});
 current={...current,focal:800,eyepiece:25};pose(1.42,45);snapshot(model.measurePointing());
-let p=grip(),before=aim.current.horizontalError;
-surface.emit('pointerdown',event(p));surface.emit('pointermove',event(p,35));surface.emit('pointerup',event(p,35));
-assert(aim.current.horizontalError>before,'Dragging right moves the eyepiece target right');
-pose(1.42,45);snapshot(model.measurePointing());p=grip();before=aim.current.horizontalError;
-surface.emit('pointerdown',event(p));surface.emit('pointermove',event(p,-35));surface.emit('pointerup',event(p,-35));
-assert(Math.abs(aim.current.horizontalError)<Math.abs(before),'Dragging left brings a target on the right toward the center');
-pose(Math.PI,75);snapshot(model.measurePointing());p=grip();before=aim.current.verticalError;
-const gesture=model.elevationGesture(model.pickHit(p.x,p.y)),dy=-Math.sign(gesture.pixelsPerDegree)*10;
-surface.emit('pointerdown',event(p));surface.emit('pointermove',event(p,0,dy));surface.emit('pointerup',event(p,0,dy));
-assert(Math.abs(aim.current.verticalError)<Math.abs(before),'Raising the actual front brings an upper star closer');
-let yaw=Math.PI,angle=45;
-for(let i=0;i<40;i++){const p=pose(yaw,angle);yaw+=p.horizontalError*.75;angle-=p.verticalError*180/Math.PI/.4*.75;}
-for(const [focal,eyepiece,error] of [[800,25,.022],[1600,5,.0022]]){
- current={...current,focal,eyepiece};aim.reset();aim.select();pose(yaw-error,Math.round(angle*10)/10);snapshot(model.measurePointing());
- assert(!aim.current.acquired);p=grip();surface.emit('pointerdown',event(p));
- for(const dx of [-6,-10])surface.emit('pointermove',event(p,dx));
- surface.emit('pointerup',event(p,-10));assert(aim.current.acquired,'A leftward pointer gesture brings the right-side target into view, including at high power');
+// Current lesson uses automatic target selection; pointer drags must not steer.
+for(const [dx,dy] of [[35,0],[-35,0],[0,35],[0,-35]]){
+ const p=grip(),before={yaw:model.yaw,angle:current.angle,h:aim.current.horizontalError,v:aim.current.verticalError};
+ surface.emit('pointerdown',event(p));surface.emit('pointermove',event(p,dx,dy));surface.emit('pointerup',event(p,dx,dy));
+ assert.equal(model.yaw,before.yaw);assert.equal(current.angle,before.angle);
+ assert.equal(aim.current.horizontalError,before.h);assert.equal(aim.current.verticalError,before.v);
 }
-console.log('PASS real pointer events: correct horizontal/vertical approach and slow 6–10px fine drags acquire the visible sky target at 32x and 320x.');
+console.log('PASS pointer drags cannot steer the automatic observation lesson.');
 let apertureChanges=0,maxAperturePixelDrift=0;
 for(const initialAperture of [80,100,130,250])for(const [focal,eyepiece] of [[1300,25],[1600,5]]){
  current={...current,focal,eyepiece};let yaw=Math.PI,angle=45;

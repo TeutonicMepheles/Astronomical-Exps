@@ -1,0 +1,34 @@
+{
+  "jupiter.png": {
+    "mode": "RGBA",
+    "size": [
+      1536,
+      1536
+    ],
+    "transparentFraction": 0.5144738091362847
+  },
+  "moon.png": {
+    "mode": "RGBA",
+    "size": [
+      1536,
+      1536
+    ],
+    "transparentFraction": 0.3980984157986111
+  },
+  "pleiades.png": {
+    "mode": "RGBA",
+    "size": [
+      1536,
+      1536
+    ],
+    "transparentFraction": 0.9941745334201388
+  },
+  "saturn.png": {
+    "mode": "RGBA",
+    "size": [
+      1536,
+      1536
+    ],
+    "transparentFraction": 0.7270151774088541
+  }
+}

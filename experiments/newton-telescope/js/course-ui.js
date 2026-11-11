@@ -39,13 +39,10 @@
     $('#aperture').value=s.aperture;$('#aperture-value').textContent=s.aperture+' mm';$('#target').value=s.target;$('#aperture').style.setProperty('--fill',((s.aperture-80)/170*100)+'%');
     all('[data-eyepiece]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.eyepiece)===s.eyepiece)));
     const metrics=N.store.metrics(s);$('#optical-metrics').innerHTML=[['倍率',metrics.magnification.toFixed(1)+'×'],['估算视场',metrics.field.toFixed(2)+'°'],['焦比','f/'+metrics.focalRatio.toFixed(1)],['出瞳',metrics.exitPupil.toFixed(1)+' mm'],['集光能力',metrics.lightGathering]].map(([label,value])=>`<span>${label} <strong>${typeof value==='number'?value.toFixed(0)+'×':value}</strong></span>`).join('');
-    $('#record-observation').disabled=!s.live;
-    $('#record-observation').textContent=s.live?'记录当前结果':'恢复实时预览后记录';
     if(N.course.get().stage==='observation')renderRecords(N.course.get());
   }
   function renderRecords(s){
-    const optical=N.store.get(),key=[optical.focal,optical.aperture,optical.target,optical.mode].join('/'),valid=s.records.length&&s.records[0].key===key;
-    $('#observation-records').textContent=s.records.length?s.records.slice().sort((a,b)=>b.eyepiece-a.eyepiece).map(r=>`${r.eyepiece} mm → ${r.magnification.toFixed(1)}× / ${r.field.toFixed(2)}°`).join('　 |　 ')+(valid?(s.complete?'　✓ 对照完成':''):'　（历史记录；当前配置已改变，记录新结果将重建对照）'):'任务：保持主镜与目标不变，记录三档目镜。';
+    $('#observation-records').textContent=s.records.length?s.records.map(r=>`${r.eyepiece} mm → ${r.magnification.toFixed(1)}× / ${r.field.toFixed(2)}°`).join('　 |　 ')+(s.complete?'　✓ 四个天体观测完成':''):'任务：完成土星、月球、木星和昴星团的观测。';
   }
   all('[data-mirror]').forEach(b=>{b.draggable=true;b.querySelector('img').draggable=false;b.addEventListener('click',()=>N.course.selectMirror(b.dataset.mirror));b.addEventListener('dragstart',e=>{N.course.selectMirror(b.dataset.mirror);e.dataTransfer.setData('text/plain',b.dataset.mirror);e.dataTransfer.effectAllowed='copy';});});
   $('#mirror-drop-slot').addEventListener('dragover',e=>{e.preventDefault();e.currentTarget.classList.add('is-target');});
@@ -74,6 +71,5 @@
   all('[data-slot]').forEach(b=>{b.addEventListener('click',()=>N.course.install(b.dataset.slot));b.addEventListener('dragover',e=>e.preventDefault());b.addEventListener('drop',e=>{e.preventDefault();N.course.install(b.dataset.slot,e.dataTransfer.getData('text/plain'));});});
   $('#aperture').addEventListener('input',e=>N.store.set({aperture:Number(e.target.value)}));$('#target').addEventListener('change',e=>N.store.set({target:e.target.value}));
   all('[data-eyepiece]').forEach(b=>b.addEventListener('click',()=>N.store.set({eyepiece:Number(b.dataset.eyepiece)})));
-  $('#record-observation').addEventListener('click',()=>N.course.record());
   N.course.subscribe(sync);N.store.subscribe(syncOptics);sync(N.course.get());
 })(window.Newton);

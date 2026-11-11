@@ -101,8 +101,8 @@ for(const yaw of [1.42,-1.72])for(const aperture of [80,130,250])for(const angle
   const before=frontHeight(),originalYaw=view.yaw,originalPicked=picked.length;
   assert.equal(hit.target,'telescope',JSON.stringify({yaw,aperture,angle,s,r,x,px,py}));assert(view.elevationGesture(hit),'The tube end provides a usable vertical lever');
   press(px,py,configurations%2?'touch':'mouse');move(px,py+dy);release(px,py+dy);
-  assert.equal(view.yaw,originalYaw,'Vertical gestures cannot orbit');assert.notEqual(opticalState.angle,angle);
-  assert(frontHeight()>before,'Pulling the front up or the rear down raises the front: '+JSON.stringify({yaw,aperture,angle,s,r,x,dy,afterAngle:opticalState.angle,before,after:frontHeight(),hit:hit.object.name,lever:view.elevationGesture(hit)}));
+  assert.equal(view.yaw,originalYaw,'Vertical gestures cannot orbit');assert.equal(opticalState.angle,angle,'Manual elevation is disabled');
+  assert.equal(frontHeight(),before,'Dragging cannot move the automatically aimed tube');
   assert.equal(picked.length,originalPicked,'Elevation cannot activate the telescope, eyepiece or background');configurations++;
  }
 }
@@ -113,10 +113,10 @@ move(px,py-12);move(px+120,py-30);release(px+120,py-30);
 assert.equal(view.yaw,oldYaw,'A locked vertical drag stays vertical with lateral finger drift');
 prepare();[px,py]=screen(body.localToWorld(new T.Vector3(.18,.05,0)));
 press(px,py);move(px+12,py);move(px+40,py+100);release(px+40,py+100);
-assert.equal(opticalState.angle,45,'A locked orbit never changes elevation');assert.notEqual(view.yaw,oldYaw);
+assert.equal(opticalState.angle,45,'A locked orbit never changes elevation');assert.equal(view.yaw,oldYaw,'Manual orbit is disabled');
 for(const [dy,expected] of [[-5000,0],[5000,90]]){
  prepare();[px,py]=screen(body.localToWorld(new T.Vector3(.18,.05,0)));
- press(px,py);move(px,py+dy);release(px,py+dy);assert.equal(opticalState.angle,expected,'Keep the original angle limits');
+ press(px,py);move(px,py+dy);release(px,py+dy);assert.equal(opticalState.angle,45,'Extreme manual drag cannot change automatic pointing');
 }
 prepare();const base=section.root.getObjectByName('Scope_02_ShelfC');base.geometry.computeBoundingBox();
 [px,py]=screen(base.localToWorld(base.geometry.boundingBox.getCenter(new T.Vector3())));
@@ -126,19 +126,19 @@ press(-1000,-1000);move(-1000,-1100);release(-1000,-1100);assert.equal(opticalSt
 [px,py]=screen(body.localToWorld(new T.Vector3(.18,.05,0)));
 press(px,py);release(px,py+50);assert.equal(picked.length,originalPicked,'A distant pointerup without move events is not a click');
 press(px,py);move(px,py-25);stage.emit('pointercancel',e(px,py-25));assert.equal(view.drag,null);assert.equal(picked.length,originalPicked);
-prepare();container.emit('keydown',{target:container,key:'ArrowUp',preventDefault(){}});assert.equal(opticalState.angle,43);
+prepare();container.emit('keydown',{target:container,key:'ArrowUp',preventDefault(){}});assert.equal(opticalState.angle,45);
 container.emit('keydown',{target:container,key:'ArrowDown',preventDefault(){}});assert.equal(opticalState.angle,45);
 view.viewMode='exterior';container.emit('keydown',{target:container,key:'ArrowUp',preventDefault(){}});assert.equal(opticalState.angle,45);
 view.viewMode='section';window.Newton.observationAim={current:{selected:true}};opticalState={...opticalState,focal:1600,eyepiece:5};
 const beforeFine=view.yaw;container.emit('keydown',{target:container,key:'ArrowRight',preventDefault(){}});
 assert(Math.abs(beforeFine-view.yaw)<.003,'High-power finding has a reachable horizontal keyboard step');
-assert(view.yaw<beforeFine,'Right arrow matches rightward dragging in the observation view');
-container.emit('keydown',{target:container,key:'ArrowUp',preventDefault(){}});assert.equal(opticalState.angle,44.9,'Finding supports 0.1-degree elevation steps');
-assert(changes>0);
+assert.equal(view.yaw,beforeFine,'Arrow keys cannot steer automatic pointing');
+container.emit('keydown',{target:container,key:'ArrowUp',preventDefault(){}});assert.equal(opticalState.angle,45,'Arrow keys cannot change elevation');
+assert.equal(changes,0,'Manual gestures never write optical state');
 const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8'),app=fs.readFileSync(path.join(__dirname,'../js/app.js'),'utf8');
 assert(!html.includes('id="angle-input"')&&!html.includes('id="angle-value"'),'Remove the visible angle slider and readout');
 assert(!app.includes("['angle-input'"),'The removed input has no binding');
-console.log(`PASS ${configurations} front/rear vertical gestures: raises the front, fixed yaw, reversed orbit, 3 apertures/elevations/layouts, mouse/touch, direction lock, limits, tap/cancel/base/background guards and keyboard control; angle slider removed.`);
+console.log(`PASS ${configurations} front/rear vertical gestures: manual pointing disabled, fixed yaw, reversed orbit, 3 apertures/elevations/layouts, mouse/touch, direction lock, limits, tap/cancel/base/background guards and keyboard non-steering; angle slider removed.`);
 prepare();view.state=opticalState;view.backdrop={style:{setProperty(){}}};
 let pointingEvents=0;
 container.addEventListener('pointingchange',event=>{pointingEvents++;assert(Number.isFinite(event.detail.yaw)&&Number.isFinite(event.detail.angle));});

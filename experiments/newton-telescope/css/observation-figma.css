@@ -178,3 +178,45 @@
 .observation-turn-controls button:focus-visible{outline:2px solid #b9d8ff;outline-offset:3px}
 .observation-turn-controls button:disabled{opacity:.4}
 .observation-turn-controls button[hidden]{display:none}
+
+/* Sky buttons follow the same background transform as the aiming marker. */
+.observation-is-open .observation-saturn-layer .observation-targets{display:block;inset:0;width:100%;height:100%;pointer-events:none}
+.observation-saturn-layer .observation-targets button{position:absolute;width:24px;height:24px;min-height:24px;transform:translate(-50%,-50%);border:1px dashed #ffe3a1;border-radius:50%;background:#142c4e55;color:#ffe3a1;font-size:8px;letter-spacing:0;pointer-events:auto;padding:0}
+.observation-saturn-layer .observation-targets button:hover,.observation-saturn-layer .observation-targets button[aria-pressed=true]{background:#e8d7b5;color:#1d3856;border-color:#fff1ce}
+
+.observation-instrument{pointer-events:none}
+
+.observation-saturn-layer .observation-targets button{white-space:nowrap;font-size:7px}
+.observation-is-open .observation-saturn-marker::after{display:none}
+
+/* Separate full-stage terrain/sky layers; target positions retain their old zoom mapping. */
+.observation-art{transform:none;background:#14213a;isolation:isolate;z-index:0}
+.observation-art .newton-nebula-image,.newton-nebula-flow,.newton-dynamic-stars,.observation-art .newton-distant-landscape,.observation-art .newton-ground-landscape{position:absolute;inset:0;width:1600px;height:900px;pointer-events:none;object-fit:fill}
+.newton-nebula-flow{z-index:0}.newton-dynamic-stars{z-index:1}
+.observation-art .newton-distant-landscape{z-index:2}
+.observation-art .newton-ground-landscape{z-index:3}
+.observation-saturn-layer{z-index:4;transform:scale(var(--environment-zoom,1));transform-origin:calc(800px - var(--night-left)) 641px}
+.newton-star-density{position:absolute;left:52px;top:130px;z-index:5;display:flex;gap:14px;align-items:center;font-size:22px;color:#e0e8f7;pointer-events:auto}
+.newton-star-density input{width:180px;min-height:44px;accent-color:#d7c6a5;touch-action:none}
+
+/* Keep the eyepiece image and its magnification as the observation hierarchy. */
+.observation-is-open .preview-badge{font-size:34px;font-weight:700;line-height:1.2;color:#ffe3a2;letter-spacing:1px;padding:8px 20px;border:1px solid #d9bc7955;border-radius:24px;background:#101b32b3;}
+.observation-is-open .preview-badge>span:first-child{display:none;}
+
+/* Scenery follows the camera push-in about the ground contact zone. */
+.observation-art .newton-nebula-image,.newton-nebula-flow,.newton-dynamic-stars,.observation-art .newton-distant-landscape,.observation-art .newton-ground-landscape{transform:scale(var(--environment-zoom,1));transform-origin:800px 780px;}
+
+/* Cool atmospheric rim follows the distant layer's alpha skyline. */
+.observation-art .newton-distant-landscape{filter:drop-shadow(0 -1px 1.5px #b9d8ff70) drop-shadow(0 -3px 8px #789fdf42);}
+
+/* Observation uses the upper-left slot for its exit action. */
+.observatory[data-stage=observation].observation-is-open .introduction{display:none}
+.observation-is-open .observation-close{left:48px;top:48px;z-index:40;font-size:26px;min-height:56px;padding:8px 20px}
+.observation-is-open .preview-readout{display:none}
+
+/* Unidentified search regions reveal no target names or silhouettes. */
+.observation-is-open .observation-saturn-marker{opacity:0}
+.observation-saturn-layer .observation-targets button{background:#142c4e22;border-color:#f0dca5cc;border-width:1px}
+.observation-saturn-layer .observation-targets button:hover,.observation-saturn-layer .observation-targets button[aria-pressed=true]{background:#88afd333;border-color:#f9e8b9;box-shadow:0 0 5px #bcd8ff55}
+.observation-saturn-layer .observation-targets button[data-observed=true]::after{content:'✓';font-size:10px;color:#b0efd3}
+.observation-aim-hint{font-size:20px}

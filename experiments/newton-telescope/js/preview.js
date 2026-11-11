@@ -1,10 +1,18 @@
 /* Illustrated eyepiece image. This is a pedagogical preview, not a sky renderer. */
 (function (N) {
   'use strict';
+  // Fixed decorative field, not a catalogue or a celestial-coordinate measurement.
+  // Generate once: no random flicker, image downloads or additional animation clock.
+  const eyepieceStars=Array.from({length:64},(_,i)=>{
+    const fraction=x=>x-Math.floor(x);
+    return {x:fraction((i+1)*.754877666),y:fraction((i+1)*.569840291),
+      radius:i%13===0?1.45:i%4===0?1:.65,alpha:i%13===0?.84:i%4===0?.58:.34};
+  });
   N.Preview = class {
     constructor(canvas) {
       this.canvas=canvas;this.ctx=canvas.getContext('2d');this.state=N.store.get();
       this.pendingAim=this.aim=null;this.drawListeners=new Set();
+      N.observationArt?.subscribe(()=>this.draw(this.state));
       this.observer=new ResizeObserver(()=>this.draw(this.state));this.observer.observe(canvas);
     }
     subscribeDraw(fn){this.drawListeners.add(fn);return ()=>this.drawListeners.delete(fn);}
@@ -17,7 +25,7 @@
     }
     update(state,force=false){if(state.live||force){this.state={...state};this.aim=this.pendingAim?{...this.pendingAim}:null;this.draw(this.state);}document.querySelector('.preview-paused').hidden=state.live;}
     draw(state){
-      const ctx=this.ctx,w=this.canvas.clientWidth,h=this.canvas.clientHeight;if(!w||!h)return;
+      let ctx=this.ctx;const w=this.canvas.clientWidth,h=this.canvas.clientHeight;if(!w||!h)return;
       const dpr=Math.min(devicePixelRatio||1,2);this.canvas.width=w*dpr;this.canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
       // Preserve the default 32x illustration; all scene spacing follows inverse field.
       // Target sizes are schematic, not a catalogue of measured angular diameters.
@@ -35,12 +43,31 @@
       const r=(state.target==='jupiter'?imageHeight*.14:state.target==='moon'?imageHeight*.38:imageHeight*.31)*scale;
       const cx=guided?w/2+(aim.selected?aim.x:0)*Math.min(w,h)*.46:w*.51+(state.angle-45)*w*.001;
       const cy=guided?h/2+(aim.selected?aim.y:0)*Math.min(w,h)*.46:h*.52+(state.angle-45)*h*.001;
-      [[.16,.35,1],[.81,.61,.8],[.75,.17,.5],[.26,.79,.7],[.93,.29,.5],[.1,.84,.4]].forEach(([x,y,r])=>{ctx.fillStyle='#cddfff99';ctx.beginPath();ctx.arc(cx+(x-.51)*w*scale,cy+(y-.52)*h*scale,r,0,Math.PI*2);ctx.fill();});
-      const blur=Math.min(5,Math.abs(optics.focusHeight-3.1)*.45);
+      if(guided){
+        ctx.fillStyle='#080d22';ctx.fillRect(0,0,w,h);
+        const fieldScale=Math.min(w,h)/600;
+        for(const star of eyepieceStars){
+          const x=star.x*w,y=star.y*h,r=Math.max(.65,star.radius*fieldScale);
+          ctx.fillStyle=`rgba(202,222,248,${star.alpha})`;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+          if(star.radius>1){ctx.fillStyle='rgba(150,184,230,.10)';ctx.beginPath();ctx.arc(x,y,r*2.5,0,Math.PI*2);ctx.fill();}
+        }
+      }else [[.16,.35,1],[.81,.61,.8],[.75,.17,.5],[.26,.79,.7],[.93,.29,.5],[.1,.84,.4]].forEach(([x,y,r])=>{ctx.fillStyle='#cddfff99';ctx.beginPath();ctx.arc(cx+(x-.51)*w*scale,cy+(y-.52)*h*scale,r,0,Math.PI*2);ctx.fill();});
+      const blur=guided?N.store.focusBlur(state):Math.min(5,Math.abs(optics.focusHeight-3.1)*.45);
+      this.canvas.setAttribute('data-focus-blur',String(blur));
+      this.canvas.setAttribute('data-target-art',guided&&N.observationArt?.ready?'libtv-transparent-v2':'procedural');
       if(!guided||aim.acquired){
-      ctx.save();ctx.translate(cx,cy);ctx.rotate(-.37);ctx.filter=`blur(${blur}px) brightness(${brightness})`;
-      const halo=ctx.createRadialGradient(0,0,r*.3,0,0,r*1.9);halo.addColorStop(0,'#d3b59318');halo.addColorStop(1,'#d3b59300');ctx.fillStyle=halo;ctx.fillRect(-r*2,-r*2,r*4,r*4);
-      if(state.mode==='point'){
+      if(guided){
+        // Blur the completed object, not each clipped primitive: even the limb
+        // and ring silhouette must lose focus. Reuse one bounded canvas.
+        const layer=this.targetLayer??(this.targetLayer=document.createElement('canvas'));
+        if(layer.width!==this.canvas.width||layer.height!==this.canvas.height){layer.width=this.canvas.width;layer.height=this.canvas.height;}
+        ctx=layer.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+      }
+      ctx.save();ctx.translate(cx,cy);ctx.rotate(guided&&N.observationArt?.ready?0:-.37);ctx.filter=guided?'none':`blur(${blur}px) brightness(${brightness})`;
+      if(!guided){const halo=ctx.createRadialGradient(0,0,r*.3,0,0,r*1.9);halo.addColorStop(0,'#d3b59318');halo.addColorStop(1,'#d3b59300');ctx.fillStyle=halo;ctx.fillRect(-r*2,-r*2,r*4,r*4);}
+      if(guided&&N.observationArt?.ready){
+        N.observationArt.draw(ctx,state.target,r,w,h,scale);
+      }else if(state.mode==='point'){
         const glow=ctx.createRadialGradient(0,0,0,0,0,r*.6);glow.addColorStop(0,'#fff9e8');glow.addColorStop(.08,'#ffe6b4');glow.addColorStop(.3,'#a7c5f17a');glow.addColorStop(1,'#6786b000');ctx.fillStyle=glow;ctx.fillRect(-r,-r,r*2,r*2);
         for(let i=1;i<4;i++){ctx.beginPath();ctx.ellipse(0,0,r*.12*i,r*.12*i,0,0,Math.PI*2);ctx.strokeStyle=`rgba(188,209,255,${.13/i})`;ctx.lineWidth=1;ctx.stroke();}
       }else{
@@ -59,18 +86,20 @@
         }
       }
       ctx.restore();
+      if(guided){ctx=this.ctx;ctx.filter=`blur(${blur}px) brightness(${brightness})`;ctx.drawImage(this.targetLayer,0,0,w,h);}
       }
       ctx.restore();
       const vignette=ctx.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,w*.61);vignette.addColorStop(0,'#050b1e00');vignette.addColorStop(1,'#050b1e66');ctx.fillStyle=vignette;ctx.fillRect(0,0,w,h);
       document.getElementById('magnification').textContent=`${Number(optics.magnification.toFixed(1))}×`;
-      const target=state.mode==='point'?'点光源':({saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'}[state.target]);
+      const identified=!guided||(aim?.aligned&&aim.focused&&N.store.observationSetup(state).suitable);
+      const target=state.mode==='point'?'点光源':!identified?'待观测目标':({saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'}[state.target]);
       document.getElementById('preview-target').textContent=target;
       document.getElementById('preview-field').textContent=`${optics.field.toFixed(2)}°`;
       this.canvas.setAttribute('data-aperture',String(state.aperture||130));
       this.canvas.setAttribute('data-brightness',String(brightness));
       this.canvas.setAttribute('data-aim-phase',!guided?'none':!aim.selected?'select':aim.acquired?'observing':'finding');
       this.canvas.setAttribute('data-aim-x',guided?String(aim.x):'0');this.canvas.setAttribute('data-aim-y',guided?String(aim.y):'0');
-      this.canvas.setAttribute('aria-label',`${target}目镜成像示意，放大倍率 ${optics.magnification.toFixed(1)} 倍，估算视场 ${optics.field.toFixed(2)} 度，口径 ${state.aperture||130} 毫米；${guided?(aim.acquired?'已对准'+target+'；':'尚未对准'+target+'，转动镜筒寻找目标；'):''}天体尺寸、间距与亮度为教学示意`);
+      this.canvas.setAttribute('aria-label',`${target}目镜成像示意，放大倍率 ${optics.magnification.toFixed(1)} 倍，估算视场 ${optics.field.toFixed(2)} 度，口径 ${state.aperture||130} 毫米；${guided?(aim.acquired?'已对准'+target+'；':'尚未对准'+target+'，点击天空天体自动对准；'):''}天体尺寸、间距与亮度为教学示意`);
       this.drawListeners.forEach(fn=>fn(this.aim));
     }
     rings(ctx,r,front){

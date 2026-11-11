@@ -38,12 +38,24 @@ c.selectPart('primary');assert.equal(c.install('secondary'),false);assert.equal(
 assert.equal(c.install('primary'),true);assert.equal(c.enter('observation'),false);
 c.selectPart('secondary');assert.equal(c.install('secondary'),true);assert.equal(c.enter('observation'),true);
 c.enter('mirrors');c.enter('observation');assert.equal(c.get().installed.length,2);
-N.store.set({live:false});c.record();assert.equal(c.get().records.length,0);
-assert.match(c.get().message,/画面已冻结/);N.store.set({live:true});
-for(const eyepiece of [25,10,5]){N.store.set({eyepiece});c.record();}assert.equal(c.get().complete,true);
-for(const record of c.get().records){assert.equal(record.field,N.store.metrics({...N.store.get(),eyepiece:record.eyepiece}).field);}
-N.store.set({focal:610});c.record();assert.equal(c.get().records.length,1);assert.equal(c.get().complete,false);
-N.store.set({eyepiece:7});c.record();assert.equal(c.get().records.length,1);
+const image='data:image/png;base64,AA==';
+const record=(aim={target:N.store.get().target,aligned:true,focused:true})=>c.recordDrawing({optical:N.store.get(),image,aim});
+N.store.set({live:false});assert.equal(record(),false);
+N.store.set({live:true,target:'saturn',focal:1600,eyepiece:25});assert.equal(record(),false,'clear 64x cannot record the high-power Saturn task');
+N.store.set({live:true,eyepiece:38});assert.equal(record(),false,'unobserved target cannot be recorded');
+for(const [i,target] of ['saturn','moon','jupiter','pleiades'].entries()){
+ N.store.set({target,eyepiece:38-i*3,focal:600+i*100,aperture:100+i*20});
+ assert.equal(c.observeTarget(target),false,'alignment cannot complete a target without a record');
+ N.store.set({focal:800,eyepiece:25});assert.equal(record(),false,'blur cannot be recorded');
+ N.store.set({focal:1600,eyepiece:25});assert.equal(record({target,aligned:false,focused:true}),false,'off-axis capture blocked');
+ N.store.set(({saturn:{focal:1600,eyepiece:9},moon:{focal:1500,eyepiece:35},jupiter:{focal:1600,eyepiece:13},pleiades:{focal:1450,eyepiece:50}})[target]);
+ assert.equal(record(),true,'clear aligned capture at target-appropriate power counts once');
+ assert.equal(record(),false,'same target cannot count twice');
+ assert.equal(c.get().records.length,i+1);assert.equal(c.get().complete,i===3);
+ const saved=c.get().records[i];assert.equal(saved.field,N.store.metrics(N.store.get()).field);
+}
+assert.deepEqual(Array.from(c.get().records,r=>[r.focal,r.eyepiece]),[[1600,9],[1500,35],[1600,13],[1450,50]],'later knob changes preserve each recorded setup');
+c.resetStage();assert.equal(c.get().records.length,0);assert.equal(c.get().observedTargets.length,0);assert.equal(c.get().complete,false);
 c.enter('assembly');c.resetStage();assert.equal(c.canEnter('observation'),false);assert.equal(c.get().records.length,0);
 c.restart();assert.equal(c.get().stage,'mirrors');assert.equal(c.get().seen.length,0);assert.equal(c.get().mirrorMounted,false);
 console.log('PASS: five-lens recognition gate, course progression and controlled-comparison invariants.');

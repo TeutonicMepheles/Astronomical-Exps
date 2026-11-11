@@ -1,0 +1,41 @@
+{
+  "nodeKey": "66458e30-64da-43b7-afc4-32aea1388531",
+  "data": {
+    "type": "image",
+    "name": "jupiter",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1014358622_319c4ff9d7474e1d90bb569be628e18b.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Single Jupiter isolated on true transparent alpha background. Educational painterly gouache illustration, fine visible brush strokes and subtle grain ONLY inside the planet. Round globe, warm ivory ochre and soft gray horizontal atmospheric bands, recognizable Great Red Spot in southern hemisphere, softly shaded volume, not a cartoon. Centered disk diameter 72 percent of square canvas. No sky, no stars, no vignette, no circular backdrop beyond planet itself, no halo, no text, no frame, no checkerboard.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "text2image",
+      "settings": {
+        "quality": "1.5K",
+        "ratio": "1:1",
+        "background": "transparent"
+      }
+    },
+    "taskInfo": {
+      "taskId": "20261111185303635567723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1536,
+          "height": 1536
+        }
+      ]
+    }
+  },
+  "nodeType": "image",
+  "name": "jupiter"
+}

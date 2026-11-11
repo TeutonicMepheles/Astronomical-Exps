@@ -5,3 +5,7 @@
 `stage-objective/` 复用纸质阶段弹窗视觉，负责目标确认、实验操作区入场与收纳到任务进度的动效。独立组件及本地资源来源见 [SOURCE](stage-objective/SOURCE.md)。
 
 2026-11-11：`stage-objective/newton-completion.js` 是阶段完成弹窗的本实验私有副本，与目标弹窗共用说明/主操作字号变量。公共完成弹窗保持原样，复制来源见同目录 SOURCE.md。
+
+- `parameter-knob/`：本实验三组光学参数旋钮，横拖与加减、目镜档位及固定/随动基准；参见 [来源与接口](parameter-knob/SOURCE.md)。
+
+- `observation-beam/`：第一阶段 OpticalBeam 柔光公式的三维合批适配，来源及差异见其 SOURCE.md。

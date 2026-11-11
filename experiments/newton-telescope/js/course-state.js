@@ -1,7 +1,7 @@
 /* Learning state is independent of optical parameters and viewport state. */
 (function(N){
   'use strict';
-  const fresh=()=>({stage:'mirrors',mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,selected:null,installed:[],assemblyDone:false,collapsed:false,records:[],complete:false,message:'将操作台上的镜片拖入光轴夹具，观察光路。'});
+  const fresh=()=>({stage:'mirrors',mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,selected:null,installed:[],assemblyDone:false,collapsed:false,records:[],observedTargets:[],complete:false,message:'将操作台上的镜片拖入光轴夹具，观察光路。'});
   const lessonTypes=['mirror:plane','mirror:concave','mirror:convex','lens:concave','lens:convex'];
   const markSeen=(seen,type)=>[...new Set([...seen,type])];
   const stageOneComplete=s=>lessonTypes.every(type=>s.seen.includes(type));
@@ -13,15 +13,17 @@
   let state=fresh(),resetVersion=0;const listeners=new Set();
   const emit=()=>listeners.forEach(fn=>fn(N.course.get()));
   const patch=p=>{state={...state,...p};emit();};
+  const observationEyepieces=Object.freeze([25,10,5]);
   N.course={
     lessonTypes:[...lessonTypes],
+    observationEyepieces,
     get resetVersion(){return resetVersion;},
-    get:()=>({...state,seen:[...state.seen],installed:[...state.installed],records:state.records.map(r=>({...r}))}),
+    get:()=>({...state,seen:[...state.seen],observedTargets:[...state.observedTargets],installed:[...state.installed],records:state.records.map(r=>({...r}))}),
     subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},
     refresh(){emit();},
     isStageOneComplete(courseState=state){return stageOneComplete(courseState);},
     canEnter(stage){return ['mirrors','assembly','observation'].includes(stage)&&(N.developer?.enabled||stage==='mirrors'||stage==='assembly'&&stageOneComplete(state)||stage==='observation'&&state.assemblyDone);},
-    enter(stage){if(!this.canEnter(stage))return false;patch({stage,selected:null,mirrorSelection:null,message:stage==='mirrors'?'将桌面五类镜片依次放入光路，观察反射、会聚与发散。':stage==='assembly'?'选择零件，再点击安装位。':'保持主镜不变，对比 25、10、5 mm 目镜。'});return true;},
+    enter(stage){if(!this.canEnter(stage))return false;patch({stage,selected:null,mirrorSelection:null,message:stage==='mirrors'?'将桌面五类镜片依次放入光路，观察反射、会聚与发散。':stage==='assembly'?'选择零件，再点击安装位。':'依次观测土星、月球、木星和昴星团。'});return true;},
     selectMirror(mirror){if(state.stage!=='mirrors'||state.mirrorMounted&&!state.lens&&state.mirror===mirror||!['plane','concave','convex'].includes(mirror))return;patch({mirrorSelection:mirror,message:'已选择镜片。拖到夹具上安装。'});},
     clearMirrorSelection(){if(state.stage==='mirrors')patch({mirrorSelection:null});},
     mountLens(type){
@@ -53,22 +55,39 @@
       patch({installed,selected:null,assemblyDone:done,message:done?'两面镜子已就位，完整光路接通。观察两次反射后，进入参数观测。':'安装正确。观察镜面的作用，再安装另一面镜子。'});return true;
     },
     toggleCollapsed(){patch({collapsed:!state.collapsed});},
+    observeTarget(target){
+      if(state.stage!=='observation'||!state.records.some(r=>r.target===target&&r.image)||state.observedTargets.includes(target))return false;
+      const observedTargets=[...state.observedTargets,target];patch({observedTargets,complete:observedTargets.length===4});return true;
+    },
+    // The progress component preview still calls the numeric comparison API.
     record(){
-      const optical=N.store.get();if(state.stage!=='observation')return;
+      const optical=N.store.get();
+      if(state.stage!=='observation'||state.records[0]?.image)return;
       if(!optical.live){patch({message:'画面已冻结。请开启实时预览，再记录当前参数。'});return;}
-      if(![25,10,5].includes(optical.eyepiece)){patch({message:'本次对照任务请使用 25、10、5 mm 三档目镜。'});return;}
-      // A comparison is valid only at the same focal length, aperture, target and source.
+      if(!observationEyepieces.includes(optical.eyepiece)){patch({message:'本次对照任务请使用 25、10、5 mm 三档目镜。'});return;}
       const key=[optical.focal,optical.aperture,optical.target,optical.mode].join('/');
-      let records=state.records.filter(r=>r.key===key&&r.eyepiece!==optical.eyepiece);
+      const records=state.records.filter(r=>r.key===key&&r.eyepiece!==optical.eyepiece);
       const metrics=N.store.metrics(optical);
       records.push({key,eyepiece:optical.eyepiece,focal:optical.focal,aperture:optical.aperture,target:optical.target,magnification:metrics.magnification,field:metrics.field});
-      patch({records,complete:records.length===3,message:records.length===3?'对照完成：目镜焦距越短，倍率越高，实际视场越窄。':'已记录。保持主镜、目标和光源不变，换一档目镜继续比较。'});
+      patch({records,complete:state.observedTargets.length===4,message:records.length===3?'对照完成：目镜焦距越短，倍率越高，实际视场越窄。':'已记录。保持主镜、目标和光源不变，换一档目镜继续比较。'});
+    },
+    recordDrawing({optical,image,aim}={}){
+      if(state.stage!=='observation'||!optical?.live||optical.mode!=='parallel')return false;
+      if(!['saturn','moon','jupiter','pleiades'].includes(optical.target)||state.records.some(r=>r.target===optical.target&&r.image))return false;
+      if(!N.store.observationSetup(optical).suitable||!aim?.aligned||!aim.focused||aim.target!==optical.target||!N.store.focusAcceptable(optical,aim.focused))return false;
+      if(typeof image!=='string'||!image.startsWith('data:image/png;base64,'))return false;
+      const metrics=N.store.metrics(optical);
+      const record={task:N.store.observationSetup(optical).task,image,eyepiece:optical.eyepiece,focal:optical.focal,aperture:optical.aperture,target:optical.target,magnification:metrics.magnification,field:metrics.field};
+      const records=[...state.records.filter(r=>r.image),record];
+      const observedTargets=records.map(r=>r.target);
+      patch({records,observedTargets,complete:observedTargets.length===4,message:'已收入天体观测记录。'});
+      return true;
     },
     resetStage(){
       resetVersion++;
-      if(state.stage==='mirrors')patch({mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,installed:[],assemblyDone:false,records:[],complete:false,message:'光路已清空，镜片回到操作台。请重新认识五类镜片。'});
-      else if(state.stage==='assembly')patch({installed:[],selected:null,assemblyDone:false,records:[],complete:false,message:'零件已回到托盘，请重新组装。'});
-      else{N.store.reset();patch({records:[],complete:false,message:'已恢复观测参数，重新进行三档目镜对照。'});}
+      if(state.stage==='mirrors')patch({mirror:'plane',mirrorMounted:false,mirrorSelection:null,lens:null,convexShape:100,concaveShape:100,seen:[],mirrorFocal:700,mirrorSource:-4.2,mirrorPosition:3.5,installed:[],assemblyDone:false,records:[],observedTargets:[],complete:false,message:'光路已清空，镜片回到操作台。请重新认识五类镜片。'});
+      else if(state.stage==='assembly')patch({installed:[],selected:null,assemblyDone:false,records:[],observedTargets:[],complete:false,message:'零件已回到托盘，请重新组装。'});
+      else{N.store.reset();patch({records:[],observedTargets:[],complete:false,message:'已恢复观测参数，重新观测四个天体。'});}
     },
     restart(){resetVersion++;state=fresh();N.store.reset();emit();}
   };

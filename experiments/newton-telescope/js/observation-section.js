@@ -190,6 +190,7 @@
       this.wallMaterial.customProgramCacheKey=()=> 'newton-section-adjustable-wall-v2';
       this.eyepieceMaterial=this.material.clone();this.eyepieceMaterial.transparent=true;
       this.eyepieceMaterial.depthWrite=false;this.eyepieceMaterial.forceSinglePass=true;
+      for(const material of [this.material,this.wallMaterial,this.eyepieceMaterial])N.modernObservationMaterial(material);
       const decode=value=>new Float32Array(Uint8Array.from(atob(value),c=>c.charCodeAt(0)).buffer);
       this.parts=N.observationSectionModel.meshes.map(part=>{
         const geometry=new T.BufferGeometry();
@@ -228,7 +229,7 @@
         this.tripod=tripod.clone();this.tripod.name='Scope_02_Tripod';
         this.tripod.geometry=tripod.geometry.clone().translate(0,join,0).applyMatrix4(inverse);
         this.tripod.geometry.computeBoundingBox();this.tripod.geometry.computeBoundingSphere();
-        this.tripod.material=tripod.material.clone();this.root.add(this.tripod);
+        this.tripod.material=N.modernObservationMaterial(tripod.material.clone());this.root.add(this.tripod);
       }
       this.primary=this.root.getObjectByName('Scope_02_ZhuJing');
       this.secondary=this.root.getObjectByName('Scope_02_GlassPlane');this.lens=this.root.getObjectByName('Scope_02_MuJing');
@@ -249,6 +250,7 @@
       };
       // Readable optical overlays remain visible through the supplied solid focuser and bands.
       Object.values(this.materials).forEach(material=>{material.transparent=true;material.depthTest=material.depthWrite=false;});
+      this.beam=new N.ObservationBeam();
       this.labels=document.createElement('div');this.labels.className='observation-section-labels';this.labels.hidden=true;
       this.labels.setAttribute('aria-hidden','true');
       this.labels.innerHTML='<span data-optical-label="focus">F</span>';
@@ -262,6 +264,7 @@
       }
     }
     setReveal(value){
+      this.beam.setOpacity(value);
       this.reveal=value;this.labels.hidden=!this.root.visible||value<.5;this.labels.style.opacity=String(value);
       for(const material of Object.values(this.materials)){
         material.opacity=value;
@@ -356,6 +359,7 @@
       this.setElevation(state.angle);
       this.setAperture(c.displayScale);
       this.updateOrbitPivot();
+      this.beam.mesh.removeFromParent();
       this.interior.traverse(o=>o.geometry?.dispose());this.interior.clear();this.photons=[];
       // Keep the glass on the cyan-to-violet ray junction, inside the original
       // eyepiece bore. It shares the optical overlay's aperture transform and is
@@ -416,6 +420,7 @@
         const vertices=path.points.map(p=>new T.Vector3(...p)),lengths=vertices.slice(1).map((p,i)=>p.distanceTo(vertices[i]));
         this.photons.push({mesh:photon,points:path.points,index,vertices,lengths,total:lengths.reduce((a,b)=>a+b,0)});
       });
+      this.beam.update(this.renderPaths,c);this.interior.add(this.beam.mesh);
       this.anchors={primary:[c.primaryX,c.radius+.1,0],secondary:[c.secondaryX,-c.outerRadius-.09,0],eyepiece:[c.secondaryX,c.lensY+.18,0],focus:c.focus};
       this.root.updateMatrixWorld(true);
       this.updateFraming(state,c,previousOrbitPivot);
@@ -434,6 +439,28 @@
         const delta=this.orbitPivot.clone().sub(previousOrbitPivot),turn=(this.view.transition?1.42:this.view.yaw)-1.42;
         this.framingOffset.add(delta).sub(delta.clone().applyAxisAngle(new T.Vector3(0,1,0),-turn));
       }
+    }
+    setAzimuth(value){
+      if(!this.azimuthRoot){
+        // ShelfC includes the lower yoke in the user's marked area. It belongs
+        // to the azimuth bearing, not to the stationary tripod. Locate that
+        // bearing on its bottom circular seat, independently of the tilt axle.
+        const pedestal=this.root.getObjectByName('Scope_02_ShelfC');
+        this.root.updateMatrixWorld(true);
+        const positions=pedestal.geometry.attributes.position,world=[];
+        for(let i=0;i<positions.count;i++)world.push(pedestal.localToWorld(new T.Vector3().fromBufferAttribute(positions,i)));
+        const bottom=world.reduce((low,p)=>Math.min(low,p.y),Infinity),seat=new T.Box3();
+        for(const point of world)if(point.y<=bottom+.005)seat.expandByPoint(point);
+        this.azimuthPivot=this.root.worldToLocal(seat.getCenter(new T.Vector3()));
+        this.azimuthRoot=new T.Group();this.root.add(this.azimuthRoot);
+        this.azimuthRoot.add(this.elevationRoot,this.root.getObjectByName('Scope_02_ShelfB'),pedestal);
+        this.azimuthAxis=new T.Vector3(0,1,0).applyQuaternion(this.baseRotation.clone().invert()).normalize();
+      }
+      this.azimuth=value;
+      const rotation=new T.Quaternion().setFromAxisAngle(this.azimuthAxis,value),pivot=this.azimuthPivot;
+      this.azimuthRoot.quaternion.copy(rotation);
+      this.azimuthRoot.position.copy(pivot).sub(pivot.clone().applyQuaternion(rotation));
+      this.root.updateMatrixWorld(true);
     }
     setElevation(angle){
       if(this.elevationAngle===angle)return;this.elevationAngle=angle;

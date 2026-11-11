@@ -1,0 +1,24 @@
+/* Private rotary control: no shared-component or global range overrides. */
+.observation-scene .observation-sliders{left:48px;top:552px;width:456px;height:270px;display:flex;gap:6px;}
+.observation-scene .observation-sliders[hidden]{display:none;}
+.newton-parameter-knob{position:relative;width:148px;flex:none;text-align:center;font-variant-numeric:tabular-nums;color:#f3e8cc;}
+.newton-parameter-knob>label{display:block;font-size:23px;font-weight:700;line-height:32px;margin-bottom:8px;color:#e5ecf5;}
+.newton-parameter-dial{position:relative;width:144px;height:144px;margin:0 auto;touch-action:none;cursor:ew-resize;border-radius:50%;}
+.newton-parameter-dial>img{position:absolute;width:164px;height:164px;left:-10px;top:-10px;pointer-events:none;user-select:none;}
+.newton-knob-scale{position:absolute;inset:0;width:144px;height:144px;pointer-events:none;stroke:#e2c994;stroke-width:1.7;opacity:.85;}
+.newton-knob-pointer{position:absolute;inset:18px;transform:rotate(var(--knob-angle));pointer-events:none;}
+.newton-knob-pointer::before{content:"";position:absolute;left:calc(50% - 5px);top:7px;width:10px;height:40px;border-radius:6px;background:#f6dfaa;box-shadow:0 1px 2px #10213c88;}
+.newton-knob-pointer::after{content:"";position:absolute;width:17px;height:17px;border-radius:50%;left:calc(50% - 8.5px);top:calc(50% - 8.5px);background:#e7cd93;border:1px solid #f8eac5;}
+.newton-parameter-dial:focus-within,.newton-parameter-knob.is-dragging .newton-parameter-dial{outline:2px solid #f5d594;outline-offset:3px;}
+.newton-parameter-dial .newton-knob-input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;pointer-events:none;}
+.newton-knob-readout{margin-top:14px;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:2px;}
+.newton-knob-readout button{width:44px;height:44px;padding:0;border:1px solid #9bb1ca88;border-radius:50%;background:#203752e8;color:#f5dfb1;font-size:29px;line-height:1;touch-action:manipulation;}
+.newton-knob-readout button:disabled{opacity:.35;}
+.newton-knob-readout output{font:700 20px/25px var(--font-ui);color:#f9e0aa;white-space:normal;}
+.newton-knob-readout output span{display:block;font-size:14px;line-height:18px;font-weight:500;color:#c6d6e9;}
+.newton-knob-readout button:focus-visible{outline:3px solid #bce5f1;outline-offset:2px;}
+.observation-is-open .observation-detail-toggle{left:48px;top:840px;width:456px;font-size:21px;}
+.newton-parameter-knob .observation-draw-slider-hint{top:-54px;left:50%;font-size:21px;}
+.newton-knob-origin{position:absolute;left:calc(50% - 7px);top:-7px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:11px solid #f5d99c;z-index:2;pointer-events:none;}
+.newton-knob-position-dot{position:absolute;left:calc(50% - 6px);top:-5px;width:12px;height:12px;border-radius:50%;background:#f8ca72;border:2px solid #fff1cf;box-shadow:0 1px 3px #10213c88;}
+.newton-knob-readout{margin-top:8px;}
