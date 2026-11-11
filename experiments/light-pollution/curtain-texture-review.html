@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>窗帘纹理与静态遮光评审</title>
+  <style>
+    :root{color-scheme:dark;font-family:"Microsoft YaHei",system-ui,sans-serif;background:#050b17;color:#eef3fb}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at 50% -20%,#27395f 0,#101b33 34%,#050b17 76%);min-height:100vh}
+    main{width:min(1500px,94vw);margin:auto;padding:42px 0 64px}
+    header{display:flex;justify-content:space-between;gap:32px;align-items:end;margin-bottom:28px}
+    h1{margin:0 0 8px;font-size:clamp(24px,3vw,44px);letter-spacing:.04em}
+    header p{max-width:860px;margin:0;color:#9fb0c9;line-height:1.7}
+    .badge{white-space:nowrap;border:1px solid #d6ae6e66;border-radius:999px;padding:8px 14px;color:#f0ca8b;background:#1b2438}
+    .legend{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 24px;padding:13px 16px;border:1px solid #354761;border-radius:12px;background:#0c1628cc;color:#aebdd2;font-size:14px}
+    .legend strong{color:#edf2f9}
+    .material{display:grid;grid-template-columns:190px 1fr;gap:22px;margin:18px 0;padding:20px;border:1px solid #30425c;border-radius:18px;background:#0b1425d9;box-shadow:0 18px 50px #0004}
+    .swatch{position:relative;min-height:240px;border-radius:13px;overflow:hidden;border:1px solid #65758a55;background-size:cover;background-position:center}
+    .swatch::after{content:"纹理原图";position:absolute;left:10px;bottom:10px;padding:5px 8px;border-radius:6px;background:#07101edb;color:#e8eef6;font-size:12px}
+    .material-copy{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+    .material-copy h2{margin:0;font-size:21px}
+    .material-copy span{color:#8fa1ba;font-size:13px}
+    .states{display:grid;grid-template-columns:repeat(5,minmax(142px,1fr));gap:13px}
+    .state{margin:0;text-align:center}
+    .window-shell{position:relative;margin:auto;padding:12px;border-radius:12px;background:linear-gradient(145deg,#33425b,#10192a 60%,#030711);box-shadow:0 0 calc(5px + 24px * var(--effective)) rgb(255 157 55 / calc(.04 + .34 * var(--effective)))}
+    .window{position:relative;aspect-ratio:1;overflow:hidden;border:5px solid #111827;background:#131c30}
+    .room{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(calc(.68 + .32 * var(--effective))) saturate(.9)}
+    .curtain-clip{position:absolute;right:-2px;top:-2px;bottom:-2px;width:calc(var(--coverage) * 1%);overflow:hidden;background:#111827}
+    .fabric{position:absolute;right:0;top:0;width:calc(100% / max(.01,var(--coverage)) * 100);min-width:calc(100% * 100 / max(1,var(--coverage)));height:100%;object-fit:cover;object-position:right center;filter:brightness(var(--fabric-light)) saturate(.86)}
+    .warm-through{position:absolute;inset:0;background:rgb(255 160 69 / calc(var(--transmission) * .24));mix-blend-mode:screen;pointer-events:none}
+    .frame{position:absolute;inset:0;pointer-events:none;border:3px solid #293044;box-shadow:inset 0 0 0 1px #060a12}
+    .frame::before,.frame::after{content:"";position:absolute;background:linear-gradient(90deg,#111827,#394158 45%,#101624)}
+    .frame::before{left:0;right:0;top:30%;height:8px}
+    .frame::after{top:0;bottom:0;left:34%;width:7px;background:linear-gradient(#111827,#394158 45%,#101624)}
+    .bar{position:absolute;top:30%;bottom:0;right:10%;width:5px;background:#172033;box-shadow:1px 0 #46516855}
+    figcaption{margin-top:9px;font-size:13px;color:#cbd5e4}
+    figcaption small{display:block;margin-top:3px;color:#778ba6}
+    footer{margin-top:25px;padding:17px 19px;border-left:3px solid #d8b16f;background:#111c31;color:#9eafc6;line-height:1.65}
+    @media(max-width:1100px){.material{grid-template-columns:1fr}.swatch{min-height:150px}.states{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:650px){main{padding-top:25px}header{display:block}.badge{display:inline-block;margin-top:15px}.states{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div><h1>窗帘纹理与静态遮光评审</h1><p>四种新纹理使用相同住宅窗户和相同开合方向进行比较。窗帘从右向左关闭；外框光晕按可见开口与材质透光率衰减，用来检查关闭后是否仍有突兀亮边。</p></div>
+      <span class="badge">静态预览 · 尚未接入正式场景</span>
+    </header>
+    <div class="legend"><span><strong>开合状态：</strong>0% / 25% / 50% / 75% / 100%</span><span><strong>基准窗光：</strong>暖色 3000 K</span><span><strong>检查重点：</strong>边缘无透明洞、无固定光晕、窗框覆盖正确</span></div>
+    <div id="materials"></div>
+    <footer>说明：这里展示的是纹理与遮光关系，暂不包含摆动动画。百分比表示窗帘覆盖宽度；“有效透光”是视觉预览值，不会在你确认纹理前写入正式实验参数。</footer>
+  </main>
+  <script>
+    const materials=[
+      {name:'雾蓝 · 亚麻细褶',file:'mist-blue-linen.png',kind:'亚麻',transmission:.15,light:.58,note:'细密、冷静，适合住宅主样式'},
+      {name:'蓝紫 · 棉布宽褶',file:'blue-violet-cotton.png',kind:'棉布',transmission:.08,light:.64,note:'褶皱较宽，与夜景蓝紫色统一'},
+      {name:'米杏 · 亚麻细纹',file:'warm-beige-linen.png',kind:'亚麻',transmission:.17,light:.48,note:'暖色自然，保留轻微织物透光'},
+      {name:'炭蓝 · 遮光宽褶',file:'charcoal-blackout.png',kind:'遮光布',transmission:.02,light:.58,note:'关闭后最暗，适合严格遮光对照'}
+    ];
+    const levels=[0,25,50,75,100];
+    const root=document.querySelector('#materials');
+    for(const material of materials){
+      const section=document.createElement('section');section.className='material';
+      const path=`assets/curtain-textures-v2/${material.file}`;
+      section.innerHTML=`<div class="swatch" style="background-image:url('${path}')"></div><div><div class="material-copy"><h2>${material.name}</h2><span>${material.kind} · ${material.note}</span></div><div class="states"></div></div>`;
+      const states=section.querySelector('.states');
+      for(const coverage of levels){
+        const effective=1-coverage/100+coverage/100*material.transmission;
+        const figure=document.createElement('figure');figure.className='state';
+        figure.style.cssText=`--coverage:${coverage};--transmission:${material.transmission};--effective:${effective.toFixed(3)};--fabric-light:${material.light}`;
+        figure.innerHTML=`<div class="window-shell"><div class="window"><img class="room" src="tools/mask-editor/assets/residential-window-9-source.png" alt=""><div class="curtain-clip"><img class="fabric" alt=""><span class="warm-through"></span></div><span class="frame"><i class="bar"></i></span></div></div><figcaption>拉帘 ${coverage}%<small>有效透光 ${Math.round(effective*100)}%</small></figcaption>`;
+        figure.querySelector('.fabric').src=path;
+        states.append(figure);
+      }
+      root.append(section);
+    }
+  </script>
+</body>
+</html>

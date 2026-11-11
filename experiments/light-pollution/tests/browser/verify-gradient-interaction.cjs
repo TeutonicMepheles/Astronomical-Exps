@@ -2,7 +2,7 @@ const sceneDir=require('node:path').resolve(__dirname,'../../lib-static-demo');
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path'),os=require('node:os'),fs=require('node:fs'),{pathToFileURL}=require('node:url');
 (async()=>{const browser=await chromium.launch();try{
  const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'no-preference'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href);await page.waitForSelector('html[data-ready=true]');await page.click('#sky-toggle');await page.click('#sky-edit-gradient');await page.check('#gradient-enabled');
+ await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href+'?mode=editor');await page.waitForSelector('html[data-ready=true]');await page.click('#sky-toggle');await page.click('#sky-edit-gradient');await page.check('#gradient-enabled');
  const gradient=()=>page.evaluate(()=>compositorSky.getSettings().gradient);
  const drag=async(selector,dx,dy)=>{const r=await page.locator(selector).boundingBox();assert(r,'handle must remain attached during scene animation');await page.mouse.move(r.x+r.width/2,r.y+r.height/2);await page.mouse.down();await page.mouse.move(r.x+r.width/2+dx,r.y+r.height/2+dy,{steps:6});await page.mouse.up();};
  await page.evaluate(()=>{window.testGradientHandle=document.querySelector('#gradient-overlay [data-anchor=end]');});await page.waitForTimeout(350);assert(await page.evaluate(()=>window.testGradientHandle===document.querySelector('#gradient-overlay [data-anchor=end]')),'animation must not replace idle drag targets');

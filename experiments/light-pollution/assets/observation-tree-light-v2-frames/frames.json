@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "fps": 20,
+  "durationSeconds": 4,
+  "totalFrames": 81,
+  "frameWidth": 768,
+  "frameHeight": 432,
+  "columns": 5,
+  "rows": 4,
+  "sheets": [
+    {
+      "src": "atlas-00.webp",
+      "firstFrame": 0,
+      "count": 20,
+      "columns": 5,
+      "rows": 4
+    },
+    {
+      "src": "atlas-01.webp",
+      "firstFrame": 20,
+      "count": 20,
+      "columns": 5,
+      "rows": 4
+    },
+    {
+      "src": "atlas-02.webp",
+      "firstFrame": 40,
+      "count": 20,
+      "columns": 5,
+      "rows": 4
+    },
+    {
+      "src": "atlas-03.webp",
+      "firstFrame": 60,
+      "count": 20,
+      "columns": 5,
+      "rows": 4
+    },
+    {
+      "src": "atlas-04-final.webp",
+      "firstFrame": 80,
+      "count": 1,
+      "columns": 1,
+      "rows": 1
+    }
+  ]
+}

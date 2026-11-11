@@ -3,7 +3,7 @@ export function mountShadowMeasurement(panel) {
  const viewport=panel.querySelector('.observation-viewport');
  const measureHost=document.createElement('div');measureHost.className='shadow-measure-host earth-measure-soft';viewport.append(measureHost);
  const controls=document.createElement('div');controls.className='shadow-measure-controls';
- controls.innerHTML='<p class="measurement-instruction" aria-live="polite"></p><div class="measurement-records"><span data-record="selected"></span><span data-record="subsolar"></span></div>';
+ controls.innerHTML='<p class="measurement-instruction" aria-live="polite"></p>';
  viewport.after(controls);
  const retry=document.createElement('button');retry.type='button';retry.className='shadow-remeasure';retry.setAttribute('aria-label','重新测量');retry.title='重新测量';retry.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></svg>';retry.hidden=true;viewport.append(retry);
  const empty=()=>({value:null,saved:false});
@@ -11,10 +11,6 @@ export function mountShadowMeasurement(panel) {
  function paint(){
   retry.hidden=context.site!=='selected'||!records.selected.saved;
   controls.querySelector('.measurement-instruction').textContent=context.canMeasure?'':context.reason||'';
-  for(const site of ['selected','subsolar']){
-   const r=records[site];
-   controls.querySelector(`[data-record="${site}"]`).textContent=site==='subsolar'?`直射点说明：${r.read?'已阅读':'可选查看'}`:`观测点：${r.saved?r.value.toFixed(1)+' cm':'待测'}`;
-  }
  }
  function clearSelected(){
   measure.exit();

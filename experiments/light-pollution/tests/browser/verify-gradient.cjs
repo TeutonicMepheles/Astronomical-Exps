@@ -4,7 +4,7 @@ const {pathToFileURL}=require('node:url');
 (async()=>{const browser=await chromium.launch();try{
  const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[],network=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url()))network.push(r.url());});
- await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href);await page.waitForSelector('html[data-ready=true]');
+ await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href+'?mode=editor');await page.waitForSelector('html[data-ready=true]');
  const state=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('lib-candidate-layout-v1')));
  const gradient=()=>page.evaluate(()=>window.compositorSky.getSettings().gradient);
  const change=async(id,value)=>{await page.locator(id).fill(String(value));await page.locator(id).dispatchEvent('change');};

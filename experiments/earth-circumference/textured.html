@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/observatory.css">
 <link rel="stylesheet" href="components/measure-mode-vendor/measure-mode.css">
 <link rel="stylesheet" href="components/measure-mode-vendor/skins/soft.css">
+<link rel="stylesheet" href="../../shared/components/operation-tip.css">
 </head>
 <body>
 <div class="stage" id="stage" data-overview-zoom="1.42" data-overview-offset-y="0" data-view-mode="orbit">
@@ -21,6 +22,8 @@
 
   <!-- 中央地球：纹理 + 晨昏线 + 大气边缘 -->
   <canvas id="globe" aria-label="可旋转的地球，拖动改变自转角度" role="img"></canvas>
+
+  <div class="earth-pick-hint"><span aria-hidden="true">◎</span>点按地球，选择观测点</div>
 
   <!-- 太阳平行光线（方向固定） -->
   <svg class="sun-arrows" viewBox="0 0 1600 900" aria-hidden="true">
@@ -45,6 +48,7 @@
 
   <!-- 地轴与朝向手柄 -->
   <svg class="axis-layer" viewBox="0 0 1600 900" aria-hidden="true">
+    <path id="axisOuter" class="axis-line axis-outer"></path>
     <line id="axisLine" class="axis-line" x1="0" y1="0" x2="0" y2="0"></line>
   </svg>
   <div class="axis-grip" id="axisGrip" role="slider" tabindex="0"
@@ -113,26 +117,27 @@
 
   <div class="view-mode-tabs" role="tablist" aria-label="主视图模式">
     <button class="view-mode-tab" type="button" role="tab" aria-selected="true"
-            aria-controls="stage" data-view-mode-button="orbit">
+            aria-controls="stage" data-view-mode-button="orbit" aria-label="公转观测">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <ellipse cx="12" cy="12" rx="9" ry="4.5"></ellipse>
         <circle cx="12" cy="12" r="2.2"></circle>
       </svg>
-      <span>轨道模式</span>
+
     </button>
     <button class="view-mode-tab" type="button" role="tab" aria-selected="false"
-            aria-controls="stage" data-view-mode-button="earth" tabindex="-1">
+            aria-controls="stage" data-view-mode-button="earth" aria-label="自转观测" tabindex="-1">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="8.5"></circle>
         <path d="M5.5 7.5c2.2.8 4.3.2 5.7 1.3 1.5 1.2-.2 2.7.8 4.1.9 1.3 2.8.8 4.4 2.1 1 .8 1.3 2 1.3 3.5"></path>
         <path d="M11.5 3.7c-.7 1.4-.2 2.4.8 3.1"></path>
       </svg>
-      <span>地球模式</span>
+
     </button>
   </div>
 
 </div>
 <script src="components/measure-mode-vendor/measure-mode.js"></script>
+<script src="../../shared/components/operation-tip.js"></script>
 <script type="module" src="js/globe-textured.js"></script>
 
 </body>

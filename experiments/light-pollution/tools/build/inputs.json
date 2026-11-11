@@ -3,8 +3,8 @@
   "inputs": [
     {
       "path": "app/page.html",
-      "bytes": 8389,
-      "sha256": "3f2ccf7c3d2cbbb7a21178720421b4a729ab14b0da859180523d79ec8e66b4e2"
+      "bytes": 8681,
+      "sha256": "fe6dc79957bf3fe0f6938cd587e5d563ee5f3cbb0d7301d57d78745a96ab8fc3"
     },
     {
       "path": "assets/billboard-demo/city.svg",
@@ -20,6 +20,11 @@
       "path": "assets/billboard-demo/orbit.svg",
       "bytes": 917,
       "sha256": "347c00d9333cfe7b3adb68b66da368b68955195efe95bab341c18220076d086e"
+    },
+    {
+      "path": "assets/curtain-textures-v2/charcoal-blackout.png",
+      "bytes": 3200809,
+      "sha256": "d97b0ab793538ae3b6fedaea265e009f0a735ddbf4b8c0b0e292c8242ed2e6c8"
     },
     {
       "path": "assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
@@ -112,6 +117,36 @@
       "sha256": "c167d8b32cbd190ad3e7d70bd47648df97ce6249b3211d6798275e3ed66298a1"
     },
     {
+      "path": "assets/source-layers-v2/city-unlit-plate.png",
+      "bytes": 1285801,
+      "sha256": "70d1799aeefaddc38b2544e50f469ccadb5cc6d04904f1e187ab41146e584463"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-00.webp",
+      "bytes": 990128,
+      "sha256": "8060b899f597ed28be8987c795039d6ac02cf8c367338d42647d416d25a2328b"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-01.webp",
+      "bytes": 990586,
+      "sha256": "c758c86339183f9fd6d74f6283053b9d6002ab4d93fde55281658b381865988c"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-02.webp",
+      "bytes": 1001558,
+      "sha256": "7af04d3987814f8da5e76a87ec6b7d3298adedbf000d47eda873b1fba2ccd891"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-03.webp",
+      "bytes": 993780,
+      "sha256": "0c269e57afecbb84a73fbd96201899b0a68103896d45f9f6e7fa471ea087f90e"
+    },
+    {
+      "path": "assets/observation-tree-light-v2-frames/atlas-04-final.webp",
+      "bytes": 50398,
+      "sha256": "6304297be551172b979c74c61dd686059c5adbf8e8d789b746a1e9725cddcffa"
+    },
+    {
       "path": "lib-static-demo/assets/window-apertures.png",
       "bytes": 21758,
       "sha256": "530e9e199050ebeab23dbfce230489434c090de33adc490b47af3bac4abe87ed"
@@ -153,8 +188,8 @@
     },
     {
       "path": "app/styles/scene.css",
-      "bytes": 20419,
-      "sha256": "a73ecbab7acfa2f92aa40f6ad8dd66ee315ee13d159e56c36ed634875be3437b"
+      "bytes": 27867,
+      "sha256": "f7ea2aec0e4b267b696d9ae61b473319bc9380452188dc8fde1cbb7c2dc07fd0"
     },
     {
       "path": "core/runtime.js",
@@ -165,6 +200,11 @@
       "path": "scenes/candidate/definition.js",
       "bytes": 533,
       "sha256": "114815ae688fa8b4d627f81352c93bc69a42c1b0aa751a286b968b78834eaf3a"
+    },
+    {
+      "path": "scenes/candidate/observations.js",
+      "bytes": 1294,
+      "sha256": "b6c49f034e065c289afffdde2c6cc073a75a21709860ad13c05b470a5e5b9e4f"
     },
     {
       "path": "scenes/legacy/definition.js",
@@ -178,8 +218,8 @@
     },
     {
       "path": "features/curtains/motion.js",
-      "bytes": 353,
-      "sha256": "94d032f563432f8ad721f6783ea168af70045c6c1eef93d04154a43f1ae036d3"
+      "bytes": 974,
+      "sha256": "85001bdb596e0fe1713adae700d2eab1b0facb920ebcac4a5c4a14db6031f412"
     },
     {
       "path": "features/lamps/variants.js",
@@ -188,8 +228,8 @@
     },
     {
       "path": "features/light-environment/model.js",
-      "bytes": 1502,
-      "sha256": "e698c1bbb36b9eb20e58c8e94c376b9f74cdc7596b71595ddc316d2f5c89cd1c"
+      "bytes": 1565,
+      "sha256": "83bde6eb79b01a0dbdf83ac28e2eefcb4d6047d52a83ba9b1c68015783b3361d"
     },
     {
       "path": "resources/asset-registry.js",
@@ -223,8 +263,8 @@
     },
     {
       "path": "rendering/building-renderer.js",
-      "bytes": 3572,
-      "sha256": "a283deaec982a2916fcad7306d6095e600e592ce4ac38739c928be0b795e7128"
+      "bytes": 6032,
+      "sha256": "1d9f6e9d328fd5b89327b74f7cf0dae4f806d28d0c5cb6ce19ae44a8e682bfa3"
     },
     {
       "path": "rendering/reflection-pass.js",
@@ -268,28 +308,33 @@
     },
     {
       "path": "app/editor/object-editor.js",
-      "bytes": 5598,
-      "sha256": "2cf85d49087f08e986a3c26c9b151324596c4fe2f97f86f6a544b3dac369df00"
+      "bytes": 5573,
+      "sha256": "9a2be54acb28c4c31478ae447e9d66dac020e36458d2c4689f8a5d2c46ec7f42"
     },
     {
       "path": "app/presentation/billboard-panel.js",
-      "bytes": 3391,
-      "sha256": "70c7bfb6a1b86838009cb8e14f528f949c108edb85307ea6da96fd0205102590"
+      "bytes": 3582,
+      "sha256": "835a071c3c46ad6df72cc571ba4dfed155cfe5a4a00bd2f85cfd4566a4527c04"
     },
     {
       "path": "features/objects/service.js",
-      "bytes": 20437,
-      "sha256": "ae4702c005e6653eb1d1825eb7781028704781bbb7a7f2d9aa04ceb1bbf1f3b6"
+      "bytes": 22956,
+      "sha256": "b158a740ac23ee08ba1fb85cab88bb04832da8c39b82581e5963f2120c41a2c9"
     },
     {
       "path": "resources/candidate-loader.js",
-      "bytes": 6028,
-      "sha256": "091c93f4516cb1f8a1e72106abf210f7cacb65f07ebbf368e147fabbbdc3a8d6"
+      "bytes": 6784,
+      "sha256": "9db6f5f08b30f6d6902cefd948cc53c7a8a52e93dfb732205183d24169b5b87f"
     },
     {
       "path": "app/presentation/navigation.js",
       "bytes": 3067,
       "sha256": "ecd38737116a52f80c33abea17474ca363169a28c5ff4a61ed47f1dfca5bb486"
+    },
+    {
+      "path": "app/presentation/observation-panel.js",
+      "bytes": 18602,
+      "sha256": "b7e48c60b665d82501fa87fa3ec3db79d26e06b48c86403e588199dbebb412d1"
     },
     {
       "path": "app/editor/gradient-editor.js",
@@ -308,13 +353,13 @@
     },
     {
       "path": "features/lamps/controller.js",
-      "bytes": 7649,
-      "sha256": "e2bca80e9ca8077a9104887fa043d600b55c02a92883ffb55eacaa7404cf7df9"
+      "bytes": 7831,
+      "sha256": "d4000f8f89753c89417eff7b0fb3d5ee239cca8bb5c69357d5b63592d975d5fa"
     },
     {
       "path": "rendering/masked-lighting.js",
-      "bytes": 4061,
-      "sha256": "0012a33f581571bce6934b0f23fb1b7a4f0d213baf38dff01df4d95ce8ba6e22"
+      "bytes": 4051,
+      "sha256": "5adf41dce4e7b2bedb0685c6f49df8ea2a547971451aa1df9e4ec6700a04cef1"
     },
     {
       "path": "resources/building-light-masks.js",
@@ -323,13 +368,13 @@
     },
     {
       "path": "features/curtains/palette.js",
-      "bytes": 1350550,
-      "sha256": "ccd19cb185ca46f41bbb6bcff377061108ffaa01755e35c9bfbd28a3c26f52a1"
+      "bytes": 287,
+      "sha256": "ee08d50aae596cb90bc8b59bd1de15e2d81a26d203d0129a74085429fc178ad5"
     },
     {
       "path": "features/buildings/controller.js",
-      "bytes": 16424,
-      "sha256": "ab0b7cf379eae86c0883d78bbafd890ab0aef6f0e5e411bccddc5facb44e3fbb"
+      "bytes": 18315,
+      "sha256": "8b9496e6d421fbcf70a4e7b07874a5d1390d7b0ebcec5ad29d177c5270eec27f"
     },
     {
       "path": "features/water/renderer.js",
@@ -373,13 +418,13 @@
     },
     {
       "path": "app/bootstrap.js",
-      "bytes": 21037,
-      "sha256": "328294092f560d746339d93f72a53fbf143c82fefa60d55799b47545ef9edadb"
+      "bytes": 21313,
+      "sha256": "47db2b02c61b8973783fa524fcb949726e05f5ce12eb02336f59fa86609c6be6"
     }
   ],
   "output": {
     "path": "lib-static-demo/standalone.html",
-    "bytes": 37852117,
-    "sha256": "3c25ca1c1986f39a99cebcd424858044587c394819fd822faa7124d4e6fadbe2"
+    "bytes": 47889793,
+    "sha256": "522dd71ca9f595af4519dc2de9c87a591907b7e0819368baa5f9b2eef222eb08"
   }
 }

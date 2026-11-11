@@ -4,9 +4,10 @@ const root=path.resolve(__dirname,'../..'),base=path.join(root,'lib-static-demo'
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'assets/manifest.json'),'utf8'));
 const inputs=[];
 function read(relative){const file=path.resolve(root,relative);if(!file.startsWith(path.resolve(root,'../..')+path.sep))throw Error('Input outside repository: '+relative);const bytes=fs.readFileSync(file);inputs.push({path:relative,bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')});return bytes;}
+function mime(relative){const extension=path.extname(relative).toLowerCase();return ({'.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.mp4':'video/mp4','.webm':'video/webm'})[extension]||'application/octet-stream';}
 if(new Set(manifest.scripts).size!==manifest.scripts.length)throw Error('Duplicate scripts');
 const template=read('app/page.html').toString('utf8');
-const assets=Object.fromEntries(Object.entries(manifest.assets).map(([id,file])=>[id,'data:image/'+(file.endsWith('.svg')?'svg+xml':'png')+';base64,'+read(file).toString('base64')]));
+const assets=Object.fromEntries(Object.entries(manifest.assets).map(([id,file])=>[id,'data:'+mime(file)+';base64,'+read(file).toString('base64')]));
 const styles=manifest.styles.map(file=>'<style>'+read(file).toString('utf8')+'</style>').join('');
 const scripts=manifest.scripts.map(file=>'<script>'+read(file).toString('utf8')+'</script>').join('');
 const offline=template.replace('</head>',styles+'</head>').replace('</body>','<script>window.LIB_STATIC_ASSETS='+JSON.stringify(assets)+';</script>'+scripts+'</body>');

@@ -4,34 +4,42 @@ export function mountAngleGuide(scene) {
   host.className = 'angle-guide';
   host.hidden = true;
   host.innerHTML = `<svg viewBox="0 0 1600 900" aria-hidden="true">
+    <circle class="calculation-center-halo" r="16"/><circle class="calculation-center-dot" r="4"/>
     <path class="angle-radius angle-radius-sun"/><path class="angle-radius angle-radius-site"/>
     <path class="angle-arc"/><g class="calculation-rods">
       <g class="solar-field"></g>
-      <g data-rod="subsolar"><path class="calculation-rod"/><path class="calculation-shadow"/><path class="calculation-ray"/><path class="calculation-altitude"/><text class="rod-length"/><text class="shadow-length"/><text class="altitude-label"/></g>
       <g data-rod="site"><path class="calculation-rod"/><path class="calculation-shadow"/><path class="calculation-ray"/><path class="calculation-right"/><path class="calculation-altitude"/><path class="calculation-zenith"/><text class="rod-length"/><text class="shadow-length"/><text class="altitude-label"/><text class="zenith-label"/></g>
     </g>
   </svg>
-  <button type="button" class="angle-center" aria-label="显示两点的圆心角"><span></span></button>
   <output class="angle-value" aria-live="polite"></output>`;
-  scene.stage.append(host);
-  const button = host.querySelector('button');
+  const centerButton = document.createElement('button');
+  centerButton.type = 'button';
+  centerButton.className = 'calculation-center-button';
+  centerButton.setAttribute('aria-label', '球心：重播杆影角与球心角推导');
+  centerButton.hidden = true;
+  centerButton.addEventListener('click', () => window.dispatchEvent(new Event('request-angle')));
+  scene.stage.append(host, centerButton);
+  const centerMarkers = [...host.querySelectorAll('.calculation-center-halo,.calculation-center-dot')];
   const paths = [...host.querySelectorAll('.angle-radius')];
   const arc = host.querySelector('.angle-arc');
   const value = host.querySelector('output');
   let progress = 0;
+  let angleFrame = 0;
+  const solarPaths = Array.from({ length: 5 }, () => {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('class', 'solar-ray');
+    host.querySelector('.solar-field').append(path);
+    return path;
+  });
   let rodGrow = 0;
   let rodGrowId = 0;
-  let startedAt = null;
-  let frameId = 0;
   let wasMeasuring = false;
 
   function reset() {
-    cancelAnimationFrame(frameId);
-    frameId = 0;
-    startedAt = null;
+    cancelAnimationFrame(angleFrame);
+    host.dataset.anglePhase = '';
     progress = 0;
     host.classList.remove('is-drawing', 'is-revealed');
-    button.disabled = false;
     value.textContent = '';
     paths.forEach((path) => path.setAttribute('d', ''));
     arc.setAttribute('d', '');
@@ -100,47 +108,34 @@ export function mountAngleGuide(scene) {
         : '');
       return { tip, end };
     };
-    const drawSubsolar = (group, normal) => {
-      const base = place(normal, 0);
-      const tip = place(normal, rodPx * Math.min(1, rodGrow / 0.62));
-      group.querySelector('.calculation-rod').setAttribute('d', `M${base.x} ${base.y}L${tip.x} ${tip.y}`);
-      group.querySelector('.calculation-shadow').setAttribute('d', '');
-      group.querySelector('.calculation-ray').setAttribute('d', '');
-      group.querySelector('.calculation-altitude').setAttribute('d', '');
-      group.querySelector('.rod-length').textContent = '';
-      group.querySelector('.shadow-length').textContent = '';
-      group.querySelector('.altitude-label').textContent = '';
-      return { base, tip };
-    };
     const site = scene.projectLatLon(arc.selLat, arc.selLon);
     const sub = scene.projectLatLon(arc.subLat, arc.selLon);
     const altitude = shadowCm == null ? null : Math.atan2(rodCm, shadowCm) * 180 / Math.PI;
     const rodsHost = host.querySelector('.calculation-rods');
-    const subMark = drawSubsolar(rodsHost.querySelector('[data-rod=subsolar]'), sub.normal);
-    const rdx0 = subMark.base.x - subMark.tip.x;
-    const rdy0 = subMark.base.y - subMark.tip.y;
+    // Incoming sunlight is opposite the subsolar surface normal; no reference rod is needed.
+    const rdx0 = -sub.normal[0];
+    const rdy0 = sub.normal[1];
     const rayLen = Math.hypot(rdx0, rdy0) || 1;
     const rdx = rdx0 / rayLen;
     const rdy = rdy0 / rayLen;
     const siteMark = drawSite(rodsHost.querySelector('[data-rod=site]'), site.normal, shadowCm, altitude ?? 0, { x: rdx, y: rdy });
     const field = rodsHost.querySelector('.solar-field');
     field.style.display = rodGrow > 0.62 ? '' : 'none';
-    const origin = subMark.base;
+    const origin = place(sub.normal, 0);
     const px = -rdy;
     const py = rdx;
-    field.replaceChildren(...Array.from({ length: 5 }, (_, i) => {
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('class', 'solar-ray');
+    solarPaths.forEach((path, i) => {
       const o = (i - 2) * 78;
       const x = origin.x + px * o;
       const y = origin.y + py * o;
       path.setAttribute('d', `M${x - rdx * 520} ${y - rdy * 520}L${x + rdx * 220} ${y + rdy * 220}`);
-      return path;
-    }));
+    });
     rodsHost.dataset.ready = shadowCm == null ? 'partial' : 'measured';
   }
   function paint() {
     host.hidden = !scene.measuring;
+    centerButton.hidden = !scene.calculating;
+    centerButton.disabled = !scene.stage.classList.contains('rods-ready');
     if (!scene.measuring) {
       if (wasMeasuring) reset();
       wasMeasuring = false;
@@ -149,12 +144,17 @@ export function mountAngleGuide(scene) {
     wasMeasuring = true;
     const geometry = scene.centralAngle();
     const c = geometry.center;
+    centerButton.style.left = `${c.x}px`;
+    centerButton.style.top = `${c.y}px`;
+    for (const marker of centerMarkers) {
+      marker.style.display = scene.calculating ? '' : 'none';
+      marker.setAttribute('cx', c.x);
+      marker.setAttribute('cy', c.y);
+    }
     const rods=host.querySelector('.calculation-rods');
     const rodsReady=scene.calculating&&scene.stage.classList.contains('rods-ready');
     rods.style.display=rodsReady?'':'none';
     if(rodsReady) paintLocalRods();
-    button.style.left = `${c.x}px`;
-    button.style.top = `${c.y}px`;
     [geometry.from, geometry.to].forEach((p, i) => {
       const x = p.x + (c.x - p.x) * progress;
       const y = p.y + (c.y - p.y) * progress;
@@ -165,29 +165,30 @@ export function mountAngleGuide(scene) {
     value.style.top = `${geometry.label.y}px`;
     const saved = scene.measurements?.snapshot?.().selected;
     const theta = saved?.saved ? Math.atan(saved.value / (scene.calibration?.rod || 1)) * 180 / Math.PI : null;
-    value.textContent = progress === 1 && theta != null ? `θ ${theta.toFixed(1)}°` : '';
+    value.textContent = progress === 1 && theta != null ? `球心角 ${theta.toFixed(1)}°` : '';
   }
-  function step(now) {
-    if (!scene.measuring) { paint(); return; }
-    const t = Math.min(1, (now - startedAt) / 1800);
-    progress = t * t * t * (t * (t * 6 - 15) + 10);
-    paint();
-    if (t < 1) frameId = requestAnimationFrame(step);
-    else {
-      frameId = 0;
-      progress = 1;
-      host.classList.add('is-revealed');
-      paint();
-    }
-  }
-  button.addEventListener('click', () => {
-    if (!scene.measuring || startedAt !== null) return;
-    startedAt = performance.now();
-    button.disabled = true;
+  window.addEventListener('show-angle', () => {
+    if (!scene.calculating) return;
+    reset();
     host.classList.add('is-drawing');
-    frameId = requestAnimationFrame(step);
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const start = performance.now();
+    function frame(now) {
+      const elapsed = reduced ? 2600 : now - start;
+      progress = Math.min(1, elapsed / 650);
+      const phase = elapsed < 650 ? 'lines' : elapsed < 1550 ? 'rod' : elapsed < 2500 ? 'center' : 'done';
+      if (host.dataset.anglePhase !== phase) {
+        host.dataset.anglePhase = phase;
+        window.dispatchEvent(new CustomEvent('angle-progress', { detail: { phase } }));
+      }
+      host.classList.toggle('is-revealed', elapsed >= 1550);
+      paint();
+      if (phase !== 'done') angleFrame = requestAnimationFrame(frame);
+    }
+    frame(start);
   });
-  window.addEventListener('show-angle',()=>{cancelAnimationFrame(frameId);progress=1;startedAt=performance.now();button.disabled=true;host.classList.add('is-drawing','is-revealed');paint();});
+  window.addEventListener('cancel-angle', reset);
+  window.addEventListener('pagehide', () => { cancelAnimationFrame(angleFrame); cancelAnimationFrame(rodGrowId); });
   window.addEventListener('rods-ready',()=>{
     cancelAnimationFrame(rodGrowId);
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){rodGrow=1;paint();return;}
