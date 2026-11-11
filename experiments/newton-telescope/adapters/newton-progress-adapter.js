@@ -3,10 +3,11 @@
   function connectNewtonProgress({course,view,onActiveChange=()=>{}}) {
     const sync=()=>{
       const s=course.get();
+      const recognized=course.lessonTypes.filter(type=>s.seen.includes(type)).length,total=course.lessonTypes.length,stageOneDone=course.isStageOneComplete(s);
       view.setState({activeId:s.stage,steps:[
-        {id:'mirrors',label:'认识镜面',current:s.seen.length,total:3,detail:`${s.seen.length} / 3 已观察`,completed:s.seen.length===3,panelId:'progress-page-mirrors'},
-        {id:'assembly',label:'组装望远镜',current:s.installed.length,total:2,detail:`${s.installed.length} / 2 已安装`,completed:s.assemblyDone,locked:!s.testNavigation&&!course.canEnter('assembly'),lockReason:'先完成镜面观察',panelId:'progress-page-assembly'},
-        {id:'observation',label:'参数观测',current:s.records.length,total:3,detail:`${s.records.length} / 3 已记录`,completed:s.complete,locked:!s.testNavigation&&!course.canEnter('observation'),lockReason:'先完成组装',panelId:'progress-page-observation'}
+        {id:'mirrors',label:'认识五种镜片',current:recognized,total,detail:`${recognized} / ${total} 已认识`,completed:stageOneDone,panelId:'progress-page-mirrors'},
+        {id:'assembly',label:'组装牛顿望远镜',current:s.installed.length,total:2,detail:`${s.installed.length} / 2 已安装`,completed:s.assemblyDone,locked:!s.testNavigation&&!course.canEnter('assembly'),lockReason:'先认识五类镜片',panelId:'progress-page-assembly'},
+        {id:'observation',label:'完成三档目镜观测',current:s.records.length,total:3,detail:`${s.records.length} / 3 已记录`,completed:s.complete,locked:!s.testNavigation&&!course.canEnter('observation'),lockReason:'先完成组装',panelId:'progress-page-observation'}
       ]});onActiveChange(s);
     };
     const unsubscribe=course.subscribe(sync);sync();return unsubscribe;

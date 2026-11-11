@@ -1,0 +1,27 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path'),{spawn}=require('node:child_process');
+const root=path.resolve(__dirname,'../../..');
+(async()=>{let server,browser;try{
+ server=spawn('python',['tools/serve.py','--port','0'],{cwd:root,stdio:['ignore','pipe','pipe']});
+ const url=await new Promise((resolve,reject)=>{let output='';const timer=setTimeout(()=>reject(Error('server timeout')),15000);server.on('error',reject);server.stdout.on('data',chunk=>{output+=chunk;const m=output.match(/http:\/\/127\.0\.0\.1:\d+\/experiments\/newton-telescope\//);if(m){clearTimeout(timer);resolve(m[0]);}});});
+ browser=await chromium.launch({channel:'chrome'});const page=await browser.newPage({viewport:{width:1600,height:900},hasTouch:true,reducedMotion:'reduce'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(url);await page.waitForFunction(()=>window.Newton?.course);await page.locator('.newton-objective[open] button').click();
+ await page.evaluate(async()=>{for(const t of ['plane','concave','convex'])Newton.course.mountMirror(t);for(const t of ['concave','convex'])Newton.course.mountLens(t);await Newton.course.requestEnter('assembly',{completionConfirmed:true});});
+ await page.locator('.newton-objective[open] button').click();
+ await page.evaluate(()=>{Newton.course.install('primary','primary');Newton.course.install('secondary','secondary');});
+ await page.waitForFunction(()=>Newton.step2Viewer&&document.querySelector('.newton-rotation.is-ready:not(.is-introducing)'));
+ await page.waitForFunction(()=>Boolean(document.querySelector('dialog[open]')));await page.evaluate(()=>Newton.courseCompletion.dismiss());
+ const left=page.locator('[data-rotation-turn=left]'),right=page.locator('[data-rotation-turn=right]');
+ await left.waitFor({state:'visible'});await page.waitForFunction(()=>!document.querySelector('[data-rotation-turn=left]').disabled);
+ const state=()=>page.evaluate(()=>Newton.step2Viewer.getState());const a=await state();const fixedLeft=await left.boundingBox(),fixedRight=await right.boundingBox();
+ await left.tap();const b=await state();assert(Math.abs(b.yaw-a.yaw-Math.PI/12)<1e-8);assert.equal(b.pitch,a.pitch);assert.equal(b.distance,a.distance);
+ await right.tap();const c=await state();assert(Math.abs(c.yaw-a.yaw)<1e-8);
+ assert.deepEqual(await left.boundingBox(),fixedLeft,'left stays fixed after orbit');assert.deepEqual(await right.boundingBox(),fixedRight,'right stays fixed after orbit');
+ await left.focus();await page.keyboard.press('Enter');const d=await state();assert(Math.abs(d.yaw-c.yaw-Math.PI/12)<1e-8);
+ await right.focus();await page.keyboard.press('Space');const e=await state();assert(Math.abs(e.yaw-c.yaw)<1e-8);
+ await page.evaluate(()=>Newton.step2Viewer.startInspection({durationMs:350}));assert(await left.isDisabled());await page.waitForFunction(()=>!document.querySelector('[data-rotation-turn=left]').disabled);await right.tap();assert.deepEqual(await left.boundingBox(),fixedLeft,'left stays fixed after full inspection');assert.deepEqual(await right.boundingBox(),fixedRight,'right stays fixed after full inspection');
+ await page.waitForTimeout(150);const idle=await state();await page.waitForTimeout(250);const settled=await state();assert.equal(settled.renderCount,idle.renderCount,'no render loop after tap');assert.equal(settled.rendererInfo.memory.geometries,a.rendererInfo.memory.geometries);assert.equal(settled.rendererInfo.memory.textures,a.rendererInfo.memory.textures);
+ await page.screenshot({path:path.join(root,'experiments/newton-telescope/review/rotation-buttons-20261111.png')});
+ await page.keyboard.press('Escape');await page.waitForFunction(()=>!Newton.step2Viewer);assert.equal(await page.locator('.rotation-turn-controls').count(),0);
+ await page.evaluate(()=>Newton.rotationObservation.open());await page.waitForFunction(()=>Newton.step2Viewer&&document.querySelector('.newton-rotation.is-ready:not(.is-introducing)'));assert.equal(await page.locator('.rotation-turn-controls').count(),1);await left.tap();assert.deepEqual(errors,[]);
+ console.log('PASS touch and keyboard turns, fixed framing, inspection lock, idle scheduling, stable GPU resources and reopen lifecycle.');
+}finally{await browser?.close();server?.kill();}})().catch(e=>{console.error(e);process.exitCode=1;});

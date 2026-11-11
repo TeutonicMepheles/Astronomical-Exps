@@ -1,0 +1,5 @@
+
+> astronomical-exps@0.1.0 check
+> python tools/check.py
+
+Static check: 0 error(s). Dynamic asset paths require browser tests.

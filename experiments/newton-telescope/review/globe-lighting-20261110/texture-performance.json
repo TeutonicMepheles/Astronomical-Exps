@@ -1,0 +1,593 @@
+[
+  {
+    "mode": "before",
+    "browser": "157.0.8103.39",
+    "maps": [
+      {
+        "name": "Base_CircularPedestal",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_TurnedColumn",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_SphericalJoint",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_Crown",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_Upright_-1",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_Upright_1",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_BackShell",
+        "surface": "wood",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_UpperLip",
+        "surface": "wood",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_LowerLip",
+        "surface": "wood",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_BackInterior",
+        "surface": "inner",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_UpperInterior",
+        "surface": "inner",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_LowerInterior",
+        "surface": "inner",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Front_Near",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Front_Far",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Middle_Near",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Middle_Far",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Rear_Near",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Rear_Far",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_RearClosure",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_EndShoe_-3.98",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_EndShoe_3.7",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_CenterSeat",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Primary_Back",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Primary_ParabolicSurface",
+        "surface": "mirror",
+        "src": "embedded-source",
+        "width": 512,
+        "height": 512
+      },
+      {
+        "name": "Secondary_BlueHousing",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Secondary_PlaneMirror",
+        "surface": "mirror",
+        "src": "embedded-source",
+        "width": 512,
+        "height": 512
+      },
+      {
+        "name": "Secondary_SpiderUpright",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Secondary_SupportArm",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Eyepiece_Saddle",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Eyepiece_Foot",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Eyepiece_Barrel",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Adjuster_BlueNut",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Adjuster_ButterflyWing_0",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Adjuster_ButterflyWing_1",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      }
+    ],
+    "errors": [],
+    "p50": 13.300000000000182,
+    "p95": 13.400000000000546,
+    "max": 13.5,
+    "longTasks": 0,
+    "idleFrames": 0,
+    "state": {
+      "section": false,
+      "rays": false,
+      "bloom": true,
+      "bloomType": "selective-gaussian-two-pass",
+      "selected": null,
+      "yaw": 0.5309230456845818,
+      "pitch": 0.13094748194363778,
+      "distance": 21.060923531507353,
+      "meshCount": 132,
+      "visibleMeshes": 132,
+      "triangleCount": 115362,
+      "acceptedRays": 16,
+      "renderCount": 310,
+      "disposed": false,
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "rendererInfo": {
+        "memory": {
+          "geometries": 132,
+          "textures": 3
+        },
+        "render": {
+          "frame": 310,
+          "calls": 132,
+          "triangles": 115362,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 2
+      },
+      "canvasAlpha": true,
+      "clearAlpha": 0,
+      "materialOpacity": [
+        1
+      ],
+      "depthTest": true,
+      "depthWrite": true,
+      "bloomTargets": 3
+    },
+    "focused": true,
+    "visibility": "visible",
+    "dpr": 1.0000000298023224
+  },
+  {
+    "mode": "after",
+    "browser": "157.0.8103.39",
+    "maps": [
+      {
+        "name": "Base_CircularPedestal",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_TurnedColumn",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_SphericalJoint",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_Crown",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_Upright_-1",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_Upright_1",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_BackShell",
+        "surface": "wood",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_UpperLip",
+        "surface": "wood",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_LowerLip",
+        "surface": "wood",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_BackInterior",
+        "surface": "inner",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_UpperInterior",
+        "surface": "inner",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_LowerInterior",
+        "surface": "inner",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/wood-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Front_Near",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Front_Far",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Middle_Near",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Middle_Far",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Rear_Near",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Band_Rear_Far",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Tube_RearClosure",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_EndShoe_-3.98",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_EndShoe_3.7",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Mount_CenterSeat",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Primary_Back",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Primary_ParabolicSurface",
+        "surface": "mirror",
+        "src": "embedded-source",
+        "width": 512,
+        "height": 512
+      },
+      {
+        "name": "Secondary_BlueHousing",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Secondary_PlaneMirror",
+        "surface": "mirror",
+        "src": "embedded-source",
+        "width": 512,
+        "height": 512
+      },
+      {
+        "name": "Secondary_SpiderUpright",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Secondary_SupportArm",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Eyepiece_Saddle",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Eyepiece_Foot",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Eyepiece_Barrel",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Adjuster_BlueNut",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Adjuster_ButterflyWing_0",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      },
+      {
+        "name": "Adjuster_ButterflyWing_1",
+        "surface": "blue",
+        "src": "http://127.0.0.1:14485/experiments/newton-telescope/assets/step2-handpaint/blue-gouache-v1.png",
+        "width": 1254,
+        "height": 1254
+      }
+    ],
+    "errors": [],
+    "p50": 13.300000000000182,
+    "p95": 13.400000000000546,
+    "max": 13.800000000000182,
+    "longTasks": 0,
+    "idleFrames": 0,
+    "state": {
+      "surfaceStyle": {
+        "grain": 1,
+        "lighting": 1,
+        "contactShadow": true,
+        "floor": 0,
+        "shadowY": -0.008
+      },
+      "section": false,
+      "rays": false,
+      "bloom": true,
+      "bloomType": "selective-gaussian-two-pass",
+      "selected": null,
+      "yaw": 0.5309036856845819,
+      "pitch": 0.13094748194363778,
+      "distance": 21.060923531507353,
+      "meshCount": 132,
+      "visibleMeshes": 132,
+      "triangleCount": 115362,
+      "acceptedRays": 16,
+      "renderCount": 310,
+      "disposed": false,
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "rendererInfo": {
+        "memory": {
+          "geometries": 133,
+          "textures": 3
+        },
+        "render": {
+          "frame": 310,
+          "calls": 133,
+          "triangles": 115364,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 3
+      },
+      "canvasAlpha": true,
+      "clearAlpha": 0,
+      "materialOpacity": [
+        1
+      ],
+      "depthTest": true,
+      "depthWrite": true,
+      "bloomTargets": 3
+    },
+    "focused": true,
+    "visibility": "visible",
+    "dpr": 1.0000000298023224
+  }
+]

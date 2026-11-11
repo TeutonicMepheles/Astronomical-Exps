@@ -35,14 +35,11 @@
   let config = blank(), enabled = false, storageAvailable = true;
   try {
     const saved = JSON.parse(localStorage.getItem(key) || 'null');
-    if (saved) {config = validate(saved.config); enabled = saved.enabled === true;}
+    if (saved) {config = validate(saved.config);}
   } catch (_) { /* Invalid saved settings never prevent the experiment from starting. */ }
-  const requested = new URLSearchParams(location.search).get('dev');
-  if (requested === '1') enabled = true;
-  if (requested === '0') enabled = false;
   const listeners = new Set();
   function notify() {
-    try { localStorage.setItem(key, JSON.stringify({enabled, config})); storageAvailable = true; }
+    try { localStorage.setItem(key, JSON.stringify({enabled:false, config})); storageAvailable = true; }
     catch (_) { storageAvailable = false; }
     document.documentElement.classList.toggle('developer-active', enabled);
     listeners.forEach(fn => fn());

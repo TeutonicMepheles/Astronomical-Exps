@@ -33,3 +33,5 @@
 .developer-picking .observatory,.developer-picking .observatory *{cursor:crosshair!important;touch-action:none!important}
 .developer-text-override{white-space:pre-line}
 @media(max-width:700px){.developer-panel{width:320px}.developer-body{padding:10px 12px}.developer-panel header{padding:10px 12px 4px}}
+
+.developer-launch[hidden]{display:none!important;}

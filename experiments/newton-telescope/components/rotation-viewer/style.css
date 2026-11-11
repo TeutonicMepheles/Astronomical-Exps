@@ -1,8 +1,13 @@
-.newton-rotation-entry{position:absolute;z-index:21;left:46px;top:657px;padding:12px 20px;border:1px solid #b8d0e0;border-radius:24px;background:#254b70;color:#f3f7fd;font:inherit;font-size:21px;cursor:pointer}
-.newton-rotation-entry[hidden]{display:none}
-.observatory[data-stage=assembly]>:is(.assembly-preview,.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-rotation-entry){transition:opacity 180ms ease}
-.observatory.newton-rotation-active>:is(.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-rotation-entry),
+.newton-inspection-target{position:absolute;z-index:16;left:390px;top:100px;width:860px;height:645px;padding:0;border:0;background:transparent;cursor:pointer}
+.newton-inspection-target[hidden]{display:none}
+.assembly-complete-feedback{position:absolute;z-index:24;left:50%;top:118px;display:flex;align-items:center;gap:14px;padding:13px 22px 13px 15px;border:1px solid #dfc184;border-radius:18px;background:#24352ff0;color:#fff3d8;box-shadow:0 12px 34px #08182066;text-align:left;opacity:0;pointer-events:none;transform:translate(-50%,-12px);transition:opacity 160ms ease,transform 160ms ease}
+.assembly-complete-feedback__check{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#9bcab5;color:#17382e;font-size:25px;font-weight:800;box-shadow:0 0 0 7px #9bcab522}
+.assembly-complete-feedback :is(strong,small){display:block}.assembly-complete-feedback strong{font-size:21px;line-height:1.25}.assembly-complete-feedback small{margin-top:3px;color:#e4cf9d;font-size:14px}
+.observatory.is-assembly-completing .assembly-complete-feedback{opacity:1;transform:translate(-50%,0)}
+.observatory[data-stage=assembly]>:is(.assembly-preview,.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-inspection-target){transition:opacity 180ms ease}
+.observatory.newton-rotation-active>:is(.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-inspection-target),
 .observatory.newton-rotation-ready>.assembly-preview{opacity:0}
+.observatory.newton-rotation-active>.newton-inspection-target{pointer-events:none}
 .observatory.newton-rotation-active>.assembly-preview{transition-duration:300ms}
 .newton-rotation{position:absolute;inset:0;z-index:100;color:#eaf3ff;display:grid;grid-template-rows:54px 594px auto;align-content:start;text-align:center;padding:64px 36px 8px;font-size:18px;line-height:1.25;overflow:hidden;outline:none}
 .newton-rotation:not(.is-ready)>*{visibility:hidden}
@@ -13,7 +18,8 @@
 @keyframes newton-rotation-controls-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes newton-rotation-leave{from{opacity:1}to{opacity:0}}
 @media(prefers-reduced-motion:reduce){
- .observatory[data-stage=assembly]>:is(.assembly-preview,.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-rotation-entry){transition:none}
+ .assembly-complete-feedback{transition:none}
+ .observatory[data-stage=assembly]>:is(.assembly-preview,.assembly-targets,.assembly-mirror-tray,.test-stage-switch,.newton-inspection-target){transition:none}
  .observatory.newton-rotation-active>.assembly-preview{transition:none}
  .newton-rotation.is-ready :is(.rotation-stage,.rotation-dock),.newton-rotation.is-ready header>*,.newton-rotation.is-leaving{animation:none}
 }
@@ -62,3 +68,11 @@
 .newton-rotation #r360-message:empty{display:none}
 .newton-rotation .rotation-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .newton-rotation [hidden]{display:none}
+
+/* Independent tap controls remain visible while the legacy dock stays hidden. */
+.newton-rotation.real-mesh-viewer .rotation-turn-controls{position:absolute;z-index:6;left:50%;bottom:48px;transform:translateX(-50%);display:flex;gap:16px}
+.newton-rotation.real-mesh-viewer .rotation-turn-controls button{display:flex;align-items:center;justify-content:center;gap:10px;min-width:132px;min-height:60px;padding:10px 22px;font-size:22px;touch-action:manipulation;background:#253832ed;color:#ffedca;border-color:#c6a871a8;box-shadow:0 4px 16px #081b2333}
+.newton-rotation.real-mesh-viewer .rotation-turn-controls button span{font-size:30px;line-height:1}
+.newton-rotation.real-mesh-viewer .rotation-turn-controls button:disabled{opacity:.4;cursor:default}
+.newton-rotation.real-mesh-viewer .rotation-turn-controls button:not(:disabled):is(:hover,:active){background:#425449;border-color:#ffedca}
+.newton-rotation.real-mesh-viewer.is-introducing .rotation-turn-controls{visibility:hidden;pointer-events:none}

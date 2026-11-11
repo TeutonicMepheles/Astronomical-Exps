@@ -1,0 +1,94 @@
+{
+  "browser": "157.0.8103.39",
+  "errors": [],
+  "stable": {
+    "rgbPixels": 0,
+    "alphaPixels": 0,
+    "total": 0
+  },
+  "grain": {
+    "rgbPixels": 104922,
+    "alphaPixels": 0,
+    "total": 704826
+  },
+  "lighting": {
+    "rgbPixels": 95106,
+    "alphaPixels": 0,
+    "total": 633369
+  },
+  "shadow": {
+    "rgbPixels": 2054,
+    "alphaPixels": 16422,
+    "total": 17436
+  },
+  "edgeAlpha": {
+    "top": 0,
+    "right": 0,
+    "bottom": 0,
+    "left": 0
+  },
+  "returned": {
+    "rgbPixels": 0,
+    "alphaPixels": 0,
+    "total": 0
+  },
+  "shadowPosition": [
+    0,
+    -0.008,
+    0
+  ],
+  "shadowAfterOrbit": [
+    0,
+    -0.008,
+    0
+  ],
+  "shadowDepthWrite": false,
+  "shadowIndices": 6,
+  "state": {
+    "surfaceStyle": {
+      "grain": 1,
+      "lighting": 1,
+      "contactShadow": true,
+      "floor": 0,
+      "shadowY": -0.008
+    },
+    "section": false,
+    "rays": false,
+    "bloom": true,
+    "bloomType": "selective-gaussian-two-pass",
+    "selected": null,
+    "yaw": -0.3520443143154173,
+    "pitch": 0.13094748194363778,
+    "distance": 21.060923531507353,
+    "meshCount": 129,
+    "visibleMeshes": 129,
+    "triangleCount": 111170,
+    "acceptedRays": 16,
+    "renderCount": 10,
+    "disposed": false,
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "rendererInfo": {
+      "memory": {
+        "geometries": 130,
+        "textures": 3
+      },
+      "render": {
+        "frame": 10,
+        "calls": 130,
+        "triangles": 111172,
+        "points": 0,
+        "lines": 0
+      },
+      "programs": 3
+    },
+    "canvasAlpha": true,
+    "clearAlpha": 0,
+    "materialOpacity": [
+      1
+    ],
+    "depthTest": true,
+    "depthWrite": true,
+    "bloomTargets": 3
+  },
+  "glError": 0
+}

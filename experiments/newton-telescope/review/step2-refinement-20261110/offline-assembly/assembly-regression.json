@@ -1,0 +1,40 @@
+{
+  "pass": true,
+  "viewport": "1600x900",
+  "mode": "offline",
+  "layers": [
+    {
+      "source": "inline",
+      "loaded": true,
+      "hidden": false
+    },
+    {
+      "source": "inline",
+      "loaded": true,
+      "hidden": true
+    },
+    {
+      "source": "inline",
+      "loaded": true,
+      "hidden": true
+    },
+    {
+      "source": "inline",
+      "loaded": true,
+      "hidden": false
+    }
+  ],
+  "checks": [
+    "stage1 to stage2",
+    "approved four PNG layers",
+    "wrong placement",
+    "pointer installation",
+    "reset hides both layers",
+    "completion dialog enters automatic inspection",
+    "telescope click reuses completion dialog",
+    "standalone rotation button removed",
+    "click/tap alternative",
+    "label alignment with installation outlines"
+  ],
+  "errors": []
+}

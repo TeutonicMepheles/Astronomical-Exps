@@ -331,6 +331,16 @@
       const angle=Math.round(T.MathUtils.clamp(value,0,90)*precision)/precision;
       if(angle!==N.store.get().angle)N.store.set({angle});
     }
+    turnView(direction){
+      if(!this.enabled||this.transition||this.pendingViewMode)return;
+      const finding=Boolean(N.observationAim?.current?.selected);
+      if(direction==='left'||direction==='right'){
+        const step=finding?N.store.metrics(N.store.get()).field*Math.PI/180/8:Math.PI/12;
+        this.yaw+=(direction==='left'?1:-1)*step;this.render();
+      }else if(this.viewMode==='section'&&(direction==='up'||direction==='down')){
+        this.setAngle(N.store.get().angle+(direction==='up'?-1:1)*(finding ? .1 : 2));
+      }
+    }
     activate(target){
       this.container.dispatchEvent(new CustomEvent('instrumentactivate',{detail:{target}}));
     }
@@ -347,47 +357,26 @@
         const width=el.getBoundingClientRect().width;
         const hit=this.pickHit(e.clientX,e.clientY);
         this.drag={id:e.pointerId,x:e.clientX,y:e.clientY,yaw:this.yaw,width,moved:false,target:hit.target,
-          angle:N.store.get().angle,elevation:this.elevationGesture(hit),axis:null};
+          angle:N.store.get().angle,axis:null};
         surface.setPointerCapture(e.pointerId);
       });
       surface.addEventListener('pointermove',e=>{
         const d=this.drag;if(!d||d.id!==e.pointerId)return;
         const dx=e.clientX-d.x,dy=e.clientY-d.y;
         if(!d.moved&&Math.hypot(dx,dy)>5){d.moved=true;d.axis=Math.abs(dy)>Math.abs(dx)?'elevation':'orbit';}
-        // Divide by the displayed width so a scaled whiteboard rotates at the same speed.
-        if(d.moved&&d.target!=='environment'){
-          const finding=N.observationAim?.current;
-          if(finding?.selected){
-            const floor=Math.max(.02,N.store.metrics(N.store.get()).field/(60/32)*.12);
-            if(d.axis==='orbit'){
-              const gain=T.MathUtils.clamp(Math.abs(finding.horizontalError??1)/.2,floor,1);
-              this.yaw-=(e.clientX-(d.lastX??d.x))/d.width*Math.PI*2*gain;this.render();
-            }else if(d.elevation){
-              const gain=T.MathUtils.clamp(Math.abs(finding.verticalError??1)/.08,floor,1);
-              d.elevationValue=T.MathUtils.clamp((d.elevationValue??d.angle)+(e.clientY-(d.lastY??d.y))/d.elevation.pixelsPerDegree*gain,0,90);
-              this.setAngle(d.elevationValue);
-            }
-          }else if(d.axis==='orbit'){this.yaw=d.yaw-dx/d.width*Math.PI*2;this.render();}
-          else if(d.elevation)this.setAngle(d.angle+dy/d.elevation.pixelsPerDegree);
-          d.lastX=e.clientX;d.lastY=e.clientY;
-        }
+        // Movement only cancels click activation; angle changes use explicit buttons.
       });
       surface.addEventListener('pointerup',e=>{
         if(!this.drag||this.drag.id!==e.pointerId)return;
         const clicked=!this.drag.moved&&Math.hypot(e.clientX-this.drag.x,e.clientY-this.drag.y)<=5,target=this.drag.target;this.end();
         if(clicked&&target===this.pickTarget(e.clientX,e.clientY))this.activate(target);
       });
-      surface.addEventListener('pointermove',()=>el.classList.toggle('is-dragging',Boolean(this.drag?.moved&&this.drag.target!=='environment')));
+
       surface.addEventListener('pointercancel',()=>this.end());surface.addEventListener('lostpointercapture',()=>this.end());
       el.addEventListener('keydown',e=>{
         if(!this.enabled||this.transition||e.target!==el)return;
-        const finding=Boolean(N.observationAim?.current?.selected);
-        if(e.key==='ArrowLeft'||e.key==='ArrowRight'){
-          e.preventDefault();
-          const step=finding?N.store.metrics(N.store.get()).field*Math.PI/180/8:Math.PI/12;
-          this.yaw+=(e.key==='ArrowLeft'?1:-1)*step;this.render();
-        }
-        if(this.viewMode==='section'&&(e.key==='ArrowUp'||e.key==='ArrowDown')){e.preventDefault();this.setAngle(N.store.get().angle+(e.key==='ArrowUp'?-1:1)*(finding ? .1 : 2));}
+        const direction={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'}[e.key];
+        if(direction){e.preventDefault();this.turnView(direction);}
         if(e.key==='Home'){e.preventDefault();this.resetView();}
         if(e.key==='Enter'||e.key===' '){e.preventDefault();this.activate(this.viewMode==='section'?'eyepiece':'telescope');}
       });

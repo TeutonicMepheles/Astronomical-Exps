@@ -1,0 +1,141 @@
+/* Newton task cards; the shared progress component remains unchanged. */
+.newton-task-progress{
+  --task-paper:#fbf4e6;
+  --task-ink:#172236;
+  --task-muted:#7d8b99;
+  --task-blue:#4a9de0;
+  --task-blue-soft:#dcecff;
+  --task-green:#2f9f88;
+  position:relative;
+  width:76px;
+  color:var(--task-ink);
+  font-family:var(--font-ui,system-ui);
+}
+.newton-task-progress *{box-sizing:border-box}
+.newton-task-progress [hidden]{display:none!important}
+.newton-task-progress__toggle{
+  position:relative;width:76px;height:80px;padding:0;border:0;border-radius:10px;
+  background:transparent;color:#102f5a;cursor:pointer;isolation:isolate;
+  transition:transform .16s;
+}
+.newton-task-progress__toggle::before{
+  content:'';position:absolute;inset:0;z-index:-2;
+  background:url('../../../../shared/components/assets/progress-notebook.png') center/contain no-repeat;
+  filter:drop-shadow(0 3px 3px #071a3944);transition:filter .16s;
+}
+.newton-task-progress__toggle::after{
+  content:'';position:absolute;left:50%;top:50%;width:38px;height:38px;
+  border:2px solid #54c5a7;border-radius:50%;opacity:0;transform:translate(-50%,-50%) scale(.65);
+}
+.newton-task-progress__toggle:hover::before,
+.newton-task-progress__toggle[aria-expanded=true]::before{
+  filter:drop-shadow(1px 0 0 #ffc758) drop-shadow(-1px 0 0 #ffc758) drop-shadow(0 1px 0 #ffc758) drop-shadow(0 -1px 0 #ffc758) drop-shadow(0 4px 4px #071a3944);
+}
+.newton-task-progress__toggle:focus-visible{outline:3px solid #c4e3f1;outline-offset:3px}
+.newton-task-progress__number{
+  position:absolute;inset:0;display:grid;place-items:center;padding-left:8px;
+  font-size:30px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;
+  transition:opacity .18s,transform .18s;
+}
+.newton-task-progress__check{
+  position:absolute;left:50%;top:50%;display:block;width:42px;height:42px;
+  opacity:0;transform:translate(-50%,-50%) scale(.6);
+  filter:drop-shadow(0 3px 4px #0a3b3166);
+}
+.newton-task-progress__check-icon{display:block;width:100%;height:100%;overflow:visible}
+.newton-task-progress__check-icon circle{fill:var(--task-green);stroke:#eafff8;stroke-width:2}
+.newton-task-progress__check-icon path{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:32;stroke-dashoffset:0}
+.newton-task-progress__toggle.is-complete .newton-task-progress__number{opacity:0;transform:scale(.72)}
+.newton-task-progress__toggle.is-complete .newton-task-progress__check{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.newton-task-progress__toggle.is-checking .newton-task-progress__check{animation:newton-task-check-pop .72s cubic-bezier(.2,.9,.2,1.25) both}
+.newton-task-progress__toggle.is-checking .newton-task-progress__check-icon path{animation:newton-task-check-draw .5s .12s ease-out both}
+.newton-task-progress__toggle.is-checking::after{animation:newton-task-check-ring .72s ease-out both}
+.newton-task-progress__popup{
+  position:absolute;right:0;top:94px;width:468px;padding:16px;
+  border:1px solid #62768b;border-radius:20px;
+  background:
+    linear-gradient(#7fa2bf0c 1px,transparent 1px),
+    linear-gradient(90deg,#7fa2bf0c 1px,transparent 1px),
+    #1b354b;
+  background-size:12px 12px;
+  box-shadow:4px 5px 0 #0c2236,0 18px 42px #05142666;
+  transform-origin:top right;animation:newton-task-open .18s ease-out;
+}
+.newton-task-progress__summary{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;
+}
+.newton-task-progress__tabs{display:flex;flex-direction:column;gap:10px}
+.newton-task-progress__tab{
+  position:relative;display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;
+  gap:14px;width:100%;min-height:102px;padding:14px 17px 23px;
+  border:2px solid #d3d2c8;border-radius:14px;
+  background:linear-gradient(145deg,#fffdf6,#f1e7d3);
+  box-shadow:0 3px 0 #b9ad96,0 7px 12px #07142642;
+  color:var(--task-ink);cursor:pointer;font:inherit;text-align:left;
+  transition:border-color .16s,background .16s,transform .16s,box-shadow .16s;
+}
+.newton-task-progress__tab:hover:not([aria-disabled=true]){
+  border-color:#8dbce4;background:linear-gradient(145deg,#fffef9,#f8ecd5);
+  transform:translateY(-1px);box-shadow:0 4px 0 #b9ad96,0 9px 15px #0714264d;
+}
+.newton-task-progress__tab[aria-selected=true]{
+  border-color:var(--task-blue);
+  box-shadow:0 0 0 3px #18334b,0 0 0 5px var(--task-blue),0 4px 0 #a8987d,0 9px 15px #0714264d;
+}
+.newton-task-progress__tab[aria-disabled=true]{cursor:not-allowed;opacity:.57}
+.newton-task-progress__tab:focus-visible{outline:3px solid #bce7ff;outline-offset:5px}
+.newton-task-progress__marker{
+  position:relative;display:grid;place-items:center;width:52px;height:52px;flex:none;
+  border:2px solid #a9c8e2;border-radius:50%;
+  background:var(--task-blue-soft);color:#3f78a6;
+  font-size:26px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;
+}
+.newton-task-progress__marker .newton-task-progress__check-icon{
+  position:absolute;width:52px;height:52px;opacity:0;transform:scale(.72);
+}
+.newton-task-progress__tab.is-complete .newton-task-progress__marker-number{opacity:0}
+.newton-task-progress__tab.is-complete .newton-task-progress__marker{background:var(--task-green);border-color:#1f806d;color:#fff}
+.newton-task-progress__tab.is-complete .newton-task-progress__marker .newton-task-progress__check-icon{opacity:1;transform:scale(1)}
+.newton-task-progress__tab.is-newly-complete .newton-task-progress__marker .newton-task-progress__check-icon{animation:newton-task-marker-pop .58s cubic-bezier(.2,.9,.2,1.2) both}
+.newton-task-progress__tab.is-newly-complete .newton-task-progress__marker .newton-task-progress__check-icon path{animation:newton-task-check-draw .42s .08s ease-out both}
+.newton-task-progress__copy{min-width:0}
+.newton-task-progress__copy strong{
+  display:block;font-size:27px;font-weight:750;line-height:1.22;letter-spacing:.01em;
+  color:var(--task-ink);white-space:nowrap;
+}
+.newton-task-progress__copy small{
+  position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;
+}
+.newton-task-progress__count{
+  align-self:center;color:#111925;font-size:27px;font-weight:750;line-height:1;
+  white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+.newton-task-progress__meter{
+  position:absolute;left:84px;right:17px;bottom:12px;height:3px;border-radius:4px;
+  overflow:hidden;background:#6a92b31f;
+}
+.newton-task-progress__meter i{
+  display:block;height:100%;border-radius:inherit;background:var(--task-blue);
+  transition:width .25s ease-out;
+}
+.newton-task-progress__tab.is-complete .newton-task-progress__meter i{background:var(--task-green)}
+.newton-task-progress__tab.is-locked .newton-task-progress__meter i{background:#95a3af}
+.newton-task-progress__message{
+  margin:11px 5px 0;color:#ffe3a4;font-size:13px;line-height:1.55;
+}
+.newton-task-progress__message:empty{display:none}
+.newton-task-progress .course-restart{
+  display:block;margin:10px auto 0;border:0;background:transparent;
+  color:#b9cbe0;font:inherit;font-size:13px;cursor:pointer;
+}
+.newton-task-progress .course-restart:hover,.newton-task-progress .course-restart:focus-visible{color:#fff0c8}
+@keyframes newton-task-open{from{opacity:0;transform:translateY(-7px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes newton-task-check-pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.45)}58%{opacity:1;transform:translate(-50%,-50%) scale(1.16)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes newton-task-check-draw{from{stroke-dashoffset:32}to{stroke-dashoffset:0}}
+@keyframes newton-task-check-ring{0%{opacity:.9;transform:translate(-50%,-50%) scale(.6)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.7)}}
+@keyframes newton-task-marker-pop{0%{opacity:0;transform:scale(.45)}62%{opacity:1;transform:scale(1.14)}100%{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){
+  .newton-task-progress *,
+  .newton-task-progress .newton-task-progress__check-icon path{animation:none!important;transition:none!important}
+}

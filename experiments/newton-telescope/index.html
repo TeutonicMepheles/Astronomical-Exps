@@ -10,11 +10,11 @@
   <link rel="stylesheet" href="css/sky-controls.css">
   <link rel="stylesheet" href="css/course.css">
   <link rel="stylesheet" href="css/rail-lab.css">
-  <link rel="stylesheet" href="../../shared/components/experiment-progress.css">
+  <link rel="stylesheet" href="components/task-progress/task-progress.css">
   <link rel="stylesheet" href="../../shared/components/components.css">
   <link rel="stylesheet" href="css/course-interactions.css">
 <link rel="stylesheet" href="../../shared/components/operation-tip.css">
-<link rel="stylesheet" href="css/workbench.css"><link rel="stylesheet" href="css/workbench-assembly.css"><link rel="stylesheet" href="css/table-specimens.css"><link rel="stylesheet" href="../../shared/components/stage-completion.css"><link rel="stylesheet" href="../../shared/typography/typography.css"><link rel="stylesheet" href="css/observation-figma.css"><link rel="stylesheet" href="components/rotation-viewer/style.css"></head>
+<link rel="stylesheet" href="css/workbench.css"><link rel="stylesheet" href="css/workbench-assembly.css"><link rel="stylesheet" href="css/table-specimens.css"><link rel="stylesheet" href="components/stage-objective/newton-completion.css"><link rel="stylesheet" href="../../shared/typography/typography.css"><link rel="stylesheet" href="css/observation-figma.css"><link rel="stylesheet" href="components/rotation-viewer/style.css"><link rel="stylesheet" href="css/nightly-study.css"><link rel="stylesheet" href="css/nightly-transition.css"><link rel="stylesheet" href="css/ken-v123.css"><link rel="stylesheet" href="components/stage-objective/stage-objective.css"></head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
 <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4.2 4.2l2.1 2.1m11.4 11.4 2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
@@ -31,7 +31,7 @@
   <div class="landscape" aria-hidden="true"></div>
   <div class="lab-stationery" aria-hidden="true"><span class="stationery-notebook-left"></span><span class="stationery-notebook-right"></span><span class="stationery-paper"></span><span class="stationery-pencil"></span></div>
   <header class="introduction">
-    <span class="title-rule"></span><h1>牛顿望远镜</h1><p class="english-title">NEWTONIAN TELESCOPE</p>
+    <span class="title-rule"></span><h1>牛顿望远镜</h1>
     <span class="description-rule"></span><p class="description">牛顿望远镜使用凹面主镜收集并反射<br class="desktop-break">光线，再通过平面副镜将光线侧向反射<br class="desktop-break">到目镜中。</p>
   </header>
   <aside id="course-progress" aria-label="实验进度"></aside>
@@ -66,7 +66,7 @@
     <div class="observation-status"><span class="status-dot"></span><span id="observation-status" role="status">光路就绪</span><span class="simulation-tag">成像示意</span></div>
     </div>
     <div id="lesson-feedback" class="lesson-feedback">
-      <span class="component-eyebrow" id="feedback-eyebrow">MIRROR LAB</span><h2 id="feedback-title"></h2>
+      <span class="component-eyebrow" id="feedback-eyebrow">镜片实验</span><h2 id="feedback-title"></h2>
       <div class="evidence-screen"><img id="feedback-mirror" class="feedback-mirror-art" src="assets/optical/plane.png" alt="平面镜" width="112" height="112"><strong id="feedback-symbol" hidden></strong><span id="feedback-summary"></span></div>
       <p id="feedback-description"></p><div class="formula-readout" id="feedback-formula"></div>
       <p class="feedback-status" id="course-message" role="status" aria-live="polite"></p>
@@ -81,7 +81,7 @@
       <g fill="url(#screw)" stroke="#97b5dd" stroke-width="2"><ellipse cx="86" cy="23" rx="8" ry="6"/><ellipse cx="1514" cy="23" rx="8" ry="6"/><ellipse cx="44" cy="233" rx="8" ry="7"/><ellipse cx="1556" cy="233" rx="8" ry="7"/></g><g stroke="#263e68" stroke-width="3"><path d="m82 25 8-4m1420 4 8-4M40 235l8-4m1504 4 8-4"/></g>
       <g stroke="#223556" stroke-width="5" stroke-linecap="round"><path d="m32 201 10-40m-2 40 10-40m-2 40 10-40m1510 40-10-40m2 40-10-40m2 40-10-40"/></g>
     </svg>
-    <div class="console-inner"><div class="console-heading"><h2 id="controls-title"><svg class="icon"><use href="#icon-planet"/></svg>实验控制</h2><span class="console-indicator"><i></i>OPTICAL LAB</span></div>
+    <div class="console-inner"><div class="console-heading"><h2 id="controls-title"><svg class="icon"><use href="#icon-planet"/></svg>实验控制</h2><span class="console-indicator"><i></i>光学实验</span></div>
     <!-- Replaceable control panels share the same console chassis. -->
     <div class="workbench-panel mirror-panel" id="progress-page-mirrors" data-panel="mirrors">
       <fieldset class="control"><legend>镜面托盘</legend><div class="mirror-selector">
@@ -89,7 +89,7 @@
         <button data-mirror="concave" aria-label="凹面镜" class="specimen-button"><img class="mirror-art" src="assets/rail-lab/concave-readable-v3.png" alt="" width="76" height="76"><span>凹面镜</span><i class="specimen-check">✓</i></button>
         <button data-mirror="convex" aria-label="凸面镜" class="specimen-button"><img class="mirror-art" src="assets/rail-lab/convex-readable-v3.png" alt="" width="76" height="76"><span>凸面镜</span><i class="specimen-check">✓</i></button>
       </div></fieldset>
-      <div class="control parameter"><label for="mirror-focal">曲面镜焦距</label><output id="mirror-focal-value">—</output><input id="mirror-focal" type="range" min="400" max="1200" step="50" value="700"><div class="range-ends"><span>400 mm</span><span>1200 mm</span></div><button id="remove-mirror" class="quiet-button" type="button">取下镜片 · 比较空光路</button></div>
+      <div class="control parameter"><button id="remove-mirror" class="quiet-button" type="button">取下镜片 · 比较空光路</button></div>
       <div class="control parameter"><label for="mirror-position">镜面位置 · 光源固定</label><output id="mirror-position-value">105 cm</output><input id="mirror-position" type="range" min="-1" max="3.5" step="0.1" value="3.5"><div class="range-ends"><span>−30 cm</span><span>105 cm</span></div><p id="mirror-hint" class="mirror-hint"></p></div>
       <div class="control actions"><button id="finish-mirrors" class="start-button">进入组装 →</button><button data-reset-stage class="reset-button">重置</button></div>
     </div>
@@ -119,7 +119,7 @@
 </main>
 <script src="vendor/three.min.js"></script>
 <script src="js/stage.js"></script><script src="js/sky-defaults.js"></script><script src="js/sky-controls.js"></script><script src="js/state.js"></script><script src="js/background.js"></script><script src="js/optics.js"></script><script src="assets/rail-lab/coherent-v4/parts-v2/profile-geometry.js"></script><script src="js/mirror-parts-config.js"></script><script src="js/mirror-parts.js"></script><script src="js/course-state.js"></script><script src="js/camera-director.js"></script><script src="js/mirror-optics.js"></script><script src="js/lens-optics.js"></script><script src="js/convex-original-profile.js"></script><script src="js/convex-original-shape.js"></script><script src="js/concave-original-profile.js"></script><script src="js/concave-original-shape.js"></script><script src="js/optical-art.js"></script><script src="js/darkroom.js"></script><script src="../../shared/components/optical-beam.js"></script><script src="js/lab-scene.js"></script><script src="js/telescope.js"></script><script src="js/preview.js"></script><script src="js/app.js"></script><script src="js/experiment-heading.js"></script><script src="js/course-ui.js"></script>
-<script src="../../shared/components/experiment-progress.js"></script>
+<script src="components/task-progress/task-progress.js"></script>
 <script src="adapters/newton-progress-adapter.js"></script>
 <script src="../../shared/components/hand-icons-flat.js"></script>
 <script src="../../shared/components/gesture.js"></script>
@@ -133,7 +133,7 @@
 <script src="js/mirror-drag-visual.js"></script>
 <script src="js/mounted-mirror-controls.js"></script>
 <script src="components/observation-click-hint.js"></script>
-<script src="js/workbench-transition.js"></script><script src="js/workbench-assembly.js"></script><template id="newton-rotation-template"><section class="newton-rotation" role="dialog" aria-modal="true" aria-label="360° 立体观察"><header><button type="button" data-rotation-back aria-label="返回组装" title="返回组装"><svg class="icon" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg>组装</button><h2 aria-label="360° 立体观察">360°</h2><button type="button" data-rotation-next aria-label="进入参数观测" title="进入参数观测">参数观测<svg class="icon" aria-hidden="true"><path d="m10 6 6 6-6 6m6-6H4"/></svg></button></header>  <section class="rotation-stage" aria-label="望远镜序列帧及光路">
+<script src="js/workbench-transition.js"></script><script src="js/workbench-assembly.js"></script><script src="js/assembly-feedback.js"></script><template id="newton-rotation-template"><section class="newton-rotation" role="region" aria-label="360° 立体观察"><header><h2 aria-label="360° 立体观察">360°</h2></header><button type="button" data-rotation-next aria-label="进入参数观测" title="进入参数观测">参数观测<svg class="icon" aria-hidden="true"><path d="m10 6 6 6-6 6m6-6H4"/></svg></button>  <section class="rotation-stage" aria-label="望远镜序列帧及光路">
     <div class="rotation-photo" id="r360-photo">
       <img id="r360-scope" alt="按住鼠标左右拖动旋转望远镜" draggable="false">
       <canvas id="r360-matte" aria-hidden="true"></canvas>
@@ -169,5 +169,5 @@
   </div>
   <p id="r360-opticalDescription" class="rotation-sr-only" aria-live="polite">正在初始化光路。</p>
   <p id="r360-status" class="rotation-sr-only">加载初始画面…</p>
-</section></template><script src="components/rotation-viewer/calibration.js"></script><script src="components/rotation-viewer/optics.js"></script><script src="components/rotation-viewer/background-key.js"></script><script src="components/rotation-viewer/viewer.js"></script><script src="adapters/newton-rotation-adapter.js"></script><script src="../../shared/components/stage-completion.js"></script><script src="js/course-completion.js"></script><script src="js/table-lens-contours.js"></script><script src="js/tray-transition.js"></script><script src="js/table-specimens.js"></script><script src="assets/telescope-model/model.js"></script><script src="assets/telescope-model/section-model.js"></script><script src="js/section-optics.js"></script><script src="js/observation-section.js"></script><script src="js/observation-model.js"></script><script src="js/observation-flow.js"></script><script src="js/observation-aim.js"></script><script src="js/observation-figma.js"></script><script src="js/developer-mode.js"></script></body>
+</section></template><script src="assets/step2-real/model-data-cover.js"></script><script src="components/rotation-viewer/real-optics.js"></script><script src="components/rotation-viewer/real-bloom.js"></script><script src="components/rotation-viewer/viewer.js"></script><script src="components/rotation-viewer/part-hotspots.js"></script><script src="adapters/newton-rotation-adapter.js"></script><script src="components/stage-objective/newton-completion.js"></script><script src="js/course-completion.js"></script><script src="js/table-lens-contours.js"></script><script src="js/table-specimens.js"></script><script src="assets/telescope-model/model.js"></script><script src="assets/telescope-model/section-model.js"></script><script src="js/section-optics.js"></script><script src="js/observation-section.js"></script><script src="js/observation-model.js"></script><script src="js/observation-flow.js"></script><script src="js/observation-aim.js"></script><script src="js/observation-figma.js"></script><script src="js/developer-mode.js"></script><script src="components/stage-objective/stage-objective.js"></script><script src="js/focus-controls.js"></script></body>
 </html>

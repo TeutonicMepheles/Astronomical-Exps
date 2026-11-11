@@ -1,0 +1,52 @@
+{
+  "source": "User-provided local Newton-Step2-RealMesh-R2 package",
+  "originalGLB": true,
+  "runtimeOpticalChanges": "See components/rotation-viewer/REAL-MESH-SOURCE.md; runtime model is not identical to archived GLB",
+  "files": [
+    {
+      "path": "assets/blue-metal.png",
+      "bytes": 157347,
+      "sha256": "cd04d9a810de613ac244247535e2b3e0a9b7b31ca66d539a948e14ce4e4ff246"
+    },
+    {
+      "path": "assets/inner-wood.png",
+      "bytes": 504613,
+      "sha256": "22cbd1d3e8eeeac82763501adaa6e0223edde1cd7f1d19758357d283203ef069"
+    },
+    {
+      "path": "assets/mirror.png",
+      "bytes": 74632,
+      "sha256": "37914509669cd7a7af49b4026756c4fcee31da6475005f760a4d20078f92ca52"
+    },
+    {
+      "path": "assets/Newton-Step2.glb",
+      "bytes": 2967108,
+      "sha256": "0438cb1d203945ade2ec281425713a1deb4d1f29e1f67877a1686a0a5650169c"
+    },
+    {
+      "path": "assets/wood.png",
+      "bytes": 686802,
+      "sha256": "101812087cbf10c72454501d93aba7b128e30ecc696c95a87df2c661493aa125"
+    },
+    {
+      "path": "model-data.js",
+      "bytes": 6181337,
+      "sha256": "0a53b27f853cbcd2590c5a3e78d270b35ccb4aff9cdf758b71556b9a926daacb"
+    },
+    {
+      "path": "source/build_model.py",
+      "bytes": 20458,
+      "sha256": "b17a55ee0689b5e28e04f6d6d4b8f4e550ac6145c6e3a7144fad8c2396373943"
+    },
+    {
+      "path": "source/import_to_blender.py",
+      "bytes": 1087,
+      "sha256": "8343c1ce858817da262015844bd6fe2959d775eabe8e85e84f490a1a3a787164"
+    },
+    {
+      "path": "source/render_check.py",
+      "bytes": 4726,
+      "sha256": "1f744666512f5c66569236939592c50ae56a61f6945d002a75e9c853408b987b"
+    }
+  ]
+}

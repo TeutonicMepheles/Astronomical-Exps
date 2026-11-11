@@ -1,0 +1,81 @@
+{
+  "pass": true,
+  "mode": "offline",
+  "results": [
+    {
+      "stage": "mirrors",
+      "start": {
+        "x": 390,
+        "y": 243.5,
+        "width": 820,
+        "height": 412.984375
+      },
+      "mid": {
+        "x": 1421.3670654296875,
+        "y": 84.61308288574219,
+        "width": 103.3739013671875,
+        "height": 52.06315612792969
+      },
+      "anchor": {
+        "x": 1476,
+        "y": 48,
+        "width": 76,
+        "height": 84
+      }
+    },
+    {
+      "stage": "assembly",
+      "start": {
+        "x": 390,
+        "y": 243.5,
+        "width": 820,
+        "height": 412.984375
+      },
+      "mid": {
+        "x": 1339.576171875,
+        "y": 105.20016479492188,
+        "width": 144.3551025390625,
+        "height": 72.70292663574219
+      },
+      "anchor": {
+        "x": 1476,
+        "y": 48,
+        "width": 76,
+        "height": 84
+      }
+    },
+    {
+      "stage": "observation",
+      "start": {
+        "x": 390,
+        "y": 243.5,
+        "width": 820,
+        "height": 412.984375
+      },
+      "mid": {
+        "x": 1294.099365234375,
+        "y": 112.48202514648438,
+        "width": 175.40625,
+        "height": 88.34149169921875
+      },
+      "anchor": {
+        "x": 1476,
+        "y": 48,
+        "width": 76,
+        "height": 84
+      }
+    }
+  ],
+  "errors": [],
+  "checks": [
+    "scene preview before objective",
+    "three objective descriptions",
+    "blocking before confirmation",
+    "paper folding into progress",
+    "bottom-right first-stage CTA",
+    "five-lens gate",
+    "full assembly inspection regression",
+    "stale-animation cancellation",
+    "960x540 reduced motion"
+  ]
+}

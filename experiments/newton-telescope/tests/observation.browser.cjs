@@ -9,7 +9,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
     const page=await context.newPage(),errors=[];
     page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>errors.push(r.url().slice(0,120)));
     await page.goto(url);
-    await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+    await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
     await page.locator('#focal').waitFor({state:'visible'});
     assert.equal(await page.locator('#planet').isVisible(),false);
     assert.equal(await page.locator('.observation-instrument').getAttribute('aria-expanded'),'false');
@@ -76,7 +76,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
     assert(await page.locator('.observation-is-open').isVisible());
     const touch=await browser.newContext({viewport:{width:1024,height:768},hasTouch:true,offline:url.startsWith('file:')});
     const tp=await touch.newPage();await tp.goto(url);
-    await tp.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+    await tp.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
     const tb=await tp.locator('#focal').boundingBox();
     await tp.touchscreen.tap(tb.x+tb.width/2,tb.y+12);
     assert(await tp.evaluate(()=>Newton.store.get().focal)>750);assert(await tp.evaluate(()=>Newton.store.get().focal)<=800);

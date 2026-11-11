@@ -1,0 +1,13 @@
+/* Three-second presentation only: course state and assembly gestures are unchanged. */
+.newton-rotation.is-introducing .rotation-stage{animation:none}
+.newton-rotation.is-introducing .rotation-dock,.newton-rotation.is-introducing header{opacity:0;pointer-events:none}
+.newton-rotation.is-introducing .rotation-dock,.newton-rotation.is-introducing header>*{animation:none}
+.observatory.newton-intro-active>.assembly-preview{transform-origin:51% 47%;transition:none}
+@media(prefers-reduced-motion:reduce){.newton-rotation.is-introducing .rotation-dock,.newton-rotation.is-introducing header{opacity:1;pointer-events:auto}}
+
+/* Keep the assembled telescope visible beneath the incoming transparent canvas. */
+.newton-rotation:not(.is-ready),.newton-rotation.is-introducing{background:transparent}
+
+/* Suppress the legacy 300 ms entrance after the 3 s cinematic finishes. */
+.newton-rotation.real-mesh-viewer.is-ready .rotation-stage,.newton-rotation.real-mesh-viewer.is-ready .rotation-dock,.newton-rotation.real-mesh-viewer.is-ready header>*{animation:none}
+.newton-rotation.real-mesh-viewer .rotation-dock,.newton-rotation.real-mesh-viewer header{transition:opacity 240ms ease}

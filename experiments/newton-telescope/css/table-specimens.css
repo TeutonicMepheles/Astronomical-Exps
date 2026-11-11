@@ -1,20 +1,15 @@
-/* Stage-one tabletop paging; position uses the existing 1600 x 900 stage. */
-.table-page-arrow{position:absolute;top:746px;width:76px;height:76px;padding:0;border:0;background:none;z-index:25;cursor:pointer;touch-action:manipulation}
-.table-page-arrow img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 3px 4px #14233e55)}
-.table-page-next{left:1180px}.table-page-next img{transform:scaleX(-1)}
-.table-page-previous{left:344px}
-.table-page-arrow:hover img,.table-page-arrow:focus-visible img{filter:brightness(1.14) drop-shadow(0 3px 4px #14233e55)}
-.table-page-arrow:focus-visible{outline:2px solid #c4e3f1;outline-offset:2px;border-radius:10px}
-.table-page-arrow[hidden],.table-lens-page[hidden],.observatory[data-tray-page=lenses] #table-mirror-page{display:none!important}
-.table-lens-page{height:195px;display:flex;justify-content:center;align-items:flex-start;gap:80px}
+/* All five specimens share one 1600 x 900 tabletop row. */
+.table-lens-page[hidden]{display:none!important}
+.table-lens-page{display:contents}
 .table-lens-button{position:relative;flex:0 0 185px;width:185px;height:195px;padding:0;border:0;background:none;box-shadow:none;color:#e8f2ff;cursor:grab;touch-action:none;pointer-events:auto}
 .table-lens-button:active{cursor:grabbing}
 .table-lens-button:focus-visible{outline:2px solid #c4e3f1;outline-offset:4px;border-radius:10px}
 /* Match the first tray's ~134 x 119 px visible silhouette, not PNG canvas size. */
-.table-lens-art{position:absolute;left:12px;top:13px;display:block;width:155px;height:155px;max-width:none;object-fit:contain;pointer-events:none;filter:drop-shadow(0 9px 5px #07162866)}
+.table-lens-art{position:absolute;left:12px;top:3px;display:block;width:155px;height:155px;max-width:none;object-fit:contain;pointer-events:none;filter:drop-shadow(0 9px 5px #07162866)}
 .table-lens-button.is-mounted .table-lens-art{opacity:.22}
 .table-lens-button:disabled{pointer-events:none;cursor:default}
 .table-lens-button:disabled .table-lens-art{transform:none;filter:drop-shadow(0 9px 5px #07162866)}
+.table-lens-name{position:absolute;left:0;right:0;bottom:0;font-size:15px;line-height:20px;text-align:center;color:#e8f2ff;text-shadow:0 2px 4px #142643;pointer-events:none}
 .table-lens-outline{position:fixed;z-index:90;pointer-events:none;--hint-outline:#F4CB83;--hint-outline-width:3px;--hint-outline-min:1;--hint-outline-max:1}
 .table-tray-announcement{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 /* Keep only the new holder; its source rail strip is masked by the viewport. */
@@ -25,7 +20,7 @@
 #convex-original-glass,#concave-original-glass{position:absolute;z-index:2;pointer-events:none}
 #convex-original-glass[hidden],#concave-original-glass[hidden]{display:none!important}
 .observatory[data-tray-page=lenses] #mounted-mirror-controls{width:64px;height:64px}
-.observatory[data-tray-page=lenses] #mounted-mirror-controls[data-optic=convex],.observatory[data-tray-page=lenses] #mounted-mirror-controls[data-optic=lens]{width:110px;height:auto;min-height:64px}
+.observatory #mounted-mirror-controls{width:64px;height:64px}
 .observatory[data-tray-page=lenses] #focus-marker.convex-focus-above{transform:translate(-50%,-100%);white-space:nowrap}
 
 /* Proposal B: changing layers stay hidden between exit and entrance animations.
@@ -34,3 +29,18 @@
 .is-tray-switching #mirror-move-handle{visibility:hidden}
 .tray-beam-driver{position:absolute;width:0;height:0;pointer-events:none;opacity:1}
 .tray-transition-notice{position:absolute;z-index:70;left:50%;top:95px;transform:translateX(-50%);padding:12px 20px;border:1px solid #f4cb83;background:#213b58;color:#fff0cc;border-radius:10px;font-size:16px;pointer-events:none}
+
+/* One label rhythm for all five tabletop specimens. Keep the hit area fixed. */
+.observatory[data-stage=mirrors] :is(.specimen-button>span,.table-lens-name){position:absolute;left:0;right:0;top:160px;bottom:auto;margin:0;font-size:22px;line-height:28px;text-align:center;pointer-events:none;}
+.observatory[data-stage=mirrors] :is(.specimen-button,.table-lens-button):is([aria-pressed=true],[data-specimen-tip=true]) >span{visibility:hidden;}
+
+/* Focus hit target and readout stay above the beam canvas (z-index 3). */
+#focus-marker.newton-focus-control{position:absolute;z-index:40;width:0;height:0;padding:0;border:0;background:none;transform:none;pointer-events:auto;}
+.newton-focus-dot{position:absolute;left:-26px;top:-26px;width:52px;height:52px;border:2px solid #f9d88b;border-radius:50%;background:#f9d88b22;cursor:ew-resize;touch-action:none;box-shadow:0 0 0 5px #10284155;}
+.newton-focus-dot::after{content:'';position:absolute;width:12px;height:12px;left:18px;top:18px;border-radius:50%;background:#ffe3a1;box-shadow:0 0 12px #ffe3a1;}
+.newton-focus-tip{position:absolute;left:var(--focus-tip-offset,0px);top:34px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:6px;border:1px solid #e3c58a;border-radius:18px;background:#fff3d8;color:#3e382a;box-shadow:0 4px 12px #07183166;font:600 22px/1.4 var(--font-ui,system-ui);white-space:nowrap;}
+.newton-focus-tip button{width:48px;height:48px;min-width:48px;border:1px solid #c7a76b;border-radius:12px;background:#f2d18d;color:#283b4a;font-size:32px;cursor:pointer;touch-action:manipulation;}
+.newton-focus-tip output{display:grid;gap:2px;min-width:150px;text-align:center;font-variant-numeric:tabular-nums;}
+.newton-focus-name{font-size:22px;line-height:1.3;font-weight:700;}
+.newton-focus-value{font-size:17px;line-height:1.4;font-weight:500;}
+.newton-focus-control button:focus-visible{outline:3px solid #a4d8ef;outline-offset:4px;}

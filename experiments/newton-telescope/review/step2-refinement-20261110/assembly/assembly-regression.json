@@ -1,0 +1,36 @@
+{
+  "pass": true,
+  "viewport": "1600x900",
+  "layers": [
+    {
+      "src": "assets/studio-final/rear-empty.png",
+      "loaded": true,
+      "hidden": false
+    },
+    {
+      "src": "assets/studio-final/primary.png",
+      "loaded": true,
+      "hidden": true
+    },
+    {
+      "src": "assets/studio-final/secondary.png",
+      "loaded": true,
+      "hidden": true
+    },
+    {
+      "src": "assets/studio-final/front.png",
+      "loaded": true,
+      "hidden": false
+    }
+  ],
+  "checks": [
+    "stage1 to stage2",
+    "approved four PNG layers",
+    "wrong placement",
+    "pointer installation",
+    "reset hides both layers",
+    "completion dialog",
+    "click/tap alternative"
+  ],
+  "errors": []
+}
