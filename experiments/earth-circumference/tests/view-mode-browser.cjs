@@ -34,9 +34,8 @@ const assert = require('node:assert/strict');
   assert.match(orbit.cameraLabel, /进入地球模式/);
   assert.deepEqual(orbit.selected, ['true', 'false']);
 
-  // The camera now moves continuously; click its current centre as a user does.
-  const target=await page.locator('.camera-hit').boundingBox();
-  await page.mouse.click(target.x+target.width/2,target.y+target.height/2);
+  assert.equal(await page.locator('.orbit-camera').isVisible(),false,'Orbit view hides camera and sight line');
+  await page.locator('[data-view-mode-button=earth]').click();
   await page.waitForTimeout(80);
   const entering = await page.evaluate(() => ({
     mode: document.querySelector('#stage').dataset.viewMode,
@@ -44,8 +43,8 @@ const assert = require('node:assert/strict');
     earthAnimations: document.querySelector('#globe').getAnimations().map((item) => item.animationName),
   }));
   assert.equal(entering.mode, 'earth');
-  assert.ok(entering.edgeAnimations.includes('camera-link-draw'));
-  assert.ok(entering.earthAnimations.includes('earth-main-reveal'));
+  assert.equal(entering.edgeAnimations.includes('camera-link-draw'),false,'View uses the existing synchronized transition');
+  assert.equal(entering.earthAnimations.includes('earth-main-reveal'),false);
 
   await page.waitForTimeout(850);
   const earth = await page.evaluate(() => {
@@ -71,6 +70,7 @@ const assert = require('node:assert/strict');
       selected: [...document.querySelectorAll('[role="tab"]')].map((tab) => tab.getAttribute('aria-selected')),
     };
   });
+  assert.equal(await page.locator('.orbit-camera').isVisible(),true,'Earth close-up shows camera and sight line');
   assert.equal(earth.mode, 'earth');
   assert.equal(earth.globeVisibility, 'visible');
   assert.equal(earth.globeOpacity, '1');
