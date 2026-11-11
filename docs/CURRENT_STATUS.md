@@ -1,6 +1,6 @@
 # 当前实现与文档状态
 
-核对日期：2026-11-09。范围：当前 `main` 工作区的八个实验、目录默认入口和现有验证。此页用于快速定位当前状态；科学参数、教学流程和确认边界仍以各实验 `REQUIREMENTS.md` 与 [OPEN_DECISIONS](../Function-Spec/OPEN_DECISIONS.md) 为准。
+核对日期：2026-11-11。范围：当前 `main` 工作区的八个实验、目录默认入口和现有验证。此页用于快速定位当前状态；科学参数、教学流程和确认边界仍以各实验 `REQUIREMENTS.md` 与 [OPEN_DECISIONS](../Function-Spec/OPEN_DECISIONS.md) 为准。
 
 ## 入口约定
 
@@ -17,9 +17,9 @@
 | EXP-02 月面环形山高度 | 无 | 仅需求文档 | 尚未实现页面 |
 | EXP-03 陨石坑撞击 | 无 | 需求文档与演示图片 | 尚未实现页面 |
 | EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 可运行三阶段开发版：日期/当地时间双轴、手动对齐正午、单点杆影、固定点经线测距与三步计算 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
-| EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [app/index.html](../experiments/light-pollution/app/index.html) | 可运行重构版 | 室外光源类型和逐类局部比较未全部覆盖；光污染等级、星数和光效参数未标定 |
+| EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [app/index.html](../experiments/light-pollution/app/index.html) | 长场景与纸质局部面板整合版 | 道路车灯对比仍借用路灯图；光污染等级、星数和光效参数未标定 |
 | EXP-06 日月食 | 无 | 仅需求文档 | 尚未实现页面 |
-| EXP-07 牛顿望远镜 | [index.html](../experiments/newton-telescope/index.html) | 可运行开发版 | 整页教学与真实设备验收未完成；[standalone.html](../experiments/newton-telescope/standalone.html) 和 `Export/` 是离线产物 |
+| EXP-07 牛顿望远镜 | [index.html](../experiments/newton-telescope/index.html) | 五镜片、组装检视与四天体记录开发版 | 整页教学与真实设备验收未完成；[standalone.html](../experiments/newton-telescope/standalone.html) 和 `Export/` 是离线产物 |
 | EXP-08 火箭发射 | 无 | 需求文档与演示图片 | 尚未实现页面 |
 
 ## 保留的独立入口
@@ -51,3 +51,11 @@
 ## 历史记录阅读规则
 
 带日期或“审计”“性能报告”“前期研究”的文件保留当时状态。若后续入口或实现变化，在文首增加状态注记，不改写历史测量和结论。当前状态以本页、根 README、各实验 `REQUIREMENTS.md` 和实际 `index.html` 为准。
+
+## 2026-11-11 整理交付现状
+
+- 地球周长：PR #52 已合并；日期/当地太阳时轴、手动正午对齐、单杆影长、固定两点经线测距和可重播的三步计算已进入主线。本轮无新增运行代码。
+- 光污染：长场景、远景三层调色、窗光/体育场/高架路灯、四车道车流、纸质面板、跟随气泡和改造前后对比整合；只交付页面使用的资源。星空、等级及灯光数值仍为未标定演示。
+- 牛顿望远镜：五类镜片认识、组装后一周自动展示；第三阶段匿名天体热区自动对准、三旋钮参数配合、四目标手动记录和记录快照。旧三档目镜完成规则与手动找星不再用于正式第三阶段。
+
+本轮回归与待验项目见 [整理交付记录](LOCAL_EXPERIMENTS_DELIVERY_20261111.md)。自动化不替代白板触控、科学参数标定和长期运行验收。
