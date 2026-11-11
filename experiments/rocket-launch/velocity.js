@@ -483,7 +483,7 @@ function drawSolar(ctx, W, v) {
   const cxE = sx + Math.sqrt(rx * rx - ry * ry);   // 太阳在椭圆焦点上
 
   // 独立画框：这一框里的尺度与主图无关，必须写明（Cindy 16:46Z G4）
-  const FX = 96, FY = 88, FW = 936, FH = 404;
+  const FX = 96, FY = 118, FW = 936, FH = 374;   // 顶边下移 30 px：状态词下面那行结果说明（baseline 94）不再压在框线上
   ctx.save();
   ctx.beginPath();
   ctx.rect(FX, FY, FW, FH);
@@ -492,7 +492,10 @@ function drawSolar(ctx, W, v) {
   ctx.stroke();
   ctx.restore();
   label(ctx, '换个参照系：太阳', FX + 16, FY + 27, { size: 15, color: 'rgba(226,192,140,0.92)', weight: 500, spacing: 1 });
-  label(ctx, '独立画框 · 示意尺度，不与主图同尺', FX + 16, FY + 48, { size: 12.5, color: C.inkFaint });
+  // 这行是"不与主图同尺"的合规声明：原先 inkFaint 只有约 1.9:1，星空底上读不出来。
+  // 取 inkSoft 的 0.88：上限由相对判据（附注 ≤ 小窗标题 − 1.0）约束，不写死数值。
+  // 实测随 dpr 变化（dpr1 三家 4.59/4.70/4.84，dpr2 ≈5.1），一律以门禁在 dpr1 上的读数为准。
+  label(ctx, '独立画框 · 示意尺度，不与主图同尺', FX + 16, FY + 48, { size: 12.5, color: 'rgba(169,176,191,0.88)' });
 
   ctx.save();
   ctx.beginPath();
