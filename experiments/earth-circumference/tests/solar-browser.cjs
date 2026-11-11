@@ -24,7 +24,7 @@ const assert=require('node:assert/strict');
     const tangentError=Math.abs((ex-cam.centre.x)*(ex-sx)+(ey-cam.centre.y)*(ey-sy));
     if(radiusError>1e-7 || tangentError>1e-6)throw new Error('Detached zoom cone: '+selector);
    }
-   const marker=document.querySelector('.geo-subsolar'); 
+   const marker=document.querySelector('.geo-subsolar');
    const line=document.querySelector('#axisLine');
    const x=+line.getAttribute('x2'),y=+line.getAttribute('y2');
    return {date:scene.observationDate,error:Math.hypot(parseFloat(marker.style.left)-cam.subsolar.x,parseFloat(marker.style.top)-cam.subsolar.y),axisRatio:Math.hypot(x-cam.centre.x,y-cam.centre.y)/cam.radius,lon:cam.subsolar.lon,delta:cam.subsolar.lat-scene.solarModel.declination};
