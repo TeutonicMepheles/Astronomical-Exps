@@ -393,21 +393,25 @@ export function createVelocityScene(hooks = {}) {
       }
 
       // 实时轨迹
-      const scr = path.pts.map((p) => project(cam, p.x, p.y));
+      const muzzle = project(cam, 0, R0);
+      const all = path.pts.map((p) => project(cam, p.x, p.y));
+      let i0 = 0;
+      while (i0 < all.length - 2 && Math.hypot(all[i0][0] - muzzle[0], all[i0][1] - muzzle[1]) < 9) i0++;
+      const scr = all.slice(i0);
       strokePolyline(ctx, scr, { color: 'rgba(228,190,134,0.96)', width: 2.4, glow: 10, wobble: 0.5 });
 
       // 初速矢量：长度就是速度
       const L = Math.min(0.62, 0.3 * (st.v / V_CIRC));
       const p0 = project(cam, 0, R0), p1 = project(cam, L, R0);
-      strokePolyline(ctx, [p0, p1], { color: C.warmSoft, width: 1.6 });
+      strokePolyline(ctx, [p0, p1], { color: 'rgba(168,186,214,0.72)', width: 1.6 });
       const ah = 7 + 5 * Math.min(1, st.v / V_CIRC);
-      strokePolyline(ctx, [[p1[0] - ah, p1[1] - ah * 0.42], p1, [p1[0] - ah, p1[1] + ah * 0.42]], { color: C.warm, width: 1.6 });
+      strokePolyline(ctx, [[p1[0] - ah, p1[1] - ah * 0.42], p1, [p1[0] - ah, p1[1] + ah * 0.42]], { color: 'rgba(168,186,214,0.86)', width: 1.6 });
 
       // 炮台：0.08 R 低塔 —— 四档都从这一门炮打出去
       const g0 = project(cam, 0, 1);
-      strokePolyline(ctx, [[g0[0], g0[1]], [p0[0], p0[1]]], { color: 'rgba(216,176,116,0.42)', width: 1.2 });
-      strokePolyline(ctx, [[g0[0] - 5, g0[1]], [g0[0] + 5, g0[1]]], { color: 'rgba(216,176,116,0.62)', width: 1.4 });
-      if (cam.s >= 150) label(ctx, '炮台 0.08 R', p0[0] - 84, (p0[1] + g0[1]) / 2 + 4, { size: 12, color: 'rgba(216,176,116,0.70)', align: 'right' });
+      strokePolyline(ctx, [[g0[0], g0[1]], [p0[0], p0[1]]], { color: 'rgba(159,178,206,0.40)', width: 1.2 });
+      strokePolyline(ctx, [[g0[0] - 5, g0[1]], [g0[0] + 5, g0[1]]], { color: 'rgba(159,178,206,0.58)', width: 1.4 });
+      if (cam.s >= 150) label(ctx, '炮台 0.08 R', p0[0] - 84, (p0[1] + g0[1]) / 2 + 4, { size: 12, color: 'rgba(159,178,206,0.62)', align: 'right' });
 
       // 起点
       ctx.beginPath();
@@ -425,8 +429,8 @@ export function createVelocityScene(hooks = {}) {
       } else if (m.kind === 'impact') {
         const hit = scr[scr.length - 1];
         ctx.save();
-        ctx.strokeStyle = 'rgba(216,176,116,0.72)';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(168,186,214,0.62)';
+        ctx.lineWidth = 1.6;
         for (let i = 0; i < 3; i++) {
           const a = -Math.PI / 2 + (i - 1) * 0.55;
           ctx.beginPath();
