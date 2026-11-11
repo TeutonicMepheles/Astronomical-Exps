@@ -1,0 +1,41 @@
+{
+  "nodeKey": "956c095a-c523-41a0-855f-2fa02ba5217c",
+  "data": {
+    "type": "image",
+    "name": "pleiades",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1014361968_cabf2e70350148238f02fcfaf820698c.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Transparent PNG of a sparse Pleiades star cluster, astronomical educational sprite. Exactly seven prominent TINY blue-white point light sources, distributed irregularly across middle 70 percent of canvas, a few fainter points nearby. Each star including its entire faint soft glow must be SMALLER than 2 percent of canvas width. Most of image is EMPTY TRANSPARENT SPACE. Stars separated widely, absolutely no connected material. Very subtle painterly grain INSIDE tiny light points only. No brush dabs, no blue paint blobs, no clouds, no nebula, no surrounding glow field, no halos larger than the tiny point sources, no sky background, no disk, no frame, no symbols, no five pointed stars, no text. True alpha transparency between all stars.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "text2image",
+      "settings": {
+        "quality": "1.5K",
+        "ratio": "1:1",
+        "background": "transparent"
+      }
+    },
+    "taskInfo": {
+      "taskId": "20261111185503828297723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1536,
+          "height": 1536
+        }
+      ]
+    }
+  },
+  "nodeType": "image",
+  "name": "pleiades"
+}

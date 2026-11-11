@@ -40,7 +40,8 @@
       const orm=load('assets/telescope-model/orm.png',T.NoColorSpace);
       this.material=new T.MeshStandardMaterial({map:color,normalMap:normal,normalScale:new T.Vector2(.8,.8),
         aoMap:orm,aoMapIntensity:1,roughnessMap:orm,roughness:1,metalnessMap:orm,metalness:1,envMapIntensity:.7});
-      // A local reflection environment gives the brass and black metal readable highlights.
+      N.modernObservationMaterial(this.material);
+      // A local reflection environment gives the silver and black metal readable highlights.
       // It is used only for lighting, leaving the existing night-sky backdrop visible.
       const room=new T.Scene();room.background=new T.Color(0x64738b);
       for(const [position,size,intensity] of [[[3,4,3],[4,5],3],[[-4,2,-3],[3,4],2],[[0,6,0],[5,4],2]]){
@@ -58,8 +59,40 @@
         geometry.computeBoundingSphere();const mesh=new T.Mesh(geometry,this.material);mesh.name=part.name;
         mesh.castShadow=mesh.receiveShadow=true;this.model.add(mesh);
       }
-      const ground=new T.Mesh(new T.PlaneGeometry(12,12),new T.ShadowMaterial({color:0x020716,opacity:.25}));
+      const ground=new T.Mesh(new T.PlaneGeometry(12,12),new T.ShadowMaterial({color:0x020716,opacity:.16}));
       ground.rotation.x=-Math.PI/2;ground.position.y=-.008;ground.receiveShadow=true;this.scene.add(ground);
+      // Local contact patches sit at the actual tripod feet, not under its centre.
+      const tripod=this.model.getObjectByName('Scope_01_Tripod'),feet=[],positions=tripod.geometry.attributes.position;
+      tripod.geometry.computeBoundingBox();const floor=tripod.geometry.boundingBox.min.y;
+      for(let i=0;i<positions.count;i++)if(positions.getY(i)<floor+.025){
+        const point=new T.Vector3().fromBufferAttribute(positions,i);
+        let foot=feet.find(f=>f.center.distanceTo(point)<.12);
+        if(!foot){foot={center:point.clone(),sum:new T.Vector3(),count:0};feet.push(foot);}
+        foot.sum.add(point);foot.count++;
+      }
+      const textureCanvas=document.createElement('canvas');textureCanvas.width=textureCanvas.height=64;
+      const context=textureCanvas.getContext('2d'),gradient=context.createRadialGradient(32,32,3,32,32,32);
+      gradient.addColorStop(0,'rgba(0,0,0,.65)');gradient.addColorStop(.4,'rgba(0,0,0,.28)');gradient.addColorStop(1,'rgba(0,0,0,0)');context.fillStyle=gradient;context.fillRect(0,0,64,64);
+      this.contactMaterial=new T.MeshBasicMaterial({map:new T.CanvasTexture(textureCanvas),transparent:true,depthWrite:false,opacity:.7});
+      this.contactFeet=feet.map(foot=>{const patch=new T.Mesh(new T.PlaneGeometry(.19,.19),this.contactMaterial);patch.rotation.x=-Math.PI/2;patch.position.copy(foot.sum.divideScalar(foot.count));patch.position.y=floor+.001;this.model.add(patch);return patch;});
+      ground.position.y=floor-.002;
+      // Clip only ground shadows against the foreground artwork, in screen space.
+      // The telescope and its self-shadowing remain unmasked.
+      this.groundMask={texture:{value:load('assets/observation-landscape/ground.png',T.NoColorSpace)},rect:{value:new T.Vector4(0,0,1,1)},size:{value:new T.Vector2(1,1)}};
+      for(const material of [ground.material,this.contactMaterial]){
+        material.onBeforeCompile=shader=>{
+          shader.uniforms.foregroundMask=this.groundMask.texture;
+          shader.uniforms.foregroundRect=this.groundMask.rect;
+          shader.uniforms.shadowViewport=this.groundMask.size;
+          shader.fragmentShader='uniform sampler2D foregroundMask;\nuniform vec4 foregroundRect;\nuniform vec2 shadowViewport;\n'+shader.fragmentShader;
+          shader.fragmentShader=shader.fragmentShader.replace('#include <tonemapping_fragment>',`
+            vec2 foregroundUV=(gl_FragCoord.xy/shadowViewport-foregroundRect.xy)/foregroundRect.zw;
+            float inside=step(0.0,foregroundUV.x)*step(0.0,foregroundUV.y)*step(foregroundUV.x,1.0)*step(foregroundUV.y,1.0);
+            gl_FragColor.a*=texture2D(foregroundMask,foregroundUV).a*inside;
+            #include <tonemapping_fragment>`);
+        };
+        material.customProgramCacheKey=()=> 'newton-foreground-shadow-v1';
+      }
       this.ground=ground;this.section=new N.ObservationSection(this);
       this.unsubscribe=N.store.subscribe(state=>{this.state=state;this.section.update(state);this.render();});
       this.bind();this.observer=new ResizeObserver(()=>this.resize());this.observer.observe(container);
@@ -100,31 +133,41 @@
       await this.renderer.compileAsync(warm,this.camera);
       this.resourcesReady=true;this.render();
     }
-    render(){
+    render(backgroundOnly=false){
+      if(!backgroundOnly)this.modelDirty=true;
       if(!this.enabled||document.hidden||this.frame)return;
-      this.frame=requestAnimationFrame(time=>{this.frame=0;if(!this.enabled)return;
+      this.frame=requestAnimationFrame(time=>{this.frame=0;if(!this.enabled||document.hidden)return;
+        N.observationBackdrop?.tick(time);
+        const moving=this.autoAim||this.transition||this.layoutTransitions?.size||this.section.active&&this.state.running&&!this.reducedMotion;
+        if(!this.modelDirty&&!moving){if(N.observationBackdrop?.animating)this.render(true);return;}
+        this.modelDirty=false;
         if(this.transition)this.tickTransition(time);
         else this.applyPose(this.section.active?this.section.pose(this.yaw,this.container.clientWidth/this.container.clientHeight):this.exteriorPose(this.yaw));
         if(this.section.root.visible){this.section.updateView(this.camera);this.section.animate(time/1000);}
+        if(this.autoAim)this.tickAutoAim(time);
         this.updateRenderArea();
         this.renderCamera.copy(this.camera);
         const area=this.renderArea,unit=2*this.currentPose.span/this.container.clientHeight;
         this.renderCamera.left-=area.left*unit;this.renderCamera.right+=area.right*unit;
         this.renderCamera.top+=area.top*unit;this.renderCamera.bottom-=area.bottom*unit;
         this.renderCamera.updateProjectionMatrix();
-        const shadowKey=[this.model.visible,this.section.root.visible,this.section.geometryKey,this.section.apertureKey,this.section.elevationAngle].join('/');
+        const shadowKey=[this.model.visible,this.section.root.visible,this.section.geometryKey,this.section.apertureKey,this.section.elevationAngle,this.section.azimuth].join('/');
         if(shadowKey!==this.shadowKey){this.shadowKey=shadowKey;this.renderer.shadowMap.needsUpdate=true;}
+        this.contactMaterial.opacity=.7*this.material.opacity;
+        const canvasRect=this.renderer.domElement.getBoundingClientRect(),foreground=this.backdrop.querySelector('.newton-ground-landscape').getBoundingClientRect();
+        this.renderer.getDrawingBufferSize(this.groundMask.size.value);
+        this.groundMask.rect.value.set((foreground.left-canvasRect.left)/canvasRect.width,(canvasRect.bottom-foreground.bottom)/canvasRect.height,foreground.width/canvasRect.width,foreground.height/canvasRect.height);
         this.renderer.render(this.scene,this.renderCamera);
         if(this.section.root.visible)this.section.placeLabels(this.camera);
         this.container.dispatchEvent(new CustomEvent('viewrender'));
-        if(this.transition||this.layoutTransitions?.size||this.section.active&&this.state.running&&!this.reducedMotion)this.render();
+        if(N.observationBackdrop?.animating||this.autoAim||this.transition||this.layoutTransitions?.size||this.section.active&&this.state.running&&!this.reducedMotion)this.render(true);
       });
     }
     resize(){
-      const w=this.container.clientWidth,h=this.container.clientHeight;if(!w||!h)return;
-      const half=1.53,aspect=w/h;this.camera.left=-half*aspect;this.camera.right=half*aspect;
-      this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();
-      this.render();
+      // Keep the pointing camera at its last committed pose until render()
+      // can update the projection, camera and sky-marker mapping together.
+      const width=this.container.clientWidth,height=this.container.clientHeight,key=width+'/'+height;
+      if(width&&height&&key!==this.resizeKey){this.resizeKey=key;this.render();}
     }
     updateRenderArea(){
       const el=this.container,w=el.clientWidth,h=el.clientHeight;
@@ -151,20 +194,21 @@
         this.renderAreaKey=key;this.renderer.setPixelRatio(ratio);this.renderer.setSize(width,height);
       }
     }
-    setEnabled(value){this.enabled=value;if(!value){this.end();if(this.transition)this.finishViewMode(this.viewMode);}else this.resize();}
-    exteriorPose(yaw=this.exteriorYaw){return {center:new T.Vector3(0,1.3,0),span:1.53,yaw};}
+    setEnabled(value){this.enabled=value;if(!value){this.end();if(this.transition)this.finishViewMode(this.viewMode);}else this.render();}
+    exteriorPose(yaw=this.exteriorYaw){return {center:new T.Vector3(0,1.62,0),span:1.53,yaw,lift:1.5};}
     applyPose(pose){
       const aspect=this.container.clientWidth/this.container.clientHeight;
-      this.currentPose={center:pose.center.clone(),span:pose.span,yaw:pose.yaw};this.yaw=pose.yaw;
+      this.currentPose={center:pose.center.clone(),span:pose.span,yaw:pose.yaw,lift:pose.lift??1.2};this.yaw=pose.yaw;
       // The painted environment follows the exact camera zoom, including reversals.
       this.backdrop.style.setProperty('--environment-zoom',String(this.exteriorPose().span/pose.span));
       this.camera.left=-pose.span*aspect;this.camera.right=pose.span*aspect;this.camera.top=pose.span;this.camera.bottom=-pose.span;
-      this.camera.updateProjectionMatrix();this.camera.position.copy(pose.center).add(new T.Vector3(Math.sin(pose.yaw)*6,1.2,Math.cos(pose.yaw)*6));
+      this.camera.updateProjectionMatrix();this.camera.position.copy(pose.center).add(new T.Vector3(Math.sin(pose.yaw)*6,pose.lift??1.2,Math.cos(pose.yaw)*6));
       this.camera.lookAt(pose.center);this.camera.updateMatrixWorld(true);
       const marker=this.pointingTarget&&!this.pointingTarget.hidden?this.pointingTarget.getBoundingClientRect():null;
       const rect=this.container.getBoundingClientRect();
       const css=getComputedStyle(this.container);
-      const pointingKey=[pose.yaw,this.state.angle,rect.left,rect.top,rect.width,rect.height,css.scale,css.rotate,marker?.left,marker?.top,marker?.width,marker?.height].join('/');
+      const pointingKey=[pose.yaw,this.state.angle,pose.span,pose.center.x,pose.center.y,pose.center.z,
+        rect.left,rect.top,rect.width,rect.height,css.scale,css.rotate,marker?.left,marker?.top,marker?.width,marker?.height].join('/');
       if(this.pointingKey!==pointingKey){
         this.pointingKey=pointingKey;
         this.container.dispatchEvent(new CustomEvent('pointingchange',{detail:{yaw:pose.yaw,angle:this.state.angle}}));
@@ -193,6 +237,7 @@
       this.yaw=this.viewMode==='section'?1.42:initialYaw;if(this.viewMode==='exterior')this.exteriorYaw=initialYaw;this.resize();
     }
     returnToExterior({immediate=false}={}){
+      this.cancelAutoAim();this.section.setAzimuth(0);
       if(this.pendingViewMode){this.pendingViewMode=null;this.transitionEvent();}
       this.exteriorYaw=initialYaw;
       if(this.viewMode==='exterior'&&!this.transition){this.resetView();return;}
@@ -209,7 +254,7 @@
         return;
       }
       if(!['exterior','section'].includes(mode)||mode===this.viewMode&&!immediate)return;
-      this.end();const from={center:this.currentPose.center.clone(),span:this.currentPose.span,yaw:this.currentPose.yaw};
+      this.end();const from={center:this.currentPose.center.clone(),span:this.currentPose.span,yaw:this.currentPose.yaw,lift:this.currentPose.lift};
       const wasSectionVisible=this.section.root.visible;
       if(mode==='section'&&this.viewMode==='exterior'&&!this.transition)this.exteriorYaw=this.yaw;
       this.viewMode=mode;
@@ -227,7 +272,7 @@
       const end=entering?this.section.pose(1.42,this.container.clientWidth/this.container.clientHeight):this.exteriorPose();
       const delay=entering?0:tr.wasSectionVisible?200:0;
       const progress=ease((elapsed-delay)/740),yawDelta=Math.atan2(Math.sin(end.yaw-tr.from.yaw),Math.cos(end.yaw-tr.from.yaw));
-      this.applyPose({center:tr.from.center.clone().lerp(end.center,progress),span:tr.from.span+(end.span-tr.from.span)*progress,yaw:tr.from.yaw+yawDelta*progress});
+      this.applyPose({center:tr.from.center.clone().lerp(end.center,progress),span:tr.from.span+(end.span-tr.from.span)*progress,yaw:tr.from.yaw+yawDelta*progress,lift:tr.from.lift+((end.lift??1.2)-tr.from.lift)*progress});
       if(entering){
         // Crossfade while the camera is still moving, completing before the
         // zoom ends. Resource preparation already precedes the first frame.
@@ -327,19 +372,46 @@
       return {pixelsPerDegree:-Math.sign(lever)*Math.max(minimum,Math.abs(slope))};
     }
     setAngle(value){
-      const precision=N.observationAim?.current?.selected?10:1;
+      // The recording reticle at high magnification is narrower than 0.1° steps.
+      const precision=N.observationAim?.current?.selected?100:1;
       const angle=Math.round(T.MathUtils.clamp(value,0,90)*precision)/precision;
       if(angle!==N.store.get().angle)N.store.set({angle});
     }
     turnView(direction){
-      if(!this.enabled||this.transition||this.pendingViewMode)return;
-      const finding=Boolean(N.observationAim?.current?.selected);
-      if(direction==='left'||direction==='right'){
-        const step=finding?N.store.metrics(N.store.get()).field*Math.PI/180/8:Math.PI/12;
-        this.yaw+=(direction==='left'?1:-1)*step;this.render();
-      }else if(this.viewMode==='section'&&(direction==='up'||direction==='down')){
-        this.setAngle(N.store.get().angle+(direction==='up'?-1:1)*(finding ? .1 : 2));
+      // Third-stage pointing is driven exclusively by sky target selection.
+    }
+    cancelAutoAim(){this.autoAim=null;}
+    aimAtTarget(){
+      if(!this.enabled||this.viewMode!=='section')return;
+      this.autoAim={start:null,fromAzimuth:this.section.azimuth||0,fromAngle:this.state.angle};this.render();
+    }
+    solveAim(){
+      const section=this.section,originalAzimuth=section.azimuth||0,originalAngle=section.elevationAngle;
+      let azimuth=originalAzimuth,angle=originalAngle;
+      const sample=(a,b)=>{section.setAzimuth(a);section.setElevation(b);return this.measurePointing();};
+      for(let i=0;i<16;i++){
+        const p=sample(azimuth,angle);if(!p)break;
+        if(Math.hypot(p.horizontalError,p.verticalError)<1e-7)break;
+        const x=sample(azimuth+.001,angle),y=sample(azimuth,angle+.01);
+        const a=(x.horizontalError-p.horizontalError)/.001,b=(y.horizontalError-p.horizontalError)/.01;
+        const c=(x.verticalError-p.verticalError)/.001,d=(y.verticalError-p.verticalError)/.01,det=a*d-b*c;
+        if(Math.abs(det)<1e-8)break;
+        azimuth-=T.MathUtils.clamp((d*p.horizontalError-b*p.verticalError)/det,-.5,.5);
+        angle=T.MathUtils.clamp(angle-(a*p.verticalError-c*p.horizontalError)/det,0,90);
       }
+      sample(originalAzimuth,originalAngle);
+      return {azimuth,angle};
+    }
+    tickAutoAim(time){
+      const motion=this.autoAim;
+      // Wait for the preview layout and camera transition to settle before solving.
+      if(this.transition||this.layoutTransitions?.size)return;
+      if(motion.start===null){motion.start=time;motion.goal=this.solveAim();}
+      const t=this.reducedMotion?1:Math.min(1,(time-motion.start)/2600),ease=t*t*(3-2*t);
+      this.section.setAzimuth(motion.fromAzimuth+(motion.goal.azimuth-motion.fromAzimuth)*ease);
+      N.store.set({angle:motion.fromAngle+(motion.goal.angle-motion.fromAngle)*ease});
+      if(t===1)this.autoAim=null;
+      this.container.dispatchEvent(new CustomEvent('pointingchange'));
     }
     activate(target){
       this.container.dispatchEvent(new CustomEvent('instrumentactivate',{detail:{target}}));
@@ -375,9 +447,6 @@
       surface.addEventListener('pointercancel',()=>this.end());surface.addEventListener('lostpointercapture',()=>this.end());
       el.addEventListener('keydown',e=>{
         if(!this.enabled||this.transition||e.target!==el)return;
-        const direction={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'}[e.key];
-        if(direction){e.preventDefault();this.turnView(direction);}
-        if(e.key==='Home'){e.preventDefault();this.resetView();}
         if(e.key==='Enter'||e.key===' '){e.preventDefault();this.activate(this.viewMode==='section'?'eyepiece':'telescope');}
       });
       window.addEventListener('blur',()=>this.end());

@@ -1,13 +1,13 @@
 {
   "assertions": "passed",
-  "meshCount": 132,
+  "meshCount": 129,
   "acceptedRays": 16,
   "maxPrimaryResidual": 0.000006562251869901559,
   "maxReflectionError": 4.747440907919932e-16,
   "maxSecondaryPlaneResidual": 7.132957940969575e-8,
   "maxEyeRadius": 0.05349104425030795,
   "maxRaycastEndpointError": 2.808666774861361e-15,
-  "rearOccluder": "Tube_BackShell",
+  "rearOccluder": "Tube_BackShell.001",
   "report": {
     "mode": "mesh-intersections-and-normal-reflection",
     "illustrative": true,
@@ -18,17 +18,14 @@
     "accepted": 16,
     "rejected": [],
     "boredMeshes": [
-      "Tube_BackShell",
-      "Tube_UpperLip",
-      "Tube_LowerLip",
+      "Eyepiece_Saddle",
       "Tube_BackInterior",
-      "Tube_UpperInterior",
+      "Tube_BackShell",
       "Tube_LowerInterior",
-      "Tube_WindowEdge_0.86",
-      "Tube_WindowEdge_2.28",
       "Tube_RearClosure",
       "Tube_RearEndStep",
-      "Eyepiece_Saddle"
+      "Tube_UpperInterior",
+      "Tube_BackShell.001"
     ],
     "rays": [
       {

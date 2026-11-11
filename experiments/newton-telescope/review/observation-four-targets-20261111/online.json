@@ -1,0 +1,19 @@
+{
+  "browser": "157.0.8103.39",
+  "baseline": {
+    "p95": 13.400000000000546,
+    "max": 13.5,
+    "draws": 108,
+    "textures": 10,
+    "programs": 14
+  },
+  "bloom": {
+    "p95": 13.400000000001455,
+    "max": 13.5,
+    "draws": 109,
+    "textures": 10,
+    "programs": 14
+  },
+  "errors": [],
+  "missing": []
+}

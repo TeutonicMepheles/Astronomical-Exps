@@ -19,7 +19,7 @@
     ['focal-slider','主镜焦距滑块','.observation-slider:has(#focal)',['observation']],['eyepiece-slider','目镜焦距滑块','.observation-slider:has(#eyepiece)',['observation']],['aperture-slider','主镜口径滑块','.observation-slider:has(#aperture)',['observation']],
     ['observation-launch','观测按钮组','.observation-launch',['observation']],['observation-targets','观测目标按钮组','.observation-targets',['observation']],
     ['observation-close','收起观测按钮','.observation-close',['observation']],['observation-details-toggle','对照实验入口','.observation-detail-toggle',['observation']],['observation-details','对照实验面板','#observation-details',['observation']],
-    ['observation-message','观测提示','.observation-message',['observation']],['observation-stars','观测星空','.observation-starfield',['observation']],['observation-foreground','观测远景','.observation-foreground',['observation']],['observation-table','观测夜景背景','.observation-night',['observation']]
+    ['observation-message','观测提示','.observation-message',['observation']],['observation-stars','观测动态星空','.newton-dynamic-stars',['observation']],['observation-foreground','观测远景','.newton-distant-landscape',['observation']],['observation-table','观测地面','.newton-ground-landscape',['observation']]
   ];
   const targets = definitions.map(([id,label,selector,stages]) => ({id,label,element:$(selector),stages:stages || D.stages})).filter(t => t.element);
   targets.forEach(t => t.element.dataset.devTarget = t.id);

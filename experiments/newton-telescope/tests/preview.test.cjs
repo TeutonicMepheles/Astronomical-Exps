@@ -5,7 +5,7 @@ const element=id=>{if(!elements.has(id))elements.set(id,{});return elements.get(
 const gradient=()=>({addColorStop(){}});
 const ctx=new Proxy({arc(...args){assert(args.every(Number.isFinite));arcs.push(args);},translate(...args){translations.push(args);},createRadialGradient:gradient,createLinearGradient:gradient},{get:(target,key)=>target[key]||(()=>{})});
 const canvas={clientWidth:270,clientHeight:142,getContext:()=>ctx,setAttribute(key,value){this[key]=value;}};
-const context={window:{},devicePixelRatio:1,ResizeObserver:class{observe(){}},document:{getElementById:element,querySelector:element}};
+const context={window:{},devicePixelRatio:1,ResizeObserver:class{observe(){}},document:{createElement:()=>({getContext:()=>ctx}),getElementById:element,querySelector:element}};
 vm.createContext(context);
 for(const file of ['state.js','optics.js','preview.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../js',file),'utf8'),context);
 const N=context.window.Newton,preview=new N.Preview(canvas);
@@ -46,3 +46,25 @@ for(const target of ['jupiter','saturn','moon','pleiades']){
  }
 }
 console.log('PASS Jupiter and all other image centers remain identical across aperture changes while brightness continues to respond.');
+
+// The unselected/searching eyepiece keeps a stable field at every magnification.
+preview.pendingAim={enabled:true,selected:false,acquired:false,target:'saturn'};
+let sky;
+for(const eyepiece of [5,25,50]){
+ arcs.length=0;preview.update({...N.store.get(),target:'saturn',live:true,eyepiece});
+ assert(arcs.length>=64,'Empty eyepiece contains visible stars');
+ assert(arcs.every(a=>a[0]>=0&&a[0]<=270&&a[1]>=0&&a[1]<=142),'Stars stay inside the field');
+ if(!sky)sky=JSON.stringify(arcs);else assert.equal(JSON.stringify(arcs),sky,'Background stays stable across focal changes');
+}
+preview.pendingAim={enabled:true,selected:true,acquired:false,target:'saturn',x:20,y:-15};
+arcs.length=0;preview.update({...N.store.get(),target:'saturn',live:true});
+assert.equal(JSON.stringify(arcs),sky,'Off-field target cannot drag the background away');
+console.log('PASS persistent star field before selection and during off-field search.');
+
+const initialBlur=N.store.focusBlur({focal:800,eyepiece:25});
+const primaryAdjusted=N.store.focusBlur({focal:1500,eyepiece:25});
+assert(initialBlur>8&&primaryAdjusted>0&&primaryAdjusted<initialBlur,'Primary focal adjustment changes defocus');
+assert.equal(N.store.focusBlur({focal:1500,eyepiece:47}),0,'Eyepiece adjustment completes focus at the current primary setting');
+assert(N.store.focusBlur({focal:800,eyepiece:47})>8,'Eyepiece alone does not bypass a mismatched primary setting');
+assert.equal(N.store.focusBlur({focal:1600,eyepiece:25}),0,'Another matched pair also focuses');
+console.log('PASS focus derives jointly from the original primary and eyepiece controls.');

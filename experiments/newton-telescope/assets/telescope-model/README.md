@@ -20,3 +20,6 @@
 剖面切换：镜头先用 740ms 平滑拉近镜筒，接着 240ms 淡入现成剖面，最后显现光路；返回外观先恢复外壳再拉远。可中途反向切换或重置；系统请求减少动态效果时直接完成切换。详情见 [剖面模型说明](SECTION.md)。
 
 验证：`node experiments/newton-telescope/tests/observation-model.browser.cjs`。设置 `EXPERIMENT_URL=offline` 后测试最新 `dist/newton-telescope/index.html` 的断网运行。
+
+
+2026-11-11 当前显示材质：原始图集保留作表面分类与 ORM 数据，木纹和黄铜通过本实验私有 Shader 替换为白色涂装与银灰金属，并移除暖色区域原法线纹理。程序化笔刷与颗粒不依赖新增贴图。详见 [来源与实现](../../components/modern-observation-material/SOURCE.md)。

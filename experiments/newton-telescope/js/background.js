@@ -9,6 +9,7 @@
   if (!ctx) return;
   let settings = window.NightSkyControls.getSettings();
   let w = 0, h = 0, background, stars = [], meteors = [];
+  let active = true;
   let frame = 0, previous = 0, rotation = 0, meteorClock = 0, skyTime = 0;
   let meteorInterval = settings.meteorInterval;
   const random = (min, max) => min + Math.random() * (max - min);
@@ -83,7 +84,7 @@
   function syncMotion() {
     cancelAnimationFrame(frame); frame = 0; previous = 0;
     if (motion.matches) { meteors = []; draw(); }
-    if (!motion.matches && !document.hidden) frame = requestAnimationFrame(animate);
+    if (active && !motion.matches && !document.hidden) frame = requestAnimationFrame(animate);
   }
   new ResizeObserver(resize).observe(canvas);
   motion.addEventListener('change', syncMotion);
@@ -93,5 +94,6 @@
   document.addEventListener('visibilitychange', syncMotion);
   window.addEventListener('pagehide', () => cancelAnimationFrame(frame));
   window.addEventListener('pageshow', syncMotion);
+  window.NightSkyBackground={setActive(value){active=Boolean(value);syncMotion();}};
   resize(); syncMotion();
 })();

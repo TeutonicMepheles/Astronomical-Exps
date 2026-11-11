@@ -74,3 +74,17 @@ const report={passed:true,configurations,max_fixed_world_drift:maxFixedDrift,max
  browser_visual_check:'not performed: local file access is restricted by browser security policy'};
 fs.mkdirSync(path.join(__dirname,'artifacts'),{recursive:true});fs.writeFileSync(path.join(__dirname,'artifacts/elevation-joint-verification.json'),JSON.stringify(report,null,2));
 console.log(`PASS ${configurations} elevation transitions: fixed axle, lower pedestal and tripod, <${maxPixelDrift.toExponential(2)} px drift; rigid upper assembly, registered lens/light, UV preserved, reversed orbit and aperture combinations.`);
+
+// Azimuth is a different joint: the complete lower yoke rotates above the tripod.
+section.setAzimuth(0);
+const azimuthSeat=section.root.localToWorld(section.azimuthPivot.clone());
+const fixedTripod=sample(section.tripod),movingYoke=sample(base),movingBearing=sample(joint);
+for(const radians of [-2,-1,0,.5,1.5,2,0]){
+ section.setAzimuth(radians);
+ for(const item of fixedTripod)assert(section.tripod.localToWorld(item.local.clone()).distanceTo(item.world)<1e-10);
+ for(const [mesh,vertices] of [[base,movingYoke],[joint,movingBearing]])for(const item of vertices){
+  const expected=item.world.clone().sub(azimuthSeat).applyAxisAngle(new T.Vector3(0,1,0),radians).add(azimuthSeat);
+  assert(mesh.localToWorld(item.local.clone()).distanceTo(expected)<2e-7,'Lower yoke and upper bearing share the same rigid azimuth rotation');
+ }
+}
+console.log('PASS lower yoke + upper bearing rigidly rotate together about bottom seat; actual tripod vertices remain fixed across seven azimuths.');

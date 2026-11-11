@@ -16,9 +16,9 @@ const {chromium}=require('playwright');const assert=require('node:assert/strict'
  await tab('mirrors').focus();await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate(()=>Newton.course.get().stage),'mirrors');await page.keyboard.press('Enter');
  assert(await page.locator('#progress-page-assembly').isVisible());assert.equal(await toggle.getAttribute('aria-expanded'),'false');assert.equal(await toggle.innerText(),'2');
  await page.click('[data-install=primary]');await page.click('[data-install=secondary]');
- await page.click('#progress-next');for(const n of [25,10,5])await page.click(`[data-record="${n}"]`);
+ await page.click('#progress-next');for(const n of ['saturn','moon','jupiter','pleiades'])await page.click(`[data-record="${n}"]`);
  assert(await page.locator('.experiment-progress__badge').isVisible());await open();assert.equal(await page.locator('.experiment-progress__summary output').innerText(),'3 / 3 已完成');
- await tab('mirrors').click();await open();await tab('observation').click();await open();assert.equal(await page.evaluate(()=>Newton.course.get().records.length),3);
+ await tab('mirrors').click();await open();await tab('observation').click();await open();assert.equal(await page.evaluate(()=>Newton.course.get().records.length),4);
  await page.waitForTimeout(300);await page.screenshot({path:'artifacts/progress-complete.png'});
  await tab('assembly').click();await page.click('#progress-reset');assert.equal(await tab('observation').getAttribute('aria-disabled'),'true');assert.equal(await page.evaluate(()=>Newton.course.get().records.length),0);
  await page.click('#progress-restart');await open();assert.equal(await page.locator('.experiment-progress__summary output').innerText(),'0 / 3 已完成');

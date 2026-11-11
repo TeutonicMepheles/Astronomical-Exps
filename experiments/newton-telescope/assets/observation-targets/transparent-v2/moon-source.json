@@ -1,0 +1,41 @@
+{
+  "nodeKey": "0c47404d-b217-4049-9382-bb0437939036",
+  "data": {
+    "type": "image",
+    "name": "moon",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1014357532_716c3fab8fb64597a789d5bbacac64d1.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Single full Moon isolated on true transparent alpha background. Educational painterly gouache illustration, fine visible brush strokes and subtle grain only inside lunar surface. Round pale ivory gray lunar disk, recognizable dark maria and delicate craters, softly modeled relief, not a cartoon. Centered disk diameter 72 percent of square canvas. No sky, no stars, no vignette, no circular backdrop beyond the Moon itself, no halo, no text, no frame, no checkerboard.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "text2image",
+      "settings": {
+        "quality": "1.5K",
+        "ratio": "1:1",
+        "background": "transparent"
+      }
+    },
+    "taskInfo": {
+      "taskId": "20261111185303770247723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1536,
+          "height": 1536
+        }
+      ]
+    }
+  },
+  "nodeType": "image",
+  "name": "moon"
+}

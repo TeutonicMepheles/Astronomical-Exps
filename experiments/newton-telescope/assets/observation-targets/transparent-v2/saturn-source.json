@@ -1,0 +1,41 @@
+{
+  "nodeKey": "4b2f289a-5820-46bd-9d0d-aa186007897f",
+  "data": {
+    "type": "image",
+    "name": "saturn",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1014356252_3414f63da3ac4544a60b4d6e867db1b0.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Single Saturn isolated on true transparent alpha background. Educational painterly gouache illustration, visible fine brush strokes and subtle grain only on planet and rings. Warm cream pale gold banded globe, complete thin elliptical rings tilted rising toward right, globe centered. Object fills 76 percent of square width, generous transparent margins. Transparent gaps between globe and rings. No sky, no stars, no vignette, no circular backdrop, no halo, no text, no frame, no checkerboard.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "text2image",
+      "settings": {
+        "quality": "1.5K",
+        "ratio": "1:1",
+        "background": "transparent"
+      }
+    },
+    "taskInfo": {
+      "taskId": "20261111185203351717723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1536,
+          "height": 1536
+        }
+      ]
+    }
+  },
+  "nodeType": "image",
+  "name": "saturn"
+}

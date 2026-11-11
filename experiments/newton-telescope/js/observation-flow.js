@@ -24,7 +24,7 @@
     }
     openObservation(){this.section({immediate:true});this.observe();}
     activate(target){
-      if(this.model?.transition||this.model?.pendingViewMode)return;
+      if(this.phase==='observing'||this.model?.transition||this.model?.pendingViewMode)return;
       if(target==='environment'){if(this.phase!=='initial')this.initial();return;}
       if(this.phase==='initial'&&(target==='telescope'||target==='eyepiece'))this.section();
       else if(target==='eyepiece')this.observe();

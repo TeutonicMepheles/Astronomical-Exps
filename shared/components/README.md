@@ -148,6 +148,6 @@ WebGL 模型后续应由场景渲染器提供轮廓实现，不能直接用整�
 
 ## StageCompletionDialog 阶段完成提示
 
-加载 `stage-completion.js` 和 `stage-completion.css`。`show(data, onConfirm)` 接收 `kicker`、`title`、`body`、`action` 文本，确认后的业务操作由实验提供。已打开或仍在关闭动画中时，重复调用 `show` 返回 `false`。
+加载 `stage-completion.js` 和 `stage-completion.css`。`show(data, onConfirm)` 接收 `kicker`、`title`、`body`、`action` 文本，可选 `stayAction` 覆盖默认的“留在本阶段”；确认后的业务操作由实验提供。已打开或仍在关闭动画中时，重复调用 `show` 返回 `false`。
 
 `dismiss(confirm)` 关闭提示，`destroy()` 取消动画并移除组件；销毁不能触发确认回调。可查看[源码](stage-completion.js)与[预览入口](../../previews/components/README.md)。

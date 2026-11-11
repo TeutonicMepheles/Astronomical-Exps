@@ -5,7 +5,7 @@ const element=()=>({hidden:true,style:{},setAttribute(){},append(){},querySelect
 const state={focal:800,aperture:130,eyepiece:25,mode:'parallel',angle:45};
 const context={window:{THREE:T,Newton:{store:{get:()=>state}}},document:{createElement:element},atob:s=>Buffer.from(s,'base64').toString('binary')};
 vm.createContext(context);
-for(const file of ['assets/telescope-model/section-model.js','js/section-optics.js','js/observation-section.js'])
+for(const file of ['assets/telescope-model/section-model.js','js/section-optics.js','components/modern-observation-material/material.js','components/observation-beam/beam.js','js/observation-section.js'])
   vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),context);
 const oldLoad=T.TextureLoader.prototype.load;
 T.TextureLoader.prototype.load=()=>({});
