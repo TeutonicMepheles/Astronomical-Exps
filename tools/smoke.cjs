@@ -34,8 +34,8 @@ const root=path.resolve(__dirname,'..');
     await page.evaluate(()=>Newton.course.mountMirror('concave'));await page.waitForTimeout(350);
     assert((await page.evaluate(()=>Newton.app.telescope.lab.opticalBeam.group.children.length))>0);
     await page.screenshot({path:path.join(root,'artifacts','newton-telescope-rays.png')});
-    const result=await page.evaluate(()=>{const c=Newton.course;const blocked=c.enter('assembly');for(const m of ['plane','concave','convex'])c.mountMirror(m);const entered=c.enter('assembly');return {blocked,entered};});
-    assert.equal(result.blocked,false);assert.equal(result.entered,true);
+    const result=await page.evaluate(()=>{const c=Newton.course;const blocked=c.enter('assembly');for(const m of ['plane','concave','convex'])c.mountMirror(m);const mirrorsOnly=c.enter('assembly');for(const lens of ['convex','concave'])c.mountLens(lens);const entered=c.enter('assembly');return {blocked,mirrorsOnly,entered};});
+    assert.equal(result.blocked,false);assert.equal(result.mirrorsOnly,false);assert.equal(result.entered,true);
    }else{
     assert.match(page.url(),/\/experiments\/light-pollution\/app\/index\.html$/);
     assert(await page.locator('#scene').isVisible());
