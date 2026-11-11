@@ -6,7 +6,8 @@ window.LightPollution.deriveLightEnvironment=function({data,layers,lampInput,dis
   for(const o of data.items){const id=o.parent||'buildings',layer=layers.find(l=>l.id===id);if(!o.visible||!layer?.visible||!sourceVisible(o))continue;
    const key=o.type==='billboard'?'billboard':['public','ad-building'].includes(id)?'public':'residential';
    const normalization={residential:48000,public:110000,billboard:40000}[key];
-   totals[key]+=area(o.corners)*layer.scale**2/normalization*layer.opacity*(o.brightness/100)*temperature(o.temperature)*(o.type==='window'?1-.96*o.coverage/100:1);
+    const curtain=o.type==='window'?LightPollution.curtainTransmission(o.coverage,o.material):1;
+    totals[key]+=area(o.corners)*layer.scale**2/normalization*layer.opacity*(o.brightness/100)*temperature(o.temperature)*curtain;
   }
   const lamp=lampInput;totals.lamps=lamp.brightness/100*temperature(lamp.temperature)*(LightPollution.lampVariants[lamp.shade].spill);
   const distant=distantInput,dl=distant.layer;totals.distant=dl?.visible&&distant.visible?distant.brightness/100*temperature(distant.temperature)*dl.opacity*dl.scale**2:0;

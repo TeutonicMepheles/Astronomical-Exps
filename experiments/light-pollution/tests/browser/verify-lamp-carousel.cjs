@@ -1,7 +1,7 @@
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path'),{pathToFileURL}=require('node:url');
 (async()=>{const browser=await chromium.launch();try{
  const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(pathToFileURL(path.resolve(__dirname,'../../lib-static-demo/standalone.html')).href);await page.waitForSelector('html[data-ready=true]');
+ await page.goto(pathToFileURL(path.resolve(__dirname,'../../lib-static-demo/standalone.html')).href+'?mode=editor');await page.waitForSelector('html[data-ready=true]');
  const scene=await page.locator('#scene').boundingBox(),x=scene.x+606*scene.width/2172,joint=610-(1498-334)*145/(1498-29),y=scene.y+joint*scene.height/724;
  const state=()=>page.evaluate(()=>compositorLightEnvironment.getReport().lamps.shade),settle=()=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
  const position=await page.locator('#street-position').inputValue();

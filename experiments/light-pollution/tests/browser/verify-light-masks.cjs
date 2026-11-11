@@ -23,7 +23,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
   });
   assert.deepEqual(pixels.a.wall,[235,158,64,255]);assert.deepEqual(pixels.a.baseWindow,pixels.a.window);assert(pixels.b.wall[0]<pixels.a.wall[0]/2);assert.deepEqual(pixels.b.baseWindow,pixels.b.window);assert.deepEqual(pixels.override.wall,pixels.b.wall);assert.deepEqual(pixels.override.baseWindow,pixels.a.baseWindow);assert.deepEqual(pixels.override.window,pixels.a.window);assert(pixels.split[0][0]>pixels.split[1][0]*2);await harness.close();
   const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[],remote=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url()))remote.push(r.url());});
-  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href);await page.waitForSelector('html[data-ready=true]');
+  await page.goto(pathToFileURL(path.join(sceneDir,'standalone.html')).href+'?mode=editor');await page.waitForSelector('html[data-ready=true]');
   const saved=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('lib-candidate-layout-v1')));
   const masks=async()=>JSON.stringify((await saved()).buildingControls.lightMasks);
   const open=async()=>{if(await page.locator('#editor-panel').isHidden())await page.click('#edit-toggle');await page.click('#tab-objects');await page.selectOption('#object-select','residential-window-0');await page.click('#object-light-mask');};
