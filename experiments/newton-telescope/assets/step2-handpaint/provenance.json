@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-10",
+  "tool": "built-in image_gen.imagegen",
+  "method": "two independently generated albedo maps; original generated PNGs copied without image processing",
+  "assets": [
+    {
+      "file": "wood-gouache-v1.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2268971,
+      "sha256": "eb2a4a194aedcd5778040f338b9dffb64ff3cb44f78729c0bfa9cd3484719f69",
+      "prompt": "Create a production-ready seamless albedo TEXTURE only for a 3D educational Newton telescope, square image. Pale warm honey birch wood painted by hand in gouache and colored pencil on fine paper. Entire image filled edge-to-edge with the same wood material, no objects, no planks, no seams, no borders, no text, no perspective, no cast shadows or baked directional illumination. Long horizontal wood fibers and gently meandering grain, with natural irregular broad dry-brush strokes and restrained pencil grain visible within the warm cream/ochre color blocks. Quiet science-book illustration style, simplified broad value masses, not photographic, not noisy procedural speckles, not rustic distressed furniture. Base color around RGB 226,184,121; subtle warm cream brush marks and muted ochre fibers, avoid white streaks and dark knots. Texture should have even average brightness across the image and seamlessly wrap at opposite edges. Recognizable tactile hand-painted strokes at medium scale, preserve wood identity. This is a flat UV material map, NOT an illustration of a telescope."
+    },
+    {
+      "file": "blue-gouache-v1.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2426718,
+      "sha256": "276ec21502264286fafc604a00e46e458ea46509d766fcec9fba09175cb91b07",
+      "prompt": "Create a production-ready square seamless ALBEDO TEXTURE for the painted metal of a hand-painted educational Newton telescope. Flat full-frame material swatch only. Muted dusty slate blue gouache, average color RGB 89,111,145, restrained layered broad dry-brush strokes in slightly lighter steel-blue and darker desaturated navy, gentle irregular diagonal and crossing short strokes like a real artist painting a smooth blue instrument. Fine paper tooth within pigment, subtle broken pencil accents. Natural painterly variation with medium-scale visible strokes, calm science-book illustration aesthetic, limited value range and even overall brightness. NOT photographic metal, NOT shiny, NOT brushed-steel lines, NOT noisy random grit, NOT cracked paint, NOT rust, NOT scratches, no texture embossing, no shadows, no vignette, no objects, no text, no borders. Must cover edge-to-edge, be tileable seamlessly in both axes, a usable 3D UV color map. Preserve readable smooth solid metal shape once applied; strokes should supply handmade pigment character rather than damage."
+    }
+  ]
+}

@@ -13,10 +13,10 @@ N.createStep2Bloom=function(T,renderer){
  let width=1,height=1;
  function resize(w,h){width=Math.max(1,Math.round(w));height=Math.max(1,Math.round(h));emission.setSize(width,height);ping.setSize(Math.max(1,width>>1),Math.max(1,height>>1));pong.setSize(ping.width,ping.height);}
  function render(world,view){
-  const saved=[],clear=new T.Color();renderer.getClearColor(clear);const alpha=renderer.getClearAlpha(),tone=renderer.toneMapping,autoClear=renderer.autoClear;
+  const saved=[],hidden=[],clear=new T.Color();renderer.getClearColor(clear);const alpha=renderer.getClearAlpha(),tone=renderer.toneMapping,autoClear=renderer.autoClear;
   renderer.setRenderTarget(null);renderer.render(world,view);
-  world.traverse(o=>{if(o.isMesh&&!o.userData.isOpticalBeam){saved.push([o,o.material]);o.material=black;}});
-  renderer.setClearColor(0,0);renderer.setRenderTarget(emission);renderer.clear();renderer.render(world,view);for(const [o,m] of saved)o.material=m;
+  world.traverse(o=>{if(o.userData.isContactShadow){hidden.push([o,o.visible]);o.visible=false;return;}if(o.isMesh&&!o.userData.isOpticalBeam){saved.push([o,o.material]);o.material=black;}});
+  renderer.setClearColor(0,0);renderer.setRenderTarget(emission);renderer.clear();renderer.render(world,view);for(const [o,m] of saved)o.material=m;for(const [o,visible] of hidden)o.visible=visible;
   renderer.toneMapping=T.NoToneMapping;quad.material=blur;blur.uniforms.image.value=emission.texture;blur.uniforms.stepUV.value.set(1.6/width,0);renderer.setRenderTarget(ping);renderer.clear();renderer.render(scene,camera);
   blur.uniforms.image.value=ping.texture;blur.uniforms.stepUV.value.set(0,1.6/height);renderer.setRenderTarget(pong);renderer.clear();renderer.render(scene,camera);
   quad.material=composite;renderer.setRenderTarget(null);renderer.autoClear=false;renderer.render(scene,camera);renderer.autoClear=autoClear;renderer.toneMapping=tone;renderer.setClearColor(clear,alpha);

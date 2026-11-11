@@ -1,0 +1,17 @@
+{
+  "pass": true,
+  "viewport": "1600x900",
+  "labels": [
+    "认识五种镜片",
+    "组装牛顿望远镜",
+    "完成三档目镜观测"
+  ],
+  "checks": [
+    "large labels/counts",
+    "active border",
+    "locked reason",
+    "header completion animation",
+    "reduced motion"
+  ],
+  "errors": []
+}

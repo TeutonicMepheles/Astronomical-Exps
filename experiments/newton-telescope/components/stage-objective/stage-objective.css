@@ -1,0 +1,21 @@
+:root{--newton-instruction-size:28px;--newton-action-size:26px;}
+.newton-objective{border:0;padding:0;overflow:visible;background:none;color:#163957;width:min(820px,calc(100vw - 56px),calc((100vh - 70px)*1.65));max-width:none;max-height:none;box-shadow:none;transform-origin:center}
+.newton-objective::backdrop{background:#081831bb;backdrop-filter:blur(3px)}
+.newton-objective.is-folding::backdrop{background:transparent;backdrop-filter:none}
+.newton-objective__paper{position:relative;background:#f5f0e6 url('paper.png') repeat;border:1px solid #fff8;border-radius:24px;padding:56px 56px 44px;box-shadow:0 20px 50px #05122655;font-family:var(--font-ui,system-ui)}
+.newton-objective__clip{position:absolute;left:32px;top:-17px;width:66px;height:51px;filter:drop-shadow(0 3px 3px #14294444)}
+.newton-objective__kicker{font-size:clamp(16px,1.8vw,23px);letter-spacing:3px;margin:0 0 14px}
+.newton-objective .newton-objective__paper h2{font-family:var(--font-display,serif);font-size:clamp(28px,4vw,48px);letter-spacing:2px;margin:0 0 30px;line-height:1.4;color:#163957}
+#newton-objective-body{border-top:1px solid #527495;padding-top:26px;font-size:var(--newton-instruction-size);font-weight:500;line-height:1.6;margin:0 0 32px}
+.newton-objective__confirm{display:block;margin-left:auto;min-width:230px;min-height:60px;border:1px solid #c59a4d;border-radius:11px;padding:16px 24px;background:#f3ce87 url('gold.png') center/100% 100%;color:#183e62;font:700 var(--newton-action-size) var(--font-ui,system-ui);cursor:pointer;box-shadow:0 3px 5px #624c1522}
+.newton-objective__confirm:hover,.newton-objective__confirm:focus-visible{filter:brightness(1.04)}
+.newton-objective__confirm:focus-visible{outline:3px solid #457f9c;outline-offset:4px}
+.newton-objective-pending .observatory>:not(.introduction):not(#course-progress):not(.assembly-study-wall):not(.workbench-table){visibility:hidden!important}
+@media(max-height:600px){.newton-objective__paper{padding:35px 30px 26px}.newton-objective .newton-objective__paper h2{margin-bottom:18px;font-size:32px}#newton-objective-body{padding-top:16px;margin-bottom:20px}.newton-objective__confirm{min-height:48px;padding:12px 18px}}
+
+@media(max-height:600px){:root{--newton-instruction-size:24px;--newton-action-size:24px;}}
+
+/* Absolute placement keeps the notebook's animation destination unchanged. */
+.newton-objective-summary{position:absolute;right:calc(100% + 20px);top:50%;transform:translateY(-50%);width:520px;max-width:calc(100vw - 220px);margin:0;text-align:right;text-wrap:balance;font:500 var(--newton-instruction-size)/1.5 var(--font-ui,system-ui);color:#fff2d6;text-shadow:0 2px 5px #071b35,0 1px 2px #071b35;pointer-events:none;}
+.newton-objective-summary[hidden]{display:none;}
+#course-progress>.newton-task-progress{z-index:1;}

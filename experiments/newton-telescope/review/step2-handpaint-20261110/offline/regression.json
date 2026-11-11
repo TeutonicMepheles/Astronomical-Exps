@@ -1,0 +1,48 @@
+{
+  "browser": "157.0.8103.39",
+  "errors": [],
+  "scheduling": {
+    "idleExtra": 0,
+    "maxPerFrame": 1,
+    "state": {
+      "section": false,
+      "rays": false,
+      "bloom": true,
+      "bloomType": "selective-gaussian-two-pass",
+      "selected": null,
+      "yaw": -0.16867431432066265,
+      "pitch": 0.13094748194363778,
+      "distance": 21.060923531507353,
+      "meshCount": 132,
+      "visibleMeshes": 132,
+      "triangleCount": 115362,
+      "acceptedRays": 16,
+      "renderCount": 286,
+      "disposed": false,
+      "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "rendererInfo": {
+        "memory": {
+          "geometries": 132,
+          "textures": 3
+        },
+        "render": {
+          "frame": 286,
+          "calls": 132,
+          "triangles": 115362,
+          "points": 0,
+          "lines": 0
+        },
+        "programs": 2
+      },
+      "canvasAlpha": true,
+      "clearAlpha": 0,
+      "materialOpacity": [
+        1
+      ],
+      "depthTest": true,
+      "depthWrite": true,
+      "bloomTargets": 3
+    }
+  },
+  "touch": "two contacts and cancellation passed"
+}

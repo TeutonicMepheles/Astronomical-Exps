@@ -3,13 +3,13 @@
   'use strict';
   const D = N.developer, stage = document.querySelector('.observatory');
   const $ = s => document.querySelector(s);
-  const stageNames = {mirrors:'认识镜面',assembly:'组装望远镜',observation:'参数观测'};
+  const stageNames = {mirrors:'认识镜片',assembly:'组装望远镜',observation:'参数观测'};
   const definitions = [
-    ['introduction','标题说明整体','.introduction'],['title','主标题','.introduction h1'],['english','英文副标题','.english-title'],['description','阶段说明','.introduction .description'],
+    ['introduction','标题说明整体','.introduction'],['title','主标题','.introduction h1'],['description','阶段说明','.introduction .description'],
     ['progress','任务菜单整体','#course-progress'],['viewport','光学实验台整体（含光路）','#viewport',['mirrors']],
     ['mirror-tray','反射镜托盘','#table-mirror-page',['mirrors']],['plane','平面镜','[data-mirror="plane"]',['mirrors']],['concave','凹面镜','[data-mirror="concave"]',['mirrors']],['convex','凸面镜','[data-mirror="convex"]',['mirrors']],
     ['lens-tray','透镜托盘','#table-lens-page',['mirrors']],['concave-lens','凹透镜','[data-table-lens="concave"]',['mirrors']],['convex-lens','凸透镜','[data-table-lens="convex"]',['mirrors']],
-    ['mounted-controls','镜座焦距与取下控件','#mounted-mirror-controls',['mirrors']],['next-page','下一页箭头','.table-page-next',['mirrors']],['previous-page','上一页箭头','.table-page-previous',['mirrors']],
+    ['mounted-controls','镜座焦距与取下控件','#mounted-mirror-controls',['mirrors']],
     ['finish-mirrors','进入组装按钮','#finish-mirrors',['mirrors']],['feedback','右侧反馈卡','.preview-card'],['stationery','桌面文具整体','.lab-stationery'],
     ['workbench','组装桌面','.workbench-table',['assembly']],['assembly-instrument','组装望远镜整体','.assembly-preview',['assembly']],['assembly-tray','组装零件托盘','.assembly-mirror-tray',['assembly']],
     ['primary-part','主镜零件','[data-assembly-mirror="concave"]',['assembly']],['secondary-part','副镜零件','[data-assembly-mirror="plane"]',['assembly']],['convex-part','凸面镜零件','[data-assembly-mirror="convex"]',['assembly']],
@@ -25,7 +25,7 @@
   targets.forEach(t => t.element.dataset.devTarget = t.id);
   const heading = new N.ExperimentHeading($('.introduction'));
   const textDefinitions = [
-    ['title','主标题','.introduction h1'],['english','英文副标题','.english-title'],['description','阶段说明','.introduction .description'],
+    ['title','主标题','.introduction h1'],['description','阶段说明','.introduction .description'],
     ['finish-mirrors','进入组装按钮','#finish-mirrors',['mirrors']],['assembly-next','进入观测按钮','.assembly-next',['assembly']],['assembly-reset','重新组装按钮','.assembly-reset',['assembly']],
     ['observation-open','目镜观测按钮','.observation-open',['observation']],['observation-reset','重置参数按钮','.observation-reset',['observation']],
     ['observation-details-toggle','对照实验入口','.observation-detail-toggle',['observation']],['target-saturn','土星按钮','[data-observation-target="saturn"]',['observation']],['target-moon','月球按钮','[data-observation-target="moon"]',['observation']],['target-jupiter','木星按钮','[data-observation-target="jupiter"]',['observation']],['target-pleiades','昴星团按钮','[data-observation-target="pleiades"]',['observation']]
@@ -36,13 +36,13 @@
   const skyDefaults = window.NightSkyControls.getSettings();
   const opticalDefaults = N.store.get();
   const launch = document.createElement('button');
-  launch.type='button';launch.id='developer-launch';launch.className='developer-launch';launch.textContent='开发者模式';launch.setAttribute('aria-controls','developer-panel');
+  launch.hidden=true;launch.type='button';launch.id='developer-launch';launch.className='developer-launch';launch.textContent='开发者模式';launch.setAttribute('aria-controls','developer-panel');
   const panel = document.createElement('aside');
   panel.id='developer-panel';panel.className='developer-panel';panel.hidden=true;panel.setAttribute('aria-label','开发者模式');
-  panel.innerHTML=`<header><div><small>NEWTON · DEV TOOLS</small><strong>开发者模式</strong></div><button type="button" class="developer-close" data-action="close" aria-label="收起开发者面板">×</button></header>
+  panel.innerHTML=`<header><div><small>牛顿望远镜 · 开发工具</small><strong>开发者模式</strong></div><button type="button" class="developer-close" data-action="close" aria-label="收起开发者面板">×</button></header>
     <nav class="developer-tabs" role="tablist" aria-label="开发工具"><button type="button" role="tab" id="dev-tab-steps" aria-controls="dev-page-steps" data-tab="steps">步骤跳转</button><button type="button" role="tab" id="dev-tab-layout" aria-controls="dev-page-layout" data-tab="layout">元素布局</button><button type="button" role="tab" id="dev-tab-content" aria-controls="dev-page-content" data-tab="content">文字数值</button><button type="button" role="tab" id="dev-tab-effects" aria-controls="dev-page-effects" data-tab="effects">交互效果</button></nav>
     <div class="developer-body">
-      <section id="dev-page-steps" role="tabpanel" aria-labelledby="dev-tab-steps" data-page="steps"><h3>自由切换实验步骤</h3><p class="developer-note">直接进入任意页面。真实学习进度仍按实际操作记录。</p><div class="developer-steps"><button type="button" data-jump="mirrors"><b>01 A</b><span>认识镜面 · 反射镜</span><small>↗</small></button><button type="button" data-jump="lenses"><b>01 B</b><span>认识镜面 · 透镜</span><small>↗</small></button><button type="button" data-jump="assembly"><b>02</b><span>组装望远镜</span><small>↗</small></button><button type="button" data-jump="observation"><b>03</b><span>参数观测</span><small>↗</small></button></div><p class="developer-note" id="dev-current-stage"></p><div class="developer-pair"><button type="button" data-action="preview">打开目镜观测</button><button type="button" data-action="reset-stage">重置当前步骤</button></div><h3>使用方式</h3><p class="developer-note">切换到「元素布局」，选择元素或在画布上点选拖动。所有位移以 1600 × 900 舞台坐标计算，各阶段分别保存。</p><p class="developer-note">参数自动暂存在本浏览器；导出 JSON 可备份并在其他浏览器导入。退出调试后显示原版布局，保留配置供下次继续。</p></section>
+      <section id="dev-page-steps" role="tabpanel" aria-labelledby="dev-tab-steps" data-page="steps"><h3>自由切换实验步骤</h3><p class="developer-note">直接进入任意页面。真实学习进度仍按实际操作记录。</p><div class="developer-steps"><button type="button" data-jump="mirrors"><b>01 A</b><span>认识镜片 · 反射镜</span><small>↗</small></button><button type="button" data-jump="lenses"><b>01 B</b><span>认识镜片 · 透镜</span><small>↗</small></button><button type="button" data-jump="assembly"><b>02</b><span>组装望远镜</span><small>↗</small></button><button type="button" data-jump="observation"><b>03</b><span>参数观测</span><small>↗</small></button></div><p class="developer-note" id="dev-current-stage"></p><div class="developer-pair"><button type="button" data-action="preview">打开目镜观测</button><button type="button" data-action="reset-stage">重置当前步骤</button></div><h3>使用方式</h3><p class="developer-note">切换到「元素布局」，选择元素或在画布上点选拖动。所有位移以 1600 × 900 舞台坐标计算，各阶段分别保存。</p><p class="developer-note">参数自动暂存在本浏览器；导出 JSON 可备份并在其他浏览器导入。退出调试后显示原版布局，保留配置供下次继续。</p></section>
       <section id="dev-page-layout" role="tabpanel" aria-labelledby="dev-tab-layout" data-page="layout" hidden><h3>元素位置与外观</h3><label class="developer-field"><span>当前阶段的元素</span><select id="dev-target" aria-label="选择调节元素"></select></label><div class="developer-pair"><button type="button" data-action="pick" aria-pressed="false">画布点选 / 拖动</button><button type="button" data-action="reset-element">恢复此元素</button></div><p class="developer-note">位移相对原布局，X 向右、Y 向下。光学实验台整体移动时，器材、光路与点击区域保持联动。</p><div id="dev-layout-fields"></div><div class="developer-nudge"><button type="button" data-nudge="-1,0" aria-label="向左微调">←</button><button type="button" data-nudge="0,-1" aria-label="向上微调">↑</button><button type="button" data-nudge="0,1" aria-label="向下微调">↓</button><button type="button" data-nudge="1,0" aria-label="向右微调">→</button></div><label class="developer-field"><span>每次微调距离</span><select id="dev-nudge-step"><option value="1">1 px</option><option value="10">10 px</option><option value="50">50 px</option></select></label><p class="developer-note">点选模式下可用方向键，按住 Shift 每次移动 10 px；Esc 结束点选。</p></section>
       <section id="dev-page-content" role="tabpanel" aria-labelledby="dev-tab-content" data-page="content" hidden><h3>文案编辑</h3><label class="developer-field"><span>文字位置</span><select id="dev-text-target" aria-label="选择文案"></select></label><label class="developer-field"><span>显示文字（支持换行）</span><textarea id="dev-text" maxlength="1200" aria-label="编辑显示文字"></textarea></label><button type="button" data-action="reset-text">恢复此处原文</button><h3>光学演示参数</h3><p class="developer-note">沿用当前版本的范围与计算，数值即时联动。镜面参数需先在第一阶段安装镜片。</p><div id="dev-parameter-fields"></div><div class="developer-pair"><button type="button" data-mount="plane">装平面镜</button><button type="button" data-mount="concave">装凹面镜</button><button type="button" data-mount="convex">装凸面镜</button></div><div id="dev-mirror-fields"></div></section>
       <section id="dev-page-effects" role="tabpanel" aria-labelledby="dev-tab-effects" data-page="effects" hidden><h3>交互与光路</h3><div id="dev-effect-fields"></div><p class="developer-note">转场速度为 0 时即时切换，光子速度为 0 时暂停流动。系统「减少动态效果」设置优先。</p><h3>夜空与前景</h3><div id="dev-sky-fields"></div></section>
@@ -97,7 +97,7 @@
     style.textContent=rules.join('\n');
     heading.update(s);
     for(const t of textTargets) {
-      if(['title','english','description'].includes(t.id)){t.element.classList.toggle('developer-text-override',D.enabled&&Object.hasOwn(D.snapshot().text,s+'/'+t.id));continue;}
+      if(['title','description'].includes(t.id)){t.element.classList.toggle('developer-text-override',D.enabled&&Object.hasOwn(D.snapshot().text,s+'/'+t.id));continue;}
       const text=D.enabled?D.snapshot().text[s+'/'+t.id]:undefined;
       if(text===undefined){if(t.element.dataset.devTextOverride){t.element.innerHTML=t.original;delete t.element.dataset.devTextOverride;}}
       else if(t.element.textContent!==text||!t.element.dataset.devTextOverride){t.element.textContent=text;t.element.dataset.devTextOverride='true';}
@@ -122,8 +122,8 @@
         else {if(!available.some(t=>t.id===selectedText))selectedText=available[0]?.id;select.value=selectedText;}
       }
     }
-    q('#dev-current-stage').textContent='当前：'+stageNames[s]+(s==='mirrors'?' · '+(N.tableSpecimens.page==='lenses'?'透镜页':'反射镜页'):'');
-    panel.querySelectorAll('[data-jump]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.jump===(s==='mirrors'&&N.tableSpecimens.page==='lenses'?'lenses':s))));
+    q('#dev-current-stage').textContent='当前：'+stageNames[s]+(s==='mirrors'?' · 五类镜片同页':'');
+    panel.querySelectorAll('[data-jump]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.jump===s)));
   }
   function syncValues() {
     const p=layoutValue(selected),optics=N.store.get(),course=N.course.get();
@@ -145,7 +145,7 @@
     panel.querySelectorAll('[data-page]').forEach(p=>p.hidden=p.dataset.page!==tab);syncValues();
   }
   async function jump(target) {
-    setPicking(false);await N.courseCompletion.dismiss();N.workbenchTransition.cancel();N.trayTransition.cancel();
+    setPicking(false);await N.courseCompletion.dismiss();N.workbenchTransition.cancel();N.trayTransition?.cancel();
     N.course.enter(target==='lenses'?'mirrors':target);
     if(target==='lenses'||target==='mirrors')N.tableSpecimens.showPage(target==='lenses'?'lenses':'mirrors',{instant:true});
     apply();status('已跳转到 '+q('#dev-current-stage').textContent.replace('当前：',''));
@@ -155,6 +155,22 @@
     else {panel.hidden=true;setPicking(false);returnFocus?.isConnected&&returnFocus.focus();}
     launch.setAttribute('aria-expanded',String(value));drawSelection();
   }
+  async function exitDeveloper(){
+    setPicking(false);await N.courseCompletion.dismiss();N.workbenchTransition.cancel();N.trayTransition?.cancel();D.setEnabled(false);
+    if(!N.course.canEnter(currentStage()))N.course.enter(N.course.canEnter('assembly')?'assembly':'mirrors');else N.course.refresh();show(false);
+  }
+  let ctrlTimer=0,ctrlLatched=false;const ctrlKeys=new Set();
+  function resetCtrlHold(){clearTimeout(ctrlTimer);ctrlTimer=0;ctrlKeys.clear();ctrlLatched=false;}
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Control'){if(ctrlKeys.size){clearTimeout(ctrlTimer);ctrlTimer=0;ctrlLatched=true;}return;}
+    if(e.repeat||ctrlKeys.has(e.code))return;ctrlKeys.add(e.code);
+    if(ctrlKeys.size!==1||ctrlLatched||e.altKey||e.metaKey||e.shiftKey)return;
+    ctrlTimer=setTimeout(async()=>{ctrlTimer=0;ctrlLatched=true;if(launch.hidden){launch.hidden=false;}else{await exitDeveloper();launch.hidden=true;}},3000);
+  },true);
+  document.addEventListener('keyup',e=>{if(e.key!=='Control')return;ctrlKeys.delete(e.code);if(!ctrlKeys.size)resetCtrlHold();},true);
+  window.addEventListener('blur',resetCtrlHold);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)resetCtrlHold();});
+  window.addEventListener('pagehide',resetCtrlHold);
   function nudge(x,y,step=Number(q('#dev-nudge-step').value)) {const p=layoutValue(selected);change('layout',configKey(selected),{...p,x:(p.x||0)+x*step,y:(p.y||0)+y*step});}
   function parentMatrix(element) {
     let matrix=new DOMMatrix();
@@ -181,7 +197,7 @@
       case 'reset-all':remember();D.reset();N.store.reset();status('已恢复全部调节默认值，可撤销。');break;
       case 'reset-stage':N.course.resetStage();break;
       case 'preview':await jump('observation');N.observationFlow.openObservation();break;
-      case 'exit':setPicking(false);await N.courseCompletion.dismiss();N.workbenchTransition.cancel();N.trayTransition.cancel();D.setEnabled(false);if(!N.course.canEnter(currentStage()))N.course.enter(N.course.canEnter('assembly')?'assembly':'mirrors');else N.course.refresh();show(false);break;
+      case 'exit':await exitDeveloper();break;
       case 'export': {
         const blob=new Blob([JSON.stringify(D.snapshot(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
         a.href=url;a.download='newton-developer-settings.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('已导出 JSON 配置。');break;
@@ -198,13 +214,11 @@
   q('#dev-text-target').addEventListener('change',e=>{selectedText=e.target.value;syncValues();});
   q('#dev-text').addEventListener('input',e=>change('text',configKey(selectedText),e.target.value));
   panel.addEventListener('keydown',e=>{
-    if(e.ctrlKey&&e.altKey&&e.code==='KeyD')return;
     e.stopPropagation();
     if(e.key==='Escape'){e.preventDefault();if(picking)setPicking(false);else show(false);}
     if(e.target.matches('[role="tab"]')&&['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const list=[...panel.querySelectorAll('[role="tab"]')],i=list.indexOf(e.target),next=e.key==='Home'?0:e.key==='End'?list.length-1:(i+(e.key==='ArrowRight'?1:list.length-1))%list.length;setTab(list[next].dataset.tab);list[next].focus();}
   });
   document.addEventListener('keydown',e=>{
-    if(e.ctrlKey&&e.altKey&&e.code==='KeyD'&&!e.repeat){e.preventDefault();show(panel.hidden);return;}
     if(!picking||e.target.closest('input,textarea,select'))return;
     if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();setPicking(false);return;}
     const direction={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
@@ -244,7 +258,7 @@
   $('.observation-instrument')?.addEventListener('viewmodechange',()=>{drag=null;apply();drawSelection();});
   N.course.subscribe(()=>{queueMicrotask(()=>{apply();drawSelection();});});N.store.subscribe(()=>syncValues());
   // Text authored outside the course store can be re-rendered by its owning module.
-  const observer=new MutationObserver(()=>{if(D.enabled)for(const t of textTargets){if(['title','english','description'].includes(t.id))continue;const v=D.snapshot().text[configKey(t.id)];if(v!==undefined&&t.element.textContent!==v)t.element.textContent=v;}});
+  const observer=new MutationObserver(()=>{if(D.enabled)for(const t of textTargets){if(['title','description'].includes(t.id))continue;const v=D.snapshot().text[configKey(t.id)];if(v!==undefined&&t.element.textContent!==v)t.element.textContent=v;}});
   textTargets.forEach(t=>observer.observe(t.element,{childList:true,characterData:true,subtree:true}));
   apply();if(D.enabled){N.store.set(D.snapshot().parameters);N.course.refresh();show(true);}else setTab('steps');
 })(window.Newton);

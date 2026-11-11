@@ -1,0 +1,50 @@
+{
+  "pass": true,
+  "viewport": "1600x900",
+  "mode": "offline",
+  "autoTransitionDelayMs": 507.80000019073486,
+  "layers": [
+    {
+      "source": "inline",
+      "loaded": true,
+      "hidden": false
+    },
+    {
+      "source": "inline",
+      "loaded": true,
+      "hidden": true
+    },
+    {
+      "source": "inline",
+      "loaded": true,
+      "hidden": true
+    },
+    {
+      "source": "inline",
+      "loaded": true,
+      "hidden": false
+    }
+  ],
+  "checks": [
+    "stage1 to stage2",
+    "approved four PNG layers",
+    "wrong placement",
+    "pointer installation",
+    "reset hides both layers",
+    "completion sound and UI feedback",
+    "0.5 second automatic 3D transition",
+    "uniform one-turn inspection",
+    "completion popup after one turn",
+    "parameter CTA at bottom right",
+    "legacy adjustment dock removed",
+    "continue observing",
+    "star observation navigation",
+    "reduced-motion fallback",
+    "developer-mode automatic flow",
+    "reopen inspection without premature completion",
+    "cancelled inspection cleanup",
+    "click/tap alternative",
+    "label alignment with installation outlines"
+  ],
+  "errors": []
+}

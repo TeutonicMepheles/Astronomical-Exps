@@ -15,7 +15,7 @@
 .observation-saturn-marker[data-target=jupiter]::before{width:11px;height:11px;clip-path:none;border-radius:50%;background:repeating-linear-gradient(8deg,#e6c09b 0 2px,#a87e71 2px 3px);box-shadow:0 0 5px #ffe3bf99}
 .observation-saturn-marker[data-target=pleiades]::before{width:3px;height:3px;clip-path:none;border-radius:50%;background:#edf5ff;box-shadow:-5px -3px 2px #c7dcff,5px -4px 2px #c7dcff,-4px 4px 2px #c7dcff,4px 5px 2px #c7dcff,0 -7px 2px #c7dcff,7px 1px 2px #c7dcff}
 .observation-saturn-marker[data-acquired=true]{border-color:#b7efda;box-shadow:0 0 8px #83dbb866;color:#ceffe9}
-.observation-instrument{position:absolute;left:439px;top:246px;width:722px;height:541px;border:0;padding:0;background:none;pointer-events:auto;touch-action:none;user-select:none;cursor:grab}
+.observation-instrument{position:absolute;left:439px;top:246px;width:722px;height:541px;border:0;padding:0;background:none;pointer-events:auto;touch-action:none;user-select:none;cursor:pointer}
 .observation-instrument canvas{position:absolute;display:block;pointer-events:none}
 .observation-click-hint{position:absolute;z-index:3;width:76px;height:76px;pointer-events:none;transform:translate(calc(-1 * var(--click-tip-x)),calc(-1 * var(--click-tip-y)));color:var(--hint-cream,#fff4d8);opacity:0;animation:observation-click-cycle 4.8s .7s infinite}
 .observation-click-hand{position:absolute;width:76px;height:76px;object-fit:contain;transform-origin:var(--click-tip-x) var(--click-tip-y);animation:observation-click-tap 2.8s infinite}
@@ -31,7 +31,6 @@
 @keyframes observation-click-cycle{0%,8%,78%,100%{opacity:0}18%,64%{opacity:1}}
 @media(prefers-reduced-motion:reduce){.observation-click-hint{animation-timing-function:steps(1,end)}.observation-click-hand,.observation-click-ring{animation:none}.observation-click-ring{opacity:.5}}
 .observation-preparation-status{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;padding:12px 20px;border:1px solid #e7ce9b66;border-radius:10px;background:#14253de6;color:#e7ce9b;font-size:18px;pointer-events:none;z-index:2}
-.observation-instrument.is-dragging{cursor:grabbing}
 .observatory[data-stage=observation]{touch-action:none}
 .observation-model-fallback{display:none;position:absolute;inset:40% 15% auto;margin:0;font-size:18px;line-height:1.8;text-align:center;color:#dbe8ff}
 .observation-instrument.model-unavailable .observation-model-fallback{display:block}
@@ -70,7 +69,7 @@
 .observatory[data-stage=observation] .title-rule{order:-1;margin:0;width:59px;height:3px;box-shadow:none}
 .observatory[data-stage=observation] .english-title{order:2;margin:0;font-size:17.6px;letter-spacing:4.928px;line-height:22.5px}
 .observatory[data-stage=observation] #course-progress{left:auto;right:48px;top:48px}
-.observatory[data-stage=observation] #course-progress .experiment-progress__popup{left:auto;right:0;transform-origin:top right}
+.observatory[data-stage=observation] #course-progress .newton-task-progress__popup{left:auto;right:0;transform-origin:top right}
 .observation-sliders{position:absolute;left:90px;top:552px;width:290px;height:290px;pointer-events:auto}
 .observation-slider{position:absolute;left:0;top:0;width:133px;height:285px;text-align:center;font-variant-numeric:tabular-nums}
 .observation-slider:nth-child(2){left:80px}.observation-slider:nth-child(3){left:157px}
@@ -168,3 +167,14 @@
     animation:observation-preview-enter .74s cubic-bezier(.22,1,.36,1) both;
   }
 }
+
+/* Tap-based orbit and elevation controls, matching stage-two inspection. */
+.observation-view-tools{left:490px;width:620px;gap:12px}
+.observation-is-open .observation-view-tools{left:345px;top:655px}
+.observation-turn-controls{display:flex;gap:12px}
+.observation-turn-controls button{display:flex;align-items:center;justify-content:center;gap:8px;min-width:100px;min-height:60px;padding:10px 16px;border:1px solid #c6a871a8;border-radius:12px;background:#253832ed;color:#ffedca;font:inherit;font-size:22px;touch-action:manipulation;box-shadow:0 4px 16px #081b2333}
+.observation-turn-controls button span{font-size:30px;line-height:1}
+.observation-turn-controls button:not(:disabled):is(:hover,:active){background:#425449;border-color:#ffedca}
+.observation-turn-controls button:focus-visible{outline:2px solid #b9d8ff;outline-offset:3px}
+.observation-turn-controls button:disabled{opacity:.4}
+.observation-turn-controls button[hidden]{display:none}

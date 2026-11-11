@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-11-09T17:33:12.270Z",
-  "browserVersion": "156.0.4314.58",
-  "url": "http://127.0.0.1:50912/experiments/newton-telescope/tests/real-viewer-harness.html",
+  "timestamp": "2026-11-10T12:42:55.159Z",
+  "browserVersion": "157.0.4341.42",
+  "url": "http://127.0.0.1:1513/experiments/newton-telescope/tests/real-viewer-harness.html",
   "errors": [],
   "bloomDifference": {
-    "changedPixels": 22374,
-    "totalRGBDifference": 1657052,
+    "changedPixels": 22373,
+    "totalRGBDifference": 1657156,
     "width": 1600,
     "height": 650
   },
@@ -15,112 +15,112 @@
       "checks": [
         {
           "ray": 0,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 782,
           "y": 255,
           "maxRGBDifference": 0
         },
         {
           "ray": 1,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 779,
           "y": 259,
           "maxRGBDifference": 0
         },
         {
           "ray": 2,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 778,
           "y": 266,
           "maxRGBDifference": 0
         },
         {
           "ray": 3,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 778,
           "y": 276,
           "maxRGBDifference": 0
         },
         {
           "ray": 4,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 780,
           "y": 287,
           "maxRGBDifference": 0
         },
         {
           "ray": 5,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 783,
           "y": 298,
           "maxRGBDifference": 0
         },
         {
           "ray": 6,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 787,
-          "y": 308,
+          "y": 307,
           "maxRGBDifference": 0
         },
         {
           "ray": 7,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 791,
           "y": 313,
           "maxRGBDifference": 0
         },
         {
           "ray": 8,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 795,
           "y": 315,
           "maxRGBDifference": 0
         },
         {
           "ray": 9,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 798,
           "y": 311,
           "maxRGBDifference": 0
         },
         {
           "ray": 10,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 800,
           "y": 304,
           "maxRGBDifference": 0
         },
         {
           "ray": 11,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 800,
           "y": 293,
           "maxRGBDifference": 0
         },
         {
           "ray": 12,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 798,
           "y": 282,
           "maxRGBDifference": 0
         },
         {
           "ray": 13,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 795,
           "y": 270,
           "maxRGBDifference": 0
         },
         {
           "ray": 14,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 791,
           "y": 262,
           "maxRGBDifference": 0
         },
         {
           "ray": 15,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 786,
           "y": 256,
           "maxRGBDifference": 0
@@ -132,112 +132,112 @@
       "checks": [
         {
           "ray": 0,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 789,
           "y": 254,
           "maxRGBDifference": 0
         },
         {
           "ray": 1,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 795,
-          "y": 258,
+          "y": 257,
           "maxRGBDifference": 0
         },
         {
           "ray": 2,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 801,
           "y": 265,
           "maxRGBDifference": 0
         },
         {
           "ray": 3,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 805,
           "y": 275,
           "maxRGBDifference": 0
         },
         {
           "ray": 4,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 806,
           "y": 287,
           "maxRGBDifference": 0
         },
         {
           "ray": 5,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 805,
           "y": 298,
           "maxRGBDifference": 0
         },
         {
           "ray": 6,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 802,
           "y": 307,
           "maxRGBDifference": 0
         },
         {
           "ray": 7,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 797,
           "y": 313,
           "maxRGBDifference": 0
         },
         {
           "ray": 8,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 791,
           "y": 314,
           "maxRGBDifference": 0
         },
         {
           "ray": 9,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 785,
           "y": 310,
           "maxRGBDifference": 0
         },
         {
           "ray": 10,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 779,
           "y": 303,
           "maxRGBDifference": 0
         },
         {
           "ray": 11,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 775,
           "y": 292,
           "maxRGBDifference": 0
         },
         {
           "ray": 12,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 774,
           "y": 280,
           "maxRGBDifference": 0
         },
         {
           "ray": 13,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 774,
           "y": 269,
           "maxRGBDifference": 0
         },
         {
           "ray": 14,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 778,
           "y": 260,
           "maxRGBDifference": 0
         },
         {
           "ray": 15,
-          "occluder": "Tube_BackShell",
+          "occluder": "Tube_BackShell.001",
           "x": 783,
           "y": 255,
           "maxRGBDifference": 0
@@ -252,6 +252,13 @@
       "apiRemoved": true,
       "canvases": 1,
       "nextState": {
+        "surfaceStyle": {
+          "grain": 1,
+          "lighting": 1,
+          "contactShadow": true,
+          "floor": 0,
+          "shadowY": -0.008
+        },
         "section": false,
         "rays": false,
         "bloom": true,
@@ -260,26 +267,26 @@
         "yaw": -0.3520443143154173,
         "pitch": 0.13094748194363778,
         "distance": 21.060923531507353,
-        "meshCount": 132,
-        "visibleMeshes": 132,
-        "triangleCount": 115362,
+        "meshCount": 129,
+        "visibleMeshes": 129,
+        "triangleCount": 111170,
         "acceptedRays": 16,
         "renderCount": 2,
         "disposed": false,
-        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Laptop GPU (0x00002D59) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
         "rendererInfo": {
           "memory": {
-            "geometries": 132,
-            "textures": 4
+            "geometries": 130,
+            "textures": 3
           },
           "render": {
             "frame": 2,
-            "calls": 132,
-            "triangles": 115362,
+            "calls": 130,
+            "triangles": 111172,
             "points": 0,
             "lines": 0
           },
-          "programs": 2
+          "programs": 3
         },
         "canvasAlpha": true,
         "clearAlpha": 0,
@@ -297,6 +304,13 @@
       "apiRemoved": true,
       "canvases": 1,
       "nextState": {
+        "surfaceStyle": {
+          "grain": 1,
+          "lighting": 1,
+          "contactShadow": true,
+          "floor": 0,
+          "shadowY": -0.008
+        },
         "section": false,
         "rays": false,
         "bloom": true,
@@ -305,26 +319,26 @@
         "yaw": -0.3520443143154173,
         "pitch": 0.13094748194363778,
         "distance": 21.060923531507353,
-        "meshCount": 132,
-        "visibleMeshes": 132,
-        "triangleCount": 115362,
+        "meshCount": 129,
+        "visibleMeshes": 129,
+        "triangleCount": 111170,
         "acceptedRays": 16,
         "renderCount": 2,
         "disposed": false,
-        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Laptop GPU (0x00002D59) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
         "rendererInfo": {
           "memory": {
-            "geometries": 132,
-            "textures": 4
+            "geometries": 130,
+            "textures": 3
           },
           "render": {
             "frame": 2,
-            "calls": 132,
-            "triangles": 115362,
+            "calls": 130,
+            "triangles": 111172,
             "points": 0,
             "lines": 0
           },
-          "programs": 2
+          "programs": 3
         },
         "canvasAlpha": true,
         "clearAlpha": 0,
@@ -342,6 +356,13 @@
       "apiRemoved": true,
       "canvases": 1,
       "nextState": {
+        "surfaceStyle": {
+          "grain": 1,
+          "lighting": 1,
+          "contactShadow": true,
+          "floor": 0,
+          "shadowY": -0.008
+        },
         "section": false,
         "rays": false,
         "bloom": true,
@@ -350,26 +371,26 @@
         "yaw": -0.3520443143154173,
         "pitch": 0.13094748194363778,
         "distance": 21.060923531507353,
-        "meshCount": 132,
-        "visibleMeshes": 132,
-        "triangleCount": 115362,
+        "meshCount": 129,
+        "visibleMeshes": 129,
+        "triangleCount": 111170,
         "acceptedRays": 16,
         "renderCount": 2,
         "disposed": false,
-        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Laptop GPU (0x00002D59) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
         "rendererInfo": {
           "memory": {
-            "geometries": 132,
-            "textures": 4
+            "geometries": 130,
+            "textures": 3
           },
           "render": {
             "frame": 2,
-            "calls": 132,
-            "triangles": 115362,
+            "calls": 130,
+            "triangles": 111172,
             "points": 0,
             "lines": 0
           },
-          "programs": 2
+          "programs": 3
         },
         "canvasAlpha": true,
         "clearAlpha": 0,
@@ -383,6 +404,13 @@
     }
   ],
   "state": {
+    "surfaceStyle": {
+      "grain": 1,
+      "lighting": 1,
+      "contactShadow": true,
+      "floor": 0,
+      "shadowY": -0.008
+    },
     "section": false,
     "rays": false,
     "bloom": true,
@@ -391,26 +419,26 @@
     "yaw": -0.3520443143154173,
     "pitch": 0.13094748194363778,
     "distance": 21.060923531507353,
-    "meshCount": 132,
-    "visibleMeshes": 132,
-    "triangleCount": 115362,
+    "meshCount": 129,
+    "visibleMeshes": 129,
+    "triangleCount": 111170,
     "acceptedRays": 16,
     "renderCount": 2,
     "disposed": false,
-    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5060 Laptop GPU (0x00002D59) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
     "rendererInfo": {
       "memory": {
-        "geometries": 132,
-        "textures": 4
+        "geometries": 130,
+        "textures": 3
       },
       "render": {
         "frame": 2,
-        "calls": 132,
-        "triangles": 115362,
+        "calls": 130,
+        "triangles": 111172,
         "points": 0,
         "lines": 0
       },
-      "programs": 2
+      "programs": 3
     },
     "canvasAlpha": true,
     "clearAlpha": 0,
@@ -431,17 +459,14 @@
     "accepted": 16,
     "rejected": [],
     "boredMeshes": [
-      "Tube_BackShell",
-      "Tube_UpperLip",
-      "Tube_LowerLip",
+      "Eyepiece_Saddle",
       "Tube_BackInterior",
-      "Tube_UpperInterior",
+      "Tube_BackShell",
       "Tube_LowerInterior",
-      "Tube_WindowEdge_0.86",
-      "Tube_WindowEdge_2.28",
       "Tube_RearClosure",
       "Tube_RearEndStep",
-      "Eyepiece_Saddle"
+      "Tube_UpperInterior",
+      "Tube_BackShell.001"
     ],
     "rays": [
       {

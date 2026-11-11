@@ -5,7 +5,11 @@
 .assembly-targets{position:absolute;inset:0;z-index:13;pointer-events:none;visibility:hidden}
 .layered-assembly:not(.workbench-transition) .assembly-targets{visibility:visible}
 .assembly-slot{position:absolute;pointer-events:auto;border:2px dashed #aac8e8;border-radius:50%;background:#addfff0c;cursor:pointer;color:#e4f2ff}
-.assembly-slot span{position:absolute;white-space:nowrap;top:100%;left:50%;transform:translateX(-50%);font:17px 'Microsoft YaHei';padding:6px 10px;border-radius:12px;background:#153858dd}
+.assembly-slot span{
+  position:absolute;bottom:3px;left:50%;display:block;width:88px;min-height:36px;
+  transform:translateX(-50%);padding:6px 10px;border-radius:12px;background:#153858dd;
+  color:#edf6ff;font:17px/22px 'Microsoft YaHei';text-align:center;white-space:nowrap;
+}
 .assembly-slot.hovered{border-color:#ffe3a1;background:#ffe3a133;box-shadow:0 0 22px #ffe3a166}
 .assembly-slot.installed{border-color:transparent;background:transparent}
 .mounted-surface{display:none;position:absolute;inset:8px 20px;border-radius:50%;background:linear-gradient(100deg,#577c9f,#dbf3ff 45%,#8eb5d6 65%,#324964);border:4px solid #92abc2;box-shadow:inset 5px 0 8px #173450}
@@ -39,3 +43,17 @@
 .observatory .assembly-telescope{left:390px;top:100px;width:860px;height:645px}
 .observatory .assembly-installed-secondary{left:493.5369873046875px;top:209.022216796875px;width:134.375px;height:134.375px;transform:none}
 .assembly-telescope[hidden]{display:none}
+
+/* Registered mirror contours; brightness breathes without moving their geometry. */
+.observatory[data-stage=assembly] .assembly-slot{border:0;background:transparent;box-shadow:none;}
+.assembly-slot-outline{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+.assembly-slot-dashes{fill:none;stroke:#ffe3a1;stroke-width:4.5;stroke-dasharray:8 6;animation:assembly-slot-breathe 1.8s ease-in-out infinite;}
+.assembly-slot-glow{fill:none;stroke:#ffd178;stroke-width:10;filter:blur(4px);opacity:.18;animation:assembly-slot-glow 1.8s ease-in-out infinite;}
+.assembly-slot:is(.selected,.hovered) .assembly-slot-dashes{stroke:#fff6d3;stroke-width:5.5;}
+.assembly-slot.installed .assembly-slot-outline{display:none;}
+.observatory.newton-rotation-active .assembly-slot-outline ellipse,.assembly-targets[hidden] .assembly-slot-outline ellipse{animation:none;}
+@keyframes assembly-slot-breathe{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes assembly-slot-glow{0%,100%{opacity:.12}50%{opacity:.5}}
+@media(prefers-reduced-motion:reduce){.assembly-slot-outline ellipse{animation:none;}.assembly-slot-dashes{opacity:1;}.assembly-slot-glow{opacity:.22;}}
+
+.observatory[data-stage=assembly] .assembly-slot span{bottom:5px;}

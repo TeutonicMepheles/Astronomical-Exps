@@ -1,14 +1,17 @@
-/* Host adapter: shared preview components consume actual course state and DOM anchors. */
+/* Host adapter: the Newton task cards consume actual course state and DOM anchors. */
 (function(N){
  'use strict';
  const $=s=>document.querySelector(s),course=N.course;
- const progress=new ExperimentUI.ExperimentProgress($('#course-progress'),{onRequest:id=>course.requestEnter(id)});
+ const progress=new NewtonTaskProgress($('#course-progress'),{onRequest:id=>course.requestEnter(id)});
  const restart=document.createElement('button');restart.type='button';restart.id='restart-course';restart.className='course-restart';restart.textContent='重新开始实验';progress.popup.append(restart);
  restart.addEventListener('click',()=>{course.restart();progress.setExpanded(false);});
  const disconnect=connectNewtonProgress({course,view:progress});
  // Catalog paths are relative to the preview page; resolve them without copying artwork.
  const hand=ExperimentHints.handIcons.find(icon=>icon.id==='grab');
- const guide=new ExperimentHints.GestureHint(),bubble=new ExperimentHints.NameBubble();
+ const guide=new ExperimentHints.GestureHint(),nameBubble=new ExperimentHints.NameBubble();
+ let tipTarget=null;
+ // Reflectors, lenses and the carriage share one public NameBubble instance.
+ const bubble={show(options){this.hide();tipTarget=options.target;tipTarget.dataset.specimenTip='true';nameBubble.show(options);},hide(target){if(target&&target!==tipTarget)return;if(tipTarget)delete tipTarget.dataset.specimenTip;tipTarget=null;nameBubble.hide();}};
  const anchor=document.createElement('span');anchor.id='mirror-guide-anchor';anchor.setAttribute('aria-hidden','true');$('#mirror-workspace').append(anchor);
  const names={plane:'平面镜',concave:'凹面镜',convex:'凸面镜'};
  const abort=new AbortController(),on=(el,event,fn)=>el.addEventListener(event,fn,{signal:abort.signal});
@@ -28,12 +31,14 @@
   const text=el.dataset.mirror?names[el.dataset.mirror]:document.querySelector('.observatory').dataset.trayPage==='lenses'?(s.lens?(s.lens==='concave'?'凹透镜':'凸透镜'):'透镜圆环镜座'):(s.mirrorMounted?names[s.mirror]:'镜片夹具');
   bubble.show({target:el,text});
  }
+ function restoreTip(){if(interacting||course.get().stage!=='mirrors')return;if(N.tableSpecimens?.describeSelection())return;const selected=course.get().mirrorSelection;if(selected)describe($('[data-mirror="'+selected+'"]'));}
  const arrows=document.createElement('div');arrows.id='mirror-move-handle';arrows.hidden=true;arrows.setAttribute('role','group');arrows.setAttribute('aria-label','左右拖动镜片夹具');arrows.innerHTML='<button type="button" class="clamp-arrow clamp-arrow-left" aria-label="拖动夹具左侧箭头"><img src="assets/arrow-options/gold-left.png" alt="" draggable="false"></button><button type="button" class="clamp-arrow clamp-arrow-right" aria-label="拖动夹具右侧箭头"><img src="assets/arrow-options/gold-left.png" alt="" draggable="false"></button>';$('#mirror-workspace').append(arrows);
  const targets=[...document.querySelectorAll('[data-mirror]'),$('#rail-carriage'),$('#mirror-drop-slot')];
  targets.forEach(el=>{
   on(el,'pointerenter',e=>{if(e.pointerType!=='touch')describe(el);});
-  on(el,'pointerleave',()=>{if(document.activeElement!==el)bubble.hide();});
-  on(el,'focus',()=>describe(el));on(el,'blur',()=>bubble.hide());
+  on(el,'pointerleave',()=>{if(document.activeElement!==el){bubble.hide(el);restoreTip();}});
+  on(el,'focus',()=>describe(el));on(el,'blur',()=>{bubble.hide(el);restoreTip();});
+  if(el.dataset.mirror)on(el,'click',()=>queueMicrotask(()=>describe(el)));
   on(el,'pointerdown',()=>{interacting=true;stop();});
  });
  on($('#rail-carriage'),'click',()=>{course.clearMirrorSelection();arrows.hidden=false;bubble.hide();});
@@ -49,8 +54,9 @@
   if(s.stage!==lastStage||s.seen.length===0&&lastSeen>0){dismissed=false;stop();}
   if(N.trayTransition?.busy||s.stage!=='mirrors'||s.seen.length||s.mirrorMounted)stop();else schedule();
   lastStage=s.stage;lastSeen=s.seen.length;
+  if(s.stage==='mirrors'&&s.mirrorSelection)queueMicrotask(()=>{const latest=course.get();if(latest.stage==='mirrors'&&latest.mirrorSelection===s.mirrorSelection)describe($('[data-mirror="'+s.mirrorSelection+'"]'));});
  });
  lastStage=course.get().stage;schedule();
- on(window,'pagehide',()=>{stop();abort.abort();unsubscribe();disconnect();progress.destroy();});
- N.courseInteractions={progress,guide,bubble};
+ on(window,'pagehide',()=>{stop();abort.abort();unsubscribe();disconnect();progress.destroy();nameBubble.destroy();});
+ N.courseInteractions={progress,guide,bubble,restoreTip};
 })(window.Newton);

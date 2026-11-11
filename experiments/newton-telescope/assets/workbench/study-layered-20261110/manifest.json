@@ -1,0 +1,27 @@
+{
+  "source": "user-provided 2026-11-10",
+  "source_size": [
+    2048,
+    1152
+  ],
+  "split_y": 723,
+  "back_wall": {
+    "file": "back-wall.png",
+    "box": [
+      0,
+      0,
+      2048,
+      723
+    ]
+  },
+  "foreground_desk": {
+    "file": "foreground-desk.png",
+    "box": [
+      0,
+      723,
+      2048,
+      1152
+    ]
+  },
+  "processing": "lossless deterministic crop; no generative edit"
+}

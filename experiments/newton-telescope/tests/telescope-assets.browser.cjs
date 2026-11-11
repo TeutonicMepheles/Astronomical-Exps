@@ -6,7 +6,7 @@ const assert=require('node:assert/strict'),{chromium}=require('playwright'),path
   const page=await browser.newPage({viewport:{width:1600,height:900},offline:url.startsWith('file:')}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>errors.push(r.url().slice(0,100)));
   await page.goto(url);
-  await page.evaluate(()=>{for(const m of ['plane','concave','convex'])Newton.course.mountMirror(m);Newton.course.enter('assembly');});
+  await page.evaluate(()=>{for(const m of ['plane','concave','convex'])Newton.course.mountMirror(m);for(const l of ['concave','convex'])Newton.course.mountLens(l);Newton.course.enter('assembly');});
   await page.locator('.assembly-slot.concave').waitFor({state:'visible'});
   assert.equal(await page.locator('.assembly-installed-primary').isVisible(),false);
   await page.locator('[data-assembly-mirror=plane]').click();await page.locator('.assembly-slot.concave').click();

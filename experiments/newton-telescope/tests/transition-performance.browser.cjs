@@ -10,7 +10,7 @@ const root=path.resolve(__dirname,'../../..');
     const url=process.env.EXPERIMENT_URL&&process.env.EXPERIMENT_URL!=='offline'?process.env.EXPERIMENT_URL:pathToFileURL(path.join(root,'dist/newton-telescope/index.html')).href;
     await page.goto(url);await page.waitForFunction(()=>Newton.app?.observationModel&&Newton.observationFlow);
     await page.waitForFunction(()=>{const v=Newton.app.observationModel;return [v.material,v.section.material].every(m=>['map','normalMap','roughnessMap'].every(k=>m[k].image?.width));});
-    await page.evaluate(()=>{const c=Newton.course;for(const mirror of ['plane','concave','convex'])c.mountMirror(mirror);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+    await page.evaluate(()=>{const c=Newton.course;for(const mirror of ['plane','concave','convex'])c.mountMirror(mirror);for(const lens of ['concave','convex'])c.mountLens(lens);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
     await page.waitForTimeout(Number(process.env.START_DELAY_MS??1200));
     await page.evaluate(()=>{
       const v=Newton.app.observationModel;

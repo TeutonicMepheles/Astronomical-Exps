@@ -3,7 +3,7 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
 const context={window:{}};vm.createContext(context);
 for(const file of ['state.js','course-state.js'])vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../js',file),'utf8'),context);
 const N=context.window.Newton,c=N.course;
-const reflectiveState=()=>JSON.stringify(['mirror','mirrorMounted','mirrorSelection','mirrorFocal','mirrorPosition','seen'].map(k=>c.get()[k]));
+const reflectiveState=()=>JSON.stringify(['mirror','mirrorMounted','mirrorSelection','mirrorFocal','mirrorPosition'].map(k=>c.get()[k]));
 const beforeLens=reflectiveState();
 assert.equal(c.mountLens('invalid'),false);assert.equal(c.mountLens('concave'),true);assert.equal(c.get().lens,'concave');
 c.setConvexShape(85);assert.equal(c.get().convexShape,100,'concave lens does not change the convex control');
@@ -27,8 +27,13 @@ c.selectMirror('concave');c.selectMirror('convex');assert.equal(c.get().seen.len
 for(const mirror of ['plane','concave','convex']){c.selectMirror(mirror);assert.equal(c.mountMirror(),true);}
 assert.equal(c.mountMirror('invalid'),false);assert.equal(c.get().seen.length,3);
 c.removeMirror();assert.equal(c.get().mirrorMounted,false);assert.equal(c.get().seen.length,3);
+assert.equal(c.enter('assembly'),false,'three reflective mirrors alone do not complete the five-lens lesson');
+assert.equal(c.mountLens('concave'),true);assert.equal(c.get().seen.length,4);assert.equal(c.enter('assembly'),false);
+assert.equal(c.mountLens('convex'),true);assert.equal(c.get().seen.length,5);assert.equal(c.get().seen.filter((v,i,a)=>a.indexOf(v)===i).length,5);
+assert.equal(c.get().seen.join(','),'mirror:plane,mirror:concave,mirror:convex,lens:concave,lens:convex');
+c.mountLens('convex');assert.equal(c.get().seen.length,5,'re-installing a lens does not add a completion');
 assert.equal(c.enter('assembly'),true);assert.equal(c.mountMirror('plane'),false);
-assert.equal(c.mountLens('concave'),false);assert.equal(c.get().lens,null);
+assert.equal(c.mountLens('concave'),false);assert.equal(c.get().lens,'convex','leaving the lens tray preserves the last installed lens');
 c.selectPart('primary');assert.equal(c.install('secondary'),false);assert.equal(c.get().installed.length,0);
 assert.equal(c.install('primary'),true);assert.equal(c.enter('observation'),false);
 c.selectPart('secondary');assert.equal(c.install('secondary'),true);assert.equal(c.enter('observation'),true);
@@ -41,4 +46,4 @@ N.store.set({focal:610});c.record();assert.equal(c.get().records.length,1);asser
 N.store.set({eyepiece:7});c.record();assert.equal(c.get().records.length,1);
 c.enter('assembly');c.resetStage();assert.equal(c.canEnter('observation'),false);assert.equal(c.get().records.length,0);
 c.restart();assert.equal(c.get().stage,'mirrors');assert.equal(c.get().seen.length,0);assert.equal(c.get().mirrorMounted,false);
-console.log('PASS: course progression and controlled-comparison invariants.');
+console.log('PASS: five-lens recognition gate, course progression and controlled-comparison invariants.');

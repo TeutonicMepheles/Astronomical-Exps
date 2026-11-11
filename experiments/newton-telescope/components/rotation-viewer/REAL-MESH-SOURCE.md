@@ -31,3 +31,14 @@
 - 浏览器：`tests/real-viewer.browser.cjs`，独立harness仅专项检查，不是正式入口。默认正式入口仍是实验index.html。
 - 生命周期：AbortController移除输入/visibility监听，ResizeObserver断开，RAF取消，材质/纹理/几何/Bloom目标和WebGL context释放。
 - 按需渲染，静止时无持续RAF；自动环视才连续渲染。像素比上限1.5，半分辨率模糊。未套用其他实验的性能阈值或验收结论。
+
+
+## 2026-11-10 用户 Cover 模型试用
+
+正式入口与专项 harness 当前加载 `assets/step2-real/model-data-cover.js`，源文件为用户提供的 `assets/step2-real/assets/Newton-Step2-Cover.glb`，SHA-256 `9ed6a662e5df091c694b5094c9d7c8fb7b20b0392d2e91d86af244d46a4c189f`。原 GLB、原 model-data.js 和原生成器均保留。
+
+可复现转换：`python experiments/newton-telescope/assets/step2-real/source/import_cover.py`。按glTF节点层级烘焙变换，法线用逆转置，负行列式反转三角面绕序；glTF UV的V翻转适配现有TextureLoader。保留原材质库，以材质名称映射（wood.001归wood），所以手绘贴图、噪点、灯光、阴影均沿用当前查看器，不导入新模型的灯光或相机。
+
+Cover为129个网格。原名Tube_BackShell经反射变换覆盖正面，Tube_BackShell.001保留背面；外观两者显示，剖面只隐藏正面遮盖。新增前壳仍参加真实光束遮挡与原目镜通孔处理。原内部主副镜及目镜表面命名保留，16条几何光路检查通过。
+
+验证与截图见 `../../review/cover-model-20261110/REPORT.md`。历史132网格描述仅指原R2版本；原GLB不包含网页手绘与光照效果，新GLB也未被回写这些运行材质。

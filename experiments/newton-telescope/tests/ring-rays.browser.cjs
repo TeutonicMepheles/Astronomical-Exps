@@ -12,7 +12,7 @@ const {pathToFileURL}=require('node:url'),root=path.resolve(__dirname,'../../..'
   const page=await browser.newPage({viewport:{width:1600,height:900}}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(url);await page.waitForFunction(()=>window.Newton?.app?.observationModel?.resourcesReady);
-  await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');Newton.observationFlow.section({immediate:true});});
+  await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');Newton.observationFlow.section({immediate:true});});
   const folder=path.join(__dirname,'artifacts');fs.mkdirSync(folder,{recursive:true});
   async function read(){return page.evaluate(()=>{
    const m=Newton.app.observationModel,s=m.section,c=s.calculation;

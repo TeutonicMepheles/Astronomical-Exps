@@ -14,10 +14,10 @@
       <img class="observation-night" src="assets/observation-figma/night-landscape-hd-4k.png" width="3840" height="2160" decoding="async" alt="" draggable="false">
       <div class="observation-saturn-layer"><div class="observation-saturn-marker" hidden aria-hidden="true"></div></div>
     </div>
-    <div class="observation-instrument" role="button" tabindex="0" aria-label="牛顿反射式望远镜，点击进入剖面光路" aria-describedby="observation-orbit-help" aria-controls="observation-feedback" aria-expanded="false">
+    <div class="observation-instrument" role="button" tabindex="0" aria-label="牛顿反射式望远镜，点击进入剖面光路" aria-controls="observation-feedback" aria-expanded="false">
       <p class="observation-model-fallback" role="status">三维视图暂不可用，请刷新页面。</p>
     </div>
-    <div class="observation-view-tools"><span id="observation-orbit-help">↔ 左右拖动，环视望远镜</span><button type="button" class="observation-view-reset" hidden>恢复视角</button></div>
+    <div class="observation-view-tools"><div class="observation-turn-controls" role="group" aria-label="调整望远镜角度"><button type="button" data-observation-turn="left"><span aria-hidden="true">↶</span>左转</button><button type="button" data-observation-turn="right"><span aria-hidden="true">↷</span>右转</button><button type="button" data-observation-turn="up" hidden>抬高</button><button type="button" data-observation-turn="down" hidden>压低</button></div><button type="button" class="observation-view-reset" hidden>恢复视角</button></div>
     <div class="observation-sliders" aria-label="望远镜参数" hidden></div>
     <div class="observation-targets" role="group" aria-label="观测目标">
       <button type="button" data-observation-target="saturn">土星</button><button type="button" data-observation-target="moon">月球</button><button type="button" data-observation-target="jupiter">木星</button><button type="button" data-observation-target="pleiades">昴星团</button>
@@ -37,16 +37,18 @@
   const clickHint=model?new N.ObservationClickHint(model):null;
   let flow;
   $('.observation-view-reset').addEventListener('click',()=>model?.resetView());
+  const turnButtons=[...scene.querySelectorAll('[data-observation-turn]')];
+  for(const button of turnButtons)button.addEventListener('click',()=>model?.turnView(button.dataset.observationTurn));
   function syncMode(){
-    const busy=Boolean(model?.transition),sectionMode=model?.viewMode==='section',phase=flow?.phase??'initial';
+    const busy=Boolean(model?.transition||model?.pendingViewMode),sectionMode=model?.viewMode==='section',phase=flow?.phase??'initial';
     if(phase==='initial')aim.reset();
     scene.dataset.flowPhase=phase;
     clickHint?.setPhase(phase);
     scene.classList.toggle('observation-section-mode',sectionMode);
     sliders.hidden=phase==='initial';
     $('.observation-view-reset').hidden=phase==='initial';$('.observation-view-reset').disabled=busy;
-    $('.observation-instrument').setAttribute('aria-label',sectionMode?'望远镜剖面，上下拖动镜筒调仰角，左右拖动环视，点击目镜进入观测':'牛顿反射式望远镜，点击进入剖面光路');
-    $('#observation-orbit-help').textContent=sectionMode?'↔ 环视 · ↕ 拖动镜筒调仰角':'↔ 左右拖动，环视望远镜';
+    $('.observation-instrument').setAttribute('aria-label',sectionMode?'望远镜剖面，使用角度按钮调整方向，点击目镜进入观测':'牛顿反射式望远镜，点击进入剖面光路');
+    for(const button of turnButtons){button.disabled=busy||!model;button.hidden=['up','down'].includes(button.dataset.observationTurn)&&!sectionMode;}
     updateAim();
   }
   $('.observation-instrument').addEventListener('viewmodechange',syncMode);
@@ -104,7 +106,7 @@
     let hint='点击下方「'+(N.observationTargets[aim.suggestedTarget()]?.name||name)+'」开始寻找';
     if(value.selected){
       const directions=[];
-      if(Math.abs(value.x)>.3)directions.push(value.x>0?'向左拖动镜筒':'向右拖动镜筒');
+      if(Math.abs(value.x)>.3)directions.push(value.x>0?'点按左转':'点按右转');
       if(Math.abs(value.y)>.3)directions.push(value.y<0?'抬高镜筒':'压低镜筒');
       hint=!value.available?'正在定位目标':!value.facing?'开口背向目标 · '+directions.join(' · '):value.acquired?
         (value.aligned?(value.observed?name+'观测完成':'已对准'+name):name+'已进入视野'):directions.join(' · ');

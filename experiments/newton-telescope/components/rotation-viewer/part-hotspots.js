@@ -19,13 +19,13 @@
     layer.setAttribute('aria-label','望远镜可查看部件');host.append(layer);
     const popup=document.createElement('section');popup.className='newton-part-popover';popup.hidden=true;
     popup.setAttribute('role','dialog');popup.setAttribute('aria-label','望远镜部件介绍');
-    popup.innerHTML='<button type="button" class="newton-part-close" aria-label="关闭部件介绍">×</button><span class="newton-part-eyebrow">TELESCOPE ANATOMY</span><h3></h3><p></p>';
+    popup.innerHTML='<button type="button" class="newton-part-close" aria-label="关闭部件介绍">×</button><h3></h3><p></p>';
     host.append(popup);
     const title=popup.querySelector('h3'),description=popup.querySelector('p');
     const raycaster = new T.Raycaster(), toCamera=new T.Vector3(), project=new T.Vector3();
     const allKeys=Object.keys(PARTS);
     let selected=null, focusPoint=null, press=null, pressTimer=0, inputTimer=0, destroyed=false;
-    let lastLayout=0;
+    let lastLayout=0,popupSize={w:380,h:240};
     const partGroups=Object.fromEntries(allKeys.map(key=>[key,meshes.filter(m=>m.userData.part===key)]));
     const bounding=Object.fromEntries(allKeys.map(key=>{
       const box=new T.Box3();for(const mesh of partGroups[key])box.expandByObject(mesh);
@@ -47,7 +47,7 @@
       const autoButton=dock.querySelector('[data-real-action="auto"]');
       if(autoButton?.getAttribute('aria-pressed')==='true')autoButton.click();
       api.selectPart(key);title.textContent=PARTS[key].name;description.textContent=PARTS[key].detail;
-      popup.hidden=false;for(const [k,dot] of dots)dot.classList.toggle('is-selected',k===key);
+      popup.hidden=false;popupSize={w:popup.offsetWidth,h:popup.offsetHeight};for(const [k,dot] of dots)dot.classList.toggle('is-selected',k===key);
       update(true);
     }
     popup.querySelector('.newton-part-close').addEventListener('click',()=>close(),{signal});
@@ -99,7 +99,7 @@
       toolToggle.textContent=toolPanel.hidden?'工具 ▾':'工具 ▴';
     },{signal});
     const legacyParts=dock.querySelector('.real-viewer-parts');if(legacyParts)legacyParts.hidden=true;
-    const ro=new ResizeObserver(()=>requestUpdate());ro.observe(host);
+    const ro=new ResizeObserver(entries=>{for(const entry of entries)if(entry.target===popup&&!popup.hidden){const box=entry.borderBoxSize?.[0];popupSize={w:box?.inlineSize||popup.offsetWidth,h:box?.blockSize||popup.offsetHeight};}requestUpdate();});ro.observe(host);ro.observe(popup);
     function requestUpdate(){if(destroyed||inputTimer)return;inputTimer=requestAnimationFrame(()=>{inputTimer=0;update(true);});}
     function visibleGeometry(){return meshes.filter(m=>m.visible);}
     function findVisibleAnchor(key,visible){
@@ -140,8 +140,8 @@
         if(!target){popup.hidden=true;return;}
         const screen=reposition(popup,target);
         if(!screen){popup.hidden=true;return;}
-        const x=Math.min(screen.w-280,Math.max(12,screen.x+24)),
-          y=Math.min(screen.h-134,Math.max(12,screen.y-15));
+        const x=Math.max(12,Math.min(screen.w-popupSize.w-12,screen.x+24+popupSize.w<screen.w?screen.x+24:screen.x-popupSize.w-24)),
+          y=Math.max(12,Math.min(screen.h-popupSize.h-12,screen.y-popupSize.h-56));
         popup.style.left=x+'px';popup.style.top=y+'px';
       }
     }

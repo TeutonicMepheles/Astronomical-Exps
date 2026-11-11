@@ -19,7 +19,7 @@ const root=path.resolve(__dirname,'../../..');
       const context=await browser.newContext({viewport,hasTouch:touch,offline:url.startsWith('file:')});
       const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
       await page.goto(url);await page.waitForFunction(()=>window.Newton?.app?.telescope&&Newton.app.observationModel);
-      await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
+      await page.evaluate(()=>{const c=Newton.course;for(const m of ['plane','concave','convex'])c.mountMirror(m);for(const l of ['concave','convex'])c.mountLens(l);c.enter('assembly');c.install('primary','primary');c.install('secondary','secondary');c.enter('observation');});
       await page.locator('.observation-open').click();await page.locator('[data-view-mode="section"]').click();
       await page.waitForFunction(()=>!Newton.app.observationModel.transition);
       await page.waitForFunction(()=>Newton.app.observationModel.section.material.map.image?.complete);

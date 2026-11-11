@@ -7,8 +7,8 @@ const root=path.resolve(__dirname,'../../..');
   if(!url){server=spawn('python',['tools/serve.py','--port','0'],{cwd:root,stdio:['ignore','pipe','pipe']});url=await new Promise((resolve,reject)=>{let text='';const timer=setTimeout(()=>reject(Error('Server startup timed out')),15000);server.on('error',reject);server.stdout.on('data',d=>{text+=d;const m=text.match(/http:\/\/127\.0\.0\.1:\d+\/experiments\/newton-telescope\//);if(m){clearTimeout(timer);resolve(m[0]);}});});}
   browser=await chromium.launch();const context=await browser.newContext({viewport:{width:1600,height:900},hasTouch:true,offline:url.startsWith('file:')}),page=await context.newPage(),errors=[],mode=url.startsWith('file:')?'offline':'online';
   page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>errors.push(r.url().slice(0,120)));page.on('response',r=>{if(r.status()>=400)errors.push(r.url());});
-  await page.goto(url);await page.waitForFunction(()=>window.Newton?.app?.telescope&&document.querySelector('.table-page-next'));
-  await page.locator('.table-page-next').click();await page.waitForFunction(()=>!Newton.trayTransition.busy);await page.locator('[data-table-lens=concave]').dragTo(page.locator('#rail-carriage'));
+  await page.goto(url);await page.waitForFunction(()=>window.Newton?.app?.telescope&&document.querySelector('[data-table-lens=concave]'));
+  await page.locator('[data-table-lens=concave]').dragTo(page.locator('#rail-carriage'));
   await page.waitForFunction(()=>document.querySelector('#concave-original-glass').dataset.concaveShape==='100');
   const native=await page.evaluate(()=>{const art=Newton.app.telescope.lab.darkroom.art,canvas=document.createElement('canvas');canvas.width=1280;canvas.height=720;canvas.getContext('2d').drawImage(art.concaveArt.image,0,0);const a=canvas.getContext('2d').getImageData(0,0,1280,720).data,b=art.concaveGlass.getContext('2d').getImageData(0,0,1280,720).data;return a.every((v,i)=>v===b[i]);});
   assert(native,'100% is a pixel-identical direct draw of the extracted original glass');
@@ -39,9 +39,9 @@ const root=path.resolve(__dirname,'../../..');
   const saved=await page.evaluate(()=>Newton.course.get().concaveShape);
   await page.locator('#mounted-mirror-controls button').click();assert.equal(await page.locator('#concave-original-glass').isVisible(),false);
   await page.locator('[data-table-lens=concave]').dragTo(page.locator('#rail-carriage'));assert.equal(await page.evaluate(()=>Newton.course.get().concaveShape),saved);
-  await page.locator('.table-page-previous').click();await page.waitForFunction(()=>!Newton.trayTransition.busy);assert.equal(await page.locator('#concave-original-glass').isVisible(),false);await page.locator('.table-page-next').click();await page.waitForFunction(()=>!Newton.trayTransition.busy);assert.equal(await page.evaluate(()=>Newton.course.get().concaveShape),saved);
-  await page.locator('[data-table-lens=convex]').dragTo(page.locator('#rail-carriage'));assert.equal(await page.locator('#concave-original-glass').isVisible(),false);assert.equal(await input.isVisible(),true);assert.equal(await input.inputValue(),'600');assert.equal(await page.evaluate(()=>Newton.course.get().concaveShape),saved);
-  assert.deepEqual(await page.evaluate(()=>Newton.course.get().seen),[]);assert.deepEqual(errors,[]);
+  assert.equal(await page.locator('.table-page-next,.table-page-previous').count(),0);await page.locator('[data-mirror=plane]').click();await page.waitForFunction(()=>!Newton.app.telescope.lab.darkroom.art.roundActive);assert.equal(await page.locator('#concave-original-glass').isVisible(),false);assert.equal(await page.evaluate(()=>Newton.course.get().concaveShape),saved);
+  await page.locator('[data-table-lens=convex]').dragTo(page.locator('#rail-carriage'));await page.waitForFunction(()=>Newton.course.get().lens==='convex'&&Newton.app.telescope.lab.darkroom.art.roundActive&&!document.querySelector('#mounted-mirror-controls').hidden);assert.equal(await page.locator('#concave-original-glass').isVisible(),false);assert.equal(await input.isVisible(),true);assert.equal(await input.inputValue(),'600');assert.equal(await page.evaluate(()=>Newton.course.get().concaveShape),saved);
+  assert.equal(await page.evaluate(()=>Newton.course.get().seen.length),2);assert.deepEqual(errors,[]);
   console.log('PASS original concave glass: native pixel identity, fixed holder, fixed perimeter and central depth, optical linkage, keyboard/mouse/touch, retained selection and independent convex lens, '+mode+'.');
  }finally{if(browser)await browser.close();if(server)server.kill();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
