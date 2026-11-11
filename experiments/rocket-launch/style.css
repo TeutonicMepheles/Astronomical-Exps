@@ -8,5 +8,5 @@
 .pump-control{position:absolute;left:9%;bottom:12%;width:180px;height:120px;background:#c39365;color:#17283c;border:3px solid #f3d2a1;border-radius:30px;font-size:25px;white-space:pre-line;touch-action:none;box-shadow:0 9px 0 #795b43}.pump-control:active{transform:translateY(7px);box-shadow:0 2px 0 #795b43}.axis-handle{position:absolute;right:3%;top:38%;font-size:18px;touch-action:none;border-style:dashed;background:#263e5288}
 
 
-.piece.suggested{outline:3px solid #e8b970;box-shadow:0 0 25px #edb77055}.pump-control{background:#263e5280 url('assets/props/pump.png') no-repeat 8px center;background-size:auto 90%;padding-left:63px;font-size:20px}.slot img{pointer-events:none}
+.piece.suggested{outline:3px solid #e8b970;box-shadow:0 0 25px #edb77055}.pump-control{background:#263e52 url('assets/props/pump.png') no-repeat 8px center;background-size:auto 90%;padding-left:63px;font-size:20px;color:#fff0d5;text-shadow:0 1px 2px #101d30}.pump-control:hover,.pump-control:focus-visible{background-color:#36546a;color:#fff0d5}.pump-control:active{background-color:#48677a;color:#fff0d5;border-color:#ffe1a6}.slot img{pointer-events:none}
 
