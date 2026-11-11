@@ -111,7 +111,7 @@ const U_MIN = uOf(V_MIN), U_MAX = uOf(V_MAX);
 const vAtU = (u) => Math.sqrt(Math.max(u, 0.0001)) * V_CIRC;
 const fracOf = (v) => (Math.min(Math.max(uOf(v), U_MIN), U_MAX) - U_MIN) / (U_MAX - U_MIN);
 const vOf = (f) => vAtU(U_MIN + Math.max(0, Math.min(1, f)) * (U_MAX - U_MIN));
-// 背景谱：29 条同族轨迹，u 等距 —— 这是「形态连续可见」的载体（规格图 3 允许作背景示例）
+// 背景谱：26 条同族轨迹，u 等距 —— 这是「形态连续可见」的载体（规格图 3 允许作背景示例）
 // 谱的 u 网格定死为 0.300 + 0.164 i（i=0..25，26 条）：这是验收侧要认的指纹——
 // e 集合的最小两个是 0.044 / 0.120（跨在闭合点两侧的那一对），最大 3.400。
 const SPECTRUM = (() => {
@@ -360,7 +360,7 @@ export function createVelocityScene(hooks = {}) {
       ctx.rect(0, 0, W, 500);
       ctx.clip();
 
-      // 背景谱：同族 29 条，u 等距 —— 形态的连续谱在这里，档位只是谱上被点名的取样点
+      // 背景谱：同族 26 条，u 等距 —— 形态的连续谱在这里，档位只是谱上被点名的取样点
       for (const g of SPECTRUM) {
         if (!g.pts) g.pts = pathOf(g.v).pts;
         if (Math.abs(g.v - st.v) < 0.3) continue;
