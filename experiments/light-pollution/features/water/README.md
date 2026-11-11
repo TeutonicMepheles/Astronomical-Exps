@@ -31,3 +31,5 @@ node experiments/light-pollution/tests/browser/verify-water.cjs
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+长场景复用同一 renderer，以 front-water 的实际透明岸线和裁切范围绘制；无新动画时钟。

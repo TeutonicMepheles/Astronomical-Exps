@@ -1,0 +1,44 @@
+[
+  {
+    "session": 0,
+    "factors": [
+      1.0521870629010588,
+      1.082604142460531,
+      0.9196237328079971,
+      0.9641742380944618
+    ],
+    "minimumNormalizedGap": 21.689343225281142,
+    "wraps": 2385,
+    "visiblePairs": 203572,
+    "phaseSeconds": 3600,
+    "stepSeconds": 0.1
+  },
+  {
+    "session": 1,
+    "factors": [
+      0.9625708601881975,
+      0.911244465236051,
+      1.0970078971051758,
+      1.032589377731861
+    ],
+    "minimumNormalizedGap": 21.689343225281146,
+    "wraps": 2404,
+    "visiblePairs": 203531,
+    "phaseSeconds": 3600,
+    "stepSeconds": 0.1
+  },
+  {
+    "session": 2,
+    "factors": [
+      1.0323518686891375,
+      1.1024928438694561,
+      0.9440385815950278,
+      0.9192291668970679
+    ],
+    "minimumNormalizedGap": 21.68934322528119,
+    "wraps": 2382,
+    "visiblePairs": 67850,
+    "phaseSeconds": 3600,
+    "stepSeconds": 0.3
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "project": "6142322b621340388ef8994f189df1aa",
+  "requestedModel": "Seedream 5.5",
+  "modelEvidence": "CLI request/terminal params only; backend route not independently verified",
+  "records": [
+    {
+      "kind": "before",
+      "node": "i-nI15Yv9CqB",
+      "task": "20261111195803379887723",
+      "size": [
+        2048,
+        2048
+      ],
+      "source": "住宅壁灯-Before-20261111.png",
+      "output": "residential-shield-before-20261111.webp",
+      "sha256": "dfc9c82363e6e3c32f4e8a8bf7b9874bafb84f359241a4f0c2577008856e214d"
+    },
+    {
+      "kind": "after",
+      "node": "i-PakNScG4th",
+      "task": "20261111200303007257723",
+      "size": [
+        2048,
+        2048
+      ],
+      "source": "住宅壁灯-After-20261111.png",
+      "output": "residential-shield-after-20261111.webp",
+      "sha256": "0f9ca040f8412cfc237ab37dd81fc8e5488ef22c6458ba9ace5b9121922b5bc8"
+    }
+  ]
+}

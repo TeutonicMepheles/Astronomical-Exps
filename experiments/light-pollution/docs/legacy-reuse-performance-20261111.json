@@ -1,0 +1,69 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "secondsPerState": 4,
+  "samples": [
+    {
+      "kind": "neutral",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000000546,
+      "seconds": 4,
+      "sceneFps": 75.1,
+      "renderP95": 6,
+      "renderMax": 9.1,
+      "gapP95": 14.7,
+      "gapMax": 17.3,
+      "longTasks": 0,
+      "heap": 98911192,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "kind": "three-colored",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000001455,
+      "seconds": 4,
+      "sceneFps": 75.1,
+      "renderP95": 5.7,
+      "renderMax": 7,
+      "gapP95": 14.6,
+      "gapMax": 15.7,
+      "longTasks": 0,
+      "heap": 114986449,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "kind": "dragging",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000001455,
+      "seconds": 4,
+      "sceneFps": 74.7,
+      "renderP95": 5.8,
+      "renderMax": 6.4,
+      "gapP95": 16.4,
+      "gapMax": 17.2,
+      "longTasks": 0,
+      "heap": 93101753,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  ],
+  "hostGpu": [
+    "GameViewer Virtual Display Adapter",
+    "NVIDIA GeForce RTX 5080",
+    "AMD Radeon(TM) Graphics"
+  ]
+}

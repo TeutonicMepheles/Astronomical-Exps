@@ -47,4 +47,4 @@
 
 用户已确认只使用现有五种方案，已移除临时第六款。实际 UI 内联 SVG 复用五份源图片，不加载上述独立 SVG 文件，避免重复解码。导出命令：`node experiments/light-pollution/tools/build/export-lamp-shades.cjs`。
 
-- [五种灯罩打包下载](lamp-shades-five.zip)
+- `lamp-shades-five.zip`（本地打包产物，源码保留独立图片）

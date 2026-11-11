@@ -1,0 +1,78 @@
+{
+  "hudEnabled": false,
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "dpr": 1.0000000298023224,
+  "secondsPerState": 4,
+  "samples": [
+    {
+      "mode": "maximum",
+      "focus": true,
+      "rafP95": 13.400000000000546,
+      "sky": {
+        "count": 11,
+        "pollution": 1
+      },
+      "seconds": 4,
+      "sceneFps": 75.1,
+      "renderP95": 3.7,
+      "renderMax": 9.7,
+      "gapP95": 14,
+      "gapMax": 20.7,
+      "longTasks": 0,
+      "heap": 105582182,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "mode": "highway-drag",
+      "focus": true,
+      "rafP95": 13.400000000000546,
+      "sky": {
+        "count": 11,
+        "pollution": 0.9992778517931051
+      },
+      "seconds": 4,
+      "sceneFps": 74.5,
+      "renderP95": 8.5,
+      "renderMax": 9.5,
+      "gapP95": 19.2,
+      "gapMax": 24.3,
+      "longTasks": 0,
+      "heap": 116948511,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "mode": "dense-pan",
+      "focus": true,
+      "rafP95": 13.400000000001455,
+      "sky": {
+        "count": 1728,
+        "pollution": 0
+      },
+      "seconds": 4,
+      "sceneFps": 74.9,
+      "renderP95": 3.4,
+      "renderMax": 3.9,
+      "gapP95": 14.5,
+      "gapMax": 24.8,
+      "longTasks": 0,
+      "heap": 128740227,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "pass": true,
+  "vehicles": 11,
+  "highBeamModes": [
+    "high",
+    "low"
+  ],
+  "motionSeconds": 0.8665999999999996,
+  "errors": [],
+  "remote": []
+}

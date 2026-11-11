@@ -1,0 +1,585 @@
+{
+  "project": "6142322b621340388ef8994f189df1aa",
+  "model": "Seedream 5.5",
+  "backgroundModel": "General image V2.1",
+  "backgroundNode": "a9581318-a825-476a-bcaa-79a296b77fac",
+  "assets": [
+    {
+      "id": "residential",
+      "node": "d42b2133-c714-40bb-9db0-cbf737de14b3",
+      "source": "Seedream55拆图-residential.png",
+      "trim": [
+        26,
+        133,
+        2334,
+        1686
+      ],
+      "size": [
+        2048,
+        1378
+      ],
+      "sha256": "d68901aba9ad60ccfbfb0da549429789a18912a8efbb7e35511e8a381fc7c689"
+    },
+    {
+      "id": "public",
+      "node": "87195063-7724-487a-8854-96c0b06f6c48",
+      "source": "Seedream55拆图-public.png",
+      "trim": [
+        19,
+        279,
+        3130,
+        1344
+      ],
+      "size": [
+        2048,
+        701
+      ],
+      "sha256": "7cff4e9cd5b99c2e2ece8aabe3cd75971401c661953174cb27ab2a0ae8eb23c9"
+    },
+    {
+      "id": "ad-building",
+      "node": "84beb396-ea47-4838-ad31-911b8397c39d",
+      "source": "Seedream55拆图-ad-building.png",
+      "trim": [
+        66,
+        172,
+        1981,
+        1867
+      ],
+      "size": [
+        1735,
+        1536
+      ],
+      "sha256": "72459ce1f1938514d64caaf686db5cba0680a6e2283211df398c338bef860b31"
+    },
+    {
+      "id": "stadium",
+      "node": "a8805ea9-3226-467a-a652-710f5f16bad8",
+      "source": "Seedream55拆图-stadium.png",
+      "trim": [
+        104,
+        264,
+        2944,
+        1221
+      ],
+      "size": [
+        2048,
+        690
+      ],
+      "sha256": "b3a0df42d9933bbce7a15d754c6d9344d0eab05f2193a320d0b67f10b5334092"
+    },
+    {
+      "id": "highway",
+      "node": "56f6b15b-870a-4998-b147-5b4d08ce73b8",
+      "source": "Seedream55拆图-highway.png",
+      "trim": [
+        0,
+        79,
+        3136,
+        1344
+      ],
+      "size": [
+        2048,
+        826
+      ],
+      "sha256": "f453ac88a0fb7df419a3f5d0db0bd47b71851a0c91cc09fe4558599a372738f7"
+    },
+    {
+      "id": "billboard",
+      "node": "95b62abc-f9bb-4bb0-a8b9-c9cc22a09f49",
+      "source": "Seedream55拆图-billboard.png",
+      "trim": [
+        120,
+        272,
+        1657,
+        2104
+      ],
+      "size": [
+        1289,
+        1536
+      ],
+      "sha256": "35d8477a7525585a5f3856fb26cd113147690feca95eecea7ded1dbd1125245f"
+    },
+    {
+      "id": "vehicles-01",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        4,
+        4,
+        126,
+        82
+      ],
+      "size": [
+        122,
+        78
+      ],
+      "sha256": "233cf9558fe398b6857bb7a028a3bc326021c7b369229c7e169de4ea429ea4fd"
+    },
+    {
+      "id": "vehicles-02",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        5,
+        4,
+        172,
+        102
+      ],
+      "size": [
+        167,
+        98
+      ],
+      "sha256": "ad4b64d86a65bbb75df845c982bac6b5f583e80ab826c8d3502c10c44782c021"
+    },
+    {
+      "id": "vehicles-03",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        4,
+        5,
+        169,
+        96
+      ],
+      "size": [
+        165,
+        91
+      ],
+      "sha256": "f66df491b6b68573188afcf477d3e41a786ee1b6a51db32734f26abbe7482330"
+    },
+    {
+      "id": "vehicles-04",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        4,
+        5,
+        335,
+        243
+      ],
+      "size": [
+        331,
+        238
+      ],
+      "sha256": "1ab6e5a31f48dba564daa90d64b948b25d3b2fcc4bf4fd2e9fc4764012ee0a2d"
+    },
+    {
+      "id": "vehicles-05",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        5,
+        5,
+        251,
+        158
+      ],
+      "size": [
+        246,
+        153
+      ],
+      "sha256": "0c41d1780973acdf846f61706af719b462c435f9a560b8e8b384313f13f896ec"
+    },
+    {
+      "id": "vehicles-06",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        4,
+        5,
+        292,
+        173
+      ],
+      "size": [
+        288,
+        168
+      ],
+      "sha256": "1f43a8a17dfbf87b953ce03f4fe6bcc55b443b6e93bc3704ae71ebb83dc2f891"
+    },
+    {
+      "id": "vehicles-07",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        4,
+        5,
+        332,
+        197
+      ],
+      "size": [
+        328,
+        192
+      ],
+      "sha256": "23998ad1a93ebfc97adfd9a31ee6a981b7d7e50f9b4f454bbafdea7ce74bff6d"
+    },
+    {
+      "id": "vehicles-08",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        4,
+        5,
+        334,
+        214
+      ],
+      "size": [
+        330,
+        209
+      ],
+      "sha256": "d47b47d1d4b53dc012f40c167922c5cd5dd11c1a6fce12f68acccbf4ee14f0e6"
+    },
+    {
+      "id": "vehicles-09",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        5,
+        4,
+        359,
+        255
+      ],
+      "size": [
+        354,
+        251
+      ],
+      "sha256": "6bd35c8833a90296c48843685b1093502ce51bce845d370f92a2d9f839db7448"
+    },
+    {
+      "id": "vehicles-10",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        4,
+        5,
+        391,
+        239
+      ],
+      "size": [
+        387,
+        234
+      ],
+      "sha256": "1fe9dbfb718bc196da2071689f62812d67bc93e15db8457855ad9bca3ed62fa2"
+    },
+    {
+      "id": "vehicles-11",
+      "node": "cb4d120a-e7bc-4e0d-a603-eff1e68675c8",
+      "source": "Seedream55拆图-vehicles.png",
+      "trim": [
+        5,
+        5,
+        372,
+        220
+      ],
+      "size": [
+        367,
+        215
+      ],
+      "sha256": "a077e0d70f7bb6e205bd6550c9d19f6af1f59a2ab8eaff5713d3d53df1a00d8e"
+    },
+    {
+      "id": "trees-01",
+      "node": "a2390b73-8b0e-4527-805c-256977939866",
+      "source": "Seedream55拆图-trees.png",
+      "trim": [
+        0,
+        5,
+        356,
+        664
+      ],
+      "size": [
+        356,
+        659
+      ],
+      "sha256": "ead053b171a4c897c9803e4e05dce2c861922ae4bea54999e9d8e01c61159330"
+    },
+    {
+      "id": "trees-02",
+      "node": "a2390b73-8b0e-4527-805c-256977939866",
+      "source": "Seedream55拆图-trees.png",
+      "trim": [
+        4,
+        5,
+        364,
+        482
+      ],
+      "size": [
+        360,
+        477
+      ],
+      "sha256": "718cc87446fba990eddbbe60a6da093d642455bdd658cff1c86ac8396753cfc8"
+    },
+    {
+      "id": "trees-03",
+      "node": "a2390b73-8b0e-4527-805c-256977939866",
+      "source": "Seedream55拆图-trees.png",
+      "trim": [
+        5,
+        4,
+        365,
+        484
+      ],
+      "size": [
+        360,
+        480
+      ],
+      "sha256": "52d174df315022f20a852c99cb6970ee6016bbfe9434a86b6be3b8e982deb2eb"
+    },
+    {
+      "id": "trees-04",
+      "node": "a2390b73-8b0e-4527-805c-256977939866",
+      "source": "Seedream55拆图-trees.png",
+      "trim": [
+        5,
+        4,
+        853,
+        472
+      ],
+      "size": [
+        848,
+        468
+      ],
+      "sha256": "33da50540fa175c014e4a89cbd99b30c9753f3eab3405da01206d98bdbb74d45"
+    },
+    {
+      "id": "trees-05",
+      "node": "a2390b73-8b0e-4527-805c-256977939866",
+      "source": "Seedream55拆图-trees.png",
+      "trim": [
+        5,
+        5,
+        483,
+        400
+      ],
+      "size": [
+        478,
+        395
+      ],
+      "sha256": "813935472fc295f2983d4fd4ba7c2bfa79e293d05954ee1df82c1d2daab4365c"
+    },
+    {
+      "id": "trees-06",
+      "node": "a2390b73-8b0e-4527-805c-256977939866",
+      "source": "Seedream55拆图-trees.png",
+      "trim": [
+        3,
+        4,
+        260,
+        398
+      ],
+      "size": [
+        257,
+        394
+      ],
+      "sha256": "54d0f2046be13169f5ca578b24bc37f162dddd7f1c8f543f2e0dd5c21bdcedff"
+    },
+    {
+      "id": "floodlight-1",
+      "node": "373685f7-37e1-444c-b730-d8a30565167b",
+      "source": "Seedream55拆图-floodlight.png",
+      "trim": [
+        0,
+        49,
+        800,
+        1380
+      ],
+      "size": [
+        800,
+        1331
+      ],
+      "sha256": "fc1cc005d088155b49654c70cc4890a1c21a278f3d83d2334392479d239190f5"
+    },
+    {
+      "id": "floodlight-2",
+      "node": "373685f7-37e1-444c-b730-d8a30565167b",
+      "source": "Seedream55拆图-floodlight.png",
+      "trim": [
+        0,
+        49,
+        800,
+        1380
+      ],
+      "size": [
+        800,
+        1331
+      ],
+      "sha256": "fc1cc005d088155b49654c70cc4890a1c21a278f3d83d2334392479d239190f5"
+    },
+    {
+      "id": "floodlight-3",
+      "node": "373685f7-37e1-444c-b730-d8a30565167b",
+      "source": "Seedream55拆图-floodlight.png",
+      "trim": [
+        0,
+        49,
+        800,
+        1380
+      ],
+      "size": [
+        800,
+        1331
+      ],
+      "sha256": "fc1cc005d088155b49654c70cc4890a1c21a278f3d83d2334392479d239190f5"
+    },
+    {
+      "id": "floodlight-4",
+      "node": "373685f7-37e1-444c-b730-d8a30565167b",
+      "source": "Seedream55拆图-floodlight.png",
+      "trim": [
+        0,
+        49,
+        800,
+        1380
+      ],
+      "size": [
+        800,
+        1331
+      ],
+      "sha256": "fc1cc005d088155b49654c70cc4890a1c21a278f3d83d2334392479d239190f5"
+    },
+    {
+      "id": "roadlamp-1",
+      "node": "34fb4262-6696-4966-8f50-de9cbe4e4b16",
+      "source": "Seedream55拆图-roadlamp.png",
+      "trim": [
+        0,
+        0,
+        555,
+        1605
+      ],
+      "size": [
+        531,
+        1536
+      ],
+      "sha256": "23d503a37a6e07a1d4cf6b0300149a27adac57998decc431969dfae18157e8fb"
+    },
+    {
+      "id": "roadlamp-2",
+      "node": "34fb4262-6696-4966-8f50-de9cbe4e4b16",
+      "source": "Seedream55拆图-roadlamp.png",
+      "trim": [
+        0,
+        0,
+        555,
+        1605
+      ],
+      "size": [
+        531,
+        1536
+      ],
+      "sha256": "23d503a37a6e07a1d4cf6b0300149a27adac57998decc431969dfae18157e8fb"
+    },
+    {
+      "id": "roadlamp-3",
+      "node": "34fb4262-6696-4966-8f50-de9cbe4e4b16",
+      "source": "Seedream55拆图-roadlamp.png",
+      "trim": [
+        0,
+        0,
+        555,
+        1605
+      ],
+      "size": [
+        531,
+        1536
+      ],
+      "sha256": "23d503a37a6e07a1d4cf6b0300149a27adac57998decc431969dfae18157e8fb"
+    },
+    {
+      "id": "roadlamp-4",
+      "node": "34fb4262-6696-4966-8f50-de9cbe4e4b16",
+      "source": "Seedream55拆图-roadlamp.png",
+      "trim": [
+        0,
+        0,
+        555,
+        1605
+      ],
+      "size": [
+        531,
+        1536
+      ],
+      "sha256": "23d503a37a6e07a1d4cf6b0300149a27adac57998decc431969dfae18157e8fb"
+    },
+    {
+      "id": "roadlamp-5",
+      "node": "34fb4262-6696-4966-8f50-de9cbe4e4b16",
+      "source": "Seedream55拆图-roadlamp.png",
+      "trim": [
+        0,
+        0,
+        555,
+        1605
+      ],
+      "size": [
+        531,
+        1536
+      ],
+      "sha256": "23d503a37a6e07a1d4cf6b0300149a27adac57998decc431969dfae18157e8fb"
+    },
+    {
+      "id": "residential-backdrop",
+      "node": "7c289ab1-fe54-478d-b4a7-8ec76bdb732e",
+      "model": "Seedream 5.5",
+      "source": "C:\\Users\\Golajah\\.codex\\visualizations\\2026\\11\\10\\01a1c5b7-44d2-7ff2-b035-b43412242a3d\\seedream55-split\\Seedream55-补全住宅中景合层.png",
+      "trim": [
+        70,
+        93,
+        3062,
+        1286
+      ],
+      "sha256": "646dcf474987a48f2d87f0f2b20bd4ba2cd8587549d73336b8e1a0efc7d574f1"
+    },
+    {
+      "id": "distant-mountains",
+      "node": "a1554d5c-5777-40d9-b824-84c26f2fd396",
+      "model": "Seedream 5.5",
+      "source": "远山独立层-20261111-v2.png",
+      "trim": [
+        28,
+        515,
+        3112,
+        829
+      ],
+      "sha256": "83602a98d4a16919688ead08fa292df829811d35ae1be5a2f56a186cc114472d"
+    },
+    {
+      "id": "distant-buildings",
+      "node": "db2c6167-7961-40a2-8f02-dfcbc986a478",
+      "model": "Seedream 5.5",
+      "source": "远景建筑独立层-20261111-v2.png",
+      "trim": [
+        310,
+        575,
+        2811,
+        746
+      ],
+      "sha256": "a3accb5d2c7790aca6a1042432ff5e0ba4bb47a16967c53aebaa898b92eb8054"
+    },
+    {
+      "id": "distant-viaduct",
+      "node": "a10f47d1-e7df-4bd5-9804-f090306495d7",
+      "model": "Seedream 5.5",
+      "source": "高架桥独立层-20261111-v2.png",
+      "trim": [
+        0,
+        595,
+        3136,
+        746
+      ],
+      "sha256": "5265a9d8d4fb5a8bb5c3187c4796723b6615ddcdf0947bcdc4fa6e3356cd9965"
+    }
+  ],
+  "modelVerification": {
+    "status": "execution-unverified",
+    "requestedModel": "Seedream 5.5",
+    "userReportedBillingTaskId": "807310752",
+    "userReportedExecutedModel": "minimax-h3-image",
+    "note": "Historical model labels describe requested configuration, not independently verified execution."
+  },
+  "srPromotion": {
+    "receipt": "sr-promotion-receipt.json",
+    "approvedSourcePack": "../seedream-sr-20261111",
+    "artRevision": "sr-integrated-20261111",
+    "executionModelVerified": false
+  }
+}

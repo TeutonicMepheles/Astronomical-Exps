@@ -22,6 +22,8 @@ node experiments/light-pollution/tests/browser/verify-presentation.cjs
 
 ## 公开接口与数据
 
+createStreetHints 可注入 getContours()；默认仍用原街景轮廓，新全景从透明单体生成轮廓。
+
 公开入口：`createStreetHints`。具体参数与返回值以入口定义和专项测试为准。
 
 ## 依赖与解耦策略
@@ -31,3 +33,5 @@ node experiments/light-pollution/tests/browser/verify-presentation.cjs
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+体育场使用真实外轮廓与前景遮挡蒙版，outlineEnabled 开关由场馆照明面板和场景 JSON 保存；选中/悬停强调一致，调整亮度后描边仍可选。

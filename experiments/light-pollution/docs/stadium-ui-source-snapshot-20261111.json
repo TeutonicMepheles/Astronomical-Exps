@@ -1,0 +1,42 @@
+{
+  "baseCommit": "7b0b9d2",
+  "baselineDirectory": "B:\\GithubProject\\Astronomical-Exps-lp-panorama\\experiments\\light-pollution",
+  "taskBranch": "experiment/light-pollution/stadium-ui-20261111",
+  "files": [
+    {
+      "path": "app/presentation/stadium-panel.js",
+      "baselineSHA256": null,
+      "currentSHA256": "ba337fd1c80d6440efd7814e42efd578540d7a49206e3f6763c4e58f045ab4c5"
+    },
+    {
+      "path": "app/styles/stadium.css",
+      "baselineSHA256": null,
+      "currentSHA256": "722e9b8c267704bfd85cd16c2c2f494095aea9cc51a1b5668b464ba093158066"
+    },
+    {
+      "path": "features/buildings/controller.js",
+      "baselineSHA256": "5a38dd38a3d38a9052c121825edf334895cb3d9580b7de1ce00f79f2f3486caa",
+      "currentSHA256": "0de9ffcb5ac27d09ddb79fe36ebd373025661c84e55ec11f9739072104762acd"
+    },
+    {
+      "path": "assets/manifest.json",
+      "baselineSHA256": "cfc311f45b7e51ab0031ebcfabd1becab74563180ea576e8734b77e2eacc2b11",
+      "currentSHA256": "76a76b7885ae8b309132664b0f206f801bf44dd2137bb263a9b901d6903a54a9"
+    },
+    {
+      "path": "tools/build/build-panorama.cjs",
+      "baselineSHA256": "2d0d18955bc7ea36cca54e733be35f2f2f1586f81d1634ee06c8e10aa1cb21b2",
+      "currentSHA256": "7b3cd9f0c753172f4fb6f97e75123a88c132d4a75f8fbcf39b581dfb6b028d12"
+    },
+    {
+      "path": "tests/browser/verify-stadium-ui.cjs",
+      "baselineSHA256": null,
+      "currentSHA256": "2761b5417b0457bcefed346f25bc5fd147333c027c6dae39b788bf64ab1ac45d"
+    },
+    {
+      "path": "tools/audit/stadium-ui-sample.cjs",
+      "baselineSHA256": null,
+      "currentSHA256": "dd658c411f59c4d1e96445390c696284215cc62e3c3931bdf3ad0b63b7ea3629"
+    }
+  ]
+}

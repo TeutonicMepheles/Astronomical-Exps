@@ -1,0 +1,52 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "secondsPerState": 4,
+  "samples": [
+    {
+      "hidden": false,
+      "layers": 36,
+      "rafP95": 13.400000000000546,
+      "focus": true,
+      "visibility": "visible",
+      "dpr": 1.0000000298023224,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "seconds": 4,
+      "sceneFps": 75,
+      "renderP95": 4.3,
+      "renderMax": 7.6,
+      "gapP95": 14.6,
+      "gapMax": 16.6,
+      "longTasks": 0,
+      "heap": 94524417,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "hidden": true,
+      "layers": 36,
+      "rafP95": 13.400000000001455,
+      "focus": true,
+      "visibility": "visible",
+      "dpr": 1.0000000298023224,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "seconds": 4,
+      "sceneFps": 74.8,
+      "renderP95": 4.8,
+      "renderMax": 6.2,
+      "gapP95": 14.7,
+      "gapMax": 16.4,
+      "longTasks": 0,
+      "heap": 100610164,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  ]
+}

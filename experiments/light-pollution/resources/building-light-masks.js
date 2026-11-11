@@ -1,8 +1,9 @@
 /* Building-local grayscale masks. Geometry comes from the original texture registration,
  * so masks follow the same parent transforms and window warps as the artwork. */
-window.createBuildingLightMasks=function(W,H){
+window.createBuildingLightMasks=function(W,H,groups){
  'use strict';
- const groups=['residential','public','ad-building'],make=(w,h)=>Object.assign(document.createElement('canvas'),{width:w,height:h});
+ groups=groups||['residential','public','ad-building'];
+ const make=(w,h)=>Object.assign(document.createElement('canvas'),{width:w,height:h});
  const empty=()=>({version:1,buildings:{},windows:{}}),clone=v=>JSON.parse(JSON.stringify(v));
  const decoded=new Map(),pending=new Map(),fullCache=new Map(),windowCache=new Map(),sources=new Map();
  let state=empty(),definitions=[],originals=null,warp=null;

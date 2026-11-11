@@ -1,13 +1,13 @@
 /* Presentation navigation follows the owning experiment's app.js interaction model. */
-window.createStreetNavigation=function(editing){
+window.createStreetNavigation=function(editing,{sceneAspect=3}={}){
  const stage=document.querySelector('.stage'),viewport=document.querySelector('.viewer'),canvas=document.querySelector('#scene'),sky=document.querySelector('#sky-viewport'),range=document.querySelector('#street-position'),left=document.querySelector('#street-left'),right=document.querySelector('#street-right'),label=document.querySelector('#street-location');
  let fraction=0,drag=null,lastSync='';
- const limit=()=>Math.max(0,stage.clientHeight*3-stage.clientWidth);
+ const limit=()=>Math.max(0,stage.clientHeight*sceneAspect-stage.clientWidth);
  function finish(){if(!drag)return;const id=drag.id;drag=null;viewport.classList.remove('street-dragging');if(viewport.hasPointerCapture(id))viewport.releasePointerCapture(id);}
  function sync(){
   const edit=editing(),extent=limit(),key=`${edit}:${fraction}:${extent}`;
   if(key===lastSync)return;lastSync=key;
-  if(edit){finish();canvas.style.transform='';return;}
+  if(edit){finish();canvas.style.transform='';sky.style.transform='';return;}
   const x=fraction*extent;canvas.style.transform=`translate3d(${-x}px,0,0)`;sky.style.transform=`translate3d(${-x}px,0,0)`;
   canvas.dispatchEvent(new Event('streetnavigationchange'));
   range.value=Math.round(fraction*1000);range.style.setProperty('--fill',`${fraction*100}%`);left.disabled=fraction<=0;right.disabled=fraction>=1;viewport.dataset.streetPosition=String(fraction);
@@ -21,5 +21,5 @@ window.createStreetNavigation=function(editing){
  viewport.addEventListener('wheel',e=>{if(editing()||e.ctrlKey)return;e.preventDefault();const delta=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;move(fraction*limit()+delta*(e.deltaMode===1?16:e.deltaMode===2?stage.clientWidth:1));},{passive:false});
  viewport.addEventListener('keydown',e=>{if(editing())return;const x=fraction*limit(),actions={ArrowLeft:x-stage.clientWidth*.22,ArrowRight:x+stage.clientWidth*.22,Home:0,End:limit()};if(Object.hasOwn(actions,e.key)){e.preventDefault();move(actions[e.key]);}});
  left.onclick=()=>move(fraction*limit()-stage.clientWidth*.55);right.onclick=()=>move(fraction*limit()+stage.clientWidth*.55);range.oninput=()=>move(Number(range.value)/1000*limit());
- const observer=new ResizeObserver(()=>{finish();sync();});observer.observe(stage);LightPollution.disposers.push(()=>observer.disconnect());sync();return {sync};
+ const observer=new ResizeObserver(()=>{finish();sync();});observer.observe(stage);LightPollution.disposers.push(()=>observer.disconnect());sync();return {sync,setPosition(value){if(!Number.isFinite(value))throw Error('街景位置无效');move(Math.max(0,Math.min(1,value))*limit());}};
 };

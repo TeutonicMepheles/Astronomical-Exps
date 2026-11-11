@@ -1,0 +1,103 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "headless": false,
+  "durationPerStateSeconds": 6,
+  "samples": [
+    {
+      "kind": "candidate",
+      "url": "http://127.0.0.1:8817/experiments/light-pollution/app/index.html?mode=editor&profile=1",
+      "readyMs": 1761,
+      "seconds": 6,
+      "sceneFps": 74.9,
+      "renderP95": 1.5,
+      "renderMax": 19.6,
+      "gapP95": 14,
+      "gapMax": 32.2,
+      "longTasks": 0,
+      "heap": 55603724,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 13.400000000000546,
+      "rafMax": 13.5,
+      "focus": true,
+      "visibility": "visible",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "kind": "panorama",
+      "url": "http://127.0.0.1:8817/experiments/light-pollution/app/index.html?mode=editor&profile=1&scene=panorama-20261111",
+      "readyMs": 1141,
+      "seconds": 6,
+      "sceneFps": 74.9,
+      "renderP95": 3.1,
+      "renderMax": 3.8,
+      "gapP95": 14.2,
+      "gapMax": 14.9,
+      "longTasks": 0,
+      "heap": 95580871,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 13.5,
+      "rafMax": 13.899999999999636,
+      "focus": true,
+      "visibility": "visible",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "kind": "panorama-curtains",
+      "url": "http://127.0.0.1:8817/experiments/light-pollution/app/index.html?mode=editor&profile=1&scene=panorama-20261111",
+      "readyMs": 1039,
+      "seconds": 6.1,
+      "sceneFps": 30.6,
+      "renderP95": 7.7,
+      "renderMax": 8.2,
+      "gapP95": 40.3,
+      "gapMax": 44.9,
+      "longTasks": 0,
+      "heap": 94339687,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 40.100000000000364,
+      "rafMax": 53.19999999999982,
+      "focus": true,
+      "visibility": "visible",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "kind": "panorama-stadium-dimming",
+      "url": "http://127.0.0.1:8817/experiments/light-pollution/app/index.html?mode=editor&profile=1&scene=panorama-20261111",
+      "readyMs": 1578,
+      "seconds": 6.1,
+      "sceneFps": 30.7,
+      "renderP95": 9,
+      "renderMax": 10.1,
+      "gapP95": 39.4,
+      "gapMax": 51.3,
+      "longTasks": 0,
+      "heap": 118975397,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 40.100000000000364,
+      "rafMax": 53.40000000000009,
+      "focus": true,
+      "visibility": "visible",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}

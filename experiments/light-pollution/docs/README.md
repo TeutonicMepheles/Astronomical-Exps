@@ -10,6 +10,8 @@
 
 ## 文件与子目录索引
 
+- [PANORAMA-20261111.md](PANORAMA-20261111.md)：Seedream 5.5 4:1 可编辑场景交付。
+
 - [CHROME-PERFORMANCE-2026-10-29.md](CHROME-PERFORMANCE-2026-10-29.md)：本机 Chrome 的真实输入、84 秒采样、卡顿原因、修复及异常边界；链接全部原始结果与 CPU profile。
 - [headed-before.json](headed-before.json) 与 [headed-final.json](headed-final.json)：有窗口 Chrome 场景帧率及长任务对比。
 
@@ -53,3 +55,19 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+[TRAFFIC-20261111.md](TRAFFIC-20261111.md) 记录原素材动态车流和统一眩光比例的实现、测试与性能专项。
+
+- [LEGACY-REUSE-20261111.md](LEGACY-REUSE-20261111.md)：旧工程建筑、树林、围栏、灯具接入长场景及迁移/性能检查。
+
+- [WATER-RESTORED-20261111.md](WATER-RESTORED-20261111.md)：长场景独立水纹/灯光倒影漏接原因与恢复验证。
+
+- [SEEDREAM-MODEL-ROUTING-20261111.md](SEEDREAM-MODEL-ROUTING-20261111.md)：请求 Seedream 与积分日志 MiniMax 不一致的调查记录。
+
+- [PRESERVED-SR-20261111.md](PRESERVED-SR-20261111.md)：32 张素材的保形细节修复、离线候选与验证记录。
+
+- [SR-PROMOTION-20261111.md](SR-PROMOTION-20261111.md)：正式长场景修复素材接入、旧草稿保留与独立远景窗光。
+
+- [ROAD-SKY-UI-20261111.md](ROAD-SKY-UI-20261111.md)：步道恢复、高架简化、隐藏入口、演示星空与验证。
+
+- [LAMP-REFRESH-20261111.md](LAMP-REFRESH-20261111.md)：灯罩图片、HUD、眩光与住宅方图更新及性能验证。

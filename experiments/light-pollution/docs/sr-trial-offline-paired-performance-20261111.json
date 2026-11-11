@@ -1,0 +1,72 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "secondsPerState": 4,
+  "readyMs": 2596,
+  "environment": {
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "deviceMemory": 32,
+    "hardwareConcurrency": 32,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "url": "http://127.0.0.1:10953/experiments/light-pollution/assets/seedream-sr-20261111/editor.html?profile=1"
+  },
+  "samples": [
+    {
+      "kind": "neutral",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000000546,
+      "seconds": 4,
+      "sceneFps": 75,
+      "renderP95": 4.2,
+      "renderMax": 7.1,
+      "gapP95": 14.1,
+      "gapMax": 17.2,
+      "longTasks": 0,
+      "heap": 282852606,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "kind": "three-colored",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000001455,
+      "seconds": 4,
+      "sceneFps": 74.9,
+      "renderP95": 4.5,
+      "renderMax": 5.6,
+      "gapP95": 14.2,
+      "gapMax": 14.9,
+      "longTasks": 0,
+      "heap": 290867679,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "kind": "dragging",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000001455,
+      "seconds": 4,
+      "sceneFps": 74.9,
+      "renderP95": 6.9,
+      "renderMax": 7.4,
+      "gapP95": 16.8,
+      "gapMax": 17.6,
+      "longTasks": 0,
+      "heap": 288395407,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  ]
+}

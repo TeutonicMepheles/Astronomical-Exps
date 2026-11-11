@@ -40,3 +40,5 @@ node experiments/light-pollution/tools/audit/run-tests.cjs
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+- [vehicles/](vehicles/README.md)：全景原素材车流与整体眩光比例。

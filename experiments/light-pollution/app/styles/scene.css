@@ -99,3 +99,66 @@ html[data-app-mode=user] #lamp-settings{padding-top:1.5cqw}html[data-app-mode=us
 .observation-backdrop{position:absolute;inset:0;z-index:60;display:grid;place-items:center;background:#030814b8;padding:3%;touch-action:none}.observation-panel{width:68%;max-height:92%;padding:1.1cqw 1.25cqw;background:#101d30f8;border:1px solid #71899c99;border-radius:1cqw;box-shadow:0 1.4cqw 4cqw #000a;color:#edf3f8}.observation-heading{position:static;display:flex;align-items:flex-start;justify-content:space-between}.observation-heading p{margin:0 0 .25cqw;color:#e7c58c;font-size:.7cqw;letter-spacing:.16em}.observation-heading h2{margin:0;font-size:1.4cqw}.observation-heading button{width:2.75cqw;min-width:44px;height:2.75cqw;min-height:44px;padding:0;font-size:1.55cqw;background:transparent}.observation-description{margin:.45cqw 0 .75cqw;color:#b9c7d8;font-size:.82cqw}.observation-comparison{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid #60748a;border-radius:.65cqw;background:#081328}.observation-comparison canvas{display:block;width:100%;height:100%;object-fit:contain;background:#081328}.observation-label{position:absolute;top:.7cqw;padding:.3cqw .6cqw;border-radius:.3cqw;background:#071326d9;font-size:.72cqw;pointer-events:none}.observation-label.before{left:.7cqw}.observation-label.after{right:.7cqw}.observation-loading{position:absolute;inset:0;display:grid;place-items:center;background:#081328e8;color:#c7d3e2;font-size:.8cqw}.observation-controls{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:.7cqw;margin-top:.65cqw}.observation-controls label{grid-column:2;grid-row:1;display:flex;justify-content:space-between;color:#c7d3e2;font-size:.76cqw}.observation-controls output{color:#e7c58c;font-variant-numeric:tabular-nums}.observation-controls input{grid-column:2;grid-row:2;width:100%;height:1.5cqw;accent-color:#f4cb83}.observation-controls button{grid-row:1/3;min-width:7.2cqw}.observation-controls [data-observation-value="0"]{grid-column:1}.observation-controls [data-observation-value="100"]{grid-column:3}.observation-note{margin:.55cqw 0 0;color:#93a6bd;font-size:.68cqw;line-height:1.5}@media (prefers-reduced-motion:no-preference){.observation-hotspot{transition:background-color .18s,color .18s,border-color .18s}}
 .observation-panel{width:64%;max-height:96%;overflow-y:auto;padding-bottom:1.35cqw;scrollbar-gutter:stable}.observation-controls{grid-template-columns:auto 2.6cqw minmax(0,1fr) 2.6cqw auto;align-items:end}.observation-controls label,.observation-controls input{grid-column:3}.observation-controls [data-observation-value="100"]{grid-column:5}.observation-controls .observation-step{grid-row:2;min-width:0;width:2.6cqw;height:2.35cqw;min-height:0;padding:0;font-size:1.2cqw;line-height:1}.observation-controls #observation-step-left{grid-column:2}.observation-controls #observation-step-right{grid-column:4}.observation-controls .observation-step:disabled{opacity:.35}
 .observation-crop-layer{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}.observation-crop-box{position:absolute;box-sizing:border-box;border:2px solid #f4cb83;box-shadow:0 0 0 100vmax #020713a8,0 0 0 .18cqw #fff5;cursor:move;pointer-events:auto;touch-action:none}.observation-crop-box:focus-visible{outline:2px solid #fff;outline-offset:-4px}.observation-crop-handle{position:absolute;width:max(16px,1.05cqw);height:max(16px,1.05cqw);border:2px solid #172135;border-radius:50%;background:#f4cb83;box-shadow:0 0 .45cqw #0008}.observation-crop-handle.nw{left:0;top:0;cursor:nwse-resize}.observation-crop-handle.ne{right:0;top:0;cursor:nesw-resize}.observation-crop-handle.sw{left:0;bottom:0;cursor:nesw-resize}.observation-crop-handle.se{right:0;bottom:0;cursor:nwse-resize}.observation-panel[data-cropping=true] .observation-label{display:none}.observation-crop-controls{display:flex;align-items:center;gap:.55cqw;min-height:2.35cqw;margin-top:.55cqw}.observation-crop-controls>button,.observation-crop-controls #observation-crop-actions button{min-height:2.2cqw;padding:.3cqw .75cqw;font-size:.72cqw}.observation-crop-controls>span{margin-right:auto;color:#93a6bd;font-size:.7cqw}.observation-crop-controls #observation-crop-actions{display:flex;gap:.4cqw}.observation-panel[data-cropping=true] #observation-crop-status{color:#e7c58c}
+
+/* Optional panoramic authoring scene: preserve its 4:1 frame inside the 16:9 workbench. */
+html[data-panorama=true] .viewer{left:3%;right:3%;top:20%;bottom:auto;height:auto;aspect-ratio:4/1}
+html[data-panorama=true][data-editing=true] .viewer{top:12%;left:6%;right:6%;aspect-ratio:4/1}
+html[data-panorama=true] #scene{width:100%;height:100%;aspect-ratio:4/1}
+html[data-panorama=true] #sky-viewport{width:100%;right:0}
+html[data-panorama=true] .street-controls,html[data-panorama=true] .street-arrow{display:none}
+.layer-pages{display:flex;align-items:center;justify-content:space-between;gap:.4cqw;margin-top:.3cqw;font-size:.75cqw}
+.layer-pages button{font-size:.72cqw;min-height:1.8cqw;padding:.2cqw .6cqw}
+
+html[data-panorama=true] #layers{grid-template-columns:repeat(7,1fr);gap:.2cqw .7cqw}
+
+/* Full-height panorama presentation; authoring keeps its overview layout. */
+html[data-panorama=true]:not([data-editing=true]) .stage{width:100vw;height:100dvh;aspect-ratio:auto}
+html[data-panorama=true]:not([data-editing=true]) .viewer{inset:0;width:100%;height:100%;aspect-ratio:auto}
+html[data-panorama=true]:not([data-editing=true]) #scene,
+html[data-panorama=true]:not([data-editing=true]) #sky-viewport{width:400dvh;height:100%;right:auto;aspect-ratio:4/1}
+html[data-panorama=true]:not([data-editing=true]) #sky-background{height:100%}
+html[data-panorama=true]:not([data-editing=true]) .presentation-title{display:none}
+
+/* Unified vehicle controls float over the scene without reserving a layout band. */
+#traffic-toggle{position:absolute;right:14%;bottom:3.1%;width:3.5cqw;height:3.5cqw;min-height:0;padding:0;display:grid;place-items:center;border-radius:50%;background:#0d1c2aef;z-index:5}
+#traffic-toggle:hover,#traffic-toggle[aria-expanded=true]{background:#29494d;border-color:#9dd5c8}
+#traffic-controls{position:absolute;z-index:46;right:3%;bottom:12%;width:24%;padding:1cqw;background:#101d30f5;border:1px solid #576980;border-radius:.8cqw;font-size:1cqw;color:#dae5f3}
+#traffic-controls .traffic-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:1cqw}
+#traffic-controls label{display:flex;justify-content:space-between;align-items:center}
+#traffic-controls input{width:100%;height:3cqw;accent-color:#eac997;touch-action:none}
+#traffic-glare-count{display:block;color:#e7c58c;margin:.3cqw 0 1cqw}
+#traffic-pause{width:100%}
+html[data-editing=true] #traffic-toggle,html[data-editing=true] #traffic-controls{display:none}
+
+.layer-color{margin:.35cqw 0}.layer-color output{min-width:3cqw;text-align:right;font-variant-numeric:tabular-nums}.layer-color input[type=range]{padding:0;width:6cqw;min-height:1.65cqw;touch-action:none}.layer-color button{min-height:1.8cqw;padding:.2cqw .65cqw;font-size:.8cqw}
+
+.editor-properties>.editor-hint{display:none}
+#bridge-lamp-controls{position:absolute;z-index:46;right:3%;bottom:12%;width:25%;padding:1cqw;background:#101d30f5;border:1px solid #576980;border-radius:.8cqw;font-size:1cqw;color:#dae5f3}
+#bridge-lamp-controls .bridge-lamp-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:1cqw}
+#bridge-lamp-controls label{display:flex;align-items:center;justify-content:space-between}
+#bridge-lamp-controls input{width:100%;height:3cqw;accent-color:#eac997;touch-action:none}
+html[data-editing=true] #bridge-lamp-controls{display:none}
+
+/* The panoramic lamp group is a visitor control, independent of authoring tools. */
+html[data-panorama=true] #lamp-toggle,html[data-panorama=true] #traffic-toggle{display:none!important}
+html[data-panorama=true][data-editing=true] #lamp-toggle{display:none!important}
+
+/* Authoring-only path tool: visitor mode has no overlay or reserved space. */
+#traffic-path-editor{position:absolute;inset:0;z-index:6;pointer-events:none}
+#traffic-path-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;touch-action:none}
+#traffic-path-overlay [data-lane-point]{cursor:move;touch-action:none;outline:none}
+#traffic-path-overlay [data-lane-point]:focus-visible circle:last-child{stroke:#fff;stroke-width:4}
+#traffic-path-tools{position:absolute;left:.6cqw;top:.6cqw;display:flex;gap:.3cqw;align-items:center;pointer-events:auto;padding:.3cqw;background:#081727ee;border:1px solid #526479;border-radius:.4cqw}
+#traffic-path-tools button{min-height:2.3cqw;padding:.3cqw .55cqw;font-size:.75cqw}
+#traffic-path-tools [data-lane]{color:var(--lane-color);border-color:var(--lane-color);background:#0e1d2c}
+#traffic-path-tools [data-lane]:hover,#traffic-path-tools [data-lane][aria-pressed=true]{background:var(--lane-color);color:#0a1420}
+#traffic-path-status{font-size:.7cqw;color:#ffd17b;max-width:15cqw}
+
+html[data-panorama=true]:not([data-editing=true]) .presentation-title{display:block;left:3%;top:4%;z-index:48;font-size:clamp(16px,2.8cqw,44px)}
+.sky-readout{position:absolute;right:3%;top:4%;z-index:48;display:grid;justify-items:end;gap:.35cqw;color:#e6eaf7;font-size:clamp(15px,1.5cqw,28px);font-variant-numeric:tabular-nums;text-shadow:0 1px 8px #07111f}
+.sky-readout strong{font-weight:500}.sky-readout button{font-size:clamp(13px,1.15cqw,22px);min-height:32px;padding:.25em .7em;border-radius:1em;background:#101d32c9;color:#dbe7ff;border:1px solid #8295b766}
+html[data-editing=true] .sky-readout,#highway-lamps-toggle{display:none!important}
+html[data-panorama=true] #traffic-toggle{right:14%}
+html[data-panorama=true] .lamp-controls-heading{display:block!important}
+html[data-panorama=true] #lamp-mode-note{display:none}
+.paper-ui[data-rows="5"] .paper-sheet{height:49cqw;max-height:94%;top:3%}

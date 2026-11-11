@@ -1,4 +1,4 @@
-window.LightPollution.deriveLightEnvironment=function({data,layers,lampInput,distantInput,sourceVisible}){
+window.LightPollution.deriveLightEnvironment=function({data,layers,lampInput,distantInput,sourceVisible,trafficInput}){
  const weights={residential:.3,public:.3,billboard:.2,lamps:.2,distant:.15};
  const area=q=>Math.abs(q.reduce((sum,p,i)=>{const n=q[(i+1)%q.length];return sum+p[0]*n[1]-n[0]*p[1];},0))/2;
  const temperature=k=>.7+.6*Math.max(0,Math.min(1,(k-2200)/4300));
@@ -7,11 +7,12 @@ window.LightPollution.deriveLightEnvironment=function({data,layers,lampInput,dis
    const key=o.type==='billboard'?'billboard':['public','ad-building'].includes(id)?'public':'residential';
    const normalization={residential:48000,public:110000,billboard:40000}[key];
     const curtain=o.type==='window'?LightPollution.curtainTransmission(o.coverage,o.material):1;
-    totals[key]+=area(o.corners)*layer.scale**2/normalization*layer.opacity*(o.brightness/100)*temperature(o.temperature)*curtain;
+    totals[key]+=(o.lightRegion?o.emitterArea:area(o.corners))*layer.scale**2/normalization*layer.opacity*(o.brightness/100)*temperature(o.temperature)*curtain*(id.startsWith('roadlamp-')?LightPollution.lampVariants[trafficInput?.roadShade||'open'].spill:1);
   }
   const lamp=lampInput;totals.lamps=lamp.brightness/100*temperature(lamp.temperature)*(LightPollution.lampVariants[lamp.shade].spill);
   const distant=distantInput,dl=distant.layer;totals.distant=dl?.visible&&distant.visible?distant.brightness/100*temperature(distant.temperature)*dl.opacity*dl.scale**2:0;
+  if(trafficInput){weights.traffic=.2;totals.traffic=(trafficInput.headlightBrightness??100)/100*trafficInput.glareRatio/100*(trafficInput.glareSize??100)/300;}
   const contributions=Object.fromEntries(Object.keys(weights).map(k=>[k,Math.min(2,totals[k])*weights[k]]));
-  const amount=Math.min(1,Object.values(contributions).reduce((a,b)=>a+b,0)/1.35);
+  const amount=Math.min(1,Object.values(contributions).reduce((a,b)=>a+b,0)/(1.35+(trafficInput?.2:0)));
 return {totals,contributions,amount,lamp,distant,weights};
 };

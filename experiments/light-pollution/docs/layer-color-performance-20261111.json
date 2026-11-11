@@ -1,0 +1,64 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "secondsPerState": 4,
+  "samples": [
+    {
+      "kind": "neutral",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000000546,
+      "seconds": 4,
+      "sceneFps": 75,
+      "renderP95": 3.8,
+      "renderMax": 6.7,
+      "gapP95": 14.3,
+      "gapMax": 16.9,
+      "longTasks": 0,
+      "heap": 108086845,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "kind": "three-colored",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000001455,
+      "seconds": 4,
+      "sceneFps": 74.9,
+      "renderP95": 3.9,
+      "renderMax": 5.3,
+      "gapP95": 14.2,
+      "gapMax": 15.5,
+      "longTasks": 0,
+      "heap": 105334619,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "kind": "dragging",
+      "focus": true,
+      "dpr": 1.0000000298023224,
+      "rafP95": 13.400000000001455,
+      "seconds": 4,
+      "sceneFps": 74.9,
+      "renderP95": 6,
+      "renderMax": 6.7,
+      "gapP95": 16.6,
+      "gapMax": 17.4,
+      "longTasks": 0,
+      "heap": 108897838,
+      "viewport": [
+        1600,
+        900
+      ]
+    }
+  ]
+}

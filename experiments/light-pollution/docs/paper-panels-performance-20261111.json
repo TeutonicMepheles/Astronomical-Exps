@@ -1,0 +1,80 @@
+{
+  "baseline": "B:/GithubProject/Astronomical-Exps-lp-panorama/experiments/light-pollution",
+  "sourceHashes": {
+    "features/buildings/controller.js": "4775ed990f590017be97fc436ceaa4273b44cf2c1fdf54931f64fc6406602ee2",
+    "features/vehicles/controller.js": "9831e9c0f7d58b24a970d5dc075b909a77d6e31084dedea97fde514c60fb427b",
+    "app/presentation/billboard-panel.js": "835a071c3c46ad6df72cc571ba4dfed155cfe5a4a00bd2f85cfd4566a4527c04"
+  },
+  "results": [
+    {
+      "kind": "before",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "foreground": true,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "rAF": {
+        "count": 472,
+        "p95": 13.400000000001455,
+        "max": 40
+      },
+      "inputToNextFrame": {
+        "p95": 22.09999990463257,
+        "max": 22.40000009536743
+      },
+      "longTasks": [],
+      "heapStart": 97200646,
+      "heapEnd": 101421130,
+      "composition": {
+        "seconds": 6.4,
+        "sceneFps": 74.3,
+        "renderP95": 5.3,
+        "renderMax": 18.2,
+        "gapP95": 14.6,
+        "gapMax": 43.8,
+        "longTasks": 0,
+        "heap": 101421130,
+        "dpr": 1.0000000298023224,
+        "viewport": [
+          1600,
+          900
+        ]
+      },
+      "animations": 3,
+      "themedRoots": 0
+    },
+    {
+      "kind": "after",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "foreground": true,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "rAF": {
+        "count": 524,
+        "p95": 13.400000000001455,
+        "max": 26.700000000000728
+      },
+      "inputToNextFrame": {
+        "p95": 27.200000047683716,
+        "max": 32.5
+      },
+      "longTasks": [],
+      "heapStart": 94274334,
+      "heapEnd": 106668126,
+      "composition": {
+        "seconds": 7,
+        "sceneFps": 74.3,
+        "renderP95": 6.2,
+        "renderMax": 21.6,
+        "gapP95": 15.1,
+        "gapMax": 32.5,
+        "longTasks": 0,
+        "heap": 106668126,
+        "dpr": 1.0000000298023224,
+        "viewport": [
+          1600,
+          900
+        ]
+      },
+      "animations": 3,
+      "themedRoots": 3
+    }
+  ]
+}

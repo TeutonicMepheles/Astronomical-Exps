@@ -2,169 +2,295 @@
   {
     "file": "data-compatibility.cjs",
     "pass": true,
-    "ms": 9811,
+    "ms": 10966,
     "output": "PASS pre-refactor candidate fixture, persistent restore, legacy v1 missing optional fields and rejected import preserves scene\n"
   },
   {
     "file": "presentation-independent.cjs",
     "pass": true,
-    "ms": 12051,
+    "ms": 10355,
     "output": "PASS presentation without authoring DOM, shared commands, panel exclusion, draft restore and lazy authoring\n"
   },
   {
     "file": "source-entry.cjs",
     "pass": true,
-    "ms": 4977,
+    "ms": 4841,
     "output": "PASS HTTP source candidate/legacy, lazy UI and no external runtime requests\n"
   },
   {
     "file": "verify-ad-building.cjs",
     "pass": true,
-    "ms": 3703,
+    "ms": 3940,
     "output": "PASS ad-building click, 9 windows, brightness/temperature/curtains, independent screen, corners, old-layout migration\n"
+  },
+  {
+    "file": "verify-billboard-antialias.cjs",
+    "pass": true,
+    "ms": 3982,
+    "output": "PASS billboard native sampling, draft migration, custom art preservation, GPU/CPU edge coverage\n"
+  },
+  {
+    "file": "verify-bubble-anchors.cjs",
+    "pass": true,
+    "ms": 4084,
+    "output": "PASS object-attached bubbles, pan, offscreen restoration, stadium/screen/traffic, expand, resize\n"
   },
   {
     "file": "verify-buildings.cjs",
     "pass": true,
-    "ms": 12264,
+    "ms": 12209,
     "output": "PASS building clicks, single charcoal blackout texture, spill attenuation, staggered curtains, replacement, corners, pan isolation and persisted settings\n"
   },
   {
     "file": "verify-candidates.cjs",
     "pass": true,
-    "ms": 17629,
+    "ms": 18027,
     "output": "PASS: corners, geometry hit after parent move, object move/lock, brightness, curtain/material, image replacements, shared history, embedded JSON round-trip/rejection, reload, offline and continuous refresh.\n"
+  },
+  {
+    "file": "verify-comparison-assets.cjs",
+    "pass": false,
+    "ms": 34730,
+    "output": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#building-paper').getByRole('button', { name: '展开高架路灯', exact: true })\u001b[22m\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-comparison-assets.cjs:8:243 {\n  log: [\n    \"  - waiting for locator('#building-paper').getByRole('button', { name: '展开高架路灯', exact: true })\"\n  ],\n  name: 'TimeoutError'\n}\n"
+  },
+  {
+    "file": "verify-comparison.cjs",
+    "pass": false,
+    "ms": 40149,
+    "output": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#building-paper').getByRole('button', { name: '展开高架路灯', exact: true })\u001b[22m\n\n    at panel (B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-comparison.cjs:7:353)\n    at async B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-comparison.cjs:16:358 {\n  log: [\n    \"  - waiting for locator('#building-paper').getByRole('button', { name: '展开高架路灯', exact: true })\"\n  ],\n  name: 'TimeoutError'\n}\n"
   },
   {
     "file": "verify-distant-controls.cjs",
     "pass": true,
-    "ms": 5980,
+    "ms": 5845,
     "output": "PASS presentation distant click, dark hit, drag separation, Escape, editor close, sky, reload, default 5x { x: 559.3922651933701, y: 515.8839779005525 }\n"
   },
   {
     "file": "verify-editor.cjs",
     "pass": true,
-    "ms": 6855,
+    "ms": 7114,
     "output": "PASS: properties, order, drag sorting, canvas drag at two zooms, lock, water constraint, undo/redo, JSON round-trip/rejection, draft reload, panel geometry.\n"
   },
   {
-    "file": "verify-gradient-interaction.cjs",
+    "file": "verify-far-layers.cjs",
     "pass": true,
-    "ms": 35856,
-    "output": "PASS: animated target stability, edge handles, whole-line drag, curve drag, horizon color with custom gradient, unified undo/redo, panel isolation and reload.\nScreenshot: C:\\Users\\Golajah\\AppData\\Local\\Temp\\gradient-interaction-Z9m2pO\\preview.png\n"
+    "ms": 9180,
+    "output": "PASS three editable distant layers, hide/undo/move, clean ground, old JSON migration, reload, offline\n"
+  },
+  {
+    "file": "verify-gradient-interaction.cjs",
+    "pass": false,
+    "ms": 30991,
+    "output": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'locked is not defined'\n+ ]\n- []\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-gradient-interaction.cjs:16:141 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [Array],\n  expected: [],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n"
   },
   {
     "file": "verify-gradient.cjs",
     "pass": true,
-    "ms": 10329,
+    "ms": 9467,
     "output": "PASS: anchors/stops/curve, one-step history and cancel, raster direction/easing, resolution independence, panel fit, import validation/legacy compatibility, reload and offline.\n"
   },
   {
     "file": "verify-lamp-carousel.cjs",
     "pass": true,
-    "ms": 10131,
+    "ms": 10229,
     "output": "PASS direct lamp-head swipe, live light preview, pole alignment, no street pan, Escape rollback, one-step undo/redo, reload and shaft drag.\n"
   },
   {
     "file": "verify-lamps.cjs",
     "pass": true,
-    "ms": 13770,
+    "ms": 12544,
     "output": "PASS: nine equal-position lamp responses, shared shade/temperature/brightness, dark hit, drag isolation, undo, persistence, invalid import, offline.\n"
+  },
+  {
+    "file": "verify-layer-color.cjs",
+    "pass": true,
+    "ms": 8809,
+    "output": "PASS layer color: live saturation/hue, real pointer drag, one gesture one undo, redo, cancel, reset, lock, unchanged other layers, JSON/draft, invalid range, offline\n"
+  },
+  {
+    "file": "verify-legacy-reuse.cjs",
+    "pass": true,
+    "ms": 8296,
+    "output": "PASS legacy art, registered windows, preserved dimming, old JSON geometry/masks/fence migration, reload, editable fence, undo, offline\n"
   },
   {
     "file": "verify-light-environment.cjs",
     "pass": true,
-    "ms": 7491,
+    "ms": 7780,
     "output": "PASS light budget: all-off/high, sky brightness, star budget, curtains, shade, JSON and reload { dark: 0, bright: 1, stars: [ 2100, 588 ] }\n"
   },
   {
     "file": "verify-light-masks.cjs",
-    "pass": true,
-    "ms": 12147,
-    "output": "PASS: real GPU building/window synchronization, perspective sampling, single-window merge, import/export, undo/redo, bad dimensions and corrupt PNG rejection, lock, JSON round trip, reload, old-layout migration, offline page.\nScreenshot: C:\\Users\\Golajah\\AppData\\Local\\Temp\\building-masks-0RxsBZ\\light-mask-import.png\n"
+    "pass": false,
+    "ms": 33432,
+    "output": "page.waitForFunction: Timeout 30000ms exceeded.\n    at importMask (B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-light-masks.cjs:33:144)\n    at async B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-light-masks.cjs:34:3 {\n  log: [],\n  name: 'TimeoutError'\n}\n"
   },
   {
     "file": "verify-objects.cjs",
     "pass": true,
-    "ms": 13733,
+    "ms": 13907,
     "output": "PASS: corners, geometry hit after parent move, object move/lock, brightness, curtain/material, image replacements, shared history, embedded JSON round-trip/rejection, reload, offline and continuous refresh.\n"
   },
   {
     "file": "verify-observations.cjs",
     "pass": true,
-    "ms": 12074,
+    "ms": 10318,
     "output": "PASS: observation crop/brightness controls, editable hotspot drag, scene persistence and undo history.\n"
   },
   {
     "file": "verify-pan.cjs",
     "pass": true,
-    "ms": 3353,
+    "ms": 3442,
     "output": "PASS: outside click hides overlays, sprite click restores; space pan captures corner/layer gestures including early space release; no edits or history; presets reset.\n"
   },
   {
-    "file": "verify-presentation.cjs",
+    "file": "verify-panorama-controls.cjs",
     "pass": true,
-    "ms": 6496,
-    "output": "PASS: default user UI, in-scene title and slider, hidden authoring controls, panorama navigation, opt-in editor mode and responsive 16:9 stage.\n"
+    "ms": 9078,
+    "output": "PASS minimal highway controls, live pixels, undo/redo/cancel/Esc, old settings migration, five-lamp brightness and fixed pale yellow, unrelated objects preserved, lock protection, all five off-state hits, mutual panels, reload\n"
+  },
+  {
+    "file": "verify-panorama-lanes.cjs",
+    "pass": true,
+    "ms": 5314,
+    "output": "PASS randomized lane speeds, smooth drift, analytic cyclic headway, three random sessions x one simulated hour, no same-lane overlap or visible loop teleport [\n  {\n    session: 0,\n    factors: [\n      1.0445785163389614,\n      0.9085710227609981,\n      1.0902114186339391,\n      0.9490201982380135\n    ],\n    minimumNormalizedGap: 21.689343225281142,\n    wraps: 2394,\n    visiblePairs: 203506,\n    phaseSeconds: 3600,\n    stepSeconds: 0.1\n  },\n  {\n    session: 1,\n    factors: [\n      0.9729061990754673,\n      1.018655613127478,\n      0.9099929462060925,\n      1.1110366837434846\n    ],\n    minimumNormalizedGap: 21.689343225281156,\n    wraps: 2384,\n    visiblePairs: 203537,\n    phaseSeconds: 3600,\n    stepSeconds: 0.1\n  },\n  {\n    session: 2,\n    factors: [\n      0.9116117282209066,\n      1.0411740449146305,\n      0.9602235237054833,\n      1.1076909449879109\n    ],\n    minimumNormalizedGap: 21.689343225281167,\n    wraps: 2391,\n    visiblePairs: 67864,\n    phaseSeconds: 3600,\n    stepSeconds: 0.3\n  }\n]\n"
+  },
+  {
+    "file": "verify-panorama-path-editor.cjs",
+    "pass": true,
+    "ms": 10779,
+    "output": "PASS four Bezier paths, pointer/keyboard/zoom drag, live car preview, one gesture history, cancel, endpoints/tangents, selected reset, hide/show, lane selection, isolated snapshots, invalid import, JSON, draft, old migration, locks, edited-path headway/offscreen wraps, repeated editor lifecycle\n"
+  },
+  {
+    "file": "verify-panorama-roadlights.cjs",
+    "pass": false,
+    "ms": 8402,
+    "output": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'locked is not defined',\n+   'locked is not defined'\n+ ]\n- []\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-panorama-roadlights.cjs:24:379 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [Array],\n  expected: [],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n"
+  },
+  {
+    "file": "verify-panorama-stadium-merge.cjs",
+    "pass": true,
+    "ms": 8542,
+    "output": "PASS merged five-part alpha, one editor row, move/scale/hide/undo, old 37-layer migration and persistence\n"
+  },
+  {
+    "file": "verify-panorama-stadium.cjs",
+    "pass": false,
+    "ms": 11932,
+    "output": "{\n  stadium: {\n    exteriorCount: 58140,\n    exteriorChanged: 0,\n    interiorCount: 31054,\n    interiorChanged: 31054,\n    count: 93618,\n    black: 0,\n    changed: 34695,\n    sourceError: 0,\n    onMean: 137.22936472330818,\n    midMean: 124.39079023264757,\n    offMean: 102.4562014427425,\n    offRange: 208.33333333333334\n  },\n  'floodlight-1': {\n    exteriorCount: 970,\n    exteriorChanged: 0,\n    interiorCount: 23,\n    interiorChanged: 23,\n    count: 1314,\n    black: 0,\n    changed: 166,\n    sourceError: 0,\n    onMean: 86.96067985794014,\n    midMean: 82.95915778792491,\n    offMean: 76.01420598680873,\n    offRange: 128\n  },\n  'floodlight-2': {\n    exteriorCount: 820,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1130,\n    black: 0,\n    changed: 153,\n    sourceError: 0,\n    onMean: 86.56135693215339,\n    midMean: 82.64424778761062,\n    offMean: 75.79941002949853,\n    offRange: 135\n  },\n  'floodlight-3': {\n    exteriorCount: 833,\n    exteriorChanged: 0,\n    interiorCount: 21,\n    interiorChanged: 21,\n    count: 1146,\n    black: 0,\n    changed: 154,\n    sourceError: 0,\n    onMean: 86.54479348458405,\n    midMean: 82.75683536940082,\n    offMean: 76.13379872018616,\n    offRange: 172.33333333333334\n  },\n  'floodlight-4': {\n    exteriorCount: 1057,\n    exteriorChanged: 0,\n    interiorCount: 26,\n    interiorChanged: 26,\n    count: 1407,\n    black: 0,\n    changed: 168,\n    sourceError: 0,\n    onMean: 86.70078180525941,\n    midMean: 82.91021085050936,\n    offMean: 76.29021558872306,\n    offRange: 163\n  }\n}\nAssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'locked is not defined',\n+   'locked is not defined'\n+ ]\n- []\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-panorama-stadium.cjs:24:567 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [Array],\n  expected: [],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n"
+  },
+  {
+    "file": "verify-panorama-traffic.cjs",
+    "pass": false,
+    "ms": 3701,
+    "output": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    glareRatio: 100,\n    glareSize: 300,\n    headlightBrightness: 100,\n    highBeamMode: 'high',\n    paused: true,\n+   roadShade: 'open',\n    speed: 100,\n    version: 1\n  }\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-panorama-traffic.cjs:8:64\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:472:9) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [Object],\n  expected: [Object],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n"
+  },
+  {
+    "file": "verify-panorama-water.cjs",
+    "pass": true,
+    "ms": 8663,
+    "output": "PASS restored painted water, moving ripples, fixed shoreline alpha, window-linked reflections, old draft migration, visibility/undo, fixed scale, offline {\n  motion: { changed: 215953, alphaChanges: 0 },\n  on: { r: 2599875, b: 5797016 },\n  off: { r: 1405758, b: 5305960 }\n}\n"
+  },
+  {
+    "file": "verify-panorama-zones.cjs",
+    "pass": false,
+    "ms": 7676,
+    "output": "{\n  wallCount: 76870,\n  wallChanged: 0,\n  windows: 3186,\n  darkWindows: 3186,\n  leftChanged: 544,\n  otherChanged: 0,\n  coolChanged: 544\n}\nAssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'locked is not defined',\n+   'locked is not defined',\n+   'locked is not defined',\n+   'locked is not defined'\n+ ]\n- []\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-panorama-zones.cjs:32:9 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [Array],\n  expected: [],\n  operator: 'deepStrictEqual',\n  diff: 'simple'\n}\n"
+  },
+  {
+    "file": "verify-panorama.cjs",
+    "pass": false,
+    "ms": 36310,
+    "output": "page.waitForFunction: Timeout 30000ms exceeded.\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-panorama.cjs:23:251 {\n  log: [],\n  name: 'TimeoutError'\n}\n"
+  },
+  {
+    "file": "verify-paper-panels.cjs",
+    "pass": false,
+    "ms": 36224,
+    "output": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#traffic-paper').getByRole('button', { name: '展开高架道路', exact: true })\u001b[22m\n\n    at open (B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-paper-panels.cjs:6:273)\n    at async B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-paper-panels.cjs:12:106 {\n  log: [\n    \"  - waiting for locator('#traffic-paper').getByRole('button', { name: '展开高架道路', exact: true })\"\n  ],\n  name: 'TimeoutError'\n}\n"
+  },
+  {
+    "file": "verify-presentation.cjs",
+    "pass": false,
+    "ms": 4360,
+    "output": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(await page.locator('#lamp-settings').isVisible())\n\n    at B:\\GithubProject\\Astronomical-Exps-lp-latest-preview-20261111\\experiments\\light-pollution\\tests\\browser\\verify-presentation.cjs:18:63 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n"
+  },
+  {
+    "file": "verify-promoted-sr.cjs",
+    "pass": true,
+    "ms": 7547,
+    "output": "PASS promoted art, existing draft/layout/colors/water/custom images, far window group dimming, isolated edits, undo/redo/cancel/reload, offline\n"
   },
   {
     "file": "verify-reflections.cjs",
     "pass": true,
-    "ms": 4733,
+    "ms": 5069,
     "output": "PASS position, actual scene water follows building temperature and brightness {\n  initial: { r: 1808187, b: 3614554 },\n  cool: { r: 1588259, b: 4185094 },\n  dark: { r: 797568, b: 3198937 }\n}\n"
+  },
+  {
+    "file": "verify-road-sky-ui.cjs",
+    "pass": true,
+    "ms": 15658,
+    "output": "PASS shoreline shades, unified highway controls, maximum start, live demo HUD and gradual dense stars\n"
   },
   {
     "file": "verify-scene-effects.cjs",
     "pass": true,
-    "ms": 6794,
+    "ms": 6974,
     "output": "PASS effects defaults, ranges, undo/redo, pause setting, persistence, JSON compatibility/rejection, sky budget, light-only pixels and temperature\n"
   },
   {
     "file": "verify-sky.cjs",
     "pass": true,
-    "ms": 7489,
+    "ms": 7601,
     "output": "PASS: offline sky, adjacent controls, presets, settings persistence, pause/play, shared zoom, Escape isolation, panel fit.\n"
+  },
+  {
+    "file": "verify-stadium-ui.cjs",
+    "pass": true,
+    "ms": 11924,
+    "output": "PASS stadium user panel and editor isolation\n"
   },
   {
     "file": "verify-video-playlist.cjs",
     "pass": true,
-    "ms": 17386,
+    "ms": 17020,
     "output": "PASS full-length 03→08→03, retained controls, pause, manual restart\n"
   },
   {
     "file": "verify-video-resources.cjs",
     "pass": true,
-    "ms": 9054,
+    "ms": 8817,
     "output": "PASS 03/08 switching, animation pixels, effect retention, persistence and offline\n"
   },
   {
     "file": "verify-video-transition.cjs",
     "pass": true,
-    "ms": 10739,
+    "ms": 10407,
     "output": "PASS screen click, full clip, crossfade, temporary glitch boost and next clip start\n"
   },
   {
     "file": "verify-video.cjs",
     "pass": true,
-    "ms": 19441,
+    "ms": 18397,
     "output": "PASS video pause/resume, each effect, persistence, offline and no errors\n"
   },
   {
     "file": "verify-water.cjs",
     "pass": true,
-    "ms": 3583,
+    "ms": 3689,
     "output": "PASS water motion, replacement texture, fixed alpha, continuous cycle { changed: true, alpha: true, seam: 0.001114555027173913 }\n"
   },
   {
     "file": "verify-zoom.cjs",
     "pass": true,
-    "ms": 2926,
+    "ms": 3036,
     "output": "PASS: plain wheel unchanged, Shift wheel anchored zoom, corner hit/drag at custom zoom, undo and preset reset.\n"
   },
   {
     "file": "verify.cjs",
     "pass": true,
-    "ms": 5787,
+    "ms": 5993,
     "output": "PASS: offline load, eight layers, reference isolation, three detail views, static stability.\n"
   }
 ]

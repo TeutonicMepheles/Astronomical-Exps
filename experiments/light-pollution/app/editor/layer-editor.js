@@ -1,5 +1,5 @@
 /* Local scene layout editor. Layouts contain no scripts or external asset URLs. */
-window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVisible,getView,setGenerated,screen,extras,gradient,lamps,buildings,lightEnvironment,sceneEffects,store,session}) {
+window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVisible,getView,setGenerated,screen,extras,gradient,lamps,buildings,lightEnvironment,sceneEffects,store,session,onActiveChange=()=>{},getVisualBounds=()=>null}) {
  const $=id=>document.getElementById(id), copy=value=>JSON.parse(JSON.stringify(value));
  const layersDefault=()=>specs.map(([id])=>({id,x:0,y:0,scale:1,opacity:1,visible:true,locked:false}));
  let layers=store.layers,selected=specs.some(s=>s[0]==='buildings')?'buildings':'residential',active=false,selectionVisible=true,drag=null,rowDrag=null;
@@ -7,19 +7,43 @@ window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVi
  const status=text=>{$('editor-status').textContent=text;};
  const snapshot=store.beginExternal,record=store.commitExternal,change=store.changeExternal;
  const documentData=store.documentData;
+ const pageSize=7;let layerPage=0,pager=null;
+ if(specs.length>8){
+  pager=document.createElement('div');pager.className='layer-pages';
+  const previous=document.createElement('button'),next=document.createElement('button'),position=document.createElement('span');
+  previous.textContent='上一页';next.textContent='下一页';position.setAttribute('aria-live','polite');
+  previous.onclick=()=>{layerPage--;refresh();};next.onclick=()=>{layerPage++;refresh();};
+  pager.append(previous,position,next);$('editor-layers').after(pager);
+ }
  const unsubscribe=store.subscribe(()=>{layers=store.layers;refresh();status(store.message);});
  LightPollution.disposers.push(unsubscribe);
  const chosen=()=>layers.find(l=>l.id===selected);
+ const colorDefaults={brightness:100,saturation:100,hue:0},colorInputs={};let colorGesture=null;
+ const colorPanel=document.createElement('div');colorPanel.className='property-grid layer-color';
+ for(const [key,label,min,max,unit]of [['brightness','亮度',0,200,'%'],['saturation','饱和度',0,200,'%'],['hue','色调',-180,180,'°']]){
+  const row=document.createElement('label'),output=document.createElement('output'),input=document.createElement('input');input.id='layer-color-'+key;input.type='range';input.min=min;input.max=max;input.step=1;output.htmlFor=input.id;row.append(label+' ',output,input);colorPanel.append(row);colorInputs[key]={input,output,unit};
+  input.oninput=()=>{const l=chosen();if(!l||l.locked||!input.validity.valid)return;if(!colorGesture)colorGesture={before:snapshot(),id:l.id};l.color={...colorDefaults,...l.color,[key]:input.valueAsNumber};output.value=input.value+unit;compose();};
+  input.onchange=()=>finishColor();input.onpointercancel=()=>finishColor(true);
+  input.onkeydown=e=>{if(e.key==='Escape'&&colorGesture){e.preventDefault();e.stopPropagation();finishColor(true);}};
+ }
+ const resetColor=document.createElement('button');resetColor.textContent='重置调色';resetColor.id='layer-color-reset';resetColor.onclick=()=>{finishColor();const l=chosen();if(l&&!l.locked)change(()=>{delete l.color;});};colorPanel.append(resetColor);$('prop-opacity').closest('.property-grid').after(colorPanel);
+ const windowLighting=document.createElement('button');windowLighting.id='layer-window-lighting';windowLighting.textContent='远景窗口调光';windowLighting.onclick=()=>{finishColor();buildings.openLighting('distant-buildings');};colorPanel.append(windowLighting);
+ function finishColor(cancel=false){if(!colorGesture)return;const old=colorGesture;colorGesture=null;if(cancel)store.cancelExternal(old.before);else record(old.before);}
+ LightPollution.disposers.push(()=>finishColor(true));
  function refresh(){
   const list=$('editor-layers');list.replaceChildren();
-  [...layers].reverse().forEach(l=>{
+  const ordered=[...layers].reverse(),pages=Math.ceil(layers.length/pageSize);layerPage=Math.max(0,Math.min(pages-1,layerPage));
+  if(pager){pager.children[0].disabled=layerPage===0;pager.children[1].textContent=`${layerPage+1} / ${pages}`;pager.children[2].disabled=layerPage===pages-1;}
+  (pager?ordered.slice(layerPage*pageSize,(layerPage+1)*pageSize):ordered).forEach(l=>{
    const row=document.createElement('div');row.className='editor-row';row.dataset.id=l.id;row.draggable=!l.locked;
-   const select=document.createElement('button');select.className='layer-select';select.textContent=specs.find(s=>s[0]===l.id)[1];select.setAttribute('aria-pressed',String(selected===l.id));select.onclick=()=>{selected=l.id;selectionVisible=true;refresh();compose();};
+   const select=document.createElement('button');select.className='layer-select';select.textContent=specs.find(s=>s[0]===l.id)[1];select.setAttribute('aria-pressed',String(selected===l.id));select.onclick=()=>{finishColor();selected=l.id;selectionVisible=true;refresh();compose();};
    const show=document.createElement('button');show.textContent=l.visible?'显示':'隐藏';show.setAttribute('aria-label',select.textContent+' 显示');show.setAttribute('aria-pressed',String(l.visible));show.disabled=l.locked;show.onclick=()=>change(()=>{l.visible=!l.visible;});
    const lock=document.createElement('button');lock.textContent=l.locked?'已锁':'锁定';lock.setAttribute('aria-label',select.textContent+' 锁定');lock.setAttribute('aria-pressed',String(l.locked));lock.onclick=()=>change(()=>{l.locked=!l.locked;});
    row.append(select,show,lock);row.ondragstart=e=>{if(l.locked){e.preventDefault();return;}rowDrag=l.id;e.dataTransfer.setData('text/plain',l.id);};row.ondragover=e=>e.preventDefault();row.ondrop=e=>{e.preventDefault();if(!rowDrag||rowDrag===l.id)return;change(()=>{const i=layers.findIndex(x=>x.id===rowDrag),j=layers.indexOf(l);const [item]=layers.splice(i,1);layers.splice(j,0,item);});rowDrag=null;};row.ondragend=()=>{rowDrag=null;};list.append(row);
   });
   const l=chosen();$('selected-name').textContent=l?specs.find(s=>s[0]===l.id)[1]:'选择素材组';
+  windowLighting.hidden=l?.id!=='distant-buildings';windowLighting.disabled=!l||l.locked;
+  for(const [key,{input,output,unit}]of Object.entries(colorInputs)){input.disabled=!l||l.locked;input.value=l?.color?.[key]??colorDefaults[key];output.value=input.value+unit;}resetColor.disabled=!l||l.locked||!l.color;
   for(const key of ['x','y','scale','opacity']){const input=$('prop-'+key);input.disabled=!l||l.locked||(key==='scale'&&water(l.id));input.value=l?Number((l[key]*(key==='opacity'?100:1)).toFixed(2)):'';}
   document.querySelectorAll('[data-order]').forEach(b=>{const i=layers.indexOf(l);b.disabled=!l||l.locked||(['top','up'].includes(b.dataset.order)?i===layers.length-1:i===0);});
   session.selectedId=selected;sceneEffects.refresh(l);$('undo').disabled=!store.history.canUndo;$('redo').disabled=!store.history.canRedo;
@@ -37,13 +61,13 @@ window.createLayerEditor = function ({canvas,W,H,specs,bounds,masks,compose,isVi
  $('layout-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>32000000)throw Error('布局文件过大');const doc=JSON.parse(await file.text()),next=await store.importDocument(doc);status('布局已导入，可撤销');}catch(err){status('导入失败：'+err.message);}finally{e.target.value='';}};
  function viewport(){return LightPollution.viewport(getView(),W,H);}
  function point(e){const r=canvas.getBoundingClientRect(),v=viewport();return {x:v.x+(e.clientX-r.left)*W/r.width/v.z,y:v.y+(e.clientY-r.top)*H/r.height/v.z};}
- function hit(l,p){const b=bounds[l.id],x=Math.floor((p.x-b.x-l.x)/l.scale+b.x),y=Math.floor((p.y-b.y-l.y)/l.scale+b.y);return x>=0&&y>=0&&x<W&&y<H&&(extras.hasLayerImage(l.id)?x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h:masks[l.id][y*W+x]>8);}
+ function hit(l,p){const b=bounds[l.id],x=Math.floor((p.x-b.x-l.x)/l.scale+b.x),y=Math.floor((p.y-b.y-l.y)/l.scale+b.y);const visual=getVisualBounds(l.id);if(visual)return x>=visual.x&&x<=visual.x+visual.w&&y>=visual.y&&y<=visual.y+visual.h;return x>=0&&y>=0&&x<W&&y<H&&(extras.hasLayerImage(l.id)?x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h:masks[l.id][y*W+x]>8);}
  LightPollution.on(canvas,'pointerdown',e=>{if(!active||gradient.active||extras.editingObjects()||e.button!==0||drag)return;const p=point(e),l=[...layers].reverse().find(l=>l.visible&&isVisible(l.id)&&l.opacity>0&&hit(l,p));if(!l){selectionVisible=false;compose();return;}selected=l.id;selectionVisible=true;if(l.locked){refresh();compose();return;}drag={pointer:e.pointerId,p,x:l.x,y:l.y,before:snapshot()};canvas.setPointerCapture(e.pointerId);refresh();compose();e.preventDefault();});
  LightPollution.on(canvas,'pointermove',e=>{if(!drag||drag.pointer!==e.pointerId)return;const p=point(e),l=chosen();l.x=Math.max(-W*2,Math.min(W*2,drag.x+p.x-drag.p.x));l.y=Math.max(-H*2,Math.min(H*2,drag.y+p.y-drag.p.y));compose();});
  function finish(e,cancel=false){if(!drag||(e&&e.pointerId!==drag.pointer))return;const old=drag;drag=null;if(cancel)store.cancelExternal(old.before);else record(old.before);if(canvas.hasPointerCapture(old.pointer))canvas.releasePointerCapture(old.pointer);refresh();compose();}
  LightPollution.on(canvas,'pointerup',e=>finish(e));LightPollution.on(canvas,'pointercancel',e=>finish(e,true));LightPollution.on(canvas,'lostpointercapture',e=>finish(e,true));
- $('edit-toggle').disabled=false;$('edit-toggle').onclick=toggle;function toggle(){finish(null);active=!active;session.active=active;setGenerated();document.documentElement.dataset.editing=String(active);$('editor-panel').hidden=!active;$('edit-toggle').setAttribute('aria-expanded',String(active));$('edit-toggle').setAttribute('aria-label',active?'退出素材编辑':'打开素材编辑');document.querySelectorAll('[data-mode]').forEach(b=>b.disabled=active);refresh();compose();};
+ $('edit-toggle').disabled=false;$('edit-toggle').onclick=toggle;function toggle(){finishColor();finish(null);active=!active;session.active=active;setGenerated();document.documentElement.dataset.editing=String(active);$('editor-panel').hidden=!active;$('edit-toggle').setAttribute('aria-expanded',String(active));$('edit-toggle').setAttribute('aria-label',active?'退出素材编辑':'打开素材编辑');document.querySelectorAll('[data-mode]').forEach(b=>b.disabled=active);refresh();onActiveChange(active);compose();};
  LightPollution.on(document,'keydown',e=>{if(!active||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='Escape'){if(drag)finish(null,true);else toggle();}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();if(!drag&&!gradient.busy&&!lamps.busy&&!buildings.busy&&!sceneEffects.busy)(e.shiftKey?store.history.redo:store.history.undo)();}});
  refresh();
- return {setActive(value){if(active!==value)toggle();},get layers(){return layers;},get active(){return active;},get selectedId(){return selected;},drawSelection(){gradient.draw();if(gradient.active)return;extras.drawSelection(active);if(!active||!selectionVisible||extras.editingObjects())return;const l=chosen();if(!l||!l.visible||!isVisible(l.id))return;const b=bounds[l.id],v=viewport();screen.save();screen.strokeStyle=l.locked?'#9ba9b880':'#f1ce9280';screen.lineWidth=2*W/canvas.getBoundingClientRect().width;screen.setLineDash([10,6]);screen.strokeRect((b.x+l.x-v.x)*v.z,(b.y+l.y-v.y)*v.z,b.w*l.scale*v.z,b.h*l.scale*v.z);screen.restore();}};
+ return {setActive(value){if(active!==value)toggle();},get layers(){return layers;},get active(){return active;},get selectedId(){return selected;},drawSelection(){gradient.draw();if(gradient.active)return;extras.drawSelection(active);if(!active||!selectionVisible||extras.editingObjects())return;const l=chosen();if(!l||!l.visible||!isVisible(l.id))return;const b=bounds[l.id],box=getVisualBounds(l.id)||b,v=viewport();screen.save();screen.strokeStyle=l.locked?'#9ba9b880':'#f1ce9280';screen.lineWidth=2*W/canvas.getBoundingClientRect().width;screen.setLineDash([10,6]);screen.strokeRect((b.x+l.x+(box.x-b.x)*l.scale-v.x)*v.z,(b.y+l.y+(box.y-b.y)*l.scale-v.y)*v.z,box.w*l.scale*v.z,box.h*l.scale*v.z);screen.restore();}};
 };

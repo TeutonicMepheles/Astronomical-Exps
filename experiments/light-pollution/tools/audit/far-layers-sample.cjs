@@ -1,0 +1,9 @@
+const {chromium}=require('playwright'),fs=require('node:fs'),path=require('node:path');
+(async()=>{const browser=await chromium.launch({channel:'chrome',headless:false});try{
+ const page=await browser.newPage({viewport:{width:1600,height:900}}),samples=[];
+ await page.goto('http://127.0.0.1:10953/experiments/light-pollution/app/index.html?scene=panorama-20261111&mode=editor&profile=1');
+ await page.waitForSelector('html[data-ready=true]');await page.bringToFront();
+ for(const hidden of [false,true]){const data=await page.evaluate(()=>LightPollution.store.documentData());if(hidden){data.layers.filter(l=>['distant-mountains','distant-buildings','distant-viaduct'].includes(l.id)).forEach(l=>l.visible=false);await page.evaluate(d=>LightPollution.store.importDocument(d),data);}
+ await page.waitForTimeout(500);samples.push(await page.evaluate(hidden=>new Promise(resolve=>{LightPollution.profile.reset();let last=0,raf;const gaps=[];const tick=t=>{if(last)gaps.push(t-last);last=t;raf=requestAnimationFrame(tick);};raf=requestAnimationFrame(tick);setTimeout(()=>{cancelAnimationFrame(raf);gaps.sort((a,b)=>a-b);const gl=document.createElement('canvas').getContext('webgl'),ext=gl?.getExtension('WEBGL_debug_renderer_info');resolve({hidden,layers:LightPollution.store.documentData().layers.length,rafP95:gaps[Math.floor(gaps.length*.95)],focus:document.hasFocus(),visibility:document.visibilityState,dpr:devicePixelRatio,gpu:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null,...LightPollution.profile.snapshot()});},4000);}),hidden));}
+ fs.writeFileSync(path.resolve(__dirname,'../../docs',process.argv[2]||'far-layers-performance.json'),JSON.stringify({browser:browser.version(),viewport:[1600,900],secondsPerState:4,samples},null,2));console.log(JSON.stringify(samples));
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -3,8 +3,8 @@
   "inputs": [
     {
       "path": "app/page.html",
-      "bytes": 8681,
-      "sha256": "fe6dc79957bf3fe0f6938cd587e5d563ee5f3cbb0d7301d57d78745a96ab8fc3"
+      "bytes": 8708,
+      "sha256": "ee6206347ef118609f6089f1066645b4f34686c42ed6c09014fc573ad58d1adf"
     },
     {
       "path": "assets/billboard-demo/city.svg",
@@ -177,6 +177,141 @@
       "sha256": "b6299d53b9df1ac0a4561ea44df472d2b8c15e0aee66534e76936001e6e6e3bf"
     },
     {
+      "path": "assets/stadium-ui-20261111/bubble.webp",
+      "bytes": 208410,
+      "sha256": "9add8801c0af5808f3a7ded3c0c49b292b2d8fa1702d1c9d8b61d960da1399e8"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/panel.webp",
+      "bytes": 151248,
+      "sha256": "3bfef1150a8050452bd99bcb1849183f2bff074bdef11fcf53f4ea0b9fa5f10f"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/title.webp",
+      "bytes": 91146,
+      "sha256": "282e01e07defbd772e5a78ad53dd85a60ce44cd0661b143ee1e21148b51a3a9c"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/residential.webp",
+      "bytes": 34646,
+      "sha256": "4aae47eefca7b8270ee18b8a637663a49b5201bf0feca6a7a32edff87dfd156c"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/public-group.webp",
+      "bytes": 32660,
+      "sha256": "c67910e7b1d1b2c1818120990a411615fd424ea5b9e17870622b4470694552ea"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/path-lamp.webp",
+      "bytes": 36644,
+      "sha256": "0d7b9a47dd0bb54c8288a98fcc41b51f27dd1ebfda8c6a700c06a74721c42545"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/outdoor-screen.webp",
+      "bytes": 28418,
+      "sha256": "0cf61a06d1420eafca95a09a204413c2354d1e47ef73e0a13ae023cb761bbee2"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/road-vehicles.webp",
+      "bytes": 32204,
+      "sha256": "b4aa78a6f3a5ffbaa81d245e0a99e186fe2f57ce7cf7a6226b0bb8dc762e7a40"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/public-building.webp",
+      "bytes": 32770,
+      "sha256": "52103096ae643622a561bc788c862fcef2cb2e3a0b30e5a007fdd5cca4f19d7f"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/blank-bubble.webp",
+      "bytes": 133118,
+      "sha256": "72029f9b6a76435a29e6a24350ce7c93a95c4901579e83074261939b95a22ec1"
+    },
+    {
+      "path": "assets/comparison/lt-01-before.webp",
+      "bytes": 2670514,
+      "sha256": "cd600ec2904f6347d71c99fb3e40a95092e6b981e060b913007c4cb20c757892"
+    },
+    {
+      "path": "assets/comparison/lt-01-after.webp",
+      "bytes": 2875240,
+      "sha256": "dae80922b295cc56c12f4ac7216e197f6be0ee42b0475e724eb7611409f302de"
+    },
+    {
+      "path": "assets/comparison/lt-02-before.webp",
+      "bytes": 3070314,
+      "sha256": "6202e68cc7990cebc81fc88153d3010c9547cf8f3d733f81f4a56866ab228ac3"
+    },
+    {
+      "path": "assets/comparison/lt-02-after.webp",
+      "bytes": 3054936,
+      "sha256": "875ff9c48ba94942c9525a2d8b4e0789be4af5d68dd1425108ee877692d76073"
+    },
+    {
+      "path": "assets/comparison/lt-03-before.webp",
+      "bytes": 3027508,
+      "sha256": "32c66397e01e28cc6c435b8eb3f8333fa7afc5997f2a9ef9c8c923a574fca4c3"
+    },
+    {
+      "path": "assets/comparison/lt-03-after.webp",
+      "bytes": 2760860,
+      "sha256": "dad4eda6b7753772e5cdf44e28b8f21c703edddf7759632b82df5eeb74da07fc"
+    },
+    {
+      "path": "assets/comparison/lt-04-before.webp",
+      "bytes": 2994564,
+      "sha256": "c2c33063bab90b4d7a1fe0eb6d73e82c09a58c2732c90ad621a5c9e04c1b7581"
+    },
+    {
+      "path": "assets/comparison/lt-04-after.webp",
+      "bytes": 2890226,
+      "sha256": "1c65fcb4ef94f94f533b7e3e3d92364d2b75263bce37aa383b9764e9e2b95f4c"
+    },
+    {
+      "path": "assets/comparison/lt-05-before.webp",
+      "bytes": 2988638,
+      "sha256": "86b844a35911ca577c21fd431cc06cd00c78a600dddb08bdfb15b44c3b983608"
+    },
+    {
+      "path": "assets/comparison/lt-05-after.webp",
+      "bytes": 2968734,
+      "sha256": "f72265d12987e0cbc0ed02f0db327603877abce23b177937016b3548a1c5de8a"
+    },
+    {
+      "path": "assets/comparison/lt-06-before.webp",
+      "bytes": 3132446,
+      "sha256": "0396cba195645b866726ae84ad3a507568bdb86e4a791ac818034825def2fe12"
+    },
+    {
+      "path": "assets/comparison/lt-06-after.webp",
+      "bytes": 2680990,
+      "sha256": "ccec4f5b57d0793237d25f96e2e44cbad51a2aba96007ab669e202cfdc437932"
+    },
+    {
+      "path": "assets/comparison/lt-07-before.webp",
+      "bytes": 2975602,
+      "sha256": "444a9c465a09b5ddb818c34922ee46f91fc8695c6b290f1e4daa47bf34011cb7"
+    },
+    {
+      "path": "assets/comparison/lt-07-after.webp",
+      "bytes": 2736532,
+      "sha256": "86b686c2f06e87abc111f79d83c8733a71086d30068bc1581f9d6c03217dc546"
+    },
+    {
+      "path": "assets/stadium-ui-20261111/comparison-plate.webp",
+      "bytes": 914298,
+      "sha256": "fc33b365df778456a4f36bd8c811a6a60d371972345a9d19500f680d21c7b194"
+    },
+    {
+      "path": "assets/comparison/residential-shield-before-20261111.webp",
+      "bytes": 3602310,
+      "sha256": "dfc9c82363e6e3c32f4e8a8bf7b9874bafb84f359241a4f0c2577008856e214d"
+    },
+    {
+      "path": "assets/comparison/residential-shield-after-20261111.webp",
+      "bytes": 3460096,
+      "sha256": "0f9ca040f8412cfc237ab37dd81fc8e5488ef22c6458ba9ace5b9121922b5bc8"
+    },
+    {
       "path": "../../shared/typography/typography.css",
       "bytes": 300,
       "sha256": "bd9f3a1c595ac9f71ccf114237c7042d6feb096a6f93ec3e149f2043951edea3"
@@ -188,13 +323,38 @@
     },
     {
       "path": "app/styles/scene.css",
-      "bytes": 27867,
-      "sha256": "f7ea2aec0e4b267b696d9ae61b473319bc9380452188dc8fde1cbb7c2dc07fd0"
+      "bytes": 33604,
+      "sha256": "a0b440fa8cd597f50c338596e03dcd9f0acedcb1befdeb52c78ae11c95337dad"
+    },
+    {
+      "path": "app/styles/stadium.css",
+      "bytes": 3674,
+      "sha256": "2fa8f16be2cf9b2475b58805383753f4040e0ef43661800439e49a80a0ec7f11"
+    },
+    {
+      "path": "app/styles/paper.css",
+      "bytes": 6616,
+      "sha256": "e2c2bc9196ffa3d362ee27686b1d42b5e8997d14ca5044e7017de189bb618b73"
+    },
+    {
+      "path": "app/styles/comparison.css",
+      "bytes": 3101,
+      "sha256": "1501f932564b67a457a613511e9af727667220b7d20471470e7c01bd8e0ca62f"
     },
     {
       "path": "core/runtime.js",
       "bytes": 4516,
       "sha256": "62bbcfbaf2c8126f263f6396f62bcdf30171773e5ee846141fe1ba139faef103"
+    },
+    {
+      "path": "scenes/candidate/comparisons.js",
+      "bytes": 1976,
+      "sha256": "9705faf5c753213be8b60d36188b6f6aa759c28853ffa36c720c2142df64f53a"
+    },
+    {
+      "path": "app/presentation/comparison-modal.js",
+      "bytes": 7523,
+      "sha256": "2332f415f78216e693fac74b26c7f134a5978bae40e8f3bff26bbe74dbd33045"
     },
     {
       "path": "scenes/candidate/definition.js",
@@ -228,8 +388,8 @@
     },
     {
       "path": "features/light-environment/model.js",
-      "bytes": 1565,
-      "sha256": "83bde6eb79b01a0dbdf83ac28e2eefcb4d6047d52a83ba9b1c68015783b3361d"
+      "bytes": 1907,
+      "sha256": "6ca900a0f262041566345919e38bb5490be55d848f98d314a9760c72220a330e"
     },
     {
       "path": "resources/asset-registry.js",
@@ -243,8 +403,8 @@
     },
     {
       "path": "persistence/scene-codec.js",
-      "bytes": 1501,
-      "sha256": "079f0f950424e9097f34c70873713050e5d6ab12f1ec1f91f81294464bb180f9"
+      "bytes": 3459,
+      "sha256": "6d567a94a1409b274cee90404eb1d4a82f819a7d623d4e6516bce9b34d0cd19c"
     },
     {
       "path": "core/scene-store.js",
@@ -258,38 +418,63 @@
     },
     {
       "path": "rendering/surface-projector.js",
-      "bytes": 4820,
-      "sha256": "07c581150b98d7e119a87fd263b351f56906e5172ef8460924784f4356ce5de8"
+      "bytes": 6082,
+      "sha256": "8a7ace2013207416b9f6c6ebaa5dc5d3541f49734ab8f3e8c994be88ee67d0ee"
     },
     {
       "path": "rendering/building-renderer.js",
-      "bytes": 6032,
-      "sha256": "1d9f6e9d328fd5b89327b74f7cf0dae4f806d28d0c5cb6ce19ae44a8e682bfa3"
+      "bytes": 6600,
+      "sha256": "7f2490759fcb075574ad1fb78081f85260f4255bae4bfed417f295667f2f7e6e"
     },
     {
       "path": "rendering/reflection-pass.js",
-      "bytes": 2792,
-      "sha256": "ff2890e7cdecfc7531cccc19a6eccab6eca476315be7ec50f6b94290401e90df"
+      "bytes": 3086,
+      "sha256": "6b1d2e9dd16b9c230aca12e748654be58c671855a9580086a6b7bec0c9141dea"
+    },
+    {
+      "path": "rendering/panorama-lighting.js",
+      "bytes": 7620,
+      "sha256": "b2e51791a149a083e18efa052c62eb0b9c11b5c660cb5532f428b15bc085261f"
+    },
+    {
+      "path": "rendering/vehicle-glare.js",
+      "bytes": 6710,
+      "sha256": "f7af99bd2bbaebd42a62b4669ccd6d3d4a84b0c153174358964efeb2f33f751b"
+    },
+    {
+      "path": "rendering/vehicle-traffic.js",
+      "bytes": 7296,
+      "sha256": "4fd5922fe4c1da46dc22d88af19db05e24d1179d109c3ba7202f8e00b951b178"
+    },
+    {
+      "path": "features/vehicles/path-editor.js",
+      "bytes": 7884,
+      "sha256": "ca2e77242ca9234a4df2e77e782734e7bb732f36d1ae1657a4a34bff535eadb0"
+    },
+    {
+      "path": "features/vehicles/controller.js",
+      "bytes": 9828,
+      "sha256": "d08e1774be294dfb42793d017c8e508a88d819cc6b8e6c8c849f2d16837338a1"
     },
     {
       "path": "rendering/compositor.js",
-      "bytes": 1923,
-      "sha256": "2211607bac4adcb7fff91f7af34a90abd4765a24ff71804f861e33c7f59e7484"
+      "bytes": 3483,
+      "sha256": "3782d752bb57590a149398d23d25925c55ed81a7d03503c47671268fad697500"
     },
     {
       "path": "components/pollution-starfield/starfield.js",
-      "bytes": 9174,
-      "sha256": "a43a95cdcb188835abf53af7cfbdab54e69e6cf1a6dcc487e05903c710204d75"
+      "bytes": 10152,
+      "sha256": "5b42984271e00832cd45969c82bf4ebd82df41be4be8a5313988bf5bf616d2a0"
     },
     {
       "path": "features/sky/panel.js",
-      "bytes": 5455,
-      "sha256": "8cfbc8c57363950f9be03a5a8dc1bd2170dadfe4d0721af7b93858be4ff749b2"
+      "bytes": 5791,
+      "sha256": "4d4d6f2c2637943ecbf8c517c267d23792455a09784baf05d94aa5a354770e03"
     },
     {
       "path": "app/editor/layer-editor.js",
-      "bytes": 7821,
-      "sha256": "4cfb089c9bdbf9a1b244477cf765e5ddee22b3991f2a974aa74188823137fbd7"
+      "bytes": 11307,
+      "sha256": "102fcd41312907d6a1bf61d4d78ab6330fca66d1bb6686a0c2a684fe27490fa4"
     },
     {
       "path": "lib-static-demo/assets/music-08/atlas-data.js",
@@ -312,14 +497,19 @@
       "sha256": "9a2be54acb28c4c31478ae447e9d66dac020e36458d2c4689f8a5d2c46ec7f42"
     },
     {
+      "path": "app/presentation/paper-panel.js",
+      "bytes": 11631,
+      "sha256": "d4b59df35ef97afcd501d56724892801d9aedb072e89b8703d8b463976d4de9a"
+    },
+    {
       "path": "app/presentation/billboard-panel.js",
-      "bytes": 3582,
-      "sha256": "835a071c3c46ad6df72cc571ba4dfed155cfe5a4a00bd2f85cfd4566a4527c04"
+      "bytes": 4201,
+      "sha256": "b71ea9447275eecdd31338062df57fcd9c6c1206cf2444c7e35d74b803f00b21"
     },
     {
       "path": "features/objects/service.js",
-      "bytes": 22956,
-      "sha256": "b158a740ac23ee08ba1fb85cab88bb04832da8c39b82581e5963f2120c41a2c9"
+      "bytes": 26336,
+      "sha256": "a9bb40974232df8cab3f00459f940c367152056280ce15282ecc8aa091ed7472"
     },
     {
       "path": "resources/candidate-loader.js",
@@ -327,14 +517,19 @@
       "sha256": "9db6f5f08b30f6d6902cefd948cc53c7a8a52e93dfb732205183d24169b5b87f"
     },
     {
+      "path": "resources/panorama-loader.js",
+      "bytes": 11189,
+      "sha256": "ccd79233892b7b65639f54d25cad714ac13ea43f18e726298396e1899f871f52"
+    },
+    {
       "path": "app/presentation/navigation.js",
-      "bytes": 3067,
-      "sha256": "ecd38737116a52f80c33abea17474ca363169a28c5ff4a61ed47f1dfca5bb486"
+      "bytes": 3270,
+      "sha256": "bd7556d2c5b9454813f7ccd5bacd257212dce2dfc187e2e660faa686cc375234"
     },
     {
       "path": "app/presentation/observation-panel.js",
-      "bytes": 18602,
-      "sha256": "b7e48c60b665d82501fa87fa3ec3db79d26e06b48c86403e588199dbebb412d1"
+      "bytes": 18797,
+      "sha256": "f40ad2203c511ac110d51e7db71afdb1bacbb8c4622188d5302b01a508103c5d"
     },
     {
       "path": "app/editor/gradient-editor.js",
@@ -353,18 +548,18 @@
     },
     {
       "path": "features/lamps/controller.js",
-      "bytes": 7831,
-      "sha256": "d4000f8f89753c89417eff7b0fb3d5ee239cca8bb5c69357d5b63592d975d5fa"
+      "bytes": 9978,
+      "sha256": "173a897f2e4bc2951a6c67b5aacd8a81541ccb0bdfb9dbc4fcdfe4c07402dc4c"
     },
     {
       "path": "rendering/masked-lighting.js",
-      "bytes": 4051,
-      "sha256": "5adf41dce4e7b2bedb0685c6f49df8ea2a547971451aa1df9e4ec6700a04cef1"
+      "bytes": 4388,
+      "sha256": "d178a35178c7d995cd8522c31b6f505d41d22ee61a7f5d52d5d84ee60ac58f21"
     },
     {
       "path": "resources/building-light-masks.js",
-      "bytes": 6436,
-      "sha256": "b3c45b773bb09d1529b22d1fa54f6fa05cb7d3d2d7e1cf4f723f5836b0d6dbad"
+      "bytes": 6527,
+      "sha256": "e6868d00940366e735c4034627d562b5537d269b8b2e5754b05be5bc6e43d318"
     },
     {
       "path": "features/curtains/palette.js",
@@ -372,9 +567,14 @@
       "sha256": "ee08d50aae596cb90bc8b59bd1de15e2d81a26d203d0129a74085429fc178ad5"
     },
     {
+      "path": "app/presentation/stadium-panel.js",
+      "bytes": 5696,
+      "sha256": "12f5f989d2826579462e6149efb6af60c3f61c24c01d21e0aad25c4748759031"
+    },
+    {
       "path": "features/buildings/controller.js",
-      "bytes": 18315,
-      "sha256": "8b9496e6d421fbcf70a4e7b07874a5d1390d7b0ebcec5ad29d177c5270eec27f"
+      "bytes": 24712,
+      "sha256": "d5ce6319092de227b9dab43585e834b4a2d7b86b503b4ae64660a9c09087e8c4"
     },
     {
       "path": "features/water/renderer.js",
@@ -383,8 +583,8 @@
     },
     {
       "path": "features/light-environment/controller.js",
-      "bytes": 4297,
-      "sha256": "73b1d2521eb3a4a17bebc5e26d3caba60c51e50763d210479a1a0f8c2908cc76"
+      "bytes": 5449,
+      "sha256": "75aa10b23d006f3fce7aebea8e5669d00cc6438dbfcd3f047ade9a25bf4e3b3e"
     },
     {
       "path": "../../shared/components/affordance.js",
@@ -403,13 +603,13 @@
     },
     {
       "path": "features/interaction-hints/controller.js",
-      "bytes": 5538,
-      "sha256": "63c8f9d52d8b448a7d2c8505959c34e13a2de71ef6df933b41b7a57fc44882b9"
+      "bytes": 5732,
+      "sha256": "87da209b63d23408db81d19d4c62b2b3b747701dda05f0b36b814de460064059"
     },
     {
       "path": "features/environment/controller.js",
-      "bytes": 4938,
-      "sha256": "71dce4ccb7c13b438df3a6d25414c069896c54452c732bd3c248ee552594f22c"
+      "bytes": 5104,
+      "sha256": "7073acfcece2e1c34f4894f630a771c35816ee7d23973633eed9bdbae9c46ada"
     },
     {
       "path": "core/performance-probe.js",
@@ -417,14 +617,24 @@
       "sha256": "b3f3c89406431c74df1cc2805dce3f02b079f812764a5a46e41e0fbcc054afcd"
     },
     {
+      "path": "features/lamps/panorama-group.js",
+      "bytes": 1359,
+      "sha256": "9f71dd5c7e98438aa164cb41063bf77743fa55973b087f9f3c02bf58833821ef"
+    },
+    {
+      "path": "app/presentation/experiment-status.js",
+      "bytes": 2037,
+      "sha256": "0052c06e503059448004f7cc2df72a80cd98d25cecfab9a42078f2b3c2fabfcf"
+    },
+    {
       "path": "app/bootstrap.js",
-      "bytes": 21313,
-      "sha256": "47db2b02c61b8973783fa524fcb949726e05f5ce12eb02336f59fa86609c6be6"
+      "bytes": 27802,
+      "sha256": "022e92e3af6a0c3cdc8327b107e8801e696d4e1b1de043d164d9badc85a9ab99"
     }
   ],
   "output": {
     "path": "lib-static-demo/standalone.html",
-    "bytes": 47889793,
-    "sha256": "522dd71ca9f595af4519dc2de9c87a591907b7e0819368baa5f9b2eef222eb08"
+    "bytes": 114137494,
+    "sha256": "d49a866ec2bdc3a5e4ffa93a5648d1a4930e41618fb06f295e85ee446db983f6"
   }
 }

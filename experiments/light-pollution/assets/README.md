@@ -10,6 +10,8 @@
 
 ## 文件与子目录索引
 
+- [panorama-20261111/](panorama-20261111/README.md)：Seedream 5.5 单体、4:1 净背景和离线编辑入口。
+
 - [lamp-variants/](lamp-variants/README.md)：五种路灯方案及提示词。
 
 - [billboard-demo/](billboard-demo/README.md)
@@ -55,3 +57,15 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+全景车辆继续使用 panorama-20261111 中原有 11 张透明 PNG，不新增车型或远程依赖。
+
+- legacy-reuse-20261111/（本地保留：`legacy-reuse-20261111/README.md`）：旧工程 21 份透明建筑、树林、围栏和路灯精选，附联系表、来源和 ZIP。
+
+- seedream-sr-20261111/（本地保留：`seedream-sr-20261111/README.md`）：已完成 32 张保形修复素材与离线试用页，实际执行模型仍未核验。
+
+- [comparison/README.md](comparison/README.md)：含本轮住宅壁灯方形前后对比图。
+
+- [curtain-textures-v2](curtain-textures-v2/README.md)
+- [observation-tree-light-v2-frames](observation-tree-light-v2-frames/README.md)
+- [stadium-ui-20261111](stadium-ui-20261111/README.md)

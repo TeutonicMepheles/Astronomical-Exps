@@ -1,0 +1,78 @@
+[
+  {
+    "kind": "before",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "viewport": [
+      1600,
+      900
+    ],
+    "dpr": 1.0000000298023224,
+    "foreground": true,
+    "rAF": {
+      "count": 486,
+      "p95": 13.400000000001455,
+      "max": 26.700000000000273
+    },
+    "inputToNextFrame": {
+      "p95": 17.299999952316284,
+      "max": 17.899999856948853
+    },
+    "longTasks": [],
+    "heapStart": 95756344,
+    "heapEnd": 118521973,
+    "composition": {
+      "seconds": 6.5,
+      "sceneFps": 74.7,
+      "renderP95": 7.8,
+      "renderMax": 12.2,
+      "gapP95": 14.7,
+      "gapMax": 33.4,
+      "longTasks": 0,
+      "heap": 118521973,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    "animations": 5
+  },
+  {
+    "kind": "after",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "viewport": [
+      1600,
+      900
+    ],
+    "dpr": 1.0000000298023224,
+    "foreground": true,
+    "rAF": {
+      "count": 503,
+      "p95": 13.400000000001455,
+      "max": 66.60000000000036
+    },
+    "inputToNextFrame": {
+      "p95": 17.399999856948853,
+      "max": 18.09999990463257
+    },
+    "longTasks": [],
+    "heapStart": 90673367,
+    "heapEnd": 132140055,
+    "composition": {
+      "seconds": 6.8,
+      "sceneFps": 74.4,
+      "renderP95": 7.8,
+      "renderMax": 9.2,
+      "gapP95": 14.5,
+      "gapMax": 56,
+      "longTasks": 0,
+      "heap": 132140055,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    "animations": 5
+  }
+]

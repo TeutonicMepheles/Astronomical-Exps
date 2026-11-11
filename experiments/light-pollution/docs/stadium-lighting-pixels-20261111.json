@@ -1,0 +1,72 @@
+{
+  "stadium": {
+    "exteriorCount": 58140,
+    "exteriorChanged": 0,
+    "interiorCount": 31054,
+    "interiorChanged": 31054,
+    "count": 93618,
+    "black": 0,
+    "changed": 34695,
+    "sourceError": 0,
+    "onMean": 137.22936472330818,
+    "midMean": 124.39079023264757,
+    "offMean": 102.4562014427425,
+    "offRange": 208.33333333333334
+  },
+  "floodlight-1": {
+    "exteriorCount": 970,
+    "exteriorChanged": 0,
+    "interiorCount": 23,
+    "interiorChanged": 23,
+    "count": 1314,
+    "black": 0,
+    "changed": 166,
+    "sourceError": 0,
+    "onMean": 86.96067985794014,
+    "midMean": 82.95915778792491,
+    "offMean": 76.01420598680873,
+    "offRange": 128
+  },
+  "floodlight-2": {
+    "exteriorCount": 820,
+    "exteriorChanged": 0,
+    "interiorCount": 21,
+    "interiorChanged": 21,
+    "count": 1130,
+    "black": 0,
+    "changed": 153,
+    "sourceError": 0,
+    "onMean": 86.56135693215339,
+    "midMean": 82.64424778761062,
+    "offMean": 75.79941002949853,
+    "offRange": 135
+  },
+  "floodlight-3": {
+    "exteriorCount": 833,
+    "exteriorChanged": 0,
+    "interiorCount": 21,
+    "interiorChanged": 21,
+    "count": 1146,
+    "black": 0,
+    "changed": 154,
+    "sourceError": 0,
+    "onMean": 86.54479348458405,
+    "midMean": 82.75683536940082,
+    "offMean": 76.13379872018616,
+    "offRange": 172.33333333333334
+  },
+  "floodlight-4": {
+    "exteriorCount": 1057,
+    "exteriorChanged": 0,
+    "interiorCount": 26,
+    "interiorChanged": 26,
+    "count": 1407,
+    "black": 0,
+    "changed": 168,
+    "sourceError": 0,
+    "onMean": 86.70078180525941,
+    "midMean": 82.91021085050936,
+    "offMean": 76.29021558872306,
+    "offRange": 163
+  }
+}

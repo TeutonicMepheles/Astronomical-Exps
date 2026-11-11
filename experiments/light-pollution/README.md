@@ -1,5 +1,7 @@
 # 光污染实验工程
 
+本次跨会话整合预览的来源、入口和限制见 [2026-11-11 整合记录](docs/LATEST-PREVIEW-20261111.md)。
+
 当前重构边界、接口和兼容说明见 [架构文档](docs/ARCHITECTURE.md)。
 
 ## 当前功能与状态
@@ -18,7 +20,7 @@
 - [assets/](assets/README.md)
 - [baseline-scroll/](baseline-scroll/README.md)
 - [components/](components/README.md)
-- [concepts/](concepts/README.md)
+- `concepts/`（本地概念资料，不随源码交付）
 - [core/](core/README.md)
 - [docs/](docs/README.md)
 - [features/](features/README.md)
@@ -209,3 +211,15 @@ npm run export -- light-pollution
 **浏览器参数不随 Git 迁移：**“保存当前档位”只写入当前站点的 localStorage（键为 `light-pollution.starfield-presets.v1`），不修改源码。换机默认使用源码预设；如需保留手调结果，应另行迁移该键的 JSON。`dist/`、`node_modules/` 和测试截图均为本地生成内容，在新电脑重新生成。根目录导出命令生成候选单文件，不包含独立的 `sky-preview/` 入口。
 
 此分支用于开发备份，星空档位与参数仍是未标定的美术演示，尚未完成整页人工验收。
+
+### 4:1 场景调光验证
+
+panorama-preview/（本地保留：`panorama-preview/README.md`） 为独立素材验收入口，验证住宅、广告牌与体育场局部调光；不替换默认页面。
+
+## 4:1 可编辑全景素材（2026-11-11）
+
+离线编辑器（本地保留：`assets/panorama-20261111/editor.html`） · [素材与使用说明](assets/panorama-20261111/README.md)。新场景独立草稿，保留默认场景入口。
+
+## 2026-11-11 整理交付
+
+长场景使用 `app/index.html?scene=panorama-20261111`，编辑模式追加 `&mode=editor`。源码只包含实际使用的图层、遮罩、纸质面板及前后对比图；未引用的选图和参考图保留本地。执行 `node experiments/light-pollution/tools/build/build-panorama.cjs` 重建离线 user.html/editor.html，生成页不提交。旧默认候选与 legacy 兼容入口继续保留。

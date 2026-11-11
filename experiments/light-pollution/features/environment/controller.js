@@ -13,7 +13,7 @@ window.createSceneEffects=function({getSession,compose,hitDistant}){
  }
  bindFields();
  let renderer=null,cache=new WeakMap();
- function bind(){LightPollution.panels.register('distant',()=>{refresh();popup.hidden=false;},()=>{commit();popup.hidden=true;});LightPollution.tapRouter.add(10,hitDistant,()=>LightPollution.panels.open('distant'));
+ function bind(){document.getElementById('distant-close').before(LightPollution.createCompareButton(()=>{commit();return {key:'distant',title:'远景照明'};}));LightPollution.panels.register('distant',()=>{refresh();popup.hidden=false;},()=>{commit();popup.hidden=true;});LightPollution.tapRouter.add(10,hitDistant,()=>LightPollution.panels.open('distant'));
  for(const id of ['edit-toggle','lamp-toggle','sky-toggle'])LightPollution.on(document.getElementById(id),'click',close);
  LightPollution.on(document,'keydown',e=>{if(e.key==='Escape')close();});
  }

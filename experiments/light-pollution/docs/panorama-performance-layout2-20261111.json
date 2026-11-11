@@ -1,0 +1,80 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": [
+    1600,
+    900
+  ],
+  "headless": false,
+  "durationPerStateSeconds": 6,
+  "samples": [
+    {
+      "kind": "candidate",
+      "url": "http://127.0.0.1:8817/experiments/light-pollution/app/index.html?mode=editor&profile=1",
+      "readyMs": 2014,
+      "seconds": 6,
+      "sceneFps": 75,
+      "renderP95": 1.1,
+      "renderMax": 17.2,
+      "gapP95": 13.9,
+      "gapMax": 29.4,
+      "longTasks": 0,
+      "heap": 57633344,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 13.400000000000546,
+      "rafMax": 13.5,
+      "focus": true,
+      "visibility": "visible",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "kind": "panorama",
+      "url": "http://127.0.0.1:8817/experiments/light-pollution/app/index.html?mode=editor&profile=1&scene=panorama-20261111",
+      "readyMs": 838,
+      "seconds": 6,
+      "sceneFps": 75,
+      "renderP95": 1.6,
+      "renderMax": 2.6,
+      "gapP95": 13.9,
+      "gapMax": 14.4,
+      "longTasks": 0,
+      "heap": 91381377,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 13.400000000000546,
+      "rafMax": 13.5,
+      "focus": true,
+      "visibility": "visible",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "kind": "panorama-curtains",
+      "url": "http://127.0.0.1:8817/experiments/light-pollution/app/index.html?mode=editor&profile=1&scene=panorama-20261111",
+      "readyMs": 890,
+      "seconds": 6.1,
+      "sceneFps": 40.9,
+      "renderP95": 5,
+      "renderMax": 6.1,
+      "gapP95": 27.4,
+      "gapMax": 28.7,
+      "longTasks": 0,
+      "heap": 92662855,
+      "dpr": 1.0000000298023224,
+      "viewport": [
+        1600,
+        900
+      ],
+      "rafP95": 26.799999999999272,
+      "rafMax": 40.100000000000364,
+      "focus": true,
+      "visibility": "visible",
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{pathToFileURL}=require('node:url');
+const folder=path.resolve(__dirname,'../../assets/panorama-20261111');
+(async()=>{const browser=await chromium.launch({channel:'chrome'});try{
+ const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[],remote=[];
+ page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url()))remote.push(r.url());});
+ const oldDefaults=JSON.parse(fs.readFileSync(path.join(folder,'layout.json'),'utf8')).previousDefaultObjectImages;
+ const old=JSON.parse(fs.readFileSync(path.join(folder,'starter-scene.json'),'utf8'));
+ for(const o of old.objects.items)if(oldDefaults[o.id])o.images=structuredClone(oldDefaults[o.id]);
+ old.objects.items=old.objects.items.filter(o=>o.parent!=='distant-buildings');delete old.buildingControls.lightMasks.buildings['distant-buildings'];
+ old.layers.find(l=>l.id==='residential').x=23;old.layers.find(l=>l.id==='distant-buildings').color={brightness:78,saturation:62,hue:-8};old.layers.find(l=>l.id==='front-water').opacity=.83;
+ old.objects.items.find(o=>o.id==='residential-window-0').brightness=47;
+ const custom='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==';
+ old.objects.items.find(o=>o.id==='billboard-face-0').images=[custom];
+ await page.addInitScript(d=>{if(!localStorage.getItem('lib-panorama-20261111-layout4-v1'))localStorage.setItem('lib-panorama-20261111-layout4-v1',JSON.stringify(d));},old);
+ await page.goto(pathToFileURL(path.join(folder,'editor.html')).href);await page.waitForSelector('html[data-ready=true][data-editing=true]',{timeout:60000});
+ const data=()=>page.evaluate(()=>LightPollution.store.documentData()),initial=await data();
+ assert.deepEqual(initial.layers,old.layers,'existing transforms, order, colors and water settings survive draft restoration');
+ assert.equal(initial.objects.items.find(o=>o.id==='residential-window-0').brightness,47);
+ assert.deepEqual(initial.objects.items.find(o=>o.id==='billboard-face-0').images,[custom],'custom imagery remains');
+ assert.notDeepEqual(initial.objects.items.find(o=>o.id==='billboard').images,oldDefaults.billboard,'inherited default screen artwork upgrades');
+ assert(initial.objects.items.some(o=>o.id==='distant-buildings-window-0'),'old drafts acquire the new lighting region');
+ const layout=JSON.parse(fs.readFileSync(path.join(folder,'layout.json'),'utf8')),before=JSON.parse(fs.readFileSync(path.join(folder,'layout-before-sr-20261111.json'),'utf8'));
+ for(const l of [...layout.layers,...layout.stadiumParts]){const prior=[...before.layers,...before.stadiumParts].find(p=>p.id===l.id);assert.equal(l.file,'sr-'+prior.file);assert.equal(require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(folder,l.file))).digest('hex'),JSON.parse(fs.readFileSync(path.join(folder,'runtime-hashes.json'),'utf8'))[l.file],'approved artwork bytes are used');for(const k of ['x','y','width','height','colorGrade'])assert.deepEqual(l[k],prior[k]);}
+ while(!await page.locator('.editor-row[data-id=distant-buildings]').count())await page.locator('.layer-pages button').last().click();
+ await page.locator('.editor-row[data-id=distant-buildings] .layer-select').click();await page.locator('#layer-window-lighting').click();assert.equal(await page.locator('#building-title').innerText(),'远景建筑 · 窗口调光');
+ const pixels=()=>page.locator('#scene').evaluate(async c=>{await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return c.toDataURL()});
+ const on=await pixels();const input=page.locator('#building-brightness');await input.evaluate(el=>{el.value='0';el.dispatchEvent(new Event('input',{bubbles:true}));});await input.dispatchEvent('change');
+ const off=await data();assert.equal(off.objects.items.find(o=>o.id==='distant-buildings-window-0').brightness,0);assert.notEqual(await pixels(),on,'window brightness changes rendered pixels');assert.deepEqual(off.layers,initial.layers,'window dimming does not recolor or move the layer');
+ assert.deepEqual(off.objects.items.filter(o=>o.parent!=='distant-buildings'),initial.objects.items.filter(o=>o.parent!=='distant-buildings'));
+ await page.evaluate(()=>LightPollution.store.history.undo());assert.equal((await data()).objects.items.find(o=>o.id==='distant-buildings-window-0').brightness,200);
+ await page.evaluate(()=>LightPollution.store.history.redo());assert.equal((await data()).objects.items.find(o=>o.id==='distant-buildings-window-0').brightness,0);
+ await input.evaluate(el=>{el.value='80';el.dispatchEvent(new Event('input',{bubbles:true}));});await input.dispatchEvent('pointercancel');assert.equal((await data()).objects.items.find(o=>o.id==='distant-buildings-window-0').brightness,0);
+ await page.reload();await page.waitForSelector('html[data-ready=true]');assert.equal((await data()).objects.items.find(o=>o.id==='distant-buildings-window-0').brightness,0);
+ const isolation=await page.evaluate(async()=>{const l=LP_PANORAMA_LAYOUT.layers.find(l=>l.id==='distant-buildings'),W=2172,H=543,make=()=>Object.assign(document.createElement('canvas'),{width:W,height:H}),source=make(),mask=make();for(const [file,target]of [[l.file,source],[l.lightMask,mask]]){const im=new Image();im.src=LIB_STATIC_ASSETS['../assets/panorama-20261111/'+file];await im.decode();const g=target.getContext('2d');if(target===source){g.filter='brightness('+l.colorGrade.brightness+') saturate('+l.colorGrade.saturation+')';g.drawImage(im,l.x,l.y,l.width,l.height);}else g.drawImage(im,0,0);}const render=createMaskedLighting(),read=c=>{const out=make(),g=out.getContext('2d');g.drawImage(c,0,0);return g.getImageData(0,0,W,H).data;},on=read(render.render(source,mask,[{brightness:100,temperature:3000}],null,0)),off=read(render.render(source,mask,[{brightness:0,temperature:3000}],null,0)),m=mask.getContext('2d').getImageData(0,0,W,H).data;let outsideMax=0,windowDelta=0,alphaChanges=0;for(let i=0;i<m.length;i+=4){for(let c=0;c<3;c++){const delta=Math.abs(on[i+c]-off[i+c]);if(!m[i])outsideMax=Math.max(outsideMax,delta);else windowDelta+=delta;}if(on[i+3]!==off[i+3])alphaChanges++;}return {outsideMax,windowDelta,alphaChanges};});assert.equal(isolation.outsideMax,0,'wall, mountain and bridge pixels are not dimmed');assert.equal(isolation.alphaChanges,0);assert(isolation.windowDelta>1000);
+ assert.deepEqual(errors,[]);assert.deepEqual(remote,[]);console.log('PASS promoted art, existing draft/layout/colors/water/custom images, far window group dimming, isolated edits, undo/redo/cancel/reload, offline');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1});
