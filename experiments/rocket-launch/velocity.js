@@ -357,7 +357,10 @@ export function createVelocityScene(hooks = {}) {
       ctx.save();
       ctx.globalAlpha = 1 - solarT;
       ctx.beginPath();
-      ctx.rect(0, 0, W, 500);
+      // 场景裁剪下沿：必须容下 7.9 的闭合圈。球心 cy=316 + 1.08R(194) → 环底 510，
+      // 再加描边外半宽与 10 px glow 实际画到 ≈520；取 530 给 glow 留 10 px 余量
+      // （取 520 会把柔光边缘切在裁线上，出现硬边）。距 RAIL.y=600 还有 70 px 空画布。
+      ctx.rect(0, 0, W, RAIL.y - 70);
       ctx.clip();
 
       // 背景谱：同族 26 条，u 等距 —— 形态的连续谱在这里，档位只是谱上被点名的取样点
