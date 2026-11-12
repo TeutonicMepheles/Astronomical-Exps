@@ -698,11 +698,63 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   for(var si=0;si<720;si++){var tint=.72+(si%7)*.035;sandColors[si*3]=tint;sandColors[si*3+1]=tint*.89;sandColors[si*3+2]=tint*.75;}
   var sandGeometry=new THREE.BufferGeometry();sandGeometry.setAttribute('position',new THREE.BufferAttribute(sandPositions,3));sandGeometry.setAttribute('color',new THREE.BufferAttribute(sandColors,3));
   var sand=new THREE.Points(sandGeometry,new THREE.PointsMaterial({size:.085,vertexColors:true,transparent:true,opacity:0,depthWrite:false}));sand.frustumCulled=false;impactGroup.add(sand);
-  // The mouth is obscured by overlapping soft dust only, with no solid cover mesh.
+  // True 3D density volumes, sharing geometry and shaders; no camera-facing dust cards.
+  var smokeGeometry=new THREE.SphereGeometry(1,16,12),smokeVolumes=[];
+  var smokeVertex='varying vec3 localPoint;void main(){localPoint=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}';
+  var smokeFragment=`
+    precision highp float;
+    varying vec3 localPoint;
+    uniform vec3 eye,tint;
+    uniform float strength,phase,offset;
+    float textureField(vec3 p){
+      p+=vec3(offset,offset*.7,offset*.3);
+      return .52+.24*sin(p.x*4.+sin(p.z*3.))*cos(p.y*4.5-p.z*2.)
+        +.13*sin(p.z*9.3+p.y*5.2)*cos(p.x*8.1-p.y*6.7);
+    }
+    void main(){
+      vec3 ray=normalize(localPoint-eye),p=localPoint+ray*.025;
+      vec3 result=vec3(0.);float alpha=0.;
+      for(int i=0;i<20;i++){
+        float n=textureField(p+vec3(phase*.09,-phase*.12,phase*.06));
+        float radial=1.-smoothstep(.42,1.,length(p));
+        float density=radial*smoothstep(.15,.72,n)*.28*strength;
+        float shade=.79+.13*p.y-.065*p.x+.12*n;
+        shade=mix(shade,floor(shade*14.)/14.,.45);
+        vec3 pigment=sqrt(tint)*vec3(1.,.96,.89)*shade;
+        result+=(1.-alpha)*density*pigment;alpha+=(1.-alpha)*density;
+        p+=ray*.10;
+      }
+      if(alpha<.012)discard;
+      float grain=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);
+      gl_FragColor=vec4(result/max(alpha,.001)*( .98+.035*grain),alpha);
+    }`;
+  function createSmokeVolume(color,index){
+    var tint=new THREE.Color(color);
+    var mat=new THREE.ShaderMaterial({vertexShader:smokeVertex,fragmentShader:smokeFragment,transparent:true,depthWrite:false,uniforms:{eye:{value:new THREE.Vector3()},tint:{value:tint},strength:{value:0},phase:{value:0},offset:{value:index*.731}}});
+    mat.color=tint;mat.opacity=0;mat.rotation=0;
+    var puff=new THREE.Mesh(smokeGeometry,mat);impactGroup.add(puff);smokeVolumes.push(puff);return puff;
+  }
+  function updateSmokeVolumes(time){
+    smokeVolumes.forEach(function(p){
+      var u=p.material.uniforms;
+      if(!p.visible||p.material.opacity<=0||p.scale.x<.001){u.strength.value=0;return;}
+      p.scale.z=p.scale.x*.88;p.scale.multiplyScalar(.5);
+      p.rotation.set(.08*Math.sin(time),p.material.rotation,.08*Math.cos(time));
+      p.updateMatrixWorld(true);u.eye.value.copy(camera.position);p.worldToLocal(u.eye.value);
+      u.strength.value=p.material.opacity*1.45;u.phase.value=time;
+    });
+  }
+  function syncSmokeView(){
+    if(!impactGroup.visible)return;
+    smokeVolumes.forEach(function(p){
+      if(!p.visible||p.material.uniforms.strength.value<=0)return;
+      p.updateMatrixWorld(true);p.material.uniforms.eye.value.copy(camera.position);p.worldToLocal(p.material.uniforms.eye.value);
+    });
+  }
   var denseDust=[],dustDensity=0;
-  for(var ci=0;ci<80;ci++){
-    var densePuff=new THREE.Sprite(new THREE.SpriteMaterial({map:dustTexture,color:ci%3===0?0xcbb9a3:0xeee6da,transparent:true,depthTest:true,depthWrite:false,opacity:0}));
-    impactGroup.add(densePuff);denseDust.push(densePuff);
+  for(var ci=0;ci<40;ci++){
+    var densePuff=createSmokeVolume(ci%3===0?0xcbb9a3:0xeee6da,ci);
+    denseDust.push(densePuff);
   }
   var debris=[],debrisGeometry=new THREE.IcosahedronGeometry(1,0),debrisMaterial=new THREE.MeshStandardMaterial({color:0x9d8063,roughness:1,flatShading:true});
   for(var bi=0;bi<32;bi++){var chip=new THREE.Mesh(debrisGeometry,debrisMaterial);chip.visible=false;impactGroup.add(chip);debris.push(chip);}
@@ -721,14 +773,57 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
   var entryLight=new THREE.PointLight(0xffad65,0,12,2);impactGroup.add(entryLight);
   var projectedHead=new THREE.Vector3(),projectedTail=new THREE.Vector3();
   for(var di=0;di<28;di++){
-    var puff=new THREE.Sprite(new THREE.SpriteMaterial({map:brushTexture,color:0xffffff,transparent:true,depthTest:true,depthWrite:false,opacity:0}));
-    impactGroup.add(puff);dustCloud.push(puff);
+    var puff=createSmokeVolume(0xffffff,di+40);
+    dustCloud.push(puff);
   }
   var flash=new THREE.Sprite(new THREE.SpriteMaterial({map:flameTexture,color:0xffd899,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0}));
   impactGroup.add(flash);flash.position.set(0,1,0);
   var shock=new THREE.Mesh(new THREE.RingGeometry(.82,1.05,64),new THREE.MeshBasicMaterial({color:0xe6d6bc,side:THREE.DoubleSide,transparent:true,opacity:0,depthWrite:false}));
   shock.rotation.x=-Math.PI/2;shock.position.y=.2;impactGroup.add(shock);
   var impactMotion=null,impactStart=new THREE.Vector3(-28,48,-20),impactEnd=new THREE.Vector3(0,1.4,0);
+  // Solid ejecta: uniform-gravity ballistic flight, not a sinusoidal animation.
+  // https://openstax.org/books/university-physics-volume-1/pages/4-3-projectile-motion
+  // Scene distance/time are compressed; g, launch speeds and 35–55 degree spread
+  // below are visual demonstration parameters, not measured impact predictions.
+  var ejectaPaths={sand:[],debris:[]};
+  function ejectaGround(x,z){
+    var seed=uniforms.uSeed.value,rough=uniforms.uNoiseAmp.value;
+    return rough*(1.25*fbm(x*.16+seed,-z*.16)+.32*fbm(x*.85,-z*.85))+
+      crater(x/uniforms.uRound.value,-z,uniforms.uRadius.value,uniforms.uDepth.value,seed,uniforms.uShape.value===2||uniforms.uShape.value===3,rough);
+  }
+  function makeEjectaPath(i,count,fine){
+    var radius=uniforms.uRadius.value,q=((i*37)%count)/count;
+    var azimuth=i*2.39996,theta=(35+20*q)*Math.PI/180;
+    var g=radius*1.4,range=radius*(1.45+1.15*q);
+    var speed=Math.sqrt(g*range/Math.sin(2*theta));
+    var path={vx:Math.cos(azimuth)*speed*Math.cos(theta)*uniforms.uRound.value,
+      vz:Math.sin(azimuth)*speed*Math.cos(theta),vy:speed*Math.sin(theta),g:g,
+      y0:impactEnd.y-2.1+(fine?.08:.3),delay:fine?(i%11)*.012:0,theta:theta};
+    // Find the first descending intersection with the final terrain once per replay.
+    // Fixed sampling + bisection makes seeking independent of frame rate/history.
+    var apex=path.vy/g,lo=apex,hi=apex;
+    for(var k=1;k<=48;k++){
+      hi=apex+k*.1;
+      if(path.y0+path.vy*hi-.5*g*hi*hi<=ejectaGround(path.vx*hi,path.vz*hi))break;
+      lo=hi;
+    }
+    for(var k=0;k<10;k++){
+      var mid=(lo+hi)*.5;
+      if(path.y0+path.vy*mid-.5*g*mid*mid>ejectaGround(path.vx*mid,path.vz*mid))lo=mid;else hi=mid;
+    }
+    path.landing=hi;path.floor=ejectaGround(path.vx*hi,path.vz*hi);return path;
+  }
+  function prepareEjecta(){
+    ejectaPaths.sand=Array.from({length:720},function(_,i){return makeEjectaPath(i,720,true);});
+    ejectaPaths.debris=Array.from({length:32},function(_,i){return makeEjectaPath(i,32,false);});
+  }
+  function ejectaPosition(path,age,out){
+    var t=clamp(age-path.delay,0,path.landing);
+    out.set(path.vx*t,path.y0+path.vy*t-.5*path.g*t*t,path.vz*t);
+    if(t===path.landing)out.y=path.floor+.04;
+    return out;
+  }
+  var ejectaPoint=new THREE.Vector3();
   function cancelImpactFx(){
     terrainBlend=null;
     if(!impactMotion)return;
@@ -740,7 +835,8 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     impactMotion={start:performance.now(),onComplete:onComplete,phase:'falling',coveredFrames:0,generated:false};
     var groundY=uniforms.uNoiseAmp.value*(1.25*fbm(uniforms.uSeed.value,0)+.32*fbm(0,0));
     impactEnd.y=groundY+2.1;
-    dustDensity=0;sand.material.opacity=0;denseDust.forEach(function(p){p.material.opacity=0;});debris.forEach(function(p){p.visible=false;});
+    prepareEjecta();
+    dustDensity=0;sand.material.opacity=0;smokeVolumes.forEach(function(p){p.material.opacity=0;p.material.uniforms.strength.value=0;});debris.forEach(function(p){p.visible=false;});
     meteorMaterial.metalness=state.type==='iron'?.32:.06;
     debrisMaterial.map=material.map;debrisMaterial.bumpMap=material.bumpMap;
     debrisMaterial.color.copy(fieldColor);debrisMaterial.bumpScale=material.bumpScale;
@@ -826,19 +922,21 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
         p.material.rotation=Math.sin(angle)*.55;
         p.material.opacity=expansion*fade*.83;
       });
+      updateSmokeVolumes(spread*3);
+      var ejectaAge=elapsed-3.2;
       for(var si=0;si<720;si++){
-        var sa=si*2.39996,seeded=(si*37%719)/719,flight=clamp(spread*1.55-(si%11)*.008,0,1);
-        var distance=extent*(.25+seeded*1.5)*Math.sin(flight*Math.PI*.5);
-        sandPositions[si*3]=Math.cos(sa)*distance*stretch;
-        sandPositions[si*3+1]=.2+extent*(.18+seeded*.85)*Math.sin(flight*Math.PI);
-        sandPositions[si*3+2]=Math.sin(sa)*distance;
+        ejectaPosition(ejectaPaths.sand[si],ejectaAge,ejectaPoint);
+        sandPositions[si*3]=ejectaPoint.x;
+        sandPositions[si*3+1]=ejectaPoint.y;
+        sandPositions[si*3+2]=ejectaPoint.z;
       }
       sandGeometry.attributes.position.needsUpdate=true;sand.material.opacity=expansion*fade*.8;
       debris.forEach(function(p,i){
-        var angle=i*2.39996,travel=spread*extent*(1.5+(i%5)*.2);
-        p.visible=spread<.83;p.position.set(Math.cos(angle)*travel*stretch,impactEnd.y*(1-smooth(0,.15,spread))+Math.max(.2,Math.sin(spread*Math.PI)*extent*(.45+(i%4)*.2)),Math.sin(angle)*travel);
-        p.scale.setScalar((.24+(i%5)*.12)*(1-smooth(.65,.85,spread)));
-        p.rotation.set(spread*(i+2),spread*(i+4),angle);
+        var path=ejectaPaths.debris[i],settle=clamp((ejectaAge-path.landing)/.45,0,1);
+        p.visible=settle<1;ejectaPosition(path,ejectaAge,p.position);
+        p.scale.setScalar((.24+(i%5)*.12)*(1-smooth(0,1,settle)));
+        var spin=Math.min(ejectaAge,path.landing);
+        p.rotation.set(spin*(i+2)*.18,spin*(i+4)*.18,i*2.39996);
       });
       flash.material.opacity=Math.max(0,1-(elapsed-3.2)/.48)*.9;
       flash.scale.setScalar(3+(elapsed-3.2)*17);
@@ -852,7 +950,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
     }
     needsRender=true;
   }
-  Object.assign(window.craterDebug,{meteor:meteor,impact:function(){return {phase:impactMotion?impactMotion.phase:'idle',visible:impactGroup.visible,coverage:dustDensity,generated:!!(impactMotion&&impactMotion.generated)};}});
+  Object.assign(window.craterDebug,{ejecta:function(){return ejectaPaths;},meteor:meteor,impact:function(){return {phase:impactMotion?impactMotion.phase:'idle',visible:impactGroup.visible,coverage:dustDensity,generated:!!(impactMotion&&impactMotion.generated)};}});
 
   var dragging = false, lastX = 0, lastY = 0;
   canvas.addEventListener("pointerdown", function (e) {
@@ -1116,7 +1214,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
       needsRender = false;
       if (terrainDirty) rebuildTerrain();
       if(!impactMotion)renderInset();
-      renderer.render(scene, camera);
+      syncSmokeView();renderer.render(scene, camera);
     }
   }
   render();
