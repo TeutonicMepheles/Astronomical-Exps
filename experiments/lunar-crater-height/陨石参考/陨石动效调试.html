@@ -1228,7 +1228,7 @@ console.warn( 'Scripts "build/three.js" and "build/three.min.js" are deprecated 
       if (terrainDirty && performance.now()<rebuildAfter) return;
       needsRender = false;
       if (terrainDirty) rebuildTerrain();
-      
+
       syncSmokeView();renderer.render(scene, camera);
     }
   }
