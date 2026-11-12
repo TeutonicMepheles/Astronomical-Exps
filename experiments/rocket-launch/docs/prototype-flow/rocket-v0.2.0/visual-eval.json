@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "file_key": "VYNptRjckSAEE2Ss3gw5vB",
+  "page_id": "0:1",
+  "section_id": "648:2168",
+  "base_flow_digest": "7e4c4a6f36e22a7cd6c526f50526e33bb70066e379db9797c35fdf7b0083101d",
+  "checks": {
+    "state_ids_preserved": 39,
+    "control_ids_preserved": 100,
+    "missing_control_ids": [],
+    "native_visual_scenes": 39,
+    "original_reactions_mutated": false,
+    "flow_specification": "pass",
+    "native_structure": "pass",
+    "visual_screenshot_inspection": "completed for distinct scene families",
+    "reaction_readback": "pending: official tool rate limited; TemPad read tools do not expose reactions",
+    "human_playtest": "pending",
+    "npm_check": "pass",
+    "npm_test": "pass",
+    "prototype_flow_tests": "25 passed"
+  },
+  "limitations": [
+    "Discrete ON_CLICK state navigation; no real hold-release, drag physics or continuous motion.",
+    "No computed flight distance or persistent experiment records.",
+    "Full three-pair matching and every rocket-part detail remain outside this visual revision."
+  ],
+  "artifacts": [
+    "final-structure.json",
+    "write-results.json",
+    "final-repairs.json",
+    "eval-flow.json",
+    "screenshots/"
+  ]
+}

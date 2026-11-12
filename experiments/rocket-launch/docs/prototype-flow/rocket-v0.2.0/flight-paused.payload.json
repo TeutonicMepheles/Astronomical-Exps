@@ -1,0 +1,254 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2313",
+  "markup": "<div data-key=\"flight-paused/root\" data-node-id=\"648:2313\" class=\"w-[1600px] h-[900px]\"><span data-key=\"flight-paused/body\" data-node-id=\"648:2315\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"flight-paused/scene\" data-node-id=\"648:2316\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"flight-paused/old-scene\" data-node-id=\"648:2317\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"flight-paused/v2/visual-345\"  class=\"absolute left-[40px] top-[365px] w-[930px] h-[4px] bg-[#808080]\"></div><div data-key=\"flight-paused/v2/visual-346\"  class=\"absolute left-[180px] top-[80px] w-[28px] h-[280px] bg-[#bfbfbf] border-[2px] border-[#666666] rounded-[2px]\"></div><div data-key=\"flight-paused/v2/visual-347\"  class=\"absolute left-[180px] top-[100px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"flight-paused/v2/visual-348\"  class=\"absolute left-[180px] top-[155px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"flight-paused/v2/visual-349\"  class=\"absolute left-[180px] top-[210px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"flight-paused/v2/visual-350\"  class=\"absolute left-[180px] top-[265px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"flight-paused/v2/visual-351\"  class=\"absolute left-[180px] top-[320px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"flight-paused/v2/visual-352\"  class=\"absolute left-[460px] top-[70.5px] w-[63px] h-[175.5px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"flight-paused/v2/visual-353\"  class=\"absolute left-[460px] top-[30px] w-[63px] h-[45px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"flight-paused/v2/visual-354\"  class=\"absolute left-[460px] top-[169.5px] w-[63px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"flight-paused/v2/visual-355\"  class=\"absolute left-[460px] top-[244.2px] w-[63px] h-[27px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"flight-paused/v2/visual-356\"  class=\"absolute left-[431.2px] top-[151.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"flight-paused/v2/visual-357\"  class=\"absolute left-[529.3px] top-[151.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"flight-paused/v2/visual-358\"  class=\"absolute left-[465px] top-[274px] w-[51px] h-[68px] bg-[#b8b8b8] border-[2px] border-[#737373]\"></div><div data-key=\"flight-paused/v2/visual-359\"  class=\"absolute left-[805px] top-[80px] w-[0.01px] h-[260px] bg-transparent border-[2px] border-[#808080]\"></div><span data-key=\"flight-paused/v2/visual-360\"  class=\"absolute left-[840px] top-[78px] w-[130px] h-[52px] text-[26px] text-[#333333]\">高度</span><span data-key=\"flight-paused/v2/visual-361\"  class=\"absolute left-[840px] top-[118px] w-[130px] h-[72px] text-[36px] text-[#333333]\">—</span><div data-key=\"flight-paused/v2/visual-362\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"flight-paused/v2/visual-363\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">已暂停</span><div data-key=\"flight-paused/v2/visual-364\"  class=\"absolute left-[1084px] top-[105px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"flight-paused/v2/visual-365\"  class=\"absolute left-[1104px] top-[123px] w-[300px] h-[48px] text-[24px] text-[#262626]\">推力   低 / 中 / 高</span><div data-key=\"flight-paused/v2/visual-366\"  class=\"absolute left-[1084px] top-[185px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"flight-paused/v2/visual-367\"  class=\"absolute left-[1104px] top-[203px] w-[300px] h-[48px] text-[24px] text-[#262626]\">载荷   轻 / 中 / 重</span><div data-key=\"flight-paused/v2/visual-368\"  class=\"absolute left-[1084px] top-[265px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"flight-paused/v2/visual-369\"  class=\"absolute left-[1104px] top-[283px] w-[300px] h-[48px] text-[24px] text-[#262626]\">飞行距离   —</span></div></div>",
+  "native": {
+    "flight-paused/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "flight-paused/v2/visual-345": {
+      "figma": {
+        "name": "发射台地面",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-346": {
+      "figma": {
+        "name": "发射塔",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-347": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-348": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-349": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-350": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-351": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-352": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-353": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "flight-paused/v2/visual-354": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-355": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "flight-paused/v2/visual-356": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-357": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-358": {
+      "figma": {
+        "name": "喷流",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 0 Q 20 25 10 65 Q 32 44 40 80 Q 52 42 60 0 Z"
+            }
+          ]
+        }
+      }
+    },
+    "flight-paused/v2/visual-359": {
+      "figma": {
+        "name": "高度参考",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 0 220"
+            }
+          ]
+        }
+      }
+    },
+    "flight-paused/v2/visual-360": {
+      "figma": {
+        "name": "高度标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "flight-paused/v2/visual-361": {
+      "figma": {
+        "name": "高度值",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "flight-paused/v2/visual-362": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-363": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "flight-paused/v2/visual-364": {
+      "figma": {
+        "name": "hotspot / 推力   低 / 中 / 高",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-365": {
+      "figma": {
+        "name": "label / 推力   低 / 中 / 高",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "flight-paused/v2/visual-366": {
+      "figma": {
+        "name": "hotspot / 载荷   轻 / 中 / 重",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-367": {
+      "figma": {
+        "name": "label / 载荷   轻 / 中 / 重",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "flight-paused/v2/visual-368": {
+      "figma": {
+        "name": "hotspot / 飞行距离   —",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "flight-paused/v2/visual-369": {
+      "figma": {
+        "name": "label / 飞行距离   —",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

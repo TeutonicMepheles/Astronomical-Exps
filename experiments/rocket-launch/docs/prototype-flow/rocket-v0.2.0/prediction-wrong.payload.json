@@ -1,0 +1,304 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2236",
+  "markup": "<div data-key=\"prediction-wrong/root\" data-node-id=\"648:2236\" class=\"w-[1600px] h-[900px]\"><span data-key=\"prediction-wrong/body\" data-node-id=\"648:2238\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"prediction-wrong/scene\" data-node-id=\"648:2239\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"prediction-wrong/old-scene\" data-node-id=\"648:2240\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"prediction-wrong/v2/visual-174\"  class=\"absolute left-[24px] top-[16px] w-[720px] h-[390px] bg-[#ebebeb] border-[2px] border-[#999999] rounded-[16px]\"></div><span data-key=\"prediction-wrong/v2/visual-175\"  class=\"absolute left-[48px] top-[36px] w-[300px] h-[60px] text-[30px] text-[#1a1a1a]\">地球</span><div data-key=\"prediction-wrong/v2/visual-176\"  class=\"absolute left-[44px] top-[340px] w-[680px] h-[3px] bg-[#808080]\"></div><div data-key=\"prediction-wrong/v2/visual-177\"  class=\"absolute left-[374px] top-[260px] w-[250px] h-[160px] bg-[#bfbfbf] border-[3px] border-[#999999]\"></div><div data-key=\"prediction-wrong/v2/visual-178\"  class=\"absolute left-[294px] top-[131.9px] w-[43.4px] h-[120.9px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"prediction-wrong/v2/visual-179\"  class=\"absolute left-[294px] top-[104px] w-[43.4px] h-[31px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"prediction-wrong/v2/visual-180\"  class=\"absolute left-[294px] top-[200.1px] w-[43.4px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"prediction-wrong/v2/visual-181\"  class=\"absolute left-[294px] top-[251.56px] w-[43.4px] h-[18.6px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"prediction-wrong/v2/visual-182\"  class=\"absolute left-[274.16px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"prediction-wrong/v2/visual-183\"  class=\"absolute left-[341.74px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"prediction-wrong/v2/visual-184\"  class=\"absolute left-[64px] top-[325px] w-[530px] h-[52px] text-[26px] text-[#1a1a1a]\">已选：只有地球能飞</span><div data-key=\"prediction-wrong/v2/visual-185\"  class=\"absolute left-[774px] top-[16px] w-[720px] h-[390px] bg-[#333333] border-[2px] border-[#999999] rounded-[16px]\"></div><span data-key=\"prediction-wrong/v2/visual-186\"  class=\"absolute left-[798px] top-[36px] w-[300px] h-[60px] text-[30px] text-[#ffffff]\">太空</span><div data-key=\"prediction-wrong/v2/visual-187\"  class=\"absolute left-[819px] top-[100px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-188\"  class=\"absolute left-[916px] top-[153px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-189\"  class=\"absolute left-[1013px] top-[206px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-190\"  class=\"absolute left-[1110px] top-[259px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-191\"  class=\"absolute left-[1207px] top-[102px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-192\"  class=\"absolute left-[1304px] top-[155px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-193\"  class=\"absolute left-[1401px] top-[208px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-194\"  class=\"absolute left-[878px] top-[261px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-195\"  class=\"absolute left-[975px] top-[104px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-196\"  class=\"absolute left-[1072px] top-[157px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-197\"  class=\"absolute left-[1169px] top-[210px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-198\"  class=\"absolute left-[1266px] top-[263px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction-wrong/v2/visual-199\"  class=\"absolute left-[1044px] top-[131.9px] w-[43.4px] h-[120.9px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"prediction-wrong/v2/visual-200\"  class=\"absolute left-[1044px] top-[104px] w-[43.4px] h-[31px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"prediction-wrong/v2/visual-201\"  class=\"absolute left-[1044px] top-[200.1px] w-[43.4px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"prediction-wrong/v2/visual-202\"  class=\"absolute left-[1044px] top-[251.56px] w-[43.4px] h-[18.6px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"prediction-wrong/v2/visual-203\"  class=\"absolute left-[1024.16px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"prediction-wrong/v2/visual-204\"  class=\"absolute left-[1091.74px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"prediction-wrong/v2/visual-205\"  class=\"absolute left-[814px] top-[325px] w-[530px] h-[52px] text-[26px] text-[#ffffff]\">已选：只有地球能飞</span></div><div data-key=\"prediction-wrong/control/prediction-wrong-1\" data-node-id=\"648:2241\" class=\"absolute left-[342px] top-[291.9px] w-[60px] h-[120.9px] bg-transparent border-transparent\"><span data-key=\"prediction-wrong/control/prediction-wrong-1/label\" data-node-id=\"648:2242\" class=\"absolute left-[0px] top-[0px] w-[60px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "prediction-wrong/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "prediction-wrong/v2/visual-174": {
+      "figma": {
+        "name": "环境卡",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-175": {
+      "figma": {
+        "name": "环境",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-176": {
+      "figma": {
+        "name": "地面",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-177": {
+      "figma": {
+        "name": "地球弧面",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-178": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-179": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-180": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-181": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-182": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-183": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-184": {
+      "figma": {
+        "name": "判断",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-185": {
+      "figma": {
+        "name": "环境卡",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-186": {
+      "figma": {
+        "name": "环境",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-187": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-188": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-189": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-190": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-191": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-192": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-193": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-194": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-195": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-196": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-197": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-198": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-199": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-200": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-201": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-202": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-203": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-204": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction-wrong/v2/visual-205": {
+      "figma": {
+        "name": "判断",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

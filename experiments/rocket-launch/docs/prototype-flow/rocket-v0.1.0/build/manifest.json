@@ -1,0 +1,12 @@
+{
+  "compiler_version": "0.1.1",
+  "artifact_digest": "a7417c43865d0bb7ce76026df426b8aa900aa1d49c2b2163c8e740546728b3e3",
+  "prototype_version": "0.1.0",
+  "parent_digest": null,
+  "created_at": "2026-11-09T13:14:58.036768+00:00",
+  "target": "figma-native-grayscale",
+  "states": 39,
+  "figma_execution": "not_run",
+  "human_review": "not_run",
+  "transport": "Tempad capability discovery required"
+}

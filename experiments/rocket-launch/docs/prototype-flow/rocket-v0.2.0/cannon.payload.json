@@ -1,0 +1,233 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2364",
+  "markup": "<div data-key=\"cannon/root\" data-node-id=\"648:2364\" class=\"w-[1600px] h-[900px]\"><span data-key=\"cannon/body\" data-node-id=\"648:2366\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"cannon/scene\" data-node-id=\"648:2367\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"cannon/old-scene\" data-node-id=\"648:2368\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"cannon/v2/visual-474\"  class=\"absolute left-[360px] top-[145px] w-[210px] h-[210px] bg-[#c7c7c7] border-[3px] border-[#404040]\"></div><div data-key=\"cannon/v2/visual-475\"  class=\"absolute left-[423px] top-[147px] w-[84px] h-[206px] bg-transparent border-[3px] border-[#8c8c8c]\"></div><div data-key=\"cannon/v2/visual-476\"  class=\"absolute left-[368px] top-[239.5px] w-[194px] h-[25.2px] bg-transparent border-[2px] border-[#8c8c8c]\"></div><span data-key=\"cannon/v2/visual-477\"  class=\"absolute left-[429.3px] top-[239.5px] w-[105px] h-[44px] text-[22px] text-[#333333]\">地球</span><div data-key=\"cannon/v2/visual-478\"  class=\"absolute left-[265px] top-[55px] w-[400px] h-[340px] bg-transparent border-[3px] border-[#808080]\"></div><div data-key=\"cannon/v2/visual-479\"  class=\"absolute left-[470px] top-[65.8px] w-[16.8px] h-[46.8px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"cannon/v2/visual-480\"  class=\"absolute left-[470px] top-[55px] w-[16.8px] h-[12px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"cannon/v2/visual-481\"  class=\"absolute left-[470px] top-[92.2px] w-[16.8px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"cannon/v2/visual-482\"  class=\"absolute left-[470px] top-[112.12px] w-[16.8px] h-[7.2px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"cannon/v2/visual-483\"  class=\"absolute left-[462.32px] top-[87.4px] w-[6px] h-[26.88px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"cannon/v2/visual-484\"  class=\"absolute left-[488.48px] top-[87.4px] w-[6px] h-[26.88px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"cannon/v2/visual-485\"  class=\"absolute left-[42px] top-[375px] w-[300px] h-[44px] text-[22px] text-[#808080]\">轨迹示意</span><div data-key=\"cannon/v2/visual-486\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"cannon/v2/visual-487\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">固定速度</span><div data-key=\"cannon/v2/visual-488\"  class=\"absolute left-[1084px] top-[94px] w-[340px] h-[60px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"cannon/v2/visual-489\"  class=\"absolute left-[1104px] top-[112px] w-[300px] h-[48px] text-[24px] text-[#262626]\">4.5 km/s</span><div data-key=\"cannon/v2/visual-490\"  class=\"absolute left-[1084px] top-[166px] w-[340px] h-[60px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"cannon/v2/visual-491\"  class=\"absolute left-[1104px] top-[184px] w-[300px] h-[48px] text-[24px] text-[#262626]\">7.9 km/s</span><div data-key=\"cannon/v2/visual-492\"  class=\"absolute left-[1084px] top-[238px] w-[340px] h-[60px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"cannon/v2/visual-493\"  class=\"absolute left-[1104px] top-[256px] w-[300px] h-[48px] text-[24px] text-[#262626]\">11.2 km/s</span><div data-key=\"cannon/v2/visual-494\"  class=\"absolute left-[1084px] top-[310px] w-[340px] h-[60px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"cannon/v2/visual-495\"  class=\"absolute left-[1104px] top-[328px] w-[300px] h-[48px] text-[24px] text-[#262626]\">16.7 km/s</span></div><div data-key=\"cannon/control/cannon-1\" data-node-id=\"648:2369\" class=\"absolute left-[1132px] top-[254px] w-[340px] h-[60px] bg-transparent border-transparent\"><span data-key=\"cannon/control/cannon-1/label\" data-node-id=\"648:2370\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div><div data-key=\"cannon/control/cannon-2\" data-node-id=\"648:2371\" class=\"absolute left-[1132px] top-[326px] w-[340px] h-[60px] bg-transparent border-transparent\"><span data-key=\"cannon/control/cannon-2/label\" data-node-id=\"648:2372\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div><div data-key=\"cannon/control/cannon-3\" data-node-id=\"648:2373\" class=\"absolute left-[1132px] top-[398px] w-[340px] h-[60px] bg-transparent border-transparent\"><span data-key=\"cannon/control/cannon-3/label\" data-node-id=\"648:2374\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div><div data-key=\"cannon/control/cannon-4\" data-node-id=\"648:2375\" class=\"absolute left-[1132px] top-[470px] w-[340px] h-[60px] bg-transparent border-transparent\"><span data-key=\"cannon/control/cannon-4/label\" data-node-id=\"648:2376\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "cannon/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "cannon/v2/visual-474": {
+      "figma": {
+        "name": "地球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "cannon/v2/visual-475": {
+      "figma": {
+        "name": "经线",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "cannon/v2/visual-476": {
+      "figma": {
+        "name": "纬线",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 30 Q 70 0 140 30"
+            }
+          ]
+        }
+      }
+    },
+    "cannon/v2/visual-477": {
+      "figma": {
+        "name": "地球标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "cannon/v2/visual-478": {
+      "figma": {
+        "name": "环绕轨迹",
+        "shape": {
+          "type": "ELLIPSE"
+        },
+        "stroke": {
+          "dashPattern": [
+            10,
+            10
+          ]
+        }
+      }
+    },
+    "cannon/v2/visual-479": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-480": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "cannon/v2/visual-481": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-482": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "cannon/v2/visual-483": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-484": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-485": {
+      "figma": {
+        "name": "尺度说明",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "cannon/v2/visual-486": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-487": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "cannon/v2/visual-488": {
+      "figma": {
+        "name": "hotspot / 4.5 km/s",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-489": {
+      "figma": {
+        "name": "label / 4.5 km/s",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "cannon/v2/visual-490": {
+      "figma": {
+        "name": "hotspot / 7.9 km/s",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-491": {
+      "figma": {
+        "name": "label / 7.9 km/s",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "cannon/v2/visual-492": {
+      "figma": {
+        "name": "hotspot / 11.2 km/s",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-493": {
+      "figma": {
+        "name": "label / 11.2 km/s",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "cannon/v2/visual-494": {
+      "figma": {
+        "name": "hotspot / 16.7 km/s",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "cannon/v2/visual-495": {
+      "figma": {
+        "name": "label / 16.7 km/s",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1633 @@
+{
+  "footer": {
+    "start": {
+      "mode": "update",
+      "targetNodeId": "648:2169",
+      "markup": "<div data-key=\"start/root\" data-node-id=\"648:2169\" class=\"w-[1600px] h-[900px]\"><div data-key=\"start/footer/648-2174\" data-node-id=\"648:2174\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"start/footer/648-2174/label\" data-node-id=\"648:2175\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">开始实验</span></div></div>"
+    },
+    "balloon": {
+      "mode": "update",
+      "targetNodeId": "648:2176",
+      "markup": "<div data-key=\"balloon/root\" data-node-id=\"648:2176\" class=\"w-[1600px] h-[900px]\"><div data-key=\"balloon/footer/648-2183\" data-node-id=\"648:2183\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"balloon/footer/648-2183/label\" data-node-id=\"648:2184\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回课程</span></div></div>"
+    },
+    "inflating": {
+      "mode": "update",
+      "targetNodeId": "648:2185",
+      "markup": "<div data-key=\"inflating/root\" data-node-id=\"648:2185\" class=\"w-[1600px] h-[900px]\"><div data-key=\"inflating/footer/648-2192\" data-node-id=\"648:2192\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"inflating/footer/648-2192/label\" data-node-id=\"648:2193\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">取消充气</span></div></div>"
+    },
+    "balloon-flight": {
+      "mode": "update",
+      "targetNodeId": "648:2194",
+      "markup": "<div data-key=\"balloon-flight/root\" data-node-id=\"648:2194\" class=\"w-[1600px] h-[900px]\"><div data-key=\"balloon-flight/footer/648-2199\" data-node-id=\"648:2199\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"balloon-flight/footer/648-2199/label\" data-node-id=\"648:2200\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">慢动作观察</span></div><div data-key=\"balloon-flight/footer/648-2203\" data-node-id=\"648:2203\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"balloon-flight/footer/648-2203/label\" data-node-id=\"648:2204\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">下一步：判断环境</span></div></div>"
+    },
+    "balloon-slow": {
+      "mode": "update",
+      "targetNodeId": "648:2205",
+      "markup": "<div data-key=\"balloon-slow/root\" data-node-id=\"648:2205\" class=\"w-[1600px] h-[900px]\"><div data-key=\"balloon-slow/footer/648-2214\" data-node-id=\"648:2214\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"balloon-slow/footer/648-2214/label\" data-node-id=\"648:2215\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">下一步：判断环境</span></div></div>"
+    },
+    "predict": {
+      "mode": "update",
+      "targetNodeId": "648:2216",
+      "markup": "<div data-key=\"predict/root\" data-node-id=\"648:2216\" class=\"w-[1600px] h-[900px]\"><div data-key=\"predict/footer/648-2221\" data-node-id=\"648:2221\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"predict/footer/648-2221/label\" data-node-id=\"648:2222\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">两种环境都能飞</span></div><div data-key=\"predict/footer/648-2223\" data-node-id=\"648:2223\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"predict/footer/648-2223/label\" data-node-id=\"648:2224\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">只有地球能飞</span></div><div data-key=\"predict/footer/648-2225\" data-node-id=\"648:2225\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"predict/footer/648-2225/label\" data-node-id=\"648:2226\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回气球实验</span></div></div>"
+    },
+    "prediction": {
+      "mode": "update",
+      "targetNodeId": "648:2227",
+      "markup": "<div data-key=\"prediction/root\" data-node-id=\"648:2227\" class=\"w-[1600px] h-[900px]\"><div data-key=\"prediction/footer/648-2234\" data-node-id=\"648:2234\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"prediction/footer/648-2234/label\" data-node-id=\"648:2235\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">改选</span></div></div>"
+    },
+    "prediction-wrong": {
+      "mode": "update",
+      "targetNodeId": "648:2236",
+      "markup": "<div data-key=\"prediction-wrong/root\" data-node-id=\"648:2236\" class=\"w-[1600px] h-[900px]\"><div data-key=\"prediction-wrong/footer/648-2243\" data-node-id=\"648:2243\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"prediction-wrong/footer/648-2243/label\" data-node-id=\"648:2244\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">改选</span></div></div>"
+    },
+    "environment": {
+      "mode": "update",
+      "targetNodeId": "648:2245",
+      "markup": "<div data-key=\"environment/root\" data-node-id=\"648:2245\" class=\"w-[1600px] h-[900px]\"><div data-key=\"environment/footer/648-2250\" data-node-id=\"648:2250\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"environment/footer/648-2250/label\" data-node-id=\"648:2251\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">进入推力载荷挑战</span></div><div data-key=\"environment/footer/648-2252\" data-node-id=\"648:2252\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"environment/footer/648-2252/label\" data-node-id=\"648:2253\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回改选</span></div></div>"
+    },
+    "configure": {
+      "mode": "update",
+      "targetNodeId": "648:2254",
+      "markup": "<div data-key=\"configure/root\" data-node-id=\"648:2254\" class=\"w-[1600px] h-[900px]\"><div data-key=\"configure/footer/648-2265\" data-node-id=\"648:2265\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"configure/footer/648-2265/label\" data-node-id=\"648:2266\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">发射当前条件（示意）</span></div><div data-key=\"configure/footer/648-2267\" data-node-id=\"648:2267\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"configure/footer/648-2267/label\" data-node-id=\"648:2268\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">查看保留记录</span></div><div data-key=\"configure/footer/648-2269\" data-node-id=\"648:2269\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"configure/footer/648-2269/label\" data-node-id=\"648:2270\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回环境对照</span></div></div>"
+    },
+    "thrust": {
+      "mode": "update",
+      "targetNodeId": "648:2271",
+      "markup": "<div data-key=\"thrust/root\" data-node-id=\"648:2271\" class=\"w-[1600px] h-[900px]\"><div data-key=\"thrust/footer/648-2282\" data-node-id=\"648:2282\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"thrust/footer/648-2282/label\" data-node-id=\"648:2283\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">取消</span></div></div>"
+    },
+    "payload": {
+      "mode": "update",
+      "targetNodeId": "648:2284",
+      "markup": "<div data-key=\"payload/root\" data-node-id=\"648:2284\" class=\"w-[1600px] h-[900px]\"><div data-key=\"payload/footer/648-2295\" data-node-id=\"648:2295\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"payload/footer/648-2295/label\" data-node-id=\"648:2296\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">取消</span></div></div>"
+    },
+    "mass": {
+      "mode": "update",
+      "targetNodeId": "648:2297",
+      "markup": "<div data-key=\"mass/root\" data-node-id=\"648:2297\" class=\"w-[1600px] h-[900px]\"><div data-key=\"mass/footer/648-2302\" data-node-id=\"648:2302\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"mass/footer/648-2302/label\" data-node-id=\"648:2303\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回发射条件</span></div></div>"
+    },
+    "flight": {
+      "mode": "update",
+      "targetNodeId": "648:2304",
+      "markup": "<div data-key=\"flight/root\" data-node-id=\"648:2304\" class=\"w-[1600px] h-[900px]\"><div data-key=\"flight/footer/648-2311\" data-node-id=\"648:2311\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"flight/footer/648-2311/label\" data-node-id=\"648:2312\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">暂停</span></div></div>"
+    },
+    "flight-paused": {
+      "mode": "update",
+      "targetNodeId": "648:2313",
+      "markup": "<div data-key=\"flight-paused/root\" data-node-id=\"648:2313\" class=\"w-[1600px] h-[900px]\"><div data-key=\"flight-paused/footer/648-2318\" data-node-id=\"648:2318\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"flight-paused/footer/648-2318/label\" data-node-id=\"648:2319\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">继续</span></div><div data-key=\"flight-paused/footer/648-2320\" data-node-id=\"648:2320\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"flight-paused/footer/648-2320/label\" data-node-id=\"648:2321\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">取消本次发射</span></div></div>"
+    },
+    "records": {
+      "mode": "update",
+      "targetNodeId": "648:2322",
+      "markup": "<div data-key=\"records/root\" data-node-id=\"648:2322\" class=\"w-[1600px] h-[900px]\"><div data-key=\"records/footer/648-2327\" data-node-id=\"648:2327\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"records/footer/648-2327/label\" data-node-id=\"648:2328\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">再次实验</span></div><div data-key=\"records/footer/648-2329\" data-node-id=\"648:2329\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"records/footer/648-2329/label\" data-node-id=\"648:2330\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">进入第二章</span></div><div data-key=\"records/footer/648-2331\" data-node-id=\"648:2331\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"records/footer/648-2331/label\" data-node-id=\"648:2332\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">比较两次记录</span></div></div>"
+    },
+    "compare": {
+      "mode": "update",
+      "targetNodeId": "648:2333",
+      "markup": "<div data-key=\"compare/root\" data-node-id=\"648:2333\" class=\"w-[1600px] h-[900px]\"><div data-key=\"compare/footer/648-2338\" data-node-id=\"648:2338\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"compare/footer/648-2338/label\" data-node-id=\"648:2339\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回记录</span></div><div data-key=\"compare/footer/648-2340\" data-node-id=\"648:2340\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"compare/footer/648-2340/label\" data-node-id=\"648:2341\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">调整条件再发射</span></div><div data-key=\"compare/footer/648-2342\" data-node-id=\"648:2342\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"compare/footer/648-2342/label\" data-node-id=\"648:2343\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">进入第二章</span></div></div>"
+    },
+    "orbit": {
+      "mode": "update",
+      "targetNodeId": "648:2344",
+      "markup": "<div data-key=\"orbit/root\" data-node-id=\"648:2344\" class=\"w-[1600px] h-[900px]\"><div data-key=\"orbit/footer/648-2351\" data-node-id=\"648:2351\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"orbit/footer/648-2351/label\" data-node-id=\"648:2352\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">查看第一章记录</span></div><div data-key=\"orbit/footer/648-2353\" data-node-id=\"648:2353\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"orbit/footer/648-2353/label\" data-node-id=\"648:2354\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">进入高山大炮</span></div></div>"
+    },
+    "orbit-playing": {
+      "mode": "update",
+      "targetNodeId": "648:2355",
+      "markup": "<div data-key=\"orbit-playing/root\" data-node-id=\"648:2355\" class=\"w-[1600px] h-[900px]\"><div data-key=\"orbit-playing/footer/648-2360\" data-node-id=\"648:2360\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"orbit-playing/footer/648-2360/label\" data-node-id=\"648:2361\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">暂停对照</span></div><div data-key=\"orbit-playing/footer/648-2362\" data-node-id=\"648:2362\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"orbit-playing/footer/648-2362/label\" data-node-id=\"648:2363\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">下一步：高山大炮</span></div></div>"
+    },
+    "cannon": {
+      "mode": "update",
+      "targetNodeId": "648:2364",
+      "markup": "<div data-key=\"cannon/root\" data-node-id=\"648:2364\" class=\"w-[1600px] h-[900px]\"><div data-key=\"cannon/footer/648-2377\" data-node-id=\"648:2377\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"cannon/footer/648-2377/label\" data-node-id=\"648:2378\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">进入配对任务</span></div><div data-key=\"cannon/footer/648-2379\" data-node-id=\"648:2379\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"cannon/footer/648-2379/label\" data-node-id=\"648:2380\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回轨迹对照</span></div></div>"
+    },
+    "fall": {
+      "mode": "update",
+      "targetNodeId": "648:2381",
+      "markup": "<div data-key=\"fall/root\" data-node-id=\"648:2381\" class=\"w-[1600px] h-[900px]\"><div data-key=\"fall/footer/648-2386\" data-node-id=\"648:2386\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"fall/footer/648-2386/label\" data-node-id=\"648:2387\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回速度对比</span></div></div>"
+    },
+    "circular": {
+      "mode": "update",
+      "targetNodeId": "648:2388",
+      "markup": "<div data-key=\"circular/root\" data-node-id=\"648:2388\" class=\"w-[1600px] h-[900px]\"><div data-key=\"circular/footer/648-2393\" data-node-id=\"648:2393\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"circular/footer/648-2393/label\" data-node-id=\"648:2394\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回速度对比</span></div></div>"
+    },
+    "escape-earth": {
+      "mode": "update",
+      "targetNodeId": "648:2395",
+      "markup": "<div data-key=\"escape-earth/root\" data-node-id=\"648:2395\" class=\"w-[1600px] h-[900px]\"><div data-key=\"escape-earth/footer/648-2400\" data-node-id=\"648:2400\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"escape-earth/footer/648-2400/label\" data-node-id=\"648:2401\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回速度对比</span></div></div>"
+    },
+    "escape-sun": {
+      "mode": "update",
+      "targetNodeId": "648:2402",
+      "markup": "<div data-key=\"escape-sun/root\" data-node-id=\"648:2402\" class=\"w-[1600px] h-[900px]\"><div data-key=\"escape-sun/footer/648-2407\" data-node-id=\"648:2407\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"escape-sun/footer/648-2407/label\" data-node-id=\"648:2408\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回速度对比</span></div></div>"
+    },
+    "match": {
+      "mode": "update",
+      "targetNodeId": "648:2409",
+      "markup": "<div data-key=\"match/root\" data-node-id=\"648:2409\" class=\"w-[1600px] h-[900px]\"><div data-key=\"match/footer/648-2416\" data-node-id=\"648:2416\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"match/footer/648-2416/label\" data-node-id=\"648:2417\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回速度演示</span></div></div>"
+    },
+    "match-selected": {
+      "mode": "update",
+      "targetNodeId": "648:2418",
+      "markup": "<div data-key=\"match-selected/root\" data-node-id=\"648:2418\" class=\"w-[1600px] h-[900px]\"><div data-key=\"match-selected/footer/648-2429\" data-node-id=\"648:2429\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"match-selected/footer/648-2429/label\" data-node-id=\"648:2430\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">取消配对</span></div></div>"
+    },
+    "match-error": {
+      "mode": "update",
+      "targetNodeId": "648:2431",
+      "markup": "<div data-key=\"match-error/root\" data-node-id=\"648:2431\" class=\"w-[1600px] h-[900px]\"><div data-key=\"match-error/footer/648-2438\" data-node-id=\"648:2438\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"match-error/footer/648-2438/label\" data-node-id=\"648:2439\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回大炮复习</span></div></div>"
+    },
+    "match-next": {
+      "mode": "update",
+      "targetNodeId": "648:2440",
+      "markup": "<div data-key=\"match-next/root\" data-node-id=\"648:2440\" class=\"w-[1600px] h-[900px]\"><div data-key=\"match-next/footer/648-2445\" data-node-id=\"648:2445\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"match-next/footer/648-2445/label\" data-node-id=\"648:2446\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">完成其余两对（模拟）</span></div><div data-key=\"match-next/footer/648-2447\" data-node-id=\"648:2447\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"match-next/footer/648-2447/label\" data-node-id=\"648:2448\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">重试配对</span></div><div data-key=\"match-next/footer/648-2449\" data-node-id=\"648:2449\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"match-next/footer/648-2449/label\" data-node-id=\"648:2450\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回速度演示</span></div></div>"
+    },
+    "structure": {
+      "mode": "update",
+      "targetNodeId": "648:2451",
+      "markup": "<div data-key=\"structure/root\" data-node-id=\"648:2451\" class=\"w-[1600px] h-[900px]\"><div data-key=\"structure/footer/648-2458\" data-node-id=\"648:2458\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"structure/footer/648-2458/label\" data-node-id=\"648:2459\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">进入组装</span></div><div data-key=\"structure/footer/648-2460\" data-node-id=\"648:2460\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"structure/footer/648-2460/label\" data-node-id=\"648:2461\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回第二章</span></div></div>"
+    },
+    "xray": {
+      "mode": "update",
+      "targetNodeId": "648:2462",
+      "markup": "<div data-key=\"xray/root\" data-node-id=\"648:2462\" class=\"w-[1600px] h-[900px]\"><div data-key=\"xray/footer/648-2471\" data-node-id=\"648:2471\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"xray/footer/648-2471/label\" data-node-id=\"648:2472\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">进入组装</span></div></div>"
+    },
+    "part": {
+      "mode": "update",
+      "targetNodeId": "648:2473",
+      "markup": "<div data-key=\"part/root\" data-node-id=\"648:2473\" class=\"w-[1600px] h-[900px]\"><div data-key=\"part/footer/648-2478\" data-node-id=\"648:2478\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"part/footer/648-2478/label\" data-node-id=\"648:2479\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回部件选择</span></div><div data-key=\"part/footer/648-2482\" data-node-id=\"648:2482\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"part/footer/648-2482/label\" data-node-id=\"648:2483\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">进入组装</span></div></div>"
+    },
+    "assembly": {
+      "mode": "update",
+      "targetNodeId": "648:2484",
+      "markup": "<div data-key=\"assembly/root\" data-node-id=\"648:2484\" class=\"w-[1600px] h-[900px]\"><div data-key=\"assembly/footer/648-2491\" data-node-id=\"648:2491\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"assembly/footer/648-2491/label\" data-node-id=\"648:2492\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">检查当前装配</span></div><div data-key=\"assembly/footer/648-2493\" data-node-id=\"648:2493\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"assembly/footer/648-2493/label\" data-node-id=\"648:2494\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回结构透视</span></div></div>"
+    },
+    "assembly-error": {
+      "mode": "update",
+      "targetNodeId": "648:2495",
+      "markup": "<div data-key=\"assembly-error/root\" data-node-id=\"648:2495\" class=\"w-[1600px] h-[900px]\"><div data-key=\"assembly-error/footer/648-2500\" data-node-id=\"648:2500\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"assembly-error/footer/648-2500/label\" data-node-id=\"648:2501\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">返回修正装配</span></div></div>"
+    },
+    "assembled": {
+      "mode": "update",
+      "targetNodeId": "648:2502",
+      "markup": "<div data-key=\"assembled/root\" data-node-id=\"648:2502\" class=\"w-[1600px] h-[900px]\"><div data-key=\"assembled/footer/648-2507\" data-node-id=\"648:2507\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"assembled/footer/648-2507/label\" data-node-id=\"648:2508\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">点火升空</span></div><div data-key=\"assembled/footer/648-2509\" data-node-id=\"648:2509\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"assembled/footer/648-2509/label\" data-node-id=\"648:2510\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">退回重装</span></div></div>"
+    },
+    "separation": {
+      "mode": "update",
+      "targetNodeId": "648:2511",
+      "markup": "<div data-key=\"separation/root\" data-node-id=\"648:2511\" class=\"w-[1600px] h-[900px]\"><div data-key=\"separation/footer/648-2516\" data-node-id=\"648:2516\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"separation/footer/648-2516/label\" data-node-id=\"648:2517\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">继续：级间结构分离</span></div><div data-key=\"separation/footer/648-2518\" data-node-id=\"648:2518\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"separation/footer/648-2518/label\" data-node-id=\"648:2519\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">暂停</span></div><div data-key=\"separation/footer/648-2520\" data-node-id=\"648:2520\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"separation/footer/648-2520/label\" data-node-id=\"648:2521\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回重装</span></div></div>"
+    },
+    "separation-paused": {
+      "mode": "update",
+      "targetNodeId": "648:2522",
+      "markup": "<div data-key=\"separation-paused/root\" data-node-id=\"648:2522\" class=\"w-[1600px] h-[900px]\"><div data-key=\"separation-paused/footer/648-2527\" data-node-id=\"648:2527\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"separation-paused/footer/648-2527/label\" data-node-id=\"648:2528\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">继续</span></div><div data-key=\"separation-paused/footer/648-2529\" data-node-id=\"648:2529\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"separation-paused/footer/648-2529/label\" data-node-id=\"648:2530\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">重播分离</span></div></div>"
+    },
+    "interstage": {
+      "mode": "update",
+      "targetNodeId": "648:2531",
+      "markup": "<div data-key=\"interstage/root\" data-node-id=\"648:2531\" class=\"w-[1600px] h-[900px]\"><div data-key=\"interstage/footer/648-2536\" data-node-id=\"648:2536\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"interstage/footer/648-2536/label\" data-node-id=\"648:2537\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">继续：整流罩分离</span></div><div data-key=\"interstage/footer/648-2538\" data-node-id=\"648:2538\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"interstage/footer/648-2538/label\" data-node-id=\"648:2539\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回上一阶段</span></div><div data-key=\"interstage/footer/648-2540\" data-node-id=\"648:2540\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"interstage/footer/648-2540/label\" data-node-id=\"648:2541\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">重播分离</span></div></div>"
+    },
+    "fairing": {
+      "mode": "update",
+      "targetNodeId": "648:2542",
+      "markup": "<div data-key=\"fairing/root\" data-node-id=\"648:2542\" class=\"w-[1600px] h-[900px]\"><div data-key=\"fairing/footer/648-2547\" data-node-id=\"648:2547\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"fairing/footer/648-2547/label\" data-node-id=\"648:2548\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">完成实验</span></div><div data-key=\"fairing/footer/648-2549\" data-node-id=\"648:2549\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"fairing/footer/648-2549/label\" data-node-id=\"648:2550\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回上一阶段</span></div><div data-key=\"fairing/footer/648-2551\" data-node-id=\"648:2551\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"fairing/footer/648-2551/label\" data-node-id=\"648:2552\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">重播分离</span></div></div>"
+    },
+    "done": {
+      "mode": "update",
+      "targetNodeId": "648:2553",
+      "markup": "<div data-key=\"done/root\" data-node-id=\"648:2553\" class=\"w-[1600px] h-[900px]\"><div data-key=\"done/footer/648-2558\" data-node-id=\"648:2558\" class=\"absolute left-[48px] top-[640px] w-[350px] h-[88px] visible bg-[#272727]\"><span data-key=\"done/footer/648-2558/label\" data-node-id=\"648:2559\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#ffffff]\">查看挑战记录</span></div><div data-key=\"done/footer/648-2560\" data-node-id=\"648:2560\" class=\"absolute left-[428px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"done/footer/648-2560/label\" data-node-id=\"648:2561\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">重试组装</span></div><div data-key=\"done/footer/648-2562\" data-node-id=\"648:2562\" class=\"absolute left-[808px] top-[640px] w-[350px] h-[88px] visible bg-[#dddddd]\"><span data-key=\"done/footer/648-2562/label\" data-node-id=\"648:2563\" class=\"absolute left-[16px] top-[24px] w-[318px] h-[48px] visible text-[24px] text-[#222222]\">返回第一章</span></div></div>"
+    }
+  },
+  "diagrams": {
+    "orbit": {
+      "mode": "update",
+      "targetNodeId": "648:2344",
+      "markup": "<div data-key=\"orbit/root\" data-node-id=\"648:2344\" class=\"w-[1600px] h-[900px]\"><div data-key=\"orbit/scene\" data-node-id=\"648:2347\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"orbit/v2/visual-428\" data-node-id=\"652:1197\" class=\"absolute left-[805px] top-[66.3px] w-[17.5px] h-[48.8px] hidden\"></div><div data-key=\"orbit/v2/visual-429\" data-node-id=\"652:1198\" class=\"absolute left-[805px] top-[55px] w-[17.5px] h-[12.5px] hidden\"></div><div data-key=\"orbit/v2/visual-430\" data-node-id=\"652:1199\" class=\"absolute left-[805px] top-[93.8px] w-[17.5px] h-[1px] hidden\"></div><div data-key=\"orbit/v2/visual-431\" data-node-id=\"652:1200\" class=\"absolute left-[805px] top-[114.5px] w-[17.5px] h-[7.5px] hidden\"></div><div data-key=\"orbit/v2/visual-432\" data-node-id=\"652:1201\" class=\"absolute left-[797px] top-[88.8px] w-[6.3px] h-[28px] hidden\"></div><div data-key=\"orbit/v2/visual-433\" data-node-id=\"652:1202\" class=\"absolute left-[824.3px] top-[88.8px] w-[6.3px] h-[28px] hidden\"></div><div data-key=\"orbit/v2/visual-420\" data-node-id=\"652:1189\" class=\"absolute left-[210px] top-[40px] w-[120px] h-[200px] hidden\"></div><div data-key=\"orbit/v2/visual-421\" data-node-id=\"652:1190\" class=\"absolute left-[625px] top-[65px] w-[340px] h-[280px] \"></div><div data-key=\"orbit/repair/new-1\" class=\"absolute left-[260px] top-[55px] w-[36px] h-[90px] bg-transparent border-[3px] border-[#444444]\"></div><div data-key=\"orbit/v2/visual-441\" data-node-id=\"652:1210\" class=\"absolute left-[1084px] top-[205px] w-[340px] h-[70px] bg-transparent border-transparent\"></div><div data-key=\"orbit/repair/new-2\" class=\"absolute left-[780px] top-[53px] w-[76px] h-[26px] bg-[#777777] border-[2px] border-[#333333]\"></div><div data-key=\"orbit/repair/new-3\" class=\"absolute left-[863px] top-[60px] w-[60px] h-[12px] bg-transparent border-[3px] border-[#555555]\"></div></div></div>",
+      "native": {
+        "orbit/v2/visual-428": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit/v2/visual-429": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "orbit/v2/visual-430": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit/v2/visual-431": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "orbit/v2/visual-432": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit/v2/visual-433": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit/v2/visual-420": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "orbit/v2/visual-421": {
+          "figma": {
+            "shape": {
+              "type": "ELLIPSE"
+            }
+          }
+        },
+        "orbit/repair/new-1": {
+          "figma": {
+            "name": "上升与回落",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 90 L 0 0 M 0 0 L -7 12 M 0 0 L 7 12 M 22 0 L 22 90 M 22 90 L 15 78 M 22 90 L 29 78"
+                }
+              ]
+            }
+          }
+        },
+        "orbit/v2/visual-441": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit/repair/new-2": {
+          "figma": {
+            "name": "沿轨道飞行的火箭",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 7 L 48 7 Q 64 7 76 13 Q 64 19 48 19 L 0 19 L 8 13 Z M 16 7 L 6 0 L 36 7 M 16 19 L 6 26 L 36 19"
+                }
+              ]
+            }
+          }
+        },
+        "orbit/repair/new-3": {
+          "figma": {
+            "name": "切向运动箭头",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 6 L 60 6 M 60 6 L 50 0 M 60 6 L 50 12"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "orbit-playing": {
+      "mode": "update",
+      "targetNodeId": "648:2355",
+      "markup": "<div data-key=\"orbit-playing/root\" data-node-id=\"648:2355\" class=\"w-[1600px] h-[900px]\"><div data-key=\"orbit-playing/scene\" data-node-id=\"648:2358\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"orbit-playing/v2/visual-459\" data-node-id=\"652:1228\" class=\"absolute left-[805px] top-[66.3px] w-[17.5px] h-[48.8px] hidden\"></div><div data-key=\"orbit-playing/v2/visual-460\" data-node-id=\"652:1229\" class=\"absolute left-[805px] top-[55px] w-[17.5px] h-[12.5px] hidden\"></div><div data-key=\"orbit-playing/v2/visual-461\" data-node-id=\"652:1230\" class=\"absolute left-[805px] top-[93.8px] w-[17.5px] h-[1px] hidden\"></div><div data-key=\"orbit-playing/v2/visual-462\" data-node-id=\"652:1231\" class=\"absolute left-[805px] top-[114.5px] w-[17.5px] h-[7.5px] hidden\"></div><div data-key=\"orbit-playing/v2/visual-463\" data-node-id=\"652:1232\" class=\"absolute left-[797px] top-[88.8px] w-[6.3px] h-[28px] hidden\"></div><div data-key=\"orbit-playing/v2/visual-464\" data-node-id=\"652:1233\" class=\"absolute left-[824.3px] top-[88.8px] w-[6.3px] h-[28px] hidden\"></div><div data-key=\"orbit-playing/v2/visual-451\" data-node-id=\"652:1220\" class=\"absolute left-[210px] top-[40px] w-[120px] h-[200px] hidden\"></div><div data-key=\"orbit-playing/v2/visual-452\" data-node-id=\"652:1221\" class=\"absolute left-[625px] top-[65px] w-[340px] h-[280px] \"></div><div data-key=\"orbit-playing/repair/new-1\" class=\"absolute left-[260px] top-[55px] w-[36px] h-[90px] bg-transparent border-[3px] border-[#444444]\"></div><div data-key=\"orbit-playing/v2/visual-472\" data-node-id=\"652:1241\" class=\"absolute left-[1084px] top-[205px] w-[340px] h-[70px] bg-transparent border-transparent\"></div><div data-key=\"orbit-playing/repair/new-2\" class=\"absolute left-[780px] top-[53px] w-[76px] h-[26px] bg-[#777777] border-[2px] border-[#333333]\"></div><div data-key=\"orbit-playing/repair/new-3\" class=\"absolute left-[863px] top-[60px] w-[60px] h-[12px] bg-transparent border-[3px] border-[#555555]\"></div></div></div>",
+      "native": {
+        "orbit-playing/v2/visual-459": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit-playing/v2/visual-460": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "orbit-playing/v2/visual-461": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit-playing/v2/visual-462": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "orbit-playing/v2/visual-463": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit-playing/v2/visual-464": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit-playing/v2/visual-451": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "orbit-playing/v2/visual-452": {
+          "figma": {
+            "shape": {
+              "type": "ELLIPSE"
+            }
+          }
+        },
+        "orbit-playing/repair/new-1": {
+          "figma": {
+            "name": "上升与回落",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 90 L 0 0 M 0 0 L -7 12 M 0 0 L 7 12 M 22 0 L 22 90 M 22 90 L 15 78 M 22 90 L 29 78"
+                }
+              ]
+            }
+          }
+        },
+        "orbit-playing/v2/visual-472": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "orbit-playing/repair/new-2": {
+          "figma": {
+            "name": "沿轨道飞行的火箭",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 7 L 48 7 Q 64 7 76 13 Q 64 19 48 19 L 0 19 L 8 13 Z M 16 7 L 6 0 L 36 7 M 16 19 L 6 26 L 36 19"
+                }
+              ]
+            }
+          }
+        },
+        "orbit-playing/repair/new-3": {
+          "figma": {
+            "name": "切向运动箭头",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 6 L 60 6 M 60 6 L 50 0 M 60 6 L 50 12"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "cannon": {
+      "mode": "update",
+      "targetNodeId": "648:2364",
+      "markup": "<div data-key=\"cannon/root\" data-node-id=\"648:2364\" class=\"w-[1600px] h-[900px]\"><div data-key=\"cannon/scene\" data-node-id=\"648:2367\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"cannon/v2/visual-479\" data-node-id=\"652:1248\" class=\"absolute left-[470px] top-[65.8px] w-[16.8px] h-[46.8px] hidden\"></div><div data-key=\"cannon/v2/visual-480\" data-node-id=\"652:1249\" class=\"absolute left-[470px] top-[55px] w-[16.8px] h-[12px] hidden\"></div><div data-key=\"cannon/v2/visual-481\" data-node-id=\"652:1250\" class=\"absolute left-[470px] top-[92.2px] w-[16.8px] h-[1px] hidden\"></div><div data-key=\"cannon/v2/visual-482\" data-node-id=\"652:1251\" class=\"absolute left-[470px] top-[112.1px] w-[16.8px] h-[7.2px] hidden\"></div><div data-key=\"cannon/v2/visual-483\" data-node-id=\"652:1252\" class=\"absolute left-[462.3px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"cannon/v2/visual-484\" data-node-id=\"652:1253\" class=\"absolute left-[488.5px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"cannon/repair/new-1\" class=\"absolute left-[455px] top-[43px] w-[76px] h-[26px] bg-[#777777] border-[2px] border-[#333333]\"></div><div data-key=\"cannon/repair/new-2\" class=\"absolute left-[538px] top-[50px] w-[60px] h-[12px] bg-transparent border-[3px] border-[#555555]\"></div></div></div>",
+      "native": {
+        "cannon/v2/visual-479": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "cannon/v2/visual-480": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "cannon/v2/visual-481": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "cannon/v2/visual-482": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "cannon/v2/visual-483": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "cannon/v2/visual-484": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "cannon/repair/new-1": {
+          "figma": {
+            "name": "沿轨道飞行的火箭",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 7 L 48 7 Q 64 7 76 13 Q 64 19 48 19 L 0 19 L 8 13 Z M 16 7 L 6 0 L 36 7 M 16 19 L 6 26 L 36 19"
+                }
+              ]
+            }
+          }
+        },
+        "cannon/repair/new-2": {
+          "figma": {
+            "name": "切向运动箭头",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 6 L 60 6 M 60 6 L 50 0 M 60 6 L 50 12"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "fall": {
+      "mode": "update",
+      "targetNodeId": "648:2381",
+      "markup": "<div data-key=\"fall/root\" data-node-id=\"648:2381\" class=\"w-[1600px] h-[900px]\"><div data-key=\"fall/scene\" data-node-id=\"648:2384\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"fall/v2/visual-502\" data-node-id=\"652:1271\" class=\"absolute left-[470px] top-[65.8px] w-[16.8px] h-[46.8px] hidden\"></div><div data-key=\"fall/v2/visual-503\" data-node-id=\"652:1272\" class=\"absolute left-[470px] top-[55px] w-[16.8px] h-[12px] hidden\"></div><div data-key=\"fall/v2/visual-504\" data-node-id=\"652:1273\" class=\"absolute left-[470px] top-[92.2px] w-[16.8px] h-[1px] hidden\"></div><div data-key=\"fall/v2/visual-505\" data-node-id=\"652:1274\" class=\"absolute left-[470px] top-[112.1px] w-[16.8px] h-[7.2px] hidden\"></div><div data-key=\"fall/v2/visual-506\" data-node-id=\"652:1275\" class=\"absolute left-[462.3px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"fall/v2/visual-507\" data-node-id=\"652:1276\" class=\"absolute left-[488.5px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"fall/v2/visual-500\" data-node-id=\"652:1269\" class=\"absolute left-[265px] top-[55px] w-[400px] h-[340px] hidden\"></div><div data-key=\"fall/repair/new-1\" class=\"absolute left-[455px] top-[43px] w-[76px] h-[26px] bg-[#777777] border-[2px] border-[#333333]\"></div><div data-key=\"fall/repair/new-2\" class=\"absolute left-[538px] top-[50px] w-[60px] h-[12px] bg-transparent border-[3px] border-[#555555]\"></div></div></div>",
+      "native": {
+        "fall/v2/visual-502": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fall/v2/visual-503": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fall/v2/visual-504": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fall/v2/visual-505": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fall/v2/visual-506": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fall/v2/visual-507": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fall/v2/visual-500": {
+          "figma": {
+            "shape": {
+              "type": "ELLIPSE"
+            }
+          }
+        },
+        "fall/repair/new-1": {
+          "figma": {
+            "name": "沿轨道飞行的火箭",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 7 L 48 7 Q 64 7 76 13 Q 64 19 48 19 L 0 19 L 8 13 Z M 16 7 L 6 0 L 36 7 M 16 19 L 6 26 L 36 19"
+                }
+              ]
+            }
+          }
+        },
+        "fall/repair/new-2": {
+          "figma": {
+            "name": "切向运动箭头",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 6 L 60 6 M 60 6 L 50 0 M 60 6 L 50 12"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "circular": {
+      "mode": "update",
+      "targetNodeId": "648:2388",
+      "markup": "<div data-key=\"circular/root\" data-node-id=\"648:2388\" class=\"w-[1600px] h-[900px]\"><div data-key=\"circular/scene\" data-node-id=\"648:2391\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"circular/v2/visual-518\" data-node-id=\"650:769\" class=\"absolute left-[470px] top-[65.8px] w-[16.8px] h-[46.8px] hidden\"></div><div data-key=\"circular/v2/visual-519\" data-node-id=\"650:770\" class=\"absolute left-[470px] top-[55px] w-[16.8px] h-[12px] hidden\"></div><div data-key=\"circular/v2/visual-520\" data-node-id=\"650:771\" class=\"absolute left-[470px] top-[92.2px] w-[16.8px] h-[1px] hidden\"></div><div data-key=\"circular/v2/visual-521\" data-node-id=\"650:772\" class=\"absolute left-[470px] top-[112.1px] w-[16.8px] h-[7.2px] hidden\"></div><div data-key=\"circular/v2/visual-522\" data-node-id=\"650:773\" class=\"absolute left-[462.3px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"circular/v2/visual-523\" data-node-id=\"650:774\" class=\"absolute left-[488.5px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"circular/repair/new-1\" class=\"absolute left-[455px] top-[43px] w-[76px] h-[26px] bg-[#777777] border-[2px] border-[#333333]\"></div><div data-key=\"circular/repair/new-2\" class=\"absolute left-[538px] top-[50px] w-[60px] h-[12px] bg-transparent border-[3px] border-[#555555]\"></div></div></div>",
+      "native": {
+        "circular/v2/visual-518": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "circular/v2/visual-519": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "circular/v2/visual-520": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "circular/v2/visual-521": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "circular/v2/visual-522": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "circular/v2/visual-523": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "circular/repair/new-1": {
+          "figma": {
+            "name": "沿轨道飞行的火箭",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 7 L 48 7 Q 64 7 76 13 Q 64 19 48 19 L 0 19 L 8 13 Z M 16 7 L 6 0 L 36 7 M 16 19 L 6 26 L 36 19"
+                }
+              ]
+            }
+          }
+        },
+        "circular/repair/new-2": {
+          "figma": {
+            "name": "切向运动箭头",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 6 L 60 6 M 60 6 L 50 0 M 60 6 L 50 12"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "escape-earth": {
+      "mode": "update",
+      "targetNodeId": "648:2395",
+      "markup": "<div data-key=\"escape-earth/root\" data-node-id=\"648:2395\" class=\"w-[1600px] h-[900px]\"><div data-key=\"escape-earth/scene\" data-node-id=\"648:2398\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"escape-earth/v2/visual-535\" data-node-id=\"652:1288\" class=\"absolute left-[470px] top-[65.8px] w-[16.8px] h-[46.8px] hidden\"></div><div data-key=\"escape-earth/v2/visual-536\" data-node-id=\"652:1289\" class=\"absolute left-[470px] top-[55px] w-[16.8px] h-[12px] hidden\"></div><div data-key=\"escape-earth/v2/visual-537\" data-node-id=\"652:1290\" class=\"absolute left-[470px] top-[92.2px] w-[16.8px] h-[1px] hidden\"></div><div data-key=\"escape-earth/v2/visual-538\" data-node-id=\"652:1291\" class=\"absolute left-[470px] top-[112.1px] w-[16.8px] h-[7.2px] hidden\"></div><div data-key=\"escape-earth/v2/visual-539\" data-node-id=\"652:1292\" class=\"absolute left-[462.3px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"escape-earth/v2/visual-540\" data-node-id=\"652:1293\" class=\"absolute left-[488.5px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"escape-earth/v2/visual-533\" data-node-id=\"652:1286\" class=\"absolute left-[265px] top-[55px] w-[400px] h-[340px] hidden\"></div><div data-key=\"escape-earth/v2/visual-534\" data-node-id=\"652:1287\" class=\"absolute left-[520px] top-[80px] w-[470px] h-[130px] \"></div><div data-key=\"escape-earth/repair/new-1\" class=\"absolute left-[865px] top-[77px] w-[76px] h-[26px] bg-[#777777] border-[2px] border-[#333333]\"></div><div data-key=\"escape-earth/repair/new-2\" class=\"absolute left-[948px] top-[84px] w-[60px] h-[12px] bg-transparent border-[3px] border-[#555555]\"></div></div></div>",
+      "native": {
+        "escape-earth/v2/visual-535": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "escape-earth/v2/visual-536": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "escape-earth/v2/visual-537": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "escape-earth/v2/visual-538": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "escape-earth/v2/visual-539": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "escape-earth/v2/visual-540": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "escape-earth/v2/visual-533": {
+          "figma": {
+            "shape": {
+              "type": "ELLIPSE"
+            }
+          }
+        },
+        "escape-earth/v2/visual-534": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "escape-earth/repair/new-1": {
+          "figma": {
+            "name": "沿轨道飞行的火箭",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 7 L 48 7 Q 64 7 76 13 Q 64 19 48 19 L 0 19 L 8 13 Z M 16 7 L 6 0 L 36 7 M 16 19 L 6 26 L 36 19"
+                }
+              ]
+            }
+          }
+        },
+        "escape-earth/repair/new-2": {
+          "figma": {
+            "name": "切向运动箭头",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 6 L 60 6 M 60 6 L 50 0 M 60 6 L 50 12"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "escape-sun": {
+      "mode": "update",
+      "targetNodeId": "648:2402",
+      "markup": "<div data-key=\"escape-sun/root\" data-node-id=\"648:2402\" class=\"w-[1600px] h-[900px]\"><div data-key=\"escape-sun/scene\" data-node-id=\"648:2405\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"escape-sun/v2/visual-552\" data-node-id=\"652:1305\" class=\"absolute left-[470px] top-[65.8px] w-[16.8px] h-[46.8px] hidden\"></div><div data-key=\"escape-sun/v2/visual-553\" data-node-id=\"652:1306\" class=\"absolute left-[470px] top-[55px] w-[16.8px] h-[12px] hidden\"></div><div data-key=\"escape-sun/v2/visual-554\" data-node-id=\"652:1307\" class=\"absolute left-[470px] top-[92.2px] w-[16.8px] h-[1px] hidden\"></div><div data-key=\"escape-sun/v2/visual-555\" data-node-id=\"652:1308\" class=\"absolute left-[470px] top-[112.1px] w-[16.8px] h-[7.2px] hidden\"></div><div data-key=\"escape-sun/v2/visual-556\" data-node-id=\"652:1309\" class=\"absolute left-[462.3px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"escape-sun/v2/visual-557\" data-node-id=\"652:1310\" class=\"absolute left-[488.5px] top-[87.4px] w-[6px] h-[26.9px] hidden\"></div><div data-key=\"escape-sun/v2/visual-550\" data-node-id=\"652:1303\" class=\"absolute left-[265px] top-[55px] w-[400px] h-[340px] hidden\"></div><div data-key=\"escape-sun/v2/visual-551\" data-node-id=\"652:1304\" class=\"absolute left-[520px] top-[80px] w-[470px] h-[130px] \"></div><div data-key=\"escape-sun/repair/new-1\" class=\"absolute left-[865px] top-[77px] w-[76px] h-[26px] bg-[#777777] border-[2px] border-[#333333]\"></div><div data-key=\"escape-sun/repair/new-2\" class=\"absolute left-[948px] top-[84px] w-[60px] h-[12px] bg-transparent border-[3px] border-[#555555]\"></div></div></div>",
+      "native": {
+        "escape-sun/v2/visual-552": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "escape-sun/v2/visual-553": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "escape-sun/v2/visual-554": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "escape-sun/v2/visual-555": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "escape-sun/v2/visual-556": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "escape-sun/v2/visual-557": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "escape-sun/v2/visual-550": {
+          "figma": {
+            "shape": {
+              "type": "ELLIPSE"
+            }
+          }
+        },
+        "escape-sun/v2/visual-551": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "escape-sun/repair/new-1": {
+          "figma": {
+            "name": "沿轨道飞行的火箭",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 7 L 48 7 Q 64 7 76 13 Q 64 19 48 19 L 0 19 L 8 13 Z M 16 7 L 6 0 L 36 7 M 16 19 L 6 26 L 36 19"
+                }
+              ]
+            }
+          }
+        },
+        "escape-sun/repair/new-2": {
+          "figma": {
+            "name": "切向运动箭头",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 0 6 L 60 6 M 60 6 L 50 0 M 60 6 L 50 12"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "structure": {
+      "mode": "update",
+      "targetNodeId": "648:2451",
+      "markup": "<div data-key=\"structure/root\" data-node-id=\"648:2451\" class=\"w-[1600px] h-[900px]\"><div data-key=\"structure/scene\" data-node-id=\"648:2454\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"structure/v2/visual-647\" data-node-id=\"652:1400\" class=\"absolute left-[630px] top-[75px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"structure/v2/visual-650\" data-node-id=\"652:1403\" class=\"absolute left-[630px] top-[135px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"structure/v2/visual-653\" data-node-id=\"652:1406\" class=\"absolute left-[630px] top-[195px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"structure/v2/visual-656\" data-node-id=\"652:1409\" class=\"absolute left-[630px] top-[255px] w-[320px] h-[48px] bg-transparent border-transparent\"></div></div></div>",
+      "native": {
+        "structure/v2/visual-647": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "structure/v2/visual-650": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "structure/v2/visual-653": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "structure/v2/visual-656": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        }
+      }
+    },
+    "xray": {
+      "mode": "update",
+      "targetNodeId": "648:2462",
+      "markup": "<div data-key=\"xray/root\" data-node-id=\"648:2462\" class=\"w-[1600px] h-[900px]\"><div data-key=\"xray/control/xray-1\" data-node-id=\"648:2467\" class=\"absolute left-[678px] top-[475px] w-[320px] h-[60px] bg-transparent border-transparent\"></div><div data-key=\"xray/scene\" data-node-id=\"648:2465\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"xray/v2/visual-677\" data-node-id=\"652:1430\" class=\"absolute left-[630px] top-[75px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"xray/v2/visual-680\" data-node-id=\"652:1433\" class=\"absolute left-[630px] top-[135px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"xray/v2/visual-683\" data-node-id=\"652:1436\" class=\"absolute left-[630px] top-[195px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"xray/v2/visual-686\" data-node-id=\"652:1439\" class=\"absolute left-[630px] top-[255px] w-[320px] h-[48px] bg-transparent border-transparent\"></div></div></div>",
+      "native": {
+        "xray/v2/visual-677": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "xray/v2/visual-680": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "xray/v2/visual-683": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "xray/v2/visual-686": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        }
+      }
+    },
+    "part": {
+      "mode": "update",
+      "targetNodeId": "648:2473",
+      "markup": "<div data-key=\"part/root\" data-node-id=\"648:2473\" class=\"w-[1600px] h-[900px]\"><div data-key=\"part/scene\" data-node-id=\"648:2476\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"part/v2/visual-707\" data-node-id=\"652:1460\" class=\"absolute left-[630px] top-[75px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"part/v2/visual-710\" data-node-id=\"652:1463\" class=\"absolute left-[630px] top-[135px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"part/v2/visual-713\" data-node-id=\"652:1466\" class=\"absolute left-[630px] top-[195px] w-[320px] h-[48px] bg-transparent border-transparent\"></div><div data-key=\"part/v2/visual-716\" data-node-id=\"652:1469\" class=\"absolute left-[630px] top-[255px] w-[320px] h-[48px] bg-transparent border-transparent\"></div></div></div>",
+      "native": {
+        "part/v2/visual-707": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "part/v2/visual-710": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "part/v2/visual-713": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "part/v2/visual-716": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        }
+      }
+    },
+    "assembly": {
+      "mode": "update",
+      "targetNodeId": "648:2484",
+      "markup": "<div data-key=\"assembly/root\" data-node-id=\"648:2484\" class=\"w-[1600px] h-[900px]\"><span data-key=\"assembly/repair/648-2485\" data-node-id=\"648:2485\" class=\"absolute left-[48px] top-[44px] w-[1504px] h-[48px] \">3 / 组装火箭</span><div data-key=\"assembly/scene\" data-node-id=\"648:2487\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"assembly/visual-746\" data-node-id=\"650:802\" class=\"absolute left-[736.3px] top-[134.5px] w-[43.2px] h-[32.9px] hidden\"></div><span data-key=\"assembly/repair/new-1\" class=\"absolute left-[590px] top-[346px] w-[340px] h-[40px] text-[23px] text-[#333333]\">点选载荷，放入空槽</span></div></div>",
+      "native": {
+        "assembly/visual-746": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "assembly/repair/new-1": {
+          "figma": {
+            "name": "点选提示",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        }
+      }
+    },
+    "assembly-error": {
+      "mode": "update",
+      "targetNodeId": "648:2495",
+      "markup": "<div data-key=\"assembly-error/root\" data-node-id=\"648:2495\" class=\"w-[1600px] h-[900px]\"><div data-key=\"assembly-error/scene\" data-node-id=\"648:2498\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"assembly-error/v2/visual-779\" data-node-id=\"652:1499\" class=\"absolute left-[736.3px] top-[134.5px] w-[43.2px] h-[32.9px] hidden\"></div><span data-key=\"assembly-error/repair/new-1\" class=\"absolute left-[590px] top-[346px] w-[340px] h-[40px] text-[23px] text-[#333333]\">点选载荷，放入空槽</span><div data-key=\"assembly-error/repair/new-2\" class=\"absolute left-[728px] top-[222px] w-[95px] h-[14px] bg-[#555555]\"></div><div data-key=\"assembly-error/repair/new-3\" class=\"absolute left-[832px] top-[225px] w-[55px] h-[12px] bg-transparent border-[3px] border-[#333333]\"></div></div></div>",
+      "native": {
+        "assembly-error/v2/visual-779": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "assembly-error/repair/new-1": {
+          "figma": {
+            "name": "点选提示",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        },
+        "assembly-error/repair/new-2": {
+          "figma": {
+            "name": "错位接口",
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "assembly-error/repair/new-3": {
+          "figma": {
+            "name": "错位提示",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 55 6 L 0 6 M 0 6 L 12 0 M 0 6 L 12 12"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "separation": {
+      "mode": "update",
+      "targetNodeId": "648:2511",
+      "markup": "<div data-key=\"separation/root\" data-node-id=\"648:2511\" class=\"w-[1600px] h-[900px]\"><div data-key=\"separation/scene\" data-node-id=\"648:2514\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"separation/v2/visual-833\" data-node-id=\"652:1553\" class=\"absolute left-[630px] top-[75px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation/v2/visual-834\" data-node-id=\"652:1554\" class=\"absolute left-[646px] top-[83px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation/v2/visual-835\" data-node-id=\"652:1555\" class=\"absolute left-[530px] top-[99px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation/v2/visual-836\" data-node-id=\"652:1556\" class=\"absolute left-[630px] top-[135px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation/v2/visual-837\" data-node-id=\"652:1557\" class=\"absolute left-[646px] top-[143px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation/v2/visual-838\" data-node-id=\"652:1558\" class=\"absolute left-[530px] top-[159px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation/v2/visual-839\" data-node-id=\"652:1559\" class=\"absolute left-[630px] top-[195px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation/v2/visual-840\" data-node-id=\"652:1560\" class=\"absolute left-[646px] top-[203px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation/v2/visual-841\" data-node-id=\"652:1561\" class=\"absolute left-[530px] top-[219px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation/v2/visual-842\" data-node-id=\"652:1562\" class=\"absolute left-[630px] top-[255px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation/v2/visual-843\" data-node-id=\"652:1563\" class=\"absolute left-[646px] top-[263px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation/v2/visual-844\" data-node-id=\"652:1564\" class=\"absolute left-[530px] top-[279px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation/v2/visual-845\" data-node-id=\"652:1565\" class=\"absolute left-[630px] top-[315px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation/v2/visual-846\" data-node-id=\"652:1566\" class=\"absolute left-[646px] top-[323px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation/v2/visual-847\" data-node-id=\"652:1567\" class=\"absolute left-[530px] top-[339px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation/v2/visual-826\" data-node-id=\"652:1546\" class=\"absolute left-[430px] top-[92px] w-[84px] h-[125px] \"></div><div data-key=\"separation/v2/visual-829\" data-node-id=\"652:1549\" class=\"absolute left-[430px] top-[216px] w-[84px] h-[32px] \"></div><div data-key=\"separation/v2/visual-832\" data-node-id=\"652:1552\" class=\"absolute left-[438px] top-[246px] w-[48px] h-[65px] \"></div><div data-key=\"separation/v2/visual-828\" data-node-id=\"652:1548\" class=\"absolute left-[430px] top-[224px] w-[84px] h-[1px] hidden\"></div><div data-key=\"separation/repair/new-1\" class=\"absolute left-[270px] top-[265px] w-[84px] h-[100px] bg-[#dddddd] border-[2px] border-[#555555] rounded-[8px]\"></div><div data-key=\"separation/repair/new-2\" class=\"absolute left-[270px] top-[365px] w-[84px] h-[30px] bg-[#555555] border-[2px] border-[#333333]\"></div><span data-key=\"separation/repair/new-3\" class=\"absolute left-[660px] top-[130px] w-[330px] h-[48px] text-[28px] text-[#222222]\">上级继续飞行</span><span data-key=\"separation/repair/new-4\" class=\"absolute left-[660px] top-[280px] w-[330px] h-[48px] text-[28px] text-[#555555]\">下级与助推器脱离</span></div></div>",
+      "native": {
+        "separation/v2/visual-833": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation/v2/visual-835": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation/v2/visual-836": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation/v2/visual-838": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation/v2/visual-839": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation/v2/visual-841": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation/v2/visual-842": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation/v2/visual-844": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation/v2/visual-845": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation/v2/visual-847": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation/v2/visual-826": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation/v2/visual-829": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation/v2/visual-832": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation/v2/visual-828": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation/repair/new-1": {
+          "figma": {
+            "name": "分离的下级箭体",
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation/repair/new-2": {
+          "figma": {
+            "name": "下级发动机",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 10 0 L 74 0 L 84 30 L 0 30 Z"
+                }
+              ]
+            }
+          }
+        },
+        "separation/repair/new-3": {
+          "figma": {
+            "name": "上级标签",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        },
+        "separation/repair/new-4": {
+          "figma": {
+            "name": "下级标签",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        }
+      }
+    },
+    "separation-paused": {
+      "mode": "update",
+      "targetNodeId": "648:2522",
+      "markup": "<div data-key=\"separation-paused/root\" data-node-id=\"648:2522\" class=\"w-[1600px] h-[900px]\"><div data-key=\"separation-paused/scene\" data-node-id=\"648:2525\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"separation-paused/v2/visual-860\" data-node-id=\"652:1580\" class=\"absolute left-[630px] top-[75px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation-paused/v2/visual-861\" data-node-id=\"652:1581\" class=\"absolute left-[646px] top-[83px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation-paused/v2/visual-862\" data-node-id=\"652:1582\" class=\"absolute left-[530px] top-[99px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation-paused/v2/visual-863\" data-node-id=\"652:1583\" class=\"absolute left-[630px] top-[135px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation-paused/v2/visual-864\" data-node-id=\"652:1584\" class=\"absolute left-[646px] top-[143px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation-paused/v2/visual-865\" data-node-id=\"652:1585\" class=\"absolute left-[530px] top-[159px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation-paused/v2/visual-866\" data-node-id=\"652:1586\" class=\"absolute left-[630px] top-[195px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation-paused/v2/visual-867\" data-node-id=\"652:1587\" class=\"absolute left-[646px] top-[203px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation-paused/v2/visual-868\" data-node-id=\"652:1588\" class=\"absolute left-[530px] top-[219px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation-paused/v2/visual-869\" data-node-id=\"652:1589\" class=\"absolute left-[630px] top-[255px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation-paused/v2/visual-870\" data-node-id=\"652:1590\" class=\"absolute left-[646px] top-[263px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation-paused/v2/visual-871\" data-node-id=\"652:1591\" class=\"absolute left-[530px] top-[279px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation-paused/v2/visual-872\" data-node-id=\"652:1592\" class=\"absolute left-[630px] top-[315px] w-[320px] h-[48px] hidden\"></div><span data-key=\"separation-paused/v2/visual-873\" data-node-id=\"652:1593\" class=\"absolute left-[646px] top-[323px] w-[285px] h-[44px] hidden\"></span><div data-key=\"separation-paused/v2/visual-874\" data-node-id=\"652:1594\" class=\"absolute left-[530px] top-[339px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"separation-paused/v2/visual-853\" data-node-id=\"652:1573\" class=\"absolute left-[430px] top-[92px] w-[84px] h-[125px] \"></div><div data-key=\"separation-paused/v2/visual-856\" data-node-id=\"652:1576\" class=\"absolute left-[430px] top-[216px] w-[84px] h-[32px] \"></div><div data-key=\"separation-paused/v2/visual-859\" data-node-id=\"652:1579\" class=\"absolute left-[438px] top-[246px] w-[48px] h-[65px] \"></div><div data-key=\"separation-paused/v2/visual-855\" data-node-id=\"652:1575\" class=\"absolute left-[430px] top-[224px] w-[84px] h-[1px] hidden\"></div><div data-key=\"separation-paused/repair/new-1\" class=\"absolute left-[270px] top-[265px] w-[84px] h-[100px] bg-[#dddddd] border-[2px] border-[#555555] rounded-[8px]\"></div><div data-key=\"separation-paused/repair/new-2\" class=\"absolute left-[270px] top-[365px] w-[84px] h-[30px] bg-[#555555] border-[2px] border-[#333333]\"></div><span data-key=\"separation-paused/repair/new-3\" class=\"absolute left-[660px] top-[130px] w-[330px] h-[48px] text-[28px] text-[#222222]\">上级继续飞行</span><span data-key=\"separation-paused/repair/new-4\" class=\"absolute left-[660px] top-[280px] w-[330px] h-[48px] text-[28px] text-[#555555]\">下级与助推器脱离</span></div></div>",
+      "native": {
+        "separation-paused/v2/visual-860": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation-paused/v2/visual-862": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation-paused/v2/visual-863": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation-paused/v2/visual-865": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation-paused/v2/visual-866": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation-paused/v2/visual-868": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation-paused/v2/visual-869": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation-paused/v2/visual-871": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation-paused/v2/visual-872": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation-paused/v2/visual-874": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation-paused/v2/visual-853": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation-paused/v2/visual-856": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation-paused/v2/visual-859": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "separation-paused/v2/visual-855": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation-paused/repair/new-1": {
+          "figma": {
+            "name": "分离的下级箭体",
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "separation-paused/repair/new-2": {
+          "figma": {
+            "name": "下级发动机",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 10 0 L 74 0 L 84 30 L 0 30 Z"
+                }
+              ]
+            }
+          }
+        },
+        "separation-paused/repair/new-3": {
+          "figma": {
+            "name": "上级标签",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        },
+        "separation-paused/repair/new-4": {
+          "figma": {
+            "name": "下级标签",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        }
+      }
+    },
+    "interstage": {
+      "mode": "update",
+      "targetNodeId": "648:2531",
+      "markup": "<div data-key=\"interstage/root\" data-node-id=\"648:2531\" class=\"w-[1600px] h-[900px]\"><div data-key=\"interstage/scene\" data-node-id=\"648:2534\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"interstage/v2/visual-888\" data-node-id=\"652:1608\" class=\"absolute left-[630px] top-[75px] w-[320px] h-[48px] hidden\"></div><span data-key=\"interstage/v2/visual-889\" data-node-id=\"652:1609\" class=\"absolute left-[646px] top-[83px] w-[285px] h-[44px] hidden\"></span><div data-key=\"interstage/v2/visual-890\" data-node-id=\"652:1610\" class=\"absolute left-[530px] top-[99px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"interstage/v2/visual-891\" data-node-id=\"652:1611\" class=\"absolute left-[630px] top-[135px] w-[320px] h-[48px] hidden\"></div><span data-key=\"interstage/v2/visual-892\" data-node-id=\"652:1612\" class=\"absolute left-[646px] top-[143px] w-[285px] h-[44px] hidden\"></span><div data-key=\"interstage/v2/visual-893\" data-node-id=\"652:1613\" class=\"absolute left-[530px] top-[159px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"interstage/v2/visual-894\" data-node-id=\"652:1614\" class=\"absolute left-[630px] top-[195px] w-[320px] h-[48px] hidden\"></div><span data-key=\"interstage/v2/visual-895\" data-node-id=\"652:1615\" class=\"absolute left-[646px] top-[203px] w-[285px] h-[44px] hidden\"></span><div data-key=\"interstage/v2/visual-896\" data-node-id=\"652:1616\" class=\"absolute left-[530px] top-[219px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"interstage/v2/visual-897\" data-node-id=\"652:1617\" class=\"absolute left-[630px] top-[255px] w-[320px] h-[48px] hidden\"></div><span data-key=\"interstage/v2/visual-898\" data-node-id=\"652:1618\" class=\"absolute left-[646px] top-[263px] w-[285px] h-[44px] hidden\"></span><div data-key=\"interstage/v2/visual-899\" data-node-id=\"652:1619\" class=\"absolute left-[530px] top-[279px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"interstage/v2/visual-900\" data-node-id=\"652:1620\" class=\"absolute left-[630px] top-[315px] w-[320px] h-[48px] hidden\"></div><span data-key=\"interstage/v2/visual-901\" data-node-id=\"652:1621\" class=\"absolute left-[646px] top-[323px] w-[285px] h-[44px] hidden\"></span><div data-key=\"interstage/v2/visual-902\" data-node-id=\"652:1622\" class=\"absolute left-[530px] top-[339px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"interstage/v2/visual-880\" data-node-id=\"652:1600\" class=\"absolute left-[430px] top-[92px] w-[84px] h-[125px] \"></div><div data-key=\"interstage/v2/visual-883\" data-node-id=\"652:1603\" class=\"absolute left-[430px] top-[216px] w-[84px] h-[32px] \"></div><div data-key=\"interstage/v2/visual-887\" data-node-id=\"652:1607\" class=\"absolute left-[438px] top-[246px] w-[48px] h-[65px] \"></div><div data-key=\"interstage/v2/visual-882\" data-node-id=\"652:1602\" class=\"absolute left-[430px] top-[224px] w-[84px] h-[1px] hidden\"></div><div data-key=\"interstage/repair/new-1\" class=\"absolute left-[270px] top-[265px] w-[84px] h-[100px] bg-[#dddddd] border-[2px] border-[#555555] rounded-[8px]\"></div><div data-key=\"interstage/repair/new-2\" class=\"absolute left-[270px] top-[365px] w-[84px] h-[30px] bg-[#555555] border-[2px] border-[#333333]\"></div><span data-key=\"interstage/repair/new-3\" class=\"absolute left-[660px] top-[130px] w-[330px] h-[48px] text-[28px] text-[#222222]\">上级继续飞行</span><span data-key=\"interstage/repair/new-4\" class=\"absolute left-[660px] top-[280px] w-[330px] h-[48px] text-[28px] text-[#555555]\">下级与助推器脱离</span></div></div>",
+      "native": {
+        "interstage/v2/visual-888": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "interstage/v2/visual-890": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "interstage/v2/visual-891": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "interstage/v2/visual-893": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "interstage/v2/visual-894": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "interstage/v2/visual-896": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "interstage/v2/visual-897": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "interstage/v2/visual-899": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "interstage/v2/visual-900": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "interstage/v2/visual-902": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "interstage/v2/visual-880": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "interstage/v2/visual-883": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "interstage/v2/visual-887": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "interstage/v2/visual-882": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "interstage/repair/new-1": {
+          "figma": {
+            "name": "分离的下级箭体",
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "interstage/repair/new-2": {
+          "figma": {
+            "name": "下级发动机",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 10 0 L 74 0 L 84 30 L 0 30 Z"
+                }
+              ]
+            }
+          }
+        },
+        "interstage/repair/new-3": {
+          "figma": {
+            "name": "上级标签",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        },
+        "interstage/repair/new-4": {
+          "figma": {
+            "name": "下级标签",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        }
+      }
+    },
+    "fairing": {
+      "mode": "update",
+      "targetNodeId": "648:2542",
+      "markup": "<div data-key=\"fairing/root\" data-node-id=\"648:2542\" class=\"w-[1600px] h-[900px]\"><div data-key=\"fairing/scene\" data-node-id=\"648:2545\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px]\"><div data-key=\"fairing/v2/visual-918\" data-node-id=\"652:1638\" class=\"absolute left-[630px] top-[75px] w-[320px] h-[48px] hidden\"></div><span data-key=\"fairing/v2/visual-919\" data-node-id=\"652:1639\" class=\"absolute left-[646px] top-[83px] w-[285px] h-[44px] hidden\"></span><div data-key=\"fairing/v2/visual-920\" data-node-id=\"652:1640\" class=\"absolute left-[530px] top-[99px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"fairing/v2/visual-921\" data-node-id=\"652:1641\" class=\"absolute left-[630px] top-[135px] w-[320px] h-[48px] hidden\"></div><span data-key=\"fairing/v2/visual-922\" data-node-id=\"652:1642\" class=\"absolute left-[646px] top-[143px] w-[285px] h-[44px] hidden\"></span><div data-key=\"fairing/v2/visual-923\" data-node-id=\"652:1643\" class=\"absolute left-[530px] top-[159px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"fairing/v2/visual-924\" data-node-id=\"652:1644\" class=\"absolute left-[630px] top-[195px] w-[320px] h-[48px] hidden\"></div><span data-key=\"fairing/v2/visual-925\" data-node-id=\"652:1645\" class=\"absolute left-[646px] top-[203px] w-[285px] h-[44px] hidden\"></span><div data-key=\"fairing/v2/visual-926\" data-node-id=\"652:1646\" class=\"absolute left-[530px] top-[219px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"fairing/v2/visual-927\" data-node-id=\"652:1647\" class=\"absolute left-[630px] top-[255px] w-[320px] h-[48px] hidden\"></div><span data-key=\"fairing/v2/visual-928\" data-node-id=\"652:1648\" class=\"absolute left-[646px] top-[263px] w-[285px] h-[44px] hidden\"></span><div data-key=\"fairing/v2/visual-929\" data-node-id=\"652:1649\" class=\"absolute left-[530px] top-[279px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"fairing/v2/visual-930\" data-node-id=\"652:1650\" class=\"absolute left-[630px] top-[315px] w-[320px] h-[48px] hidden\"></div><span data-key=\"fairing/v2/visual-931\" data-node-id=\"652:1651\" class=\"absolute left-[646px] top-[323px] w-[285px] h-[44px] hidden\"></span><div data-key=\"fairing/v2/visual-932\" data-node-id=\"652:1652\" class=\"absolute left-[530px] top-[339px] w-[90px] h-[0.01px] hidden\"></div><div data-key=\"fairing/v2/visual-908\" data-node-id=\"652:1628\" class=\"absolute left-[430px] top-[92px] w-[84px] h-[125px] \"></div><div data-key=\"fairing/v2/visual-911\" data-node-id=\"652:1631\" class=\"absolute left-[430px] top-[216px] w-[84px] h-[32px] \"></div><div data-key=\"fairing/v2/visual-917\" data-node-id=\"652:1637\" class=\"absolute left-[438px] top-[246px] w-[48px] h-[65px] \"></div><div data-key=\"fairing/v2/visual-910\" data-node-id=\"652:1630\" class=\"absolute left-[430px] top-[224px] w-[84px] h-[1px] hidden\"></div><div data-key=\"fairing/repair/new-1\" class=\"absolute left-[270px] top-[265px] w-[84px] h-[100px] bg-[#dddddd] border-[2px] border-[#555555] rounded-[8px]\"></div><div data-key=\"fairing/repair/new-2\" class=\"absolute left-[270px] top-[365px] w-[84px] h-[30px] bg-[#555555] border-[2px] border-[#333333]\"></div><span data-key=\"fairing/repair/new-3\" class=\"absolute left-[660px] top-[130px] w-[330px] h-[48px] text-[28px] text-[#222222]\">上级继续飞行</span><span data-key=\"fairing/repair/new-4\" class=\"absolute left-[660px] top-[280px] w-[330px] h-[48px] text-[28px] text-[#555555]\">下级与助推器脱离</span><div data-key=\"fairing/v2/visual-909\" data-node-id=\"652:1629\" class=\"absolute left-[430px] top-[38px] w-[84px] h-[60px] hidden\"></div><div data-key=\"fairing/repair/new-5\" class=\"absolute left-[446px] top-[48px] w-[52px] h-[46px] bg-[#888888] border-[2px] border-[#333333] rounded-[5px]\"></div></div></div>",
+      "native": {
+        "fairing/v2/visual-918": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fairing/v2/visual-920": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fairing/v2/visual-921": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fairing/v2/visual-923": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fairing/v2/visual-924": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fairing/v2/visual-926": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fairing/v2/visual-927": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fairing/v2/visual-929": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fairing/v2/visual-930": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fairing/v2/visual-932": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fairing/v2/visual-908": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fairing/v2/visual-911": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fairing/v2/visual-917": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fairing/v2/visual-910": {
+          "figma": {
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fairing/repair/new-1": {
+          "figma": {
+            "name": "分离的下级箭体",
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        },
+        "fairing/repair/new-2": {
+          "figma": {
+            "name": "下级发动机",
+            "shape": {
+              "type": "VECTOR",
+              "paths": [
+                {
+                  "windingRule": "NONZERO",
+                  "data": "M 10 0 L 74 0 L 84 30 L 0 30 Z"
+                }
+              ]
+            }
+          }
+        },
+        "fairing/repair/new-3": {
+          "figma": {
+            "name": "上级标签",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        },
+        "fairing/repair/new-4": {
+          "figma": {
+            "name": "下级标签",
+            "text": {
+              "fontName": {
+                "family": "Noto Sans SC",
+                "style": "Regular"
+              }
+            }
+          }
+        },
+        "fairing/v2/visual-909": {
+          "figma": {
+            "shape": {
+              "type": "VECTOR"
+            }
+          }
+        },
+        "fairing/repair/new-5": {
+          "figma": {
+            "name": "释放的有效载荷",
+            "shape": {
+              "type": "RECTANGLE"
+            }
+          }
+        }
+      }
+    }
+  }
+}

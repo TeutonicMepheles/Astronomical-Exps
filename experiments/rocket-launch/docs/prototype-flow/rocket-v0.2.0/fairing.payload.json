@@ -1,0 +1,339 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2542",
+  "markup": "<div data-key=\"fairing/root\" data-node-id=\"648:2542\" class=\"w-[1600px] h-[900px]\"><span data-key=\"fairing/body\" data-node-id=\"648:2544\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"fairing/scene\" data-node-id=\"648:2545\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"fairing/old-scene\" data-node-id=\"648:2546\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"fairing/v2/visual-908\"  class=\"absolute left-[430px] top-[92px] w-[84px] h-[234px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"fairing/v2/visual-909\"  class=\"absolute left-[430px] top-[38px] w-[84px] h-[60px] bg-[#fafafa] border-[2px] border-[#404040]\"></div><div data-key=\"fairing/v2/visual-910\"  class=\"absolute left-[430px] top-[224px] w-[84px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"fairing/v2/visual-911\"  class=\"absolute left-[430px] top-[323.6px] w-[84px] h-[36px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"fairing/v2/visual-912\"  class=\"absolute left-[319.6px] top-[242px] w-[30px] h-[134.4px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"fairing/v2/visual-913\"  class=\"absolute left-[594.4px] top-[242px] w-[30px] h-[134.4px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"fairing/v2/visual-914\"  class=\"absolute left-[370px] top-[230px] w-[33.6px] h-[16.8px] bg-[#8c8c8c] border-[2px] border-[#404040] rounded-[3px]\"></div><div data-key=\"fairing/v2/visual-915\"  class=\"absolute left-[346px] top-[14px] w-[30px] h-[60px] bg-[#cccccc] border-[2px] border-[#4d4d4d]\"></div><div data-key=\"fairing/v2/visual-916\"  class=\"absolute left-[562px] top-[14px] w-[30px] h-[60px] bg-[#cccccc] border-[2px] border-[#4d4d4d]\"></div><div data-key=\"fairing/v2/visual-917\"  class=\"absolute left-[438px] top-[355px] w-[48px] h-[64px] bg-[#b8b8b8] border-[2px] border-[#737373]\"></div><div data-key=\"fairing/v2/visual-918\"  class=\"absolute left-[630px] top-[75px] w-[320px] h-[48px] bg-[#ffffff] border-[2px] border-[#bfbfbf] rounded-[8px]\"></div><span data-key=\"fairing/v2/visual-919\"  class=\"absolute left-[646px] top-[83px] w-[285px] h-[44px] text-[22px] text-[#333333]\">整流罩</span><div data-key=\"fairing/v2/visual-920\"  class=\"absolute left-[530px] top-[99px] w-[90px] h-[0.01px] bg-transparent border-[2px] border-[#999999]\"></div><div data-key=\"fairing/v2/visual-921\"  class=\"absolute left-[630px] top-[135px] w-[320px] h-[48px] bg-[#ffffff] border-[2px] border-[#bfbfbf] rounded-[8px]\"></div><span data-key=\"fairing/v2/visual-922\"  class=\"absolute left-[646px] top-[143px] w-[285px] h-[44px] text-[22px] text-[#333333]\">有效载荷</span><div data-key=\"fairing/v2/visual-923\"  class=\"absolute left-[530px] top-[159px] w-[90px] h-[0.01px] bg-transparent border-[2px] border-[#999999]\"></div><div data-key=\"fairing/v2/visual-924\"  class=\"absolute left-[630px] top-[195px] w-[320px] h-[48px] bg-[#ffffff] border-[2px] border-[#bfbfbf] rounded-[8px]\"></div><span data-key=\"fairing/v2/visual-925\"  class=\"absolute left-[646px] top-[203px] w-[285px] h-[44px] text-[22px] text-[#333333]\">燃料贮箱</span><div data-key=\"fairing/v2/visual-926\"  class=\"absolute left-[530px] top-[219px] w-[90px] h-[0.01px] bg-transparent border-[2px] border-[#999999]\"></div><div data-key=\"fairing/v2/visual-927\"  class=\"absolute left-[630px] top-[255px] w-[320px] h-[48px] bg-[#ffffff] border-[2px] border-[#bfbfbf] rounded-[8px]\"></div><span data-key=\"fairing/v2/visual-928\"  class=\"absolute left-[646px] top-[263px] w-[285px] h-[44px] text-[22px] text-[#333333]\">助推器</span><div data-key=\"fairing/v2/visual-929\"  class=\"absolute left-[530px] top-[279px] w-[90px] h-[0.01px] bg-transparent border-[2px] border-[#999999]\"></div><div data-key=\"fairing/v2/visual-930\"  class=\"absolute left-[630px] top-[315px] w-[320px] h-[48px] bg-[#ffffff] border-[2px] border-[#bfbfbf] rounded-[8px]\"></div><span data-key=\"fairing/v2/visual-931\"  class=\"absolute left-[646px] top-[323px] w-[285px] h-[44px] text-[22px] text-[#333333]\">发动机</span><div data-key=\"fairing/v2/visual-932\"  class=\"absolute left-[530px] top-[339px] w-[90px] h-[0.01px] bg-transparent border-[2px] border-[#999999]\"></div><div data-key=\"fairing/v2/visual-933\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"fairing/v2/visual-934\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">分离进度</span><span data-key=\"fairing/v2/visual-935\"  class=\"absolute left-[1084px] top-[110px] w-[350px] h-[54px] text-[27px] text-[#333333]\">● 下级与助推器</span><span data-key=\"fairing/v2/visual-936\"  class=\"absolute left-[1084px] top-[195px] w-[350px] h-[54px] text-[27px] text-[#333333]\">● 级间结构</span><span data-key=\"fairing/v2/visual-937\"  class=\"absolute left-[1084px] top-[280px] w-[350px] h-[54px] text-[27px] text-[#333333]\">● 整流罩</span></div></div>",
+  "native": {
+    "fairing/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "fairing/v2/visual-908": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-909": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-910": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-911": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-912": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-913": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-914": {
+      "figma": {
+        "name": "分离级间环",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-915": {
+      "figma": {
+        "name": "左半整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 25 0 Q 0 20 0 50 L 25 50"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-916": {
+      "figma": {
+        "name": "右半整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 0 Q 25 20 25 50 L 0 50"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-917": {
+      "figma": {
+        "name": "喷流",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 0 Q 20 25 10 65 Q 32 44 40 80 Q 52 42 60 0 Z"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-918": {
+      "figma": {
+        "name": "部件热点0",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-919": {
+      "figma": {
+        "name": "部件名0",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "fairing/v2/visual-920": {
+      "figma": {
+        "name": "引线0",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 90 0"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-921": {
+      "figma": {
+        "name": "部件热点1",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-922": {
+      "figma": {
+        "name": "部件名1",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "fairing/v2/visual-923": {
+      "figma": {
+        "name": "引线1",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 90 0"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-924": {
+      "figma": {
+        "name": "部件热点2",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-925": {
+      "figma": {
+        "name": "部件名2",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "fairing/v2/visual-926": {
+      "figma": {
+        "name": "引线2",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 90 0"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-927": {
+      "figma": {
+        "name": "部件热点3",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-928": {
+      "figma": {
+        "name": "部件名3",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "fairing/v2/visual-929": {
+      "figma": {
+        "name": "引线3",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 90 0"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-930": {
+      "figma": {
+        "name": "部件热点4",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-931": {
+      "figma": {
+        "name": "部件名4",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "fairing/v2/visual-932": {
+      "figma": {
+        "name": "引线4",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 90 0"
+            }
+          ]
+        }
+      }
+    },
+    "fairing/v2/visual-933": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "fairing/v2/visual-934": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "fairing/v2/visual-935": {
+      "figma": {
+        "name": "分离阶段0",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "fairing/v2/visual-936": {
+      "figma": {
+        "name": "分离阶段1",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "fairing/v2/visual-937": {
+      "figma": {
+        "name": "分离阶段2",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

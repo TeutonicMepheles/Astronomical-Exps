@@ -1,0 +1,174 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2418",
+  "markup": "<div data-key=\"match-selected/root\" data-node-id=\"648:2418\" class=\"w-[1600px] h-[900px]\"><span data-key=\"match-selected/body\" data-node-id=\"648:2420\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"match-selected/scene\" data-node-id=\"648:2421\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"match-selected/old-scene\" data-node-id=\"648:2422\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"match-selected/v2/visual-584\"  class=\"absolute left-[55px] top-[45px] w-[370px] h-[82px] bg-[#333333] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"match-selected/v2/visual-585\"  class=\"absolute left-[75px] top-[63px] w-[330px] h-[48px] text-[24px] text-[#ffffff]\">7.9 km/s</span><div data-key=\"match-selected/v2/visual-586\"  class=\"absolute left-[1025px] top-[45px] w-[410px] h-[82px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"match-selected/v2/visual-587\"  class=\"absolute left-[1045px] top-[63px] w-[370px] h-[48px] text-[24px] text-[#262626]\">环绕地球</span><div data-key=\"match-selected/v2/visual-588\"  class=\"absolute left-[460px] top-[77px] w-[18px] h-[18px] bg-[#595959]\"></div><div data-key=\"match-selected/v2/visual-589\"  class=\"absolute left-[980px] top-[77px] w-[18px] h-[18px] bg-[#595959]\"></div><div data-key=\"match-selected/v2/visual-590\"  class=\"absolute left-[55px] top-[160px] w-[370px] h-[82px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"match-selected/v2/visual-591\"  class=\"absolute left-[75px] top-[178px] w-[330px] h-[48px] text-[24px] text-[#262626]\">11.2 km/s</span><div data-key=\"match-selected/v2/visual-592\"  class=\"absolute left-[1025px] top-[160px] w-[410px] h-[82px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"match-selected/v2/visual-593\"  class=\"absolute left-[1045px] top-[178px] w-[370px] h-[48px] text-[24px] text-[#262626]\">逃离地球</span><div data-key=\"match-selected/v2/visual-594\"  class=\"absolute left-[460px] top-[192px] w-[18px] h-[18px] bg-[#595959]\"></div><div data-key=\"match-selected/v2/visual-595\"  class=\"absolute left-[980px] top-[192px] w-[18px] h-[18px] bg-[#595959]\"></div><div data-key=\"match-selected/v2/visual-596\"  class=\"absolute left-[55px] top-[275px] w-[370px] h-[82px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"match-selected/v2/visual-597\"  class=\"absolute left-[75px] top-[293px] w-[330px] h-[48px] text-[24px] text-[#262626]\">16.7 km/s</span><div data-key=\"match-selected/v2/visual-598\"  class=\"absolute left-[1025px] top-[275px] w-[410px] h-[82px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"match-selected/v2/visual-599\"  class=\"absolute left-[1045px] top-[293px] w-[370px] h-[48px] text-[24px] text-[#262626]\">逃离太阳系</span><div data-key=\"match-selected/v2/visual-600\"  class=\"absolute left-[460px] top-[307px] w-[18px] h-[18px] bg-[#595959]\"></div><div data-key=\"match-selected/v2/visual-601\"  class=\"absolute left-[980px] top-[307px] w-[18px] h-[18px] bg-[#595959]\"></div></div><div data-key=\"match-selected/control/match-selected-1\" data-node-id=\"648:2423\" class=\"absolute left-[1073px] top-[205px] w-[410px] h-[82px] bg-transparent border-transparent\"><span data-key=\"match-selected/control/match-selected-1/label\" data-node-id=\"648:2424\" class=\"absolute left-[0px] top-[0px] w-[410px] h-[40px] hidden\"></span></div><div data-key=\"match-selected/control/match-selected-2\" data-node-id=\"648:2425\" class=\"absolute left-[1073px] top-[320px] w-[410px] h-[82px] bg-transparent border-transparent\"><span data-key=\"match-selected/control/match-selected-2/label\" data-node-id=\"648:2426\" class=\"absolute left-[0px] top-[0px] w-[410px] h-[40px] hidden\"></span></div><div data-key=\"match-selected/control/match-selected-3\" data-node-id=\"648:2427\" class=\"absolute left-[1073px] top-[435px] w-[410px] h-[82px] bg-transparent border-transparent\"><span data-key=\"match-selected/control/match-selected-3/label\" data-node-id=\"648:2428\" class=\"absolute left-[0px] top-[0px] w-[410px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "match-selected/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "match-selected/v2/visual-584": {
+      "figma": {
+        "name": "hotspot / 7.9 km/s",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "match-selected/v2/visual-585": {
+      "figma": {
+        "name": "label / 7.9 km/s",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "match-selected/v2/visual-586": {
+      "figma": {
+        "name": "hotspot / 环绕地球",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "match-selected/v2/visual-587": {
+      "figma": {
+        "name": "label / 环绕地球",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "match-selected/v2/visual-588": {
+      "figma": {
+        "name": "连线端点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "match-selected/v2/visual-589": {
+      "figma": {
+        "name": "目标端点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "match-selected/v2/visual-590": {
+      "figma": {
+        "name": "hotspot / 11.2 km/s",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "match-selected/v2/visual-591": {
+      "figma": {
+        "name": "label / 11.2 km/s",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "match-selected/v2/visual-592": {
+      "figma": {
+        "name": "hotspot / 逃离地球",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "match-selected/v2/visual-593": {
+      "figma": {
+        "name": "label / 逃离地球",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "match-selected/v2/visual-594": {
+      "figma": {
+        "name": "连线端点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "match-selected/v2/visual-595": {
+      "figma": {
+        "name": "目标端点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "match-selected/v2/visual-596": {
+      "figma": {
+        "name": "hotspot / 16.7 km/s",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "match-selected/v2/visual-597": {
+      "figma": {
+        "name": "label / 16.7 km/s",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "match-selected/v2/visual-598": {
+      "figma": {
+        "name": "hotspot / 逃离太阳系",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "match-selected/v2/visual-599": {
+      "figma": {
+        "name": "label / 逃离太阳系",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "match-selected/v2/visual-600": {
+      "figma": {
+        "name": "连线端点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "match-selected/v2/visual-601": {
+      "figma": {
+        "name": "目标端点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    }
+  }
+}

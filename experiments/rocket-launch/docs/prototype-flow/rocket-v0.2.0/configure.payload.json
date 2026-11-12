@@ -1,0 +1,240 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2254",
+  "markup": "<div data-key=\"configure/root\" data-node-id=\"648:2254\" class=\"w-[1600px] h-[900px]\"><div data-key=\"configure/scene\" data-node-id=\"648:2257\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><div data-key=\"configure/retained/650-755\" data-node-id=\"650:755\" class=\"absolute left-[1084px] top-[105px] w-[340px] h-[64px] hidden\"></div><span data-key=\"configure/retained/650-756\" data-node-id=\"650:756\" class=\"absolute left-[1104px] top-[123px] w-[300px] h-[29px] hidden\"></span><div data-key=\"configure/retained/650-758\" data-node-id=\"650:758\" class=\"absolute left-[1084px] top-[185px] w-[340px] h-[64px] hidden\"></div><span data-key=\"configure/retained/650-759\" data-node-id=\"650:759\" class=\"absolute left-[1104px] top-[203px] w-[300px] h-[29px] hidden\"></span><div data-key=\"configure/retained/650-761\" data-node-id=\"650:761\" class=\"absolute left-[1084px] top-[265px] w-[340px] h-[64px] hidden\"></div><span data-key=\"configure/retained/650-762\" data-node-id=\"650:762\" class=\"absolute left-[1104px] top-[283px] w-[300px] h-[29px] hidden\"></span><div data-key=\"configure/visual-240\" data-node-id=\"650:740\" class=\"absolute left-[40px] top-[365px] w-[930px] h-[4px] bg-[#808080]\"></div><div data-key=\"configure/visual-241\" data-node-id=\"650:741\" class=\"absolute left-[180px] top-[80px] w-[28px] h-[280px] bg-[#bfbfbf] border-[2px] border-[#666666] rounded-[2px]\"></div><div data-key=\"configure/visual-242\" data-node-id=\"650:742\" class=\"absolute left-[180px] top-[100px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"configure/visual-243\" data-node-id=\"650:743\" class=\"absolute left-[180px] top-[155px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"configure/visual-244\" data-node-id=\"650:744\" class=\"absolute left-[180px] top-[210px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"configure/visual-245\" data-node-id=\"650:745\" class=\"absolute left-[180px] top-[265px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"configure/visual-246\" data-node-id=\"650:746\" class=\"absolute left-[180px] top-[320px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"configure/visual-247\" data-node-id=\"650:747\" class=\"absolute left-[460px] top-[130.5px] w-[63px] h-[175.5px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"configure/visual-248\" data-node-id=\"650:748\" class=\"absolute left-[460px] top-[90px] w-[63px] h-[45px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"configure/visual-249\" data-node-id=\"650:749\" class=\"absolute left-[460px] top-[229.5px] w-[63px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"configure/visual-250\" data-node-id=\"650:750\" class=\"absolute left-[460px] top-[304.2px] w-[63px] h-[27px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"configure/visual-251\" data-node-id=\"650:751\" class=\"absolute left-[431.2px] top-[211.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"configure/visual-252\" data-node-id=\"650:752\" class=\"absolute left-[529.3px] top-[211.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"configure/visual-253\" data-node-id=\"650:753\" class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"configure/visual-254\" data-node-id=\"650:754\" class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">发射条件</span><div data-key=\"configure/visual-255\" data-node-id=\"652:817\" class=\"absolute left-[1084px] top-[105px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"configure/visual-256\" data-node-id=\"652:818\" class=\"absolute left-[1104px] top-[123px] w-[300px] h-[48px] text-[24px] text-[#262626]\">推力   低 / 中 / 高</span><div data-key=\"configure/visual-257\" data-node-id=\"652:819\" class=\"absolute left-[1084px] top-[185px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"configure/visual-258\" data-node-id=\"652:820\" class=\"absolute left-[1104px] top-[203px] w-[300px] h-[48px] text-[24px] text-[#262626]\">载荷   轻 / 中 / 重</span><div data-key=\"configure/visual-259\" data-node-id=\"652:821\" class=\"absolute left-[1084px] top-[265px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"configure/visual-260\" data-node-id=\"652:822\" class=\"absolute left-[1104px] top-[283px] w-[300px] h-[48px] text-[24px] text-[#262626]\">箭体自重   待定</span></div><div data-key=\"configure/control/configure-1\" data-node-id=\"648:2259\" class=\"absolute left-[1132px] top-[265px] w-[340px] h-[64px] bg-transparent border-transparent\"></div><div data-key=\"configure/control/configure-2\" data-node-id=\"648:2261\" class=\"absolute left-[1132px] top-[345px] w-[340px] h-[64px] bg-transparent border-transparent\"></div><div data-key=\"configure/control/configure-3\" data-node-id=\"648:2263\" class=\"absolute left-[1132px] top-[425px] w-[340px] h-[64px] bg-transparent border-transparent\"></div></div>",
+  "native": {
+    "configure/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "configure/visual-240": {
+      "figma": {
+        "name": "发射台地面",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-241": {
+      "figma": {
+        "name": "发射塔",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-242": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-243": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-244": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-245": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-246": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-247": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-248": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "configure/visual-249": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-250": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "configure/visual-251": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-252": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-253": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-254": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "configure/visual-255": {
+      "figma": {
+        "name": "hotspot / 推力   低 / 中 / 高",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-256": {
+      "figma": {
+        "name": "label / 推力   低 / 中 / 高",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "configure/visual-257": {
+      "figma": {
+        "name": "hotspot / 载荷   轻 / 中 / 重",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-258": {
+      "figma": {
+        "name": "label / 载荷   轻 / 中 / 重",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "configure/visual-259": {
+      "figma": {
+        "name": "hotspot / 箭体自重   待定",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/visual-260": {
+      "figma": {
+        "name": "label / 箭体自重   待定",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "configure/retained/650-755": {
+      "figma": {
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/retained/650-756": {
+      "figma": {
+        "name": "label / 推力 低 / 中 / 高"
+      }
+    },
+    "configure/retained/650-758": {
+      "figma": {
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/retained/650-759": {
+      "figma": {
+        "name": "label / 载荷 轻 / 中 / 重"
+      }
+    },
+    "configure/retained/650-761": {
+      "figma": {
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "configure/retained/650-762": {
+      "figma": {
+        "name": "label / 箭体自重 待定"
+      }
+    }
+  }
+}

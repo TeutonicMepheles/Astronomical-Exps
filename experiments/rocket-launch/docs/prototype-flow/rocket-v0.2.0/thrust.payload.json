@@ -1,0 +1,204 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2271",
+  "markup": "<div data-key=\"thrust/root\" data-node-id=\"648:2271\" class=\"w-[1600px] h-[900px]\"><span data-key=\"thrust/body\" data-node-id=\"648:2273\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"thrust/scene\" data-node-id=\"648:2274\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"thrust/old-scene\" data-node-id=\"648:2275\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"thrust/v2/visual-261\"  class=\"absolute left-[40px] top-[365px] w-[930px] h-[4px] bg-[#808080]\"></div><div data-key=\"thrust/v2/visual-262\"  class=\"absolute left-[180px] top-[80px] w-[28px] h-[280px] bg-[#bfbfbf] border-[2px] border-[#666666] rounded-[2px]\"></div><div data-key=\"thrust/v2/visual-263\"  class=\"absolute left-[180px] top-[100px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"thrust/v2/visual-264\"  class=\"absolute left-[180px] top-[155px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"thrust/v2/visual-265\"  class=\"absolute left-[180px] top-[210px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"thrust/v2/visual-266\"  class=\"absolute left-[180px] top-[265px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"thrust/v2/visual-267\"  class=\"absolute left-[180px] top-[320px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"thrust/v2/visual-268\"  class=\"absolute left-[460px] top-[130.5px] w-[63px] h-[175.5px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"thrust/v2/visual-269\"  class=\"absolute left-[460px] top-[90px] w-[63px] h-[45px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"thrust/v2/visual-270\"  class=\"absolute left-[460px] top-[229.5px] w-[63px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"thrust/v2/visual-271\"  class=\"absolute left-[460px] top-[304.2px] w-[63px] h-[27px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"thrust/v2/visual-272\"  class=\"absolute left-[431.2px] top-[211.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"thrust/v2/visual-273\"  class=\"absolute left-[529.3px] top-[211.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"thrust/v2/visual-274\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"thrust/v2/visual-275\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">发射条件</span><div data-key=\"thrust/v2/visual-276\"  class=\"absolute left-[1084px] top-[110px] w-[340px] h-[66px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"thrust/v2/visual-277\"  class=\"absolute left-[1104px] top-[128px] w-[300px] h-[48px] text-[24px] text-[#262626]\">低</span><div data-key=\"thrust/v2/visual-278\"  class=\"absolute left-[1084px] top-[195px] w-[340px] h-[66px] bg-[#333333] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"thrust/v2/visual-279\"  class=\"absolute left-[1104px] top-[213px] w-[300px] h-[48px] text-[24px] text-[#ffffff]\">中</span><div data-key=\"thrust/v2/visual-280\"  class=\"absolute left-[1084px] top-[280px] w-[340px] h-[66px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"thrust/v2/visual-281\"  class=\"absolute left-[1104px] top-[298px] w-[300px] h-[48px] text-[24px] text-[#262626]\">高</span></div><div data-key=\"thrust/control/thrust-1\" data-node-id=\"648:2276\" class=\"absolute left-[1132px] top-[270px] w-[340px] h-[66px] bg-transparent border-transparent\"><span data-key=\"thrust/control/thrust-1/label\" data-node-id=\"648:2277\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div><div data-key=\"thrust/control/thrust-2\" data-node-id=\"648:2278\" class=\"absolute left-[1132px] top-[355px] w-[340px] h-[66px] bg-transparent border-transparent\"><span data-key=\"thrust/control/thrust-2/label\" data-node-id=\"648:2279\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div><div data-key=\"thrust/control/thrust-3\" data-node-id=\"648:2280\" class=\"absolute left-[1132px] top-[440px] w-[340px] h-[66px] bg-transparent border-transparent\"><span data-key=\"thrust/control/thrust-3/label\" data-node-id=\"648:2281\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "thrust/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "thrust/v2/visual-261": {
+      "figma": {
+        "name": "发射台地面",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-262": {
+      "figma": {
+        "name": "发射塔",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-263": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-264": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-265": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-266": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-267": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-268": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-269": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "thrust/v2/visual-270": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-271": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "thrust/v2/visual-272": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-273": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-274": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-275": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "thrust/v2/visual-276": {
+      "figma": {
+        "name": "hotspot / 低",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-277": {
+      "figma": {
+        "name": "label / 低",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "thrust/v2/visual-278": {
+      "figma": {
+        "name": "hotspot / 中",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-279": {
+      "figma": {
+        "name": "label / 中",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "thrust/v2/visual-280": {
+      "figma": {
+        "name": "hotspot / 高",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "thrust/v2/visual-281": {
+      "figma": {
+        "name": "label / 高",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

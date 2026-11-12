@@ -1,0 +1,97 @@
+const manifest=__MANIFEST__;
+const requested=__STATES__;
+const gray=v=>[{type:'SOLID',color:{r:v,g:v,b:v}}];
+const font={family:'Noto Sans SC',style:'Regular'};
+await figma.loadFontAsync(font);
+const created=[],mutated=[],removed=[],hotspots=[];
+function register(n,p,name){created.push(n.id);p.appendChild(n);n.name=name;return n;}
+function box(p,name,x,y,w,h,shade=.96,stroke=null,r=12){let n=register(figma.createRectangle(),p,name);n.resize(w,h);n.x=x;n.y=y;n.cornerRadius=r;n.fills=gray(shade);if(stroke!==null){n.strokes=gray(stroke);n.strokeWeight=2;}return n;}
+function ellipse(p,name,x,y,w,h,shade=.9,stroke=.25){let n=register(figma.createEllipse(),p,name);n.resize(w,h);n.x=x;n.y=y;n.fills=shade===null?[]:gray(shade);if(stroke!==null){n.strokes=gray(stroke);n.strokeWeight=3;}return n;}
+function txt(p,name,value,x,y,w,size=24,shade=.2){let n=register(figma.createText(),p,name);n.fontName=font;n.fontSize=size;n.characters=value;n.fills=gray(shade);n.resize(w,size*2);n.textAutoResize='HEIGHT';n.x=x;n.y=y;return n;}
+function path(p,name,data,x,y,w,h,shade=.25,weight=3,fill=null){let n=register(figma.createVector(),p,name);n.vectorPaths=[{windingRule:fill===null?'NONE':'NONZERO',data}];n.resize(w,h);n.x=x;n.y=y;n.fills=fill===null?[]:gray(fill);n.strokes=gray(shade);n.strokeWeight=weight;n.strokeCap='ROUND';return n;}
+function arrow(p,name,x,y,w,dir=1){path(p,name,'M 0 0 L 100 0',x,y,w,0,.25,4);path(p,name+'-head',dir===1?'M 0 0 L 16 10 L 0 20':'M 16 0 L 0 10 L 16 20',dir===1?x+w-16:x,y-10,16,20,.25,4);}
+function line(p,x,y,w){box(p,'divider',x,y,w,1,.8,null,0);}
+async function hot(n,target){if(!target)return;await n.setReactionsAsync([{trigger:{type:'ON_CLICK'},actions:[{type:'NODE',navigation:'NAVIGATE',destinationId:target,transition:null,preserveScrollPosition:false}]}]);hotspots.push({id:n.id,target});}
+async function card(p,label,x,y,w,h,target,selected=false){const n=box(p,'hotspot / '+label,x,y,w,h,selected?.2:1,.7,12);txt(p,'label / '+label,label,x+20,y+18,w-40,24,selected?1:.15);await hot(n,target);return n;}
+function rocket(p,x,y,scale=1,mode='solid',phase=0){
+ const w=70*scale,h=240*scale;
+ const shell=box(p,'箭体',x,y+45*scale,w,h-45*scale,mode==='ghost'?.97:.92,.3,8);
+ path(p,'整流罩','M 0 45 Q 35 0 70 45 Z',x,y,w,50*scale,.25,2,phase>=3?.98:.72);
+ if(mode==='xray'||mode==='ghost'){box(p,'有效载荷',x+12*scale,y+58*scale,46*scale,35*scale,.5,.25,4);box(p,'上级贮箱',x+10*scale,y+105*scale,50*scale,45*scale,.78,.3,9);box(p,'下级贮箱',x+10*scale,y+165*scale,50*scale,50*scale,.65,.3,9);}
+ line(p,x,y+155*scale,w);
+ path(p,'发动机','M 10 0 L 60 0 L 70 30 L 0 30 Z',x,y+238*scale,w,30*scale,.2,2,.35);
+ const off=phase>0?60*scale:0;
+ box(p,'左助推器',x-32*scale-off,y+135*scale+(phase>0?35*scale:0),25*scale,112*scale,.7,.3,9);
+ box(p,'右助推器',x+77*scale+off,y+135*scale+(phase>0?35*scale:0),25*scale,112*scale,.7,.3,9);
+ if(phase>=2){box(p,'分离级间环',x-50*scale,y+160*scale,28*scale,14*scale,.55,.25,3);}
+ if(phase>=3){path(p,'左半整流罩','M 25 0 Q 0 20 0 50 L 25 50',x-70*scale,y-20*scale,25*scale,50*scale,.3,2,.8);path(p,'右半整流罩','M 0 0 Q 25 20 25 50 L 0 50',x+110*scale,y-20*scale,25*scale,50*scale,.3,2,.8);}
+ return shell;
+}
+function flame(p,x,y,s=1){path(p,'喷流','M 0 0 Q 20 25 10 65 Q 32 44 40 80 Q 52 42 60 0 Z',x,y,60*s,80*s,.45,2,.72);}
+function earth(p,x,y,size){ellipse(p,'地球',x,y,size,size,.78,.25);ellipse(p,'经线',x+size*.3,y+2,size*.4,size-4,null,.55);path(p,'纬线','M 0 30 Q 70 0 140 30',x+8,y+size*.45,size-16,size*.12,.55,2);txt(p,'地球标签','地球',x+size*.33,y+size*.45,size*.5,22);}
+function panel(p,title,x=1060){box(p,'参数面板',x,20,424,380,1,.82,16);txt(p,'面板标题',title,x+24,42,376,28,.12);}
+for(const sid of requested){
+ const m=manifest.state_nodes[sid];const f=await figma.getNodeByIdAsync(m.node_id);if(!f)throw Error('Missing '+sid);
+ const originalEdges=f.children.filter(n=>n.name.startsWith('control / ')).map(n=>({id:n.id,reactions:JSON.stringify(n.reactions)}));
+ const body=f.children.find(n=>n.name==='body');if(body){body.visible=false;mutated.push(body.id);}
+ let sc=f.children.find(n=>n.name==='scene-placeholder'||n.name==='visual-scene');
+ for(const n of [...sc.children]){removed.push(n.id);n.remove();}
+ sc.layoutMode='NONE';sc.name='visual-scene';sc.resize(1504,420);sc.x=48;sc.y=160;sc.fills=gray(.98);sc.clipsContent=true;mutated.push(sc.id);
+ const title=f.children.find(n=>n.name==='title');title.fontSize=40;title.y=44;mutated.push(title.id);
+ const dst=id=>manifest.state_nodes[id]?.node_id;
+ if(['balloon','inflating','balloon-flight','balloon-slow'].includes(sid)){
+  const flying=sid.includes('flight')||sid.includes('slow');const size=sid==='balloon'?100:sid==='inflating'?180:165;const bx=flying?620:440;
+  path(sc,'实验导轨','M 0 0 L 1000 0',45,105,940,0,.65,2);
+  const ball=ellipse(sc,'气球',bx,115,size,size*.75,.7,.2);path(sc,'气球喷口','M 0 0 L 16 8 L 0 16 Z',bx-12,145,20,20,.3,2,.5);
+  if(flying){arrow(sc,'喷气',bx-155,166,120,-1);txt(sc,'喷气标签','喷气',bx-155,194,110,24);}
+  if(flying){arrow(sc,'运动',bx+size+15,166,155);txt(sc,'运动标签','运动',bx+size+45,194,130,24);for(let i=0;i<3;i++)box(sc,'气流',bx-55-i*32,151+i*13,25,3,.6,null,0);}
+  box(sc,'气泵底座',145,350,170,20,.35,null,6);const pump=box(sc,'点击气泵',190,240,80,110,.8,.3,10);box(sc,'活塞杆',225,sid==='inflating'?180:135,10,sid==='inflating'?60:105,.4,null,2);box(sc,'把手',172,sid==='inflating'?170:125,116,18,.25,null,6);
+  path(sc,'气管','M 0 0 C 90 50 140 50 170 -70',270,205,170,120,.4,6);
+  txt(sc,'泵标签','气泵',185,378,120,24);await hot(pump,dst(sid==='balloon'?'inflating':'balloon-flight'));await hot(ball,dst('balloon-flight'));
+  panel(sc,'充气状态');txt(sc,'气球状态',sid==='balloon'?'待充气':sid==='inflating'?'充气中':sid==='balloon-slow'?'慢动作':'已释放',1084,105,350,36);box(sc,'状态轨',1084,175,340,20,.9,null,10);box(sc,'状态量',1084,175,sid==='balloon'?50:280,20,.4,null,10);txt(sc,'方向关系',flying?'喷气与运动方向相反':'点击充气，再放飞气球',1084,235,350,26);await card(sc,sid==='balloon'?'开始充气':flying?'重新充气':'松开放飞',1084,310,340,64,dst(sid==='balloon'?'inflating':flying?'balloon':'balloon-flight'));
+ }else if(['predict','prediction','prediction-wrong','environment'].includes(sid)){
+  for(let i=0;i<2;i++){let x=24+i*750;box(sc,'环境卡',x,16,720,390,i?.2:.92,.6,16);txt(sc,'环境',i?'太空':'地球',x+24,36,300,30,i?1:.1);if(i){for(let j=0;j<12;j++)ellipse(sc,'星点',x+45+(j*97)%620,100+(j*53)%210,4,4,.9,null);}else{box(sc,'地面',x+20,340,680,3,.5,null,0);ellipse(sc,'地球弧面',x+350,260,250,160,.75,.6);}
+  const r=rocket(sc,x+270,104,.62);await hot(r,dst('environment'));if(sid==='environment'){flame(sc,x+274,270,.6);txt(sc,'结果','可以飞行',x+45,285,200,30,i?1:.1);}else txt(sc,'判断',sid==='prediction'?'已选：都能飞':sid==='prediction-wrong'?'已选：只有地球能飞':'选择你的判断',x+40,325,530,26,i?1:.1);}
+ }else if(['configure','thrust','payload','mass','flight','flight-paused'].includes(sid)){
+  box(sc,'发射台地面',40,365,930,4,.5,null,0);box(sc,'发射塔',180,80,28,280,.75,.4,2);for(let y=100;y<350;y+=55)box(sc,'发射塔横梁',180,y,120,9,.65,null,0);
+  const active=sid==='flight'||sid==='flight-paused';rocket(sc,460,active?30:90,.9);if(active){flame(sc,465,274,.85);path(sc,'高度参考','M 0 0 L 0 220',805,80,0,260,.5,2);txt(sc,'高度标签','高度',840,78,130,26);txt(sc,'高度值','—',840,118,130,36);}
+  panel(sc,active?(sid==='flight-paused'?'已暂停':'飞行观察'):'发射条件');
+  if(sid==='thrust'||sid==='payload'){const opts=sid==='thrust'?['低','中','高']:['轻','中','重'];for(let i=0;i<3;i++)await card(sc,opts[i],1084,110+i*85,340,66,dst('configure'),i===1);}
+  else if(sid==='mass'){txt(sc,'自重','箭体自重',1084,110,350,32);txt(sc,'单位','单位与档位待确认',1084,175,350,24);}
+  else{await card(sc,'推力   低 / 中 / 高',1084,105,340,64,dst('thrust'));await card(sc,'载荷   轻 / 中 / 重',1084,185,340,64,dst('payload'));await card(sc,active?'飞行距离   —':'箭体自重   待定',1084,265,340,64,dst(active?'records':'mass'));}
+ }else if(['records','compare'].includes(sid)){
+  txt(sc,'记录标题','发射记录',32,24,500,30);const cols=[40,290,600,980];['记录','推力','载荷','飞行距离'].forEach((v,i)=>txt(sc,'表头'+i,v,cols[i],85,230,25));
+  for(let r=0;r<3;r++){box(sc,'记录行',24,132+r*76,1456,64,r%2?.94:1,null,8);['0'+(r+1),r===0?'中':'—',r===0?'中':'—','—'].forEach((v,i)=>txt(sc,'值'+r+i,v,cols[i],146+r*76,250,26));}
+  txt(sc,'记录边界','示意记录 · 未计算距离',40,370,1000,23,.45);
+ }else if(['orbit','orbit-playing','cannon','fall','circular','escape-earth','escape-sun'].includes(sid)){
+  const compare=sid.startsWith('orbit');const earthSize=compare?180:210;const ex=compare?180:360;earth(sc,ex,145,earthSize);
+  if(compare){earth(sc,700,145,180);path(sc,'垂直回落','M 60 230 Q -30 0 60 15 Q 150 0 60 230',210,40,120,200,.25,4);ellipse(sc,'转向后环绕',625,65,340,320,null,.3);rocket(sc,245,40,.25);rocket(sc,805,55,.25);txt(sc,'左轨迹','垂直发射 · 落回',110,358,400,26);txt(sc,'右轨迹','转向水平 · 环绕',620,358,400,26);txt(sc,'转向点','转向',880,90,120,22);}
+  else{const orbit=ellipse(sc,'环绕轨迹',265,55,400,340,null,.5);orbit.dashPattern=sid==='circular'?[]:[10,10];
+   if(sid==='fall')path(sc,'回落轨迹','M 0 130 Q 40 0 150 40 Q 190 80 180 140',370,72,220,120,.15,5);
+   if(sid==='escape-earth'||sid==='escape-sun')path(sc,'逃逸轨迹','M 0 300 C 100 120 140 0 540 0',470,40,500,260,.2,5);
+   rocket(sc,470,55,.24);txt(sc,'尺度说明','轨迹示意',42,375,300,22,.5);}
+  panel(sc,compare?'路径对照':'固定速度');const names={'fall':['4.5 km/s','低速 · 回落'],'circular':['7.9 km/s','第一宇宙速度 · 环绕地球'],'escape-earth':['11.2 km/s','第二宇宙速度 · 逃离地球'],'escape-sun':['16.7 km/s','第三宇宙速度 · 逃离太阳系']};
+  if(names[sid]){txt(sc,'速度',names[sid][0],1084,105,350,42);txt(sc,'速度名称',names[sid][1],1084,175,350,25);if(sid==='escape-sun'){ellipse(sc,'太阳参照',1095,260,58,58,.5,.2);ellipse(sc,'地球公转参照',1080,235,120,110,null,.5);txt(sc,'参照','地球出发 / 理想方向',1220,250,230,23);}}
+  else if(compare){await card(sc,'垂直发射',1084,110,340,70,dst('orbit-playing'));await card(sc,'转向入轨',1084,205,340,70,dst('orbit-playing'));}
+  else for(let i=0;i<4;i++)await card(sc,['4.5 km/s','7.9 km/s','11.2 km/s','16.7 km/s'][i],1084,94+i*72,340,60,dst(['fall','circular','escape-earth','escape-sun'][i]));
+ }else if(sid.startsWith('match')){
+  const vals=['7.9 km/s','11.2 km/s','16.7 km/s'],labels=['环绕地球','逃离地球','逃离太阳系'];
+  for(let i=0;i<3;i++){await card(sc,vals[i],55,45+i*115,370,82,dst('match-selected'),i===0&&sid!=='match');const t=i===0?'match-next':'match-error';await card(sc,labels[i],1025,45+i*115,410,82,dst(t));ellipse(sc,'连线端点',460,77+i*115,18,18,.35,null);ellipse(sc,'目标端点',980,77+i*115,18,18,.35,null);}
+  if(sid==='match-next')path(sc,'正确连线','M 0 0 L 520 0',480,85,500,0,.2,5);
+  if(sid==='match-error'){path(sc,'错误连线','M 0 0 L 520 115',480,85,500,115,.4,4);txt(sc,'反馈','配对需调整',570,295,320,28);}
+ }else if(['structure','xray','part','assembly','assembly-error','assembled','separation','separation-paused','interstage','fairing'].includes(sid)){
+  const build=['assembly','assembly-error','assembled'].includes(sid),split=['separation','separation-paused','interstage','fairing'].includes(sid);let phase=split?(sid==='interstage'?2:sid==='fairing'?3:1):0;
+  if(build){box(sc,'散件托盘',20,20,480,380,.94,.8,16);txt(sc,'散件标题','散件区',44,34,350,25);const labels=['有效载荷','整流罩','上级箭体','下级箭体'];for(let i=0;i<4;i++){const x=45+(i%2)*220,y=88+Math.floor(i/2)*150;const n=box(sc,'散件 / '+labels[i],x,y,190,125,1,.6,10);if(i===1)path(sc,'罩体零件','M 0 50 Q 30 0 60 50 Z',x+60,y+10,60,55,.3,2,.7);else box(sc,'部件形状',x+65,y+14,55,55,.65,.3,6);txt(sc,'散件名',labels[i],x+18,y+82,160,22);await hot(n,dst('assembled'));}
+   box(sc,'安装槽位',565,20,400,380,1,.7,16);txt(sc,'装配标题','装配区',590,34,250,25);rocket(sc,725,80,.94,sid==='assembled'?'xray':'ghost');if(sid!=='assembled'){box(sc,'待装载荷槽',734,132,48,32,1,.2,4);txt(sc,'槽位提示','载荷槽',825,132,130,22);}
+  }else{rocket(sc,430,38,1.2,sid==='xray'||sid==='part'?'xray':'solid',phase);if(split)flame(sc,438,355,.8);for(let i=0;i<5;i++){const y=75+i*60;const n=box(sc,'部件热点'+i,630,y,320,48,sid==='part'&&i===4?.2:1,.75,8);txt(sc,'部件名'+i,['整流罩','有效载荷','燃料贮箱','助推器','发动机'][i],646,y+8,285,22,sid==='part'&&i===4?1:.2);await hot(n,dst('part'));path(sc,'引线'+i,'M 0 0 L 90 0',530,y+24,90,0,.6,2);}}
+  panel(sc,build?'装配检查':split?'分离进度':'部件说明');
+  if(build){const ok=sid==='assembled';['下级箭体','上级箭体','有效载荷','级间结构'].forEach((v,i)=>txt(sc,'检查项'+i,(ok?'✓ ':i<2?'✓ ':'○ ')+v,1084,105+i*60,350,27));if(sid==='assembly-error')txt(sc,'错误','载荷缺失 / 级间未对齐',1084,345,350,24);}
+  else if(split){['下级与助推器','级间结构','整流罩'].forEach((v,i)=>txt(sc,'分离阶段'+i,(phase>i?'● ':'○ ')+v,1084,110+i*85,350,27));}
+  else{txt(sc,'部件标题',sid==='part'?'发动机':'点选火箭部件',1084,110,350,32);txt(sc,'部件说明',sid==='part'?'喷出气体产生推力':'查看名称与作用',1084,175,350,26);await card(sc,sid==='structure'?'开启透视':'关闭透视',1084,300,340,64,dst(sid==='structure'?'xray':'structure'));}
+ }else{
+  for(let i=0;i<3;i++){const x=20+i*500;box(sc,'章节卡'+i,x,15,480,390,1,.8,16);txt(sc,'章节序号'+i,'0'+(i+1),x+28,36,400,28);if(i===0){ellipse(sc,'气球图',x+145,100,170,130,.7,.2);arrow(sc,'气流箭头',x+60,175,70,-1);}else if(i===1){earth(sc,x+150,140,130);ellipse(sc,'环绕',x+95,95,240,230,null,.4);}else rocket(sc,x+200,92,.75);txt(sc,'章节名'+i,['为什么能飞','得飞多快','结构与组装'][i],x+30,335,420,28);}
+ }
+ for(const e of originalEdges){const n=await figma.getNodeByIdAsync(e.id);if(JSON.stringify(n.reactions)!==e.reactions)throw Error('Changed existing edge '+e.id);}
+ mutated.push(f.id);
+}
+return {createdNodeIds:created,mutatedNodeIds:mutated,removedNodeIds:removed,hotspots,states:requested,existingEdgesPreserved:true};
