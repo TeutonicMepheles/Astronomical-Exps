@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>月面材质测试 · 环形山</title>
+  <link rel="stylesheet" href="../../shared/typography/typography.css">
+  <style>
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#171c27;color:#30343b;font-family:var(--font-ui),system-ui,sans-serif}
+    main{position:absolute;left:50%;top:50%;width:1600px;height:900px;display:flex;flex-direction:column;transform:translate(-50%,-50%) scale(var(--stage-scale,1));transform-origin:center;background:#eee9df;overflow:hidden}
+    header{height:92px;flex:none;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 30px;background:#f1ece3;border-bottom:1px solid #c8c1b7}
+    h1{margin:0;font-size:30px;line-height:1.2;font-weight:650;letter-spacing:.02em}
+    .subtitle{margin:5px 0 0;color:#686c73;font-size:14px}
+    .controls{display:flex;align-items:center;gap:14px}
+    .control{display:flex;align-items:center;gap:13px;height:54px;padding:0 15px;border:1px solid #c5bdb1;border-radius:10px;background:#faf7f0;white-space:nowrap}
+    .control span{font-size:15px;font-weight:600;color:#444952}
+    input[type=range]{width:158px;height:44px;margin:0;accent-color:#a78762;cursor:pointer;touch-action:none}
+    output{min-width:42px;text-align:right;color:#755c40;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+    input:focus-visible{outline:3px solid #638bb5;outline-offset:2px}
+    .views{display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0}
+    .view{position:relative;min-width:0;min-height:0;overflow:hidden}
+    .view:first-child{border-right:2px solid #a8a39c;background:#dcd6ca}
+    .view.side{background:#101d35}
+    .view canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+    #top{cursor:ns-resize}
+    #section{cursor:ew-resize}
+    .sky{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+    .tag,.help{position:absolute;left:18px;z-index:2;pointer-events:none;border-radius:8px}
+    .tag{top:18px;padding:7px 12px;background:#f6f1e9e8;color:#48494b;font-size:15px;font-weight:700;box-shadow:0 1px 5px #312c2520}
+    .help{bottom:18px;right:18px;padding:9px 12px;background:#f6f1e9de;color:#50525a;font-size:14px}
+    .side .tag,.side .help{background:#172740df;color:#f1e9de;border:1px solid #e1d4bf35}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div><h1>月面材质测试</h1><p class="subtitle">环形山插画风格预览 · 仅保留剖切与太阳高度调节</p></div>
+    <div class="controls">
+      <label class="control"><span>剖切位置</span><input id="cut" type="range" min="-155" max="155" step="1" value="0"><output id="cutValue" for="cut">0</output></label>
+      <label class="control"><span>太阳高度</span><input id="angle" type="range" min="10" max="85" step="1" value="35"><output id="angleValue" for="angle">35°</output></label>
+    </div>
+  </header>
+  <div class="views">
+    <section class="view"><canvas id="top" aria-label="环形山俯视图，拖动剖切线调整位置"></canvas><div class="tag">俯视 · 手绘月面</div><div class="help">拖动浅金色剖切线，查看不同地形截面</div></section>
+    <section class="view side">
+      <svg class="sky" viewBox="0 0 800 808" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <radialGradient id="spaceWash"><stop stop-color="#1c3156"/><stop offset="1" stop-color="#0d1930"/></radialGradient>
+          <radialGradient id="earthPaint" cx="34%" cy="28%"><stop stop-color="#f5ebd2"/><stop offset=".45" stop-color="#91a8b6"/><stop offset="1" stop-color="#345370"/></radialGradient>
+          <clipPath id="earthDisc"><circle cx="612" cy="153" r="47"/></clipPath>
+        </defs>
+        <rect width="800" height="808" fill="url(#spaceWash)"/>
+        <g fill="#e6e9e9" opacity=".9"><circle cx="71" cy="82" r="2"/><circle cx="157" cy="177" r="1.8"/><circle cx="222" cy="65" r="1.3"/><circle cx="309" cy="135" r="2"/><circle cx="395" cy="67" r="1.6"/><circle cx="490" cy="221" r="1.9"/><circle cx="701" cy="67" r="2"/><circle cx="748" cy="185" r="1.6"/><circle cx="552" cy="79" r="1.2"/><circle cx="105" cy="260" r="1.3"/><circle cx="682" cy="284" r="1.2"/><circle cx="350" cy="248" r="1.4"/><circle cx="765" cy="336" r="1.4"/></g>
+        <g fill="#9cb5d2" opacity=".58"><circle cx="42" cy="167" r="1.2"/><circle cx="288" cy="222" r="1.1"/><circle cx="505" cy="112" r="1.4"/><circle cx="730" cy="241" r="1.1"/><circle cx="183" cy="47" r="1.1"/></g>
+        <circle cx="612" cy="153" r="48" fill="#e9e6d9" opacity=".3"/>
+        <circle cx="612" cy="153" r="46" fill="url(#earthPaint)"/>
+        <g clip-path="url(#earthDisc)" fill="#d5d6bd" opacity=".9"><path d="M582 115q19-2 24 9l-4 13-16 5-9 15-10-3-4-15z"/><path d="M613 145q18-9 24 4l-4 16-8 13-2 20-15-9-4-22z"/><path d="M640 122q15-3 23 7l-9 18-15-2-8-13z"/></g>
+        <circle cx="612" cy="153" r="47" fill="none" stroke="#faf0db" stroke-width="2" opacity=".75"/>
+      </svg>
+      <canvas id="section" aria-label="环形山正对剖面，左右拖动改变剖切位置"></canvas>
+      <div class="tag">剖面 · 正对截面</div><div class="help">在剖面上左右拖动；太阳高度由上方滑块调节</div>
+    </section>
+  </div>
+</main>
+<script src="./assets/three.reference.local.js"></script>
+<script src="./src/lunar-material-test.js"></script>
+</body>
+</html>

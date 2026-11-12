@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>月面环形山 · 影长测量演示</title>
+<link rel="stylesheet" href="../../shared/typography/typography.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05080d;color:#f0f3fa;font-family:var(--font-ui);line-height:1.6}
+main{position:absolute;left:50%;top:50%;width:1600px;height:900px;display:flex;flex-direction:column;overflow:hidden;background:#0b0e14;transform:translate(-50%,-50%) scale(var(--stage-scale,1));transform-origin:center center}
+header{position:absolute;inset:0;z-index:5;pointer-events:none}
+.heading{position:absolute;left:44px;top:34px;display:flex;align-items:center;gap:18px}
+.heading::before{content:"EXP 02";color:#9bb6be;font-size:15px;letter-spacing:3px;padding-right:18px;border-right:1px solid #78909a66}
+h1{font-size:26px;line-height:1.2;font-weight:500;letter-spacing:2px;margin:0;color:#eaf0ff;white-space:nowrap}
+header small{display:none}
+.controls{position:absolute;left:48px;bottom:14px;width:680px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 20px;padding:20px 24px;border:0;background:transparent;text-shadow:0 1px 3px #07131f,0 0 5px #07131f;pointer-events:auto}
+.control{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 16px;min-height:46px;white-space:nowrap}
+.control input{grid-column:1/-1;grid-row:2;width:100%}
+.control output{grid-column:2;grid-row:1}
+.control span{font-size:14px;font-weight:500;color:#d5dfeb}
+input[type=range]{height:44px;margin:0;accent-color:#e4c997;cursor:pointer;touch-action:none}
+output{font-family:var(--font-ui);display:inline-block;min-width:37px;text-align:right;color:#f4dfb6;font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+button{min-height:46px;min-width:92px;padding:10px 12px;border:1px solid #647e8a;border-radius:9px;background:#1c3441;color:#e8e8df;font-family:var(--font-ui);font-size:15px;font-weight:500;line-height:1.3;cursor:pointer;transition:background-color .18s,border-color .18s}
+button:hover,button.active{background:#38515b;border-color:#e5c991}
+button.primary,button.primary:hover,button.primary.active{background:#e3cc9c;border-color:#e3cc9c;color:#182936}
+button:focus-visible,input[type=range]:focus-visible{outline:3px solid #8ad9ff;outline-offset:3px}
+button:disabled{opacity:.55;cursor:not-allowed}
+.measurement-steps{position:absolute;right:48px;top:28px;display:flex;gap:20px;pointer-events:none;margin:0;padding:0;list-style:none}
+.measurement-steps li{display:flex;gap:10px;align-items:center;min-height:48px;color:#8297a2;font-size:16px;font-weight:400}
+.measurement-steps li+li::before{content:"";width:16px;height:3px;margin-right:4px;background:#40515b}
+.measurement-steps b{display:grid;place-items:center;width:32px;height:32px;border:3px solid #52636e;border-radius:50%;font-size:18px;font-weight:400}
+.measurement-steps li.active{color:#e9d9b6}.measurement-steps li.active b{background:#ddc79e;border-color:#ddc79e;color:#172530}
+.measurement-steps li.done b{border-color:#617a80;color:#b9ded2;box-shadow:inset 0 0 0 1px #b9ded2}
+.measurement-steps li.done .step-name::after{content:" ✓";color:#b9ded2}
+.step-guide{position:absolute;z-index:5;left:44px;right:44px;top:140px;pointer-events:none;color:#d8e2e8;text-shadow:0 1px 4px #07131f}
+.step-guide h2{font-size:18px;font-weight:500;margin:0 0 7px;color:#eddab4}.step-guide p{font-size:14px;line-height:1.65;margin:5px 0;max-width:560px}.step-guide button{pointer-events:auto;margin-top:10px;min-width:120px}.step-guide .step-action{display:flex;align-items:center;justify-content:space-between;gap:18px}.step-guide .step-action p{max-width:460px}.step-guide .step-action button{flex-shrink:0;margin-top:0}.step-guide [hidden],[hidden]{display:none!important}
+.step-guide .completed-note{color:#a7c7bc}.step-guide #status{font-size:13px;color:#b1c8d2;margin:5px 0}.view.side .step-guide{top:125px}
+#clear{position:absolute;right:32px;top:94px;z-index:5;background:#1b303e;border-color:#526b79;min-height:44px;padding:8px 18px;color:#a5b6bf}
+#clear:hover{background:#2d434b;border-color:#597078;color:#f2e1bd}
+#cutHint{position:absolute;left:44px;top:130px;z-index:5;color:#d6e9ef;font-size:13px;line-height:1.5;text-shadow:0 1px 4px #07131f;pointer-events:none}
+.views{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;min-height:0}
+.view{position:relative;min-width:0;min-height:0;background:#0b0e14}
+.view.top{order:1;border:0;background:#10203e;--scope-height:calc(800px * 1152 / 1306);--scope-radius:320px;--scope-frame-offset:calc(var(--scope-height) * .014)}
+.views::after{content:"";position:absolute;left:calc(50% - 64px);top:0;bottom:0;width:128px;z-index:4;pointer-events:none;background:linear-gradient(90deg,transparent,#102033cc 50%,transparent)}
+main::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(180deg,#0b1928e6,transparent 16%,transparent 76%,#0b192880)}
+.view.top::after{content:"";position:absolute;left:0;right:0;top:calc(50% + var(--scope-frame-offset));height:var(--scope-height);transform:translateY(-50%);z-index:2;pointer-events:none;background:url('./陨石坑参考/天文望远镜内部视角.png') center / contain no-repeat;mask-image:radial-gradient(circle var(--scope-radius) at 50% 48.6%,transparent 99.8%,#000 100%)}
+#top{clip-path:circle(var(--scope-radius) at 50% 50%)}
+.view.side{order:2;background:#10203e}
+.view.side::before{content:"";position:absolute;z-index:0;top:0;left:0;right:0;height:360px;pointer-events:none;background:url('./风格化月面参考/图片节点 5.png') right top / auto 1000px no-repeat;mask-image:linear-gradient(#000 0%,#000 65%,transparent 100%)}
+.view.side::before{height:100%;background-image:url('./风格化月面参考/宇宙背景.png');background-position:left top;background-size:100% auto;background-repeat:no-repeat;mask-image:none}
+.view canvas{position:relative;z-index:1;width:100%;height:100%;display:block;touch-action:none}
+.view .label{position:absolute;left:44px;top:100px;z-index:3;color:#b3c7d3;font-size:14px;letter-spacing:2px;pointer-events:none}
+.result{position:absolute;right:48px;bottom:14px;z-index:5;width:680px;height:112px;display:grid;grid-template-columns:1fr 1fr;align-content:center;gap:5px 24px;padding:12px 24px;border:0;background:transparent;font-size:16px;text-shadow:0 1px 3px #07131f;font-variant-numeric:tabular-nums}
+.lunar-closeup{position:absolute;right:48px;bottom:138px;z-index:5;width:390px;height:300px;padding:12px 16px;border:1px solid #58717b;border-radius:16px;background:#152735;box-sizing:border-box}
+.lunar-closeup[hidden]{display:none}
+.lunar-closeup header{position:static;display:flex;justify-content:space-between;align-items:center;height:30px;color:#f2e1bd;font-size:15px;letter-spacing:1px}
+.lunar-closeup header span{font-size:12px;letter-spacing:0;color:#a5b6bf}
+.lunar-closeup-viewport{position:relative;height:226px;overflow:hidden;border-radius:12px;background:linear-gradient(#172d40,#35434a)}
+.lunar-closeup-viewport canvas,.lunar-closeup-viewport svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lunar-closeup footer{margin-top:5px;font-size:12px;color:#a5b6bf;line-height:1.4}
+.result strong{color:#e5c991;font-size:24px;font-weight:600}
+.result span{color:#d0dce8}
+#status{grid-column:1/-1;text-align:left;color:#a8beca;font-size:13px;min-height:21px}
+#formula{grid-column:1/-1;font-size:14px}
+#formula:empty{display:none}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+</style>
+</head>
+<body><main>
+<header><div class="heading"><h1>月面环形山 · 影长测量</h1><small>三维地形与几何测量演示 · 数值为模型单位</small></div><div class="controls">
+<label class="control"><span>剖切位置</span><input id="cut" type="range" min="-155" max="155" step="1" value="0"><output id="cutValue" for="cut">0</output></label>
+<label class="control"><span>太阳高度角</span><input id="angle" type="range" min="10" max="85" step="1" value="35"><output id="angleValue" for="angle">35°</output></label>
+<label class="control"><span>太阳光强</span><input id="intensity" type="range" min="0" max="200" step="5" value="100" aria-label="相对太阳光强（演示值）"><output id="intensityValue" for="intensity">100%</output></label>
+
+</div><ol class="measurement-steps" aria-label="测量进度"><li data-step="start" class="active" aria-current="step"><b>1</b><span class="step-name">选取两点</span></li><li data-step="measure"><b>2</b><span class="step-name">测量影长</span></li><li data-step="height"><b>3</b><span class="step-name">计算高度差</span></li></ol></header>
+<div class="views"><section class="view top"><button id="clear" type="button">↺ 重新选点</button><canvas id="top" aria-describedby="cutHint"></canvas><p id="cutHint">拖动虚线调整剖切位置</p><div class="label">俯视 · 三维月面</div></section><section class="view side"><div class="step-guide" id="pickGuide"><h2 id="pickTitle">第一步 · 选取两点</h2><p id="pickInstruction">先调整剖切位置与太阳高度角，再开始选点。</p><button id="start" class="primary" type="button">开始选点</button><div id="pickStatusHost"><p id="status" role="status" aria-live="polite">在左侧俯视图完成选点，右侧同步显示剖面。</p></div></div><div class="step-guide" id="sectionGuide" hidden><div id="measureGuide" hidden><h2>第二步 · 测量影长</h2><div class="step-action"><p>A、B 已同步到剖面。测量两点间的水平距离，记录影长 L。</p><button id="measure" class="primary" type="button">测量影长</button></div></div><div id="heightGuide" hidden><h2 id="heightTitle">第三步 · 计算高度差</h2><div class="step-action"><p id="heightInstruction">用已测影长与太阳高度角计算 Δh = L × tan(α)。</p><button id="height" class="primary" type="button">计算高度差</button></div></div><div id="rightStatusHost"></div></div><canvas id="section"></canvas><div class="label" id="sectionLabel">剖面 · 两点高度差</div></section></div>
+<section class="lunar-closeup" id="lunarCloseup" aria-label="影长测量局部放大" hidden><header>影长测量 · 局部放大<span id="closeupScale"></span></header><div class="lunar-closeup-viewport"><canvas id="closeupCanvas" aria-hidden="true"></canvas><svg id="closeupOverlay" role="img" aria-label="选取的 A、B 两点及水平影长"></svg></div><footer id="closeupCaption">当前选点的剖面细节</footer></section>
+<div class="result"><div><span id="lengthLabel">影长 L</span>：<strong id="lengthValue">—</strong></div><div>高度差 Δh：<strong id="heightValue">—</strong></div><span id="formula"></span></div>
+</main><script src="./assets/three.reference.local.js"></script><script src="./src/crater-3d.js"></script></body></html>
