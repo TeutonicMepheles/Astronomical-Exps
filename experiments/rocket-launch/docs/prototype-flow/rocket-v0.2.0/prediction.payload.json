@@ -1,0 +1,304 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2227",
+  "markup": "<div data-key=\"prediction/root\" data-node-id=\"648:2227\" class=\"w-[1600px] h-[900px]\"><span data-key=\"prediction/body\" data-node-id=\"648:2229\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"prediction/scene\" data-node-id=\"648:2230\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"prediction/old-scene\" data-node-id=\"648:2231\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"prediction/v2/visual-142\"  class=\"absolute left-[24px] top-[16px] w-[720px] h-[390px] bg-[#ebebeb] border-[2px] border-[#999999] rounded-[16px]\"></div><span data-key=\"prediction/v2/visual-143\"  class=\"absolute left-[48px] top-[36px] w-[300px] h-[60px] text-[30px] text-[#1a1a1a]\">地球</span><div data-key=\"prediction/v2/visual-144\"  class=\"absolute left-[44px] top-[340px] w-[680px] h-[3px] bg-[#808080]\"></div><div data-key=\"prediction/v2/visual-145\"  class=\"absolute left-[374px] top-[260px] w-[250px] h-[160px] bg-[#bfbfbf] border-[3px] border-[#999999]\"></div><div data-key=\"prediction/v2/visual-146\"  class=\"absolute left-[294px] top-[131.9px] w-[43.4px] h-[120.9px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"prediction/v2/visual-147\"  class=\"absolute left-[294px] top-[104px] w-[43.4px] h-[31px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"prediction/v2/visual-148\"  class=\"absolute left-[294px] top-[200.1px] w-[43.4px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"prediction/v2/visual-149\"  class=\"absolute left-[294px] top-[251.56px] w-[43.4px] h-[18.6px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"prediction/v2/visual-150\"  class=\"absolute left-[274.16px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"prediction/v2/visual-151\"  class=\"absolute left-[341.74px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"prediction/v2/visual-152\"  class=\"absolute left-[64px] top-[325px] w-[530px] h-[52px] text-[26px] text-[#1a1a1a]\">已选：都能飞</span><div data-key=\"prediction/v2/visual-153\"  class=\"absolute left-[774px] top-[16px] w-[720px] h-[390px] bg-[#333333] border-[2px] border-[#999999] rounded-[16px]\"></div><span data-key=\"prediction/v2/visual-154\"  class=\"absolute left-[798px] top-[36px] w-[300px] h-[60px] text-[30px] text-[#ffffff]\">太空</span><div data-key=\"prediction/v2/visual-155\"  class=\"absolute left-[819px] top-[100px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-156\"  class=\"absolute left-[916px] top-[153px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-157\"  class=\"absolute left-[1013px] top-[206px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-158\"  class=\"absolute left-[1110px] top-[259px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-159\"  class=\"absolute left-[1207px] top-[102px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-160\"  class=\"absolute left-[1304px] top-[155px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-161\"  class=\"absolute left-[1401px] top-[208px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-162\"  class=\"absolute left-[878px] top-[261px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-163\"  class=\"absolute left-[975px] top-[104px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-164\"  class=\"absolute left-[1072px] top-[157px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-165\"  class=\"absolute left-[1169px] top-[210px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-166\"  class=\"absolute left-[1266px] top-[263px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"prediction/v2/visual-167\"  class=\"absolute left-[1044px] top-[131.9px] w-[43.4px] h-[120.9px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"prediction/v2/visual-168\"  class=\"absolute left-[1044px] top-[104px] w-[43.4px] h-[31px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"prediction/v2/visual-169\"  class=\"absolute left-[1044px] top-[200.1px] w-[43.4px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"prediction/v2/visual-170\"  class=\"absolute left-[1044px] top-[251.56px] w-[43.4px] h-[18.6px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"prediction/v2/visual-171\"  class=\"absolute left-[1024.16px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"prediction/v2/visual-172\"  class=\"absolute left-[1091.74px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"prediction/v2/visual-173\"  class=\"absolute left-[814px] top-[325px] w-[530px] h-[52px] text-[26px] text-[#ffffff]\">已选：都能飞</span></div><div data-key=\"prediction/control/prediction-1\" data-node-id=\"648:2232\" class=\"absolute left-[342px] top-[291.9px] w-[60px] h-[120.9px] bg-transparent border-transparent\"><span data-key=\"prediction/control/prediction-1/label\" data-node-id=\"648:2233\" class=\"absolute left-[0px] top-[0px] w-[60px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "prediction/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "prediction/v2/visual-142": {
+      "figma": {
+        "name": "环境卡",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-143": {
+      "figma": {
+        "name": "环境",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "prediction/v2/visual-144": {
+      "figma": {
+        "name": "地面",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-145": {
+      "figma": {
+        "name": "地球弧面",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-146": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-147": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "prediction/v2/visual-148": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-149": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "prediction/v2/visual-150": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-151": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-152": {
+      "figma": {
+        "name": "判断",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "prediction/v2/visual-153": {
+      "figma": {
+        "name": "环境卡",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-154": {
+      "figma": {
+        "name": "环境",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "prediction/v2/visual-155": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-156": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-157": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-158": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-159": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-160": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-161": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-162": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-163": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-164": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-165": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-166": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "prediction/v2/visual-167": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-168": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "prediction/v2/visual-169": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-170": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "prediction/v2/visual-171": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-172": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "prediction/v2/visual-173": {
+      "figma": {
+        "name": "判断",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

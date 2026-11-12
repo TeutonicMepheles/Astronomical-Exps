@@ -1,0 +1,176 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2388",
+  "markup": "<div data-key=\"circular/root\" data-node-id=\"648:2388\" class=\"w-[1600px] h-[900px]\"><div data-key=\"circular/scene\" data-node-id=\"648:2391\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><div data-key=\"circular/v2/visual-513\" data-node-id=\"650:764\" class=\"absolute left-[360px] top-[145px] w-[210px] h-[210px] bg-[#c7c7c7] border-[3px] border-[#404040]\"></div><div data-key=\"circular/v2/visual-514\" data-node-id=\"650:765\" class=\"absolute left-[423px] top-[147px] w-[84px] h-[206px] bg-transparent border-[3px] border-[#8c8c8c]\"></div><div data-key=\"circular/v2/visual-515\" data-node-id=\"650:766\" class=\"absolute left-[368px] top-[239.5px] w-[194px] h-[25.2px] bg-transparent border-[2px] border-[#8c8c8c]\"></div><span data-key=\"circular/v2/visual-516\" data-node-id=\"650:767\" class=\"absolute left-[429.3px] top-[239.5px] w-[105px] h-[44px] text-[22px] text-[#333333]\">地球</span><div data-key=\"circular/v2/visual-517\" data-node-id=\"650:768\" class=\"absolute left-[265px] top-[55px] w-[400px] h-[340px] bg-transparent border-[3px] border-[#808080]\"></div><div data-key=\"circular/v2/visual-518\" data-node-id=\"650:769\" class=\"absolute left-[470px] top-[65.8px] w-[16.8px] h-[46.8px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"circular/v2/visual-519\" data-node-id=\"650:770\" class=\"absolute left-[470px] top-[55px] w-[16.8px] h-[12px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"circular/v2/visual-520\" data-node-id=\"650:771\" class=\"absolute left-[470px] top-[92.2px] w-[16.8px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"circular/v2/visual-521\" data-node-id=\"650:772\" class=\"absolute left-[470px] top-[112.12px] w-[16.8px] h-[7.2px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"circular/v2/visual-522\" data-node-id=\"650:773\" class=\"absolute left-[462.32px] top-[87.4px] w-[6px] h-[26.88px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"circular/v2/visual-523\" data-node-id=\"650:774\" class=\"absolute left-[488.48px] top-[87.4px] w-[6px] h-[26.88px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"circular/v2/visual-524\" data-node-id=\"650:775\" class=\"absolute left-[42px] top-[375px] w-[300px] h-[44px] text-[22px] text-[#808080]\">轨迹示意</span><div data-key=\"circular/v2/visual-525\" data-node-id=\"650:776\" class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"circular/v2/visual-526\" data-node-id=\"650:777\" class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">固定速度</span><span data-key=\"circular/v2/visual-527\" data-node-id=\"650:778\" class=\"absolute left-[1084px] top-[105px] w-[350px] h-[84px] text-[42px] text-[#333333]\">7.9 km/s</span><span data-key=\"circular/v2/visual-528\" data-node-id=\"650:779\" class=\"absolute left-[1084px] top-[175px] w-[350px] h-[50px] text-[25px] text-[#333333]\">第一宇宙速度 · 环绕地球</span></div></div>",
+  "native": {
+    "circular/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "circular/v2/visual-513": {
+      "figma": {
+        "name": "地球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "circular/v2/visual-514": {
+      "figma": {
+        "name": "经线",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "circular/v2/visual-515": {
+      "figma": {
+        "name": "纬线",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 30 Q 70 0 140 30"
+            }
+          ]
+        }
+      }
+    },
+    "circular/v2/visual-516": {
+      "figma": {
+        "name": "地球标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "circular/v2/visual-517": {
+      "figma": {
+        "name": "环绕轨迹",
+        "shape": {
+          "type": "ELLIPSE"
+        },
+        "stroke": {
+          "dashPattern": []
+        }
+      }
+    },
+    "circular/v2/visual-518": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "circular/v2/visual-519": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "circular/v2/visual-520": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "circular/v2/visual-521": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "circular/v2/visual-522": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "circular/v2/visual-523": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "circular/v2/visual-524": {
+      "figma": {
+        "name": "尺度说明",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "circular/v2/visual-525": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "circular/v2/visual-526": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "circular/v2/visual-527": {
+      "figma": {
+        "name": "速度",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "circular/v2/visual-528": {
+      "figma": {
+        "name": "速度名称",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

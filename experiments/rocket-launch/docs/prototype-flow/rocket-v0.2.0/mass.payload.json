@@ -1,0 +1,169 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2297",
+  "markup": "<div data-key=\"mass/root\" data-node-id=\"648:2297\" class=\"w-[1600px] h-[900px]\"><span data-key=\"mass/body\" data-node-id=\"648:2299\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"mass/scene\" data-node-id=\"648:2300\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"mass/old-scene\" data-node-id=\"648:2301\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"mass/v2/visual-303\"  class=\"absolute left-[40px] top-[365px] w-[930px] h-[4px] bg-[#808080]\"></div><div data-key=\"mass/v2/visual-304\"  class=\"absolute left-[180px] top-[80px] w-[28px] h-[280px] bg-[#bfbfbf] border-[2px] border-[#666666] rounded-[2px]\"></div><div data-key=\"mass/v2/visual-305\"  class=\"absolute left-[180px] top-[100px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"mass/v2/visual-306\"  class=\"absolute left-[180px] top-[155px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"mass/v2/visual-307\"  class=\"absolute left-[180px] top-[210px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"mass/v2/visual-308\"  class=\"absolute left-[180px] top-[265px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"mass/v2/visual-309\"  class=\"absolute left-[180px] top-[320px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"mass/v2/visual-310\"  class=\"absolute left-[460px] top-[130.5px] w-[63px] h-[175.5px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"mass/v2/visual-311\"  class=\"absolute left-[460px] top-[90px] w-[63px] h-[45px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"mass/v2/visual-312\"  class=\"absolute left-[460px] top-[229.5px] w-[63px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"mass/v2/visual-313\"  class=\"absolute left-[460px] top-[304.2px] w-[63px] h-[27px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"mass/v2/visual-314\"  class=\"absolute left-[431.2px] top-[211.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"mass/v2/visual-315\"  class=\"absolute left-[529.3px] top-[211.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"mass/v2/visual-316\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"mass/v2/visual-317\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">发射条件</span><span data-key=\"mass/v2/visual-318\"  class=\"absolute left-[1084px] top-[110px] w-[350px] h-[64px] text-[32px] text-[#333333]\">箭体自重</span><span data-key=\"mass/v2/visual-319\"  class=\"absolute left-[1084px] top-[175px] w-[350px] h-[48px] text-[24px] text-[#333333]\">单位与档位待确认</span></div></div>",
+  "native": {
+    "mass/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "mass/v2/visual-303": {
+      "figma": {
+        "name": "发射台地面",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-304": {
+      "figma": {
+        "name": "发射塔",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-305": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-306": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-307": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-308": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-309": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-310": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-311": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "mass/v2/visual-312": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-313": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "mass/v2/visual-314": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-315": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-316": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "mass/v2/visual-317": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "mass/v2/visual-318": {
+      "figma": {
+        "name": "自重",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "mass/v2/visual-319": {
+      "figma": {
+        "name": "单位",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

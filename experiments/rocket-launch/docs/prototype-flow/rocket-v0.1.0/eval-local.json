@@ -1,0 +1,25 @@
+{
+  "evaluator_version": "0.1.1",
+  "artifact_digest": "a7417c43865d0bb7ce76026df426b8aa900aa1d49c2b2163c8e740546728b3e3",
+  "overall": "pending",
+  "gates": {
+    "specification": {
+      "status": "pass",
+      "issues": []
+    },
+    "figma_readback": {
+      "status": "pending",
+      "issues": []
+    },
+    "human_playtest": {
+      "status": "pending",
+      "issues": []
+    }
+  },
+  "personal_preference_calibration": "not_calibrated",
+  "limits": [
+    "Checks supplied Figma snapshot; does not independently authenticate provenance or open Present mode.",
+    "Passing native reactions does not prove touch usability, typography, scientific correctness or user satisfaction.",
+    "Candidate rubric scores are not a calibrated personal evaluator and never become automatic pass labels."
+  ]
+}

@@ -1,0 +1,283 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2194",
+  "markup": "<div data-key=\"balloon-flight/root\" data-node-id=\"648:2194\" class=\"w-[1600px] h-[900px]\"><span data-key=\"balloon-flight/body\" data-node-id=\"648:2196\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"balloon-flight/scene\" data-node-id=\"648:2197\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"balloon-flight/old-scene\" data-node-id=\"648:2198\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"balloon-flight/v2/visual-58\"  class=\"absolute left-[45px] top-[105px] w-[940px] h-[0.01px] bg-transparent border-[2px] border-[#a6a6a6]\"></div><div data-key=\"balloon-flight/v2/visual-59\"  class=\"absolute left-[620px] top-[115px] w-[165px] h-[123.75px] bg-[#b3b3b3] border-[3px] border-[#333333]\"></div><div data-key=\"balloon-flight/v2/visual-60\"  class=\"absolute left-[608px] top-[145px] w-[20px] h-[20px] bg-[#808080] border-[2px] border-[#4d4d4d]\"></div><div data-key=\"balloon-flight/v2/visual-61\"  class=\"absolute left-[465px] top-[166px] w-[120px] h-[0.01px] bg-transparent border-[4px] border-[#404040]\"></div><div data-key=\"balloon-flight/v2/visual-62\"  class=\"absolute left-[465px] top-[156px] w-[16px] h-[20px] bg-transparent border-[4px] border-[#404040]\"></div><span data-key=\"balloon-flight/v2/visual-63\"  class=\"absolute left-[465px] top-[194px] w-[110px] h-[48px] text-[24px] text-[#333333]\">喷气</span><div data-key=\"balloon-flight/v2/visual-64\"  class=\"absolute left-[800px] top-[166px] w-[155px] h-[0.01px] bg-transparent border-[4px] border-[#404040]\"></div><div data-key=\"balloon-flight/v2/visual-65\"  class=\"absolute left-[939px] top-[156px] w-[16px] h-[20px] bg-transparent border-[4px] border-[#404040]\"></div><span data-key=\"balloon-flight/v2/visual-66\"  class=\"absolute left-[830px] top-[194px] w-[130px] h-[48px] text-[24px] text-[#333333]\">运动</span><div data-key=\"balloon-flight/v2/visual-67\"  class=\"absolute left-[565px] top-[151px] w-[25px] h-[3px] bg-[#999999]\"></div><div data-key=\"balloon-flight/v2/visual-68\"  class=\"absolute left-[533px] top-[164px] w-[25px] h-[3px] bg-[#999999]\"></div><div data-key=\"balloon-flight/v2/visual-69\"  class=\"absolute left-[501px] top-[177px] w-[25px] h-[3px] bg-[#999999]\"></div><div data-key=\"balloon-flight/v2/visual-70\"  class=\"absolute left-[145px] top-[350px] w-[170px] h-[20px] bg-[#595959] rounded-[6px]\"></div><div data-key=\"balloon-flight/v2/visual-71\"  class=\"absolute left-[190px] top-[240px] w-[80px] h-[110px] bg-[#cccccc] border-[2px] border-[#4d4d4d] rounded-[10px]\"></div><div data-key=\"balloon-flight/v2/visual-72\"  class=\"absolute left-[225px] top-[135px] w-[10px] h-[105px] bg-[#666666] rounded-[2px]\"></div><div data-key=\"balloon-flight/v2/visual-73\"  class=\"absolute left-[172px] top-[125px] w-[116px] h-[18px] bg-[#404040] rounded-[6px]\"></div><div data-key=\"balloon-flight/v2/visual-74\"  class=\"absolute left-[270px] top-[205px] w-[170px] h-[120px] bg-transparent border-[6px] border-[#666666]\"></div><span data-key=\"balloon-flight/v2/visual-75\"  class=\"absolute left-[185px] top-[378px] w-[120px] h-[42px] text-[24px] text-[#333333]\">气泵</span><div data-key=\"balloon-flight/v2/visual-76\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"balloon-flight/v2/visual-77\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">充气状态</span><span data-key=\"balloon-flight/v2/visual-78\"  class=\"absolute left-[1084px] top-[105px] w-[350px] h-[72px] text-[36px] text-[#333333]\">已释放</span><div data-key=\"balloon-flight/v2/visual-79\"  class=\"absolute left-[1084px] top-[175px] w-[340px] h-[20px] bg-[#e6e6e6] rounded-[10px]\"></div><div data-key=\"balloon-flight/v2/visual-80\"  class=\"absolute left-[1084px] top-[175px] w-[280px] h-[20px] bg-[#666666] rounded-[10px]\"></div><span data-key=\"balloon-flight/v2/visual-81\"  class=\"absolute left-[1084px] top-[235px] w-[350px] h-[52px] text-[26px] text-[#333333]\">喷气与运动方向相反</span><div data-key=\"balloon-flight/v2/visual-82\"  class=\"absolute left-[1084px] top-[310px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"balloon-flight/v2/visual-83\"  class=\"absolute left-[1104px] top-[328px] w-[300px] h-[48px] text-[24px] text-[#262626]\">重新充气</span></div><div data-key=\"balloon-flight/control/balloon-flight-2\" data-node-id=\"648:2201\" class=\"absolute left-[1132px] top-[470px] w-[340px] h-[64px] bg-transparent border-transparent\"><span data-key=\"balloon-flight/control/balloon-flight-2/label\" data-node-id=\"648:2202\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "balloon-flight/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "balloon-flight/v2/visual-58": {
+      "figma": {
+        "name": "实验导轨",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 1000 0"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-flight/v2/visual-59": {
+      "figma": {
+        "name": "气球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-60": {
+      "figma": {
+        "name": "气球喷口",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 0 L 16 8 L 0 16 Z"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-flight/v2/visual-61": {
+      "figma": {
+        "name": "喷气",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 100 0"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-flight/v2/visual-62": {
+      "figma": {
+        "name": "喷气-head",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 16 0 L 0 10 L 16 20"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-flight/v2/visual-63": {
+      "figma": {
+        "name": "喷气标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-flight/v2/visual-64": {
+      "figma": {
+        "name": "运动",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 100 0"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-flight/v2/visual-65": {
+      "figma": {
+        "name": "运动-head",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 16 10 L 0 20"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-flight/v2/visual-66": {
+      "figma": {
+        "name": "运动标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-flight/v2/visual-67": {
+      "figma": {
+        "name": "气流",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-68": {
+      "figma": {
+        "name": "气流",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-69": {
+      "figma": {
+        "name": "气流",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-70": {
+      "figma": {
+        "name": "气泵底座",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-71": {
+      "figma": {
+        "name": "点击气泵",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-72": {
+      "figma": {
+        "name": "活塞杆",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-73": {
+      "figma": {
+        "name": "把手",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-74": {
+      "figma": {
+        "name": "气管",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 C 90 50 140 50 170 -70"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-flight/v2/visual-75": {
+      "figma": {
+        "name": "泵标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-flight/v2/visual-76": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-77": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-flight/v2/visual-78": {
+      "figma": {
+        "name": "气球状态",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-flight/v2/visual-79": {
+      "figma": {
+        "name": "状态轨",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-80": {
+      "figma": {
+        "name": "状态量",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-81": {
+      "figma": {
+        "name": "方向关系",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-flight/v2/visual-82": {
+      "figma": {
+        "name": "hotspot / 重新充气",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-flight/v2/visual-83": {
+      "figma": {
+        "name": "label / 重新充气",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

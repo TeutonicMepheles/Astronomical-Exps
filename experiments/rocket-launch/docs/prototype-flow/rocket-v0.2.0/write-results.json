@@ -1,0 +1,3132 @@
+{
+  "start": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 294 canvas mutations: 23 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 27 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2169.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2169",
+      "nodeIdsByKey": {
+        "start/root": "648:2169",
+        "start/body": "648:2171",
+        "start/scene": "648:2172",
+        "start/old-scene": "648:2173",
+        "start/visual-1": "652:823",
+        "start/visual-2": "652:824",
+        "start/visual-3": "652:825",
+        "start/visual-4": "652:826",
+        "start/visual-5": "652:827",
+        "start/visual-6": "652:828",
+        "start/visual-7": "652:829",
+        "start/visual-8": "652:830",
+        "start/visual-9": "652:831",
+        "start/visual-10": "652:832",
+        "start/visual-11": "652:833",
+        "start/visual-12": "652:834",
+        "start/visual-13": "652:835",
+        "start/visual-14": "652:836",
+        "start/visual-15": "652:837",
+        "start/visual-16": "652:838",
+        "start/visual-17": "652:839",
+        "start/visual-18": "652:840",
+        "start/visual-19": "652:841",
+        "start/visual-20": "652:842",
+        "start/visual-21": "652:843",
+        "start/visual-22": "652:844",
+        "start/visual-23": "652:845"
+      },
+      "mutationCount": 294,
+      "nodeChanges": {
+        "created": 23,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 27,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "balloon": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 67 canvas mutations: 2 nodes created, 21 nodes updated, and 0 nodes removed.\nStructural verification passed: 25 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2176.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2176",
+      "nodeIdsByKey": {
+        "balloon/root": "648:2176",
+        "balloon/scene": "648:2179",
+        "balloon/visual-27": "652:800",
+        "balloon/visual-28": "652:801",
+        "balloon/visual-29": "652:802",
+        "balloon/visual-42": "652:815",
+        "balloon/visual-43": "652:816",
+        "balloon/visual-24": "652:797",
+        "balloon/visual-25": "652:798",
+        "balloon/visual-26": "652:799",
+        "balloon/visual-30": "652:803",
+        "balloon/visual-31": "652:804",
+        "balloon/visual-32": "652:805",
+        "balloon/visual-33": "652:806",
+        "balloon/visual-34": "652:807",
+        "balloon/visual-35": "652:808",
+        "balloon/visual-36": "652:809",
+        "balloon/visual-37": "652:810",
+        "balloon/visual-38": "652:811",
+        "balloon/visual-39": "652:812",
+        "balloon/visual-40": "652:813",
+        "balloon/visual-41": "652:814",
+        "balloon/v2/visual-39": "652:846",
+        "balloon/v2/visual-40": "652:847",
+        "balloon/control/balloon-1": "648:2181"
+      },
+      "mutationCount": 67,
+      "nodeChanges": {
+        "created": 2,
+        "updated": 21,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 25,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "inflating": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 63 canvas mutations: 0 nodes created, 22 nodes updated, and 0 nodes removed.\nStructural verification passed: 24 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2185.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2185",
+      "nodeIdsByKey": {
+        "inflating/root": "648:2185",
+        "inflating/scene": "648:2188",
+        "inflating/retained/650-720": "650:720",
+        "inflating/retained/650-721": "650:721",
+        "inflating/retained/650-722": "650:722",
+        "inflating/v2/visual-41": "650:717",
+        "inflating/v2/visual-42": "650:718",
+        "inflating/v2/visual-43": "650:719",
+        "inflating/v2/visual-44": "650:723",
+        "inflating/v2/visual-45": "650:724",
+        "inflating/v2/visual-46": "650:725",
+        "inflating/v2/visual-47": "650:726",
+        "inflating/v2/visual-48": "650:727",
+        "inflating/v2/visual-49": "650:728",
+        "inflating/v2/visual-50": "650:731",
+        "inflating/v2/visual-51": "650:732",
+        "inflating/v2/visual-52": "650:733",
+        "inflating/v2/visual-53": "650:734",
+        "inflating/v2/visual-54": "650:735",
+        "inflating/v2/visual-55": "650:736",
+        "inflating/v2/visual-56": "650:737",
+        "inflating/v2/visual-57": "650:738",
+        "inflating/control/inflating-1": "648:2190",
+        "inflating/control/inflating-1/label": "648:2191"
+      },
+      "mutationCount": 63,
+      "nodeChanges": {
+        "created": 0,
+        "updated": 22,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 24,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "balloon-flight": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 326 canvas mutations: 26 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 32 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2194.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2194",
+      "nodeIdsByKey": {
+        "balloon-flight/root": "648:2194",
+        "balloon-flight/body": "648:2196",
+        "balloon-flight/scene": "648:2197",
+        "balloon-flight/old-scene": "648:2198",
+        "balloon-flight/v2/visual-58": "652:848",
+        "balloon-flight/v2/visual-59": "652:849",
+        "balloon-flight/v2/visual-60": "652:850",
+        "balloon-flight/v2/visual-61": "652:851",
+        "balloon-flight/v2/visual-62": "652:852",
+        "balloon-flight/v2/visual-63": "652:853",
+        "balloon-flight/v2/visual-64": "652:854",
+        "balloon-flight/v2/visual-65": "652:855",
+        "balloon-flight/v2/visual-66": "652:856",
+        "balloon-flight/v2/visual-67": "652:857",
+        "balloon-flight/v2/visual-68": "652:858",
+        "balloon-flight/v2/visual-69": "652:859",
+        "balloon-flight/v2/visual-70": "652:860",
+        "balloon-flight/v2/visual-71": "652:861",
+        "balloon-flight/v2/visual-72": "652:862",
+        "balloon-flight/v2/visual-73": "652:863",
+        "balloon-flight/v2/visual-74": "652:864",
+        "balloon-flight/v2/visual-75": "652:865",
+        "balloon-flight/v2/visual-76": "652:866",
+        "balloon-flight/v2/visual-77": "652:867",
+        "balloon-flight/v2/visual-78": "652:868",
+        "balloon-flight/v2/visual-79": "652:869",
+        "balloon-flight/v2/visual-80": "652:870",
+        "balloon-flight/v2/visual-81": "652:871",
+        "balloon-flight/v2/visual-82": "652:872",
+        "balloon-flight/v2/visual-83": "652:873",
+        "balloon-flight/control/balloon-flight-2": "648:2201",
+        "balloon-flight/control/balloon-flight-2/label": "648:2202"
+      },
+      "mutationCount": 326,
+      "nodeChanges": {
+        "created": 26,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 32,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "balloon-slow": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 338 canvas mutations: 26 nodes created, 8 nodes updated, and 0 nodes removed.\nStructural verification passed: 34 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2205.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2205",
+      "nodeIdsByKey": {
+        "balloon-slow/root": "648:2205",
+        "balloon-slow/body": "648:2207",
+        "balloon-slow/scene": "648:2208",
+        "balloon-slow/old-scene": "648:2209",
+        "balloon-slow/v2/visual-84": "652:874",
+        "balloon-slow/v2/visual-85": "652:875",
+        "balloon-slow/v2/visual-86": "652:876",
+        "balloon-slow/v2/visual-87": "652:877",
+        "balloon-slow/v2/visual-88": "652:878",
+        "balloon-slow/v2/visual-89": "652:879",
+        "balloon-slow/v2/visual-90": "652:880",
+        "balloon-slow/v2/visual-91": "652:881",
+        "balloon-slow/v2/visual-92": "652:882",
+        "balloon-slow/v2/visual-93": "652:883",
+        "balloon-slow/v2/visual-94": "652:884",
+        "balloon-slow/v2/visual-95": "652:885",
+        "balloon-slow/v2/visual-96": "652:886",
+        "balloon-slow/v2/visual-97": "652:887",
+        "balloon-slow/v2/visual-98": "652:888",
+        "balloon-slow/v2/visual-99": "652:889",
+        "balloon-slow/v2/visual-100": "652:890",
+        "balloon-slow/v2/visual-101": "652:891",
+        "balloon-slow/v2/visual-102": "652:892",
+        "balloon-slow/v2/visual-103": "652:893",
+        "balloon-slow/v2/visual-104": "652:894",
+        "balloon-slow/v2/visual-105": "652:895",
+        "balloon-slow/v2/visual-106": "652:896",
+        "balloon-slow/v2/visual-107": "652:897",
+        "balloon-slow/v2/visual-108": "652:898",
+        "balloon-slow/v2/visual-109": "652:899",
+        "balloon-slow/control/balloon-slow-1": "648:2210",
+        "balloon-slow/control/balloon-slow-1/label": "648:2211",
+        "balloon-slow/control/balloon-slow-2": "648:2212",
+        "balloon-slow/control/balloon-slow-2/label": "648:2213"
+      },
+      "mutationCount": 338,
+      "nodeChanges": {
+        "created": 26,
+        "updated": 8,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 34,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "predict": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 363 canvas mutations: 32 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 36 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2216.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2216",
+      "nodeIdsByKey": {
+        "predict/root": "648:2216",
+        "predict/body": "648:2218",
+        "predict/scene": "648:2219",
+        "predict/old-scene": "648:2220",
+        "predict/v2/visual-110": "652:900",
+        "predict/v2/visual-111": "652:901",
+        "predict/v2/visual-112": "652:902",
+        "predict/v2/visual-113": "652:903",
+        "predict/v2/visual-114": "652:904",
+        "predict/v2/visual-115": "652:905",
+        "predict/v2/visual-116": "652:906",
+        "predict/v2/visual-117": "652:907",
+        "predict/v2/visual-118": "652:908",
+        "predict/v2/visual-119": "652:909",
+        "predict/v2/visual-120": "652:910",
+        "predict/v2/visual-121": "652:911",
+        "predict/v2/visual-122": "652:912",
+        "predict/v2/visual-123": "652:913",
+        "predict/v2/visual-124": "652:914",
+        "predict/v2/visual-125": "652:915",
+        "predict/v2/visual-126": "652:916",
+        "predict/v2/visual-127": "652:917",
+        "predict/v2/visual-128": "652:918",
+        "predict/v2/visual-129": "652:919",
+        "predict/v2/visual-130": "652:920",
+        "predict/v2/visual-131": "652:921",
+        "predict/v2/visual-132": "652:922",
+        "predict/v2/visual-133": "652:923",
+        "predict/v2/visual-134": "652:924",
+        "predict/v2/visual-135": "652:925",
+        "predict/v2/visual-136": "652:926",
+        "predict/v2/visual-137": "652:927",
+        "predict/v2/visual-138": "652:928",
+        "predict/v2/visual-139": "652:929",
+        "predict/v2/visual-140": "652:930",
+        "predict/v2/visual-141": "652:931"
+      },
+      "mutationCount": 363,
+      "nodeChanges": {
+        "created": 32,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 36,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "prediction": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 375 canvas mutations: 32 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 38 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2227.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2227",
+      "nodeIdsByKey": {
+        "prediction/root": "648:2227",
+        "prediction/body": "648:2229",
+        "prediction/scene": "648:2230",
+        "prediction/old-scene": "648:2231",
+        "prediction/v2/visual-142": "652:932",
+        "prediction/v2/visual-143": "652:933",
+        "prediction/v2/visual-144": "652:934",
+        "prediction/v2/visual-145": "652:935",
+        "prediction/v2/visual-146": "652:936",
+        "prediction/v2/visual-147": "652:937",
+        "prediction/v2/visual-148": "652:938",
+        "prediction/v2/visual-149": "652:939",
+        "prediction/v2/visual-150": "652:940",
+        "prediction/v2/visual-151": "652:941",
+        "prediction/v2/visual-152": "652:942",
+        "prediction/v2/visual-153": "652:943",
+        "prediction/v2/visual-154": "652:944",
+        "prediction/v2/visual-155": "652:945",
+        "prediction/v2/visual-156": "652:946",
+        "prediction/v2/visual-157": "652:947",
+        "prediction/v2/visual-158": "652:948",
+        "prediction/v2/visual-159": "652:949",
+        "prediction/v2/visual-160": "652:950",
+        "prediction/v2/visual-161": "652:951",
+        "prediction/v2/visual-162": "652:952",
+        "prediction/v2/visual-163": "652:953",
+        "prediction/v2/visual-164": "652:954",
+        "prediction/v2/visual-165": "652:955",
+        "prediction/v2/visual-166": "652:956",
+        "prediction/v2/visual-167": "652:957",
+        "prediction/v2/visual-168": "652:958",
+        "prediction/v2/visual-169": "652:959",
+        "prediction/v2/visual-170": "652:960",
+        "prediction/v2/visual-171": "652:961",
+        "prediction/v2/visual-172": "652:962",
+        "prediction/v2/visual-173": "652:963",
+        "prediction/control/prediction-1": "648:2232",
+        "prediction/control/prediction-1/label": "648:2233"
+      },
+      "mutationCount": 375,
+      "nodeChanges": {
+        "created": 32,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 38,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "prediction-wrong": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 375 canvas mutations: 32 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 38 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2236.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2236",
+      "nodeIdsByKey": {
+        "prediction-wrong/root": "648:2236",
+        "prediction-wrong/body": "648:2238",
+        "prediction-wrong/scene": "648:2239",
+        "prediction-wrong/old-scene": "648:2240",
+        "prediction-wrong/v2/visual-174": "652:964",
+        "prediction-wrong/v2/visual-175": "652:965",
+        "prediction-wrong/v2/visual-176": "652:966",
+        "prediction-wrong/v2/visual-177": "652:967",
+        "prediction-wrong/v2/visual-178": "652:968",
+        "prediction-wrong/v2/visual-179": "652:969",
+        "prediction-wrong/v2/visual-180": "652:970",
+        "prediction-wrong/v2/visual-181": "652:971",
+        "prediction-wrong/v2/visual-182": "652:972",
+        "prediction-wrong/v2/visual-183": "652:973",
+        "prediction-wrong/v2/visual-184": "652:974",
+        "prediction-wrong/v2/visual-185": "652:975",
+        "prediction-wrong/v2/visual-186": "652:976",
+        "prediction-wrong/v2/visual-187": "652:977",
+        "prediction-wrong/v2/visual-188": "652:978",
+        "prediction-wrong/v2/visual-189": "652:979",
+        "prediction-wrong/v2/visual-190": "652:980",
+        "prediction-wrong/v2/visual-191": "652:981",
+        "prediction-wrong/v2/visual-192": "652:982",
+        "prediction-wrong/v2/visual-193": "652:983",
+        "prediction-wrong/v2/visual-194": "652:984",
+        "prediction-wrong/v2/visual-195": "652:985",
+        "prediction-wrong/v2/visual-196": "652:986",
+        "prediction-wrong/v2/visual-197": "652:987",
+        "prediction-wrong/v2/visual-198": "652:988",
+        "prediction-wrong/v2/visual-199": "652:989",
+        "prediction-wrong/v2/visual-200": "652:990",
+        "prediction-wrong/v2/visual-201": "652:991",
+        "prediction-wrong/v2/visual-202": "652:992",
+        "prediction-wrong/v2/visual-203": "652:993",
+        "prediction-wrong/v2/visual-204": "652:994",
+        "prediction-wrong/v2/visual-205": "652:995",
+        "prediction-wrong/control/prediction-wrong-1": "648:2241",
+        "prediction-wrong/control/prediction-wrong-1/label": "648:2242"
+      },
+      "mutationCount": 375,
+      "nodeChanges": {
+        "created": 32,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 38,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "environment": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 387 canvas mutations: 34 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 38 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2245.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2245",
+      "nodeIdsByKey": {
+        "environment/root": "648:2245",
+        "environment/body": "648:2247",
+        "environment/scene": "648:2248",
+        "environment/old-scene": "648:2249",
+        "environment/v2/visual-206": "652:996",
+        "environment/v2/visual-207": "652:997",
+        "environment/v2/visual-208": "652:998",
+        "environment/v2/visual-209": "652:999",
+        "environment/v2/visual-210": "652:1000",
+        "environment/v2/visual-211": "652:1001",
+        "environment/v2/visual-212": "652:1002",
+        "environment/v2/visual-213": "652:1003",
+        "environment/v2/visual-214": "652:1004",
+        "environment/v2/visual-215": "652:1005",
+        "environment/v2/visual-216": "652:1006",
+        "environment/v2/visual-217": "652:1007",
+        "environment/v2/visual-218": "652:1008",
+        "environment/v2/visual-219": "652:1009",
+        "environment/v2/visual-220": "652:1010",
+        "environment/v2/visual-221": "652:1011",
+        "environment/v2/visual-222": "652:1012",
+        "environment/v2/visual-223": "652:1013",
+        "environment/v2/visual-224": "652:1014",
+        "environment/v2/visual-225": "652:1015",
+        "environment/v2/visual-226": "652:1016",
+        "environment/v2/visual-227": "652:1017",
+        "environment/v2/visual-228": "652:1018",
+        "environment/v2/visual-229": "652:1019",
+        "environment/v2/visual-230": "652:1020",
+        "environment/v2/visual-231": "652:1021",
+        "environment/v2/visual-232": "652:1022",
+        "environment/v2/visual-233": "652:1023",
+        "environment/v2/visual-234": "652:1024",
+        "environment/v2/visual-235": "652:1025",
+        "environment/v2/visual-236": "652:1026",
+        "environment/v2/visual-237": "652:1027",
+        "environment/v2/visual-238": "652:1028",
+        "environment/v2/visual-239": "652:1029"
+      },
+      "mutationCount": 387,
+      "nodeChanges": {
+        "created": 34,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 38,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "configure": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 62 canvas mutations: 0 nodes created, 27 nodes updated, and 0 nodes removed.\nStructural verification passed: 32 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2254.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2254",
+      "nodeIdsByKey": {
+        "configure/root": "648:2254",
+        "configure/scene": "648:2257",
+        "configure/retained/650-755": "650:755",
+        "configure/retained/650-756": "650:756",
+        "configure/retained/650-758": "650:758",
+        "configure/retained/650-759": "650:759",
+        "configure/retained/650-761": "650:761",
+        "configure/retained/650-762": "650:762",
+        "configure/visual-240": "650:740",
+        "configure/visual-241": "650:741",
+        "configure/visual-242": "650:742",
+        "configure/visual-243": "650:743",
+        "configure/visual-244": "650:744",
+        "configure/visual-245": "650:745",
+        "configure/visual-246": "650:746",
+        "configure/visual-247": "650:747",
+        "configure/visual-248": "650:748",
+        "configure/visual-249": "650:749",
+        "configure/visual-250": "650:750",
+        "configure/visual-251": "650:751",
+        "configure/visual-252": "650:752",
+        "configure/visual-253": "650:753",
+        "configure/visual-254": "650:754",
+        "configure/visual-255": "652:817",
+        "configure/visual-256": "652:818",
+        "configure/visual-257": "652:819",
+        "configure/visual-258": "652:820",
+        "configure/visual-259": "652:821",
+        "configure/visual-260": "652:822",
+        "configure/control/configure-1": "648:2259",
+        "configure/control/configure-2": "648:2261",
+        "configure/control/configure-3": "648:2263"
+      },
+      "mutationCount": 62,
+      "nodeChanges": {
+        "created": 0,
+        "updated": 27,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 32,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "thrust": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 291 canvas mutations: 21 nodes created, 10 nodes updated, and 0 nodes removed.\nStructural verification passed: 31 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2271.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2271",
+      "nodeIdsByKey": {
+        "thrust/root": "648:2271",
+        "thrust/body": "648:2273",
+        "thrust/scene": "648:2274",
+        "thrust/old-scene": "648:2275",
+        "thrust/v2/visual-261": "652:1030",
+        "thrust/v2/visual-262": "652:1031",
+        "thrust/v2/visual-263": "652:1032",
+        "thrust/v2/visual-264": "652:1033",
+        "thrust/v2/visual-265": "652:1034",
+        "thrust/v2/visual-266": "652:1035",
+        "thrust/v2/visual-267": "652:1036",
+        "thrust/v2/visual-268": "652:1037",
+        "thrust/v2/visual-269": "652:1038",
+        "thrust/v2/visual-270": "652:1039",
+        "thrust/v2/visual-271": "652:1040",
+        "thrust/v2/visual-272": "652:1041",
+        "thrust/v2/visual-273": "652:1042",
+        "thrust/v2/visual-274": "652:1043",
+        "thrust/v2/visual-275": "652:1044",
+        "thrust/v2/visual-276": "652:1045",
+        "thrust/v2/visual-277": "652:1046",
+        "thrust/v2/visual-278": "652:1047",
+        "thrust/v2/visual-279": "652:1048",
+        "thrust/v2/visual-280": "652:1049",
+        "thrust/v2/visual-281": "652:1050",
+        "thrust/control/thrust-1": "648:2276",
+        "thrust/control/thrust-1/label": "648:2277",
+        "thrust/control/thrust-2": "648:2278",
+        "thrust/control/thrust-2/label": "648:2279",
+        "thrust/control/thrust-3": "648:2280",
+        "thrust/control/thrust-3/label": "648:2281"
+      },
+      "mutationCount": 291,
+      "nodeChanges": {
+        "created": 21,
+        "updated": 10,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 31,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "payload": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 291 canvas mutations: 21 nodes created, 10 nodes updated, and 0 nodes removed.\nStructural verification passed: 31 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2284.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2284",
+      "nodeIdsByKey": {
+        "payload/root": "648:2284",
+        "payload/body": "648:2286",
+        "payload/scene": "648:2287",
+        "payload/old-scene": "648:2288",
+        "payload/v2/visual-282": "652:1051",
+        "payload/v2/visual-283": "652:1052",
+        "payload/v2/visual-284": "652:1053",
+        "payload/v2/visual-285": "652:1054",
+        "payload/v2/visual-286": "652:1055",
+        "payload/v2/visual-287": "652:1056",
+        "payload/v2/visual-288": "652:1057",
+        "payload/v2/visual-289": "652:1058",
+        "payload/v2/visual-290": "652:1059",
+        "payload/v2/visual-291": "652:1060",
+        "payload/v2/visual-292": "652:1061",
+        "payload/v2/visual-293": "652:1062",
+        "payload/v2/visual-294": "652:1063",
+        "payload/v2/visual-295": "652:1064",
+        "payload/v2/visual-296": "652:1065",
+        "payload/v2/visual-297": "652:1066",
+        "payload/v2/visual-298": "652:1067",
+        "payload/v2/visual-299": "652:1068",
+        "payload/v2/visual-300": "652:1069",
+        "payload/v2/visual-301": "652:1070",
+        "payload/v2/visual-302": "652:1071",
+        "payload/control/payload-1": "648:2289",
+        "payload/control/payload-1/label": "648:2290",
+        "payload/control/payload-2": "648:2291",
+        "payload/control/payload-2/label": "648:2292",
+        "payload/control/payload-3": "648:2293",
+        "payload/control/payload-3/label": "648:2294"
+      },
+      "mutationCount": 291,
+      "nodeChanges": {
+        "created": 21,
+        "updated": 10,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 31,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "mass": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 205 canvas mutations: 17 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 21 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2297.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2297",
+      "nodeIdsByKey": {
+        "mass/root": "648:2297",
+        "mass/body": "648:2299",
+        "mass/scene": "648:2300",
+        "mass/old-scene": "648:2301",
+        "mass/v2/visual-303": "652:1072",
+        "mass/v2/visual-304": "652:1073",
+        "mass/v2/visual-305": "652:1074",
+        "mass/v2/visual-306": "652:1075",
+        "mass/v2/visual-307": "652:1076",
+        "mass/v2/visual-308": "652:1077",
+        "mass/v2/visual-309": "652:1078",
+        "mass/v2/visual-310": "652:1079",
+        "mass/v2/visual-311": "652:1080",
+        "mass/v2/visual-312": "652:1081",
+        "mass/v2/visual-313": "652:1082",
+        "mass/v2/visual-314": "652:1083",
+        "mass/v2/visual-315": "652:1084",
+        "mass/v2/visual-316": "652:1085",
+        "mass/v2/visual-317": "652:1086",
+        "mass/v2/visual-318": "652:1087",
+        "mass/v2/visual-319": "652:1088"
+      },
+      "mutationCount": 205,
+      "nodeChanges": {
+        "created": 17,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 21,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "flight": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 318 canvas mutations: 25 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 31 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2304.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2304",
+      "nodeIdsByKey": {
+        "flight/root": "648:2304",
+        "flight/body": "648:2306",
+        "flight/scene": "648:2307",
+        "flight/old-scene": "648:2308",
+        "flight/v2/visual-320": "652:1089",
+        "flight/v2/visual-321": "652:1090",
+        "flight/v2/visual-322": "652:1091",
+        "flight/v2/visual-323": "652:1092",
+        "flight/v2/visual-324": "652:1093",
+        "flight/v2/visual-325": "652:1094",
+        "flight/v2/visual-326": "652:1095",
+        "flight/v2/visual-327": "652:1096",
+        "flight/v2/visual-328": "652:1097",
+        "flight/v2/visual-329": "652:1098",
+        "flight/v2/visual-330": "652:1099",
+        "flight/v2/visual-331": "652:1100",
+        "flight/v2/visual-332": "652:1101",
+        "flight/v2/visual-333": "652:1102",
+        "flight/v2/visual-334": "652:1103",
+        "flight/v2/visual-335": "652:1104",
+        "flight/v2/visual-336": "652:1105",
+        "flight/v2/visual-337": "652:1106",
+        "flight/v2/visual-338": "652:1107",
+        "flight/v2/visual-339": "652:1108",
+        "flight/v2/visual-340": "652:1109",
+        "flight/v2/visual-341": "652:1110",
+        "flight/v2/visual-342": "652:1111",
+        "flight/v2/visual-343": "652:1112",
+        "flight/v2/visual-344": "652:1113",
+        "flight/control/flight-1": "648:2309",
+        "flight/control/flight-1/label": "648:2310"
+      },
+      "mutationCount": 318,
+      "nodeChanges": {
+        "created": 25,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 31,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "flight-paused": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 306 canvas mutations: 25 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 29 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2313.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2313",
+      "nodeIdsByKey": {
+        "flight-paused/root": "648:2313",
+        "flight-paused/body": "648:2315",
+        "flight-paused/scene": "648:2316",
+        "flight-paused/old-scene": "648:2317",
+        "flight-paused/v2/visual-345": "652:1114",
+        "flight-paused/v2/visual-346": "652:1115",
+        "flight-paused/v2/visual-347": "652:1116",
+        "flight-paused/v2/visual-348": "652:1117",
+        "flight-paused/v2/visual-349": "652:1118",
+        "flight-paused/v2/visual-350": "652:1119",
+        "flight-paused/v2/visual-351": "652:1120",
+        "flight-paused/v2/visual-352": "652:1121",
+        "flight-paused/v2/visual-353": "652:1122",
+        "flight-paused/v2/visual-354": "652:1123",
+        "flight-paused/v2/visual-355": "652:1124",
+        "flight-paused/v2/visual-356": "652:1125",
+        "flight-paused/v2/visual-357": "652:1126",
+        "flight-paused/v2/visual-358": "652:1127",
+        "flight-paused/v2/visual-359": "652:1128",
+        "flight-paused/v2/visual-360": "652:1129",
+        "flight-paused/v2/visual-361": "652:1130",
+        "flight-paused/v2/visual-362": "652:1131",
+        "flight-paused/v2/visual-363": "652:1132",
+        "flight-paused/v2/visual-364": "652:1133",
+        "flight-paused/v2/visual-365": "652:1134",
+        "flight-paused/v2/visual-366": "652:1135",
+        "flight-paused/v2/visual-367": "652:1136",
+        "flight-paused/v2/visual-368": "652:1137",
+        "flight-paused/v2/visual-369": "652:1138"
+      },
+      "mutationCount": 306,
+      "nodeChanges": {
+        "created": 25,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 29,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "records": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 296 canvas mutations: 21 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 25 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2322.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2322",
+      "nodeIdsByKey": {
+        "records/root": "648:2322",
+        "records/body": "648:2324",
+        "records/scene": "648:2325",
+        "records/old-scene": "648:2326",
+        "records/v2/visual-370": "652:1139",
+        "records/v2/visual-371": "652:1140",
+        "records/v2/visual-372": "652:1141",
+        "records/v2/visual-373": "652:1142",
+        "records/v2/visual-374": "652:1143",
+        "records/v2/visual-375": "652:1144",
+        "records/v2/visual-376": "652:1145",
+        "records/v2/visual-377": "652:1146",
+        "records/v2/visual-378": "652:1147",
+        "records/v2/visual-379": "652:1148",
+        "records/v2/visual-380": "652:1149",
+        "records/v2/visual-381": "652:1150",
+        "records/v2/visual-382": "652:1151",
+        "records/v2/visual-383": "652:1152",
+        "records/v2/visual-384": "652:1153",
+        "records/v2/visual-385": "652:1154",
+        "records/v2/visual-386": "652:1155",
+        "records/v2/visual-387": "652:1156",
+        "records/v2/visual-388": "652:1157",
+        "records/v2/visual-389": "652:1158",
+        "records/v2/visual-390": "652:1159"
+      },
+      "mutationCount": 296,
+      "nodeChanges": {
+        "created": 21,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 25,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "compare": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 296 canvas mutations: 21 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 25 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2333.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2333",
+      "nodeIdsByKey": {
+        "compare/root": "648:2333",
+        "compare/body": "648:2335",
+        "compare/scene": "648:2336",
+        "compare/old-scene": "648:2337",
+        "compare/v2/visual-391": "652:1160",
+        "compare/v2/visual-392": "652:1161",
+        "compare/v2/visual-393": "652:1162",
+        "compare/v2/visual-394": "652:1163",
+        "compare/v2/visual-395": "652:1164",
+        "compare/v2/visual-396": "652:1165",
+        "compare/v2/visual-397": "652:1166",
+        "compare/v2/visual-398": "652:1167",
+        "compare/v2/visual-399": "652:1168",
+        "compare/v2/visual-400": "652:1169",
+        "compare/v2/visual-401": "652:1170",
+        "compare/v2/visual-402": "652:1171",
+        "compare/v2/visual-403": "652:1172",
+        "compare/v2/visual-404": "652:1173",
+        "compare/v2/visual-405": "652:1174",
+        "compare/v2/visual-406": "652:1175",
+        "compare/v2/visual-407": "652:1176",
+        "compare/v2/visual-408": "652:1177",
+        "compare/v2/visual-409": "652:1178",
+        "compare/v2/visual-410": "652:1179",
+        "compare/v2/visual-411": "652:1180"
+      },
+      "mutationCount": 296,
+      "nodeChanges": {
+        "created": 21,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 25,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "orbit": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 402 canvas mutations: 31 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 37 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2344.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2344",
+      "nodeIdsByKey": {
+        "orbit/root": "648:2344",
+        "orbit/body": "648:2346",
+        "orbit/scene": "648:2347",
+        "orbit/old-scene": "648:2348",
+        "orbit/v2/visual-412": "652:1181",
+        "orbit/v2/visual-413": "652:1182",
+        "orbit/v2/visual-414": "652:1183",
+        "orbit/v2/visual-415": "652:1184",
+        "orbit/v2/visual-416": "652:1185",
+        "orbit/v2/visual-417": "652:1186",
+        "orbit/v2/visual-418": "652:1187",
+        "orbit/v2/visual-419": "652:1188",
+        "orbit/v2/visual-420": "652:1189",
+        "orbit/v2/visual-421": "652:1190",
+        "orbit/v2/visual-422": "652:1191",
+        "orbit/v2/visual-423": "652:1192",
+        "orbit/v2/visual-424": "652:1193",
+        "orbit/v2/visual-425": "652:1194",
+        "orbit/v2/visual-426": "652:1195",
+        "orbit/v2/visual-427": "652:1196",
+        "orbit/v2/visual-428": "652:1197",
+        "orbit/v2/visual-429": "652:1198",
+        "orbit/v2/visual-430": "652:1199",
+        "orbit/v2/visual-431": "652:1200",
+        "orbit/v2/visual-432": "652:1201",
+        "orbit/v2/visual-433": "652:1202",
+        "orbit/v2/visual-434": "652:1203",
+        "orbit/v2/visual-435": "652:1204",
+        "orbit/v2/visual-436": "652:1205",
+        "orbit/v2/visual-437": "652:1206",
+        "orbit/v2/visual-438": "652:1207",
+        "orbit/v2/visual-439": "652:1208",
+        "orbit/v2/visual-440": "652:1209",
+        "orbit/v2/visual-441": "652:1210",
+        "orbit/v2/visual-442": "652:1211",
+        "orbit/control/orbit-1": "648:2349",
+        "orbit/control/orbit-1/label": "648:2350"
+      },
+      "mutationCount": 402,
+      "nodeChanges": {
+        "created": 31,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 37,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "orbit-playing": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 390 canvas mutations: 31 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 35 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2355.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2355",
+      "nodeIdsByKey": {
+        "orbit-playing/root": "648:2355",
+        "orbit-playing/body": "648:2357",
+        "orbit-playing/scene": "648:2358",
+        "orbit-playing/old-scene": "648:2359",
+        "orbit-playing/v2/visual-443": "652:1212",
+        "orbit-playing/v2/visual-444": "652:1213",
+        "orbit-playing/v2/visual-445": "652:1214",
+        "orbit-playing/v2/visual-446": "652:1215",
+        "orbit-playing/v2/visual-447": "652:1216",
+        "orbit-playing/v2/visual-448": "652:1217",
+        "orbit-playing/v2/visual-449": "652:1218",
+        "orbit-playing/v2/visual-450": "652:1219",
+        "orbit-playing/v2/visual-451": "652:1220",
+        "orbit-playing/v2/visual-452": "652:1221",
+        "orbit-playing/v2/visual-453": "652:1222",
+        "orbit-playing/v2/visual-454": "652:1223",
+        "orbit-playing/v2/visual-455": "652:1224",
+        "orbit-playing/v2/visual-456": "652:1225",
+        "orbit-playing/v2/visual-457": "652:1226",
+        "orbit-playing/v2/visual-458": "652:1227",
+        "orbit-playing/v2/visual-459": "652:1228",
+        "orbit-playing/v2/visual-460": "652:1229",
+        "orbit-playing/v2/visual-461": "652:1230",
+        "orbit-playing/v2/visual-462": "652:1231",
+        "orbit-playing/v2/visual-463": "652:1232",
+        "orbit-playing/v2/visual-464": "652:1233",
+        "orbit-playing/v2/visual-465": "652:1234",
+        "orbit-playing/v2/visual-466": "652:1235",
+        "orbit-playing/v2/visual-467": "652:1236",
+        "orbit-playing/v2/visual-468": "652:1237",
+        "orbit-playing/v2/visual-469": "652:1238",
+        "orbit-playing/v2/visual-470": "652:1239",
+        "orbit-playing/v2/visual-471": "652:1240",
+        "orbit-playing/v2/visual-472": "652:1241",
+        "orbit-playing/v2/visual-473": "652:1242"
+      },
+      "mutationCount": 390,
+      "nodeChanges": {
+        "created": 31,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 35,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "cannon": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 337 canvas mutations: 22 nodes created, 12 nodes updated, and 0 nodes removed.\nStructural verification passed: 34 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2364.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2364",
+      "nodeIdsByKey": {
+        "cannon/root": "648:2364",
+        "cannon/body": "648:2366",
+        "cannon/scene": "648:2367",
+        "cannon/old-scene": "648:2368",
+        "cannon/v2/visual-474": "652:1243",
+        "cannon/v2/visual-475": "652:1244",
+        "cannon/v2/visual-476": "652:1245",
+        "cannon/v2/visual-477": "652:1246",
+        "cannon/v2/visual-478": "652:1247",
+        "cannon/v2/visual-479": "652:1248",
+        "cannon/v2/visual-480": "652:1249",
+        "cannon/v2/visual-481": "652:1250",
+        "cannon/v2/visual-482": "652:1251",
+        "cannon/v2/visual-483": "652:1252",
+        "cannon/v2/visual-484": "652:1253",
+        "cannon/v2/visual-485": "652:1254",
+        "cannon/v2/visual-486": "652:1255",
+        "cannon/v2/visual-487": "652:1256",
+        "cannon/v2/visual-488": "652:1257",
+        "cannon/v2/visual-489": "652:1258",
+        "cannon/v2/visual-490": "652:1259",
+        "cannon/v2/visual-491": "652:1260",
+        "cannon/v2/visual-492": "652:1261",
+        "cannon/v2/visual-493": "652:1262",
+        "cannon/v2/visual-494": "652:1263",
+        "cannon/v2/visual-495": "652:1264",
+        "cannon/control/cannon-1": "648:2369",
+        "cannon/control/cannon-1/label": "648:2370",
+        "cannon/control/cannon-2": "648:2371",
+        "cannon/control/cannon-2/label": "648:2372",
+        "cannon/control/cannon-3": "648:2373",
+        "cannon/control/cannon-3/label": "648:2374",
+        "cannon/control/cannon-4": "648:2375",
+        "cannon/control/cannon-4/label": "648:2376"
+      },
+      "mutationCount": 337,
+      "nodeChanges": {
+        "created": 22,
+        "updated": 12,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 34,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "fall": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 224 canvas mutations: 17 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 21 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2381.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2381",
+      "nodeIdsByKey": {
+        "fall/root": "648:2381",
+        "fall/body": "648:2383",
+        "fall/scene": "648:2384",
+        "fall/old-scene": "648:2385",
+        "fall/v2/visual-496": "652:1265",
+        "fall/v2/visual-497": "652:1266",
+        "fall/v2/visual-498": "652:1267",
+        "fall/v2/visual-499": "652:1268",
+        "fall/v2/visual-500": "652:1269",
+        "fall/v2/visual-501": "652:1270",
+        "fall/v2/visual-502": "652:1271",
+        "fall/v2/visual-503": "652:1272",
+        "fall/v2/visual-504": "652:1273",
+        "fall/v2/visual-505": "652:1274",
+        "fall/v2/visual-506": "652:1275",
+        "fall/v2/visual-507": "652:1276",
+        "fall/v2/visual-508": "652:1277",
+        "fall/v2/visual-509": "652:1278",
+        "fall/v2/visual-510": "652:1279",
+        "fall/v2/visual-511": "652:1280",
+        "fall/v2/visual-512": "652:1281"
+      },
+      "mutationCount": 224,
+      "nodeChanges": {
+        "created": 17,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 21,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "circular": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 48 canvas mutations: 0 nodes created, 18 nodes updated, and 0 nodes removed.\nStructural verification passed: 18 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2388.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2388",
+      "nodeIdsByKey": {
+        "circular/root": "648:2388",
+        "circular/scene": "648:2391",
+        "circular/v2/visual-513": "650:764",
+        "circular/v2/visual-514": "650:765",
+        "circular/v2/visual-515": "650:766",
+        "circular/v2/visual-516": "650:767",
+        "circular/v2/visual-517": "650:768",
+        "circular/v2/visual-518": "650:769",
+        "circular/v2/visual-519": "650:770",
+        "circular/v2/visual-520": "650:771",
+        "circular/v2/visual-521": "650:772",
+        "circular/v2/visual-522": "650:773",
+        "circular/v2/visual-523": "650:774",
+        "circular/v2/visual-524": "650:775",
+        "circular/v2/visual-525": "650:776",
+        "circular/v2/visual-526": "650:777",
+        "circular/v2/visual-527": "650:778",
+        "circular/v2/visual-528": "650:779"
+      },
+      "mutationCount": 48,
+      "nodeChanges": {
+        "created": 0,
+        "updated": 18,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 18,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "escape-earth": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 224 canvas mutations: 17 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 21 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2395.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2395",
+      "nodeIdsByKey": {
+        "escape-earth/root": "648:2395",
+        "escape-earth/body": "648:2397",
+        "escape-earth/scene": "648:2398",
+        "escape-earth/old-scene": "648:2399",
+        "escape-earth/v2/visual-529": "652:1282",
+        "escape-earth/v2/visual-530": "652:1283",
+        "escape-earth/v2/visual-531": "652:1284",
+        "escape-earth/v2/visual-532": "652:1285",
+        "escape-earth/v2/visual-533": "652:1286",
+        "escape-earth/v2/visual-534": "652:1287",
+        "escape-earth/v2/visual-535": "652:1288",
+        "escape-earth/v2/visual-536": "652:1289",
+        "escape-earth/v2/visual-537": "652:1290",
+        "escape-earth/v2/visual-538": "652:1291",
+        "escape-earth/v2/visual-539": "652:1292",
+        "escape-earth/v2/visual-540": "652:1293",
+        "escape-earth/v2/visual-541": "652:1294",
+        "escape-earth/v2/visual-542": "652:1295",
+        "escape-earth/v2/visual-543": "652:1296",
+        "escape-earth/v2/visual-544": "652:1297",
+        "escape-earth/v2/visual-545": "652:1298"
+      },
+      "mutationCount": 224,
+      "nodeChanges": {
+        "created": 17,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 21,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "escape-sun": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 260 canvas mutations: 20 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 24 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2402.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2402",
+      "nodeIdsByKey": {
+        "escape-sun/root": "648:2402",
+        "escape-sun/body": "648:2404",
+        "escape-sun/scene": "648:2405",
+        "escape-sun/old-scene": "648:2406",
+        "escape-sun/v2/visual-546": "652:1299",
+        "escape-sun/v2/visual-547": "652:1300",
+        "escape-sun/v2/visual-548": "652:1301",
+        "escape-sun/v2/visual-549": "652:1302",
+        "escape-sun/v2/visual-550": "652:1303",
+        "escape-sun/v2/visual-551": "652:1304",
+        "escape-sun/v2/visual-552": "652:1305",
+        "escape-sun/v2/visual-553": "652:1306",
+        "escape-sun/v2/visual-554": "652:1307",
+        "escape-sun/v2/visual-555": "652:1308",
+        "escape-sun/v2/visual-556": "652:1309",
+        "escape-sun/v2/visual-557": "652:1310",
+        "escape-sun/v2/visual-558": "652:1311",
+        "escape-sun/v2/visual-559": "652:1312",
+        "escape-sun/v2/visual-560": "652:1313",
+        "escape-sun/v2/visual-561": "652:1314",
+        "escape-sun/v2/visual-562": "652:1315",
+        "escape-sun/v2/visual-563": "652:1316",
+        "escape-sun/v2/visual-564": "652:1317",
+        "escape-sun/v2/visual-565": "652:1318"
+      },
+      "mutationCount": 260,
+      "nodeChanges": {
+        "created": 20,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 24,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "match": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 237 canvas mutations: 18 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 24 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2409.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2409",
+      "nodeIdsByKey": {
+        "match/root": "648:2409",
+        "match/body": "648:2411",
+        "match/scene": "648:2412",
+        "match/old-scene": "648:2413",
+        "match/v2/visual-566": "652:1319",
+        "match/v2/visual-567": "652:1320",
+        "match/v2/visual-568": "652:1321",
+        "match/v2/visual-569": "652:1322",
+        "match/v2/visual-570": "652:1323",
+        "match/v2/visual-571": "652:1324",
+        "match/v2/visual-572": "652:1325",
+        "match/v2/visual-573": "652:1326",
+        "match/v2/visual-574": "652:1327",
+        "match/v2/visual-575": "652:1328",
+        "match/v2/visual-576": "652:1329",
+        "match/v2/visual-577": "652:1330",
+        "match/v2/visual-578": "652:1331",
+        "match/v2/visual-579": "652:1332",
+        "match/v2/visual-580": "652:1333",
+        "match/v2/visual-581": "652:1334",
+        "match/v2/visual-582": "652:1335",
+        "match/v2/visual-583": "652:1336",
+        "match/control/match-1": "648:2414",
+        "match/control/match-1/label": "648:2415"
+      },
+      "mutationCount": 237,
+      "nodeChanges": {
+        "created": 18,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 24,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "match-selected": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 261 canvas mutations: 18 nodes created, 10 nodes updated, and 0 nodes removed.\nStructural verification passed: 28 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2418.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2418",
+      "nodeIdsByKey": {
+        "match-selected/root": "648:2418",
+        "match-selected/body": "648:2420",
+        "match-selected/scene": "648:2421",
+        "match-selected/old-scene": "648:2422",
+        "match-selected/v2/visual-584": "652:1337",
+        "match-selected/v2/visual-585": "652:1338",
+        "match-selected/v2/visual-586": "652:1339",
+        "match-selected/v2/visual-587": "652:1340",
+        "match-selected/v2/visual-588": "652:1341",
+        "match-selected/v2/visual-589": "652:1342",
+        "match-selected/v2/visual-590": "652:1343",
+        "match-selected/v2/visual-591": "652:1344",
+        "match-selected/v2/visual-592": "652:1345",
+        "match-selected/v2/visual-593": "652:1346",
+        "match-selected/v2/visual-594": "652:1347",
+        "match-selected/v2/visual-595": "652:1348",
+        "match-selected/v2/visual-596": "652:1349",
+        "match-selected/v2/visual-597": "652:1350",
+        "match-selected/v2/visual-598": "652:1351",
+        "match-selected/v2/visual-599": "652:1352",
+        "match-selected/v2/visual-600": "652:1353",
+        "match-selected/v2/visual-601": "652:1354",
+        "match-selected/control/match-selected-1": "648:2423",
+        "match-selected/control/match-selected-1/label": "648:2424",
+        "match-selected/control/match-selected-2": "648:2425",
+        "match-selected/control/match-selected-2/label": "648:2426",
+        "match-selected/control/match-selected-3": "648:2427",
+        "match-selected/control/match-selected-3/label": "648:2428"
+      },
+      "mutationCount": 261,
+      "nodeChanges": {
+        "created": 18,
+        "updated": 10,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 28,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "match-error": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 262 canvas mutations: 20 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 26 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2431.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2431",
+      "nodeIdsByKey": {
+        "match-error/root": "648:2431",
+        "match-error/body": "648:2433",
+        "match-error/scene": "648:2434",
+        "match-error/old-scene": "648:2435",
+        "match-error/v2/visual-602": "652:1355",
+        "match-error/v2/visual-603": "652:1356",
+        "match-error/v2/visual-604": "652:1357",
+        "match-error/v2/visual-605": "652:1358",
+        "match-error/v2/visual-606": "652:1359",
+        "match-error/v2/visual-607": "652:1360",
+        "match-error/v2/visual-608": "652:1361",
+        "match-error/v2/visual-609": "652:1362",
+        "match-error/v2/visual-610": "652:1363",
+        "match-error/v2/visual-611": "652:1364",
+        "match-error/v2/visual-612": "652:1365",
+        "match-error/v2/visual-613": "652:1366",
+        "match-error/v2/visual-614": "652:1367",
+        "match-error/v2/visual-615": "652:1368",
+        "match-error/v2/visual-616": "652:1369",
+        "match-error/v2/visual-617": "652:1370",
+        "match-error/v2/visual-618": "652:1371",
+        "match-error/v2/visual-619": "652:1372",
+        "match-error/v2/visual-620": "652:1373",
+        "match-error/v2/visual-621": "652:1374",
+        "match-error/control/match-error-1": "648:2436",
+        "match-error/control/match-error-1/label": "648:2437"
+      },
+      "mutationCount": 262,
+      "nodeChanges": {
+        "created": 20,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 26,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "match-next": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 236 canvas mutations: 19 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 23 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2440.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2440",
+      "nodeIdsByKey": {
+        "match-next/root": "648:2440",
+        "match-next/body": "648:2442",
+        "match-next/scene": "648:2443",
+        "match-next/old-scene": "648:2444",
+        "match-next/v2/visual-622": "652:1375",
+        "match-next/v2/visual-623": "652:1376",
+        "match-next/v2/visual-624": "652:1377",
+        "match-next/v2/visual-625": "652:1378",
+        "match-next/v2/visual-626": "652:1379",
+        "match-next/v2/visual-627": "652:1380",
+        "match-next/v2/visual-628": "652:1381",
+        "match-next/v2/visual-629": "652:1382",
+        "match-next/v2/visual-630": "652:1383",
+        "match-next/v2/visual-631": "652:1384",
+        "match-next/v2/visual-632": "652:1385",
+        "match-next/v2/visual-633": "652:1386",
+        "match-next/v2/visual-634": "652:1387",
+        "match-next/v2/visual-635": "652:1388",
+        "match-next/v2/visual-636": "652:1389",
+        "match-next/v2/visual-637": "652:1390",
+        "match-next/v2/visual-638": "652:1391",
+        "match-next/v2/visual-639": "652:1392",
+        "match-next/v2/visual-640": "652:1393"
+      },
+      "mutationCount": 236,
+      "nodeChanges": {
+        "created": 19,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 23,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "structure": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 357 canvas mutations: 27 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 33 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2451.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2451",
+      "nodeIdsByKey": {
+        "structure/root": "648:2451",
+        "structure/body": "648:2453",
+        "structure/scene": "648:2454",
+        "structure/old-scene": "648:2455",
+        "structure/v2/visual-641": "652:1394",
+        "structure/v2/visual-642": "652:1395",
+        "structure/v2/visual-643": "652:1396",
+        "structure/v2/visual-644": "652:1397",
+        "structure/v2/visual-645": "652:1398",
+        "structure/v2/visual-646": "652:1399",
+        "structure/v2/visual-647": "652:1400",
+        "structure/v2/visual-648": "652:1401",
+        "structure/v2/visual-649": "652:1402",
+        "structure/v2/visual-650": "652:1403",
+        "structure/v2/visual-651": "652:1404",
+        "structure/v2/visual-652": "652:1405",
+        "structure/v2/visual-653": "652:1406",
+        "structure/v2/visual-654": "652:1407",
+        "structure/v2/visual-655": "652:1408",
+        "structure/v2/visual-656": "652:1409",
+        "structure/v2/visual-657": "652:1410",
+        "structure/v2/visual-658": "652:1411",
+        "structure/v2/visual-659": "652:1412",
+        "structure/v2/visual-660": "652:1413",
+        "structure/v2/visual-661": "652:1414",
+        "structure/v2/visual-662": "652:1415",
+        "structure/v2/visual-663": "652:1416",
+        "structure/v2/visual-664": "652:1417",
+        "structure/v2/visual-665": "652:1418",
+        "structure/v2/visual-666": "652:1419",
+        "structure/v2/visual-667": "652:1420",
+        "structure/control/structure-1": "648:2456",
+        "structure/control/structure-1/label": "648:2457"
+      },
+      "mutationCount": 357,
+      "nodeChanges": {
+        "created": 27,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 33,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "xray": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 405 canvas mutations: 30 nodes created, 8 nodes updated, and 0 nodes removed.\nStructural verification passed: 38 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2462.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2462",
+      "nodeIdsByKey": {
+        "xray/root": "648:2462",
+        "xray/body": "648:2464",
+        "xray/scene": "648:2465",
+        "xray/old-scene": "648:2466",
+        "xray/v2/visual-668": "652:1421",
+        "xray/v2/visual-669": "652:1422",
+        "xray/v2/visual-670": "652:1423",
+        "xray/v2/visual-671": "652:1424",
+        "xray/v2/visual-672": "652:1425",
+        "xray/v2/visual-673": "652:1426",
+        "xray/v2/visual-674": "652:1427",
+        "xray/v2/visual-675": "652:1428",
+        "xray/v2/visual-676": "652:1429",
+        "xray/v2/visual-677": "652:1430",
+        "xray/v2/visual-678": "652:1431",
+        "xray/v2/visual-679": "652:1432",
+        "xray/v2/visual-680": "652:1433",
+        "xray/v2/visual-681": "652:1434",
+        "xray/v2/visual-682": "652:1435",
+        "xray/v2/visual-683": "652:1436",
+        "xray/v2/visual-684": "652:1437",
+        "xray/v2/visual-685": "652:1438",
+        "xray/v2/visual-686": "652:1439",
+        "xray/v2/visual-687": "652:1440",
+        "xray/v2/visual-688": "652:1441",
+        "xray/v2/visual-689": "652:1442",
+        "xray/v2/visual-690": "652:1443",
+        "xray/v2/visual-691": "652:1444",
+        "xray/v2/visual-692": "652:1445",
+        "xray/v2/visual-693": "652:1446",
+        "xray/v2/visual-694": "652:1447",
+        "xray/v2/visual-695": "652:1448",
+        "xray/v2/visual-696": "652:1449",
+        "xray/v2/visual-697": "652:1450",
+        "xray/control/xray-1": "648:2467",
+        "xray/control/xray-1/label": "648:2468",
+        "xray/control/xray-2": "648:2469",
+        "xray/control/xray-2/label": "648:2470"
+      },
+      "mutationCount": 405,
+      "nodeChanges": {
+        "created": 30,
+        "updated": 8,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 38,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "part": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 393 canvas mutations: 30 nodes created, 6 nodes updated, and 0 nodes removed.\nStructural verification passed: 36 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2473.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2473",
+      "nodeIdsByKey": {
+        "part/root": "648:2473",
+        "part/body": "648:2475",
+        "part/scene": "648:2476",
+        "part/old-scene": "648:2477",
+        "part/v2/visual-698": "652:1451",
+        "part/v2/visual-699": "652:1452",
+        "part/v2/visual-700": "652:1453",
+        "part/v2/visual-701": "652:1454",
+        "part/v2/visual-702": "652:1455",
+        "part/v2/visual-703": "652:1456",
+        "part/v2/visual-704": "652:1457",
+        "part/v2/visual-705": "652:1458",
+        "part/v2/visual-706": "652:1459",
+        "part/v2/visual-707": "652:1460",
+        "part/v2/visual-708": "652:1461",
+        "part/v2/visual-709": "652:1462",
+        "part/v2/visual-710": "652:1463",
+        "part/v2/visual-711": "652:1464",
+        "part/v2/visual-712": "652:1465",
+        "part/v2/visual-713": "652:1466",
+        "part/v2/visual-714": "652:1467",
+        "part/v2/visual-715": "652:1468",
+        "part/v2/visual-716": "652:1469",
+        "part/v2/visual-717": "652:1470",
+        "part/v2/visual-718": "652:1471",
+        "part/v2/visual-719": "652:1472",
+        "part/v2/visual-720": "652:1473",
+        "part/v2/visual-721": "652:1474",
+        "part/v2/visual-722": "652:1475",
+        "part/v2/visual-723": "652:1476",
+        "part/v2/visual-724": "652:1477",
+        "part/v2/visual-725": "652:1478",
+        "part/v2/visual-726": "652:1479",
+        "part/v2/visual-727": "652:1480",
+        "part/control/part-2": "648:2480",
+        "part/control/part-2/label": "648:2481"
+      },
+      "mutationCount": 393,
+      "nodeChanges": {
+        "created": 30,
+        "updated": 6,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 36,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "assembly-error": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 447 canvas mutations: 34 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 38 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2495.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2495",
+      "nodeIdsByKey": {
+        "assembly-error/root": "648:2495",
+        "assembly-error/body": "648:2497",
+        "assembly-error/scene": "648:2498",
+        "assembly-error/old-scene": "648:2499",
+        "assembly-error/v2/visual-761": "652:1481",
+        "assembly-error/v2/visual-762": "652:1482",
+        "assembly-error/v2/visual-763": "652:1483",
+        "assembly-error/v2/visual-764": "652:1484",
+        "assembly-error/v2/visual-765": "652:1485",
+        "assembly-error/v2/visual-766": "652:1486",
+        "assembly-error/v2/visual-767": "652:1487",
+        "assembly-error/v2/visual-768": "652:1488",
+        "assembly-error/v2/visual-769": "652:1489",
+        "assembly-error/v2/visual-770": "652:1490",
+        "assembly-error/v2/visual-771": "652:1491",
+        "assembly-error/v2/visual-772": "652:1492",
+        "assembly-error/v2/visual-773": "652:1493",
+        "assembly-error/v2/visual-774": "652:1494",
+        "assembly-error/v2/visual-775": "652:1495",
+        "assembly-error/v2/visual-776": "652:1496",
+        "assembly-error/v2/visual-777": "652:1497",
+        "assembly-error/v2/visual-778": "652:1498",
+        "assembly-error/v2/visual-779": "652:1499",
+        "assembly-error/v2/visual-780": "652:1500",
+        "assembly-error/v2/visual-781": "652:1501",
+        "assembly-error/v2/visual-782": "652:1502",
+        "assembly-error/v2/visual-783": "652:1503",
+        "assembly-error/v2/visual-784": "652:1504",
+        "assembly-error/v2/visual-785": "652:1505",
+        "assembly-error/v2/visual-786": "652:1506",
+        "assembly-error/v2/visual-787": "652:1507",
+        "assembly-error/v2/visual-788": "652:1508",
+        "assembly-error/v2/visual-789": "652:1509",
+        "assembly-error/v2/visual-790": "652:1510",
+        "assembly-error/v2/visual-791": "652:1511",
+        "assembly-error/v2/visual-792": "652:1512",
+        "assembly-error/v2/visual-793": "652:1513",
+        "assembly-error/v2/visual-794": "652:1514"
+      },
+      "mutationCount": 447,
+      "nodeChanges": {
+        "created": 34,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 38,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "assembled": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 407 canvas mutations: 31 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 35 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2502.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2502",
+      "nodeIdsByKey": {
+        "assembled/root": "648:2502",
+        "assembled/body": "648:2504",
+        "assembled/scene": "648:2505",
+        "assembled/old-scene": "648:2506",
+        "assembled/v2/visual-795": "652:1515",
+        "assembled/v2/visual-796": "652:1516",
+        "assembled/v2/visual-797": "652:1517",
+        "assembled/v2/visual-798": "652:1518",
+        "assembled/v2/visual-799": "652:1519",
+        "assembled/v2/visual-800": "652:1520",
+        "assembled/v2/visual-801": "652:1521",
+        "assembled/v2/visual-802": "652:1522",
+        "assembled/v2/visual-803": "652:1523",
+        "assembled/v2/visual-804": "652:1524",
+        "assembled/v2/visual-805": "652:1525",
+        "assembled/v2/visual-806": "652:1526",
+        "assembled/v2/visual-807": "652:1527",
+        "assembled/v2/visual-808": "652:1528",
+        "assembled/v2/visual-809": "652:1529",
+        "assembled/v2/visual-810": "652:1530",
+        "assembled/v2/visual-811": "652:1531",
+        "assembled/v2/visual-812": "652:1532",
+        "assembled/v2/visual-813": "652:1533",
+        "assembled/v2/visual-814": "652:1534",
+        "assembled/v2/visual-815": "652:1535",
+        "assembled/v2/visual-816": "652:1536",
+        "assembled/v2/visual-817": "652:1537",
+        "assembled/v2/visual-818": "652:1538",
+        "assembled/v2/visual-819": "652:1539",
+        "assembled/v2/visual-820": "652:1540",
+        "assembled/v2/visual-821": "652:1541",
+        "assembled/v2/visual-822": "652:1542",
+        "assembled/v2/visual-823": "652:1543",
+        "assembled/v2/visual-824": "652:1544",
+        "assembled/v2/visual-825": "652:1545"
+      },
+      "mutationCount": 407,
+      "nodeChanges": {
+        "created": 31,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 35,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "separation": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 345 canvas mutations: 27 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 31 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2511.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2511",
+      "nodeIdsByKey": {
+        "separation/root": "648:2511",
+        "separation/body": "648:2513",
+        "separation/scene": "648:2514",
+        "separation/old-scene": "648:2515",
+        "separation/v2/visual-826": "652:1546",
+        "separation/v2/visual-827": "652:1547",
+        "separation/v2/visual-828": "652:1548",
+        "separation/v2/visual-829": "652:1549",
+        "separation/v2/visual-830": "652:1550",
+        "separation/v2/visual-831": "652:1551",
+        "separation/v2/visual-832": "652:1552",
+        "separation/v2/visual-833": "652:1553",
+        "separation/v2/visual-834": "652:1554",
+        "separation/v2/visual-835": "652:1555",
+        "separation/v2/visual-836": "652:1556",
+        "separation/v2/visual-837": "652:1557",
+        "separation/v2/visual-838": "652:1558",
+        "separation/v2/visual-839": "652:1559",
+        "separation/v2/visual-840": "652:1560",
+        "separation/v2/visual-841": "652:1561",
+        "separation/v2/visual-842": "652:1562",
+        "separation/v2/visual-843": "652:1563",
+        "separation/v2/visual-844": "652:1564",
+        "separation/v2/visual-845": "652:1565",
+        "separation/v2/visual-846": "652:1566",
+        "separation/v2/visual-847": "652:1567",
+        "separation/v2/visual-848": "652:1568",
+        "separation/v2/visual-849": "652:1569",
+        "separation/v2/visual-850": "652:1570",
+        "separation/v2/visual-851": "652:1571",
+        "separation/v2/visual-852": "652:1572"
+      },
+      "mutationCount": 345,
+      "nodeChanges": {
+        "created": 27,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 31,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "separation-paused": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 345 canvas mutations: 27 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 31 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2522.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2522",
+      "nodeIdsByKey": {
+        "separation-paused/root": "648:2522",
+        "separation-paused/body": "648:2524",
+        "separation-paused/scene": "648:2525",
+        "separation-paused/old-scene": "648:2526",
+        "separation-paused/v2/visual-853": "652:1573",
+        "separation-paused/v2/visual-854": "652:1574",
+        "separation-paused/v2/visual-855": "652:1575",
+        "separation-paused/v2/visual-856": "652:1576",
+        "separation-paused/v2/visual-857": "652:1577",
+        "separation-paused/v2/visual-858": "652:1578",
+        "separation-paused/v2/visual-859": "652:1579",
+        "separation-paused/v2/visual-860": "652:1580",
+        "separation-paused/v2/visual-861": "652:1581",
+        "separation-paused/v2/visual-862": "652:1582",
+        "separation-paused/v2/visual-863": "652:1583",
+        "separation-paused/v2/visual-864": "652:1584",
+        "separation-paused/v2/visual-865": "652:1585",
+        "separation-paused/v2/visual-866": "652:1586",
+        "separation-paused/v2/visual-867": "652:1587",
+        "separation-paused/v2/visual-868": "652:1588",
+        "separation-paused/v2/visual-869": "652:1589",
+        "separation-paused/v2/visual-870": "652:1590",
+        "separation-paused/v2/visual-871": "652:1591",
+        "separation-paused/v2/visual-872": "652:1592",
+        "separation-paused/v2/visual-873": "652:1593",
+        "separation-paused/v2/visual-874": "652:1594",
+        "separation-paused/v2/visual-875": "652:1595",
+        "separation-paused/v2/visual-876": "652:1596",
+        "separation-paused/v2/visual-877": "652:1597",
+        "separation-paused/v2/visual-878": "652:1598",
+        "separation-paused/v2/visual-879": "652:1599"
+      },
+      "mutationCount": 345,
+      "nodeChanges": {
+        "created": 27,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 31,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "interstage": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 357 canvas mutations: 28 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 32 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2531.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2531",
+      "nodeIdsByKey": {
+        "interstage/root": "648:2531",
+        "interstage/body": "648:2533",
+        "interstage/scene": "648:2534",
+        "interstage/old-scene": "648:2535",
+        "interstage/v2/visual-880": "652:1600",
+        "interstage/v2/visual-881": "652:1601",
+        "interstage/v2/visual-882": "652:1602",
+        "interstage/v2/visual-883": "652:1603",
+        "interstage/v2/visual-884": "652:1604",
+        "interstage/v2/visual-885": "652:1605",
+        "interstage/v2/visual-886": "652:1606",
+        "interstage/v2/visual-887": "652:1607",
+        "interstage/v2/visual-888": "652:1608",
+        "interstage/v2/visual-889": "652:1609",
+        "interstage/v2/visual-890": "652:1610",
+        "interstage/v2/visual-891": "652:1611",
+        "interstage/v2/visual-892": "652:1612",
+        "interstage/v2/visual-893": "652:1613",
+        "interstage/v2/visual-894": "652:1614",
+        "interstage/v2/visual-895": "652:1615",
+        "interstage/v2/visual-896": "652:1616",
+        "interstage/v2/visual-897": "652:1617",
+        "interstage/v2/visual-898": "652:1618",
+        "interstage/v2/visual-899": "652:1619",
+        "interstage/v2/visual-900": "652:1620",
+        "interstage/v2/visual-901": "652:1621",
+        "interstage/v2/visual-902": "652:1622",
+        "interstage/v2/visual-903": "652:1623",
+        "interstage/v2/visual-904": "652:1624",
+        "interstage/v2/visual-905": "652:1625",
+        "interstage/v2/visual-906": "652:1626",
+        "interstage/v2/visual-907": "652:1627"
+      },
+      "mutationCount": 357,
+      "nodeChanges": {
+        "created": 28,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 32,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "fairing": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 381 canvas mutations: 30 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 34 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2542.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2542",
+      "nodeIdsByKey": {
+        "fairing/root": "648:2542",
+        "fairing/body": "648:2544",
+        "fairing/scene": "648:2545",
+        "fairing/old-scene": "648:2546",
+        "fairing/v2/visual-908": "652:1628",
+        "fairing/v2/visual-909": "652:1629",
+        "fairing/v2/visual-910": "652:1630",
+        "fairing/v2/visual-911": "652:1631",
+        "fairing/v2/visual-912": "652:1632",
+        "fairing/v2/visual-913": "652:1633",
+        "fairing/v2/visual-914": "652:1634",
+        "fairing/v2/visual-915": "652:1635",
+        "fairing/v2/visual-916": "652:1636",
+        "fairing/v2/visual-917": "652:1637",
+        "fairing/v2/visual-918": "652:1638",
+        "fairing/v2/visual-919": "652:1639",
+        "fairing/v2/visual-920": "652:1640",
+        "fairing/v2/visual-921": "652:1641",
+        "fairing/v2/visual-922": "652:1642",
+        "fairing/v2/visual-923": "652:1643",
+        "fairing/v2/visual-924": "652:1644",
+        "fairing/v2/visual-925": "652:1645",
+        "fairing/v2/visual-926": "652:1646",
+        "fairing/v2/visual-927": "652:1647",
+        "fairing/v2/visual-928": "652:1648",
+        "fairing/v2/visual-929": "652:1649",
+        "fairing/v2/visual-930": "652:1650",
+        "fairing/v2/visual-931": "652:1651",
+        "fairing/v2/visual-932": "652:1652",
+        "fairing/v2/visual-933": "652:1653",
+        "fairing/v2/visual-934": "652:1654",
+        "fairing/v2/visual-935": "652:1655",
+        "fairing/v2/visual-936": "652:1656",
+        "fairing/v2/visual-937": "652:1657"
+      },
+      "mutationCount": 381,
+      "nodeChanges": {
+        "created": 30,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 34,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "done": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 294 canvas mutations: 23 nodes created, 4 nodes updated, and 0 nodes removed.\nStructural verification passed: 27 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2553.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2553",
+      "nodeIdsByKey": {
+        "done/root": "648:2553",
+        "done/body": "648:2555",
+        "done/scene": "648:2556",
+        "done/old-scene": "648:2557",
+        "done/v2/visual-938": "652:1658",
+        "done/v2/visual-939": "652:1659",
+        "done/v2/visual-940": "652:1660",
+        "done/v2/visual-941": "652:1661",
+        "done/v2/visual-942": "652:1662",
+        "done/v2/visual-943": "652:1663",
+        "done/v2/visual-944": "652:1664",
+        "done/v2/visual-945": "652:1665",
+        "done/v2/visual-946": "652:1666",
+        "done/v2/visual-947": "652:1667",
+        "done/v2/visual-948": "652:1668",
+        "done/v2/visual-949": "652:1669",
+        "done/v2/visual-950": "652:1670",
+        "done/v2/visual-951": "652:1671",
+        "done/v2/visual-952": "652:1672",
+        "done/v2/visual-953": "652:1673",
+        "done/v2/visual-954": "652:1674",
+        "done/v2/visual-955": "652:1675",
+        "done/v2/visual-956": "652:1676",
+        "done/v2/visual-957": "652:1677",
+        "done/v2/visual-958": "652:1678",
+        "done/v2/visual-959": "652:1679",
+        "done/v2/visual-960": "652:1680"
+      },
+      "mutationCount": 294,
+      "nodeChanges": {
+        "created": 23,
+        "updated": 4,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 27,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  },
+  "assembly": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Applied 101 canvas mutations: 0 nodes created, 37 nodes updated, and 0 nodes removed.\nStructural verification passed: 37 nodes, 0 native references, and 0 native state assertions checked.\nRoot node: 648:2484.\nPage: \"AIGC工具链\" (0:1) at index 0; active, 228 children and 0 selected nodes.\nRead structuredContent.nodeIdsByKey before a follow-up update or component instance call."
+      }
+    ],
+    "structuredContent": {
+      "rootNodeId": "648:2484",
+      "nodeIdsByKey": {
+        "assembly/root": "648:2484",
+        "assembly/scene": "648:2487",
+        "assembly/visual-728": "650:780",
+        "assembly/visual-729": "650:781",
+        "assembly/visual-730": "650:782",
+        "assembly/visual-731": "650:783",
+        "assembly/visual-732": "650:784",
+        "assembly/visual-733": "650:786",
+        "assembly/visual-734": "650:787",
+        "assembly/visual-735": "650:788",
+        "assembly/visual-736": "650:790",
+        "assembly/visual-737": "650:791",
+        "assembly/visual-738": "650:792",
+        "assembly/visual-739": "650:794",
+        "assembly/visual-740": "650:795",
+        "assembly/visual-741": "650:796",
+        "assembly/visual-742": "650:798",
+        "assembly/visual-743": "650:799",
+        "assembly/visual-744": "650:800",
+        "assembly/visual-745": "650:801",
+        "assembly/visual-746": "650:802",
+        "assembly/visual-747": "650:803",
+        "assembly/visual-748": "650:804",
+        "assembly/visual-749": "650:805",
+        "assembly/visual-750": "650:806",
+        "assembly/visual-751": "650:807",
+        "assembly/visual-752": "650:808",
+        "assembly/visual-753": "650:809",
+        "assembly/visual-754": "650:810",
+        "assembly/visual-755": "650:811",
+        "assembly/visual-756": "650:812",
+        "assembly/visual-757": "650:813",
+        "assembly/visual-758": "650:814",
+        "assembly/visual-759": "650:815",
+        "assembly/visual-760": "650:816",
+        "assembly/control/assembly-1": "648:2489",
+        "assembly/control/assembly-1/label": "648:2490"
+      },
+      "mutationCount": 101,
+      "nodeChanges": {
+        "created": 0,
+        "updated": 37,
+        "removed": 0
+      },
+      "page": {
+        "id": "0:1",
+        "name": "AIGC工具链",
+        "index": 0,
+        "active": true,
+        "childCount": 228,
+        "selectionCount": 0
+      },
+      "verification": {
+        "status": "passed",
+        "nodesChecked": 37,
+        "referencesChecked": 0,
+        "nativeFieldsChecked": 0,
+        "warnings": []
+      },
+      "runtime": {
+        "protocolVersion": 15,
+        "locked": false,
+        "valid": true,
+        "issues": [],
+        "hub": {
+          "packageVersion": "1.0.3",
+          "runtimeFingerprint": "97835a9f1cc302b1f4626cfc8972ba030492d6312241ccb99410ca154f15b5c9",
+          "startedAt": "2026-11-09T12:52:37.656Z"
+        },
+        "extension": {
+          "version": "1.0.0",
+          "runtimeFingerprint": "55eff54ee7e16d00eee34cf4b4ff51d8d29daad46bd647b9f6072c9c462f33c8",
+          "connectedAt": "2026-11-09T12:52:39.328Z"
+        }
+      }
+    }
+  }
+}

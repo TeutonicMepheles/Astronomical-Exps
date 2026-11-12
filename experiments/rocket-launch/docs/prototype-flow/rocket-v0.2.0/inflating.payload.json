@@ -1,0 +1,200 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2185",
+  "markup": "<div data-key=\"inflating/root\" data-node-id=\"648:2185\" class=\"w-[1600px] h-[900px]\"><div data-key=\"inflating/scene\" data-node-id=\"648:2188\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><div data-key=\"inflating/retained/650-720\" data-node-id=\"650:720\" class=\"absolute left-[285px] top-[166px] w-[120px] h-[0.01px] hidden\"></div><div data-key=\"inflating/retained/650-721\" data-node-id=\"650:721\" class=\"absolute left-[285px] top-[156px] w-[16px] h-[20px] hidden\"></div><span data-key=\"inflating/retained/650-722\" data-node-id=\"650:722\" class=\"absolute left-[285px] top-[194px] w-[110px] h-[29px] hidden\"></span><div data-key=\"inflating/v2/visual-41\" data-node-id=\"650:717\" class=\"absolute left-[45px] top-[105px] w-[940px] h-[0.01px] bg-transparent border-[2px] border-[#a6a6a6]\"></div><div data-key=\"inflating/v2/visual-42\" data-node-id=\"650:718\" class=\"absolute left-[440px] top-[115px] w-[180px] h-[135px] bg-[#b3b3b3] border-[3px] border-[#333333]\"></div><div data-key=\"inflating/v2/visual-43\" data-node-id=\"650:719\" class=\"absolute left-[428px] top-[145px] w-[20px] h-[20px] bg-[#808080] border-[2px] border-[#4d4d4d]\"></div><div data-key=\"inflating/v2/visual-44\" data-node-id=\"650:723\" class=\"absolute left-[145px] top-[350px] w-[170px] h-[20px] bg-[#595959] rounded-[6px]\"></div><div data-key=\"inflating/v2/visual-45\" data-node-id=\"650:724\" class=\"absolute left-[190px] top-[240px] w-[80px] h-[110px] bg-[#cccccc] border-[2px] border-[#4d4d4d] rounded-[10px]\"></div><div data-key=\"inflating/v2/visual-46\" data-node-id=\"650:725\" class=\"absolute left-[225px] top-[180px] w-[10px] h-[60px] bg-[#666666] rounded-[2px]\"></div><div data-key=\"inflating/v2/visual-47\" data-node-id=\"650:726\" class=\"absolute left-[172px] top-[170px] w-[116px] h-[18px] bg-[#404040] rounded-[6px]\"></div><div data-key=\"inflating/v2/visual-48\" data-node-id=\"650:727\" class=\"absolute left-[270px] top-[205px] w-[170px] h-[120px] bg-transparent border-[6px] border-[#666666]\"></div><span data-key=\"inflating/v2/visual-49\" data-node-id=\"650:728\" class=\"absolute left-[185px] top-[378px] w-[120px] h-[42px] text-[24px] text-[#333333]\">气泵</span><div data-key=\"inflating/v2/visual-50\" data-node-id=\"650:731\" class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"inflating/v2/visual-51\" data-node-id=\"650:732\" class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">充气状态</span><span data-key=\"inflating/v2/visual-52\" data-node-id=\"650:733\" class=\"absolute left-[1084px] top-[105px] w-[350px] h-[72px] text-[36px] text-[#333333]\">充气中</span><div data-key=\"inflating/v2/visual-53\" data-node-id=\"650:734\" class=\"absolute left-[1084px] top-[175px] w-[340px] h-[20px] bg-[#e6e6e6] rounded-[10px]\"></div><div data-key=\"inflating/v2/visual-54\" data-node-id=\"650:735\" class=\"absolute left-[1084px] top-[175px] w-[280px] h-[20px] bg-[#666666] rounded-[10px]\"></div><span data-key=\"inflating/v2/visual-55\" data-node-id=\"650:736\" class=\"absolute left-[1084px] top-[235px] w-[350px] h-[52px] text-[26px] text-[#333333]\">点击充气，再放飞气球</span><div data-key=\"inflating/v2/visual-56\" data-node-id=\"650:737\" class=\"absolute left-[1084px] top-[310px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"inflating/v2/visual-57\" data-node-id=\"650:738\" class=\"absolute left-[1104px] top-[328px] w-[300px] h-[48px] text-[24px] text-[#262626]\">松开放飞</span></div><div data-key=\"inflating/control/inflating-1\" data-node-id=\"648:2190\" class=\"absolute left-[1132px] top-[470px] w-[340px] h-[64px] bg-transparent border-transparent\"><span data-key=\"inflating/control/inflating-1/label\" data-node-id=\"648:2191\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "inflating/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "inflating/v2/visual-41": {
+      "figma": {
+        "name": "实验导轨",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 1000 0"
+            }
+          ]
+        }
+      }
+    },
+    "inflating/v2/visual-42": {
+      "figma": {
+        "name": "气球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "inflating/v2/visual-43": {
+      "figma": {
+        "name": "气球喷口",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 0 L 16 8 L 0 16 Z"
+            }
+          ]
+        }
+      }
+    },
+    "inflating/v2/visual-44": {
+      "figma": {
+        "name": "气泵底座",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "inflating/v2/visual-45": {
+      "figma": {
+        "name": "点击气泵",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "inflating/v2/visual-46": {
+      "figma": {
+        "name": "活塞杆",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "inflating/v2/visual-47": {
+      "figma": {
+        "name": "把手",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "inflating/v2/visual-48": {
+      "figma": {
+        "name": "气管",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 C 90 50 140 50 170 -70"
+            }
+          ]
+        }
+      }
+    },
+    "inflating/v2/visual-49": {
+      "figma": {
+        "name": "泵标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "inflating/v2/visual-50": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "inflating/v2/visual-51": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "inflating/v2/visual-52": {
+      "figma": {
+        "name": "气球状态",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "inflating/v2/visual-53": {
+      "figma": {
+        "name": "状态轨",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "inflating/v2/visual-54": {
+      "figma": {
+        "name": "状态量",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "inflating/v2/visual-55": {
+      "figma": {
+        "name": "方向关系",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "inflating/v2/visual-56": {
+      "figma": {
+        "name": "hotspot / 松开放飞",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "inflating/v2/visual-57": {
+      "figma": {
+        "name": "label / 松开放飞",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "inflating/retained/650-720": {
+      "figma": {
+        "shape": {
+          "type": "VECTOR"
+        }
+      }
+    },
+    "inflating/retained/650-721": {
+      "figma": {
+        "shape": {
+          "type": "VECTOR"
+        }
+      }
+    },
+    "inflating/retained/650-722": {
+      "figma": {
+        "name": "喷气标签"
+      }
+    }
+  }
+}

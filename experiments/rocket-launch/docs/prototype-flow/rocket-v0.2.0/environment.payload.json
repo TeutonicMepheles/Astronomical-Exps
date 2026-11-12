@@ -1,0 +1,332 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2245",
+  "markup": "<div data-key=\"environment/root\" data-node-id=\"648:2245\" class=\"w-[1600px] h-[900px]\"><span data-key=\"environment/body\" data-node-id=\"648:2247\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"environment/scene\" data-node-id=\"648:2248\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"environment/old-scene\" data-node-id=\"648:2249\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"environment/v2/visual-206\"  class=\"absolute left-[24px] top-[16px] w-[720px] h-[390px] bg-[#ebebeb] border-[2px] border-[#999999] rounded-[16px]\"></div><span data-key=\"environment/v2/visual-207\"  class=\"absolute left-[48px] top-[36px] w-[300px] h-[60px] text-[30px] text-[#1a1a1a]\">地球</span><div data-key=\"environment/v2/visual-208\"  class=\"absolute left-[44px] top-[340px] w-[680px] h-[3px] bg-[#808080]\"></div><div data-key=\"environment/v2/visual-209\"  class=\"absolute left-[374px] top-[260px] w-[250px] h-[160px] bg-[#bfbfbf] border-[3px] border-[#999999]\"></div><div data-key=\"environment/v2/visual-210\"  class=\"absolute left-[294px] top-[131.9px] w-[43.4px] h-[120.9px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"environment/v2/visual-211\"  class=\"absolute left-[294px] top-[104px] w-[43.4px] h-[31px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"environment/v2/visual-212\"  class=\"absolute left-[294px] top-[200.1px] w-[43.4px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"environment/v2/visual-213\"  class=\"absolute left-[294px] top-[251.56px] w-[43.4px] h-[18.6px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"environment/v2/visual-214\"  class=\"absolute left-[274.16px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"environment/v2/visual-215\"  class=\"absolute left-[341.74px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"environment/v2/visual-216\"  class=\"absolute left-[298px] top-[270px] w-[36px] h-[48px] bg-[#b8b8b8] border-[2px] border-[#737373]\"></div><span data-key=\"environment/v2/visual-217\"  class=\"absolute left-[69px] top-[285px] w-[200px] h-[60px] text-[30px] text-[#1a1a1a]\">可以飞行</span><div data-key=\"environment/v2/visual-218\"  class=\"absolute left-[774px] top-[16px] w-[720px] h-[390px] bg-[#333333] border-[2px] border-[#999999] rounded-[16px]\"></div><span data-key=\"environment/v2/visual-219\"  class=\"absolute left-[798px] top-[36px] w-[300px] h-[60px] text-[30px] text-[#ffffff]\">太空</span><div data-key=\"environment/v2/visual-220\"  class=\"absolute left-[819px] top-[100px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-221\"  class=\"absolute left-[916px] top-[153px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-222\"  class=\"absolute left-[1013px] top-[206px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-223\"  class=\"absolute left-[1110px] top-[259px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-224\"  class=\"absolute left-[1207px] top-[102px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-225\"  class=\"absolute left-[1304px] top-[155px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-226\"  class=\"absolute left-[1401px] top-[208px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-227\"  class=\"absolute left-[878px] top-[261px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-228\"  class=\"absolute left-[975px] top-[104px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-229\"  class=\"absolute left-[1072px] top-[157px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-230\"  class=\"absolute left-[1169px] top-[210px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-231\"  class=\"absolute left-[1266px] top-[263px] w-[4px] h-[4px] bg-[#e6e6e6]\"></div><div data-key=\"environment/v2/visual-232\"  class=\"absolute left-[1044px] top-[131.9px] w-[43.4px] h-[120.9px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"environment/v2/visual-233\"  class=\"absolute left-[1044px] top-[104px] w-[43.4px] h-[31px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"environment/v2/visual-234\"  class=\"absolute left-[1044px] top-[200.1px] w-[43.4px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"environment/v2/visual-235\"  class=\"absolute left-[1044px] top-[251.56px] w-[43.4px] h-[18.6px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"environment/v2/visual-236\"  class=\"absolute left-[1024.16px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"environment/v2/visual-237\"  class=\"absolute left-[1091.74px] top-[187.7px] w-[15.5px] h-[69.44px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"environment/v2/visual-238\"  class=\"absolute left-[1048px] top-[270px] w-[36px] h-[48px] bg-[#b8b8b8] border-[2px] border-[#737373]\"></div><span data-key=\"environment/v2/visual-239\"  class=\"absolute left-[819px] top-[285px] w-[200px] h-[60px] text-[30px] text-[#ffffff]\">可以飞行</span></div></div>",
+  "native": {
+    "environment/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "environment/v2/visual-206": {
+      "figma": {
+        "name": "环境卡",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-207": {
+      "figma": {
+        "name": "环境",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "environment/v2/visual-208": {
+      "figma": {
+        "name": "地面",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-209": {
+      "figma": {
+        "name": "地球弧面",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-210": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-211": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "environment/v2/visual-212": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-213": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "environment/v2/visual-214": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-215": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-216": {
+      "figma": {
+        "name": "喷流",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 0 Q 20 25 10 65 Q 32 44 40 80 Q 52 42 60 0 Z"
+            }
+          ]
+        }
+      }
+    },
+    "environment/v2/visual-217": {
+      "figma": {
+        "name": "结果",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "environment/v2/visual-218": {
+      "figma": {
+        "name": "环境卡",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-219": {
+      "figma": {
+        "name": "环境",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "environment/v2/visual-220": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-221": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-222": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-223": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-224": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-225": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-226": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-227": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-228": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-229": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-230": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-231": {
+      "figma": {
+        "name": "星点",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "environment/v2/visual-232": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-233": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "environment/v2/visual-234": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-235": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "environment/v2/visual-236": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-237": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "environment/v2/visual-238": {
+      "figma": {
+        "name": "喷流",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 0 Q 20 25 10 65 Q 32 44 40 80 Q 52 42 60 0 Z"
+            }
+          ]
+        }
+      }
+    },
+    "environment/v2/visual-239": {
+      "figma": {
+        "name": "结果",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

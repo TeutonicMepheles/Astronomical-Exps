@@ -1,0 +1,341 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2495",
+  "markup": "<div data-key=\"assembly-error/root\" data-node-id=\"648:2495\" class=\"w-[1600px] h-[900px]\"><span data-key=\"assembly-error/body\" data-node-id=\"648:2497\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"assembly-error/scene\" data-node-id=\"648:2498\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"assembly-error/old-scene\" data-node-id=\"648:2499\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"assembly-error/v2/visual-761\"  class=\"absolute left-[20px] top-[20px] w-[480px] h-[380px] bg-[#f0f0f0] border-[2px] border-[#cccccc] rounded-[16px]\"></div><span data-key=\"assembly-error/v2/visual-762\"  class=\"absolute left-[44px] top-[34px] w-[350px] h-[50px] text-[25px] text-[#333333]\">散件区</span><div data-key=\"assembly-error/v2/visual-763\"  class=\"absolute left-[45px] top-[88px] w-[190px] h-[125px] bg-[#ffffff] border-[2px] border-[#999999] rounded-[10px]\"></div><div data-key=\"assembly-error/v2/visual-764\"  class=\"absolute left-[110px] top-[102px] w-[55px] h-[55px] bg-[#a6a6a6] border-[2px] border-[#4d4d4d] rounded-[6px]\"></div><span data-key=\"assembly-error/v2/visual-765\"  class=\"absolute left-[63px] top-[170px] w-[160px] h-[44px] text-[22px] text-[#333333]\">有效载荷</span><div data-key=\"assembly-error/v2/visual-766\"  class=\"absolute left-[265px] top-[88px] w-[190px] h-[125px] bg-[#ffffff] border-[2px] border-[#999999] rounded-[10px]\"></div><div data-key=\"assembly-error/v2/visual-767\"  class=\"absolute left-[325px] top-[98px] w-[60px] h-[55px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d]\"></div><span data-key=\"assembly-error/v2/visual-768\"  class=\"absolute left-[283px] top-[170px] w-[160px] h-[44px] text-[22px] text-[#333333]\">整流罩</span><div data-key=\"assembly-error/v2/visual-769\"  class=\"absolute left-[45px] top-[238px] w-[190px] h-[125px] bg-[#ffffff] border-[2px] border-[#999999] rounded-[10px]\"></div><div data-key=\"assembly-error/v2/visual-770\"  class=\"absolute left-[110px] top-[252px] w-[55px] h-[55px] bg-[#a6a6a6] border-[2px] border-[#4d4d4d] rounded-[6px]\"></div><span data-key=\"assembly-error/v2/visual-771\"  class=\"absolute left-[63px] top-[320px] w-[160px] h-[44px] text-[22px] text-[#333333]\">上级箭体</span><div data-key=\"assembly-error/v2/visual-772\"  class=\"absolute left-[265px] top-[238px] w-[190px] h-[125px] bg-[#ffffff] border-[2px] border-[#999999] rounded-[10px]\"></div><div data-key=\"assembly-error/v2/visual-773\"  class=\"absolute left-[330px] top-[252px] w-[55px] h-[55px] bg-[#a6a6a6] border-[2px] border-[#4d4d4d] rounded-[6px]\"></div><span data-key=\"assembly-error/v2/visual-774\"  class=\"absolute left-[283px] top-[320px] w-[160px] h-[44px] text-[22px] text-[#333333]\">下级箭体</span><div data-key=\"assembly-error/v2/visual-775\"  class=\"absolute left-[565px] top-[20px] w-[400px] h-[380px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[16px]\"></div><span data-key=\"assembly-error/v2/visual-776\"  class=\"absolute left-[590px] top-[34px] w-[250px] h-[50px] text-[25px] text-[#333333]\">装配区</span><div data-key=\"assembly-error/v2/visual-777\"  class=\"absolute left-[725px] top-[122.3px] w-[65.8px] h-[183.3px] bg-[#f7f7f7] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"assembly-error/v2/visual-778\"  class=\"absolute left-[725px] top-[80px] w-[65.8px] h-[47px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"assembly-error/v2/visual-779\"  class=\"absolute left-[736.28px] top-[134.52px] w-[43.24px] h-[32.9px] bg-[#808080] border-[2px] border-[#404040] rounded-[4px]\"></div><div data-key=\"assembly-error/v2/visual-780\"  class=\"absolute left-[734.4px] top-[178.7px] w-[47px] h-[42.3px] bg-[#c7c7c7] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"assembly-error/v2/visual-781\"  class=\"absolute left-[734.4px] top-[235.1px] w-[47px] h-[47px] bg-[#a6a6a6] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"assembly-error/v2/visual-782\"  class=\"absolute left-[725px] top-[225.7px] w-[65.8px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"assembly-error/v2/visual-783\"  class=\"absolute left-[725px] top-[303.72px] w-[65.8px] h-[28.2px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"assembly-error/v2/visual-784\"  class=\"absolute left-[694.92px] top-[206.9px] w-[23.5px] h-[105.28px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"assembly-error/v2/visual-785\"  class=\"absolute left-[797.38px] top-[206.9px] w-[23.5px] h-[105.28px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"assembly-error/v2/visual-786\"  class=\"absolute left-[734px] top-[132px] w-[48px] h-[32px] bg-[#ffffff] border-[2px] border-[#333333] rounded-[4px]\"></div><span data-key=\"assembly-error/v2/visual-787\"  class=\"absolute left-[825px] top-[132px] w-[130px] h-[44px] text-[22px] text-[#333333]\">载荷槽</span><div data-key=\"assembly-error/v2/visual-788\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"assembly-error/v2/visual-789\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">装配检查</span><span data-key=\"assembly-error/v2/visual-790\"  class=\"absolute left-[1084px] top-[105px] w-[350px] h-[54px] text-[27px] text-[#333333]\">✓ 下级箭体</span><span data-key=\"assembly-error/v2/visual-791\"  class=\"absolute left-[1084px] top-[165px] w-[350px] h-[54px] text-[27px] text-[#333333]\">✓ 上级箭体</span><span data-key=\"assembly-error/v2/visual-792\"  class=\"absolute left-[1084px] top-[225px] w-[350px] h-[54px] text-[27px] text-[#333333]\">○ 有效载荷</span><span data-key=\"assembly-error/v2/visual-793\"  class=\"absolute left-[1084px] top-[285px] w-[350px] h-[54px] text-[27px] text-[#333333]\">○ 级间结构</span><span data-key=\"assembly-error/v2/visual-794\"  class=\"absolute left-[1084px] top-[345px] w-[350px] h-[48px] text-[24px] text-[#333333]\">载荷缺失 / 级间未对齐</span></div></div>",
+  "native": {
+    "assembly-error/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "assembly-error/v2/visual-761": {
+      "figma": {
+        "name": "散件托盘",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-762": {
+      "figma": {
+        "name": "散件标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-763": {
+      "figma": {
+        "name": "散件 / 有效载荷",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-764": {
+      "figma": {
+        "name": "部件形状",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-765": {
+      "figma": {
+        "name": "散件名",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-766": {
+      "figma": {
+        "name": "散件 / 整流罩",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-767": {
+      "figma": {
+        "name": "罩体零件",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 50 Q 30 0 60 50 Z"
+            }
+          ]
+        }
+      }
+    },
+    "assembly-error/v2/visual-768": {
+      "figma": {
+        "name": "散件名",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-769": {
+      "figma": {
+        "name": "散件 / 上级箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-770": {
+      "figma": {
+        "name": "部件形状",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-771": {
+      "figma": {
+        "name": "散件名",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-772": {
+      "figma": {
+        "name": "散件 / 下级箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-773": {
+      "figma": {
+        "name": "部件形状",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-774": {
+      "figma": {
+        "name": "散件名",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-775": {
+      "figma": {
+        "name": "安装槽位",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-776": {
+      "figma": {
+        "name": "装配标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-777": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-778": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "assembly-error/v2/visual-779": {
+      "figma": {
+        "name": "有效载荷",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-780": {
+      "figma": {
+        "name": "上级贮箱",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-781": {
+      "figma": {
+        "name": "下级贮箱",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-782": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-783": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "assembly-error/v2/visual-784": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-785": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-786": {
+      "figma": {
+        "name": "待装载荷槽",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-787": {
+      "figma": {
+        "name": "槽位提示",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-788": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "assembly-error/v2/visual-789": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-790": {
+      "figma": {
+        "name": "检查项0",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-791": {
+      "figma": {
+        "name": "检查项1",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-792": {
+      "figma": {
+        "name": "检查项2",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-793": {
+      "figma": {
+        "name": "检查项3",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "assembly-error/v2/visual-794": {
+      "figma": {
+        "name": "错误",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

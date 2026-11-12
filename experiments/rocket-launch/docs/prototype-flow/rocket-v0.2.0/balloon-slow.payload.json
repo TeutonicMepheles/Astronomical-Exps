@@ -1,0 +1,283 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2205",
+  "markup": "<div data-key=\"balloon-slow/root\" data-node-id=\"648:2205\" class=\"w-[1600px] h-[900px]\"><span data-key=\"balloon-slow/body\" data-node-id=\"648:2207\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"balloon-slow/scene\" data-node-id=\"648:2208\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"balloon-slow/old-scene\" data-node-id=\"648:2209\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"balloon-slow/v2/visual-84\"  class=\"absolute left-[45px] top-[105px] w-[940px] h-[0.01px] bg-transparent border-[2px] border-[#a6a6a6]\"></div><div data-key=\"balloon-slow/v2/visual-85\"  class=\"absolute left-[620px] top-[115px] w-[165px] h-[123.75px] bg-[#b3b3b3] border-[3px] border-[#333333]\"></div><div data-key=\"balloon-slow/v2/visual-86\"  class=\"absolute left-[608px] top-[145px] w-[20px] h-[20px] bg-[#808080] border-[2px] border-[#4d4d4d]\"></div><div data-key=\"balloon-slow/v2/visual-87\"  class=\"absolute left-[465px] top-[166px] w-[120px] h-[0.01px] bg-transparent border-[4px] border-[#404040]\"></div><div data-key=\"balloon-slow/v2/visual-88\"  class=\"absolute left-[465px] top-[156px] w-[16px] h-[20px] bg-transparent border-[4px] border-[#404040]\"></div><span data-key=\"balloon-slow/v2/visual-89\"  class=\"absolute left-[465px] top-[194px] w-[110px] h-[48px] text-[24px] text-[#333333]\">喷气</span><div data-key=\"balloon-slow/v2/visual-90\"  class=\"absolute left-[800px] top-[166px] w-[155px] h-[0.01px] bg-transparent border-[4px] border-[#404040]\"></div><div data-key=\"balloon-slow/v2/visual-91\"  class=\"absolute left-[939px] top-[156px] w-[16px] h-[20px] bg-transparent border-[4px] border-[#404040]\"></div><span data-key=\"balloon-slow/v2/visual-92\"  class=\"absolute left-[830px] top-[194px] w-[130px] h-[48px] text-[24px] text-[#333333]\">运动</span><div data-key=\"balloon-slow/v2/visual-93\"  class=\"absolute left-[565px] top-[151px] w-[25px] h-[3px] bg-[#999999]\"></div><div data-key=\"balloon-slow/v2/visual-94\"  class=\"absolute left-[533px] top-[164px] w-[25px] h-[3px] bg-[#999999]\"></div><div data-key=\"balloon-slow/v2/visual-95\"  class=\"absolute left-[501px] top-[177px] w-[25px] h-[3px] bg-[#999999]\"></div><div data-key=\"balloon-slow/v2/visual-96\"  class=\"absolute left-[145px] top-[350px] w-[170px] h-[20px] bg-[#595959] rounded-[6px]\"></div><div data-key=\"balloon-slow/v2/visual-97\"  class=\"absolute left-[190px] top-[240px] w-[80px] h-[110px] bg-[#cccccc] border-[2px] border-[#4d4d4d] rounded-[10px]\"></div><div data-key=\"balloon-slow/v2/visual-98\"  class=\"absolute left-[225px] top-[135px] w-[10px] h-[105px] bg-[#666666] rounded-[2px]\"></div><div data-key=\"balloon-slow/v2/visual-99\"  class=\"absolute left-[172px] top-[125px] w-[116px] h-[18px] bg-[#404040] rounded-[6px]\"></div><div data-key=\"balloon-slow/v2/visual-100\"  class=\"absolute left-[270px] top-[205px] w-[170px] h-[120px] bg-transparent border-[6px] border-[#666666]\"></div><span data-key=\"balloon-slow/v2/visual-101\"  class=\"absolute left-[185px] top-[378px] w-[120px] h-[42px] text-[24px] text-[#333333]\">气泵</span><div data-key=\"balloon-slow/v2/visual-102\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"balloon-slow/v2/visual-103\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">充气状态</span><span data-key=\"balloon-slow/v2/visual-104\"  class=\"absolute left-[1084px] top-[105px] w-[350px] h-[72px] text-[36px] text-[#333333]\">慢动作</span><div data-key=\"balloon-slow/v2/visual-105\"  class=\"absolute left-[1084px] top-[175px] w-[340px] h-[20px] bg-[#e6e6e6] rounded-[10px]\"></div><div data-key=\"balloon-slow/v2/visual-106\"  class=\"absolute left-[1084px] top-[175px] w-[280px] h-[20px] bg-[#666666] rounded-[10px]\"></div><span data-key=\"balloon-slow/v2/visual-107\"  class=\"absolute left-[1084px] top-[235px] w-[350px] h-[52px] text-[26px] text-[#333333]\">喷气与运动方向相反</span><div data-key=\"balloon-slow/v2/visual-108\"  class=\"absolute left-[1084px] top-[310px] w-[340px] h-[64px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"balloon-slow/v2/visual-109\"  class=\"absolute left-[1104px] top-[328px] w-[300px] h-[48px] text-[24px] text-[#262626]\">重新充气</span></div><div data-key=\"balloon-slow/control/balloon-slow-1\" data-node-id=\"648:2210\" class=\"absolute left-[668px] top-[275px] w-[165px] h-[123.75px] bg-transparent border-transparent\"><span data-key=\"balloon-slow/control/balloon-slow-1/label\" data-node-id=\"648:2211\" class=\"absolute left-[0px] top-[0px] w-[165px] h-[40px] hidden\"></span></div><div data-key=\"balloon-slow/control/balloon-slow-2\" data-node-id=\"648:2212\" class=\"absolute left-[1132px] top-[470px] w-[340px] h-[64px] bg-transparent border-transparent\"><span data-key=\"balloon-slow/control/balloon-slow-2/label\" data-node-id=\"648:2213\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "balloon-slow/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "balloon-slow/v2/visual-84": {
+      "figma": {
+        "name": "实验导轨",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 1000 0"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-slow/v2/visual-85": {
+      "figma": {
+        "name": "气球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-86": {
+      "figma": {
+        "name": "气球喷口",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 0 L 16 8 L 0 16 Z"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-slow/v2/visual-87": {
+      "figma": {
+        "name": "喷气",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 100 0"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-slow/v2/visual-88": {
+      "figma": {
+        "name": "喷气-head",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 16 0 L 0 10 L 16 20"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-slow/v2/visual-89": {
+      "figma": {
+        "name": "喷气标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-slow/v2/visual-90": {
+      "figma": {
+        "name": "运动",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 100 0"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-slow/v2/visual-91": {
+      "figma": {
+        "name": "运动-head",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 16 10 L 0 20"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-slow/v2/visual-92": {
+      "figma": {
+        "name": "运动标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-slow/v2/visual-93": {
+      "figma": {
+        "name": "气流",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-94": {
+      "figma": {
+        "name": "气流",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-95": {
+      "figma": {
+        "name": "气流",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-96": {
+      "figma": {
+        "name": "气泵底座",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-97": {
+      "figma": {
+        "name": "点击气泵",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-98": {
+      "figma": {
+        "name": "活塞杆",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-99": {
+      "figma": {
+        "name": "把手",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-100": {
+      "figma": {
+        "name": "气管",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 C 90 50 140 50 170 -70"
+            }
+          ]
+        }
+      }
+    },
+    "balloon-slow/v2/visual-101": {
+      "figma": {
+        "name": "泵标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-slow/v2/visual-102": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-103": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-slow/v2/visual-104": {
+      "figma": {
+        "name": "气球状态",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-slow/v2/visual-105": {
+      "figma": {
+        "name": "状态轨",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-106": {
+      "figma": {
+        "name": "状态量",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-107": {
+      "figma": {
+        "name": "方向关系",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "balloon-slow/v2/visual-108": {
+      "figma": {
+        "name": "hotspot / 重新充气",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "balloon-slow/v2/visual-109": {
+      "figma": {
+        "name": "label / 重新充气",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

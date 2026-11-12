@@ -1,0 +1,234 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2333",
+  "markup": "<div data-key=\"compare/root\" data-node-id=\"648:2333\" class=\"w-[1600px] h-[900px]\"><span data-key=\"compare/body\" data-node-id=\"648:2335\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"compare/scene\" data-node-id=\"648:2336\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"compare/old-scene\" data-node-id=\"648:2337\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><span data-key=\"compare/v2/visual-391\"  class=\"absolute left-[32px] top-[24px] w-[500px] h-[60px] text-[30px] text-[#333333]\">发射记录</span><span data-key=\"compare/v2/visual-392\"  class=\"absolute left-[40px] top-[85px] w-[230px] h-[50px] text-[25px] text-[#333333]\">记录</span><span data-key=\"compare/v2/visual-393\"  class=\"absolute left-[290px] top-[85px] w-[230px] h-[50px] text-[25px] text-[#333333]\">推力</span><span data-key=\"compare/v2/visual-394\"  class=\"absolute left-[600px] top-[85px] w-[230px] h-[50px] text-[25px] text-[#333333]\">载荷</span><span data-key=\"compare/v2/visual-395\"  class=\"absolute left-[980px] top-[85px] w-[230px] h-[50px] text-[25px] text-[#333333]\">飞行距离</span><div data-key=\"compare/v2/visual-396\"  class=\"absolute left-[24px] top-[132px] w-[1456px] h-[64px] bg-[#ffffff] rounded-[8px]\"></div><span data-key=\"compare/v2/visual-397\"  class=\"absolute left-[40px] top-[146px] w-[250px] h-[52px] text-[26px] text-[#333333]\">01</span><span data-key=\"compare/v2/visual-398\"  class=\"absolute left-[290px] top-[146px] w-[250px] h-[52px] text-[26px] text-[#333333]\">中</span><span data-key=\"compare/v2/visual-399\"  class=\"absolute left-[600px] top-[146px] w-[250px] h-[52px] text-[26px] text-[#333333]\">中</span><span data-key=\"compare/v2/visual-400\"  class=\"absolute left-[980px] top-[146px] w-[250px] h-[52px] text-[26px] text-[#333333]\">—</span><div data-key=\"compare/v2/visual-401\"  class=\"absolute left-[24px] top-[208px] w-[1456px] h-[64px] bg-[#f0f0f0] rounded-[8px]\"></div><span data-key=\"compare/v2/visual-402\"  class=\"absolute left-[40px] top-[222px] w-[250px] h-[52px] text-[26px] text-[#333333]\">02</span><span data-key=\"compare/v2/visual-403\"  class=\"absolute left-[290px] top-[222px] w-[250px] h-[52px] text-[26px] text-[#333333]\">—</span><span data-key=\"compare/v2/visual-404\"  class=\"absolute left-[600px] top-[222px] w-[250px] h-[52px] text-[26px] text-[#333333]\">—</span><span data-key=\"compare/v2/visual-405\"  class=\"absolute left-[980px] top-[222px] w-[250px] h-[52px] text-[26px] text-[#333333]\">—</span><div data-key=\"compare/v2/visual-406\"  class=\"absolute left-[24px] top-[284px] w-[1456px] h-[64px] bg-[#ffffff] rounded-[8px]\"></div><span data-key=\"compare/v2/visual-407\"  class=\"absolute left-[40px] top-[298px] w-[250px] h-[52px] text-[26px] text-[#333333]\">03</span><span data-key=\"compare/v2/visual-408\"  class=\"absolute left-[290px] top-[298px] w-[250px] h-[52px] text-[26px] text-[#333333]\">—</span><span data-key=\"compare/v2/visual-409\"  class=\"absolute left-[600px] top-[298px] w-[250px] h-[52px] text-[26px] text-[#333333]\">—</span><span data-key=\"compare/v2/visual-410\"  class=\"absolute left-[980px] top-[298px] w-[250px] h-[52px] text-[26px] text-[#333333]\">—</span><span data-key=\"compare/v2/visual-411\"  class=\"absolute left-[40px] top-[370px] w-[1000px] h-[46px] text-[23px] text-[#737373]\">示意记录 · 未计算距离</span></div></div>",
+  "native": {
+    "compare/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "compare/v2/visual-391": {
+      "figma": {
+        "name": "记录标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-392": {
+      "figma": {
+        "name": "表头0",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-393": {
+      "figma": {
+        "name": "表头1",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-394": {
+      "figma": {
+        "name": "表头2",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-395": {
+      "figma": {
+        "name": "表头3",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-396": {
+      "figma": {
+        "name": "记录行",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "compare/v2/visual-397": {
+      "figma": {
+        "name": "值00",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-398": {
+      "figma": {
+        "name": "值01",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-399": {
+      "figma": {
+        "name": "值02",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-400": {
+      "figma": {
+        "name": "值03",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-401": {
+      "figma": {
+        "name": "记录行",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "compare/v2/visual-402": {
+      "figma": {
+        "name": "值10",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-403": {
+      "figma": {
+        "name": "值11",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-404": {
+      "figma": {
+        "name": "值12",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-405": {
+      "figma": {
+        "name": "值13",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-406": {
+      "figma": {
+        "name": "记录行",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "compare/v2/visual-407": {
+      "figma": {
+        "name": "值20",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-408": {
+      "figma": {
+        "name": "值21",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-409": {
+      "figma": {
+        "name": "值22",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-410": {
+      "figma": {
+        "name": "值23",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "compare/v2/visual-411": {
+      "figma": {
+        "name": "记录边界",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

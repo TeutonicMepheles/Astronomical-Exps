@@ -1,0 +1,193 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2395",
+  "markup": "<div data-key=\"escape-earth/root\" data-node-id=\"648:2395\" class=\"w-[1600px] h-[900px]\"><span data-key=\"escape-earth/body\" data-node-id=\"648:2397\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"escape-earth/scene\" data-node-id=\"648:2398\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"escape-earth/old-scene\" data-node-id=\"648:2399\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"escape-earth/v2/visual-529\"  class=\"absolute left-[360px] top-[145px] w-[210px] h-[210px] bg-[#c7c7c7] border-[3px] border-[#404040]\"></div><div data-key=\"escape-earth/v2/visual-530\"  class=\"absolute left-[423px] top-[147px] w-[84px] h-[206px] bg-transparent border-[3px] border-[#8c8c8c]\"></div><div data-key=\"escape-earth/v2/visual-531\"  class=\"absolute left-[368px] top-[239.5px] w-[194px] h-[25.2px] bg-transparent border-[2px] border-[#8c8c8c]\"></div><span data-key=\"escape-earth/v2/visual-532\"  class=\"absolute left-[429.3px] top-[239.5px] w-[105px] h-[44px] text-[22px] text-[#333333]\">地球</span><div data-key=\"escape-earth/v2/visual-533\"  class=\"absolute left-[265px] top-[55px] w-[400px] h-[340px] bg-transparent border-[3px] border-[#808080]\"></div><div data-key=\"escape-earth/v2/visual-534\"  class=\"absolute left-[470px] top-[40px] w-[500px] h-[260px] bg-transparent border-[5px] border-[#333333]\"></div><div data-key=\"escape-earth/v2/visual-535\"  class=\"absolute left-[470px] top-[65.8px] w-[16.8px] h-[46.8px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"escape-earth/v2/visual-536\"  class=\"absolute left-[470px] top-[55px] w-[16.8px] h-[12px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"escape-earth/v2/visual-537\"  class=\"absolute left-[470px] top-[92.2px] w-[16.8px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"escape-earth/v2/visual-538\"  class=\"absolute left-[470px] top-[112.12px] w-[16.8px] h-[7.2px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"escape-earth/v2/visual-539\"  class=\"absolute left-[462.32px] top-[87.4px] w-[6px] h-[26.88px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"escape-earth/v2/visual-540\"  class=\"absolute left-[488.48px] top-[87.4px] w-[6px] h-[26.88px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"escape-earth/v2/visual-541\"  class=\"absolute left-[42px] top-[375px] w-[300px] h-[44px] text-[22px] text-[#808080]\">轨迹示意</span><div data-key=\"escape-earth/v2/visual-542\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"escape-earth/v2/visual-543\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">固定速度</span><span data-key=\"escape-earth/v2/visual-544\"  class=\"absolute left-[1084px] top-[105px] w-[350px] h-[84px] text-[42px] text-[#333333]\">11.2 km/s</span><span data-key=\"escape-earth/v2/visual-545\"  class=\"absolute left-[1084px] top-[175px] w-[350px] h-[50px] text-[25px] text-[#333333]\">第二宇宙速度 · 逃离地球</span></div></div>",
+  "native": {
+    "escape-earth/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "escape-earth/v2/visual-529": {
+      "figma": {
+        "name": "地球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "escape-earth/v2/visual-530": {
+      "figma": {
+        "name": "经线",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "escape-earth/v2/visual-531": {
+      "figma": {
+        "name": "纬线",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 30 Q 70 0 140 30"
+            }
+          ]
+        }
+      }
+    },
+    "escape-earth/v2/visual-532": {
+      "figma": {
+        "name": "地球标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "escape-earth/v2/visual-533": {
+      "figma": {
+        "name": "环绕轨迹",
+        "shape": {
+          "type": "ELLIPSE"
+        },
+        "stroke": {
+          "dashPattern": [
+            10,
+            10
+          ]
+        }
+      }
+    },
+    "escape-earth/v2/visual-534": {
+      "figma": {
+        "name": "逃逸轨迹",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 300 C 100 120 140 0 540 0"
+            }
+          ]
+        }
+      }
+    },
+    "escape-earth/v2/visual-535": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "escape-earth/v2/visual-536": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "escape-earth/v2/visual-537": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "escape-earth/v2/visual-538": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "escape-earth/v2/visual-539": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "escape-earth/v2/visual-540": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "escape-earth/v2/visual-541": {
+      "figma": {
+        "name": "尺度说明",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "escape-earth/v2/visual-542": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "escape-earth/v2/visual-543": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "escape-earth/v2/visual-544": {
+      "figma": {
+        "name": "速度",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "escape-earth/v2/visual-545": {
+      "figma": {
+        "name": "速度名称",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

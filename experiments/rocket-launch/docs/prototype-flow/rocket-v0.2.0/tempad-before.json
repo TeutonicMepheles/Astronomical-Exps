@@ -1,0 +1,3929 @@
+[
+  {
+    "roots": [
+      {
+        "id": "648:2169",
+        "name": "start / 火箭发射",
+        "type": "FRAME",
+        "x": 80,
+        "y": 80,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2170",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2171",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2172",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2173",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2174",
+            "name": "control / start-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2175",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2176",
+        "name": "balloon / 1 / 气球反作用力",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 80,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2177",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2178",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2179",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2180",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2181",
+            "name": "control / balloon-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2182",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2183",
+            "name": "control / balloon-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2184",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2185",
+        "name": "inflating / 1 / 充气中",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 80,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2186",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2187",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2188",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2189",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2190",
+            "name": "control / inflating-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2191",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2192",
+            "name": "control / inflating-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2193",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2194",
+        "name": "balloon-flight / 1 / 喷气与运动",
+        "type": "FRAME",
+        "x": 80,
+        "y": 1120,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2195",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2196",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2197",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2198",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2199",
+            "name": "control / balloon-flight-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2200",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2201",
+            "name": "control / balloon-flight-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2202",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2203",
+            "name": "control / balloon-flight-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2204",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2205",
+        "name": "balloon-slow / 1 / 慢动作观察",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 1120,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2206",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2207",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2208",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2209",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2210",
+            "name": "control / balloon-slow-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2211",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2212",
+            "name": "control / balloon-slow-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2213",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2214",
+            "name": "control / balloon-slow-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2215",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2216",
+        "name": "predict / 1 / 地球与太空",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 1120,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2217",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2218",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2219",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2220",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2221",
+            "name": "control / predict-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2222",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2223",
+            "name": "control / predict-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2224",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2225",
+            "name": "control / predict-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2226",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2227",
+        "name": "prediction / 1 / 判断已选择",
+        "type": "FRAME",
+        "x": 80,
+        "y": 2160,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2228",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2229",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2230",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2231",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2232",
+            "name": "control / prediction-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2233",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2234",
+            "name": "control / prediction-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2235",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2236",
+        "name": "prediction-wrong / 1 / 判断已选择",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 2160,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2237",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2238",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2239",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2240",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2241",
+            "name": "control / prediction-wrong-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2242",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2243",
+            "name": "control / prediction-wrong-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2244",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2245",
+        "name": "environment / 1 / 两种环境都能飞",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 2160,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2246",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2247",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2248",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2249",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2250",
+            "name": "control / environment-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2251",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2252",
+            "name": "control / environment-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2253",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2254",
+        "name": "configure / 1 / 设置发射条件",
+        "type": "FRAME",
+        "x": 80,
+        "y": 3200,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2255",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2256",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2257",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2258",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2259",
+            "name": "control / configure-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2260",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2261",
+            "name": "control / configure-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2262",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2263",
+            "name": "control / configure-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2264",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2265",
+            "name": "control / configure-4",
+            "type": "FRAME",
+            "x": 1188,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2266",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2267",
+            "name": "control / configure-5",
+            "type": "FRAME",
+            "x": 48,
+            "y": 745,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2268",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2269",
+            "name": "control / configure-6",
+            "type": "FRAME",
+            "x": 428,
+            "y": 745,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2270",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "roots": [
+      {
+        "id": "648:2271",
+        "name": "thrust / 1 / 推力档位",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 3200,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2272",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2273",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2274",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2275",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2276",
+            "name": "control / thrust-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2277",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2278",
+            "name": "control / thrust-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2279",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2280",
+            "name": "control / thrust-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2281",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2282",
+            "name": "control / thrust-4",
+            "type": "FRAME",
+            "x": 1188,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2283",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2284",
+        "name": "payload / 1 / 载荷档位",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 3200,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2285",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2286",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2287",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2288",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2289",
+            "name": "control / payload-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2290",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2291",
+            "name": "control / payload-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2292",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2293",
+            "name": "control / payload-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2294",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2295",
+            "name": "control / payload-4",
+            "type": "FRAME",
+            "x": 1188,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2296",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2297",
+        "name": "mass / 1 / 箭体自重",
+        "type": "FRAME",
+        "x": 80,
+        "y": 4240,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2298",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2299",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2300",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2301",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2302",
+            "name": "control / mass-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2303",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2304",
+        "name": "flight / 1 / 发射观察",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 4240,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2305",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2306",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2307",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2308",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2309",
+            "name": "control / flight-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2310",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2311",
+            "name": "control / flight-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2312",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2313",
+        "name": "flight-paused / 1 / 发射已暂停",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 4240,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2314",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2315",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2316",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2317",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2318",
+            "name": "control / flight-paused-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2319",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2320",
+            "name": "control / flight-paused-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2321",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2322",
+        "name": "records / 1 / 发射记录",
+        "type": "FRAME",
+        "x": 80,
+        "y": 5280,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2323",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2324",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2325",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2326",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2327",
+            "name": "control / records-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2328",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2329",
+            "name": "control / records-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2330",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2331",
+            "name": "control / records-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2332",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2333",
+        "name": "compare / 1 / 对比记录",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 5280,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2334",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2335",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2336",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2337",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2338",
+            "name": "control / compare-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2339",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2340",
+            "name": "control / compare-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2341",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2342",
+            "name": "control / compare-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2343",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2344",
+        "name": "orbit / 2 / 高度不等于入轨",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 5280,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2345",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2346",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2347",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2348",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2349",
+            "name": "control / orbit-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2350",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2351",
+            "name": "control / orbit-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2352",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2353",
+            "name": "control / orbit-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2354",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2355",
+        "name": "orbit-playing / 2 / 两条轨迹对照",
+        "type": "FRAME",
+        "x": 80,
+        "y": 6320,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2356",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2357",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2358",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2359",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2360",
+            "name": "control / orbit-playing-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2361",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2362",
+            "name": "control / orbit-playing-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2363",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2364",
+        "name": "cannon / 2 / 选择固定速度",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 6320,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2365",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2366",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2367",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2368",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2369",
+            "name": "control / cannon-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2370",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2371",
+            "name": "control / cannon-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2372",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2373",
+            "name": "control / cannon-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2374",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2375",
+            "name": "control / cannon-4",
+            "type": "FRAME",
+            "x": 1188,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2376",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2377",
+            "name": "control / cannon-5",
+            "type": "FRAME",
+            "x": 48,
+            "y": 745,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2378",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2379",
+            "name": "control / cannon-6",
+            "type": "FRAME",
+            "x": 428,
+            "y": 745,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2380",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "roots": [
+      {
+        "id": "648:2381",
+        "name": "fall / 2 / 低速回落",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 6320,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2382",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2383",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2384",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2385",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2386",
+            "name": "control / fall-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2387",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2388",
+        "name": "circular / 2 / 第一宇宙速度",
+        "type": "FRAME",
+        "x": 80,
+        "y": 7360,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2389",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2390",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2391",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2392",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2393",
+            "name": "control / circular-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2394",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2395",
+        "name": "escape-earth / 2 / 第二宇宙速度",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 7360,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2396",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2397",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2398",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2399",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2400",
+            "name": "control / escape-earth-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2401",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2402",
+        "name": "escape-sun / 2 / 第三宇宙速度",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 7360,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2403",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2404",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2405",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2406",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2407",
+            "name": "control / escape-sun-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2408",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2409",
+        "name": "match / 2 / 宇宙速度配对",
+        "type": "FRAME",
+        "x": 80,
+        "y": 8400,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2410",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2411",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2412",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2413",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2414",
+            "name": "control / match-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2415",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2416",
+            "name": "control / match-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2417",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2418",
+        "name": "match-selected / 2 / 为7.9 km/s选择结果",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 8400,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2419",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2420",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2421",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2422",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2423",
+            "name": "control / match-selected-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2424",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2425",
+            "name": "control / match-selected-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2426",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2427",
+            "name": "control / match-selected-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2428",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2429",
+            "name": "control / match-selected-4",
+            "type": "FRAME",
+            "x": 1188,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2430",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2431",
+        "name": "match-error / 2 / 配对需调整",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 8400,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2432",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2433",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2434",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2435",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2436",
+            "name": "control / match-error-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2437",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2438",
+            "name": "control / match-error-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2439",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2440",
+        "name": "match-next / 2 / 完成其余配对",
+        "type": "FRAME",
+        "x": 80,
+        "y": 9440,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2441",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2442",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2443",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2444",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2445",
+            "name": "control / match-next-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2446",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2447",
+            "name": "control / match-next-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2448",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2449",
+            "name": "control / match-next-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2450",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2451",
+        "name": "structure / 3 / 认识两级火箭",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 9440,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2452",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2453",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2454",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2455",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2456",
+            "name": "control / structure-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2457",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2458",
+            "name": "control / structure-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2459",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2460",
+            "name": "control / structure-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2461",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2462",
+        "name": "xray / 3 / 火箭透视",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 9440,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2463",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2464",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2465",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2466",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2467",
+            "name": "control / xray-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2468",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2469",
+            "name": "control / xray-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2470",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2471",
+            "name": "control / xray-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2472",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "roots": [
+      {
+        "id": "648:2473",
+        "name": "part / 3 / 发动机",
+        "type": "FRAME",
+        "x": 80,
+        "y": 10480,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2474",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2475",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2476",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2477",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2478",
+            "name": "control / part-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2479",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2480",
+            "name": "control / part-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2481",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2482",
+            "name": "control / part-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2483",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2484",
+        "name": "assembly / 3 / 拖拽组装",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 10480,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2485",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2486",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2487",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2488",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2489",
+            "name": "control / assembly-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2490",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2491",
+            "name": "control / assembly-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2492",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2493",
+            "name": "control / assembly-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2494",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2495",
+        "name": "assembly-error / 3 / 暂不能点火",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 10480,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2496",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2497",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2498",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2499",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2500",
+            "name": "control / assembly-error-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2501",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2502",
+        "name": "assembled / 3 / 装配检查通过",
+        "type": "FRAME",
+        "x": 80,
+        "y": 11520,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2503",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2504",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2505",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2506",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2507",
+            "name": "control / assembled-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2508",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2509",
+            "name": "control / assembled-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2510",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2511",
+        "name": "separation / 3 / 分离阶段一",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 11520,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2512",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2513",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2514",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2515",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2516",
+            "name": "control / separation-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2517",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2518",
+            "name": "control / separation-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2519",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2520",
+            "name": "control / separation-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2521",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2522",
+        "name": "separation-paused / 3 / 分离演示暂停",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 11520,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2523",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2524",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2525",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2526",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2527",
+            "name": "control / separation-paused-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2528",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2529",
+            "name": "control / separation-paused-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2530",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2531",
+        "name": "interstage / 3 / 分离阶段二",
+        "type": "FRAME",
+        "x": 80,
+        "y": 12560,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2532",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2533",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2534",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2535",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2536",
+            "name": "control / interstage-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2537",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2538",
+            "name": "control / interstage-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2539",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2540",
+            "name": "control / interstage-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2541",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2542",
+        "name": "fairing / 3 / 分离阶段三",
+        "type": "FRAME",
+        "x": 1800,
+        "y": 12560,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2543",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2544",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2545",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2546",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2547",
+            "name": "control / fairing-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2548",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2549",
+            "name": "control / fairing-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2550",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2551",
+            "name": "control / fairing-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2552",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "648:2553",
+        "name": "done / 完成三章探索",
+        "type": "FRAME",
+        "x": 3520,
+        "y": 12560,
+        "width": 1600,
+        "height": 900,
+        "children": [
+          {
+            "id": "648:2554",
+            "name": "title",
+            "type": "TEXT",
+            "x": 48,
+            "y": 40,
+            "width": 1504,
+            "height": 48
+          },
+          {
+            "id": "648:2555",
+            "name": "body",
+            "type": "TEXT",
+            "x": 48,
+            "y": 110,
+            "width": 1504,
+            "height": 29
+          },
+          {
+            "id": "648:2556",
+            "name": "scene-placeholder",
+            "type": "FRAME",
+            "x": 48,
+            "y": 208,
+            "width": 1504,
+            "height": 360,
+            "children": [
+              {
+                "id": "648:2557",
+                "name": "scene",
+                "type": "TEXT",
+                "x": 32,
+                "y": 32,
+                "width": 1440,
+                "height": 38
+              }
+            ]
+          },
+          {
+            "id": "648:2558",
+            "name": "control / done-1",
+            "type": "FRAME",
+            "x": 48,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2559",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2560",
+            "name": "control / done-2",
+            "type": "FRAME",
+            "x": 428,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2561",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          },
+          {
+            "id": "648:2562",
+            "name": "control / done-3",
+            "type": "FRAME",
+            "x": 808,
+            "y": 620,
+            "width": 350,
+            "height": 88,
+            "children": [
+              {
+                "id": "648:2563",
+                "name": "label",
+                "type": "TEXT",
+                "x": 16,
+                "y": 29.5,
+                "width": 318,
+                "height": 29
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

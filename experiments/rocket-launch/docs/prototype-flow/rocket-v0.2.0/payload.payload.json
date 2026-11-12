@@ -1,0 +1,204 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2284",
+  "markup": "<div data-key=\"payload/root\" data-node-id=\"648:2284\" class=\"w-[1600px] h-[900px]\"><span data-key=\"payload/body\" data-node-id=\"648:2286\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"payload/scene\" data-node-id=\"648:2287\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"payload/old-scene\" data-node-id=\"648:2288\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"payload/v2/visual-282\"  class=\"absolute left-[40px] top-[365px] w-[930px] h-[4px] bg-[#808080]\"></div><div data-key=\"payload/v2/visual-283\"  class=\"absolute left-[180px] top-[80px] w-[28px] h-[280px] bg-[#bfbfbf] border-[2px] border-[#666666] rounded-[2px]\"></div><div data-key=\"payload/v2/visual-284\"  class=\"absolute left-[180px] top-[100px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"payload/v2/visual-285\"  class=\"absolute left-[180px] top-[155px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"payload/v2/visual-286\"  class=\"absolute left-[180px] top-[210px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"payload/v2/visual-287\"  class=\"absolute left-[180px] top-[265px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"payload/v2/visual-288\"  class=\"absolute left-[180px] top-[320px] w-[120px] h-[9px] bg-[#a6a6a6]\"></div><div data-key=\"payload/v2/visual-289\"  class=\"absolute left-[460px] top-[130.5px] w-[63px] h-[175.5px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"payload/v2/visual-290\"  class=\"absolute left-[460px] top-[90px] w-[63px] h-[45px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"payload/v2/visual-291\"  class=\"absolute left-[460px] top-[229.5px] w-[63px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"payload/v2/visual-292\"  class=\"absolute left-[460px] top-[304.2px] w-[63px] h-[27px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"payload/v2/visual-293\"  class=\"absolute left-[431.2px] top-[211.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"payload/v2/visual-294\"  class=\"absolute left-[529.3px] top-[211.5px] w-[22.5px] h-[100.8px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"payload/v2/visual-295\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"payload/v2/visual-296\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">发射条件</span><div data-key=\"payload/v2/visual-297\"  class=\"absolute left-[1084px] top-[110px] w-[340px] h-[66px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"payload/v2/visual-298\"  class=\"absolute left-[1104px] top-[128px] w-[300px] h-[48px] text-[24px] text-[#262626]\">轻</span><div data-key=\"payload/v2/visual-299\"  class=\"absolute left-[1084px] top-[195px] w-[340px] h-[66px] bg-[#333333] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"payload/v2/visual-300\"  class=\"absolute left-[1104px] top-[213px] w-[300px] h-[48px] text-[24px] text-[#ffffff]\">中</span><div data-key=\"payload/v2/visual-301\"  class=\"absolute left-[1084px] top-[280px] w-[340px] h-[66px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"payload/v2/visual-302\"  class=\"absolute left-[1104px] top-[298px] w-[300px] h-[48px] text-[24px] text-[#262626]\">重</span></div><div data-key=\"payload/control/payload-1\" data-node-id=\"648:2289\" class=\"absolute left-[1132px] top-[270px] w-[340px] h-[66px] bg-transparent border-transparent\"><span data-key=\"payload/control/payload-1/label\" data-node-id=\"648:2290\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div><div data-key=\"payload/control/payload-2\" data-node-id=\"648:2291\" class=\"absolute left-[1132px] top-[355px] w-[340px] h-[66px] bg-transparent border-transparent\"><span data-key=\"payload/control/payload-2/label\" data-node-id=\"648:2292\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div><div data-key=\"payload/control/payload-3\" data-node-id=\"648:2293\" class=\"absolute left-[1132px] top-[440px] w-[340px] h-[66px] bg-transparent border-transparent\"><span data-key=\"payload/control/payload-3/label\" data-node-id=\"648:2294\" class=\"absolute left-[0px] top-[0px] w-[340px] h-[40px] hidden\"></span></div></div>",
+  "native": {
+    "payload/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "payload/v2/visual-282": {
+      "figma": {
+        "name": "发射台地面",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-283": {
+      "figma": {
+        "name": "发射塔",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-284": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-285": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-286": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-287": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-288": {
+      "figma": {
+        "name": "发射塔横梁",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-289": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-290": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "payload/v2/visual-291": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-292": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "payload/v2/visual-293": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-294": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-295": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-296": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "payload/v2/visual-297": {
+      "figma": {
+        "name": "hotspot / 轻",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-298": {
+      "figma": {
+        "name": "label / 轻",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "payload/v2/visual-299": {
+      "figma": {
+        "name": "hotspot / 中",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-300": {
+      "figma": {
+        "name": "label / 中",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "payload/v2/visual-301": {
+      "figma": {
+        "name": "hotspot / 重",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "payload/v2/visual-302": {
+      "figma": {
+        "name": "label / 重",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

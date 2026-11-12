@@ -1,0 +1,247 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2553",
+  "markup": "<div data-key=\"done/root\" data-node-id=\"648:2553\" class=\"w-[1600px] h-[900px]\"><span data-key=\"done/body\" data-node-id=\"648:2555\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"done/scene\" data-node-id=\"648:2556\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"done/old-scene\" data-node-id=\"648:2557\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"done/v2/visual-938\"  class=\"absolute left-[20px] top-[15px] w-[480px] h-[390px] bg-[#ffffff] border-[2px] border-[#cccccc] rounded-[16px]\"></div><span data-key=\"done/v2/visual-939\"  class=\"absolute left-[48px] top-[36px] w-[400px] h-[56px] text-[28px] text-[#333333]\">01</span><div data-key=\"done/v2/visual-940\"  class=\"absolute left-[165px] top-[100px] w-[170px] h-[130px] bg-[#b3b3b3] border-[3px] border-[#333333]\"></div><div data-key=\"done/v2/visual-941\"  class=\"absolute left-[80px] top-[175px] w-[70px] h-[0.01px] bg-transparent border-[4px] border-[#404040]\"></div><div data-key=\"done/v2/visual-942\"  class=\"absolute left-[80px] top-[165px] w-[16px] h-[20px] bg-transparent border-[4px] border-[#404040]\"></div><span data-key=\"done/v2/visual-943\"  class=\"absolute left-[50px] top-[335px] w-[420px] h-[56px] text-[28px] text-[#333333]\">为什么能飞</span><div data-key=\"done/v2/visual-944\"  class=\"absolute left-[520px] top-[15px] w-[480px] h-[390px] bg-[#ffffff] border-[2px] border-[#cccccc] rounded-[16px]\"></div><span data-key=\"done/v2/visual-945\"  class=\"absolute left-[548px] top-[36px] w-[400px] h-[56px] text-[28px] text-[#333333]\">02</span><div data-key=\"done/v2/visual-946\"  class=\"absolute left-[670px] top-[140px] w-[130px] h-[130px] bg-[#c7c7c7] border-[3px] border-[#404040]\"></div><div data-key=\"done/v2/visual-947\"  class=\"absolute left-[709px] top-[142px] w-[52px] h-[126px] bg-transparent border-[3px] border-[#8c8c8c]\"></div><div data-key=\"done/v2/visual-948\"  class=\"absolute left-[678px] top-[198.5px] w-[114px] h-[15.6px] bg-transparent border-[2px] border-[#8c8c8c]\"></div><span data-key=\"done/v2/visual-949\"  class=\"absolute left-[712.9px] top-[198.5px] w-[65px] h-[44px] text-[22px] text-[#333333]\">地球</span><div data-key=\"done/v2/visual-950\"  class=\"absolute left-[615px] top-[95px] w-[240px] h-[230px] bg-transparent border-[3px] border-[#666666]\"></div><span data-key=\"done/v2/visual-951\"  class=\"absolute left-[550px] top-[335px] w-[420px] h-[56px] text-[28px] text-[#333333]\">得飞多快</span><div data-key=\"done/v2/visual-952\"  class=\"absolute left-[1020px] top-[15px] w-[480px] h-[390px] bg-[#ffffff] border-[2px] border-[#cccccc] rounded-[16px]\"></div><span data-key=\"done/v2/visual-953\"  class=\"absolute left-[1048px] top-[36px] w-[400px] h-[56px] text-[28px] text-[#333333]\">03</span><div data-key=\"done/v2/visual-954\"  class=\"absolute left-[1220px] top-[125.75px] w-[52.5px] h-[146.25px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"done/v2/visual-955\"  class=\"absolute left-[1220px] top-[92px] w-[52.5px] h-[37.5px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"done/v2/visual-956\"  class=\"absolute left-[1220px] top-[208.25px] w-[52.5px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"done/v2/visual-957\"  class=\"absolute left-[1220px] top-[270.5px] w-[52.5px] h-[22.5px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"done/v2/visual-958\"  class=\"absolute left-[1196px] top-[193.25px] w-[18.75px] h-[84px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"done/v2/visual-959\"  class=\"absolute left-[1277.75px] top-[193.25px] w-[18.75px] h-[84px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"done/v2/visual-960\"  class=\"absolute left-[1050px] top-[335px] w-[420px] h-[56px] text-[28px] text-[#333333]\">结构与组装</span></div></div>",
+  "native": {
+    "done/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "done/v2/visual-938": {
+      "figma": {
+        "name": "章节卡0",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "done/v2/visual-939": {
+      "figma": {
+        "name": "章节序号0",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "done/v2/visual-940": {
+      "figma": {
+        "name": "气球图",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "done/v2/visual-941": {
+      "figma": {
+        "name": "气流箭头",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 0 L 100 0"
+            }
+          ]
+        }
+      }
+    },
+    "done/v2/visual-942": {
+      "figma": {
+        "name": "气流箭头-head",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 16 0 L 0 10 L 16 20"
+            }
+          ]
+        }
+      }
+    },
+    "done/v2/visual-943": {
+      "figma": {
+        "name": "章节名0",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "done/v2/visual-944": {
+      "figma": {
+        "name": "章节卡1",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "done/v2/visual-945": {
+      "figma": {
+        "name": "章节序号1",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "done/v2/visual-946": {
+      "figma": {
+        "name": "地球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "done/v2/visual-947": {
+      "figma": {
+        "name": "经线",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "done/v2/visual-948": {
+      "figma": {
+        "name": "纬线",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 30 Q 70 0 140 30"
+            }
+          ]
+        }
+      }
+    },
+    "done/v2/visual-949": {
+      "figma": {
+        "name": "地球标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "done/v2/visual-950": {
+      "figma": {
+        "name": "环绕",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "done/v2/visual-951": {
+      "figma": {
+        "name": "章节名1",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "done/v2/visual-952": {
+      "figma": {
+        "name": "章节卡2",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "done/v2/visual-953": {
+      "figma": {
+        "name": "章节序号2",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "done/v2/visual-954": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "done/v2/visual-955": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "done/v2/visual-956": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "done/v2/visual-957": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "done/v2/visual-958": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "done/v2/visual-959": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "done/v2/visual-960": {
+      "figma": {
+        "name": "章节名2",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

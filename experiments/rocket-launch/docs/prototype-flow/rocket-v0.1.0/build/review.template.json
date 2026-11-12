@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "artifact_digest": "a7417c43865d0bb7ce76026df426b8aa900aa1d49c2b2163c8e740546728b3e3",
+  "prototype_version": "0.1.0",
+  "evidence_digest": null,
+  "file_key": null,
+  "page_id": null,
+  "reviewer": "",
+  "reviewed_at": "",
+  "decision": "pending",
+  "scenario_runs": [
+    {
+      "id": "course-path",
+      "status": "not_run",
+      "evidence": "",
+      "notes": ""
+    },
+    {
+      "id": "cancel-inflation",
+      "status": "not_run",
+      "evidence": "",
+      "notes": ""
+    },
+    {
+      "id": "cancel-flight",
+      "status": "not_run",
+      "evidence": "",
+      "notes": ""
+    },
+    {
+      "id": "repeat-records",
+      "status": "not_run",
+      "evidence": "",
+      "notes": ""
+    },
+    {
+      "id": "repair-assembly",
+      "status": "not_run",
+      "evidence": "",
+      "notes": ""
+    },
+    {
+      "id": "retry-match",
+      "status": "not_run",
+      "evidence": "",
+      "notes": ""
+    },
+    {
+      "id": "compare-speeds",
+      "status": "not_run",
+      "evidence": "",
+      "notes": ""
+    }
+  ],
+  "criteria": {
+    "task_clarity": {
+      "score": null,
+      "reason": ""
+    },
+    "action_discoverability": {
+      "score": null,
+      "reason": ""
+    },
+    "state_feedback": {
+      "score": null,
+      "reason": ""
+    },
+    "recovery_clarity": {
+      "score": null,
+      "reason": ""
+    },
+    "teaching_flow": {
+      "score": null,
+      "reason": ""
+    }
+  },
+  "preferences": [],
+  "next_changes": [],
+  "notice": "Candidate rubric, not calibrated personal labels. Record real Present-mode runs; never fill from expected behavior."
+}

@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "id": "earth-observation-starter",
+  "version": "0.1.0",
+  "parent_digest": null,
+  "title": "地球周长 · 观测到计算灰度流程",
+  "target": "figma-native-grayscale",
+  "change_summary": "首版流程工具样例，非正式实验验收版本。",
+  "scope": "展示选点、手动对齐、测影、经线点选测距、返回和记录失效。只做有限状态灰度交互，不模拟科学计算、自由三维拖动、连续输入、动画或全量教学。",
+  "canvas": {
+    "width": 1600,
+    "height": 900
+  },
+  "entry": "choose",
+  "requirements": [
+    {
+      "id": "whiteboard",
+      "kind": "project_constraint",
+      "text": "16:9，以点按和拖拽为主，不依赖悬停或滚动。",
+      "source": "AGENTS.md; Visual-Spec/VISUAL_SPEC.md#展示与交互约定"
+    },
+    {
+      "id": "manual-noon",
+      "kind": "confirmed_requirement",
+      "text": "点选后保留当前自转，由学生自行对齐正午。",
+      "source": "experiments/earth-circumference/REQUIREMENTS.md#2026-11-09 用户确认的选点到观测展示流程"
+    },
+    {
+      "id": "measure-order",
+      "kind": "confirmed_requirement",
+      "text": "观测点测量完成即可继续，第三阶段依次点观测点和直射点。",
+      "source": "experiments/earth-circumference/REQUIREMENTS.md"
+    },
+    {
+      "id": "simple-layout",
+      "kind": "candidate",
+      "text": "固定场景区和下方动作区，仅是首版编译器布局，等待用户评价。",
+      "source": "tools/prototype-flow/README.md"
+    }
+  ],
+  "uncertainties": [
+    "科学参数、单位、误差与特殊角度处理参照 Function-Spec/OPEN_DECISIONS.md，不能从本样例推断已确认。",
+    "ON_DRAG 只表示离散状态跳转，不是真实进度拖动。",
+    "场景均为文字灰度占位，需在 Figma 视觉审查中决定下一版细节。"
+  ],
+  "states": [
+    {
+      "id": "choose",
+      "title": "选择一个观测点",
+      "kind": "entry",
+      "body": "先点选位置，不自动转到当地正午。",
+      "scene": "地球示意占位：仅太阳直射点已有标记。",
+      "controls": [
+        {
+          "id": "select-observer",
+          "label": "点选观测点",
+          "target": "selected",
+          "trigger": "ON_CLICK",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "selected",
+      "title": "手动对齐当地正午",
+      "kind": "task",
+      "body": "位置已经选中。自己拖动自转进度，观察当地时间。",
+      "scene": "地球示意占位：观测点、当地时间、同经线参考点。",
+      "controls": [
+        {
+          "id": "align-noon",
+          "label": "拖动进度，对齐正午",
+          "target": "aligned",
+          "trigger": "ON_DRAG",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "reselect",
+          "label": "返回重新选点",
+          "target": "choose",
+          "trigger": "ON_CLICK",
+          "role": "recovery",
+          "x": 528,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "aligned",
+      "title": "进入实景观测",
+      "kind": "task",
+      "body": "正午已对齐。点击观测点的缩略图进入测量。",
+      "scene": "方形观测缩略图占位：只在观测点显示，不给直射点添加入口。",
+      "controls": [
+        {
+          "id": "open-observation",
+          "label": "点击观测缩略图",
+          "target": "observing",
+          "trigger": "ON_CLICK",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "back-to-selected",
+          "label": "返回对齐（保留位置）",
+          "target": "selected",
+          "trigger": "ON_CLICK",
+          "role": "recovery",
+          "x": 528,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "observing",
+      "title": "测量观测点影长",
+      "kind": "task",
+      "body": "仅测量观测点。直射点信息可查看，但不作为推进条件。",
+      "scene": "测量面板占位：杆、影、角度；数值和测量手势不在本原型模拟范围。",
+      "controls": [
+        {
+          "id": "measure-shadow",
+          "label": "完成影长测量（模拟）",
+          "target": "measured",
+          "trigger": "ON_CLICK",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "close-observation",
+          "label": "关闭观测面板",
+          "target": "aligned",
+          "trigger": "ON_CLICK",
+          "role": "recovery",
+          "x": 528,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "measured",
+      "title": "测量已记录",
+      "kind": "feedback",
+      "body": "本次测量完成，可以进入经线测距。若改变日期或位置，旧测量失效。",
+      "scene": "只展示记录状态，不伪造影长、角度或误差。",
+      "controls": [
+        {
+          "id": "continue-distance",
+          "label": "进入经线测距",
+          "target": "distance",
+          "trigger": "ON_CLICK",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "redo-shadow",
+          "label": "重新测量",
+          "target": "observing",
+          "trigger": "ON_CLICK",
+          "role": "secondary",
+          "x": 528,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "change-context",
+          "label": "改变日期/位置（异常样例）",
+          "target": "invalidated",
+          "trigger": "ON_CLICK",
+          "role": "secondary",
+          "x": 1008,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "distance",
+      "title": "选择测距起点",
+      "kind": "task",
+      "body": "按顺序点击观测点，再点击同经线太阳直射点。",
+      "scene": "地球经线示意占位：等待选择观测点。",
+      "controls": [
+        {
+          "id": "pick-distance-start",
+          "label": "点击观测点",
+          "target": "endpoint",
+          "trigger": "ON_CLICK",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "back-to-measurement",
+          "label": "返回测量记录",
+          "target": "measured",
+          "trigger": "ON_CLICK",
+          "role": "recovery",
+          "x": 528,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "endpoint",
+      "title": "选择测距终点",
+      "kind": "task",
+      "body": "起点已选中。点击同经线太阳直射点，完成连接。",
+      "scene": "同经线高亮占位：起点已选，终点未选。",
+      "controls": [
+        {
+          "id": "pick-distance-end",
+          "label": "点击太阳直射点",
+          "target": "ready",
+          "trigger": "ON_CLICK",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "cancel-distance",
+          "label": "取消本次测距",
+          "target": "distance",
+          "trigger": "ON_CLICK",
+          "role": "recovery",
+          "x": 528,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "ready",
+      "title": "距离已记录",
+      "kind": "feedback",
+      "body": "连接完成后才可计算。这里仅模拟状态，不提供测距结果。",
+      "scene": "同经线连接占位：弧长记录状态完成，不是屏幕直线距离。",
+      "controls": [
+        {
+          "id": "calculate",
+          "label": "展示计算过程（模拟）",
+          "target": "result",
+          "trigger": "ON_CLICK",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "remeasure-distance",
+          "label": "重新测距",
+          "target": "distance",
+          "trigger": "ON_CLICK",
+          "role": "recovery",
+          "x": 528,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "invalidate-record",
+          "label": "改变日期/位置（异常样例）",
+          "target": "invalidated",
+          "trigger": "ON_CLICK",
+          "role": "secondary",
+          "x": 1008,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "result",
+      "title": "回顾观测—测量—计算",
+      "kind": "terminal",
+      "body": "解释输入来源与代入关系。数值、公式边界和误差留待科学评审。",
+      "scene": "过程摘要占位：杆影角 / 同经线距离 / 周长；本原型不计算、不显示答案。",
+      "controls": [
+        {
+          "id": "restart",
+          "label": "重新开始",
+          "target": "choose",
+          "trigger": "ON_CLICK",
+          "role": "primary",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        },
+        {
+          "id": "revisit-distance",
+          "label": "返回复核测距",
+          "target": "distance",
+          "trigger": "ON_CLICK",
+          "role": "secondary",
+          "x": 528,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "invalidated",
+      "title": "旧记录已经失效",
+      "kind": "feedback",
+      "body": "日期或位置变化后，需要重新对齐和测量，不能直接沿用旧距离。",
+      "scene": "异常恢复示意：旧记录不可用。这里不是网络错误，也不模拟真实持久化。",
+      "controls": [
+        {
+          "id": "recover-observation",
+          "label": "返回对齐并重新观测",
+          "target": "selected",
+          "trigger": "ON_CLICK",
+          "role": "recovery",
+          "x": 48,
+          "y": 680,
+          "width": 440,
+          "height": 80
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "complete-flow",
+      "category": "happy",
+      "start": "choose",
+      "steps": [
+        "select-observer",
+        "align-noon",
+        "open-observation",
+        "measure-shadow",
+        "continue-distance",
+        "pick-distance-start",
+        "pick-distance-end",
+        "calculate"
+      ],
+      "end": "result",
+      "expected": "手动对齐后才进入观测；完成两点测距后才可展示计算过程。"
+    },
+    {
+      "id": "cancel-and-return",
+      "category": "cancel",
+      "start": "aligned",
+      "steps": [
+        "open-observation",
+        "close-observation",
+        "open-observation",
+        "measure-shadow",
+        "continue-distance",
+        "pick-distance-start",
+        "cancel-distance"
+      ],
+      "end": "distance",
+      "expected": "关闭面板返回已对齐状态；取消测距回到起点选择，不错误标记为已完成。"
+    },
+    {
+      "id": "repeat-measurement",
+      "category": "repeat",
+      "start": "ready",
+      "steps": [
+        "remeasure-distance",
+        "pick-distance-start",
+        "pick-distance-end",
+        "calculate",
+        "revisit-distance",
+        "pick-distance-start",
+        "pick-distance-end"
+      ],
+      "end": "ready",
+      "expected": "反复返回与重测仍可完成，所有控件存在可用跳转。"
+    },
+    {
+      "id": "invalidate-and-recover",
+      "category": "error",
+      "start": "ready",
+      "steps": [
+        "invalidate-record",
+        "recover-observation",
+        "align-noon",
+        "open-observation",
+        "measure-shadow",
+        "continue-distance",
+        "pick-distance-start",
+        "pick-distance-end"
+      ],
+      "end": "ready",
+      "expected": "改变条件使旧记录不可用，经重新观测和测距才能回到可计算状态。"
+    }
+  ]
+}

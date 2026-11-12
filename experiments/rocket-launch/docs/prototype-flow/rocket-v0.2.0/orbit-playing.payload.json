@@ -1,0 +1,326 @@
+{
+  "mode": "update",
+  "targetNodeId": "648:2355",
+  "markup": "<div data-key=\"orbit-playing/root\" data-node-id=\"648:2355\" class=\"w-[1600px] h-[900px]\"><span data-key=\"orbit-playing/body\" data-node-id=\"648:2357\" class=\"absolute left-[48px] top-[110px] w-[1504px] h-[40px] hidden\"></span><div data-key=\"orbit-playing/scene\" data-node-id=\"648:2358\" class=\"absolute left-[48px] top-[160px] w-[1504px] h-[420px] bg-[#fafafa] overflow-hidden\"><span data-key=\"orbit-playing/old-scene\" data-node-id=\"648:2359\" class=\"absolute left-[32px] top-[32px] w-[1440px] h-[40px] hidden\"></span><div data-key=\"orbit-playing/v2/visual-443\"  class=\"absolute left-[180px] top-[145px] w-[180px] h-[180px] bg-[#c7c7c7] border-[3px] border-[#404040]\"></div><div data-key=\"orbit-playing/v2/visual-444\"  class=\"absolute left-[234px] top-[147px] w-[72px] h-[176px] bg-transparent border-[3px] border-[#8c8c8c]\"></div><div data-key=\"orbit-playing/v2/visual-445\"  class=\"absolute left-[188px] top-[226px] w-[164px] h-[21.6px] bg-transparent border-[2px] border-[#8c8c8c]\"></div><span data-key=\"orbit-playing/v2/visual-446\"  class=\"absolute left-[239.4px] top-[226px] w-[90px] h-[44px] text-[22px] text-[#333333]\">地球</span><div data-key=\"orbit-playing/v2/visual-447\"  class=\"absolute left-[700px] top-[145px] w-[180px] h-[180px] bg-[#c7c7c7] border-[3px] border-[#404040]\"></div><div data-key=\"orbit-playing/v2/visual-448\"  class=\"absolute left-[754px] top-[147px] w-[72px] h-[176px] bg-transparent border-[3px] border-[#8c8c8c]\"></div><div data-key=\"orbit-playing/v2/visual-449\"  class=\"absolute left-[708px] top-[226px] w-[164px] h-[21.6px] bg-transparent border-[2px] border-[#8c8c8c]\"></div><span data-key=\"orbit-playing/v2/visual-450\"  class=\"absolute left-[759.4px] top-[226px] w-[90px] h-[44px] text-[22px] text-[#333333]\">地球</span><div data-key=\"orbit-playing/v2/visual-451\"  class=\"absolute left-[210px] top-[40px] w-[120px] h-[200px] bg-transparent border-[4px] border-[#404040]\"></div><div data-key=\"orbit-playing/v2/visual-452\"  class=\"absolute left-[625px] top-[65px] w-[340px] h-[320px] bg-transparent border-[3px] border-[#4d4d4d]\"></div><div data-key=\"orbit-playing/v2/visual-453\"  class=\"absolute left-[245px] top-[51.25px] w-[17.5px] h-[48.75px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"orbit-playing/v2/visual-454\"  class=\"absolute left-[245px] top-[40px] w-[17.5px] h-[12.5px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"orbit-playing/v2/visual-455\"  class=\"absolute left-[245px] top-[78.75px] w-[17.5px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"orbit-playing/v2/visual-456\"  class=\"absolute left-[245px] top-[99.5px] w-[17.5px] h-[7.5px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"orbit-playing/v2/visual-457\"  class=\"absolute left-[237px] top-[73.75px] w-[6.25px] h-[28px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"orbit-playing/v2/visual-458\"  class=\"absolute left-[264.25px] top-[73.75px] w-[6.25px] h-[28px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"orbit-playing/v2/visual-459\"  class=\"absolute left-[805px] top-[66.25px] w-[17.5px] h-[48.75px] bg-[#ebebeb] border-[2px] border-[#4d4d4d] rounded-[8px]\"></div><div data-key=\"orbit-playing/v2/visual-460\"  class=\"absolute left-[805px] top-[55px] w-[17.5px] h-[12.5px] bg-[#b8b8b8] border-[2px] border-[#404040]\"></div><div data-key=\"orbit-playing/v2/visual-461\"  class=\"absolute left-[805px] top-[93.75px] w-[17.5px] h-[1px] bg-[#cccccc]\"></div><div data-key=\"orbit-playing/v2/visual-462\"  class=\"absolute left-[805px] top-[114.5px] w-[17.5px] h-[7.5px] bg-[#595959] border-[2px] border-[#333333]\"></div><div data-key=\"orbit-playing/v2/visual-463\"  class=\"absolute left-[797px] top-[88.75px] w-[6.25px] h-[28px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><div data-key=\"orbit-playing/v2/visual-464\"  class=\"absolute left-[824.25px] top-[88.75px] w-[6.25px] h-[28px] bg-[#b3b3b3] border-[2px] border-[#4d4d4d] rounded-[9px]\"></div><span data-key=\"orbit-playing/v2/visual-465\"  class=\"absolute left-[110px] top-[358px] w-[400px] h-[52px] text-[26px] text-[#333333]\">垂直发射 · 落回</span><span data-key=\"orbit-playing/v2/visual-466\"  class=\"absolute left-[620px] top-[358px] w-[400px] h-[52px] text-[26px] text-[#333333]\">转向水平 · 环绕</span><span data-key=\"orbit-playing/v2/visual-467\"  class=\"absolute left-[880px] top-[90px] w-[120px] h-[44px] text-[22px] text-[#333333]\">转向</span><div data-key=\"orbit-playing/v2/visual-468\"  class=\"absolute left-[1060px] top-[20px] w-[424px] h-[380px] bg-[#ffffff] border-[2px] border-[#d1d1d1] rounded-[16px]\"></div><span data-key=\"orbit-playing/v2/visual-469\"  class=\"absolute left-[1084px] top-[42px] w-[376px] h-[56px] text-[28px] text-[#1f1f1f]\">路径对照</span><div data-key=\"orbit-playing/v2/visual-470\"  class=\"absolute left-[1084px] top-[110px] w-[340px] h-[70px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"orbit-playing/v2/visual-471\"  class=\"absolute left-[1104px] top-[128px] w-[300px] h-[48px] text-[24px] text-[#262626]\">垂直发射</span><div data-key=\"orbit-playing/v2/visual-472\"  class=\"absolute left-[1084px] top-[205px] w-[340px] h-[70px] bg-[#ffffff] border-[2px] border-[#b3b3b3] rounded-[12px]\"></div><span data-key=\"orbit-playing/v2/visual-473\"  class=\"absolute left-[1104px] top-[223px] w-[300px] h-[48px] text-[24px] text-[#262626]\">转向入轨</span></div></div>",
+  "native": {
+    "orbit-playing/scene": {
+      "figma": {
+        "name": "visual-scene"
+      }
+    },
+    "orbit-playing/v2/visual-443": {
+      "figma": {
+        "name": "地球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-444": {
+      "figma": {
+        "name": "经线",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-445": {
+      "figma": {
+        "name": "纬线",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 30 Q 70 0 140 30"
+            }
+          ]
+        }
+      }
+    },
+    "orbit-playing/v2/visual-446": {
+      "figma": {
+        "name": "地球标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "orbit-playing/v2/visual-447": {
+      "figma": {
+        "name": "地球",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-448": {
+      "figma": {
+        "name": "经线",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-449": {
+      "figma": {
+        "name": "纬线",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 0 30 Q 70 0 140 30"
+            }
+          ]
+        }
+      }
+    },
+    "orbit-playing/v2/visual-450": {
+      "figma": {
+        "name": "地球标签",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "orbit-playing/v2/visual-451": {
+      "figma": {
+        "name": "垂直回落",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONE",
+              "data": "M 60 230 Q -30 0 60 15 Q 150 0 60 230"
+            }
+          ]
+        }
+      }
+    },
+    "orbit-playing/v2/visual-452": {
+      "figma": {
+        "name": "转向后环绕",
+        "shape": {
+          "type": "ELLIPSE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-453": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-454": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "orbit-playing/v2/visual-455": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-456": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "orbit-playing/v2/visual-457": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-458": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-459": {
+      "figma": {
+        "name": "箭体",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-460": {
+      "figma": {
+        "name": "整流罩",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 0 45 Q 35 0 70 45 Z"
+            }
+          ]
+        }
+      }
+    },
+    "orbit-playing/v2/visual-461": {
+      "figma": {
+        "name": "divider",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-462": {
+      "figma": {
+        "name": "发动机",
+        "shape": {
+          "type": "VECTOR",
+          "paths": [
+            {
+              "windingRule": "NONZERO",
+              "data": "M 10 0 L 60 0 L 70 30 L 0 30 Z"
+            }
+          ]
+        }
+      }
+    },
+    "orbit-playing/v2/visual-463": {
+      "figma": {
+        "name": "左助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-464": {
+      "figma": {
+        "name": "右助推器",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-465": {
+      "figma": {
+        "name": "左轨迹",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "orbit-playing/v2/visual-466": {
+      "figma": {
+        "name": "右轨迹",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "orbit-playing/v2/visual-467": {
+      "figma": {
+        "name": "转向点",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "orbit-playing/v2/visual-468": {
+      "figma": {
+        "name": "参数面板",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-469": {
+      "figma": {
+        "name": "面板标题",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "orbit-playing/v2/visual-470": {
+      "figma": {
+        "name": "hotspot / 垂直发射",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-471": {
+      "figma": {
+        "name": "label / 垂直发射",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    },
+    "orbit-playing/v2/visual-472": {
+      "figma": {
+        "name": "hotspot / 转向入轨",
+        "shape": {
+          "type": "RECTANGLE"
+        }
+      }
+    },
+    "orbit-playing/v2/visual-473": {
+      "figma": {
+        "name": "label / 转向入轨",
+        "text": {
+          "fontName": {
+            "family": "Noto Sans SC",
+            "style": "Regular"
+          }
+        }
+      }
+    }
+  }
+}

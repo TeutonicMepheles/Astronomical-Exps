@@ -1,0 +1,33 @@
+{
+  "target": {
+    "file_name": "GolajahFarm",
+    "file_key": "VYNptRjckSAEE2Ss3gw5vB",
+    "current_page_id": "0:1",
+    "session_id": "2c686f12-0878-4463-ae90-b21bcbef9675"
+  },
+  "figma_execution": "not_run",
+  "capability_check": {
+    "available": [
+      "apply_canvas",
+      "get_structure",
+      "get_code",
+      "get_screenshot",
+      "list_design_sessions",
+      "manage_design_task"
+    ],
+    "missing": "No raw Plugin API script execution tool exposed by TemPad. Compiler requires async IIFE execution, setReactionsAsync, page.flowStartingPoints and PluginData read/write. Current declarative tool contract does not establish compatibility.",
+    "action": "Deliver compiled scripts; do not replace prototype with static frames or fabricate evidence."
+  },
+  "performance_review": "Offline JSON/graph compilation only; no experiment animation, rendering, texture, storage lifecycle changes. Runtime performance sampling not applicable.",
+  "scope_limits": [
+    "39-state schematic, not full implementation",
+    "No HTML generated",
+    "Hold/release and animations are discrete simulation",
+    "Only first velocity pair has full choice/error path",
+    "No real parameter or record persistence",
+    "Remaining component hotspots not implemented"
+  ],
+  "source_conflicts": [
+    "Summary says audio not required; base specification requires sound. Not resolved by this prototype."
+  ]
+}
