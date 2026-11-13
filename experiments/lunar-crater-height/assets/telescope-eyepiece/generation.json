@@ -1,0 +1,41 @@
+{
+  "nodeKey": "ec4398ba-3bd4-41d7-a991-7b274df1ddee",
+  "data": {
+    "type": "image",
+    "name": "镜筒内壁-Seedream55-写实版01",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017461567_ff810e3580484da7b4b731058b21c032.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Photorealistic macro view looking straight through the inside of a professional astronomical telescope eyepiece barrel, perfectly centered optical axis, exact frontal view, concentric circular opening. A single perfectly round empty near-black aperture centered exactly at 50 percent horizontal and 50 percent vertical; inner opening diameter exactly 64 percent of the square image width. All outside that opening is the interior wall of the optical instrument, continuing off all four edges of the image: deep charcoal black anodized aluminum, several recessed concentric anti-reflection baffle rings, very fine machined grooves, extremely subtle satin brushed metal grain and tiny believable wear marks. Near-black flocked anti-reflective surfaces, authentic dark optical hardware, delicate dim cool gray rim highlights from soft reflected light, deep shadow between baffle rings, realistic depth and tactile craftsmanship. Keep it very dark and restrained, no bright chrome, no shiny plastic, no glowing rings. The entire central opening must be flat empty black with no objects or lens reflections. No moon, no lunar surface, no stars, no sky, no glass glare, no crosshair, no text, no UI, no hands, no people, no exterior telescope body. Clean unobstructed circular viewport, rotational symmetry, seamless black outer corners. High quality physically believable close-up photograph, not an illustration.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "text2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "1:1",
+        "background": "opaque"
+      }
+    },
+    "taskInfo": {
+      "taskId": "20261113092603231147723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    }
+  },
+  "nodeType": "image",
+  "name": "镜筒内壁-Seedream55-写实版01"
+}

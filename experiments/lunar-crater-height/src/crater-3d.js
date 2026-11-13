@@ -268,7 +268,13 @@
     return false;
   }
   function rejectLitPoint(){
-    $('status').textContent='只能选择同一段阴影的开始点和结束点，请点击阴影边界。';
+    $('status').textContent=shadowRanges().length?'只能选择同一段阴影的开始点和结束点，请点击阴影边界。':noShadowMessage;
+  }
+  const noShadowMessage='当前剖面没有可测量的完整阴影。';
+  function updateShadowGuidance(){
+    if(view.points.length||shadowRanges().length)return;
+    $('pickInstruction').textContent='请降低太阳高度角或调整剖切位置。';
+    $('status').textContent=noShadowMessage;
   }
   function shadowRanges(cut=view.cut){
     const ranges=[];let start=null;
@@ -284,7 +290,7 @@
     return ranges;
   }
   function boundaryHit(x,cut=view.cut){
-    const tolerance=10*(topCamera.right-topCamera.left)/topCanvas.clientWidth;
+    const tolerance=10*(topCamera.right-topCamera.left)/topCamera.zoom/topCanvas.clientWidth;
     const ranges=shadowRanges(cut).filter(pair=>view.points.length!==1||pair.includes(view.points[0]));
     let best=null;
     for(const pair of ranges)for(const point of pair){
@@ -423,14 +429,14 @@
     if(!hitTop)return;
     const p=hitTop.point;
     if(!view.measuring&&Math.abs(p.z-view.cut)>9)return;
-    dragLine={x:p.x,z:p.z,startY:e.clientY,cut:view.cut,moved:false};
+    dragLine={x:p.x,z:p.z,startY:e.clientY,cut:view.cut,moved:false,worldPerPixel:(topCamera.top-topCamera.bottom)/topCamera.zoom/topCanvas.getBoundingClientRect().height};
     topCanvas.setPointerCapture(e.pointerId);
   });
   topCanvas.addEventListener('pointermove',e=>{
     if(!dragLine)return;
     const dy=e.clientY-dragLine.startY;
     if(Math.abs(dy)>5)dragLine.moved=true;
-    if(dragLine.moved)setCut(dragLine.cut+dy*(topCamera.top-topCamera.bottom)/topCanvas.getBoundingClientRect().height);
+    if(dragLine.moved)setCut(dragLine.cut+dy*dragLine.worldPerPixel);
   });
   topCanvas.addEventListener('pointerup',()=>{
     if(dragLine&&!dragLine.moved&&view.measuring){
@@ -452,7 +458,7 @@
     if(e.button!==0)return;
     const h=hit(sideCanvas,sideCamera,[cap,sideMesh],e);
     if(!h)return;
-    sectionDrag={startX:e.clientX,cut:view.cut,x:h.point.x,moved:false};
+    sectionDrag={startX:e.clientX,cut:view.cut,x:h.point.x,moved:false,worldPerPixel:(sideCamera.right-sideCamera.left)/sideCamera.zoom/sideCanvas.getBoundingClientRect().width};
     sideCanvas.setPointerCapture(e.pointerId);
     sideCanvas.style.cursor='grabbing';
   });
@@ -460,7 +466,7 @@
     if(!sectionDrag)return;
     const dx=e.clientX-sectionDrag.startX;
     if(Math.abs(dx)>5)sectionDrag.moved=true;
-    if(sectionDrag.moved)setCut(sectionDrag.cut-dx*(sideCamera.right-sideCamera.left)/sideCanvas.getBoundingClientRect().width);
+    if(sectionDrag.moved)setCut(sectionDrag.cut-dx*sectionDrag.worldPerPixel);
   });
   function endSectionDrag(){sectionDrag=null;sideCanvas.style.cursor='grab';}
   sideCanvas.style.cursor='grab';
@@ -482,7 +488,16 @@
     const cutY=(1-cutPoint.y)*h/2;
     // Match the 9 7 dashed reference guide in earth-circumference/textured.html.
     const cutGuide=`<line data-cut-guide x1="0" x2="${w}" y1="${cutY}" y2="${cutY}" stroke="#d6e9ef" stroke-width="3.5" stroke-dasharray="9 7" opacity=".85"/>`;
-    boundaryLayer.innerHTML=cutGuide+(view.measuring?view.points.map((x,i)=>{
+    let readouts='';
+    if(view.points.length===2&&measurementAnimation.phase!=='idle'){
+      const projected=view.points.map(x=>new THREE.Vector3(x,0,view.cut).project(topCamera));
+      const ax=(projected[0].x+1)*w/2,bx=(projected[1].x+1)*w/2,mid=Math.max(w/2-120,Math.min(w/2+120,(ax+bx)/2));
+      const text=(kind,y,value,color)=>`<text data-top-readout="${kind}" x="${mid}" y="${y}" text-anchor="middle" fill="${color}" stroke="#101d2a" stroke-width="5" paint-order="stroke" font-size="20" font-weight="500">${value}</text>`;
+      readouts=animatedLeg(ax,cutY,bx,cutY,'horizontal','#f2d59a');
+      if(view.length!==null)readouts+=text('length',cutY-38,`影长 L = ${view.length.toFixed(2)} 模型单位`,'#f2e1bd');
+      if(view.height!==null)readouts+=text('height',cutY+48,`高度差 Δh = ${view.height.toFixed(2)} 模型单位`,'#a9d8df');
+    }
+    boundaryLayer.innerHTML=cutGuide+readouts+(view.measuring?view.points.map((x,i)=>{
       const p=new THREE.Vector3(x,heightAt(x,view.cut),view.cut).project(topCamera);
       const cx=(p.x+1)*w/2,cy=(1-p.y)*h/2;
       return `<g class="lunar-picked-point" data-point="${i}" data-model-x="${x}" data-model-y="${heightAt(x,view.cut)}" transform="translate(${cx},${cy})"><circle r="11" fill="#152735" stroke="#f2d59a" stroke-width="1.8"/><circle r="4" fill="#f2d59a"/><text y="-20" text-anchor="middle" fill="#f2e1bd" stroke="#101d2a" stroke-width="4" paint-order="stroke" font-size="14">${i===0?'A':'B'}</text></g>`;    }).join(''):'');
@@ -555,16 +570,20 @@
     let measurement='';
     if(view.points.length===2){
       const [x0,x1]=view.points,p=projectPlane(x0,heightAt(x0,view.cut)),q=projectPlane(x1,heightAt(x1,view.cut));
-      const mid=(p.x+q.x)/2,base=p.y,labelY=base+24;
+      const mid=(p.x+q.x)/2,base=p.y;
+      // 放大框出现时，数值移入步骤区下方的天空，避免落在放大框背后。
+      const enlarged=!$('lunarCloseup').hidden;
+      const labelX=enlarged?44:mid,labelY=enlarged?280:base+24,labelAnchor=enlarged?'start':'middle';
       measurement=`<g id="lunarHeightTriangle">${seg(p.x,p.y,q.x,q.y,'#ffe18a',1.4,'5 5')}${animatedLeg(p.x,base,q.x,base,'horizontal','#f2d59a')}${animatedLeg(q.x,base,q.x,q.y,'vertical','#a9d8df')}<text x="${p.x-10}" y="${p.y-12}" fill="#fff0d5" font-size="14">A</text><text x="${q.x+10}" y="${q.y-12}" fill="#fff0d5" font-size="14">B</text></g>`;
       measurement+=angleAnnotation(p)+`<circle cx="${p.x}" cy="${p.y}" r="4" fill="#fff0c9"/><circle cx="${q.x}" cy="${q.y}" r="4" fill="#fff0c9"/>`;
-      if(view.height!==null)measurement+=`<text x="${mid}" y="${labelY}" text-anchor="middle" fill="#f2e1bd" stroke="#102330" stroke-width="4" paint-order="stroke" font-size="14">水平影长 L = ${view.length.toFixed(2)}</text>`;
-      if(view.height!==null)measurement+=`<text x="${mid}" y="${labelY+24}" text-anchor="middle" fill="#a9d8df" stroke="#102330" stroke-width="4" paint-order="stroke" font-size="14">测量估算 Δh = ${view.height.toFixed(2)}</text>`;
+      if(view.height!==null)measurement+=`<text data-measure-label="length" x="${labelX}" y="${labelY}" text-anchor="${labelAnchor}" fill="#f2e1bd" stroke="#102330" stroke-width="4" paint-order="stroke" font-size="14">水平影长 L = ${view.length.toFixed(2)}</text>`;
+      if(view.height!==null)measurement+=`<text data-measure-label="height" x="${labelX}" y="${labelY+24}" text-anchor="${labelAnchor}" fill="#a9d8df" stroke="#102330" stroke-width="4" paint-order="stroke" font-size="14">测量估算 Δh = ${view.height.toFixed(2)}</text>`;
     }
     // 仅天空内设置较宽的拖动命中区，避免光线挡住地形选点。
-    const skyBottom=Math.max(0,Math.min(...Array.from({length:SEG+1},(_,i)=>{
-      const x=-160+i*SIZE/SEG;return projectPlane(x,heightAt(x,view.cut)).y;
-    }))-8);
+    const visibleProfile=Array.from({length:SEG+1},(_,i)=>{
+      const x=-160+i*SIZE/SEG;return projectPlane(x,heightAt(x,view.cut));
+    }).filter(p=>p.x>=0&&p.x<=w);
+    const skyBottom=Math.max(0,Math.min(h,...visibleProfile.map(p=>p.y))-8);
     overlay.innerHTML=`${measurement}<defs><clipPath id="rayDragSky"><rect width="${w}" height="${skyBottom}"/></clipPath></defs><g data-ray-drag="true" aria-label="拖动光线调整太阳高度角" style="pointer-events:stroke;cursor:grab" clip-path="url(#rayDragSky)">${hitRays}</g>`;
   }
   let pending=false;
@@ -577,7 +596,7 @@
     const projected=view.points.map(project);
     const displayScale=sideCanvas.getBoundingClientRect().width/sideCanvas.clientWidth;
     const span=projected.length===2?Math.abs(projected[1].x-projected[0].x)*displayScale:0;
-    panel.hidden=!view.measuring||view.points.length!==2||span>=120;
+    panel.hidden=!view.measuring||view.points.length!==2||measurementAnimation.phase!=='idle'||span>=120;
     panel.dataset.sourceSpan=span.toFixed(1);
     if(panel.hidden){$('closeupOverlay').innerHTML='';return;}
     const w=closeupCanvas.clientWidth,h=closeupCanvas.clientHeight;
@@ -636,6 +655,26 @@
     pending=false;
     fit(topRenderer,topCanvas,topCamera,160);
     fit(sideRenderer,sideCanvas,sideCamera,165);
+    const focused=view.points.length===2&&measurementAnimation.phase!=='idle';
+    // 左侧始终保留稍远的完整月面；测量聚焦只作用于右侧剖面。
+    topCamera.zoom=.82;
+    topCamera.position.set(0,260,0);
+    topCamera.lookAt(0,0,0);
+    topCamera.updateProjectionMatrix();topCamera.updateMatrixWorld();
+    topCanvas.dataset.measureZoom=topCamera.zoom.toFixed(2);
+    let centerX=0,centerY=-7;
+    sideCamera.zoom=1;
+    if(focused){
+      const [a,b]=view.points,ha=heightAt(a,view.cut),hb=heightAt(b,view.cut);
+      sideCamera.zoom=Math.min(8,Math.max(1,Math.min((sideCamera.right-sideCamera.left)*.65/Math.abs(b-a),(sideCamera.top-sideCamera.bottom)*.4/Math.max(6,Math.abs(hb-ha)))));
+      centerX=(a+b)/2;
+      // 线段中心落在右侧视口约 58% 高度处，给上方步骤区和下方结果区留位。
+      centerY=(ha+hb)/2+.08*(sideCamera.top-sideCamera.bottom)/sideCamera.zoom;
+    }
+    sideCamera.position.set(centerX,centerY,255);sideCamera.lookAt(centerX,centerY,0);
+    sideCamera.updateProjectionMatrix();sideCamera.updateMatrixWorld();
+    sideCanvas.dataset.measureZoom=sideCamera.zoom.toFixed(2);
+    $('cutHint').hidden=false;
     topRenderer.render(topScene,topCamera);
     drawCloseup();
     // 局部帧复制后恢复主视图，保证屏幕与后续命中使用原剖面相机。
@@ -643,6 +682,7 @@
     drawBoundaries();
     drawAnnotations();
     updateMeasurementInk();
+    updateShadowGuidance();
   }
   new ResizeObserver(requestRender).observe(topCanvas.parentElement);
   new ResizeObserver(requestRender).observe(sideCanvas.parentElement);
