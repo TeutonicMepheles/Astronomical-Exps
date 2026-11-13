@@ -1,0 +1,30 @@
+{
+  "browser": "157.0.8103.51",
+  "viewport": "1600x900",
+  "durationMs": 2500,
+  "perf": [
+    {
+      "label": "new overview playback",
+      "frames": 188,
+      "p95": 13.400000000000546,
+      "max": 13.5,
+      "longTasks": 0
+    },
+    {
+      "label": "new solar observation playback",
+      "frames": 188,
+      "p95": 13.400000000001455,
+      "max": 13.799999999999272,
+      "longTasks": 0
+    },
+    {
+      "label": "legacy idle",
+      "frames": 189,
+      "p95": 13.400000000000091,
+      "max": 13.599999999999909,
+      "longTasks": 0
+    }
+  ],
+  "errors": [],
+  "remote": []
+}

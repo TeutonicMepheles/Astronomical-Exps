@@ -289,3 +289,80 @@ html, body {
   transition: opacity 0.28s ease, visibility 0s linear 0.28s;
 }
 
+/* 课程层：场景、讲解与推进在同一块 16:9 舞台。 */
+.course-nav {position:absolute;left:56px;right:56px;top:24px;display:flex;gap:12px;justify-content:center}
+button,select {font-family:var(--font-ui,system-ui);font-size:18px;color:#dfeafa}
+.course-nav button,.course-actions button,.extra-controls button,.orbit-controls button,select {min-height:46px;padding:10px 19px;border:1px solid #41516b;border-radius:12px;background:#142138;cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible {outline:2px solid #efd2a0;outline-offset:4px}
+.course-nav button[aria-current="step"],button[aria-pressed="true"] {background:#354052;color:#ffe0ad;border-color:#d4b47e}
+.lesson {position:absolute;left:56px;top:93px;width:1060px;pointer-events:none}
+.lesson h1 {margin:0;font-size:30px;font-weight:500}
+.lesson p {font-size:18px;color:#b3c5dc;line-height:1.6;margin:10px 0}
+.mode-switch {top:202px;left:56px}
+.view-switch {top:202px;right:56px}
+.observer-card {left:56px;top:460px;width:330px}
+.sky-frame {height:185px}
+.stage-name {font-size:28px}
+.rail-head {top:285px;right:56px}
+.course-actions {position:absolute;bottom:22px;left:56px;display:flex;gap:12px}
+.course-actions #courseNext {background:#e3c38d;color:#182236;border-color:#e3c38d}
+.extra-controls {position:absolute;left:485px;bottom:22px;display:flex;gap:16px;align-items:center}
+.scrub {bottom:105px;left:850px;width:630px}
+.transport {bottom:20px}
+.shadow-key {position:absolute;left:440px;bottom:170px;display:flex;gap:24px;color:#cbd5e2;font-size:18px}
+.shadow-key span {padding:12px;background:#1d293b;border-radius:8px}
+.orbit-controls {position:absolute;left:1250px;top:285px;width:290px;padding:20px;background:#101e32;border:1px solid #40516a;border-radius:18px}
+.orbit-controls label {display:block;font-size:18px;margin-bottom:25px}
+.orbit-controls output {float:right;color:#efd2a0;font-variant-numeric:tabular-nums}
+.orbit-controls input {width:100%;margin-top:16px;accent-color:#efd2a0;height:28px;touch-action:none}
+.orbit-controls button {font-size:16px;margin:0 4px 10px 0;padding:8px}
+.orbit-controls p {font-size:17px;line-height:1.6;color:#b8d6d9;margin-bottom:0}
+#stage[data-chapter="0"] .mode-switch,#stage[data-chapter="4"] .mode-switch,
+#stage[data-chapter="0"] .view-switch,#stage[data-chapter="4"] .view-switch,
+#stage[data-chapter="0"] .observer-card,#stage[data-chapter="4"] .observer-card,
+#stage[data-chapter="0"] .rail,#stage[data-chapter="4"] .rail,
+#stage[data-chapter="0"] .scrub,#stage[data-chapter="4"] .scrub,
+#stage[data-chapter="0"] .transport,#stage[data-chapter="4"] .transport,
+#stage[data-chapter="0"] .shadow-key,#stage[data-chapter="4"] .shadow-key,
+#stage[data-chapter="0"] #restartBtn,#stage[data-chapter="4"] #restartBtn,
+#stage[data-chapter="0"] #zoomBtn,#stage[data-chapter="4"] #zoomBtn {display:none}
+#stage:not([data-chapter="0"]):not([data-chapter="4"]) .orbit-controls {display:none}
+.view-switch [data-view="oblique"] {display:none}
+.view-switch {top:196px;right:400px}
+.rail-head {top:260px;font-size:13px}
+.shadow-key {left:440px;bottom:170px}
+.scrub input[type="range"] {height:12px}
+.scrub input[type="range"]::-webkit-slider-thumb {width:26px;height:26px}
+#stage:has(.mode-switch [data-mode="solar"][aria-pressed="true"]) .shadow-key {left:810px;bottom:165px;flex-direction:column;gap:8px}
+/* 观测小窗独占左侧下方；主场景受影面与影锥留在中右区域。 */
+.observer-card {left:56px;top:452px;width:300px}
+.sky-frame {height:190px}
+.shadow-key {display:none !important}
+.sky-caption {font-size:14px;letter-spacing:.04em;color:#cfdaeb}
+.rail-head {top:233px;right:56px}
+.rail-sub,.rail-rest {display:none}
+.observer-key {color:#ffd591;font-weight:500}
+.scrub {width:770px;left:850px}
+.scrub-label {font-size:15px;letter-spacing:0;min-width:150px}
+#phiValue {display:inline-block;min-width:58px;color:#f6d49a;font-variant-numeric:tabular-nums}
+#stage[data-outside="true"] .rail-glow,#stage[data-outside="true"] .rail-head {visibility:hidden}
+#stage[data-outside="true"] .rail-read,#stage[data-outside="true"] .rail-trail {opacity:0}
+#stage[data-outside="true"] .rail-node.is-on {color:#c2d0e6}
+.node-comparison {position:absolute;left:400px;top:196px;display:flex;gap:8px;align-items:center}
+.node-comparison button {height:44px;padding:6px 12px;border:1px solid #41516b;border-radius:10px;background:#142138;color:#dce7f6;font-size:16px;cursor:pointer}
+.node-comparison button[aria-pressed="true"] {color:#ffe1a1;border-color:#ceb381}
+.node-comparison output {position:absolute;top:50px;left:0;white-space:nowrap;font-size:16px;color:#b7d4d9}
+.view-switch {right:56px}
+#stage[data-chapter="0"] .node-comparison,#stage[data-chapter="4"] .node-comparison {display:none}
+.rail-node:disabled {opacity:.4;cursor:default}
+.year-scrub {position:absolute;left:56px;bottom:104px;width:370px;display:flex;gap:14px;align-items:center}
+.year-scrub label {font-size:15px;white-space:nowrap;color:#b9cada}
+.year-scrub output {display:inline-block;min-width:55px;color:#f6d49a;font-variant-numeric:tabular-nums}
+.year-scrub input {width:100%;min-width:80px;height:28px;accent-color:#efd2a0;touch-action:none}
+#stage[data-chapter="0"] .year-scrub,#stage[data-chapter="4"] .year-scrub {display:none}
+.node-comparison button {font-size:15px;padding:6px 10px}
+.year-scrub input {appearance:none;-webkit-appearance:none;background:transparent;height:32px}
+.year-scrub input::-webkit-slider-runnable-track {height:4px;background:#4c5f77;border-radius:2px}
+.year-scrub input::-webkit-slider-thumb {-webkit-appearance:none;width:24px;height:24px;margin-top:-10px;border-radius:50%;background:#efd2a0}
+.year-scrub input::-moz-range-track {height:4px;background:#4c5f77;border-radius:2px}
+.year-scrub input::-moz-range-thumb {width:24px;height:24px;border:0;border-radius:50%;background:#efd2a0}

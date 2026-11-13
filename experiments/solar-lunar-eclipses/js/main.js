@@ -34,6 +34,7 @@
   var labelTimer = 0;
 
   var state = {
+    chapter: 0, orbitPhi: Math.PI, year: 0, orbitPlaying: false, yearPlaying: false, speed: 1,
     mode: 'solar',
     index: 0,
     phi: 0,
@@ -65,11 +66,8 @@
   function orbitView() { return state.view === 'oblique'; }
 
   /* ---------------- 公转进度：节点角度区间就是可拖动范围 ---------------- */
-  function bounds() {
-    if (orbitView()) return [0, TAU];
-    var list = nodesFor(state.mode);
-    return [list[0].phi, list[list.length - 1].phi];
-  }
+  function bounds() { return state.mode === 'solar' ? [0, TAU] : [-Math.PI, Math.PI]; }
+  function eventPhi(phi) { var center=state.mode==='solar'?Math.PI:0;return center+Math.atan2(Math.sin(phi-center),Math.cos(phi-center)); }
 
   function phiFromValue(v) {
     var b = bounds();
@@ -85,6 +83,7 @@
   /* 已经越过的最后一个节点：轨道上的琥珀高亮挂在它身上，
      而不是「最近的节点」——点在两节点之间时，文字不会无归属地来回跳 */
   function crossedIndex(phi) {
+    phi = eventPhi(phi);
     if (orbitView()) return M.clamp(Math.round(phi / QUARTER), 0, 4);
     var list = nodesFor(state.mode);
     var idx = 0;
@@ -97,12 +96,19 @@
   /* 节点上是节点名，落在节点之间就是「偏食 / 全食」这两段之一。
      全食段是食既→生光，也就是已越过节点为 1 / 2 的那两段。 */
   function phaseName(phi) {
-    if (orbitView()) return QUARTER_NAMES[state.mode][Math.round(phi / QUARTER)];
-    var idx = crossedIndex(phi);
-    if (Math.abs(nodesFor(state.mode)[idx].phi - phi) < 0.35 * M.DEG) {
-      return nodesFor(state.mode)[idx].name;
+    var info=M.orbitInfo(phi),m=M.moonAt(phi);
+    if(Math.abs(Math.sin(info.nodeAngle))>.00001){
+      if(state.mode==='lunar'){var status=M.lunarStatus(phi);return status==='total'?'全食':status==='partial'?'偏食':status==='penumbra'?'半影月食':'未发生月食';}
+      var skyState=M.solarSky(phi),visibility=M.sunVisible(skyState.P,skyState.M,M.RM);
+      return visibility<.001?'全食':visibility<.999?'偏食':'未发生日食';
     }
-    return (idx >= 1 && idx <= 2) ? '全食' : '偏食';
+    var p=eventPhi(phi),list=nodesFor(state.mode);
+    if(p<list[0].phi-.001 || p>list[4].phi+.001) {
+      if(state.mode==='lunar' && M.lunarStatus(phi)==='penumbra')return '半影月食';
+      return '未发生'+M.MODES[state.mode].label;
+    }
+    for(var i=0;i<list.length;i++)if(Math.abs(list[i].phi-p)<.001)return list[i].name;
+    var idx=crossedIndex(p);return idx>=1&&idx<=2?'全食':'偏食';
   }
 
   function buildTicks() {
@@ -126,8 +132,10 @@
   }
 
   function syncSlider() {
-    phiRange.value = String(Math.round(valueFromPhi(state.phi)));
-    phiRange.setAttribute('aria-valuetext', phaseName(state.phi));
+    phiRange.value = String(Math.round(valueFromPhi(state.phi)*10)/10);
+    var degrees=(valueFromPhi(state.phi)*.36).toFixed(1);
+    phiRange.setAttribute('aria-valuetext', degrees+'°，'+phaseName(state.phi));
+    document.getElementById('phiValue').textContent=degrees+'°';
   }
 
   function ease(t) {
@@ -159,12 +167,15 @@
 
   function updateUI() {
     var list = nodesFor(state.mode);
-    var name = state.free ? phaseName(state.phi) : list[state.index].name;
-    setLabels(name, M.MODES[state.mode].type);
+    var name = phaseName(state.phi);
+    var inEvent = phaseName(state.phi).indexOf('未发生') !== 0;
+    var type=!inEvent?'完整公转':name==='半影月食'?'半影月食':name==='偏食'?(state.mode==='solar'?'日偏食':'月偏食'):M.MODES[state.mode].type;
+    setLabels(name,type);
+    stage.dataset.outside=String(!inEvent || name==='半影月食');
     /* 斜视档这一框里没有发生食——只对辅助技术说话时也不能说反 */
     live.textContent = state.view === 'oblique'
       ? name + '，斜视图'
-      : name + '，' + M.MODES[state.mode].type;
+      : name + '，完整公转 ' + Math.round(valueFromPhi(state.phi)*.36) + '°';
     stageFill.style.width = (valueFromPhi(state.phi) / 10).toFixed(1) + '%';
     rail.setProgress(state.phi, state.index);
     transport.classList.toggle('is-playing', state.playing);
@@ -172,6 +183,10 @@
     prevBtn.disabled = state.index === 0;
     nextBtn.disabled = state.index === stageCount() - 1;
     syncSlider();
+    var info=M.orbitInfo(state.phi),aligned=Math.abs(Math.sin(info.nodeAngle))<.00001;
+    document.getElementById('nodeStatus').textContent='离交点 '+info.nodeDistance.toFixed(1)+'° · 黄纬 '+info.latitude.toFixed(1)+'°';
+    document.querySelectorAll('.rail-node').forEach(function(b){b.disabled=!aligned;});
+    if(!aligned){prevBtn.disabled=true;nextBtn.disabled=true;}
   }
 
   /* ---------------- 自由拖动：滑块 + 直接拖月球 ---------------- */
@@ -179,6 +194,7 @@
     var b = bounds();
     state.phi = M.clamp(phi, b[0], b[1]);
     state.free = true;
+    state.yearPlaying=false;syncYear();
     state.playing = false;
     move = null;
     if (andIndex !== false) state.index = crossedIndex(state.phi);
@@ -189,68 +205,6 @@
     scrubTo(phiFromValue(Number(phiRange.value)));
   });
 
-  var drag = null;
-
-  /* 屏幕坐标 → 舞台坐标（舞台按窗口等比缩放） */
-  function toStage(e) {
-    var box = sceneCanvas.getBoundingClientRect();
-    var s = box.width / 1600 || 1;
-    return { x: (e.clientX - box.left) / s, y: (e.clientY - box.top) / s };
-  }
-
-  function overMoon(p) {
-    var h = scene.moonScreen();
-    return h && Math.hypot(p.x - h.x, p.y - h.y) <= Math.max(24, h.r + 12);
-  }
-
-  sceneCanvas.addEventListener('pointerdown', function (e) {
-    var p = toStage(e);
-    if (!overMoon(p)) return;
-    var c = scene.earthScreen();
-    drag = { id: e.pointerId, cx: c.x, cy: c.y };
-    state.dragging = true;
-    state.playing = false;
-    move = null;
-    sceneCanvas.setPointerCapture(e.pointerId);
-    sceneCanvas.style.cursor = 'grabbing';
-    e.preventDefault();
-  });
-
-  sceneCanvas.addEventListener('pointermove', function (e) {
-    var p = toStage(e);
-    if (!drag) {
-      sceneCanvas.style.cursor = overMoon(p) ? 'grab' : 'default';
-      return;
-    }
-    if (e.pointerId !== drag.id) return;
-    /* 屏幕 y 向下，公转角逆时针计，所以用由下往上的差值。
-       日食窗口 172.6°–187.4° 跨着 ±180° 的间断点：atan2 超过 180° 会翻成负角，
-       不归一化就会被 clamp 回初亏，等于拖不过食甚。按窗口中点取最近的等价角。 */
-    var a = Math.atan2(drag.cy - p.y, p.x - drag.cx);
-    var b = bounds();
-    a += Math.PI * 2 * Math.round(((b[0] + b[1]) / 2 - a) / (Math.PI * 2));
-    scrubTo(a);
-  });
-
-  sceneCanvas.addEventListener('pointerup', function (e) {
-    if (!drag || e.pointerId !== drag.id) return;
-    drag = null;
-    state.dragging = false;
-    sceneCanvas.style.cursor = 'grab';
-    updateUI();
-  });
-
-  sceneCanvas.addEventListener('pointercancel', function () {
-    if (!drag) return;
-    drag = null;
-    state.dragging = false;
-    sceneCanvas.style.cursor = 'default';
-    updateUI();
-  });
-
-  skyFrame.addEventListener('pointerenter', function () { state.link = true; });
-  skyFrame.addEventListener('pointerleave', function () { state.link = false; });
-
   function durationFor(from, to) {
     var deg = Math.abs(to - from) * 180 / Math.PI;
     return M.clamp(680 + deg * 9, 680, 1500);
@@ -259,6 +213,8 @@
   function stageCount() { return orbitView() ? 5 : nodesFor(state.mode).length; }
 
   function jumpTo(index, immediate) {
+    state.yearPlaying=false;syncYear();
+    state.playing=false;
     index = Math.max(0, Math.min(stageCount() - 1, index));
     state.index = index;
     /* 斜视档的台阶是四个相位，阶段名一律由 phi 推出来 */
@@ -273,33 +229,30 @@
         from: state.phi,
         to: target,
         start: window.performance.now(),
-        dur: durationFor(state.phi, target)
+        dur: durationFor(state.phi, target) / state.speed
       };
     }
     updateUI();
   }
 
   function step(delta) {
-    var list = nodesFor(state.mode);
-    jumpTo(state.index + delta);
+    if(Math.abs(Math.sin(M.orbitInfo(state.phi).nodeAngle))>.00001)return;
+    var list=nodesFor(state.mode),phi=eventPhi(state.phi),target=delta>0?list.length-1:0;
+    if(delta>0){for(var i=0;i<list.length;i++)if(list[i].phi>phi+.001){target=i;break;}}
+    else{for(var i=list.length-1;i>=0;i--)if(list[i].phi<phi-.001){target=i;break;}}
+    jumpTo(target);
   }
 
   function togglePlay() {
-    if (state.playing) {
-      state.playing = false;
-      updateUI();
-      return;
-    }
-    if (state.index >= stageCount() - 1) {
-      jumpTo(0, false);
-    }
-    state.playing = true;
-    holdUntil = window.performance.now() + 520;
-    updateUI();
+    state.yearPlaying=false;syncYear();
+    move=null;state.free=true;
+    if(!state.playing && state.phi>=bounds()[1]-.0001)state.phi=bounds()[0];
+    state.playing=!state.playing;updateUI();
   }
 
   function setMode(mode) {
     if (state.mode === mode) return;
+    state.yearPlaying=false;syncYear();
     state.mode = mode;
     state.playing = false;
     state.index = 0;
@@ -324,28 +277,33 @@
       if (t >= 1) {
         state.phi = move.to;
         move = null;
-        holdUntil = now + (reduce ? 1000 : 900);
+        holdUntil = now + (reduce ? 1000 : 900) / state.speed;
         /* 斜视档的阶段名按 phi 推，动画走完要补一次，否则名字停在上一档 */
-        if (state.free) updateUI();
+        updateUI();
       } else {
         state.phi = move.from + (move.to - move.from) * ease(t);
-      }
-    }
-
-    if (state.playing && !move && now >= holdUntil) {
-      if (state.index < stageCount() - 1) {
-        jumpTo(state.index + 1);
-      } else {
-        state.playing = false;
         updateUI();
       }
     }
 
+    if (state.playing && !move && !document.hidden) {
+      state.phi=Math.min(bounds()[1],state.phi+dt*TAU/24000*state.speed);
+      state.free=true;state.index=crossedIndex(state.phi);
+      if(state.phi>=bounds()[1])state.playing=false;
+      updateUI();
+    }
+
+    if(state.yearPlaying && !document.hidden){
+      applyYear(Math.min(TAU,state.year+dt*TAU/24000*state.speed),false);
+      if(state.year>=TAU){state.yearPlaying=false;syncYear();}
+    }
     if (!state.dragging) syncSlider();
     /* 轨道上的琥珀点跟着 φ 连续走（内部按 t 去重，静止时不写 DOM） */
     rail.setProgress(state.phi, state.index);
-    scene.render(state);
-    sky.render(state);
+    if (state.chapter === 0 || state.chapter === 4) {
+      if (state.orbitPlaying && !document.hidden) { state.orbitPhi += dt * TAU / 24000 * state.speed; if (state.orbitPhi >= TAU) {state.orbitPhi = TAU; state.orbitPlaying = false;} syncOrbit(); }
+      window.CourseOrbit.render(scene, state);
+    } else { scene.render(state); sky.render(state); }
     window.requestAnimationFrame(frame);
   }
 
@@ -364,6 +322,7 @@
     b.addEventListener('click', function () {
       state.view = b.dataset.view;
       scene.setView(state.view);
+      document.getElementById('zoomBtn').setAttribute('aria-pressed','false');
       stage.dataset.view = state.view;
       buildTicks();
       var bb = bounds();
@@ -404,11 +363,92 @@
     else if (mq.addListener) mq.addListener(onMq);
   }
 
+
+  var lessons = [
+    ['为什么不是每个月都有日月食？', '先让月球运行一周，再改变地球公转位置，比较新月、满月与交点的关系。'],
+    ['影子为什么有深浅？', '沿光线观察：本影挡住全部直射阳光，半影只挡住一部分。点击食甚，比较太空影区与地面所见。'],
+    ['日食：月影落向地球', '按五个节点观察月球遮挡太阳；日全食只发生在地面本影覆盖的区域。'],
+    ['月食：月球进入地影', '按五个节点观察月球进入本影。穿过地球大气的阳光经折射到达月球，留下偏红的光。'],
+    ['新月或满月，还需要什么？', '日食需新月、月食需满月，并且月球接近轨道交点。全食还取决于影区覆盖和视直径；接近交点并不保证全食。']
+  ];
+  function syncOrbit() {
+    var degrees = Math.round(state.orbitPhi / M.DEG);
+    document.getElementById('orbitRange').value = degrees;
+    document.getElementById('orbitValue').textContent = degrees + '°';
+    document.getElementById('yearValue').textContent = (state.year / M.DEG).toFixed(1) + '°';
+    document.getElementById('orbitPlay').textContent = state.orbitPlaying ? '暂停公转' : '播放一周';
+    var nearPhase = Math.abs(Math.sin(state.orbitPhi)) < 0.10;
+    var nearNode = Math.abs(Math.sin(state.orbitPhi + state.year)) < 0.10;
+    document.getElementById('orbitStatus').textContent = !nearPhase ? '尚未到新月或满月位置' : !nearNode ? '已到新月或满月，但偏离交点：影轴错开' : '新月或满月接近交点：具备发生食象的几何条件';
+  }
+  function chapter(n) {
+    document.getElementById('zoomBtn').setAttribute('aria-pressed','false');
+    state.yearPlaying=false;syncYear();
+    state.chapter = n; state.playing = false; state.orbitPlaying = false; move = null;
+    stage.dataset.chapter = n;
+    document.getElementById('lessonTitle').textContent = lessons[n][0];
+    document.getElementById('lessonText').textContent = lessons[n][1];
+    document.querySelectorAll('[data-chapter]').forEach(function(b) { b.setAttribute('aria-current', Number(b.dataset.chapter) === n ? 'step' : 'false'); });
+    document.getElementById('courseBack').disabled = n === 0;
+    document.getElementById('courseNext').textContent = n === 4 ? '重新探索 ↺' : ['进入本影与半影 →','观察日食过程 →','观察月食过程 →','回顾发生条件 →'][n];
+    if (n > 0 && n < 4) { setMode(n === 3 ? 'lunar' : 'solar'); state.view = 'earth'; scene.setView('earth'); stage.dataset.view = 'earth'; viewButtons.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.view === 'earth'));}); buildTicks(); jumpTo(n === 1 ? 2 : 0, true); }
+    syncOrbit(); updateUI();
+  }
+  document.querySelectorAll('[data-chapter]').forEach(function(b){ b.addEventListener('click',function(){chapter(Number(b.dataset.chapter));}); });
+  document.getElementById('courseBack').onclick = function(){chapter(Math.max(0,state.chapter-1));};
+  document.getElementById('courseNext').onclick = function(){chapter((state.chapter+1)%5);};
+  document.getElementById('orbitRange').oninput = function(){state.orbitPhi=Number(this.value)*M.DEG;state.orbitPlaying=false;syncOrbit();};
+  document.getElementById('yearRange').oninput = function(){applyYear(Number(this.value)*M.DEG,true);syncOrbit();};
+  document.getElementById('alignedBtn').onclick = function(){applyYear(0,true);syncOrbit();};
+  document.getElementById('missBtn').onclick = function(){applyYear(Math.PI/2,true);syncOrbit();};
+  document.getElementById('orbitPlay').onclick = function(){if(state.orbitPhi>=TAU)state.orbitPhi=0;state.orbitPlaying=!state.orbitPlaying;syncOrbit();};
+  document.getElementById('restartBtn').onclick = function(){scrubTo(bounds()[0]);};
+  document.getElementById('speed').onchange = function(){state.speed=Number(this.value);};
+  document.getElementById('zoomBtn').onclick = function(){var on=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',String(on));scene.setZoom(on?1.35:1);};
+
+  function syncYear(){
+    var degrees=(state.year/M.DEG).toFixed(1),aligned=Math.abs(Math.sin(state.year))<.00001,miss=Math.abs(Math.cos(state.year))<.00001;
+    document.getElementById('earthYearRange').value=degrees;
+    document.getElementById('earthYearValue').textContent=degrees+'°';
+    document.getElementById('earthYearRange').setAttribute('aria-valuetext',degrees+'°，一年公转进度');
+    document.getElementById('yearRange').value=degrees;
+    document.getElementById('yearValue').textContent=degrees+'°';
+    document.getElementById('nodeAligned').setAttribute('aria-pressed',String(aligned));
+    document.getElementById('nodeMiss').setAttribute('aria-pressed',String(miss));
+    document.getElementById('yearPlay').setAttribute('aria-pressed',String(state.yearPlaying));
+    document.getElementById('yearPlay').textContent=state.yearPlaying?'暂停年度对比':'年度对比（定相位）';
+  }
+  function applyYear(angle,manual){
+    state.year=M.clamp(angle,0,TAU);
+    // 日地连线随地球公转旋转；在随日地连线转动的地心视角中，交点线反向转动。
+    M.setNodeAngle(Math.atan2(Math.sin(-state.year),Math.cos(-state.year)));
+    if(manual){state.yearPlaying=false;state.playing=false;state.orbitPlaying=false;move=null;}
+    state.free=true;
+    if(state.chapter>0&&state.chapter<4&&state.view!=='earth'){
+      state.view='earth';scene.setView('earth');stage.dataset.view='earth';document.getElementById('zoomBtn').setAttribute('aria-pressed','false');
+    }
+    var aligned=Math.abs(Math.sin(state.year))<.00001;
+    viewButtons.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.view===state.view));b.disabled=!aligned&&b.dataset.view!=='earth';});
+    syncYear();updateUI();
+  }
+  function compareNodes(angle){applyYear(angle,true);}
+  document.getElementById('earthYearRange').oninput=function(){applyYear(Number(this.value)*M.DEG,true);};
+  document.getElementById('yearPlay').onclick=function(){
+    if(!state.yearPlaying&&state.year>=TAU)applyYear(0,true);
+    state.playing=false;state.orbitPlaying=false;move=null;
+    state.yearPlaying=!state.yearPlaying;syncYear();updateUI();
+  };
+  document.getElementById('overviewBtn').onclick=function(){var on=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',String(on));M.setOverview(on);};
+  document.getElementById('nodeAligned').onclick=function(){compareNodes(0);};
+  document.getElementById('nodeMiss').onclick=function(){compareNodes(Math.PI/2);};
+  document.getElementById('syzygyBtn').onclick=function(){scrubTo(state.mode==='solar'?Math.PI:0);};
+
   fit();
   stage.dataset.view = state.view;
   state.phi = nodesFor('solar')[0].phi;
   rail.setStages(nodesFor('solar'), 'solar');
   buildTicks();
   updateUI();
+  chapter(0);
   window.requestAnimationFrame(frame);
 })();

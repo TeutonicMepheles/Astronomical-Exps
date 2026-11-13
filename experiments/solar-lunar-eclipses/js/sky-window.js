@@ -9,7 +9,8 @@
   var M = global.EclipseModel;
   var TAU = Math.PI * 2;
 
-  function SkyWindow(canvas) {
+  function SkyWindow(canvas, options) {
+    this.materials = options && options.materials;
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.w = 0;
@@ -35,21 +36,41 @@
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.clearRect(0, 0, this.w, this.h);
     if (state.mode === 'solar') this.drawSolar(ctx, M.solarSky(state.phi));
-    else this.drawLunar(ctx, M.moonAt(state.phi));
+    else this.drawOrbitMoon(ctx, M.moonAt(state.phi));
+  };
+
+  SkyWindow.prototype.renderObserved = function (state,observation) {
+    if(state.mode==='solar'){this.renderReference(observation);return;}
+    this.setup();var ctx=this.ctx;ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.clearRect(0,0,this.w,this.h);
+    if(observation.moonAltitude<=0){ctx.fillStyle='#080e1b';ctx.fillRect(0,0,this.w,this.h);ctx.fillStyle='#d8e2ef';ctx.font='16px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：月球在地平线下',this.w/2,this.h/2);ctx.textAlign='left';return;}
+    this.drawOrbitMoon(ctx,observation.M,observation);
+  };
+
+  SkyWindow.prototype.renderLunarScene = function (options) {
+    this.setup();var ctx=this.ctx;ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.clearRect(0,0,this.w,this.h);ctx.fillStyle='#080e1b';ctx.fillRect(0,0,this.w,this.h);
+    if(!options.visible){ctx.fillStyle='#d8e2ef';ctx.font='16px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：月球在地平线下',this.w/2,this.h/2);ctx.textAlign='left';return;}
+    var R=this.h*.34,side=R/.47;ctx.drawImage(options.texture,this.w/2-side/2,this.h/2-side/2,side,side);options.shadow(ctx,{width:this.w,height:this.h,dpr:this.dpr});
+  };
+
+  SkyWindow.prototype.renderReference = function (sky) {
+    this.setup();var ctx=this.ctx;ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.clearRect(0,0,this.w,this.h);this.drawSolar(ctx,sky);
   };
 
   SkyWindow.prototype.drawSolar = function (ctx, sky) {
     var w = this.w, h = this.h;
+    var altitude=sky.altitude===undefined?M.dot(M.unit(sky.P),M.unit(M.sub(M.SUN,sky.P))):sky.altitude;
+    if(altitude<=0){ctx.fillStyle='#080e1b';ctx.fillRect(0,0,w,h);ctx.fillStyle='#d8e2ef';ctx.font='16px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：太阳在地平线下',w/2,h/2);ctx.textAlign='left';return;}
     var cx = w / 2, cy = h / 2;
     var extent = Math.max(sky.moonR * 1.5, Math.min(0.7, sky.sep) + sky.moonR * 0.75);
+    if(sky.visibility!==undefined)extent=Math.max(sky.sunR*1.3,Math.min(.7,sky.sep)+sky.moonR)*1.1;
     var K = (h * 0.46) / extent;
     var Rs = sky.sunR * K;
     var Rm = sky.moonR * K;
     var side = sky.cross >= 0 ? 1 : -1;
     var sep = sky.sep * K;
-    var mx = cx, my = cy - side * sep;
+    var mx = sky.offsetX===undefined?cx:cx+sky.offsetX*K, my = sky.offsetY===undefined?cy-side*sep:cy-sky.offsetY*K;
 
-    var vis = M.sunVisible(sky.P, sky.M, M.RM);
+    var vis = sky.visibility===undefined?M.sunVisible(sky.P, sky.M, M.RM):sky.visibility;
     var light = 0.09 + 0.91 * Math.pow(vis, 0.55);
 
     var g = ctx.createLinearGradient(0, 0, 0, h);
@@ -60,7 +81,7 @@
     ctx.fillRect(0, 0, w, h);
 
     var total = sky.sep <= Math.max(0, sky.moonR - sky.sunR);
-    var ring = M.clamp(1 - sky.sep / Math.max(1e-6, sky.moonR - sky.sunR), 0, 1);
+    var ring = total ? M.clamp(1 - sky.sep / Math.max(1e-6, sky.moonR - sky.sunR), 0, 1) : 0;
 
     if (ring > 0.001) {
       var cg = ctx.createRadialGradient(mx, my, Rm * 0.96, mx, my, Rm * 2.1);
@@ -104,10 +125,10 @@
     ctx.stroke();
   };
 
-  SkyWindow.prototype.drawLunar = function (ctx, moon) {
+  SkyWindow.prototype.drawLunar = function (ctx, moon, observation) {
     var w = this.w, h = this.h;
     var cx = w / 2, cy = h / 2;
-    var dist = M.len(moon);
+    var dist = observation?M.dist(moon,observation.P):M.len(moon);
     var R = h * 0.34;
     var K = R * dist / M.RM;
 
@@ -129,19 +150,23 @@
 
     var cone = M.cone(M.EARTH, M.RE);
     var x = Math.max(0.2, moon.x);
-    var ru = cone.umbraRadiusAt(x);
-    var rp = cone.penumbraRadiusAt(x);
+    var ru = moon.x > 0 ? cone.umbraRadiusAt(x) : 0;
+    var rp = moon.x > 0 ? cone.penumbraRadiusAt(x) : 0;
     var Ru = (ru / x) * K;
     var Rp = (rp / x) * K;
-    var scx = cx;
+    var scx = cx + ((moon.z||0) / x) * K;
     var scy = cy + (moon.y / x) * K;
+    if(observation){
+      var forward=M.unit(M.sub(moon,observation.P)),h=Math.hypot(forward.x,forward.z)||1,right={x:-forward.z/h,y:0,z:forward.x/h},up={x:forward.y*right.z,y:forward.z*right.x-forward.x*right.z,z:-forward.y*right.x},shadowCenter={x:moon.x,y:0,z:0},view=M.unit(M.sub(shadowCenter,observation.P)),den=Math.max(.00001,M.dot(view,forward));
+      scx=cx+M.dot(view,right)/den*K;scy=cy-M.dot(view,up)/den*K;var shadowDistance=M.dist(shadowCenter,observation.P);Ru=ru/shadowDistance*K;Rp=rp/shadowDistance*K;
+    }
 
     ctx.save();
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, TAU);
     ctx.clip();
 
-    var pm = global.PlanetMaterials;
+    var pm = this.materials || global.PlanetMaterials;
     if (pm && pm.moonFront.ready) {
       /* 观者站在日月之间，看到的是正面受光的满月；贴片来自同一套 shader */
       var side = R / pm.fill;
@@ -200,7 +225,7 @@
       ctx.fill();
 
       /* 只有整轮进入本影后，月海才以暗红纹理透出 */
-      var depth = M.clamp((Ru - Math.abs(scy - cy)) / R, 0, 1);
+      var depth = M.clamp((Ru - Math.hypot(scx-cx,scy-cy)) / R, 0, 1);
       var maria = [[-0.24,-0.12,0.30],[0.18,0.02,0.22],[0.04,0.40,0.17],[-0.36,0.34,0.13],[0.32,-0.34,0.12],[-0.06,0.18,0.10],[0.30,0.42,0.09]];
       if (depth > 0.02) {
         for (var t = 0; t < maria.length; t++) {
@@ -228,6 +253,32 @@
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, TAU);
     ctx.stroke();
+  };
+
+  SkyWindow.prototype.drawOrbitMoon = function(ctx,moon,observation) {
+    var cacheKey=[moon.x,moon.y,moon.z||0,observation?.P.x,observation?.P.y,observation?.P.z,this.w,this.h,Boolean((this.materials||global.PlanetMaterials)&&(this.materials||global.PlanetMaterials).moonFront.ready)].join('|');
+    if(!this.phaseCanvas)this.phaseCanvas=document.createElement('canvas');
+    if(this.phaseKey===cacheKey){ctx.drawImage(this.phaseCanvas,0,0);return;}
+    this.phaseKey=cacheKey;this.phaseCanvas.width=this.w;this.phaseCanvas.height=this.h;
+    var target=ctx;ctx=this.phaseCanvas.getContext('2d');
+    this.drawLunar(ctx,moon,observation);
+    var toSun=M.unit(M.sub(M.SUN,moon)),toEarth=observation?M.unit(M.sub(observation.P,moon)):M.unit(M.mul(moon,-1));
+    var cosine=M.clamp(M.dot(toSun,toEarth),-1,1);
+    if(cosine>.999){target.drawImage(this.phaseCanvas,0,0);return;}
+    var R=this.h*.34,cx=this.w/2,cy=this.h/2;
+    // 逐行绘制月相暗面；只更新当前小月面，不增加动画循环或整景像素扫描。
+    var sine=Math.sqrt(Math.max(0,1-cosine*cosine))*(moon.y>=0?1:-1);
+    ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,TAU);ctx.clip();ctx.fillStyle='rgba(2,5,12,.96)';
+    for(var row=-Math.ceil(R);row<=Math.ceil(R);row++){
+      var y=-row/R,half=Math.sqrt(Math.max(0,1-y*y)),b=y*sine;
+      var edge=Math.sqrt(Math.max(0,half*half-Math.pow(b/(cosine||1e-9),2)));
+      if(cosine>=0){
+        if(b<0){ctx.fillRect(cx-half*R,cy+row,(half-edge)*R,1);ctx.fillRect(cx+edge*R,cy+row,(half-edge)*R,1);}
+      }else if(b<=0){ctx.fillRect(cx-half*R,cy+row,2*half*R,1);}
+      else{ctx.fillRect(cx-edge*R,cy+row,2*edge*R,1);}
+    }
+    ctx.restore();
+    target.drawImage(this.phaseCanvas,0,0);
   };
 
   function mix(hex, k) {

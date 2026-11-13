@@ -1,0 +1,130 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": "1600x900",
+  "dpr": 1,
+  "modes": [
+    {
+      "mode": "solar",
+      "frames": 100,
+      "firstHitChecks": 13694,
+      "marks": [
+        {
+          "name": "penumbra-external-enter",
+          "degrees": 175.94522103683846
+        },
+        {
+          "name": "umbra-external-enter",
+          "degrees": 177.37750014724142
+        },
+        {
+          "name": "umbra-internal-enter",
+          "degrees": 177.4630335248419
+        },
+        {
+          "name": "penumbra-internal-enter",
+          "degrees": 178.8953125732665
+        },
+        {
+          "name": "penumbra-internal-leave",
+          "degrees": 181.10468742673356
+        },
+        {
+          "name": "umbra-internal-leave",
+          "degrees": 182.53696647515807
+        },
+        {
+          "name": "umbra-external-leave",
+          "degrees": 182.62249985275858
+        },
+        {
+          "name": "penumbra-external-leave",
+          "degrees": 184.0547789631616
+        }
+      ],
+      "phaseNodes": [
+        {
+          "name": "初亏",
+          "degrees": 178.48982909652833
+        },
+        {
+          "name": "食既",
+          "degrees": 179.92226089239233
+        },
+        {
+          "name": "食甚",
+          "degrees": 180.00000099226267
+        },
+        {
+          "name": "生光",
+          "degrees": 180.0777391076077
+        },
+        {
+          "name": "复圆",
+          "degrees": 181.51017090347165
+        }
+      ]
+    },
+    {
+      "mode": "lunar",
+      "frames": 100,
+      "firstHitChecks": 300,
+      "marks": [
+        {
+          "name": "penumbra-external-enter",
+          "degrees": -4.627364866869236
+        },
+        {
+          "name": "umbra-external-enter",
+          "degrees": -3.195439492697943
+        },
+        {
+          "name": "penumbra-internal-enter",
+          "degrees": -3.109375774840343
+        },
+        {
+          "name": "umbra-internal-enter",
+          "degrees": -1.6774499251693722
+        },
+        {
+          "name": "umbra-internal-leave",
+          "degrees": 1.6774499251693722
+        },
+        {
+          "name": "penumbra-internal-leave",
+          "degrees": 3.109375774840343
+        },
+        {
+          "name": "umbra-external-leave",
+          "degrees": 3.195439492697943
+        },
+        {
+          "name": "penumbra-external-leave",
+          "degrees": 4.627364866869236
+        }
+      ],
+      "phaseNodes": [
+        {
+          "name": "初亏",
+          "degrees": -3.1954181314537573
+        },
+        {
+          "name": "食既",
+          "degrees": -1.6774712580967932
+        },
+        {
+          "name": "食甚",
+          "degrees": 0
+        },
+        {
+          "name": "生光",
+          "degrees": 1.6774712580967932
+        },
+        {
+          "name": "复圆",
+          "degrees": 3.1954181314537573
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

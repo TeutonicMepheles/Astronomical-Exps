@@ -1,0 +1,29 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": "1600x900",
+  "dpr": 1,
+  "headless": false,
+  "gpu": {
+    "blocked": 0,
+    "outside": 158,
+    "front": 158,
+    "device": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "perf": [
+    {
+      "mode": "solar",
+      "frames": 232,
+      "p95": 13.400000000000546,
+      "max": 13.599999999999454,
+      "longTasks": []
+    },
+    {
+      "mode": "lunar",
+      "frames": 231,
+      "p95": 13.400000000000546,
+      "max": 13.5,
+      "longTasks": []
+    }
+  ],
+  "errors": []
+}

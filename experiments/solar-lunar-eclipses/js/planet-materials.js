@@ -109,6 +109,8 @@ const earth = makePlanet({
 }, [-1, 0, 0]);
 
 /* 主视角：太阳在左，月面侧向受光 */
+const earthOblique = makePlanet({ ...EARTH_TEXTURES, grid: GRID_EARTH, lighting: LIGHTING, material: { paperGrain: 0.075, contactAO: 0 } }, [-Math.cos(50*Math.PI/180), 0, Math.sin(50*Math.PI/180)]);
+
 const moonSide = makePlanet({
   textureUrl: 'assets/moon-eq-1024.png',
   grid: GRID_NONE,
@@ -124,4 +126,4 @@ const moonFront = makePlanet({
   material: { paperGrain: 0.075, contactAO: 0 },
 }, [0, 0, 1]);
 
-window.PlanetMaterials = { size: SIZE, fill: FILL, earth, moonSide, moonFront };
+window.PlanetMaterials = { size: SIZE, fill: FILL, earth, earthOblique, moonSide, moonFront };
