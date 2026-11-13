@@ -13,6 +13,7 @@
 | GlobeShaderRenderer | components/globe-shader-renderer/index.js | createGlobeShaderRenderer；init/draw/resize/setStyle/setTextureUrl/dispose；贴图、网格、光照配置 |
 | OpticalBeam | components/optical-beam.js | SharedComponents.OpticalBeam；addSegment/setOpacity/clear/dispose；宿主注入 THREE 与父节点 |
 | MeasureMode | components/measure-mode/measure-mode.js + measure-mode.css + skins/*.css | SharedComponents.MeasureMode；enter/exit/destroy/setShape/getLength/getPoints；宿主传 Viewport、单位与换算 |
+| SceneRotationControl | components/scene-rotation-control.js/css | SharedComponents.SceneRotationControl；横轴左右转／纵轴上抬下探；rotate/setValue/getValue/setDisabled/cancel/destroy；宿主把 onChange 角度写入相机或模型 |
 
 命名空间暂保留 ExperimentHints、ExperimentUI、StageCompletionDialog 以兼容现有实验。hand-icons-flat.js 是可选图标目录，资源相对脚本解析。样式必须显式加载。
 
@@ -23,3 +24,5 @@
 两个渲染组件只管理图形资源和绘制接口：GlobeShaderRenderer 不计算地球朝向、太阳位置或测量结果，OpticalBeam 不计算光路、反射和焦点。实验通过公开参数或 getter 传入这些值。
 
 测量模式只管理取点、连线、确认与读数显示；画面、单位、换算（`pxPerUnit` 或 `format`）和何时进入测量都由宿主提供，组件不判断测什么、不推进课程阶段。
+
+场景旋转控件只管理横轴的左右按钮或纵轴的上抬／下探按钮、可达性状态和角度动画；它不依赖 Three.js，不读取实验 DOM，也不决定缩放、自动环视或课程阶段。水平和俯仰可分别使用两个实例，宿主通过各自的 `onChange` 把角度值同步到自己的三维状态。
