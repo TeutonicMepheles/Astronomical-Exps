@@ -1,6 +1,6 @@
 # 当前实现与文档状态
 
-核对日期：2026-11-11。范围：当前 `main` 工作区的八个实验、目录默认入口和现有验证。此页用于快速定位当前状态；科学参数、教学流程和确认边界仍以各实验 `REQUIREMENTS.md` 与 [OPEN_DECISIONS](../Function-Spec/OPEN_DECISIONS.md) 为准。
+核对日期：2026-11-13。范围：当前 `main` 工作区的八个实验、目录默认入口和现有验证。此页用于快速定位当前状态；科学参数、教学流程和确认边界仍以各实验 `REQUIREMENTS.md` 与 [OPEN_DECISIONS](../Function-Spec/OPEN_DECISIONS.md) 为准。
 
 ## 入口约定
 
@@ -14,13 +14,13 @@
 | 实验 | 默认入口 | 当前实现 | 已知主要缺口 |
 | --- | --- | --- | --- |
 | EXP-01 傅科摆 | [index.html](../experiments/foucault-pendulum/index.html) | 可运行开发版 | 完整教学流程、最终参数与读数、白板触控及整页验收未完成 |
-| EXP-02 月面环形山高度 | [index.html](../experiments/lunar-crater-height/index.html)，跳转至 [月球环形山影长测量实验(2).html](../experiments/lunar-crater-height/月球环形山影长测量实验(2).html) | 可运行 3D 开发版：程序化坑体、连续剖面、光照联动与选点测量 | 输出仍为模型单位；厘米比例尺、测量建模、真实白板触控和整页验收未完成 |
-| EXP-03 陨石坑撞击 | 无 | 需求文档与演示图片 | 尚未实现页面 |
+| EXP-02 月面环形山高度 | [index.html](../experiments/lunar-crater-height/index.html)，跳转至 [月球环形山影长测量实验(2).html](../experiments/lunar-crater-height/月球环形山影长测量实验%282%29.html) | 可运行 3D 开发版：程序化坑体、连续剖面、光照联动与选点测量 | 输出仍为模型单位；厘米比例尺、测量建模、真实白板触控和整页验收未完成 |
+| EXP-03 陨石坑撞击 | [index.html](../experiments/meteor-impact/index.html) | 参数组合、三维撞击、双结果对照与记录开发版 | 科学公式、真实白板与整页验收待完成 |
 | EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 可运行三阶段开发版：日期/当地时间双轴、手动对齐正午、单点杆影、固定点经线测距与三步计算 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
-| EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [app/index.html](../experiments/light-pollution/app/index.html) | 长场景与纸质局部面板整合版 | 道路车灯对比仍借用路灯图；光污染等级、星数和光效参数未标定 |
-| EXP-06 日月食 | 无 | 仅需求文档 | 尚未实现页面 |
+| EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [city-night/index.html](../experiments/light-pollution/city-night/index.html) | 2026-11-13 最新城市夜景：统一路灯、公园短灯、住宅整体遮光、车流与静态屏幕 | 浮点 WebGL2 支持必需；科学光度、等级与设备验收未完成 |
+| EXP-06 日月食 | [index.html](../experiments/solar-lunar-eclipses/index.html) | 公转总览、双视图、五接触节点与地面观察开发版 | 教学几何不等于历表；科学及设备验收待完成 |
 | EXP-07 牛顿望远镜 | [index.html](../experiments/newton-telescope/index.html) | 五镜片、组装检视与四天体记录开发版 | 整页教学与真实设备验收未完成；[standalone.html](../experiments/newton-telescope/standalone.html) 和 `Export/` 是离线产物 |
-| EXP-08 火箭发射 | 无 | 需求文档与演示图片 | 尚未实现页面 |
+| EXP-08 火箭发射 | [index.html](../experiments/rocket-launch/index.html) | 气球反冲、自动组装/发射、轨道与分级对照开发版 | 动力学为教学示意；科学及设备验收待完成 |
 
 ## 保留的独立入口
 
@@ -59,3 +59,5 @@
 - 牛顿望远镜：五类镜片认识、组装后一周自动展示；第三阶段匿名天体热区自动对准、三旋钮参数配合、四目标手动记录和记录快照。旧三档目镜完成规则与手动找星不再用于正式第三阶段。
 
 本轮回归与待验项目见 [整理交付记录](LOCAL_EXPERIMENTS_DELIVERY_20261111.md)。自动化不替代白板触控、科学参数标定和长期运行验收。
+
+完整整合范围和原工作树处理见 [2026-11-13 记录](INTEGRATION_20261113.md)。

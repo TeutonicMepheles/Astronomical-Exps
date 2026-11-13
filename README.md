@@ -17,13 +17,13 @@
 | 编号 | 实验 | 当前状态 | 页面入口 | 需求 |
 | --- | --- | --- | --- | --- |
 | EXP-01 | 傅科摆 | 可运行开发版；整页验收待完成 | [index.html](experiments/foucault-pendulum/index.html) | [阅读](experiments/foucault-pendulum/REQUIREMENTS.md) |
-| EXP-02 | 月面环形山高度 | 可运行 3D 开发版；厘米比例、测量建模与整页验收待完成 | [index.html](experiments/lunar-crater-height/index.html) | [阅读](experiments/lunar-crater-height/REQUIREMENTS.md) |
-| EXP-03 | 陨石坑撞击 | 仅文档 + 演示图片 | — | [阅读](experiments/meteor-impact/REQUIREMENTS.md) |
+| EXP-02 | 月面环形山高度 | 可运行开发版；整页验收待完成 | [index.html](experiments/lunar-crater-height/index.html) | [阅读](experiments/lunar-crater-height/REQUIREMENTS.md) |
+| EXP-03 | 陨石坑撞击 | 可运行开发版；整页验收待完成 | [index.html](experiments/meteor-impact/index.html) | [阅读](experiments/meteor-impact/REQUIREMENTS.md) |
 | EXP-04 | 地球周长 | 可运行三阶段开发版；科学参数与整页验收待完成 | [index.html](experiments/earth-circumference/index.html) | [阅读](experiments/earth-circumference/REQUIREMENTS.md) |
-| EXP-05 | 光污染 | 长场景、局部面板与车流整合版；科学参数尚未标定 | [index.html](experiments/light-pollution/index.html) | [阅读](experiments/light-pollution/REQUIREMENTS.md) |
-| EXP-06 | 日月食 | 仅文档 | — | [阅读](experiments/solar-lunar-eclipses/REQUIREMENTS.md) |
+| EXP-05 | 光污染 | 2026-11-13 最新城市夜景、整体光照与车流；科学参数尚未标定 | [index.html](experiments/light-pollution/index.html) | [阅读](experiments/light-pollution/REQUIREMENTS.md) |
+| EXP-06 | 日月食 | 可运行开发版；整页验收待完成 | [index.html](experiments/solar-lunar-eclipses/index.html) | [阅读](experiments/solar-lunar-eclipses/REQUIREMENTS.md) |
 | EXP-07 | 牛顿望远镜 | 可运行开发版；整页验收待完成 | [index.html](experiments/newton-telescope/index.html) | [阅读](experiments/newton-telescope/REQUIREMENTS.md) |
-| EXP-08 | 火箭发射 | 仅文档 + 演示图片 | — | [阅读](experiments/rocket-launch/REQUIREMENTS.md) |
+| EXP-08 | 火箭发射 | 可运行开发版；整页验收待完成 | [index.html](experiments/rocket-launch/index.html) | [阅读](experiments/rocket-launch/REQUIREMENTS.md) |
 
 `npm run dev`、`npm run export` 和贡献者协作工具目前只登记光污染、牛顿望远镜。傅科摆、月面环形山和地球周长已有源码页面，但目前通过根目录 HTTP 服务直接打开；尚未接入上述工具。其余实验开始制作前，请维护者补充工具入口。已有页面和公共组件都还需完善，不能当作完成验收的模板。
 
@@ -88,3 +88,5 @@ npm run test:browser
 服务端保护的历史配置见 [GitHub 配置记录](docs/GITHUB_SETUP.md)，其中私有仓库及套餐限制的记录仅代表当时状态。
 
 2026-11-11 三实验整理与验收边界见 [交付记录](docs/LOCAL_EXPERIMENTS_DELIVERY_20261111.md)。
+
+2026-11-13 全量整合的来源、资源剔除及验证边界见 [整合记录](docs/INTEGRATION_20261113.md)。
