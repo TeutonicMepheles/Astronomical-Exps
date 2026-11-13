@@ -1,0 +1,862 @@
+{
+  "pass": true,
+  "passed": 211,
+  "checks": [
+    {
+      "check": "Valid GLB2 header",
+      "pass": true
+    },
+    {
+      "check": "No external buffers/images",
+      "pass": true
+    },
+    {
+      "check": "All node names unique",
+      "pass": true
+    },
+    {
+      "check": "No lights/cameras/skins",
+      "pass": true
+    },
+    {
+      "check": "Exactly three schemes and five independent stages",
+      "pass": true
+    },
+    {
+      "check": "Large_CameraTarget default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_CameraTarget positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Payload default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Payload positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_BaseCollar default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_BaseCollar positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_DryStructure default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_DryStructure positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_ExhaustAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_ExhaustAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_FuelSurface default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_FuelSurface positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_HintAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_HintAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_HotCore default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_HotCore positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_IdentificationBand default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_IdentificationBand positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_Nozzle default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_Nozzle positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_Propellant default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_Propellant positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_Shell default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_Shell positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large_TitleAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large_TitleAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Large default recorded",
+      "pass": true
+    },
+    {
+      "check": "Large positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_CameraTarget default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_CameraTarget positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Payload default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Payload positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_BaseCollar default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_BaseCollar positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_DryStructure default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_DryStructure positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_ExhaustAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_ExhaustAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_FuelSurface default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_FuelSurface positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_HintAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_HintAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_HotCore default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_HotCore positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_IdentificationBand default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_IdentificationBand positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_Nozzle default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_Nozzle positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_Propellant default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_Propellant positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_Shell default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_Shell positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small_TitleAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small_TitleAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small default recorded",
+      "pass": true
+    },
+    {
+      "check": "Small positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_CameraTarget default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_CameraTarget positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Payload default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Payload positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_BaseCollar default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_BaseCollar positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_DryStructure default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_DryStructure positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_ExhaustAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_ExhaustAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_FuelSurface default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_FuelSurface positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_HintAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_HintAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_HotCore default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_HotCore positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_IdentificationBand default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_IdentificationBand positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_Nozzle default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_Nozzle positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_Propellant default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_Propellant positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_Shell default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_Shell positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_BaseCollar default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_BaseCollar positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_DryStructure default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_DryStructure positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_ExhaustAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_ExhaustAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_FuelSurface default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_FuelSurface positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_HintAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_HintAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_HotCore default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_HotCore positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_IdentificationBand default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_IdentificationBand positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_Nozzle default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_Nozzle positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_Propellant default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_Propellant positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_Shell default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_Shell positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_BaseCollar default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_BaseCollar positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_DryStructure default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_DryStructure positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_ExhaustAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_ExhaustAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_FuelSurface default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_FuelSurface positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_HintAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_HintAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_HotCore default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_HotCore positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_IdentificationBand default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_IdentificationBand positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_Nozzle default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_Nozzle positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_Propellant default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_Propellant positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_Shell default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3_Shell positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple_TitleAnchor default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple_TitleAnchor positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Triple default recorded",
+      "pass": true
+    },
+    {
+      "check": "Triple positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "ComparisonRoot default recorded",
+      "pass": true
+    },
+    {
+      "check": "ComparisonRoot positive unit scale",
+      "pass": true
+    },
+    {
+      "check": "Small root origin independent",
+      "pass": true
+    },
+    {
+      "check": "Small payload child",
+      "pass": true
+    },
+    {
+      "check": "Large root origin independent",
+      "pass": true
+    },
+    {
+      "check": "Large payload child",
+      "pass": true
+    },
+    {
+      "check": "Triple root origin independent",
+      "pass": true
+    },
+    {
+      "check": "Triple payload child",
+      "pass": true
+    },
+    {
+      "check": "Large Triple height matches",
+      "pass": true
+    },
+    {
+      "check": "Payload geometry shared and identical",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 independent role mesh nodes",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 mesh local fill Y bounds",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 surface flat local Y",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 surface parent and full-height position",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 all anchors present",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 shell opaque PBR",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 independent role mesh nodes",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 mesh local fill Y bounds",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 surface flat local Y",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 surface parent and full-height position",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 all anchors present",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 shell opaque PBR",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 independent role mesh nodes",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 mesh local fill Y bounds",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 surface flat local Y",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 surface parent and full-height position",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 all anchors present",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 shell opaque PBR",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 independent role mesh nodes",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 mesh local fill Y bounds",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 surface flat local Y",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 surface parent and full-height position",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 all anchors present",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 shell opaque PBR",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 independent role mesh nodes",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 mesh local fill Y bounds",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 surface flat local Y",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 surface parent and full-height position",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 all anchors present",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 shell opaque PBR",
+      "pass": true
+    },
+    {
+      "check": "Small_PayloadGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_BaseCollarGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_DryStructureGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_FuelSurfaceGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_HotCoreGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_IdentificationBandGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_NozzleGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_PropellantGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1_ShellGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_DryStructureGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_PropellantGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1_ShellGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_DryStructureGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_PropellantGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1_ShellGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2_ShellGeometry finite unit normals",
+      "pass": true
+    },
+    {
+      "check": "Exactly intended animation names",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage1 targets one stage only",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage1 translation time bounds",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage1 translation assembled start",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage1 translation documented endpoint",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage1 rotation time bounds",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage1 rotation assembled start",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage1 rotation documented endpoint",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage2 targets one stage only",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage2 translation time bounds",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage2 translation assembled start",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage2 translation documented endpoint",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage2 rotation time bounds",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage2 rotation assembled start",
+      "pass": true
+    },
+    {
+      "check": "SeparateTripleStage2 rotation documented endpoint",
+      "pass": true
+    },
+    {
+      "check": "No fuel surface/nozzle/payload animation channels",
+      "pass": true
+    }
+  ],
+  "statistics": {
+    "meshObjects": 43,
+    "uniqueMeshes": 16,
+    "materials": 8,
+    "textures": 0,
+    "textureBytes": 0,
+    "nodes": 68,
+    "animations": 2,
+    "glbBytes": 212132,
+    "uniqueTriangles": 7574,
+    "instancedTriangles": 18854
+  }
+}

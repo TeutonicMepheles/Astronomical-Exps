@@ -2,11 +2,11 @@
 
 遵守[根 AGENTS.md](../../AGENTS.md)和[Git 工作流程](../../docs/AGENT_GIT_WORKFLOW.md)。贡献者协作同时读[项目 Skill](../../.agents/skills/astronomical-collab/SKILL.md)。
 
-- 实验任务只修改 `experiments/rocket-launch/`。本目录目前仅有文档，尚未开始正式实现。
+- 实验任务只修改 `experiments/rocket-launch/`。本目录已有可运行开发版；默认入口 index.html，科学、教学和设备验收仍未完成。
 - 公共组件通过公开 API 使用；不修改 shared，不读取内部 DOM，不引用其他实验私有实现。需要定制时在本目录 components 独立命名并记录来源和原因。
 - 独立配色，遵循根 shared/typography/README.md；傅科摆、地球周长、光污染、牛顿望远镜虽有开发页面，但都不是本实验的完工模板。
 - 不引入 archive、prototypes、previews 或其他实验的运行依赖；资源默认可离线交付，不新增运行时 CDN、远程字体或密钥。
-- 开发、整页试玩、提交验收分开记录；根 check/test 通过不代表本实验已实现。页面接入后再做浏览器检查、离线验证和实际试玩。
+- 开发、整页试玩、提交验收分开记录；根 check/test 与入口 smoke 通过不代表整页教学或科学验收。修改页面后按受影响操作执行浏览器检查、适用的离线验证和实际试玩。
 
 ## 本实验需求与参考入口
 

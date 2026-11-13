@@ -1,0 +1,45 @@
+{
+  "browser": "157.0.8103.39",
+  "viewport": "1600x900",
+  "dpr": 1,
+  "headless": false,
+  "gpu": {
+    "blocked": 0,
+    "outside": 29,
+    "front": 29,
+    "stops": [
+      {
+        "slope": -0.1,
+        "uncut": 22,
+        "before": 29,
+        "inside": 0,
+        "behind": 0
+      },
+      {
+        "slope": 0.1,
+        "uncut": 22,
+        "before": 29,
+        "inside": 0,
+        "behind": 0
+      }
+    ],
+    "device": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "perf": [
+    {
+      "mode": "solar",
+      "frames": 232,
+      "p95": 13.400000000000546,
+      "max": 26.699999999999818,
+      "longTasks": []
+    },
+    {
+      "mode": "lunar",
+      "frames": 229,
+      "p95": 13.400000000001455,
+      "max": 26.700000000000728,
+      "longTasks": []
+    }
+  ],
+  "errors": []
+}

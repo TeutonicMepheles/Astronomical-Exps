@@ -1,5 +1,7 @@
 # 埃拉托色尼地球周长实验
 
+> 当前入口（2026-11-13）：[index.html](index.html)；从仓库根运行 `npm run dev -- --experiment earth-circumference`。根入口 smoke 已覆盖本页，通用离线导出与贡献者协作登记尚未接入；完整教学、科学和设备验收仍需分别完成。
+
 根 `index.html` 进入 `textured.html`。从仓库根启动 HTTP 服务后访问 `/experiments/earth-circumference/`；本实验尚未接入通用离线导出。
 
 当前流程：选择日期与观测地点，手动调节当地太阳时到正午，进入实景测量一根杆的影长，再依次演示角度、沿共同经线点选两端测距、代入周长公式。日期或地点改变使旧结果失效。太阳直射点是计算参考点，不是第二根实测立杆。

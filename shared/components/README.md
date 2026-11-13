@@ -1,6 +1,6 @@
 # 公共组件接口
 
-公共实现位于本目录，七个界面组件和两个渲染组件目前均为试验中。实验提供业务状态、相机与科学计算，组件负责显示和操作请求；使用限制见[组件规则](../../docs/COMPONENT_POLICY.md)。
+公共实现位于本目录，八个界面组件和两个渲染组件目前均为试验中。实验提供业务状态、相机与科学计算，组件负责显示和操作请求；使用限制见[组件规则](../../docs/COMPONENT_POLICY.md)。
 
 | 组件 | 脚本 / 样式 | 用途 |
 | --- | --- | --- |
@@ -13,6 +13,7 @@
 | GlobeShaderRenderer | [globe-shader-renderer/index.js](globe-shader-renderer/index.js) | 风格化纹理地球与经纬网绘制 |
 | OpticalBeam | [optical-beam.js](optical-beam.js) | Three.js 光路线条柔光与透明度 |
 | MeasureMode | [measure-mode/measure-mode.js](measure-mode/measure-mode.js) / measure-mode.css + skins/*.css | 画面内取点测量：扫描、起终点、虚线确认、描线与长度读数 |
+| SceneRotationControl | [scene-rotation-control.js](scene-rotation-control.js) / scene-rotation-control.css | 场景三维物体的左转／右转或上抬／下探按钮与平滑角度请求 |
 
 ## 渲染组件
 
@@ -49,6 +50,36 @@ measure.destroy();
 宿主提供单位与换算：默认 `pxPerUnit` 线性缩放，需要透视角换算或曲线拟合时传 `format(px) => ({ value, unit, decimal })`。组件不画场景、不判断可测对象、不计算科学结果、不推进课程阶段。实例方法 `enter`、`exit`、`destroy`、`setShape`、`getLength`、`getPoints`；皮肤见 [measure-mode/skins](measure-mode/skins)，通过 `body` 上的 `style-blueprint|ink|hud|soft` 切换。
 
 接口与截图见[MeasureMode 说明](measure-mode/README.md)，独立预览为[measure-mode.html](../../previews/components/measure-mode.html)。
+
+## SceneRotationControl 场景旋转
+
+加载 `scene-rotation-control.css` 与 `scene-rotation-control.js`。组件只提供左右两个大尺寸点击按钮、忙碌／禁用状态和角度动画，不直接引用 Three.js。宿主将角度值映射到相机偏航、模型旋转或任意业务状态。
+
+```js
+const rotation = new SharedComponents.SceneRotationControl(stageElement, {
+  orientation: 'horizontal',
+  step: 30,                 // 每次请求转动的角度
+  duration: 600,            // 匀速动画时长，毫秒
+  value: viewer.yawDegrees,
+  onBeforeRotate() { viewer.stopAutoOrbit(); },
+  onChange(value) { viewer.setYawDegrees(value); }
+});
+
+rotation.rotate(1);         // 供宿主按钮之外的程序化入口使用；运行中返回 false
+rotation.setValue(12.5);    // 外部拖动后同步，不触发动画
+rotation.cancel();          // 拖动或外部交互抢占时停止当前动画，未完成的 rotate Promise 以 false 结束
+rotation.destroy();         // 页面或三维视图卸载时移除按钮与监听
+
+const pitch = new SharedComponents.SceneRotationControl(stageElement, {
+  orientation: 'vertical',  // 上抬为正方向，下探为负方向
+  step: 15,
+  duration: 600,
+  value: viewer.pitchDegrees,
+  onChange(value) { viewer.setPitchDegrees(value); }
+});
+```
+
+`onChange(value, context)` 每帧调用，`context` 含 `from`、`to`、`delta`、`direction` 和 `progress`；`onComplete` 仅在到达目标角度后调用。`orientation: 'horizontal'` 时，`direction: -1` 表示左转、`1` 表示右转；`orientation: 'vertical'` 时，`-1` 表示下探、`1` 表示上抬。动画采用恒定角速度并在目标角度精确停下。`setValue` 会取消正在进行的动画，适合拖动、自动环视、复位和视口重建时同步。减少动态效果开启时立即到达目标；与所有公共组件一样，它不读取实验内部状态，也不计算完成、解锁或科学结果。
 
 ## OperationTip 顶部操作提示
 

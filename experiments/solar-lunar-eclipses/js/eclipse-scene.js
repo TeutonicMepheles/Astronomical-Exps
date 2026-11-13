@@ -22,7 +22,7 @@
    * 横向同样紧：月食弧右沿 ex + 4.865px 不能进右侧食相标签（左沿 1465），ex = 860 时余 21 px，
    * px 再大就先撞标签（≈124）。150 两条都不成立。
    */
-  var EARTH_CAM = { ex: 860, ey: 330, px: 120 };
+  var EARTH_CAM = { ex: 800, ey: 430, px: 125 };
   /* 代价：轨道虚线圆 r = 4.6·120 = 552 > ey，整圈出框，顶部露出一段淡弧。
      虚线是 3/9 的 0.16 白，读起来是「轨道继续伸到画外」而不是断头（VD 裁图核过），保留不动。 */
   /*
@@ -34,7 +34,7 @@
    */
   var VIEWS = {
     earth: EARTH_CAM,
-    system: { ex: 1240, ey: 372, px: 45 },
+    system: { ex: 1240, ey: 460, px: 5 },
     /* 侧视自带比例尺：轨道按 16 RE 画、45px per RE，太阳远在画外。与另外两档的 4.6 RE 互不影响 */
     side: { ex: 800, ey: 372, px: 45 },
     /* 斜视与侧视已解耦：仍是 20 RE / 27px per RE（SIDE_ORBIT / OB_ORBIT 两条常量各自独立），
@@ -152,6 +152,8 @@
     ctx.clearRect(0, 0, W, H);
     ctx.drawImage(this.bg, 0, 0, W, H);
 
+    if (view.mode === 'earth' && state.mode === 'solar') { global.SolarSurfaceView.render(this, state); return; }
+    if (view.mode === 'earth' && state.mode === 'lunar') { global.LunarShadowView.render(this, state); return; }
     var moon = M.moonAt(state.phi);
     this.lastMoon = moon;
     if (view.mode === 'system') this.drawSunBody(ctx);
@@ -180,8 +182,14 @@
     if (state.mode === 'solar') this.drawEarthSpot(ctx, moon, state);
     this.drawObserver(ctx, moon, state);
     this.drawMoon(ctx, moon, state);
+    if (state.mode === 'lunar' && moon.x > 0 && M.sunVisible(moon, M.EARTH, M.RE) < 0.5) {
+      ctx.save();ctx.strokeStyle='rgba(226,126,100,.65)';ctx.lineWidth=2;
+      [-1,1].forEach(function(sign){ctx.beginPath();ctx.moveTo(sx(-2),sy(sign*1.1));ctx.quadraticCurveTo(sx(0),sy(sign*1.13),sx(moon.x),sy(moon.y));ctx.stroke();});
+      ctx.fillStyle='#e5aa97';ctx.font='16px "Microsoft YaHei",sans-serif';ctx.fillText('大气折射红光（光路示意）',sx(0.3),sy(-1.5));ctx.restore();
+    }
     /* 传 state.mode：影斑那行只在日食档出现，不传就永远落不到 */
     if (view.mode === 'earth' || view.mode === 'system') this.drawScale(ctx, state.mode);
+
   };
 
   /*
@@ -189,11 +197,20 @@
    * 切换后同一 phi 立即以新缩放重画。
    */
   Scene.prototype.setView = function (mode) {
+    this.surfaceZoom = 1;
     var next = VIEWS[mode] || VIEWS.earth;
     view.mode = VIEWS[mode] ? mode : 'earth';
     view.ex = next.ex;
     view.ey = next.ey;
     view.px = next.px;
+  };
+
+  Scene.prototype.setZoom = function (factor) {
+    this.surfaceZoom = factor;
+    var base = VIEWS[view.mode];
+    view.px = base.px * factor;
+    // 特写追踪日地/月地之间的中点，放大时仍让两个天体留在画内。
+    if (view.mode === 'earth' && this.lastMoon) view.ex = 800 - this.lastMoon.x * view.px / 2;
   };
 
   Scene.prototype.getView = function () { return view.mode; };
@@ -360,9 +377,9 @@
 
     if (!noPenumbra) {
       var pen = ctx.createLinearGradient(0, 0, len, 0);
-      pen.addColorStop(0, 'rgba(150,174,218,0.19)');
-      pen.addColorStop(0.55, 'rgba(150,174,218,0.105)');
-      pen.addColorStop(1, 'rgba(150,174,218,0)');
+      pen.addColorStop(0, 'rgba(180,185,194,0.19)');
+      pen.addColorStop(0.55, 'rgba(180,185,194,0.105)');
+      pen.addColorStop(1, 'rgba(180,185,194,0)');
       ctx.fillStyle = pen;
       ctx.beginPath();
       ctx.moveTo(0, -pw0);
@@ -402,7 +419,15 @@
 
     ctx.restore();
 
-    if (isEarth) this.drawUmbraGlow(ctx, C, cone, alpha);
+    if (isEarth && state.mode === 'lunar') this.drawUmbraGlow(ctx, C, cone, alpha);
+    if (view.mode === 'earth' && ((state.mode === 'lunar') === isEarth)) {
+      ctx.save(); ctx.font = '18px "Microsoft YaHei",sans-serif'; ctx.fillStyle = '#e4e8ef';
+      var lx = origin.x + (end.x-origin.x)*0.42;
+      var ly = origin.y + (end.y-origin.y)*0.42;
+      ctx.fillText('本影', lx, ly + 5);
+      ctx.fillText('半影', lx, ly - (pw0 + (pw1-pw0)*0.42)*0.82);
+      ctx.restore();
+    }
   };
 
   Scene.prototype.drawUmbraGlow = function (ctx, C, cone, alpha) {
@@ -1055,27 +1080,10 @@
                '太阳角半径按 3.4° 绘制（真值 0.27°），' + reach]
             : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）',
                '太阳角半径按 3.4° 绘制（真值 0.27°），' + reach];
-    var x0 = 48, y0 = 806, w = re * view.px;
-
     ctx.save();
-    ctx.strokeStyle = 'rgba(184,200,226,0.52)';
-    ctx.lineWidth = 1.2;
-    ctx.beginPath();
-    ctx.moveTo(x0, y0);
-    ctx.lineTo(x0 + w, y0);
-    ctx.moveTo(x0, y0 - 5);
-    ctx.lineTo(x0, y0 + 5);
-    ctx.moveTo(x0 + w, y0 - 5);
-    ctx.lineTo(x0 + w, y0 + 5);
-    ctx.stroke();
-
-    ctx.font = '400 15px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillStyle = 'rgba(184,200,226,0.56)';
-    ctx.fillText(label, x0 + w + 10, y0 + 5);
-    ctx.fillStyle = 'rgba(184,200,226,0.48)';
-    for (var i = 0; i < notes.length; i++) ctx.fillText(notes[i], x0, y0 + 30 + i * 22);
+    ctx.font = '15px "Microsoft YaHei", sans-serif';
+    ctx.fillStyle = '#9aafc9';
+    ctx.fillText('教学压缩比例 · 不用于真实食象预报', 56, 788);
     ctx.restore();
   };
 
@@ -1281,7 +1289,7 @@
 
   /* 「观测点」标签：放在地表外侧，按方位左右避让，自带深色底片保证可读 */
   Scene.prototype.drawObserverLabel = function (ctx, lx, ly, P) {
-    var text = '观测点';
+    var text = '观察点 A';
     var align = P.x > 0.2 ? 'left' : P.x < -0.2 ? 'right' : 'center';
     var dx = align === 'left' ? 8 : align === 'right' ? -8 : 0;
     var bx = lx + dx, by = ly;

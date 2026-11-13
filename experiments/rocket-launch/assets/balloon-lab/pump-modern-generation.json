@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+  "reactFlowNode": {
+    "id": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "现代气泵-规范插画-v1",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Use the reference ONLY for the simplified educational illustration style: large flat color regions, clear silhouettes, restrained two-tone shading, very fine sparse paper grain, not watercolor, not a photo and not realistic 3D. Create ONE modern classroom hand air pump as a transparent isolated asset, upright side/front view with a tiny view of the top, centered and fully visible. Contemporary compact floor pump with matte light cool gray cylinder, slate navy flat foot base, navy straight T handle, small muted teal ring at the cylinder top, a short black flexible hose neatly looping on its right. Clean manufactured forms, few readable parts, no screws texture clutter. Handle raised ready to press. Neutral modern laboratory equipment, absolutely no brass, bronze, rust, antique wood, leather or Victorian forms. Soft upper-left light, only three broad shading tones. No text, no scale, no logo, no background, no floor or cast shadow. Real transparent background including inside hose loop. Object fills 84 percent image height.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "3:4",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "6c627e41-b604-4d40-bdd3-31ea26ad3650"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "6c627e41-b604-4d40-bdd3-31ea26ad3650",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/67e5f47e6c51fdeea0b78b18135a63bc84bed4d1.jpg"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "6c627e41-b604-4d40-bdd3-31ea26ad3650"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "00f078ba-81ae-43cf-8b20-05251843654a",
+      "source": "6c627e41-b604-4d40-bdd3-31ea26ad3650",
+      "target": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+  ]
+}
+{
+  "nodeKey": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+  "nodeType": "image",
+  "taskId": "20261112215603093737723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "现代气泵-规范插画-v1",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017064830_6057c11addc240c2a66d4f95521e0a33.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Use the reference ONLY for the simplified educational illustration style: large flat color regions, clear silhouettes, restrained two-tone shading, very fine sparse paper grain, not watercolor, not a photo and not realistic 3D. Create ONE modern classroom hand air pump as a transparent isolated asset, upright side/front view with a tiny view of the top, centered and fully visible. Contemporary compact floor pump with matte light cool gray cylinder, slate navy flat foot base, navy straight T handle, small muted teal ring at the cylinder top, a short black flexible hose neatly looping on its right. Clean manufactured forms, few readable parts, no screws texture clutter. Handle raised ready to press. Neutral modern laboratory equipment, absolutely no brass, bronze, rust, antique wood, leather or Victorian forms. Soft upper-left light, only three broad shading tones. No text, no scale, no logo, no background, no floor or cast shadow. Real transparent background including inside hose loop. Object fills 84 percent image height.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "3:4",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "6c627e41-b604-4d40-bdd3-31ea26ad3650"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "6c627e41-b604-4d40-bdd3-31ea26ad3650",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/67e5f47e6c51fdeea0b78b18135a63bc84bed4d1.jpg"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "6c627e41-b604-4d40-bdd3-31ea26ad3650"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112215603093737723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    }
+  }
+}

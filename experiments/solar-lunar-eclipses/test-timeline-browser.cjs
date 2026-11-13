@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{chromium}=require('playwright');
+(async()=>{const browser=await chromium.launch({channel:'chrome',headless:false});try{
+ const page=await browser.newPage({viewport:{width:1600,height:900},reducedMotion:'reduce'}),errors=[],dir=path.join(__dirname,'docs/timeline-starfield-20261113');fs.mkdirSync(dir,{recursive:true});page.on('pageerror',e=>errors.push(String(e)));
+ await page.goto(process.env.ECLIPSE_URL||'http://127.0.0.1:9012/experiments/solar-lunar-eclipses/');await page.waitForLoadState('networkidle');await page.evaluate(()=>document.fonts.ready);
+ const read=()=>page.locator('#scene').evaluate(e=>({year:+e.dataset.year,phi:+e.dataset.phi,spin:+e.dataset.earthSpin,day:+e.dataset.simDay}));
+ const corner=()=>page.locator('#scene').evaluate(e=>Array.from(e.getContext('2d').getImageData(0,0,300,60).data));const stars=await corner();
+ for(const id of ['date','moon']){
+  const input=page.locator('#'+id);await input.focus();await page.keyboard.press('End');await page.waitForTimeout(120);assert.equal(await input.inputValue(),id==='moon'?'0':await input.getAttribute('max'),'phase wraps at a complete revolution; date retains its inclusive endpoint');await page.keyboard.press('Home');await page.waitForTimeout(120);assert.equal(await input.inputValue(),'0');await page.keyboard.press('ArrowRight');await page.waitForTimeout(120);assert.ok(Number(await input.inputValue())>0);
+  const box=await input.boundingBox();await page.mouse.move(box.x+box.width*.2,box.y+box.height/2);await page.mouse.down();await page.mouse.move(box.x+box.width*.72,box.y+box.height/2,{steps:12});await page.mouse.up();await page.waitForTimeout(140);
+  const value=Number(await input.inputValue()),max=Number(await input.getAttribute('max'));assert.ok(value/max>.69&&value/max<.75,'native drag maps to the timeline position');const marker=await page.locator('#'+id+' + output').evaluate(e=>e.parentElement.style.getPropertyValue('--time-progress'));assert.ok(Math.abs(parseFloat(marker)-value/max*100)<.01,'caret follows actual native value');
+ }
+ assert.equal(await page.locator('#play').getAttribute('aria-pressed'),'false');const state=await read();assert.ok(state.day>250&&state.day<275,'date drag advances the shared calendar');assert.ok(Math.abs(((state.phi+state.year)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Number(await page.locator('#moon').inputValue())*Math.PI/180)<.002,'phase input drives the visible simulation');
+ assert.deepEqual(await corner(),stars,'procedural background stays fixed during timeline updates');await page.locator('#moon').blur();await page.screenshot({path:path.join(dir,'overview.png'),animations:'disabled'});
+ await page.locator('#splitCameraToggle').click();await page.waitForTimeout(120);await page.screenshot({path:path.join(dir,'dual.png'),animations:'disabled'});
+ for(const size of [{width:1024,height:768},{width:1920,height:1080}]){await page.setViewportSize(size);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight),false);}
+ assert.deepEqual(errors,[]);fs.writeFileSync(path.join(dir,'review.json'),JSON.stringify({browser:browser.version(),viewport:'1600x900',state,errors},null,2));console.log('PASS native date/phase dragging, Home/End/arrows, marker/model synchronization, fixed procedural stars and scaled layout.');
+ }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

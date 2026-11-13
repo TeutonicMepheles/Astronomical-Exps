@@ -1,0 +1,516 @@
+{
+  "date": "2026-11-13",
+  "base": "a5d1e5a",
+  "checks": {
+    "npm run check": "PASS",
+    "npm test": "PASS",
+    "npm run test:browser": "PASS",
+    "light-pollution directory READMEs": "119 PASS"
+  },
+  "modelScripts": [
+    {
+      "test": "experiments/rocket-launch/test-staging-model.cjs",
+      "pass": true,
+      "seconds": 0.07
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-body-orientation.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-inclination-model.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-lunar-geometry.cjs",
+      "pass": true,
+      "seconds": 0.25
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-observer-frame.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-overview-depth.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-overview-model.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-uniform-time.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/newton-telescope/tests/aperture-boundary.test.cjs",
+      "pass": true,
+      "seconds": 23.71
+    },
+    {
+      "test": "experiments/newton-telescope/tests/course-completion.test.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/newton-telescope/tests/course.test.cjs",
+      "pass": true,
+      "seconds": 0.05
+    },
+    {
+      "test": "experiments/newton-telescope/tests/developer-settings.test.cjs",
+      "pass": true,
+      "seconds": 0.05
+    },
+    {
+      "test": "experiments/newton-telescope/tests/elevation-joint.test.cjs",
+      "pass": true,
+      "seconds": 2.12
+    },
+    {
+      "test": "experiments/newton-telescope/tests/mirror-optics.test.cjs",
+      "pass": true,
+      "seconds": 0.9
+    },
+    {
+      "test": "experiments/newton-telescope/tests/observation-aim.test.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/newton-telescope/tests/observation-direction.test.cjs",
+      "pass": true,
+      "seconds": 10.89
+    },
+    {
+      "test": "experiments/newton-telescope/tests/observation-flow.test.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/newton-telescope/tests/observation-picking.test.cjs",
+      "pass": true,
+      "seconds": 1.32
+    },
+    {
+      "test": "experiments/newton-telescope/tests/observation-setup.test.cjs",
+      "pass": true,
+      "seconds": 0.05
+    },
+    {
+      "test": "experiments/newton-telescope/tests/optics.test.cjs",
+      "pass": true,
+      "seconds": 0.05
+    },
+    {
+      "test": "experiments/newton-telescope/tests/preview.test.cjs",
+      "pass": true,
+      "seconds": 0.06
+    },
+    {
+      "test": "experiments/newton-telescope/tests/real-viewer-optics.test.cjs",
+      "pass": true,
+      "seconds": 0.32
+    },
+    {
+      "test": "experiments/newton-telescope/tests/section-geometry.test.cjs",
+      "pass": true,
+      "seconds": 34.28
+    },
+    {
+      "test": "experiments/newton-telescope/tests/section-optics.test.cjs",
+      "pass": true,
+      "seconds": 0.4
+    }
+  ],
+  "browserScripts": [
+    {
+      "test": "experiments/light-pollution/tests/browser/data-compatibility.cjs",
+      "pass": true,
+      "seconds": 11.525
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/presentation-independent.cjs",
+      "pass": true,
+      "seconds": 12.137
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/source-entry.cjs",
+      "pass": true,
+      "seconds": 5.208
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-ad-building.cjs",
+      "pass": true,
+      "seconds": 4.003
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-billboard-antialias.cjs",
+      "pass": true,
+      "seconds": 4.023
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-bubble-anchors.cjs",
+      "pass": true,
+      "seconds": 4.166
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-buildings.cjs",
+      "pass": true,
+      "seconds": 12.285
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-candidates.cjs",
+      "pass": true,
+      "seconds": 18.371
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-comparison-assets.cjs",
+      "pass": true,
+      "seconds": 17.94
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-comparison.cjs",
+      "pass": true,
+      "seconds": 19.01
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-distant-controls.cjs",
+      "pass": true,
+      "seconds": 6.307
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-editor.cjs",
+      "pass": true,
+      "seconds": 7.63
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-far-layers.cjs",
+      "pass": true,
+      "seconds": 10.11
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-gradient-interaction.cjs",
+      "pass": true,
+      "seconds": 39.472
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-gradient.cjs",
+      "pass": true,
+      "seconds": 10.638
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-lamp-carousel.cjs",
+      "pass": true,
+      "seconds": 11.155
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-lamps.cjs",
+      "pass": true,
+      "seconds": 14.268
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-layer-color.cjs",
+      "pass": true,
+      "seconds": 9.005
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-legacy-reuse.cjs",
+      "pass": true,
+      "seconds": 8.369
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-light-environment.cjs",
+      "pass": true,
+      "seconds": 7.803
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-light-masks.cjs",
+      "pass": true,
+      "seconds": 12.658
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-objects.cjs",
+      "pass": true,
+      "seconds": 14.82
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-observations.cjs",
+      "pass": true,
+      "seconds": 11.188
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-pan.cjs",
+      "pass": true,
+      "seconds": 3.814
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-controls.cjs",
+      "pass": true,
+      "seconds": 10.185
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-lanes.cjs",
+      "pass": true,
+      "seconds": 5.244
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-path-editor.cjs",
+      "pass": true,
+      "seconds": 11.786
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-roadlights.cjs",
+      "pass": true,
+      "seconds": 8.717
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-stadium-merge.cjs",
+      "pass": true,
+      "seconds": 9.279
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-stadium.cjs",
+      "pass": true,
+      "seconds": 12.884
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-traffic.cjs",
+      "pass": true,
+      "seconds": 13.83
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-water.cjs",
+      "pass": true,
+      "seconds": 8.727
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama-zones.cjs",
+      "pass": true,
+      "seconds": 7.718
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-panorama.cjs",
+      "pass": true,
+      "seconds": 11.107
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-paper-panels.cjs",
+      "pass": true,
+      "seconds": 27.681
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-presentation.cjs",
+      "pass": true,
+      "seconds": 9.1
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-promoted-sr.cjs",
+      "pass": true,
+      "seconds": 7.845
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-reflections.cjs",
+      "pass": true,
+      "seconds": 5.237
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-road-sky-ui.cjs",
+      "pass": true,
+      "seconds": 18.505
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-scene-effects.cjs",
+      "pass": true,
+      "seconds": 7.071
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-sky.cjs",
+      "pass": true,
+      "seconds": 7.705
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-stadium-ui.cjs",
+      "pass": true,
+      "seconds": 15.86
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-video-playlist.cjs",
+      "pass": true,
+      "seconds": 18.08
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-video-resources.cjs",
+      "pass": true,
+      "seconds": 9.976
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-video-transition.cjs",
+      "pass": true,
+      "seconds": 11.227
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-video.cjs",
+      "pass": true,
+      "seconds": 21.346
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-water.cjs",
+      "pass": true,
+      "seconds": 3.949
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify-zoom.cjs",
+      "pass": true,
+      "seconds": 3.841
+    },
+    {
+      "test": "experiments/light-pollution/tests/browser/verify.cjs",
+      "pass": true,
+      "seconds": 7.046
+    },
+    {
+      "test": "experiments/light-pollution/city-night/verify.cjs",
+      "pass": true,
+      "seconds": 17.21
+    },
+    {
+      "test": "tools/smoke.cjs",
+      "pass": true,
+      "seconds": 57.95
+    },
+    {
+      "test": "experiments/lunar-crater-height/tools/verify-3d.cjs",
+      "pass": true,
+      "seconds": 43.3
+    },
+    {
+      "test": "experiments/meteor-impact/tests/flow.browser.cjs",
+      "pass": true,
+      "seconds": 29.2
+    },
+    {
+      "test": "experiments/meteor-impact/tests/interaction-performance.browser.cjs",
+      "pass": true,
+      "seconds": 15.5
+    },
+    {
+      "test": "experiments/meteor-impact/tests/pair-performance.browser.cjs",
+      "pass": true,
+      "seconds": 12.35
+    },
+    {
+      "test": "experiments/rocket-launch/test-force-arrows.cjs",
+      "pass": true,
+      "seconds": 16.23
+    },
+    {
+      "test": "experiments/rocket-launch/test-navigation.cjs",
+      "pass": true,
+      "seconds": 6.39
+    },
+    {
+      "test": "experiments/rocket-launch/test-balloon-layout.cjs",
+      "pass": true,
+      "seconds": 6.56
+    },
+    {
+      "test": "experiments/rocket-launch/test-pump-strokes.cjs",
+      "pass": true,
+      "seconds": 5.16
+    },
+    {
+      "test": "experiments/rocket-launch/test-launch-support.cjs",
+      "pass": true,
+      "seconds": 10.7
+    },
+    {
+      "test": "experiments/rocket-launch/test-staging-assets.cjs",
+      "pass": true,
+      "seconds": 4.81
+    },
+    {
+      "test": "experiments/rocket-launch/test-velocity-fullscreen.cjs",
+      "pass": true,
+      "seconds": 29.21
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-overview-browser.cjs",
+      "pass": true,
+      "seconds": 16.09
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-split-containment.cjs",
+      "pass": true,
+      "seconds": 12.79
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-timeline-browser.cjs",
+      "pass": true,
+      "seconds": 4.09
+    },
+    {
+      "test": "experiments/solar-lunar-eclipses/test-lunar-unified.cjs",
+      "pass": true,
+      "seconds": 11.2
+    },
+    {
+      "test": "experiments/newton-telescope/tests/parameter-knobs.browser.cjs",
+      "pass": true,
+      "seconds": 31.82
+    },
+    {
+      "test": "experiments/newton-telescope/tests/observation-recording.browser.cjs",
+      "pass": true,
+      "seconds": 33.22
+    },
+    {
+      "test": "experiments/foucault-pendulum/tests/parameter-dialog-browser.cjs",
+      "pass": true,
+      "seconds": 40.12
+    }
+  ],
+  "cityNight": {
+    "performance": {
+      "current": {
+        "median": 13.300000000000182,
+        "p95": 13.400000000000091,
+        "uploads": 0,
+        "staticDraws": 0,
+        "textures": 33
+      }
+    },
+    "environment": {
+      "DPR": 1.0000000298023224,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "visible": true,
+      "focused": true,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    "checks": [
+      "11 bubbles x 4 viewport sizes: both scene anchoring and detail camera exclude panel from framed object; no scrolling or overflow",
+      "Static screen artwork restored; brightness dims artwork and surrounding light; no playback controls/sequence layout or idle redraw",
+      "Distant gain raises warm skyglow at 5 levels without affecting road pixel",
+      "Higher-view side asset, complete visibility fade, actual contact shadow pixel and high-beam glare increase",
+      "Unified residential asset: 2 embedded wall fixtures and fixed small person, 4 registered light states, dark base invariant, embedded person revealed by shield, foreground tree blocks upper public-building light",
+      "120 panel switches: no uploads, texture growth or static rebuild",
+      "Network-blocked file:// offline render, static screens, fixture choice and thumbnails"
+    ],
+    "errors": []
+  },
+  "limitations": [
+    "自动化通过不等于白板、科学模型或完整视觉验收。",
+    "陨石双视图专项使用软件 SwiftShader；结果截帧阶段有长任务（原始采样P95约466.6ms、最大600ms），未认定为硬件实机性能通过。",
+    "旧光污染 HTTP 回归的61个源文件已逐字节核对与整合副本等价；修复离线构建前置后失败用例已重测。",
+    "最新场景和专项最终使用独立随机端口；根浏览器套件自行启动独立服务。"
+  ]
+}

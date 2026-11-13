@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "c8869392-055a-4877-8693-dc31ccbb0d26",
+  "reactFlowNode": {
+    "id": "c8869392-055a-4877-8693-dc31ccbb0d26",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "现代气球-未充气-规范插画-v1",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Edit the referenced coral balloon into its DEFLATED state before pumping. Keep exactly the same contemporary simplified science illustration style, muted coral colors, broad flat shading, sparse fine grain. Small soft empty latex sac, narrow drooping pear shape with a few broad simple folds, open short rubber mouth pointing straight DOWN. Do NOT add a knot, string or ribbon. Not crumpled foil, no realistic creases, no marbling. Whole balloon centered and visible. Genuine transparent background, no shadow, no other objects, no text.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "3:4",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017065035_3b60fdc86531434db203ac6b73e3aac6.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "2131eb56-68c0-4f71-9abb-49a9316b5de0",
+      "source": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+      "target": "c8869392-055a-4877-8693-dc31ccbb0d26"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "c8869392-055a-4877-8693-dc31ccbb0d26"
+  ]
+}
+{
+  "nodeKey": "c8869392-055a-4877-8693-dc31ccbb0d26",
+  "nodeType": "image",
+  "taskId": "20261112215703097337723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "现代气球-未充气-规范插画-v1",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017066836_744e9a02b58348b19d5c7bddce978a16.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Edit the referenced coral balloon into its DEFLATED state before pumping. Keep exactly the same contemporary simplified science illustration style, muted coral colors, broad flat shading, sparse fine grain. Small soft empty latex sac, narrow drooping pear shape with a few broad simple folds, open short rubber mouth pointing straight DOWN. Do NOT add a knot, string or ribbon. Not crumpled foil, no realistic creases, no marbling. Whole balloon centered and visible. Genuine transparent background, no shadow, no other objects, no text.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "3:4",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017065035_3b60fdc86531434db203ac6b73e3aac6.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112215703097337723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    }
+  }
+}

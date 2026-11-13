@@ -2,7 +2,7 @@
 
 ## 当前功能与状态
 
-保存模块迁移映射、基线、测试回执与架构说明。
+最新默认夜景见 [city-night说明](../city-night/README.md) 和 [整合验证](../../../docs/INTEGRATION_20261113.md)。本目录主要保留旧 app/ 模块迁移映射、基线、测试回执与架构说明；日期报告只证明当时版本。
 
 ## 职责边界
 
@@ -41,8 +41,8 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 
 | 文件 | 尺寸/坐标 | 字节 | 使用边界 |
 | --- | --- | ---: | --- |
-| [billboard-panel.png](billboard-panel.png) | 1600 × 900 | 1,140,070 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [chrome-billboard-panel.png](chrome-billboard-panel.png) | 2400 × 1350 | 1,901,206 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| billboard-panel.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,140,070 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| chrome-billboard-panel.png（本地评审素材，不随工程发布） | 2400 × 1350 | 1,901,206 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
 
 ## 公开接口与数据
 

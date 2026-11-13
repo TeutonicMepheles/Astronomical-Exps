@@ -8,7 +8,7 @@ errors = []
 active = [ROOT/x for x in ['experiments', 'shared', 'previews']]
 for folder in active:
     for p in folder.rglob('*'):
-        if not p.is_file() or any(x in p.parts for x in ['Export','artifacts','__pycache__','baseline-scroll']): continue
+        if not p.is_file() or any(x in p.parts for x in ['Export','artifacts','__pycache__','baseline-scroll','resource-archives']): continue
         if p.suffix not in ['.html','.css','.js','.cjs']: continue
         s = p.read_text(encoding='utf-8-sig')
         rel = p.relative_to(ROOT).as_posix()
@@ -32,6 +32,7 @@ for folder in active:
             if not target.is_relative_to(ROOT): errors.append(rel+': outside project '+ref);continue
             parts=target.relative_to(ROOT).parts
             if parts and parts[0] in ['archive','prototypes']:errors.append(rel+': active dependency on '+ref)
+            if 'resource-archives' in parts:errors.append(rel+': active dependency on historical resource archive '+ref)
             if folder.name=='shared' and parts and parts[0] in ['experiments','previews']:errors.append(rel+': shared depends on host '+ref)
             if folder.name=='experiments' and parts and parts[0]=='previews':errors.append(rel+': production depends on preview '+ref)
             if folder.name=='experiments' and len(parts)>1 and parts[0]=='experiments' and parts[1]!=p.relative_to(folder).parts[0]:errors.append(rel+': cross-experiment dependency '+ref)

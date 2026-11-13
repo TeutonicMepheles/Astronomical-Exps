@@ -73,7 +73,7 @@ export function createCityMarkers(svg) {
   const PAD = 4;
   const labelOnRight = (item) => item.c.id !== 'north' && item.x < CX;
   const items = CITIES.map((c) => {
-    const g = el('g', { class: 'city', 'data-id': c.id });
+    const g = el('g', { class: 'city', 'data-id': c.id, role:'button', tabindex:0, 'aria-label':c.name });
     const hit = el('circle', { class: 'hit', r: 24 });
     const ring = el('circle', { class: 'ring', r: 14 });
     const dot = el('circle', { class: 'dot', r: 4.5 });
@@ -165,6 +165,8 @@ export function createCityMarkers(svg) {
       it.selected = sel;
       it.g.classList.toggle('hidden', !front);
       it.g.classList.toggle('selected', sel);
+      it.g.setAttribute('aria-pressed',String(sel));
+      it.g.setAttribute('tabindex',front?'0':'-1');
       const left = labelOnRight(it);
       it.name.setAttribute('text-anchor', left ? 'start' : 'end');
       it.coord.setAttribute('text-anchor', left ? 'start' : 'end');
@@ -175,7 +177,8 @@ export function createCityMarkers(svg) {
     }
     resolveCityLabels();
     const selected = items.find((item) => item.selected);
-    updateRing(selected.c.lat * Math.PI / 180, axis);
+    if(selected)updateRing(selected.c.lat * Math.PI / 180, axis);
+    else ringPath.setAttribute('d','');
     return selected;
   }
 

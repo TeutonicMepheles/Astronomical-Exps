@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-13",
+  "browser": "157.0.8103.51",
+  "channel": "chrome",
+  "mode": "headless; two simultaneous viewports, one size-contrast run including result captures",
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "measurement": "rAF intervals in ms; whole run includes terrain rebuild, motion and snapshots; no device acceptance threshold",
+  "frames": 230,
+  "p50": 13.300000000000182,
+  "p95": 13.400000000000091,
+  "max": 760.0999999999999,
+  "longTasks": [
+    66,
+    761,
+    263
+  ],
+  "stats": [
+    {
+      "active": false,
+      "geometries": 8,
+      "textures": 5,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "active": false,
+      "geometries": 8,
+      "textures": 5,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}

@@ -20,7 +20,7 @@ const root=path.resolve(__dirname,'..');
   page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
   page.on('requestfailed',r=>errors.push('REQUEST FAILED '+r.url()));
   async function images(){assert.deepEqual(await page.locator('img').evaluateAll(imgs=>imgs.filter(i=>i.getAttribute('src')&&!i.hidden&&(!i.complete||i.naturalWidth===0)).map(i=>i.src)),[]);}
-  for(const name of ['earth-circumference','foucault-pendulum','newton-telescope','light-pollution']){
+  for(const name of ['earth-circumference','foucault-pendulum','newton-telescope','light-pollution','lunar-crater-height','meteor-impact','solar-lunar-eclipses','rocket-launch']){
    await page.goto(base+'/experiments/'+name+'/');await page.waitForTimeout(1600);await images();
    if(name==='earth-circumference'){
     const result=await page.evaluate(()=>{const globe=window.__globe;const canvas=document.getElementById('globe');const pixel=globe?.sample(781,324);const gl=canvas?.getContext('webgl');return {ready:globe?.ready(),pixel,glError:gl?.getError()??0,width:canvas?.width??0,height:canvas?.height??0};});
@@ -36,14 +36,26 @@ const root=path.resolve(__dirname,'..');
     await page.screenshot({path:path.join(root,'artifacts','newton-telescope-rays.png')});
     const result=await page.evaluate(()=>{const c=Newton.course;const blocked=c.enter('assembly');for(const m of ['plane','concave','convex'])c.mountMirror(m);const mirrorsOnly=c.enter('assembly');for(const lens of ['convex','concave'])c.mountLens(lens);const entered=c.enter('assembly');return {blocked,mirrorsOnly,entered};});
     assert.equal(result.blocked,false);assert.equal(result.mirrorsOnly,false);assert.equal(result.entered,true);
-   }else{
-    assert.match(page.url(),/\/experiments\/light-pollution\/app\/index\.html$/);
+   }else if(name==='light-pollution'){
+    assert.match(page.url(),/\/experiments\/light-pollution\/city-night\/index\.html$/);
+    await page.waitForFunction(()=>document.body.dataset.ready==='true');
     assert(await page.locator('#scene').isVisible());
-    // User mode keeps authoring controls hidden; verify lamp editing through the opt-in editor entry.
-    const editorUrl=new URL(page.url());editorUrl.searchParams.set('mode','editor');await page.goto(editorUrl.href);
+    assert.equal(await page.locator('.marker').count(),11);
+    await page.locator('.marker[data-id="road"]').click();
+    assert(await page.locator('aside').isVisible());
+    assert.equal(await page.locator('#panel-body input[type=range]').count(),1);
+    await page.locator('#road-gain').fill('0.25');
+    assert.equal(await page.evaluate(()=>scenePreview.state().groups.road.gain),0.25);
+    await page.locator('#panel-body [data-shade="full"]').click();
+    assert.equal(await page.evaluate(()=>scenePreview.state().groups.path.shade),'full');
+    await page.locator('#close-panel').click();
+    // Preserve coverage of the previous modular editor through its explicit entry.
+    await page.goto(base+'/experiments/light-pollution/app/index.html?mode=editor');
     await page.waitForSelector('html[data-ready=true]');
     await page.locator('#lamp-toggle').click({force:true});
     assert(await page.locator('#lamp-controls').isVisible());
+   }else{
+    assert((await page.locator('canvas').count())>0,name+' renders a canvas');
    }
    await page.screenshot({path:path.join(root,'artifacts',name+'.png')});
   }
@@ -68,6 +80,47 @@ const root=path.resolve(__dirname,'..');
   await page.locator('.mw-toggle').click();await page.waitForTimeout(1300);
   assert.equal(await page.locator('.mw').getAttribute('data-phase'),'pickStart');
   await page.screenshot({path:path.join(root,'artifacts','component-measure-mode.png')});
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  await page.goto(base+'/previews/components/scene-rotation.html');await page.waitForTimeout(300);
+  const rotation=page.locator('.scene-rotation-control--horizontal'),rotateRight=rotation.locator('.scene-rotation-control__item--right');
+  const tilt=page.locator('.scene-rotation-control--vertical'),tiltUp=tilt.locator('.scene-rotation-control__item--positive');
+  assert.equal(await page.locator('.scene-rotation-control__item').count(),4);
+  assert.deepEqual(await tilt.locator('.scene-rotation-control__label').allTextContents(),['上抬','下探']);
+  assert.equal(await tiltUp.getAttribute('aria-label'),'上抬，15°');
+  assert.equal(await rotateRight.getAttribute('aria-label'),'右转，30°');
+  await rotateRight.click();await page.waitForTimeout(150);
+  const rotating=await page.evaluate(()=>window.sceneRotationPreview.control.getValue());
+  assert(rotating>0&&rotating<30,'rotation must animate through intermediate angles');
+  await page.waitForFunction(()=>!window.sceneRotationPreview.control.animating);
+  assert.equal(await page.evaluate(()=>window.sceneRotationPreview.control.getValue()),30);
+  assert((await page.evaluate(()=>window.sceneRotationPreview.samples.length))>2,'rotation must use animation frames');
+  assert.equal(await rotation.getAttribute('aria-busy'),'false');
+  await tiltUp.click();await page.waitForTimeout(150);
+  const tilting=await page.evaluate(()=>window.sceneRotationPreview.tilt.getValue());
+  assert(tilting>0&&tilting<15,'pitch must animate through intermediate angles');
+  await page.waitForFunction(()=>!window.sceneRotationPreview.tilt.animating);
+  assert.equal(await page.evaluate(()=>window.sceneRotationPreview.tilt.getValue()),15);
+  assert((await page.evaluate(()=>window.sceneRotationPreview.pitchSamples.length))>2,'pitch must use animation frames');
+  await page.screenshot({path:path.join(root,'artifacts','component-scene-rotation.png')});
+  assert(await page.evaluate(async()=>{
+   const mount=document.getElementById('rotation-stage');
+   for(const action of ['cancel','destroy']){
+    const control=new SharedComponents.SceneRotationControl(mount,{duration:600});
+    const rotation=control.rotate(1);control[action]();
+    const result=await Promise.race([rotation,new Promise(resolve=>setTimeout(()=>resolve('pending'),500))]);
+    control.destroy();if(result!==false)return false;
+   }
+   const control=new SharedComponents.SceneRotationControl(mount,{duration:600,onChange(){control.cancel();}});
+   const result=await Promise.race([control.rotate(1),new Promise(resolve=>setTimeout(()=>resolve('pending'),1000))]);
+   const stopped=!control.animating&&control.frame===0;control.destroy();return result===false&&stopped;
+  }),'cancel/destroy/reentrant cancellation must settle rotation requests');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.reload();await page.waitForTimeout(200);
+  await page.locator('.scene-rotation-control--horizontal .scene-rotation-control__item--positive').click();
+  assert.equal(await page.evaluate(()=>window.sceneRotationPreview.control.getValue()),30,'reduced motion reaches the target directly');
+  await page.locator('.scene-rotation-control--vertical .scene-rotation-control__item--positive').click();
+  assert.equal(await page.evaluate(()=>window.sceneRotationPreview.tilt.getValue()),15,'reduced motion applies the pitch target directly');
+  await page.emulateMedia({reducedMotion:'no-preference'});
   for(const name of ['newton-telescope','light-pollution']){
    const file=path.join(root,'dist',name,'index.html');if(!fs.existsSync(file))throw Error('Run npm run export -- '+name+' first');
    const offline=await browser.newContext({offline:true});const p=await offline.newPage();p.on('pageerror',e=>errors.push('OFFLINE '+e.message));p.on('requestfailed',r=>errors.push('OFFLINE REQUEST '+r.url().slice(0,120)));
@@ -75,6 +128,6 @@ const root=path.resolve(__dirname,'..');
    assert.deepEqual(await p.locator('img').evaluateAll(xs=>xs.filter(i=>i.getAttribute('src')&&(!i.complete||!i.naturalWidth)).map(i=>i.src.slice(0,100))),[]);
    await offline.close();
   }
-  assert.deepEqual(errors,[]);console.log('PASS four experiment entries, shared globe/beam integration, six preview pages, measure-mode preview, completion lifecycle, offline exports; not visual acceptance.');
+  assert.deepEqual(errors,[]);console.log('PASS eight experiment entries, shared globe/beam/scene-rotation integration, six preview pages, measure-mode and scene-rotation previews, completion lifecycle, offline exports; not visual acceptance.');
  } finally {if(browser)await browser.close();if(server)server.kill();}
 })().catch(e=>{console.error(e);process.exitCode=1});

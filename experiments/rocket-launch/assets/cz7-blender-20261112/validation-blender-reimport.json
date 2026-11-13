@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "name": "GLB reimport preserves manifest names",
+      "pass": true
+    },
+    {
+      "name": "GLB reimport has seven action names",
+      "pass": true
+    },
+    {
+      "name": "All imported meshes nonempty",
+      "pass": true
+    },
+    {
+      "name": "Reimport reset restores vertical core",
+      "pass": true
+    }
+  ],
+  "blender": "4.5.4 LTS",
+  "actions": [
+    "AssemblyPreview",
+    "LaunchPreview",
+    "ReleasePayload",
+    "SeparateBoosters",
+    "SeparateFairing",
+    "SeparateStage1",
+    "SeparationPreview"
+  ]
+}

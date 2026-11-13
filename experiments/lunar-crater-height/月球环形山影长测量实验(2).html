@@ -41,10 +41,11 @@ button:disabled{opacity:.55;cursor:not-allowed}
 #cutHint{position:absolute;left:44px;top:130px;z-index:5;color:#d6e9ef;font-size:13px;line-height:1.5;text-shadow:0 1px 4px #07131f;pointer-events:none}
 .views{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;min-height:0}
 .view{position:relative;min-width:0;min-height:0;background:#0b0e14}
-.view.top{order:1;border:0;background:#10203e;--scope-height:calc(800px * 1152 / 1306);--scope-radius:320px;--scope-frame-offset:calc(var(--scope-height) * .014)}
+.view.top{order:1;border:0;--scope-radius:320px;background:#030507}
+.view.top::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:#030507 url('./assets/telescope-eyepiece/seedream55-barrel.webp') center / 1280px 1280px no-repeat;mask-image:radial-gradient(circle at 50% 50%,transparent 319.5px,#000 320px);box-shadow:inset 0 0 90px 24px #0008}
 .views::after{content:"";position:absolute;left:calc(50% - 64px);top:0;bottom:0;width:128px;z-index:4;pointer-events:none;background:linear-gradient(90deg,transparent,#102033cc 50%,transparent)}
 main::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(180deg,#0b1928e6,transparent 16%,transparent 76%,#0b192880)}
-.view.top::after{content:"";position:absolute;left:0;right:0;top:calc(50% + var(--scope-frame-offset));height:var(--scope-height);transform:translateY(-50%);z-index:2;pointer-events:none;background:url('./陨石坑参考/天文望远镜内部视角.png') center / contain no-repeat;mask-image:radial-gradient(circle var(--scope-radius) at 50% 48.6%,transparent 99.8%,#000 100%)}
+.view.top::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle at 50% 50%,transparent 319.5px,#020304 320px,#05080a 322px,#344047 324px,#1a2329 327px,#0c1115 332px,#030507 338px,transparent 345px)}
 #top{clip-path:circle(var(--scope-radius) at 50% 50%)}
 .view.side{order:2;background:#10203e}
 .view.side::before{content:"";position:absolute;z-index:0;top:0;left:0;right:0;height:360px;pointer-events:none;background:url('./风格化月面参考/图片节点 5.png') right top / auto 1000px no-repeat;mask-image:linear-gradient(#000 0%,#000 65%,transparent 100%)}

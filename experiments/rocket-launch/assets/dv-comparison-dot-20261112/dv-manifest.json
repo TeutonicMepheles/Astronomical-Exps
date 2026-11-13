@@ -1,0 +1,2888 @@
+{
+  "version": "0.1.0",
+  "model": "dv-comparison.glb",
+  "root": "ComparisonRoot",
+  "gltfUp": "+Y",
+  "units": "metre",
+  "scaleBoundary": "All sizes are schematic display dimensions, not real rocket measurements. Mass metadata must not be inferred from volume. Generic teaching rockets, not CZ7.",
+  "schemes": {
+    "Small": {
+      "root": "Small",
+      "payload": "Small_Payload",
+      "stages": [
+        "Small_Stage1"
+      ],
+      "titleAnchor": "Small_TitleAnchor",
+      "cameraTarget": "Small_CameraTarget",
+      "displayHeight": 9.4,
+      "displayDiameter": 2.41,
+      "massTonnes": {
+        "propellant": 100,
+        "structure": 10,
+        "payload": 5
+      },
+      "massIsMetadataNotVolume": true
+    },
+    "Large": {
+      "root": "Large",
+      "payload": "Large_Payload",
+      "stages": [
+        "Large_Stage1"
+      ],
+      "titleAnchor": "Large_TitleAnchor",
+      "cameraTarget": "Large_CameraTarget",
+      "displayHeight": 21.400000000000002,
+      "displayDiameter": 2.41,
+      "massTonnes": {
+        "propellant": 300,
+        "structure": 30,
+        "payload": 5
+      },
+      "massIsMetadataNotVolume": true
+    },
+    "Triple": {
+      "root": "Triple",
+      "payload": "Triple_Payload",
+      "stages": [
+        "Triple_Stage1",
+        "Triple_Stage2",
+        "Triple_Stage3"
+      ],
+      "titleAnchor": "Triple_TitleAnchor",
+      "cameraTarget": "Triple_CameraTarget",
+      "displayHeight": 21.4,
+      "displayDiameter": 2.41,
+      "massTonnes": {
+        "propellant": 300,
+        "structure": 30,
+        "payload": 5
+      },
+      "massIsMetadataNotVolume": true
+    }
+  },
+  "stages": [
+    {
+      "id": "Small_Stage1",
+      "scheme": "Small",
+      "order": 1,
+      "group": "Small_Stage1",
+      "shell": "Small_Stage1_Shell",
+      "dryStructure": "Small_Stage1_DryStructure",
+      "propellant": "Small_Stage1_Propellant",
+      "fuelSurface": "Small_Stage1_FuelSurface",
+      "nozzle": "Small_Stage1_Nozzle",
+      "hotCore": "Small_Stage1_HotCore",
+      "exhaustAnchor": "Small_Stage1_ExhaustAnchor",
+      "hintAnchor": "Small_Stage1_HintAnchor",
+      "fillAxis": "y",
+      "minLocalY": 0,
+      "maxLocalY": 6.3,
+      "fuelSurfaceSpace": "parent stage local space; y = propellant.translation.y + mix(minLocalY,maxLocalY,fill)",
+      "surfaceDefault": {
+        "translation": [
+          0,
+          7.45,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "propellantBaseLocalY": 1.15,
+      "detachable": false
+    },
+    {
+      "id": "Large_Stage1",
+      "scheme": "Large",
+      "order": 1,
+      "group": "Large_Stage1",
+      "shell": "Large_Stage1_Shell",
+      "dryStructure": "Large_Stage1_DryStructure",
+      "propellant": "Large_Stage1_Propellant",
+      "fuelSurface": "Large_Stage1_FuelSurface",
+      "nozzle": "Large_Stage1_Nozzle",
+      "hotCore": "Large_Stage1_HotCore",
+      "exhaustAnchor": "Large_Stage1_ExhaustAnchor",
+      "hintAnchor": "Large_Stage1_HintAnchor",
+      "fillAxis": "y",
+      "minLocalY": 0,
+      "maxLocalY": 18.3,
+      "fuelSurfaceSpace": "parent stage local space; y = propellant.translation.y + mix(minLocalY,maxLocalY,fill)",
+      "surfaceDefault": {
+        "translation": [
+          0,
+          19.45,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "propellantBaseLocalY": 1.15,
+      "detachable": false
+    },
+    {
+      "id": "Triple_Stage1",
+      "scheme": "Triple",
+      "order": 1,
+      "group": "Triple_Stage1",
+      "shell": "Triple_Stage1_Shell",
+      "dryStructure": "Triple_Stage1_DryStructure",
+      "propellant": "Triple_Stage1_Propellant",
+      "fuelSurface": "Triple_Stage1_FuelSurface",
+      "nozzle": "Triple_Stage1_Nozzle",
+      "hotCore": "Triple_Stage1_HotCore",
+      "exhaustAnchor": "Triple_Stage1_ExhaustAnchor",
+      "hintAnchor": "Triple_Stage1_HintAnchor",
+      "fillAxis": "y",
+      "minLocalY": 0,
+      "maxLocalY": 5.1,
+      "fuelSurfaceSpace": "parent stage local space; y = propellant.translation.y + mix(minLocalY,maxLocalY,fill)",
+      "surfaceDefault": {
+        "translation": [
+          0,
+          6.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "propellantBaseLocalY": 1.15,
+      "detachable": true
+    },
+    {
+      "id": "Triple_Stage2",
+      "scheme": "Triple",
+      "order": 2,
+      "group": "Triple_Stage2",
+      "shell": "Triple_Stage2_Shell",
+      "dryStructure": "Triple_Stage2_DryStructure",
+      "propellant": "Triple_Stage2_Propellant",
+      "fuelSurface": "Triple_Stage2_FuelSurface",
+      "nozzle": "Triple_Stage2_Nozzle",
+      "hotCore": "Triple_Stage2_HotCore",
+      "exhaustAnchor": "Triple_Stage2_ExhaustAnchor",
+      "hintAnchor": "Triple_Stage2_HintAnchor",
+      "fillAxis": "y",
+      "minLocalY": 0,
+      "maxLocalY": 5.1,
+      "fuelSurfaceSpace": "parent stage local space; y = propellant.translation.y + mix(minLocalY,maxLocalY,fill)",
+      "surfaceDefault": {
+        "translation": [
+          0,
+          6.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "propellantBaseLocalY": 1.15,
+      "detachable": true
+    },
+    {
+      "id": "Triple_Stage3",
+      "scheme": "Triple",
+      "order": 3,
+      "group": "Triple_Stage3",
+      "shell": "Triple_Stage3_Shell",
+      "dryStructure": "Triple_Stage3_DryStructure",
+      "propellant": "Triple_Stage3_Propellant",
+      "fuelSurface": "Triple_Stage3_FuelSurface",
+      "nozzle": "Triple_Stage3_Nozzle",
+      "hotCore": "Triple_Stage3_HotCore",
+      "exhaustAnchor": "Triple_Stage3_ExhaustAnchor",
+      "hintAnchor": "Triple_Stage3_HintAnchor",
+      "fillAxis": "y",
+      "minLocalY": 0,
+      "maxLocalY": 5.1,
+      "fuelSurfaceSpace": "parent stage local space; y = propellant.translation.y + mix(minLocalY,maxLocalY,fill)",
+      "surfaceDefault": {
+        "translation": [
+          0,
+          6.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "propellantBaseLocalY": 1.15,
+      "detachable": false
+    }
+  ],
+  "shellNodes": [
+    "Small_Stage1_Shell",
+    "Large_Stage1_Shell",
+    "Triple_Stage1_Shell",
+    "Triple_Stage2_Shell",
+    "Triple_Stage3_Shell"
+  ],
+  "materials": {
+    "shell": "DV_ShellWhite",
+    "dryStructure": "DV_DryStructure",
+    "propellant": "DV_PropellantTeal",
+    "fuelSurface": "DV_FuelSurface",
+    "nozzle": "DV_NozzleGraphite",
+    "hotCore": "DV_HotCore",
+    "identification": "DV_IdentificationWarm",
+    "payload": "DV_PayloadWhite"
+  },
+  "anchors": [
+    "Small_Stage1_ExhaustAnchor",
+    "Small_Stage1_HintAnchor",
+    "Small_TitleAnchor",
+    "Small_CameraTarget",
+    "Large_Stage1_ExhaustAnchor",
+    "Large_Stage1_HintAnchor",
+    "Large_TitleAnchor",
+    "Large_CameraTarget",
+    "Triple_Stage1_ExhaustAnchor",
+    "Triple_Stage1_HintAnchor",
+    "Triple_Stage2_ExhaustAnchor",
+    "Triple_Stage2_HintAnchor",
+    "Triple_Stage3_ExhaustAnchor",
+    "Triple_Stage3_HintAnchor",
+    "Triple_TitleAnchor",
+    "Triple_CameraTarget"
+  ],
+  "defaultTransformsGLTF": {
+    "Large_CameraTarget": {
+      "translation": [
+        0,
+        10.699999809265137,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Payload": {
+      "translation": [
+        0,
+        19.799999237060547,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_BaseCollar": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_DryStructure": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_ExhaustAnchor": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_FuelSurface": {
+      "translation": [
+        0,
+        19.450000762939453,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        10.890000343322754,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_HotCore": {
+      "translation": [
+        0,
+        0.8199999928474426,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_IdentificationBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_Nozzle": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_Propellant": {
+      "translation": [
+        0,
+        1.149999976158142,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1_Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_Stage1": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large_TitleAnchor": {
+      "translation": [
+        0,
+        21.799999237060547,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Large": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_CameraTarget": {
+      "translation": [
+        0,
+        4.699999809265137,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Payload": {
+      "translation": [
+        0,
+        7.800000190734863,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_BaseCollar": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_DryStructure": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_ExhaustAnchor": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_FuelSurface": {
+      "translation": [
+        0,
+        7.449999809265137,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        4.289999961853027,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_HotCore": {
+      "translation": [
+        0,
+        0.8199999928474426,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_IdentificationBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_Nozzle": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_Propellant": {
+      "translation": [
+        0,
+        1.149999976158142,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1_Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_Stage1": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small_TitleAnchor": {
+      "translation": [
+        0,
+        9.800000190734863,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Small": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_CameraTarget": {
+      "translation": [
+        0,
+        10.699999809265137,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Payload": {
+      "translation": [
+        0,
+        19.799999237060547,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_BaseCollar": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_DryStructure": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_ExhaustAnchor": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_FuelSurface": {
+      "translation": [
+        0,
+        6.25,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        3.630000114440918,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_HotCore": {
+      "translation": [
+        0,
+        0.8199999928474426,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_IdentificationBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_Nozzle": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_Propellant": {
+      "translation": [
+        0,
+        1.149999976158142,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1_Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage1": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_BaseCollar": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_DryStructure": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_ExhaustAnchor": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_FuelSurface": {
+      "translation": [
+        0,
+        6.250000476837158,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        3.6299996376037598,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_HotCore": {
+      "translation": [
+        0,
+        0.820000171661377,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_IdentificationBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_Nozzle": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_Propellant": {
+      "translation": [
+        0,
+        1.1500000953674316,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2_Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2": {
+      "translation": [
+        0,
+        6.599999904632568,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_BaseCollar": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_DryStructure": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_ExhaustAnchor": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_FuelSurface": {
+      "translation": [
+        0,
+        6.250000953674316,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        3.630000114440918,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_HotCore": {
+      "translation": [
+        0,
+        0.8199996948242188,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_IdentificationBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_Nozzle": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_Propellant": {
+      "translation": [
+        0,
+        1.1499996185302734,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3_Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage3": {
+      "translation": [
+        0,
+        13.199999809265137,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_TitleAnchor": {
+      "translation": [
+        0,
+        21.799999237060547,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "ComparisonRoot": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "defaultTransformsBlender": {
+    "Large": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_CameraTarget": {
+      "translation": [
+        0.0,
+        0.0,
+        10.699999809265137
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Payload": {
+      "translation": [
+        0.0,
+        0.0,
+        19.799999237060547
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_BaseCollar": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_DryStructure": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_ExhaustAnchor": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_FuelSurface": {
+      "translation": [
+        0.0,
+        0.0,
+        19.450000762939453
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        0.0,
+        10.890000343322754
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_HotCore": {
+      "translation": [
+        0.0,
+        0.0,
+        0.8199999928474426
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_IdentificationBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_Nozzle": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_Propellant": {
+      "translation": [
+        0.0,
+        0.0,
+        1.149999976158142
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_Stage1_Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Large_TitleAnchor": {
+      "translation": [
+        0.0,
+        0.0,
+        21.799999237060547
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_CameraTarget": {
+      "translation": [
+        0.0,
+        0.0,
+        4.699999809265137
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Payload": {
+      "translation": [
+        0.0,
+        0.0,
+        7.800000190734863
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_BaseCollar": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_DryStructure": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_ExhaustAnchor": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_FuelSurface": {
+      "translation": [
+        0.0,
+        0.0,
+        7.449999809265137
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        0.0,
+        4.289999961853027
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_HotCore": {
+      "translation": [
+        0.0,
+        0.0,
+        0.8199999928474426
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_IdentificationBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_Nozzle": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_Propellant": {
+      "translation": [
+        0.0,
+        0.0,
+        1.149999976158142
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_Stage1_Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Small_TitleAnchor": {
+      "translation": [
+        0.0,
+        0.0,
+        9.800000190734863
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_CameraTarget": {
+      "translation": [
+        0.0,
+        0.0,
+        10.699999809265137
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Payload": {
+      "translation": [
+        0.0,
+        0.0,
+        19.799999237060547
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_BaseCollar": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_DryStructure": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_ExhaustAnchor": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_FuelSurface": {
+      "translation": [
+        0.0,
+        0.0,
+        6.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        0.0,
+        3.630000114440918
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_HotCore": {
+      "translation": [
+        0.0,
+        0.0,
+        0.8199999928474426
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_IdentificationBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_Nozzle": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_Propellant": {
+      "translation": [
+        0.0,
+        0.0,
+        1.149999976158142
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage1_Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2": {
+      "translation": [
+        0.0,
+        0.0,
+        6.599999904632568
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_BaseCollar": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_DryStructure": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_ExhaustAnchor": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_FuelSurface": {
+      "translation": [
+        0.0,
+        0.0,
+        6.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        0.0,
+        3.630000114440918
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_HotCore": {
+      "translation": [
+        0.0,
+        0.0,
+        0.8199999928474426
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_IdentificationBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_Nozzle": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_Propellant": {
+      "translation": [
+        0.0,
+        0.0,
+        1.149999976158142
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage2_Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3": {
+      "translation": [
+        0.0,
+        0.0,
+        13.199999809265137
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_BaseCollar": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_DryStructure": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_ExhaustAnchor": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_FuelSurface": {
+      "translation": [
+        0.0,
+        0.0,
+        6.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_HintAnchor": {
+      "translation": [
+        1.399999976158142,
+        0.0,
+        3.630000114440918
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_HotCore": {
+      "translation": [
+        0.0,
+        0.0,
+        0.8199999928474426
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_IdentificationBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_Nozzle": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_Propellant": {
+      "translation": [
+        0.0,
+        0.0,
+        1.149999976158142
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_Stage3_Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Triple_TitleAnchor": {
+      "translation": [
+        0.0,
+        0.0,
+        21.799999237060547
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "ComparisonRoot": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "defaultVisibility": {
+    "Large_CameraTarget": true,
+    "Large_Payload": true,
+    "Large_Stage1_BaseCollar": true,
+    "Large_Stage1_DryStructure": true,
+    "Large_Stage1_ExhaustAnchor": true,
+    "Large_Stage1_FuelSurface": true,
+    "Large_Stage1_HintAnchor": true,
+    "Large_Stage1_HotCore": true,
+    "Large_Stage1_IdentificationBand": true,
+    "Large_Stage1_Nozzle": true,
+    "Large_Stage1_Propellant": true,
+    "Large_Stage1_Shell": true,
+    "Large_Stage1": true,
+    "Large_TitleAnchor": true,
+    "Large": true,
+    "Small_CameraTarget": true,
+    "Small_Payload": true,
+    "Small_Stage1_BaseCollar": true,
+    "Small_Stage1_DryStructure": true,
+    "Small_Stage1_ExhaustAnchor": true,
+    "Small_Stage1_FuelSurface": true,
+    "Small_Stage1_HintAnchor": true,
+    "Small_Stage1_HotCore": true,
+    "Small_Stage1_IdentificationBand": true,
+    "Small_Stage1_Nozzle": true,
+    "Small_Stage1_Propellant": true,
+    "Small_Stage1_Shell": true,
+    "Small_Stage1": true,
+    "Small_TitleAnchor": true,
+    "Small": true,
+    "Triple_CameraTarget": true,
+    "Triple_Payload": true,
+    "Triple_Stage1_BaseCollar": true,
+    "Triple_Stage1_DryStructure": true,
+    "Triple_Stage1_ExhaustAnchor": true,
+    "Triple_Stage1_FuelSurface": true,
+    "Triple_Stage1_HintAnchor": true,
+    "Triple_Stage1_HotCore": true,
+    "Triple_Stage1_IdentificationBand": true,
+    "Triple_Stage1_Nozzle": true,
+    "Triple_Stage1_Propellant": true,
+    "Triple_Stage1_Shell": true,
+    "Triple_Stage1": true,
+    "Triple_Stage2_BaseCollar": true,
+    "Triple_Stage2_DryStructure": true,
+    "Triple_Stage2_ExhaustAnchor": true,
+    "Triple_Stage2_FuelSurface": true,
+    "Triple_Stage2_HintAnchor": true,
+    "Triple_Stage2_HotCore": true,
+    "Triple_Stage2_IdentificationBand": true,
+    "Triple_Stage2_Nozzle": true,
+    "Triple_Stage2_Propellant": true,
+    "Triple_Stage2_Shell": true,
+    "Triple_Stage2": true,
+    "Triple_Stage3_BaseCollar": true,
+    "Triple_Stage3_DryStructure": true,
+    "Triple_Stage3_ExhaustAnchor": true,
+    "Triple_Stage3_FuelSurface": true,
+    "Triple_Stage3_HintAnchor": true,
+    "Triple_Stage3_HotCore": true,
+    "Triple_Stage3_IdentificationBand": true,
+    "Triple_Stage3_Nozzle": true,
+    "Triple_Stage3_Propellant": true,
+    "Triple_Stage3_Shell": true,
+    "Triple_Stage3": true,
+    "Triple_TitleAnchor": true,
+    "Triple": true,
+    "ComparisonRoot": true
+  },
+  "animations": {
+    "SeparateTripleStage1": {
+      "duration": 0.8,
+      "targetNodes": [
+        "Triple_Stage1"
+      ],
+      "timeStart": 0,
+      "timeUnit": "seconds",
+      "teachingOnly": true
+    },
+    "SeparateTripleStage2": {
+      "duration": 0.8,
+      "targetNodes": [
+        "Triple_Stage2"
+      ],
+      "timeStart": 0,
+      "timeUnit": "seconds",
+      "teachingOnly": true
+    }
+  },
+  "separationEndpoints": {
+    "Triple_Stage1": {
+      "translation": [
+        -3.2,
+        -1.0,
+        -0.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        0.06495417654514313,
+        0.9978882670402527
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Triple_Stage2": {
+      "translation": [
+        3.2,
+        5.599999904632568,
+        -0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -0.06495417654514313,
+        0.9978882670402527
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "statistics": {
+    "meshObjects": 43,
+    "uniqueMeshes": 16,
+    "materials": 8,
+    "textures": 0,
+    "textureBytes": 0,
+    "nodes": 68,
+    "animations": 2,
+    "glbBytes": 212132,
+    "uniqueTriangles": 7574,
+    "instancedTriangles": 18854
+  },
+  "playbackContract": {
+    "separation": "LoopOnce, clampWhenFinished; hold first step endpoint while playing second. Each clip targets only one stage. Reset all actions and restore every defaultTransformsGLTF entry.",
+    "fill": "Clip propellant in mesh LOCAL Y; move surface in STAGE parent space. Hide surface at fill=0. Never scale stage, shell or dry structure.",
+    "materials": "Clone or use per-stage uniforms; shared GLB materials are immutable templates. shellScan/burnIntensity/emptyHighlight/detachFade belong to the runtime.",
+    "science": "No fuel animation or delta-v curves embedded. Detachment is pedagogical and must not cause a velocity jump."
+  }
+}

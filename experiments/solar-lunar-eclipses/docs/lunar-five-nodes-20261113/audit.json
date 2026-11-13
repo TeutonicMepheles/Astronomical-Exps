@@ -1,0 +1,153 @@
+{
+  "browser": "157.0.8103.39",
+  "url": "http://127.0.0.1:9012/experiments/solar-lunar-eclipses/",
+  "date": "2026-11-13",
+  "nodes": [
+    {
+      "label": "初亏",
+      "degrees": -3.1954181314537573,
+      "modelMoon": {
+        "x": 19.968904499244143,
+        "y": -1.1103414872251933,
+        "z": -0.0999744057921748
+      },
+      "modelAxisDistance": 1.114833216255666,
+      "modelUmbraRadius": 0.8502332162556689,
+      "moonRadius": 0.2646,
+      "modelStatus": "partial",
+      "modelOuterGap": -2.886579864025407e-15,
+      "modelInnerGap": 0.529199999999997,
+      "visibleSurfaceSamples": 5034,
+      "displayUmbraFraction": 1,
+      "displayPenumbraFraction": 1,
+      "earth": {
+        "x": 570,
+        "y": 435,
+        "depth": 0
+      },
+      "moon": {
+        "x": 988.4980248370499,
+        "y": 368.94739084198477,
+        "depth": -430.66055117124245
+      },
+      "skyCaption": "初亏"
+    },
+    {
+      "label": "食既",
+      "degrees": -1.6774712580967932,
+      "modelMoon": {
+        "x": 19.99142895276628,
+        "y": -0.5831054125970205,
+        "z": -0.052502421830847835
+      },
+      "modelAxisDistance": 0.5854642828542539,
+      "modelUmbraRadius": 0.8500642828542528,
+      "moonRadius": 0.2646,
+      "modelStatus": "partial",
+      "modelOuterGap": -0.5291999999999989,
+      "modelInnerGap": 9.992007221626409e-16,
+      "visibleSurfaceSamples": 5034,
+      "displayUmbraFraction": 1,
+      "displayPenumbraFraction": 1,
+      "earth": {
+        "x": 570,
+        "y": 435,
+        "depth": 0
+      },
+      "moon": {
+        "x": 979.1600725795361,
+        "y": 365.1766996489645,
+        "depth": -443.8830380022101
+      },
+      "skyCaption": "食既"
+    },
+    {
+      "label": "食甚",
+      "degrees": 0,
+      "modelMoon": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "modelAxisDistance": 0,
+      "modelUmbraRadius": 0.85,
+      "moonRadius": 0.2646,
+      "modelStatus": "total",
+      "modelOuterGap": -1.1146,
+      "modelInnerGap": -0.5853999999999999,
+      "visibleSurfaceSamples": 5034,
+      "displayUmbraFraction": 1,
+      "displayPenumbraFraction": 1,
+      "earth": {
+        "x": 570,
+        "y": 435,
+        "depth": 0
+      },
+      "moon": {
+        "x": 968.5070255434377,
+        "y": 361.0668459602958,
+        "depth": -458.13236518997064
+      },
+      "skyCaption": "食甚"
+    },
+    {
+      "label": "生光",
+      "degrees": 1.6774712580967932,
+      "modelMoon": {
+        "x": 19.99142895276628,
+        "y": 0.5831054125970205,
+        "z": 0.052502421830847835
+      },
+      "modelAxisDistance": 0.5854642828542539,
+      "modelUmbraRadius": 0.8500642828542528,
+      "moonRadius": 0.2646,
+      "modelStatus": "partial",
+      "modelOuterGap": -0.5291999999999989,
+      "modelInnerGap": 9.992007221626409e-16,
+      "visibleSurfaceSamples": 5034,
+      "displayUmbraFraction": 1,
+      "displayPenumbraFraction": 1,
+      "earth": {
+        "x": 570,
+        "y": 435,
+        "depth": 0
+      },
+      "moon": {
+        "x": 957.5124162534494,
+        "y": 357.02036072716834,
+        "depth": -471.98902496359733
+      },
+      "skyCaption": "生光"
+    },
+    {
+      "label": "复圆",
+      "degrees": 3.1954181314537573,
+      "modelMoon": {
+        "x": 19.968904499244143,
+        "y": 1.1103414872251933,
+        "z": 0.0999744057921748
+      },
+      "modelAxisDistance": 1.114833216255666,
+      "modelUmbraRadius": 0.8502332162556689,
+      "moonRadius": 0.2646,
+      "modelStatus": "partial",
+      "modelOuterGap": -2.886579864025407e-15,
+      "modelInnerGap": 0.529199999999997,
+      "visibleSurfaceSamples": 5034,
+      "displayUmbraFraction": 1,
+      "displayPenumbraFraction": 1,
+      "earth": {
+        "x": 570,
+        "y": 435,
+        "depth": 0
+      },
+      "moon": {
+        "x": 947.2768486984257,
+        "y": 353.41619992333926,
+        "depth": -484.1795936778942
+      },
+      "skyCaption": "复圆"
+    }
+  ],
+  "errors": []
+}

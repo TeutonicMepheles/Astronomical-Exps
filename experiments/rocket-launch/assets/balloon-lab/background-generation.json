@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "c9a4e86a-5034-4766-84e2-5ccafe43d49e",
+  "reactFlowNode": {
+    "id": "c9a4e86a-5034-4766-84e2-5ccafe43d49e",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "环境-深蓝实验台-v1",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Edit the referenced science workbench environment into a new full-screen background for a balloon reaction-force classroom experiment. Preserve the restrained hand-painted 3D illustration, fine paper grain, soft matte material and dark indigo/navy palette. Wide 16:9 composition. A deep muted blue laboratory back wall with very faint widely spaced graph lines, not bright dense grid. Long empty matte slate-blue tabletop begins at 63 percent image height and continues to the bottom; straight level back edge. Warm subtle overhead lighting, no bright center hotspot. Small notebook and pencil only at extreme bottom left, a few plain wooden blocks at extreme bottom right. Keep the entire middle and right working area empty for independent interactive apparatus. Keep left 22 percent quiet and dark for navigation. NO laboratory apparatus, no pump, no balloon, no stands, no tube, no strings, no people, no text, no labels, no diagrams, no UI, no logos. This image is environment only.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "16:9",
+          "background": "opaque"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "374f1a30-ec40-4469-889b-8c0a7c3bbd68"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "374f1a30-ec40-4469-889b-8c0a7c3bbd68",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/b273ded64643511feffd9be17f2e1159e12d89d1.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "374f1a30-ec40-4469-889b-8c0a7c3bbd68"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "21dce9b1-b839-4e21-818c-112dd4cf0e29",
+      "source": "374f1a30-ec40-4469-889b-8c0a7c3bbd68",
+      "target": "c9a4e86a-5034-4766-84e2-5ccafe43d49e"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "c9a4e86a-5034-4766-84e2-5ccafe43d49e"
+  ]
+}
+{
+  "nodeKey": "c9a4e86a-5034-4766-84e2-5ccafe43d49e",
+  "nodeType": "image",
+  "taskId": "20261112214203537907723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "环境-深蓝实验台-v1",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017044474_9458de7152b1483e8183374b330622d1.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Edit the referenced science workbench environment into a new full-screen background for a balloon reaction-force classroom experiment. Preserve the restrained hand-painted 3D illustration, fine paper grain, soft matte material and dark indigo/navy palette. Wide 16:9 composition. A deep muted blue laboratory back wall with very faint widely spaced graph lines, not bright dense grid. Long empty matte slate-blue tabletop begins at 63 percent image height and continues to the bottom; straight level back edge. Warm subtle overhead lighting, no bright center hotspot. Small notebook and pencil only at extreme bottom left, a few plain wooden blocks at extreme bottom right. Keep the entire middle and right working area empty for independent interactive apparatus. Keep left 22 percent quiet and dark for navigation. NO laboratory apparatus, no pump, no balloon, no stands, no tube, no strings, no people, no text, no labels, no diagrams, no UI, no logos. This image is environment only.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "16:9",
+        "background": "opaque"
+      },
+      "imageListOrder": [
+        "374f1a30-ec40-4469-889b-8c0a7c3bbd68"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "374f1a30-ec40-4469-889b-8c0a7c3bbd68",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/b273ded64643511feffd9be17f2e1159e12d89d1.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "374f1a30-ec40-4469-889b-8c0a7c3bbd68"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112214203537907723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2736,
+          "height": 1536
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2736,
+          "height": 1536
+        }
+      ]
+    }
+  }
+}

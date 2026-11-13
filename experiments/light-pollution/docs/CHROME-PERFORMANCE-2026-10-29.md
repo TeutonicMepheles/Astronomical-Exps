@@ -61,4 +61,4 @@ node experiments/light-pollution/tools/audit/chrome-interactions.cjs chrome-fina
 - [重绘合并前的交互样本](chrome-controls-before.json)
 - [含秒级间隔的异常样本](chrome-gap-sample.json)
 - [最终样本](chrome-final.json)、[最终 CPU profile](chrome-final.cpuprofile)
-- [独立广告面板截图](chrome-billboard-panel.png)、[26 项回归结果](browser-results.json)
+- 独立广告面板截图（本地评审素材，不随工程发布）、[26 项回归结果](browser-results.json)

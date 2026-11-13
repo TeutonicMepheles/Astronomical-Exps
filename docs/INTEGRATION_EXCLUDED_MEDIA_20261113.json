@@ -1,0 +1,2406 @@
+{
+  "count": 600,
+  "bytes": 601828456,
+  "files": [
+    {
+      "path": "experiments/rocket-launch/assets/earth-eq-redraw-1152x576.png",
+      "bytes": 1304473
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/fixtures.webp",
+      "bytes": 284544
+    },
+    {
+      "path": "experiments/rocket-launch/assets/launch-pad/发射台-深蓝空场-v1.png",
+      "bytes": 5062504
+    },
+    {
+      "path": "experiments/rocket-launch/assets/props/cannon-1000.png",
+      "bytes": 949058
+    },
+    {
+      "path": "experiments/rocket-launch/assets/props/preview-props-dark.png",
+      "bytes": 3180712
+    },
+    {
+      "path": "experiments/rocket-launch/assets/props/preview-props-light.png",
+      "bytes": 3159387
+    },
+    {
+      "path": "experiments/rocket-launch/assets/rocket-kit/preview-parts.png",
+      "bytes": 1201989
+    },
+    {
+      "path": "experiments/rocket-launch/assets/rocket-kit/rocket-warm-700.png",
+      "bytes": 226373
+    },
+    {
+      "path": "experiments/newton-telescope/assets/observation-targets/target-sheet-v1.png",
+      "bytes": 1579336
+    },
+    {
+      "path": "experiments/newton-telescope/assets/mirrors/preview-v2.png",
+      "bytes": 167133
+    },
+    {
+      "path": "experiments/newton-telescope/assets/optical/exec-97ae5a32-07cc-4301-ac56-7a2ae0be74cf.png",
+      "bytes": 1799633
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/assembly.png",
+      "bytes": 51212
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/balloon.png",
+      "bytes": 32058
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/circular.png",
+      "bytes": 46006
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/configure.png",
+      "bytes": 36489
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/fairing.png",
+      "bytes": 41721
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/flight.png",
+      "bytes": 30254
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/match-error.png",
+      "bytes": 33582
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/orbit.png",
+      "bytes": 53074
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/predict.png",
+      "bytes": 38428
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/records.png",
+      "bytes": 30524
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/start.png",
+      "bytes": 41374
+    },
+    {
+      "path": "experiments/rocket-launch/docs/prototype-flow/rocket-v0.2.0/screenshots/thrust.png",
+      "bytes": 22110
+    },
+    {
+      "path": "experiments/newton-telescope/review/auto-focus-blurred.png",
+      "bytes": 1411637
+    },
+    {
+      "path": "experiments/newton-telescope/review/auto-focus-clear.png",
+      "bytes": 1082903
+    },
+    {
+      "path": "experiments/newton-telescope/review/auto-focus-initial.png",
+      "bytes": 1363600
+    },
+    {
+      "path": "experiments/newton-telescope/review/grounded-exterior.png",
+      "bytes": 1433047
+    },
+    {
+      "path": "experiments/newton-telescope/review/grounded-section.png",
+      "bytes": 1053003
+    },
+    {
+      "path": "experiments/newton-telescope/review/layered-background.png",
+      "bytes": 1327180
+    },
+    {
+      "path": "experiments/newton-telescope/review/observation-buttons-20261111.png",
+      "bytes": 1353458
+    },
+    {
+      "path": "experiments/newton-telescope/review/observation-buttons-layout.png",
+      "bytes": 1350319
+    },
+    {
+      "path": "experiments/newton-telescope/review/rotation-buttons-20261111.png",
+      "bytes": 2081554
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage3-recording-20261111.png",
+      "bytes": 254535
+    },
+    {
+      "path": "experiments/newton-telescope/review/aligned-slots-20261111/assembly-approved-complete.png",
+      "bytes": 638838
+    },
+    {
+      "path": "experiments/newton-telescope/review/aligned-slots-20261111/assembly-approved-empty.png",
+      "bytes": 2099301
+    },
+    {
+      "path": "experiments/newton-telescope/review/aligned-slots-20261111/assembly-auto-inspection.png",
+      "bytes": 2049815
+    },
+    {
+      "path": "experiments/newton-telescope/review/aligned-slots-20261111/assembly-complete-feedback.png",
+      "bytes": 2070309
+    },
+    {
+      "path": "experiments/newton-telescope/review/assembly-flow-20261111/assembly-approved-complete.png",
+      "bytes": 613206
+    },
+    {
+      "path": "experiments/newton-telescope/review/assembly-flow-20261111/assembly-approved-empty.png",
+      "bytes": 2096449
+    },
+    {
+      "path": "experiments/newton-telescope/review/assembly-flow-20261111/assembly-auto-inspection.png",
+      "bytes": 2038637
+    },
+    {
+      "path": "experiments/newton-telescope/review/assembly-flow-20261111/assembly-complete-feedback.png",
+      "bytes": 2069400
+    },
+    {
+      "path": "experiments/newton-telescope/review/contact-shadow-20261110/page-shadow-on.png",
+      "bytes": 2024097
+    },
+    {
+      "path": "experiments/newton-telescope/review/contact-shadow-20261110/viewer-shadow-on.png",
+      "bytes": 310580
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/assembly-selected.png",
+      "bytes": 1377035
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/materials-after.png",
+      "bytes": 1211901
+    },
+    {
+      "path": "experiments/newton-telescope/review/direct-focus-20261111/focus-controls.png",
+      "bytes": 1464995
+    },
+    {
+      "path": "experiments/newton-telescope/review/discover-focus-20261111/offline-blurred.png",
+      "bytes": 546930
+    },
+    {
+      "path": "experiments/newton-telescope/review/discover-focus-20261111/offline-focused.png",
+      "bytes": 559596
+    },
+    {
+      "path": "experiments/newton-telescope/review/discover-focus-20261111/offline-layout.png",
+      "bytes": 538209
+    },
+    {
+      "path": "experiments/newton-telescope/review/discover-focus-20261111/offline-records.png",
+      "bytes": 279358
+    },
+    {
+      "path": "experiments/newton-telescope/review/discover-focus-20261111/online-blurred.png",
+      "bytes": 1046074
+    },
+    {
+      "path": "experiments/newton-telescope/review/discover-focus-20261111/online-focused.png",
+      "bytes": 1071906
+    },
+    {
+      "path": "experiments/newton-telescope/review/discover-focus-20261111/online-layout.png",
+      "bytes": 1026677
+    },
+    {
+      "path": "experiments/newton-telescope/review/discover-focus-20261111/online-records.png",
+      "bytes": 631685
+    },
+    {
+      "path": "experiments/newton-telescope/review/eyepiece-starfield-20261111/offline-empty-eyepiece.png",
+      "bytes": 538529
+    },
+    {
+      "path": "experiments/newton-telescope/review/eyepiece-starfield-20261111/online-empty-eyepiece.png",
+      "bytes": 1025688
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/after-back.png",
+      "bytes": 306253
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/after-front.png",
+      "bytes": 342463
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/after-side.png",
+      "bytes": 251746
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/assembly-selected.png",
+      "bytes": 1377035
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/before-back.png",
+      "bytes": 287891
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/before-front.png",
+      "bytes": 293909
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/before-side.png",
+      "bytes": 235941
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/materials-after.png",
+      "bytes": 1228036
+    },
+    {
+      "path": "experiments/newton-telescope/review/ken-v123/01-study-assembly.png",
+      "bytes": 1369608
+    },
+    {
+      "path": "experiments/newton-telescope/review/ken-v123/02-transition-review.png",
+      "bytes": 1257360
+    },
+    {
+      "path": "experiments/newton-telescope/review/ken-v123/03-real-exterior.png",
+      "bytes": 1256398
+    },
+    {
+      "path": "experiments/newton-telescope/review/ken-v123/04-section-hotspots.png",
+      "bytes": 1186644
+    },
+    {
+      "path": "experiments/newton-telescope/review/ken-v123/05-original-tools.png",
+      "bytes": 1225837
+    },
+    {
+      "path": "experiments/newton-telescope/review/modern-material-20261111/after-exterior.png",
+      "bytes": 2085579
+    },
+    {
+      "path": "experiments/newton-telescope/review/modern-material-20261111/after-section.png",
+      "bytes": 1330592
+    },
+    {
+      "path": "experiments/newton-telescope/review/modern-material-20261111/before-exterior.png",
+      "bytes": 2083368
+    },
+    {
+      "path": "experiments/newton-telescope/review/modern-material-20261111/before-section.png",
+      "bytes": 1330602
+    },
+    {
+      "path": "experiments/newton-telescope/review/modern-material-20261111/offline-exterior.png",
+      "bytes": 2085609
+    },
+    {
+      "path": "experiments/newton-telescope/review/modern-material-20261111/offline-section.png",
+      "bytes": 1330452
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/01-study-assembly.png",
+      "bytes": 1791536
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/02-transition-midpoint.png",
+      "bytes": 1747299
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/03-real-exterior.png",
+      "bytes": 1617450
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/04-section-bloom-off.png",
+      "bytes": 1538506
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/05-section-bloom-on.png",
+      "bytes": 1555141
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/06-step3-preserved.png",
+      "bytes": 1916119
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/assembly-approved-complete.png",
+      "bytes": 613166
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/assembly-approved-empty.png",
+      "bytes": 2096449
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/assembly-auto-inspection.png",
+      "bytes": 2035092
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/assembly-complete-feedback.png",
+      "bytes": 2069821
+    },
+    {
+      "path": "experiments/newton-telescope/review/nightly-evidence/study-background.png",
+      "bytes": 1693871
+    },
+    {
+      "path": "experiments/newton-telescope/review/observation-four-targets-20261111/offline-layout.png",
+      "bytes": 537722
+    },
+    {
+      "path": "experiments/newton-telescope/review/observation-four-targets-20261111/offline-records.png",
+      "bytes": 266869
+    },
+    {
+      "path": "experiments/newton-telescope/review/observation-four-targets-20261111/online-layout.png",
+      "bytes": 1021431
+    },
+    {
+      "path": "experiments/newton-telescope/review/observation-four-targets-20261111/online-records.png",
+      "bytes": 617694
+    },
+    {
+      "path": "experiments/newton-telescope/review/offline-evidence/01-study-assembly.png",
+      "bytes": 1791536
+    },
+    {
+      "path": "experiments/newton-telescope/review/offline-evidence/02-transition-midpoint.png",
+      "bytes": 1745988
+    },
+    {
+      "path": "experiments/newton-telescope/review/offline-evidence/03-real-exterior.png",
+      "bytes": 1617450
+    },
+    {
+      "path": "experiments/newton-telescope/review/offline-evidence/04-section-bloom-off.png",
+      "bytes": 1538506
+    },
+    {
+      "path": "experiments/newton-telescope/review/offline-evidence/05-section-bloom-on.png",
+      "bytes": 1555141
+    },
+    {
+      "path": "experiments/newton-telescope/review/offline-evidence/06-step3-preserved.png",
+      "bytes": 1916119
+    },
+    {
+      "path": "experiments/newton-telescope/review/parameter-knobs-20261111/page.png",
+      "bytes": 1071572
+    },
+    {
+      "path": "experiments/newton-telescope/review/real-viewer/exterior.png",
+      "bytes": 310580
+    },
+    {
+      "path": "experiments/newton-telescope/review/real-viewer/rear-occlusion-1.png",
+      "bytes": 295936
+    },
+    {
+      "path": "experiments/newton-telescope/review/real-viewer/rear-occlusion-2.png",
+      "bytes": 284139
+    },
+    {
+      "path": "experiments/newton-telescope/review/real-viewer/section-bloom-off.png",
+      "bytes": 319039
+    },
+    {
+      "path": "experiments/newton-telescope/review/real-viewer/section-bloom-on.png",
+      "bytes": 337304
+    },
+    {
+      "path": "experiments/newton-telescope/review/scan-transition-20261110/00-assembly.png",
+      "bytes": 1357093
+    },
+    {
+      "path": "experiments/newton-telescope/review/scan-transition-20261110/01-scan-middle.png",
+      "bytes": 1332953
+    },
+    {
+      "path": "experiments/newton-telescope/review/scan-transition-20261110/02-complete.png",
+      "bytes": 1228036
+    },
+    {
+      "path": "experiments/newton-telescope/review/specimen-tips-20261111/single-tip.png",
+      "bytes": 1451502
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/assembly-aligned-slots.png",
+      "bytes": 2098392
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/assembly-objective.png",
+      "bytes": 472749
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/chinese-heading.png",
+      "bytes": 1460998
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/completion-typography.png",
+      "bytes": 670775
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/direct-focus.png",
+      "bytes": 1475913
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/mirrors-objective.png",
+      "bytes": 434321
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/mirrors-ready.png",
+      "bytes": 854252
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/observation-objective.png",
+      "bytes": 255952
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/observation-ready.png",
+      "bytes": 2077618
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/task-summary-left.png",
+      "bytes": 1462771
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/task-summary.png",
+      "bytes": 1490084
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/after-back.png",
+      "bytes": 287891
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/after-front.png",
+      "bytes": 293909
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/after-side.png",
+      "bytes": 235941
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/assembly-selected.png",
+      "bytes": 1377035
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/before-back.png",
+      "bytes": 308043
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/before-front.png",
+      "bytes": 334842
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/before-side.png",
+      "bytes": 251205
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/materials-after.png",
+      "bytes": 1182724
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/assembly-before.png",
+      "bytes": 1374110
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/assembly-selected.png",
+      "bytes": 2088290
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/materials-after.png",
+      "bytes": 2057697
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/materials-before.png",
+      "bytes": 1277877
+    },
+    {
+      "path": "experiments/newton-telescope/review/study-background-20261110/00-assembly.png",
+      "bytes": 2082024
+    },
+    {
+      "path": "experiments/newton-telescope/review/study-background-20261110/01-scan-middle.png",
+      "bytes": 2083548
+    },
+    {
+      "path": "experiments/newton-telescope/review/study-background-20261110/02-complete.png",
+      "bytes": 2031084
+    },
+    {
+      "path": "experiments/newton-telescope/review/tabletop-20261110/after.png",
+      "bytes": 1277877
+    },
+    {
+      "path": "experiments/newton-telescope/review/tabletop-20261110/before.png",
+      "bytes": 1189972
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-blurred.png",
+      "bytes": 525988
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-empty.png",
+      "bytes": 243955
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-focused.png",
+      "bytes": 552748
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-jupiter.png",
+      "bytes": 548677
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-layout.png",
+      "bytes": 538156
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-moon.png",
+      "bytes": 561775
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-partial.png",
+      "bytes": 227421
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-pleiades.png",
+      "bytes": 531661
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-records.png",
+      "bytes": 252254
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/offline-saturn.png",
+      "bytes": 552761
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-blurred.png",
+      "bytes": 1005957
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-empty.png",
+      "bytes": 596743
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-focused.png",
+      "bytes": 1062552
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-jupiter.png",
+      "bytes": 1064217
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-layout.png",
+      "bytes": 1026637
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-moon.png",
+      "bytes": 1075813
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-partial.png",
+      "bytes": 596767
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-pleiades.png",
+      "bytes": 1015152
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-records.png",
+      "bytes": 611784
+    },
+    {
+      "path": "experiments/newton-telescope/review/target-art-integration-20261111/online-saturn.png",
+      "bytes": 1062372
+    },
+    {
+      "path": "experiments/newton-telescope/review/task-progress-20261110/completion-check.png",
+      "bytes": 1386372
+    },
+    {
+      "path": "experiments/newton-telescope/review/task-progress-20261110/menu.png",
+      "bytes": 1389360
+    },
+    {
+      "path": "experiments/newton-telescope/review/viewer-controls-20261111/base-controls-popover.png",
+      "bytes": 1994729
+    },
+    {
+      "path": "experiments/newton-telescope/review/tabletop-20261110/regression/exterior.png",
+      "bytes": 364410
+    },
+    {
+      "path": "experiments/newton-telescope/review/tabletop-20261110/regression/rear-occlusion-1.png",
+      "bytes": 334243
+    },
+    {
+      "path": "experiments/newton-telescope/review/tabletop-20261110/regression/rear-occlusion-2.png",
+      "bytes": 326005
+    },
+    {
+      "path": "experiments/newton-telescope/review/tabletop-20261110/regression/section-bloom-off.png",
+      "bytes": 366749
+    },
+    {
+      "path": "experiments/newton-telescope/review/tabletop-20261110/regression/section-bloom-on.png",
+      "bytes": 382147
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/assembly/assembly-approved-complete.png",
+      "bytes": 1370690
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/assembly/assembly-approved-empty.png",
+      "bytes": 1387879
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/offline-assembly/assembly-approved-complete.png",
+      "bytes": 2096413
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/offline-assembly/assembly-approved-empty.png",
+      "bytes": 2096449
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/viewer/exterior.png",
+      "bytes": 318207
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/viewer/rear-occlusion-1.png",
+      "bytes": 297560
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/viewer/rear-occlusion-2.png",
+      "bytes": 286733
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/viewer/section-bloom-off.png",
+      "bytes": 321799
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-refinement-20261110/viewer/section-bloom-on.png",
+      "bytes": 339018
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/live-current/assembly-selected.png",
+      "bytes": 1377035
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/live-current/materials-after.png",
+      "bytes": 1182724
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/offline/assembly-selected.png",
+      "bytes": 1377035
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/offline/materials-after.png",
+      "bytes": 1182724
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/viewer/exterior.png",
+      "bytes": 277700
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/viewer/rear-occlusion-1.png",
+      "bytes": 277348
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/viewer/rear-occlusion-2.png",
+      "bytes": 264882
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/viewer/section-bloom-off.png",
+      "bytes": 267597
+    },
+    {
+      "path": "experiments/newton-telescope/review/step2-handpaint-20261110/viewer/section-bloom-on.png",
+      "bytes": 291307
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/assembly/assembly-approved-complete.png",
+      "bytes": 613472
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/assembly/assembly-approved-empty.png",
+      "bytes": 2097314
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/assembly/assembly-auto-inspection.png",
+      "bytes": 2038824
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/assembly/assembly-complete-feedback.png",
+      "bytes": 2069894
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/persistent-progress/assembly-approved-complete.png",
+      "bytes": 617019
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/persistent-progress/assembly-approved-empty.png",
+      "bytes": 2097325
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/persistent-progress/assembly-auto-inspection.png",
+      "bytes": 765356
+    },
+    {
+      "path": "experiments/newton-telescope/review/stage-objective-20261111/persistent-progress/assembly-complete-feedback.png",
+      "bytes": 2070056
+    },
+    {
+      "path": "experiments/newton-telescope/review/scan-transition-20261110/offline/00-assembly.png",
+      "bytes": 1357093
+    },
+    {
+      "path": "experiments/newton-telescope/review/scan-transition-20261110/offline/01-scan-middle.png",
+      "bytes": 1330906
+    },
+    {
+      "path": "experiments/newton-telescope/review/scan-transition-20261110/offline/02-complete.png",
+      "bytes": 1228036
+    },
+    {
+      "path": "experiments/newton-telescope/review/release-20261111/offline/assembly-approved-complete.png",
+      "bytes": 638196
+    },
+    {
+      "path": "experiments/newton-telescope/review/release-20261111/offline/assembly-approved-empty.png",
+      "bytes": 2096675
+    },
+    {
+      "path": "experiments/newton-telescope/review/release-20261111/offline/assembly-auto-inspection.png",
+      "bytes": 755590
+    },
+    {
+      "path": "experiments/newton-telescope/review/release-20261111/offline/assembly-complete-feedback.png",
+      "bytes": 2067735
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/offline/assembly-selected.png",
+      "bytes": 1377035
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/offline/materials-after.png",
+      "bytes": 1228036
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/viewer/exterior.png",
+      "bytes": 326099
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/viewer/rear-occlusion-1.png",
+      "bytes": 295955
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/viewer/rear-occlusion-2.png",
+      "bytes": 281414
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/viewer/section-bloom-off.png",
+      "bytes": 322041
+    },
+    {
+      "path": "experiments/newton-telescope/review/globe-lighting-20261110/viewer/section-bloom-on.png",
+      "bytes": 339997
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/offline/assembly-selected.png",
+      "bytes": 1377035
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/offline/materials-after.png",
+      "bytes": 1209394
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/viewer/exterior.png",
+      "bytes": 312173
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/viewer/rear-occlusion-1.png",
+      "bytes": 298248
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/viewer/rear-occlusion-2.png",
+      "bytes": 286011
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/viewer/section-bloom-off.png",
+      "bytes": 320666
+    },
+    {
+      "path": "experiments/newton-telescope/review/cover-model-20261110/viewer/section-bloom-on.png",
+      "bytes": 338905
+    },
+    {
+      "path": "experiments/newton-telescope/review/assembly-flow-20261111/offline/assembly-approved-complete.png",
+      "bytes": 613017
+    },
+    {
+      "path": "experiments/newton-telescope/review/assembly-flow-20261111/offline/assembly-approved-empty.png",
+      "bytes": 2096449
+    },
+    {
+      "path": "experiments/newton-telescope/review/assembly-flow-20261111/offline/assembly-auto-inspection.png",
+      "bytes": 2035467
+    },
+    {
+      "path": "experiments/newton-telescope/review/assembly-flow-20261111/offline/assembly-complete-feedback.png",
+      "bytes": 2069821
+    },
+    {
+      "path": "experiments/light-pollution/docs/billboard-panel.png",
+      "bytes": 1141587
+    },
+    {
+      "path": "experiments/light-pollution/docs/chrome-billboard-panel.png",
+      "bytes": 1901206
+    },
+    {
+      "path": "experiments/light-pollution/docs/lamp-attached-detail.png",
+      "bytes": 145582
+    },
+    {
+      "path": "experiments/light-pollution/docs/lamp-attached-final.png",
+      "bytes": 1198867
+    },
+    {
+      "path": "experiments/light-pollution/docs/lamp-attached-first.png",
+      "bytes": 1133548
+    },
+    {
+      "path": "experiments/light-pollution/docs/lamp-attached-preview.png",
+      "bytes": 1193837
+    },
+    {
+      "path": "experiments/light-pollution/docs/lamp-shades-strip.png",
+      "bytes": 63523
+    },
+    {
+      "path": "experiments/light-pollution/docs/lamp-variants-overview.png",
+      "bytes": 151352
+    },
+    {
+      "path": "experiments/foucault-pendulum/references/e6-scale-design-20261102/E6-A.png",
+      "bytes": 2192936
+    },
+    {
+      "path": "experiments/foucault-pendulum/references/e6-scale-design-20261102/E6-B.png",
+      "bytes": 2112907
+    },
+    {
+      "path": "experiments/foucault-pendulum/references/e6-scale-design-20261102/E6-C.png",
+      "bytes": 1974552
+    },
+    {
+      "path": "experiments/foucault-pendulum/references/e6-scale-design-20261102/E6-D.png",
+      "bytes": 2066133
+    },
+    {
+      "path": "experiments/foucault-pendulum/references/e6-scale-design-20261102/user-E6-D-selection.png",
+      "bytes": 526770
+    },
+    {
+      "path": "experiments/earth-circumference/docs/after-solar-fix.png",
+      "bytes": 1621139
+    },
+    {
+      "path": "experiments/earth-circumference/docs/before-solar-fix.png",
+      "bytes": 1680441
+    },
+    {
+      "path": "experiments/earth-circumference/docs/calculation-simplified.png",
+      "bytes": 1158763
+    },
+    {
+      "path": "experiments/earth-circumference/docs/camera-2026-03-22.png",
+      "bytes": 1562385
+    },
+    {
+      "path": "experiments/earth-circumference/docs/camera-2026-06-21.png",
+      "bytes": 1562457
+    },
+    {
+      "path": "experiments/earth-circumference/docs/camera-2026-11-09.png",
+      "bytes": 1558122
+    },
+    {
+      "path": "experiments/earth-circumference/docs/camera-2026-12-21.png",
+      "bytes": 1556067
+    },
+    {
+      "path": "experiments/earth-circumference/docs/confirm-safe-20261109.png",
+      "bytes": 757172
+    },
+    {
+      "path": "experiments/earth-circumference/docs/date-progress-label.png",
+      "bytes": 418323
+    },
+    {
+      "path": "experiments/earth-circumference/docs/left-globe-layout-1280.png",
+      "bytes": 1056585
+    },
+    {
+      "path": "experiments/earth-circumference/docs/measurement-prompt-left.png",
+      "bytes": 1424928
+    },
+    {
+      "path": "experiments/earth-circumference/docs/measurement-result-zoom.png",
+      "bytes": 1497218
+    },
+    {
+      "path": "experiments/earth-circumference/docs/measurement-results-both-20261109.png",
+      "bytes": 733575
+    },
+    {
+      "path": "experiments/earth-circumference/docs/noon-orbit.png",
+      "bytes": 495239
+    },
+    {
+      "path": "experiments/earth-circumference/docs/noon-plane-earth.png",
+      "bytes": 891655
+    },
+    {
+      "path": "experiments/earth-circumference/docs/observation-center.png",
+      "bytes": 740445
+    },
+    {
+      "path": "experiments/earth-circumference/docs/observation-expanding.png",
+      "bytes": 815984
+    },
+    {
+      "path": "experiments/earth-circumference/docs/observation-pin.png",
+      "bytes": 808319
+    },
+    {
+      "path": "experiments/earth-circumference/docs/observation-thumbnail.png",
+      "bytes": 834303
+    },
+    {
+      "path": "experiments/earth-circumference/docs/observation-tips.png",
+      "bytes": 825470
+    },
+    {
+      "path": "experiments/earth-circumference/docs/orbit-axis-dashed.png",
+      "bytes": 407676
+    },
+    {
+      "path": "experiments/earth-circumference/docs/orbit-axis-fade.png",
+      "bytes": 407148
+    },
+    {
+      "path": "experiments/earth-circumference/docs/orbit-clean-april.png",
+      "bytes": 1569685
+    },
+    {
+      "path": "experiments/earth-circumference/docs/orbit-controls.png",
+      "bytes": 402489
+    },
+    {
+      "path": "experiments/earth-circumference/docs/orbit-hi-dpi.png",
+      "bytes": 1182061
+    },
+    {
+      "path": "experiments/earth-circumference/docs/orbit-plane-section.png",
+      "bytes": 1557370
+    },
+    {
+      "path": "experiments/earth-circumference/docs/orbit-plane-yellow.png",
+      "bytes": 1556450
+    },
+    {
+      "path": "experiments/earth-circumference/docs/orbit-return-transition.png",
+      "bytes": 709232
+    },
+    {
+      "path": "experiments/earth-circumference/docs/plane-join-2026-03-22.png",
+      "bytes": 244317
+    },
+    {
+      "path": "experiments/earth-circumference/docs/plane-join-2026-06-21.png",
+      "bytes": 242582
+    },
+    {
+      "path": "experiments/earth-circumference/docs/plane-join-2026-11-09.png",
+      "bytes": 244104
+    },
+    {
+      "path": "experiments/earth-circumference/docs/plane-join-2026-12-21.png",
+      "bytes": 242549
+    },
+    {
+      "path": "experiments/earth-circumference/docs/plane-through-center.png",
+      "bytes": 898027
+    },
+    {
+      "path": "experiments/earth-circumference/docs/plane-visible-half.png",
+      "bytes": 890683
+    },
+    {
+      "path": "experiments/earth-circumference/docs/rod-length-control-20261109.png",
+      "bytes": 760113
+    },
+    {
+      "path": "experiments/earth-circumference/docs/shared-measure-zero.png",
+      "bytes": 803085
+    },
+    {
+      "path": "experiments/earth-circumference/docs/stage3-local-evidence-20261109.png",
+      "bytes": 595277
+    },
+    {
+      "path": "experiments/earth-circumference/docs/synchronized-earths.png",
+      "bytes": 1554596
+    },
+    {
+      "path": "experiments/earth-circumference/docs/ui-before-20261109.png",
+      "bytes": 1277772
+    },
+    {
+      "path": "experiments/earth-circumference/docs/ui-earth-20261109.png",
+      "bytes": 888208
+    },
+    {
+      "path": "experiments/earth-circumference/docs/ui-letterbox-20261109.png",
+      "bytes": 610477
+    },
+    {
+      "path": "experiments/earth-circumference/docs/ui-measure-20261109.png",
+      "bytes": 1075627
+    },
+    {
+      "path": "experiments/earth-circumference/docs/ui-orbit-20261109.png",
+      "bytes": 493709
+    },
+    {
+      "path": "experiments/earth-circumference/docs/ui-polish-center.png",
+      "bytes": 1467148
+    },
+    {
+      "path": "experiments/earth-circumference/docs/ui-polish-date.png",
+      "bytes": 1693811
+    },
+    {
+      "path": "experiments/earth-circumference/docs/ui-polish-tips.png",
+      "bytes": 1862742
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/冰蓝气球-半充气-v1.png",
+      "bytes": 4464399
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/冰蓝气球-未充气-v1.png",
+      "bytes": 2185918
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/冰蓝气球-饱满-v1.png",
+      "bytes": 4502884
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/夹具-双支架透明层.png",
+      "bytes": 746905
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/气球滚轮夹具-前置胶带-v1.png",
+      "bytes": 1516489
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/环境-深蓝实验台-v1.png",
+      "bytes": 4390121
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/现代支架夹具-短夹臂-v2.png",
+      "bytes": 752154
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/现代支架夹具-统一材质-v1.png",
+      "bytes": 788570
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/现代气泵-规范插画-v1.png",
+      "bytes": 1413618
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/现代气球-半充气-规范插画-v1.png",
+      "bytes": 4795668
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/现代气球-未充气-规范插画-v1.png",
+      "bytes": 2286861
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/现代气球-饱满-规范插画-v1.png",
+      "bytes": 4835404
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/balloon-deflated.webp",
+      "bytes": 913598
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/balloon-normal.webp",
+      "bytes": 2068792
+    },
+    {
+      "path": "experiments/rocket-launch/assets/balloon-lab/balloon-inflated.webp",
+      "bytes": 2070424
+    },
+    {
+      "path": "archive/generated-resources/Integration-Backup-20261013/assembly-clean-ui.png",
+      "bytes": 59240
+    },
+    {
+      "path": "archive/generated-resources/Integration-Backup-20261013/integrated-assembly.png",
+      "bytes": 62599
+    },
+    {
+      "path": "archive/generated-resources/Stage-Completion-Concepts-20261013/concept-1.png",
+      "bytes": 1735913
+    },
+    {
+      "path": "archive/generated-resources/Stage-Completion-Concepts-20261013/concept-2.png",
+      "bytes": 1877418
+    },
+    {
+      "path": "archive/generated-resources/Stage-Completion-Concepts-20261013/concept-3.png",
+      "bytes": 1719937
+    },
+    {
+      "path": "archive/generated-resources/Stage-Completion-Concepts-20261013/concept-4.png",
+      "bytes": 1774524
+    },
+    {
+      "path": "archive/generated-resources/Stage-Completion-Concepts-20261013/concept-5.png",
+      "bytes": 1806231
+    },
+    {
+      "path": "archive/generated-resources/Stage-Completion-Concepts-20261013/implemented-preview.png",
+      "bytes": 56558
+    },
+    {
+      "path": "archive/generated-resources/Stage-Completion-Concepts-20261013/production-dialog.png",
+      "bytes": 47885
+    },
+    {
+      "path": "archive/generated-resources/Stage1-A-Layers-20261012/A-background.png",
+      "bytes": 1671783
+    },
+    {
+      "path": "archive/generated-resources/Stage1-A-Layers-20261012/A-foreground-pencil-sketch.png",
+      "bytes": 965914
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Art-Candidates-20261012/A-muted-blue.png",
+      "bytes": 2139607
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Art-Candidates-20261012/B-blue-lavender.png",
+      "bytes": 1765129
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Art-Candidates-20261012/C-deep-navy.png",
+      "bytes": 2172746
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layers-20261012/stage1-background.png",
+      "bytes": 1546665
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layers-20261012/stage1-foreground-table.png",
+      "bytes": 790592
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layers-Fresh-20261012/stage1-background-fresh.png",
+      "bytes": 1358744
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layers-Fresh-20261012/stage1-table-fresh.png",
+      "bytes": 827636
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layout-Preview-20261012/background-selected-20261013.png",
+      "bytes": 1712246
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layout-Preview-20261012/background.png",
+      "bytes": 1995371
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layout-Preview-20261012/foreground.png",
+      "bytes": 1204924
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layout-Preview-20261012/preview-selected-background-20261013.png",
+      "bytes": 41533
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layout-Preview-20261012/preview-title-20261013.png",
+      "bytes": 50256
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Layout-Preview-20261012/preview.png",
+      "bytes": 106877
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Small-Low-Props-20261012/foreground-small-low.png",
+      "bytes": 1073686
+    },
+    {
+      "path": "archive/generated-resources/Stage1-TextOnly-Layers-20261012/background.png",
+      "bytes": 1719351
+    },
+    {
+      "path": "archive/generated-resources/Stage1-TextOnly-Layers-20261012/foreground.png",
+      "bytes": 1003807
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Transition-Preview-20261013/assembly-complete.png",
+      "bytes": 47060
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Transition-Preview-20261013/assembly-preview.png",
+      "bytes": 48384
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Transition-Preview-20261013/depth-three-mirrors.png",
+      "bytes": 92178
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Transition-Preview-20261013/selected-side-view.png",
+      "bytes": 97946
+    },
+    {
+      "path": "archive/generated-resources/Stage1-Transition-Preview-20261013/telescope-assembly.png",
+      "bytes": 1524691
+    },
+    {
+      "path": "archive/generated-resources/Telescope-Alignment-20261013/telescope-side-aligned.png",
+      "bytes": 1799633
+    },
+    {
+      "path": "archive/generated-resources/Telescope-Candidates-20261013/telescope-1.png",
+      "bytes": 2017715
+    },
+    {
+      "path": "archive/generated-resources/Telescope-Candidates-20261013/telescope-2.png",
+      "bytes": 1789262
+    },
+    {
+      "path": "archive/generated-resources/Telescope-Candidates-20261013/telescope-3.png",
+      "bytes": 1836121
+    },
+    {
+      "path": "archive/generated-resources/Telescope-Candidates-20261013/telescope-4.png",
+      "bytes": 2008275
+    },
+    {
+      "path": "archive/generated-resources/Telescope-Candidates-20261013/telescope-5.png",
+      "bytes": 2001094
+    },
+    {
+      "path": "Visual-Spec/concepts/light-pollution-20261013/01-interface.png",
+      "bytes": 2522481
+    },
+    {
+      "path": "Visual-Spec/concepts/light-pollution-20261013/02-window-states.png",
+      "bytes": 2439601
+    },
+    {
+      "path": "Visual-Spec/concepts/light-pollution-20261013/03-building-states.png",
+      "bytes": 2060756
+    },
+    {
+      "path": "Visual-Spec/concepts/light-pollution-20261013/04-billboard-states.png",
+      "bytes": 2390606
+    },
+    {
+      "path": "Visual-Spec/concepts/light-pollution-20261013/05-streetlamp-states.png",
+      "bytes": 2468253
+    },
+    {
+      "path": "Visual-Spec/concepts/light-pollution-20261013/06-panorama-home.png",
+      "bytes": 2438797
+    },
+    {
+      "path": "Visual-Spec/concepts/light-pollution-20261013/07-panorama-navigation.png",
+      "bytes": 2430745
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/background-preview.png",
+      "bytes": 1782474
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/equipment-sheet-preview.png",
+      "bytes": 1496159
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/scene-preview-v2.png",
+      "bytes": 1840976
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/scene-preview-v3.png",
+      "bytes": 1775106
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/scene-preview-v4-corrected.png",
+      "bytes": 1750413
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/scene-preview.png",
+      "bytes": 1892153
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/background-corrected.png",
+      "bytes": 1667319
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/background.png",
+      "bytes": 1690679
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/clamp-clean.png",
+      "bytes": 1490535
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/clamp.png",
+      "bytes": 1503274
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/concave.png",
+      "bytes": 989188
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/convex.png",
+      "bytes": 944568
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/emitter.png",
+      "bytes": 1032577
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/layers-preview.png",
+      "bytes": 289865
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/plane.png",
+      "bytes": 1020972
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v1/rail.png",
+      "bytes": 471173
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/background-ao-v3.png",
+      "bytes": 1684105
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/background-draft.png",
+      "bytes": 2033728
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/background.png",
+      "bytes": 2133722
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/clamp.png",
+      "bytes": 1533466
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/comparison.png",
+      "bytes": 917290
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/concave.png",
+      "bytes": 1097471
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/convex.png",
+      "bytes": 1280393
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/emitter.png",
+      "bytes": 1032918
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/plane.png",
+      "bytes": 966724
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/preview.png",
+      "bytes": 291089
+    },
+    {
+      "path": "Visual-Spec/Previews/Rail-Lab-v1/layers-v2-illustrated/rail.png",
+      "bytes": 413989
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/components/assets/progress-notebook.png",
+      "bytes": 123216
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/components/completion-assets/clip.png",
+      "bytes": 5837
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/components/completion-assets/gold.png",
+      "bytes": 3209
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/components/completion-assets/paper.png",
+      "bytes": 21820
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/components/completion-assets/stamp.png",
+      "bytes": 37336
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/01-cream.png",
+      "bytes": 397080
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/02-cursor.png",
+      "bytes": 380552
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/03-line.png",
+      "bytes": 362457
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/04-round.png",
+      "bytes": 324702
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/05-paper.png",
+      "bytes": 384180
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/06-cuff.png",
+      "bytes": 335174
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/07-palm.png",
+      "bytes": 357207
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/08-grab.png",
+      "bytes": 347534
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/09-two.png",
+      "bytes": 352508
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/shared/assets/hands-flat/10-touch.png",
+      "bytes": 452289
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/preview-all-lamps.png",
+      "bytes": 53983
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/preview-click-hint.png",
+      "bytes": 56903
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/preview-lamps.png",
+      "bytes": 75351
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/preview-v2.png",
+      "bytes": 109512
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/preview.png",
+      "bytes": 141711
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/city-layer-all-lamps.png",
+      "bytes": 1284333
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/city-layer.png",
+      "bytes": 1342831
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/city-panorama-v2.png",
+      "bytes": 2204020
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/city-panorama.png",
+      "bytes": 2276908
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/lamp-sprites.png",
+      "bytes": 1296053
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/preview.png",
+      "bytes": 840810
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/editor-preview.png",
+      "bytes": 466388
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/preview.png",
+      "bytes": 556606
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/preview-all.png",
+      "bytes": 572317
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/preview-homes.png",
+      "bytes": 601590
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/preview-public.png",
+      "bytes": 588992
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/preview-water.png",
+      "bytes": 649914
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/preview.png",
+      "bytes": 572241
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/00-sky.png",
+      "bytes": 8325
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/01-scenery.png",
+      "bytes": 1161880
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/02-foreground-water.png",
+      "bytes": 316378
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/03-background-water.png",
+      "bytes": 83670
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/04-residential-emission.png",
+      "bytes": 135009
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/05-public-emission.png",
+      "bytes": 141393
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/06-billboard.png",
+      "bytes": 44221
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/07-warm-reflections.png",
+      "bytes": 62350
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/composite.png",
+      "bytes": 1829669
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/reference.png",
+      "bytes": 1829669
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/assets/source.png",
+      "bytes": 1284333
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/01-foreground-water.png",
+      "bytes": 442553
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/02-background-water.png",
+      "bytes": 170430
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/03-mountains.png",
+      "bytes": 304360
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/04-distant-city.png",
+      "bytes": 323257
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/05-near-buildings.png",
+      "bytes": 734662
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/06-residential-interiors.png",
+      "bytes": 142985
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/07-public-interiors.png",
+      "bytes": 181076
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/08-billboard.png",
+      "bytes": 91696
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/10-vegetation.png",
+      "bytes": 319158
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/11-shore-structures.png",
+      "bytes": 344776
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/reference.png",
+      "bytes": 1829669
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/assets/window-apertures.png",
+      "bytes": 21758
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/01-foreground-water.png",
+      "bytes": 442553
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/02-background-water.png",
+      "bytes": 170430
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/03-mountains.png",
+      "bytes": 304360
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/04-distant-city.png",
+      "bytes": 323257
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/05-near-buildings.png",
+      "bytes": 734662
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/06-residential-interiors.png",
+      "bytes": 142985
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/07-public-interiors.png",
+      "bytes": 181076
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/08-billboard.png",
+      "bytes": 91696
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/09-window-frames.png",
+      "bytes": 345188
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/10-vegetation.png",
+      "bytes": 319158
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/11-shore-structures.png",
+      "bytes": 344776
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/12-water-reflections.png",
+      "bytes": 139169
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/assets/window-apertures.png",
+      "bytes": 21758
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/01-distant-environment-contact.jpg",
+      "bytes": 340045
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/02-ground-planting-contact.jpg",
+      "bytes": 211485
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/03-foreground-trees-contact.jpg",
+      "bytes": 234511
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/04-foreground-water-contact.jpg",
+      "bytes": 168936
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/05-residential-contact.jpg",
+      "bytes": 219017
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/06-public-building-contact.jpg",
+      "bytes": 266841
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/07-billboard-building-contact.jpg",
+      "bytes": 205402
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/billboard-review.jpg",
+      "bytes": 82786
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/first-review.jpg",
+      "bytes": 152885
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/gallery-preview.png",
+      "bytes": 457201
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/ground-review.jpg",
+      "bytes": 84104
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/overview.jpg",
+      "bytes": 342819
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/public-review.jpg",
+      "bytes": 103312
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/reference.png",
+      "bytes": 1053244
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/residential-review.jpg",
+      "bytes": 86900
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/trees-review.jpg",
+      "bytes": 90750
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/water-review.jpg",
+      "bytes": 70794
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/contact-sheet.jpg",
+      "bytes": 141928
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/reference-padded.png",
+      "bytes": 1060772
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/source-layers-v1/billboard-screen.png",
+      "bytes": 76603
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/source-layers-v1/city-unlit.png",
+      "bytes": 1294361
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/source-layers-v1/public-building-windows.png",
+      "bytes": 177911
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/source-layers-v1/residential-windows.png",
+      "bytes": 209294
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/source-layers-v2/city-unlit-plate.png",
+      "bytes": 1285801
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/01-foreground-water.png",
+      "bytes": 307240
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/02-background-water.png",
+      "bytes": 105006
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/03-mountains.png",
+      "bytes": 182834
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/04-distant-city.png",
+      "bytes": 187005
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/05-near-buildings.png",
+      "bytes": 387224
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/06-residential-interiors.png",
+      "bytes": 91007
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/07-public-interiors.png",
+      "bytes": 99877
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/08-billboard.png",
+      "bytes": 63457
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/09-window-frames.png",
+      "bytes": 197612
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/10-vegetation.png",
+      "bytes": 225153
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/11-shore-structures.png",
+      "bytes": 200167
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/panorama/12-water-reflections.png",
+      "bytes": 87930
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/01-foreground-water/01-foreground-water.png",
+      "bytes": 1135323
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/02-background-water/02-background-water.png",
+      "bytes": 995922
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/03-mountains/03-mountains.png",
+      "bytes": 1038894
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/04-distant-city/04-distant-city.png",
+      "bytes": 1040802
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/05-near-buildings/05-near-buildings.png",
+      "bytes": 1137580
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/06-residential-interiors/06-residential-interiors.png",
+      "bytes": 946952
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/07-public-interiors/07-public-interiors.png",
+      "bytes": 898053
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/08-billboard/08-billboard.png",
+      "bytes": 959249
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/09-window-frames/09-window-frames.png",
+      "bytes": 958789
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/10-vegetation/10-vegetation.png",
+      "bytes": 1025337
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/11-shore-structures/11-shore-structures.png",
+      "bytes": 1040153
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/12-water-reflections/12-water-reflections.png",
+      "bytes": 1089662
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/raw/12-water-reflections-r2/12-water-reflections-r2.png",
+      "bytes": 986048
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/07-billboard-building/B/composite-v2-07-billboard-building-B.png",
+      "bytes": 1109230
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_1.png",
+      "bytes": 1260631
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_2.png",
+      "bytes": 1306352
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_3.png",
+      "bytes": 1218178
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/A/composite-v2-06-public-building-A_4.png",
+      "bytes": 1256455
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/06-public-building/B/composite-v2-06-public-building-B.png",
+      "bytes": 1271093
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_1.png",
+      "bytes": 1286911
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_2.png",
+      "bytes": 1142433
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_3.png",
+      "bytes": 1119044
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/A/composite-v2-05-residential-A_4.png",
+      "bytes": 1124360
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/05-residential/B/composite-v2-05-residential-B.png",
+      "bytes": 1194051
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_1.png",
+      "bytes": 1161718
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_2.png",
+      "bytes": 1114432
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_3.png",
+      "bytes": 1186809
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/A/composite-v2-04-foreground-water-A_4.png",
+      "bytes": 1135339
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/04-foreground-water/B/composite-v2-04-foreground-water-B.png",
+      "bytes": 1177268
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_1.png",
+      "bytes": 1221436
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_2.png",
+      "bytes": 1072459
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_3.png",
+      "bytes": 1100453
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/A/composite-v2-03-foreground-trees-A_4.png",
+      "bytes": 1083365
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/03-foreground-trees/B/composite-v2-03-foreground-trees-B.png",
+      "bytes": 1144095
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_1.png",
+      "bytes": 1201007
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_2.png",
+      "bytes": 1211442
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_3.png",
+      "bytes": 1141860
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/A/composite-v2-02-ground-planting-A_4.png",
+      "bytes": 1140387
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/raw/02-ground-planting/B/composite-v2-02-ground-planting-B.png",
+      "bytes": 1151442
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/01.png",
+      "bytes": 709082
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/02.png",
+      "bytes": 767519
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/03.png",
+      "bytes": 774328
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/04.png",
+      "bytes": 731680
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/01-distant-environment/05.png",
+      "bytes": 775047
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/01.png",
+      "bytes": 391433
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/02.png",
+      "bytes": 416738
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/03.png",
+      "bytes": 330098
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/04.png",
+      "bytes": 355474
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/02-ground-planting/05.png",
+      "bytes": 344801
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/01.png",
+      "bytes": 413412
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/02.png",
+      "bytes": 293439
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/03.png",
+      "bytes": 289529
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/04.png",
+      "bytes": 256791
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/03-foreground-trees/05.png",
+      "bytes": 347933
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/01.png",
+      "bytes": 367297
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/02.png",
+      "bytes": 315980
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/03.png",
+      "bytes": 411824
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/04.png",
+      "bytes": 346164
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/04-foreground-water/05.png",
+      "bytes": 386716
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/01.png",
+      "bytes": 552804
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/02.png",
+      "bytes": 354138
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/03.png",
+      "bytes": 330728
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/04.png",
+      "bytes": 335996
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/05-residential/05.png",
+      "bytes": 448409
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/01.png",
+      "bytes": 523704
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/02.png",
+      "bytes": 634292
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/03.png",
+      "bytes": 505921
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/04.png",
+      "bytes": 539631
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/06-public-building/05.png",
+      "bytes": 528919
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/01.png",
+      "bytes": 451769
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/02.png",
+      "bytes": 386215
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/03.png",
+      "bytes": 312835
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/04.png",
+      "bytes": 417350
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/panorama/07-billboard-building/05.png",
+      "bytes": 294878
+    },
+    {
+      "path": "experiments/meteor-impact/demo-meteor-controls.png",
+      "bytes": 66437
+    },
+    {
+      "path": "experiments/meteor-impact/demo-meteor-earth.png",
+      "bytes": 121778
+    },
+    {
+      "path": "experiments/meteor-impact/demo-meteor-readouts.png",
+      "bytes": 9481
+    },
+    {
+      "path": "experiments/meteor-impact/demo-meteor-records.png",
+      "bytes": 27973
+    },
+    {
+      "path": "experiments/rocket-launch/demo-rocket-balloon.png",
+      "bytes": 253930
+    },
+    {
+      "path": "experiments/rocket-launch/demo-rocket-cannon.png",
+      "bytes": 296461
+    },
+    {
+      "path": "experiments/rocket-launch/demo-rocket-liftoff.png",
+      "bytes": 251041
+    },
+    {
+      "path": "experiments/rocket-launch/demo-rocket-stages.png",
+      "bytes": 282721
+    },
+    {
+      "path": "experiments/rocket-launch/demo-rocket-structure.png",
+      "bytes": 273456
+    },
+    {
+      "path": "archive/legacy-light-hands/01-cream.png",
+      "bytes": 397080
+    },
+    {
+      "path": "archive/legacy-light-hands/02-cursor.png",
+      "bytes": 380552
+    },
+    {
+      "path": "archive/legacy-light-hands/03-line.png",
+      "bytes": 362457
+    },
+    {
+      "path": "archive/legacy-light-hands/04-round.png",
+      "bytes": 324702
+    },
+    {
+      "path": "archive/legacy-light-hands/05-paper.png",
+      "bytes": 384180
+    },
+    {
+      "path": "archive/legacy-light-hands/06-cuff.png",
+      "bytes": 335174
+    },
+    {
+      "path": "archive/legacy-light-hands/07-palm.png",
+      "bytes": 357207
+    },
+    {
+      "path": "archive/legacy-light-hands/08-grab.png",
+      "bytes": 347534
+    },
+    {
+      "path": "archive/legacy-light-hands/09-two.png",
+      "bytes": 352508
+    },
+    {
+      "path": "archive/legacy-light-hands/10-touch.png",
+      "bytes": 452289
+    },
+    {
+      "path": "Visual-Spec/references/01-solar-system-observation.jpg",
+      "bytes": 509288
+    },
+    {
+      "path": "Visual-Spec/references/02-trappist-1-infographic.jpg",
+      "bytes": 148780
+    },
+    {
+      "path": "Visual-Spec/references/overview-colors.jpg",
+      "bytes": 141026
+    },
+    {
+      "path": "Visual-Spec/references/overview-composition.jpg",
+      "bytes": 129213
+    },
+    {
+      "path": "Visual-Spec/references/overview-educational-elements.jpg",
+      "bytes": 73121
+    },
+    {
+      "path": "Visual-Spec/references/overview-forms.jpg",
+      "bytes": 128998
+    },
+    {
+      "path": "Visual-Spec/references/overview-scale.jpg",
+      "bytes": 43702
+    },
+    {
+      "path": "Visual-Spec/references/overview-science-elements.jpg",
+      "bytes": 118144
+    },
+    {
+      "path": "Visual-Spec/references/ref-03.jpeg",
+      "bytes": 21322
+    },
+    {
+      "path": "Visual-Spec/references/ref-04.jpeg",
+      "bytes": 153148
+    },
+    {
+      "path": "Visual-Spec/references/ref-05.jpeg",
+      "bytes": 136677
+    },
+    {
+      "path": "Visual-Spec/references/ref-06.jpeg",
+      "bytes": 437923
+    },
+    {
+      "path": "Visual-Spec/references/ref-07.jpeg",
+      "bytes": 31030
+    },
+    {
+      "path": "Visual-Spec/references/ref-08.jpeg",
+      "bytes": 36416
+    },
+    {
+      "path": "Visual-Spec/references/ref-09.jpeg",
+      "bytes": 70098
+    },
+    {
+      "path": "Visual-Spec/references/ref-10.jpeg",
+      "bytes": 45913
+    },
+    {
+      "path": "Visual-Spec/references/ref-11.jpeg",
+      "bytes": 99458
+    },
+    {
+      "path": "Visual-Spec/references/ref-12.jpeg",
+      "bytes": 118813
+    },
+    {
+      "path": "Visual-Spec/references/ref-13.jpeg",
+      "bytes": 55856
+    },
+    {
+      "path": "Visual-Spec/references/ref-14.jpeg",
+      "bytes": 54747
+    },
+    {
+      "path": "Visual-Spec/references/ref-15.jpeg",
+      "bytes": 167949
+    },
+    {
+      "path": "Visual-Spec/references/ref-16.jpeg",
+      "bytes": 71619
+    },
+    {
+      "path": "Visual-Spec/references/ref-17.jpeg",
+      "bytes": 48705
+    },
+    {
+      "path": "Visual-Spec/references/ref-18.jpeg",
+      "bytes": 47104
+    },
+    {
+      "path": "Visual-Spec/references/ref-19.jpeg",
+      "bytes": 178259
+    },
+    {
+      "path": "Visual-Spec/references/ref-20.jpeg",
+      "bytes": 132642
+    },
+    {
+      "path": "Visual-Spec/references/ref-21.jpeg",
+      "bytes": 28658
+    },
+    {
+      "path": "Visual-Spec/references/ref-22.jpeg",
+      "bytes": 152280
+    },
+    {
+      "path": "Visual-Spec/references/ref-23.jpeg",
+      "bytes": 34116
+    },
+    {
+      "path": "Visual-Spec/references/ref-24.jpeg",
+      "bytes": 97124
+    },
+    {
+      "path": "Visual-Spec/references/ref-25.jpeg",
+      "bytes": 39091
+    },
+    {
+      "path": "Visual-Spec/references/ref-26.jpeg",
+      "bytes": 27322
+    },
+    {
+      "path": "Visual-Spec/references/ref-27.jpeg",
+      "bytes": 279598
+    },
+    {
+      "path": "Visual-Spec/references/ref-28.jpeg",
+      "bytes": 382438
+    },
+    {
+      "path": "Visual-Spec/references/ref-29.jpeg",
+      "bytes": 32147
+    },
+    {
+      "path": "Visual-Spec/references/ref-30.png",
+      "bytes": 352701
+    },
+    {
+      "path": "Visual-Spec/references/ref-31.png",
+      "bytes": 307614
+    },
+    {
+      "path": "Visual-Spec/references/ref-32.png",
+      "bytes": 125717
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/layered-demo/standalone.html",
+      "bytes": 4768603
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/lib-static-demo/standalone.html",
+      "bytes": 6569432
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/static-demo/standalone.html",
+      "bytes": 4326478
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/35-layer-options.zip",
+      "bytes": 51036453
+    },
+    {
+      "path": "experiments/light-pollution/resource-archives/20261027-01/snapshot/experiments/light-pollution/assets/libtv-layers-20261027/white-background-layers.zip",
+      "bytes": 2160071
+    }
+  ]
+}

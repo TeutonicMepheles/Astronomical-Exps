@@ -8,14 +8,12 @@ root=PROJECT/'experiments'/args.experiment
 out=PROJECT/'dist'/args.experiment;out.mkdir(parents=True,exist_ok=True)
 
 if args.experiment=='light-pollution':
-    subprocess.run(['node',str(root/'lib-static-demo'/'export.cjs')],cwd=PROJECT,check=True)
-    source=root/'lib-static-demo'/'standalone.html'
     target=out/'index.html'
-    shutil.copyfile(source,target)
+    subprocess.run(['python',str(root/'city-night'/'build_offline.py'),str(target)],cwd=PROJECT,check=True)
     (out/'manifest.json').write_text(json.dumps({
         'status':'in-development review export; not final acceptance',
         'file':target.name,
-        'source':'experiments/light-pollution/lib-static-demo/standalone.html',
+        'source':'experiments/light-pollution/city-night/index.html',
         'sha256':hashlib.sha256(target.read_bytes()).hexdigest(),
     },ensure_ascii=False,indent=2),encoding='utf-8')
     print(str(target));print(f'{target.stat().st_size/1024/1024:.2f} MiB; self-contained candidate')

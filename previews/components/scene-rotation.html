@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SceneRotationControl · 公共控件预览</title>
+  <link rel="stylesheet" href="../../shared/typography/typography.css">
+  <link rel="stylesheet" href="../../shared/components/scene-rotation-control.css">
+  <style>
+    :root{color-scheme:dark;font-family:var(--font-ui,"Microsoft YaHei","PingFang SC",system-ui,sans-serif)}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100svh;overflow:hidden;background:#071427;color:#eef5ff}
+    .preview{position:relative;display:grid;grid-template-rows:72px 1fr;min-height:100svh;background:
+      radial-gradient(circle at 50% 56%,#193e70 0%,#0c2445 34%,#071427 72%),
+      linear-gradient(90deg,#8ebdff0a 1px,transparent 1px),
+      linear-gradient(#8ebdff0a 1px,transparent 1px);
+      background-size:auto,64px 64px,64px 64px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:0 34px;border-bottom:1px solid #dceaff20;z-index:20}
+    header h1{font-size:20px;font-weight:560;margin:0;letter-spacing:.06em}
+    header p{margin:0;color:#a9bedc;font-size:13px}
+    #rotation-stage{position:relative;display:grid;place-items:center;overflow:hidden}
+    #rotation-stage::before{content:"";position:absolute;width:min(54vw,620px);aspect-ratio:1;border:1px solid #8fbdff24;border-radius:50%;box-shadow:0 0 0 74px #8fbdff08,0 0 0 148px #8fbdff04}
+    .object-space{position:relative;width:min(32vw,330px);aspect-ratio:1;perspective:900px;z-index:2}
+    .object-space::after{content:"";position:absolute;left:7%;right:7%;bottom:-12%;height:34px;border-radius:50%;background:#010916b8;filter:blur(15px)}
+    .test-object{position:absolute;inset:17%;transform-style:preserve-3d;transform:rotateX(calc(-18deg - var(--pitch,0deg))) rotateY(var(--yaw,0deg));transition:none;will-change:transform}
+    .face{position:absolute;inset:0;display:grid;place-items:center;border:1px solid #b6d9ffb3;background:linear-gradient(145deg,#2b5b90e8,#102f58ed);color:#dceeff;box-shadow:inset 0 0 30px #8bc5ff1f;font:600 13px/1.3 var(--font-ui,sans-serif);letter-spacing:.16em}
+    .face:nth-child(1){transform:translateZ(109px)}
+    .face:nth-child(2){transform:rotateY(180deg) translateZ(109px)}
+    .face:nth-child(3){transform:rotateY(90deg) translateZ(109px)}
+    .face:nth-child(4){transform:rotateY(-90deg) translateZ(109px)}
+    .face:nth-child(5){transform:rotateX(90deg) translateZ(109px)}
+    .face:nth-child(6){transform:rotateX(-90deg) translateZ(109px)}
+    .face::before{content:"";width:34%;aspect-ratio:1;border:1px solid #d9edff80;border-radius:50%;background:radial-gradient(circle at 38% 32%,#f4fbff,#7cafe6 8%,#183d68 55%)}
+    .face:nth-child(even){background:linear-gradient(145deg,#193c68ed,#0a2344f2)}
+    .readout{position:absolute;left:50%;bottom:32px;z-index:3;display:flex;align-items:baseline;gap:24px;transform:translateX(-50%);padding:11px 18px;border:1px solid #b8d9ff34;border-radius:12px;background:#06182ddb;box-shadow:0 10px 30px #020b184f}
+    .metric{white-space:nowrap}
+    .readout output{font-size:26px;font-variant-numeric:tabular-nums;color:#ddecff}
+    .readout span{font-size:13px;color:#a7bfdf}
+    .action{position:absolute;left:50%;bottom:6px;z-index:3;margin:0;transform:translateX(-50%);color:#c5d8ed;font-size:12px}
+    .hint{position:absolute;top:24px;left:50%;transform:translateX(-50%);color:#b9cce6;font-size:13px;letter-spacing:.04em;z-index:3}
+    @media(max-width:760px){
+      header{padding:0 18px}
+      header p{display:none}
+      #rotation-stage::before{width:76vw}
+      .object-space{width:50vw}
+      .face:nth-child(1){transform:translateZ(70px)}
+      .face:nth-child(2){transform:rotateY(180deg) translateZ(70px)}
+      .face:nth-child(3){transform:rotateY(90deg) translateZ(70px)}
+      .face:nth-child(4){transform:rotateY(-90deg) translateZ(70px)}
+      .face:nth-child(5){transform:rotateX(90deg) translateZ(70px)}
+      .face:nth-child(6){transform:rotateX(-90deg) translateZ(70px)}
+    }
+  </style>
+</head>
+<body>
+  <main class="preview">
+    <header>
+      <h1>SceneRotationControl</h1>
+      <p>每次 30° · 600 ms · 场景角度由宿主接管</p>
+    </header>
+    <section id="rotation-stage" aria-label="可旋转的三维示例物">
+      <p class="hint">水平每次 30°，俯仰每次 15°；点击后连续转动并停稳</p>
+      <div class="object-space" aria-hidden="true">
+        <div class="test-object" id="test-object">
+          <span class="face">FRONT</span>
+          <span class="face">BACK</span>
+          <span class="face">RIGHT</span>
+          <span class="face">LEFT</span>
+          <span class="face">TOP</span>
+          <span class="face">BASE</span>
+        </div>
+      </div>
+      <div class="readout"><span class="metric"><output id="angle">0.0°</output> 水平</span><span class="metric"><output id="pitch">0.0°</output> 俯仰</span></div>
+      <p class="action" id="action">当前角度</p>
+    </section>
+  </main>
+  <script src="../../shared/components/scene-rotation-control.js"></script>
+  <script>
+    (() => {
+      const object = document.getElementById('test-object');
+      const angle = document.getElementById('angle');
+      const pitchOutput = document.getElementById('pitch');
+      const action = document.getElementById('action');
+      const samples = [], pitchSamples = [];
+      const control = new SharedComponents.SceneRotationControl(document.getElementById('rotation-stage'), {
+        step: 30,
+        duration: 600,
+        onChange(value, { direction, progress }) {
+          object.style.setProperty('--yaw', value + 'deg');
+          angle.textContent = value.toFixed(1) + '°';
+          samples.push({ value, progress });
+        },
+        onComplete({ direction, delta }) {
+          action.textContent = `已${direction < 0 ? '左转' : '右转'} ${Math.abs(delta)}°`;
+        }
+      });
+      const tilt = new SharedComponents.SceneRotationControl(document.getElementById('rotation-stage'), {
+        orientation: 'vertical',
+        step: 15,
+        duration: 600,
+        onChange(value, { progress }) {
+          object.style.setProperty('--pitch', value + 'deg');
+          pitchOutput.textContent = value.toFixed(1) + '°';
+          pitchSamples.push({ value, progress });
+        },
+        onComplete({ direction, delta }) {
+          action.textContent = `已${direction < 0 ? '下探' : '上抬'} ${Math.abs(delta)}°`;
+        }
+      });
+      window.sceneRotationPreview = { control, tilt, samples, pitchSamples, object };
+    })();
+  </script>
+</body>
+</html>

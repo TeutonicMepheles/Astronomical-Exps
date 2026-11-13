@@ -1,0 +1,30 @@
+{
+  "sourceSize": [
+    1776,
+    2368
+  ],
+  "sourceRectangle": [
+    465,
+    234,
+    1194,
+    2130
+  ],
+  "runtimeSize": [
+    729,
+    1896
+  ],
+  "eyelet": [
+    489,
+    276
+  ],
+  "floorY": 1896,
+  "leftAnchor": [
+    115,
+    270
+  ],
+  "rightAnchor": [
+    975,
+    270
+  ],
+  "floorTarget": 620
+}

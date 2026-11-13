@@ -1,0 +1,100 @@
+{
+  "pass": true,
+  "passed": 23,
+  "blender": "4.5.4 LTS",
+  "checks": [
+    {
+      "check": "All manifest nodes survive GLB reimport",
+      "pass": true
+    },
+    {
+      "check": "Both animation names survive GLB reimport",
+      "pass": true
+    },
+    {
+      "check": "All material roles survive GLB reimport",
+      "pass": true
+    },
+    {
+      "check": "All model roots at local zero",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 independent movement",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 restored",
+      "pass": true
+    },
+    {
+      "check": "Small_Stage1 reimport fill geometry Z-up",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 independent movement",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 restored",
+      "pass": true
+    },
+    {
+      "check": "Large_Stage1 reimport fill geometry Z-up",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 independent movement",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 restored",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage1 reimport fill geometry Z-up",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 independent movement",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 restored",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage2 reimport fill geometry Z-up",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 independent movement",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 restored",
+      "pass": true
+    },
+    {
+      "check": "Triple_Stage3 reimport fill geometry Z-up",
+      "pass": true
+    },
+    {
+      "check": "Small actual geometry display height",
+      "pass": true
+    },
+    {
+      "check": "Large actual geometry display height",
+      "pass": true
+    },
+    {
+      "check": "Triple actual geometry display height",
+      "pass": true
+    },
+    {
+      "check": "Actual reimport normals finite and unit",
+      "pass": true
+    }
+  ],
+  "source": "Actual dv-comparison.glb reimport; only camera/lights appended from source .blend."
+}

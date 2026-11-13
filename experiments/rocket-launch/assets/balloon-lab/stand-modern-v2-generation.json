@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "85f5ab21-58da-495f-9655-7882c4f5118e",
+  "reactFlowNode": {
+    "id": "85f5ab21-58da-495f-9655-7882c4f5118e",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "现代支架夹具-短夹臂-v2",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Edit this exact modern gray/navy/teal laboratory stand, preserving its materials, base, vertical pole and illustration style. Make the horizontal clamp arm VERY SHORT: shorten the rightward rod by 80 percent, bringing its eyelet close beside the vertical pole, at only one quarter of the base width to the right of the pole. Reduce eyelet diameter to half its current diameter. Move the whole short clamp assembly upward on the vertical pole so the eyelet is at 16 percent of the object height from the top. Keep a long plain vertical shaft beneath it. Keep exact upright view, navy flat base, gray shaft, navy clamp and small teal collar, dark gray screw knobs, no brass. Real transparent background, no string, no text, no other objects.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "3:4",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "85b6080a-0de8-4842-992a-45896ffe7f70"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "85b6080a-0de8-4842-992a-45896ffe7f70",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017079666_573c6689594d48e4b57edcf9b3591369.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "85b6080a-0de8-4842-992a-45896ffe7f70"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "fffc2c4a-2376-4efc-9da4-27bf33c14870",
+      "source": "85b6080a-0de8-4842-992a-45896ffe7f70",
+      "target": "85f5ab21-58da-495f-9655-7882c4f5118e"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "85f5ab21-58da-495f-9655-7882c4f5118e"
+  ]
+}
+{
+  "nodeKey": "85f5ab21-58da-495f-9655-7882c4f5118e",
+  "nodeType": "image",
+  "taskId": "20261112220803597277723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "现代支架夹具-短夹臂-v2",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017082093_dea8187812e446a19eca37b293474ba6.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Edit this exact modern gray/navy/teal laboratory stand, preserving its materials, base, vertical pole and illustration style. Make the horizontal clamp arm VERY SHORT: shorten the rightward rod by 80 percent, bringing its eyelet close beside the vertical pole, at only one quarter of the base width to the right of the pole. Reduce eyelet diameter to half its current diameter. Move the whole short clamp assembly upward on the vertical pole so the eyelet is at 16 percent of the object height from the top. Keep a long plain vertical shaft beneath it. Keep exact upright view, navy flat base, gray shaft, navy clamp and small teal collar, dark gray screw knobs, no brass. Real transparent background, no string, no text, no other objects.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "3:4",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "85b6080a-0de8-4842-992a-45896ffe7f70"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "85b6080a-0de8-4842-992a-45896ffe7f70",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017079666_573c6689594d48e4b57edcf9b3591369.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "85b6080a-0de8-4842-992a-45896ffe7f70"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112220803597277723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    }
+  }
+}

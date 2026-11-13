@@ -1,0 +1,6 @@
+
+Algorithm Hash                                                             Path
+--------- ----                                                             ----
+SHA256    9FDE3A27BBDF6898B062D624A961D738B649E19366CCD15D4D38C581FF29E368 B:\GithubProject\Astronomical-Exps\experiments\rocket-launch\assets\cz7-blender-20261112\cz7-teaching.blend
+SHA256    596E4A59D8AA63B2331392E894038FD7E100126A4DB84FF4D4CF6A3358433C94 B:\GithubProject\Astronomical-Exps\experiments\rocket-launch\assets\cz7-blender-20261112\cz7-teaching.glb
+SHA256    FC4823C9B40A9146F1B07E14059920A481ED7782FDBF37E99CF876F9BB3DC0C1 B:\GithubProject\Astronomical-Exps\experiments\rocket-launch\assets\cz7-blender-20261112\rocket-manifest.json

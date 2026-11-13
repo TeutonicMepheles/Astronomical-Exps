@@ -1,0 +1,2022 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.12.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 2736,
+  "height": 1536,
+  "tilewidth": 1,
+  "tileheight": 1,
+  "nextlayerid": 3,
+  "nextobjectid": 46,
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "source": "road-lamps-five.tsj"
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "name": "00 无旧灯底图",
+      "type": "imagelayer",
+      "image": "../assets/base.png",
+      "x": 0,
+      "y": 0,
+      "opacity": 1,
+      "visible": true
+    },
+    {
+      "id": 2,
+      "name": "10 完整路灯（整盏替换）",
+      "type": "objectgroup",
+      "draworder": "topdown",
+      "opacity": 1,
+      "visible": true,
+      "objects": [
+        {
+          "id": 1,
+          "name": "road-1",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1105.6631299734747,
+          "y": 1117.9257294429708,
+          "width": 146.6737400530504,
+          "height": 146.6737400530504,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 146.6737400530504
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "road-2",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1404.5888594164455,
+          "y": 1125.3660477453582,
+          "width": 154.82228116710874,
+          "height": 154.82228116710874,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 154.82228116710874
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "road-3",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1178.602122015915,
+          "y": 974.6445623342175,
+          "width": 116.79575596816976,
+          "height": 116.79575596816976,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.7
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 116.79575596816976
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "road-4",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1403.2068965517242,
+          "y": 977.3448275862069,
+          "width": 123.58620689655173,
+          "height": 123.58620689655173,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.7
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 123.58620689655173
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "road-5",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1239.1458885941645,
+          "y": 806.0636604774536,
+          "width": 93.70822281167109,
+          "height": 93.70822281167109,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.42
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 93.70822281167109
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "road-6",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1382.3554376657826,
+          "y": 805.4641909814324,
+          "width": 107.28912466843501,
+          "height": 107.28912466843501,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.42
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 107.28912466843501
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "road-7",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1270.4058355437667,
+          "y": 754.5225464190981,
+          "width": 65.18832891246684,
+          "height": 65.18832891246684,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.27
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 65.18832891246684
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "road-8",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1392.0477453580902,
+          "y": 754.0026525198939,
+          "width": 67.90450928381964,
+          "height": 67.90450928381964,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.27
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 67.90450928381964
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "road-9",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1029.132625994695,
+          "y": 1357.7851458885941,
+          "width": 131.73474801061008,
+          "height": 131.73474801061008,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 1.1
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 131.73474801061008
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "road-10",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1559.0954907161804,
+          "y": 1330.0053050397878,
+          "width": 135.80901856763927,
+          "height": 135.80901856763927,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 1.1
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 135.80901856763927
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "road-11",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1997.923076923077,
+          "y": 1199.3846153846155,
+          "width": 118.15384615384616,
+          "height": 118.15384615384616,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.8
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 118.15384615384616
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "road-12",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 354.60212201591514,
+          "y": 1193.6445623342174,
+          "width": 116.79575596816976,
+          "height": 116.79575596816976,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.8
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 116.79575596816976
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "name": "road-13",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 201.3925729442971,
+          "y": 1105.2440318302388,
+          "width": 103.21485411140584,
+          "height": 103.21485411140584,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.7
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 103.21485411140584
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "road-14",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 7.095490716180365,
+          "y": 1183.0053050397878,
+          "width": 135.80901856763927,
+          "height": 135.80901856763927,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.86
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 135.80901856763927
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "name": "road-15",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 2486.5649867374004,
+          "y": 1197.864721485411,
+          "width": 120.87002652519894,
+          "height": 120.87002652519894,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.84
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 120.87002652519894
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "name": "road-16",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1283.5702917771885,
+          "y": 687.6961273209549,
+          "width": 85.17941644562337,
+          "height": 85.17941644562337,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.30666666666666664
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 85.17941644562337
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "name": "road-17",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1364.0701591511936,
+          "y": 688.6233421750663,
+          "width": 85.55968169761273,
+          "height": 85.55968169761273,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.30833333333333335
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 85.55968169761273
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "name": "road-18",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1306.3754641909813,
+          "y": 651.5347480106101,
+          "width": 70.34907161803707,
+          "height": 70.34907161803707,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.24166666666666667
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 70.34907161803707
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "road-19",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1365.2754641909814,
+          "y": 651.5347480106101,
+          "width": 70.34907161803707,
+          "height": 70.34907161803707,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.24166666666666667
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 70.34907161803707
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "name": "road-20",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1319.5795755968168,
+          "y": 622.7910875331565,
+          "width": 58.56084880636605,
+          "height": 58.56084880636605,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.19
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 58.56084880636605
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "name": "road-21",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1368.859575596817,
+          "y": 622.7910875331565,
+          "width": 58.56084880636605,
+          "height": 58.56084880636605,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.19
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 58.56084880636605
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "road-22",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1332.3840848806367,
+          "y": 591.2657824933686,
+          "width": 45.63183023872682,
+          "height": 45.63183023872682,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.13333333333333333
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 45.63183023872682
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "road-23",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1371.9840848806366,
+          "y": 591.2657824933686,
+          "width": 45.63183023872682,
+          "height": 45.63183023872682,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.13333333333333333
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 45.63183023872682
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "name": "road-24",
+          "type": "complete-lamp",
+          "gid": 3,
+          "x": 1338.5862068965516,
+          "y": 576.4303448275862,
+          "width": 39.54758620689656,
+          "height": 39.54758620689656,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.10666666666666667
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 39.54758620689656
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "name": "road-25",
+          "type": "complete-lamp",
+          "gid": 2147483651,
+          "x": 1374.8662068965518,
+          "y": 576.4303448275862,
+          "width": 39.54758620689656,
+          "height": 39.54758620689656,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "road"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.10666666666666667
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 39.54758620689656
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "name": "path-26",
+          "type": "complete-lamp",
+          "gid": 2147483652,
+          "x": 767.9363395225464,
+          "y": 1001.6631299734748,
+          "width": 80.12732095490716,
+          "height": 80.12732095490716,
+          "rotation": 0,
+          "visible": false,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.56
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 80.12732095490716
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "name": "path-27",
+          "type": "complete-lamp",
+          "gid": 2147483652,
+          "x": 991.368700265252,
+          "y": 1009.7427055702917,
+          "width": 69.26259946949602,
+          "height": 69.26259946949602,
+          "rotation": 0,
+          "visible": false,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.56
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 69.26259946949602
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "name": "path-28",
+          "type": "complete-lamp",
+          "gid": 2147483652,
+          "x": 656.2572944297083,
+          "y": 1034.4031830238728,
+          "width": 81.48541114058355,
+          "height": 81.48541114058355,
+          "rotation": 0,
+          "visible": false,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.56
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 81.48541114058355
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "name": "path-29",
+          "type": "complete-lamp",
+          "gid": 2147483652,
+          "x": 754.5411140583554,
+          "y": 1139.3633952254643,
+          "width": 86.91777188328912,
+          "height": 86.91777188328912,
+          "rotation": 0,
+          "visible": false,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.76
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 86.91777188328912
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "name": "path-30",
+          "type": "complete-lamp",
+          "gid": 2147483652,
+          "x": 610.1458885941645,
+          "y": 1157.0636604774536,
+          "width": 93.70822281167109,
+          "height": 93.70822281167109,
+          "rotation": 0,
+          "visible": false,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.76
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 93.70822281167109
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "name": "path-31",
+          "type": "complete-lamp",
+          "gid": 2147483652,
+          "x": 614.132625994695,
+          "y": 1192.7851458885941,
+          "width": 131.73474801061008,
+          "height": 131.73474801061008,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.88
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 131.73474801061008
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "name": "path-32",
+          "type": "complete-lamp",
+          "gid": 2147483652,
+          "x": 898.7745358090185,
+          "y": 1190.26525198939,
+          "width": 134.45092838196285,
+          "height": 134.45092838196285,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.88
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 134.45092838196285
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "name": "path-33",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 321.9230769230769,
+          "y": 1018.3846153846154,
+          "width": 118.15384615384616,
+          "height": 118.15384615384616,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.75
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 118.15384615384616
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "name": "path-34",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 512.1458885941645,
+          "y": 906.0636604774536,
+          "width": 93.70822281167109,
+          "height": 93.70822281167109,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.6
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 93.70822281167109
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "name": "path-35",
+          "type": "complete-lamp",
+          "gid": 2147483652,
+          "x": 573.5915119363395,
+          "y": 866.42175066313,
+          "width": 44.816976127320956,
+          "height": 44.816976127320956,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.38
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 44.816976127320956
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "name": "path-36",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 975.554376657825,
+          "y": 865.6419098143236,
+          "width": 48.89124668435013,
+          "height": 48.89124668435013,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.35
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 48.89124668435013
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "name": "path-37",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 836.159151193634,
+          "y": 888.342175066313,
+          "width": 55.681697612732094,
+          "height": 55.681697612732094,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.4
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 55.681697612732094
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "name": "path-38",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 1174.5543766578248,
+          "y": 861.6419098143236,
+          "width": 48.89124668435013,
+          "height": 48.89124668435013,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.34
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 48.89124668435013
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "name": "path-39",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 1474.2201591511937,
+          "y": 841.6233421750663,
+          "width": 85.55968169761273,
+          "height": 85.55968169761273,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.55
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 85.55968169761273
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "name": "path-40",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 1553.183023872679,
+          "y": 846.8435013262599,
+          "width": 89.63395225464191,
+          "height": 89.63395225464191,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.56
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 89.63395225464191
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "name": "path-41",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 1512.9124668435013,
+          "y": 675.1618037135279,
+          "width": 46.175066312997345,
+          "height": 46.175066312997345,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.28
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 46.175066312997345
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "name": "path-42",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 1597.9124668435013,
+          "y": 679.1618037135279,
+          "width": 46.175066312997345,
+          "height": 46.175066312997345,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.29
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 46.175066312997345
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "name": "path-43",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 2006.1458885941645,
+          "y": 862.0636604774536,
+          "width": 93.70822281167109,
+          "height": 93.70822281167109,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.58
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 93.70822281167109
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "name": "path-44",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 2182.8249336870026,
+          "y": 857.3236074270557,
+          "width": 92.35013262599469,
+          "height": 92.35013262599469,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.58
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 92.35013262599469
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "name": "path-45",
+          "type": "complete-lamp",
+          "gid": 4,
+          "x": 1708.0106100795756,
+          "y": 1235.2228116710876,
+          "width": 71.9787798408488,
+          "height": 71.9787798408488,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "group",
+              "type": "string",
+              "value": "path"
+            },
+            {
+              "name": "groundU",
+              "type": "float",
+              "value": 0.5
+            },
+            {
+              "name": "groundV",
+              "type": "float",
+              "value": 0.927734375
+            },
+            {
+              "name": "receiver",
+              "type": "float",
+              "value": 0
+            },
+            {
+              "name": "baseSourceScale",
+              "type": "float",
+              "value": 0.58
+            },
+            {
+              "name": "referenceHeight",
+              "type": "float",
+              "value": 71.9787798408488
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "checks": [
+    {
+      "name": "7 clips loaded",
+      "pass": true
+    },
+    {
+      "name": "Stage1 independently movable",
+      "pass": true
+    },
+    {
+      "name": "Stage1 restores",
+      "pass": true
+    },
+    {
+      "name": "Stage2 independently movable",
+      "pass": true
+    },
+    {
+      "name": "Stage2 restores",
+      "pass": true
+    },
+    {
+      "name": "Boosters independently movable",
+      "pass": true
+    },
+    {
+      "name": "Boosters restores",
+      "pass": true
+    },
+    {
+      "name": "Payload independently movable",
+      "pass": true
+    },
+    {
+      "name": "Payload restores",
+      "pass": true
+    },
+    {
+      "name": "Fairing independently movable",
+      "pass": true
+    },
+    {
+      "name": "Fairing restores",
+      "pass": true
+    },
+    {
+      "name": "LaunchPreview seeking repeatable",
+      "pass": true
+    },
+    {
+      "name": "LaunchPreview reset all nodes",
+      "pass": true
+    },
+    {
+      "name": "AssemblyPreview seeking repeatable",
+      "pass": true
+    },
+    {
+      "name": "AssemblyPreview reset all nodes",
+      "pass": true
+    },
+    {
+      "name": "SeparateBoosters seeking repeatable",
+      "pass": true
+    },
+    {
+      "name": "SeparateBoosters reset all nodes",
+      "pass": true
+    },
+    {
+      "name": "SeparationPreview seeking repeatable",
+      "pass": true
+    },
+    {
+      "name": "SeparationPreview reset all nodes",
+      "pass": true
+    },
+    {
+      "name": "SeparateFairing seeking repeatable",
+      "pass": true
+    },
+    {
+      "name": "SeparateFairing reset all nodes",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload seeking repeatable",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload reset all nodes",
+      "pass": true
+    },
+    {
+      "name": "SeparateStage1 seeking repeatable",
+      "pass": true
+    },
+    {
+      "name": "SeparateStage1 reset all nodes",
+      "pass": true
+    },
+    {
+      "name": "SeparateStage1 preserves Booster01",
+      "pass": true
+    },
+    {
+      "name": "SeparateStage1 preserves Booster02",
+      "pass": true
+    },
+    {
+      "name": "SeparateStage1 preserves Booster03",
+      "pass": true
+    },
+    {
+      "name": "SeparateStage1 preserves Booster04",
+      "pass": true
+    },
+    {
+      "name": "SeparateFairing preserves Booster01",
+      "pass": true
+    },
+    {
+      "name": "SeparateFairing preserves Booster02",
+      "pass": true
+    },
+    {
+      "name": "SeparateFairing preserves Booster03",
+      "pass": true
+    },
+    {
+      "name": "SeparateFairing preserves Booster04",
+      "pass": true
+    },
+    {
+      "name": "SeparateFairing preserves Stage1",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload preserves Booster01",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload preserves Booster02",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload preserves Booster03",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload preserves Booster04",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload preserves Stage1",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload preserves FairingLeft",
+      "pass": true
+    },
+    {
+      "name": "ReleasePayload preserves FairingRight",
+      "pass": true
+    },
+    {
+      "name": "sequential clips match combined clip",
+      "pass": true
+    },
+    {
+      "name": "all shells hide",
+      "pass": true
+    },
+    {
+      "name": "four tanks stay visible",
+      "pass": true
+    },
+    {
+      "name": "shells restore",
+      "pass": true
+    },
+    {
+      "name": "53.1 m Y-up bounds",
+      "pass": true
+    },
+    {
+      "name": "pause freezes over wall-clock time",
+      "pass": true
+    }
+  ],
+  "renderer": {
+    "memory": {
+      "geometries": 47,
+      "textures": 0
+    },
+    "render": {
+      "frame": 17,
+      "calls": 80,
+      "triangles": 33040,
+      "points": 0,
+      "lines": 0
+    },
+    "programs": [
+      {
+        "type": "MeshStandardMaterial",
+        "name": "JointGray",
+        "id": 0,
+        "cacheKey": "physical,STANDARD,,highp,srgb,false,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,,false,false,0,,2,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,133122,srgb,onBeforeCompile( /* shaderobject, renderer */ ) {}",
+        "usedTimes": 7,
+        "program": {},
+        "vertexShader": {},
+        "fragmentShader": {}
+      }
+    ],
+    "autoReset": true
+  },
+  "webgl": "WebKit WebGL",
+  "version": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+  "errors": [],
+  "externalRequests": [],
+  "pass": true
+}

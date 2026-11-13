@@ -54,3 +54,7 @@ archive/*.bundle
 .libtv/
 _chk.py
 _cmp2.py
+
+# Rebuildable historical panorama packs; latest city-night exports go to dist/.
+experiments/light-pollution/assets/panorama-20261111/editor.html
+experiments/light-pollution/assets/panorama-20261111/user.html

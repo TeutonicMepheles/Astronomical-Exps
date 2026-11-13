@@ -1,0 +1,127 @@
+{
+  "browser": "157.0.8103.39",
+  "legacy": [
+    {
+      "id": "",
+      "label": "01 轨道与条件"
+    },
+    {
+      "id": "",
+      "label": "02 本影与半影"
+    },
+    {
+      "id": "",
+      "label": "03 日食过程"
+    },
+    {
+      "id": "",
+      "label": "04 月食过程"
+    },
+    {
+      "id": "",
+      "label": "05 条件回顾"
+    },
+    {
+      "id": "nodeAligned",
+      "label": "交点对齐"
+    },
+    {
+      "id": "nodeMiss",
+      "label": "交点错开"
+    },
+    {
+      "id": "syzygyBtn",
+      "label": "定位新月／满月"
+    },
+    {
+      "id": "overviewBtn",
+      "label": "轨道全景"
+    },
+    {
+      "id": "yearPlay",
+      "label": "年度对比（定相位）"
+    },
+    {
+      "id": "earthYearRange",
+      "label": "地球一年公转进度"
+    },
+    {
+      "id": "courseBack",
+      "label": "上一章"
+    },
+    {
+      "id": "courseNext",
+      "label": "观察月食过程 →"
+    },
+    {
+      "id": "restartBtn",
+      "label": "重播"
+    },
+    {
+      "id": "speed",
+      "label": "播放速度"
+    },
+    {
+      "id": "zoomBtn",
+      "label": "放大影区"
+    },
+    {
+      "id": "",
+      "label": "日食"
+    },
+    {
+      "id": "",
+      "label": "月食"
+    },
+    {
+      "id": "",
+      "label": "地月"
+    },
+    {
+      "id": "",
+      "label": "日地月"
+    },
+    {
+      "id": "",
+      "label": "侧视"
+    },
+    {
+      "id": "phiRange",
+      "label": "月球绕地球公转进度，拖动可停在任意时刻"
+    },
+    {
+      "id": "",
+      "label": "第 1 个阶段：初亏"
+    },
+    {
+      "id": "",
+      "label": "第 2 个阶段：食既"
+    },
+    {
+      "id": "",
+      "label": "第 3 个阶段：食甚"
+    },
+    {
+      "id": "",
+      "label": "第 4 个阶段：生光"
+    },
+    {
+      "id": "",
+      "label": "第 5 个阶段：复圆"
+    },
+    {
+      "id": "prevBtn",
+      "label": "上一步"
+    },
+    {
+      "id": "playBtn",
+      "label": "播放"
+    },
+    {
+      "id": "nextBtn",
+      "label": "下一步"
+    }
+  ],
+  "errors": [],
+  "result": "PASS"
+}

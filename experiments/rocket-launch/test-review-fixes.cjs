@@ -15,7 +15,7 @@ const BASE = process.env.ROCKET_BASE || 'http://127.0.0.1:8996/experiments/rocke
 
   for (const [width, height] of [[1600, 900], [1024, 768], [1280, 720]]) {
     await p.setViewportSize({ width, height });
-    await p.locator('#chapters button').nth(1).click();
+    await p.locator('#chapters > button').nth(1).click();
     await p.locator('#steps button').nth(1).click();
     await p.evaluate(() => window.RocketModel.scene.setValue(16.7));
     await p.waitForTimeout(500);
@@ -30,18 +30,18 @@ const BASE = process.env.ROCKET_BASE || 'http://127.0.0.1:8996/experiments/rocke
     assert.ok(box.feedback < box.footer, 'feedback over footer ' + JSON.stringify(box) + ' @' + width);
     assert.ok(box.overflow <= 1, 'aside overflow ' + JSON.stringify(box) + ' @' + width);
 
-    // 结构页：选发动机后点空白，选择不变；点真实部件仍然切换
-    await p.locator('#chapters button').nth(2).click();
-    if (await p.getByRole('button', { name: '透视：开', exact: true }).count()) {
-      await p.getByRole('button', { name: '透视：开', exact: true }).click();
+    // 结构页：选一级后点空白，选择不变；点真实部件仍然切换
+    await p.locator('#chapters > button').nth(2).click();await p.waitForFunction(()=>RocketChapter3.adapter.ready);
+    if (await p.getByRole('switch', { name: '透视' }).getAttribute('aria-checked') === 'true') {
+      await p.getByRole('switch', { name: '透视' }).click();
     }
-    await p.getByRole('button', { name: '发动机', exact: true }).click();
+    await p.getByRole('button', { name: '一级', exact: true }).click();
     const before = await p.locator('#feedback').textContent();
     const r = await p.locator('#scene').boundingBox();
     await p.mouse.click(r.x + r.width * 0.1, r.y + r.height * 0.2);
     assert.equal(await p.locator('#feedback').textContent(), before, 'blank click changed selection @' + width);
-    await p.getByRole('button', { name: '透视：关' }).click();
-    await p.getByRole('button', { name: '发动机', exact: true }).click();
+    await p.getByRole('switch', { name: '透视' }).click();
+    await p.getByRole('button', { name: '一级', exact: true }).click();
     await p.mouse.click(r.x + r.width * 0.1, r.y + r.height * 0.2);
     assert.equal(await p.locator('#feedback').textContent(), before, 'blank click changed selection (xray) @' + width);
   }

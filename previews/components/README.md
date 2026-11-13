@@ -36,6 +36,10 @@ npm run dev -- --experiment components
 
 同样不加入六页分页。浏览器烟测会打开该页并检查进入测量模式后到达取起点阶段。
 
+## 场景旋转控件独立预览
+
+- [scene-rotation.html](scene-rotation.html)：直接检查 `SharedComponents.SceneRotationControl` 的左转／右转 30°、上抬／下探 15°、停止位置和减少动态效果。预览中的 CSS 立方体只演示宿主如何消费 `onChange` 角度，控件本身不依赖 Three.js 或该示例模型。
+
 ## 视觉调试
 
 前三页可通过右下角按钮或 `Ctrl+Alt+D` 打开调试面板；Esc 关闭。面板可调整手势、轨迹、描边和气泡。“保存本机”保存到浏览器，“导出 JSON”保存参数文件，“恢复默认”清除本机配置。

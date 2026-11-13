@@ -11,36 +11,32 @@
 (function (global) {
   'use strict';
 
-  var RE = 1;          // 地球半径
-  var RM = 0.2646;     // 月球半径（真实约 0.273 地球半径）
-  var ORBIT = 4.6;     // 月轨半径（教学压缩）
-  var SUN_DIST = 22;   // 日地距离（教学压缩）
-  // 太阳半径。视半径按地面观者算：太阳模式食甚在 phi=π，观者在迎日面、日距 21，
-  // 日面 3.55°、月面 4.22°，月/日视比 1.19（真实 1.02–1.08；单位口径见 solarSky）。
-  // 这一项同时决定视比与月本影锥长度，两者反向，实测（斑径按 82px/RE）：
-  //   SUN_R 1.30 → 视比 1.19，初亏斑 6.8px / 食甚 8.3px（当前档）
-  //   SUN_R 1.43 → 视比 1.08，初亏 2.1px / 食甚 3.9px
-  //   SUN_R 1.50 → 视比 1.03，初亏 0    / 食甚 1.5px
-  //   SUN_R 1.543→ 视比 1.00，斑全消失（canCover 的界）
-  //   再大就不再是全食，且食既/生光的二分求不到内切解、节点会退化。
-  // 结论：视比越接近真实，地面本影斑越小——这是几何，不是参数选择。
-  var SUN_R = 1.30;
+  // 教学几何，非真实天文比例；保持 5.145° 倾角，三维遮挡与渲染分离。
+  // 20 RE 的月轨使离交点的新月/满月能实际错过影区；不沿用会令每月都食的 4.6 RE 共面模型。
+  var RE=1,RM=.2646,ORBIT=20,SUN_DIST=200,SUN_R=2.5;
   var DEG = Math.PI / 180;
 
   var SUN = { x: -SUN_DIST, y: 0 };
   var EARTH = { x: 0, y: 0 };
 
-  function v(x, y) { return { x: x, y: y }; }
-  function sub(a, b) { return v(a.x - b.x, a.y - b.y); }
-  function add(a, b) { return v(a.x + b.x, a.y + b.y); }
-  function mul(a, k) { return v(a.x * k, a.y * k); }
-  function dot(a, b) { return a.x * b.x + a.y * b.y; }
-  function len(a) { return Math.hypot(a.x, a.y); }
-  function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
-  function unit(a) { var l = len(a) || 1; return v(a.x / l, a.y / l); }
-  function clamp(x, lo, hi) { return x < lo ? lo : x > hi ? hi : x; }
+  var INCLINATION=5.145*Math.PI/180,nodeAngle=0,overview=false;
+  function v(x,y,z){return {x:x,y:y,z:z||0};}
+  function sub(a,b){return v(a.x-b.x,a.y-b.y,(a.z||0)-(b.z||0));}
+  function add(a,b){return v(a.x+b.x,a.y+b.y,(a.z||0)+(b.z||0));}
+  function mul(a,k){return v(a.x*k,a.y*k,(a.z||0)*k);}
+  function dot(a,b){return a.x*b.x+a.y*b.y+(a.z||0)*(b.z||0);}
+  function len(a){return Math.hypot(a.x,a.y,a.z||0);}
+  function dist(a,b){return len(sub(a,b));}
+  function unit(a){return mul(a,1/(len(a)||1));}
+  function clamp(x,lo,hi){return Math.max(lo,Math.min(hi,x));}
+  function setNodeAngle(a){nodeAngle=a;}
+  function setOverview(value){overview=value;}
+  function moonAt(phi){var a=phi-nodeAngle,c=Math.cos(nodeAngle),s=Math.sin(nodeAngle),u=Math.cos(a),w=Math.sin(a)*Math.cos(INCLINATION);return v(ORBIT*(c*u-s*w),ORBIT*(s*u+c*w),ORBIT*Math.sin(a)*Math.sin(INCLINATION));}
+  // 球面内保持局部比例，球间距离压缩以便同框；投影位置不参与遮挡计算。
+  function displayPoint(p,focus){var r=len(p),scale=r>1?(1+(r-1)*3.6/19)/r:1,t=focus||0,ax=Math.abs(p.x),compressed=ax>1?Math.sign(p.x)*(1+(ax-1)*3.6/19):p.x;return v(p.x*scale*(1-t)+compressed*t,p.y*(scale+(1-scale)*t),(p.z||0)*(scale+(1-scale)*t));}
 
-  function moonAt(phi) { return v(ORBIT * Math.cos(phi), ORBIT * Math.sin(phi)); }
+  function eclipticAt(phi){return v(ORBIT*Math.cos(phi),ORBIT*Math.sin(phi),0);}
+  function orbitInfo(phi){var m=moonAt(phi),latitude=Math.asin(m.z/ORBIT)/DEG,delta=Math.abs(Math.atan2(Math.sin(phi-nodeAngle),Math.cos(phi-nodeAngle)));return {latitude:latitude,nodeDistance:Math.min(delta,Math.PI-delta)/DEG,nodeAngle:nodeAngle,inclination:INCLINATION/DEG};}
 
   function angularRadius(radius, distance) {
     if (distance <= radius) return Math.PI / 2;
@@ -77,6 +73,18 @@
     var theta = Math.acos(clamp(dot(uS, uO), -1, 1));
     var covered = discOverlap(aS, aO, theta) / (Math.PI * aS * aS);
     return clamp(1 - covered, 0, 1);
+  }
+
+  // 地表正视投影使用三维点；与主图共用太阳、月球尺度与视圆重叠判据。
+  function surfaceVisibility(y, z, phi, surfaceX, moonOverride) {
+    var x = surfaceX === undefined ? -Math.sqrt(Math.max(0, 1-y*y-z*z)) : surfaceX;
+    var moon = moonOverride || moonAt(phi);
+    var sx = SUN.x-x, sy = -y, sz = -z;
+    var mx = moon.x-x, my = moon.y-y, mz = (moon.z||0)-z;
+    var ds = Math.hypot(sx,sy,sz), dm = Math.hypot(mx,my,mz);
+    var angle = Math.acos(clamp((sx*mx+sy*my+sz*mz)/(ds*dm),-1,1));
+    var a = angularRadius(SUN_R,ds), b = angularRadius(RM,dm);
+    return clamp(1-discOverlap(a,b,angle)/(Math.PI*a*a),0,1);
   }
 
   /*
@@ -129,7 +137,7 @@
     var M = moonAt(phi);
     if (M.x <= 0) return Infinity;
     var ru = c.umbraRadiusAt(M.x);
-    return Math.abs(M.y) - (inner ? ru - RM : ru + RM);
+    return Math.hypot(M.y,M.z||0) - (inner ? ru - RM : ru + RM);
   }
 
   function bisect(f, a, b, iterations) {
@@ -145,7 +153,7 @@
 
   var NAMES = ['初亏', '食既', '食甚', '生光', '复圆'];
 
-  function nodes(mode) {
+  function alignedNodes(mode) {
     var out = [], i;
     if (mode === 'solar') {
       var before = function (external) {
@@ -176,6 +184,21 @@
     return out;
   }
 
+  function nodes(mode){var previous=nodeAngle;try{nodeAngle=0;return alignedNodes(mode);}finally{nodeAngle=previous;}}
+
+  function lunarStatus(phi) {
+    var m=moonAt(phi);if(m.x<=0)return 'none';
+    var c=cone(EARTH,RE),d=Math.hypot(m.y,m.z||0),ru=c.umbraRadiusAt(m.x),rp=c.penumbraRadiusAt(m.x);
+    if(d>=rp+RM)return 'none';if(d>=ru+RM)return 'penumbra';if(d+RM<=ru)return 'total';return 'partial';
+  }
+  function orbitCamera(phi,mode,zoom) {
+    var center=mode==='solar'?Math.PI:0,delta=Math.abs(Math.atan2(Math.sin(phi-center),Math.cos(phi-center)));
+    var focus=overview?0:clamp((45*DEG-delta)/(25*DEG),0,1);focus=focus*focus*(3-2*focus);
+    var close=mode==='solar'?150*(zoom||1):Math.min(150,125*(zoom||1));
+    var moon=displayPoint(moonAt(phi),focus),fit=(mode==='solar'?185:205)/(Math.abs(moon.y)+RM);
+    return {px:Math.min(40+(close-40)*focus,fit),cx:900+((mode==='solar'?1040:620)-900)*focus,cy:mode==='solar'?460:485,focus:focus};
+  }
+
   var MODES = {
     solar: { type: '日全食', label: '日食' },
     lunar: { type: '月全食', label: '月食' }
@@ -185,8 +208,8 @@
     RE: RE, RM: RM, ORBIT: ORBIT, SUN_DIST: SUN_DIST, SUN_R: SUN_R,
     DEG: DEG, SUN: SUN, EARTH: EARTH,
     v: v, sub: sub, add: add, mul: mul, dot: dot, len: len, dist: dist,
-    unit: unit, clamp: clamp, moonAt: moonAt, angularRadius: angularRadius,
-    sunVisible: sunVisible, cone: cone, solarSky: solarSky, lunarGap: lunarGap,
-    nodes: nodes, MODES: MODES
+    setOverview:setOverview, setNodeAngle:setNodeAngle, orbitInfo:orbitInfo, displayPoint:displayPoint, eclipticAt:eclipticAt, INCLINATION:INCLINATION, unit: unit, clamp: clamp, moonAt: moonAt, angularRadius: angularRadius,
+    lunarStatus: lunarStatus, orbitCamera: orbitCamera, surfaceVisibility: surfaceVisibility, sunVisible: sunVisible, cone: cone, solarSky: solarSky, lunarGap: lunarGap,
+    discOverlap: discOverlap, nodes: nodes, MODES: MODES
   };
 })(window);

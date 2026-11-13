@@ -1,5 +1,7 @@
 # 公共组件适配
 
+> 当前职责：本目录维护旧 app/ 模块的公开接口与兼容行为；实验默认运行[city-night](../city-night/README.md)，不由本目录接管其场景、调度或纹理。
+
 ## 当前功能与状态
 
 affordance adapter 仅调用 ExperimentHints.AffordanceHint 的公开构造和生命周期。

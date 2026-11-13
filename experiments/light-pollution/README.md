@@ -1,19 +1,23 @@
 # 光污染实验工程
 
-本次跨会话整合预览的来源、入口和限制见 [2026-11-11 整合记录](docs/LATEST-PREVIEW-20261111.md)。
+当前默认实现为 [city-night](city-night/README.md)，整合来源、生产资源与验证边界见[2026-11-13记录](../../docs/INTEGRATION_20261113.md)。
 
-当前重构边界、接口和兼容说明见 [架构文档](docs/ARCHITECTURE.md)。
+[2026-11-11整合记录](docs/LATEST-PREVIEW-20261111.md)与[模块架构](docs/ARCHITECTURE.md)描述旧 app/ 编辑器及兼容入口，不代替最新夜景。
 
 ## 当前功能与状态
 
-根目录 `index.html` 作为实验默认入口，自动进入重构后的 `app/index.html`。原街景页保留为 [legacy-preview.html](legacy-preview.html)，供回溯和对照；不再作为默认入口。
+2026-11-13 默认入口已改为 [最新城市夜景](city-night/README.md)。旧 app 编辑器保留为独立历史入口，不覆盖最新实现。
+
+
+根 `index.html` 跳转到 `city-night/index.html`：11个对象气泡、统一路灯、公园短柱灯、住宅整体遮光/人物、公共建筑、车流、远景天空与静态屏幕。亮度与配光为教学美术演示，未做科学光度标定。
 
 ## 职责边界
 
-根入口已切换到候选重构版，原街景与候选实现仍分文件维护；实验私有代码只在本目录维护。
+最新夜景代码和资源由 city-night/ 拥有。旧 app/ 模块编辑器与 legacy-preview.html 分别保留兼容职责，不在最新场景中探查其内部 DOM 或复用其私有运行实例。
 
 ## 文件与子目录索引
 
+- [city-night/](city-night/README.md)
 - [adapters/](adapters/README.md)
 - [app/](app/README.md)
 - [archive/](archive/README.md)
@@ -63,16 +67,16 @@
 在仓库根目录运行：
 
 ```sh
-node experiments/light-pollution/lib-static-demo/export.cjs
+npm run dev -- --experiment light-pollution
 ```
 
-生成自包含候选页后，也可以通过根目录命令导出：
+导出最新默认夜景：
 
 ```sh
 npm run export -- light-pollution
 ```
 
-导出文件为 `dist/light-pollution/index.html`，来源为 `lib-static-demo/standalone.html`。
+导出文件为 `dist/light-pollution/index.html`，由 `city-night/build_offline.py` 打包当前生产清单并核对哈希。旧 app 模块包另用 `node experiments/light-pollution/lib-static-demo/export.cjs` 生成，只用于兼容入口和旧专项。
 
 ### 本目录资源实测清单
 
@@ -133,7 +137,7 @@ npm run export -- light-pollution
 
 住宅色温沿用现有路灯的 2200–6500 K 演示范围及暖冷配色，默认 3000 K；亮度为 0–100% 的视觉强度，默认 100%，不是照度读数。近景住宅已加入四档窗帘，开启比例尚未实现。刷新页面恢复默认值。旧街景页使用第二版精修底图和住宅/公共建筑/广告屏图层，各组提供独立控制。
 
-调节器初始隐藏；可无限次重复“点窗灯打开—点别处关闭—再点窗灯重新打开”。直接点击另一扇可见窗灯会移动面板，调节滑条不会关面板，亮度为 0 时仍可重新打开。分层预览 asset-review.html 不提供这一交互；旧街景交互见 `legacy-preview.html`，默认候选入口见 `app/index.html`。
+调节器初始隐藏；可无限次重复“点窗灯打开—点别处关闭—再点窗灯重新打开”。直接点击另一扇可见窗灯会移动面板，调节滑条不会关面板，亮度为 0 时仍可重新打开。分层预览 asset-review.html 不提供这一交互；旧街景交互见 `legacy-preview.html`，旧模块候选入口见 `app/index.html`。
 
 街景支持拖动、滚轮、触控板、左右按钮和位置滑条。场景获得焦点后可用方向键、Home、End；到两端停止。展示区保持 16:9，按窗口等比缩放。
 

@@ -1,0 +1,211 @@
+/* Shared visual shell for scene rotation. Hosts map onChange values to 3D state. */
+.scene-rotation-control {
+  --scene-rotation-accent: #9ccbff;
+  --scene-rotation-accent-rgb: 156 203 255;
+  --scene-rotation-surface: #0c2b5e;
+  --scene-rotation-label: #f4f7ff;
+  --scene-rotation-size: 104px;
+  --scene-rotation-icon-size: 54px;
+  --scene-rotation-inset: max(24px, calc(25% - var(--scene-rotation-size) / 2));
+  --scene-rotation-vertical-right: max(24px, 8%);
+  --scene-rotation-y: 4%;
+  --scene-rotation-font: var(--font-ui, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif);
+  color: var(--scene-rotation-label);
+  font-family: var(--scene-rotation-font);
+}
+
+.scene-rotation-control--overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--scene-rotation-inset);
+  transform: translateY(var(--scene-rotation-y));
+  pointer-events: none;
+}
+
+.scene-rotation-control--vertical {
+  inset: 0 var(--scene-rotation-vertical-right) 0 auto;
+  width: calc(var(--scene-rotation-size) + 24px);
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+}
+
+.scene-rotation-control--vertical .scene-rotation-control__item--positive svg {
+  transform: rotate(-90deg);
+}
+
+.scene-rotation-control--vertical .scene-rotation-control__item--negative svg {
+  transform: rotate(-90deg);
+}
+
+.scene-rotation-control .scene-rotation-control__item {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 14px;
+  min-width: calc(var(--scene-rotation-size) + 24px);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scene-rotation-control__disc {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--scene-rotation-size);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 2px solid rgb(var(--scene-rotation-accent-rgb) / 0.92);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 30%, rgb(255 255 255 / 0.14), transparent 31%),
+    radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--scene-rotation-surface) 78%, transparent), rgb(3 16 39 / 0.9));
+  box-shadow:
+    0 0 0 4px rgb(var(--scene-rotation-accent-rgb) / 0.09),
+    0 0 24px rgb(var(--scene-rotation-accent-rgb) / 0.36),
+    inset 0 0 22px rgb(var(--scene-rotation-accent-rgb) / 0.12),
+    inset 0 1px 1px rgb(255 255 255 / 0.15);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, background-color 160ms ease;
+}
+
+.scene-rotation-control__disc::before,
+.scene-rotation-control__disc::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.scene-rotation-control__disc::before {
+  inset: 9px;
+  border: 1px solid rgb(var(--scene-rotation-accent-rgb) / 0.17);
+}
+
+.scene-rotation-control__disc::after {
+  inset: -20%;
+  background: linear-gradient(112deg, transparent 38%, rgb(255 255 255 / 0.09) 50%, transparent 62%);
+  transform: translateX(-48%);
+  transition: transform 240ms ease;
+}
+
+.scene-rotation-control__disc svg {
+  position: relative;
+  z-index: 1;
+  width: var(--scene-rotation-icon-size);
+  height: var(--scene-rotation-icon-size);
+  fill: none;
+  stroke: #fff;
+  stroke-width: 4.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 4px rgb(0 10 28 / 0.36));
+}
+
+.scene-rotation-control__label {
+  color: var(--scene-rotation-label);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgb(0 9 25 / 0.55);
+}
+
+.scene-rotation-control__item:is(:hover, :focus-visible) .scene-rotation-control__disc {
+  border-color: #dceeff;
+  background:
+    radial-gradient(circle at 38% 30%, rgb(255 255 255 / 0.2), transparent 32%),
+    radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--scene-rotation-surface) 68%, #4d85c9), rgb(4 21 49 / 0.94));
+  box-shadow:
+    0 0 0 5px rgb(var(--scene-rotation-accent-rgb) / 0.16),
+    0 0 34px rgb(var(--scene-rotation-accent-rgb) / 0.58),
+    inset 0 0 26px rgb(var(--scene-rotation-accent-rgb) / 0.2),
+    inset 0 1px 1px rgb(255 255 255 / 0.22);
+}
+
+.scene-rotation-control__item:focus-visible {
+  border-radius: 22px;
+  outline: 2px solid #fff0bf;
+  outline-offset: 10px;
+}
+
+.scene-rotation-control__item:active .scene-rotation-control__disc {
+  transform: scale(0.96);
+}
+
+.scene-rotation-control[data-rotation-direction="negative"] .scene-rotation-control__item--negative .scene-rotation-control__disc,
+.scene-rotation-control[data-rotation-direction="positive"] .scene-rotation-control__item--positive .scene-rotation-control__disc {
+  border-color: #e7f4ff;
+  box-shadow:
+    0 0 0 5px rgb(var(--scene-rotation-accent-rgb) / 0.16),
+    0 0 34px rgb(var(--scene-rotation-accent-rgb) / 0.58),
+    inset 0 0 26px rgb(var(--scene-rotation-accent-rgb) / 0.22);
+}
+
+.scene-rotation-control[data-rotation-direction="negative"] .scene-rotation-control__item--negative .scene-rotation-control__disc::after,
+.scene-rotation-control[data-rotation-direction="positive"] .scene-rotation-control__item--positive .scene-rotation-control__disc::after {
+  transform: translateX(48%);
+}
+
+.scene-rotation-control__item[aria-disabled="true"] {
+  cursor: default;
+}
+
+.scene-rotation-control.is-disabled {
+  opacity: 0.55;
+}
+
+.scene-rotation-control.is-rotating .scene-rotation-control__item {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.scene-rotation-control.is-rotating[data-rotation-direction="negative"] .scene-rotation-control__item--negative,
+.scene-rotation-control.is-rotating[data-rotation-direction="positive"] .scene-rotation-control__item--positive {
+  opacity: 1;
+}
+
+.scene-rotation-control:not(.is-rotating) .scene-rotation-control__item[aria-disabled="true"] .scene-rotation-control__disc {
+  filter: saturate(0.55);
+}
+
+.scene-rotation-control__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-rotation-control__disc,
+  .scene-rotation-control__disc::after {
+    transition: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .scene-rotation-control {
+    --scene-rotation-size: 76px;
+    --scene-rotation-icon-size: 40px;
+    --scene-rotation-inset: 18px;
+    --scene-rotation-vertical-right: 8px;
+  }
+
+  .scene-rotation-control__label {
+    font-size: 16px;
+  }
+}

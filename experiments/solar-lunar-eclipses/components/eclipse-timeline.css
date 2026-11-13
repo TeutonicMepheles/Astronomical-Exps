@@ -1,0 +1,17 @@
+/* Scoped EXP-04 timeline adaptation; native range owns input and accessibility. */
+.progress .eclipse-time-axis{position:relative;height:68px;min-width:0;--time-progress:0%}
+.eclipse-time-axis input[type=range]{position:absolute;inset:0;width:100%;height:68px;opacity:0;z-index:2;margin:0}
+.eclipse-time-axis:has(input:focus-visible){outline:3px solid #efd6a2;outline-offset:5px;border-radius:6px}
+.eclipse-time-ticks{position:absolute;left:0;right:0;top:29px;height:24px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}
+.eclipse-time-ticks i{display:block;width:1px;height:8px;background:#73879b88}
+.eclipse-time-ticks i.major{height:18px;background:#b3c2d0aa}
+.eclipse-time-caret{position:absolute;top:21px;height:32px;width:2px;left:var(--time-progress);transform:translateX(-1px);background:#efd5a4;pointer-events:none}
+.eclipse-time-caret::before{content:"";position:absolute;left:-4px;top:-3px;width:10px;height:10px;border-radius:50%;background:#efd5a4}
+.progress .eclipse-time-value{position:absolute;left:clamp(45px,var(--time-progress),calc(100% - 45px));top:-9px;transform:translateX(-50%);margin:0;line-height:25px;font-size:20px;white-space:nowrap;color:#ead3ae;pointer-events:none}
+.eclipse-time-ends{position:absolute;top:53px;left:0;right:0;display:flex;justify-content:space-between;font-size:15px;color:#9cabbc;pointer-events:none}
+.progress-row{min-height:68px}.progress{gap:14px;bottom:28px}
+#stage[data-view=observe] .progress{bottom:28px}
+
+/* Overview axes share one horizontal row; observation keeps its single axis. */
+#stage[data-view=overview] .progress{left:96px;width:1408px;grid-template-columns:repeat(2,minmax(0,1fr));gap:80px}
+#stage[data-view=overview] .progress-row{grid-template-columns:128px minmax(0,1fr) 56px}

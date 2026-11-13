@@ -1,0 +1,930 @@
+{
+  "canvas": [
+    2736,
+    1536
+  ],
+  "runtime": [
+    {
+      "name": "base",
+      "path": "assets/base.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "fd92f659a41883d8f5688be49a2f81d99e42d73d8242eb83c367d90492e01ba4"
+    },
+    {
+      "name": "public-pair",
+      "path": "assets/public-pair.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "de18b98226de9746496bc74963ed60c4f571ba74457c190b2e4b43e012f431cc"
+    },
+    {
+      "name": "residential",
+      "path": "assets/residential.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "ba8534b449fc224389a3c5ef561ecc4de7aef67b3bd4ed4d9ac91b44dbc4335e"
+    },
+    {
+      "name": "public",
+      "path": "assets/public.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "61f61577f7ce944623b242f7221168af2457c20a081c0caf74a2037907d344c5"
+    },
+    {
+      "name": "commercial-windows",
+      "path": "assets/commercial-windows.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "ec7b181dbb3f562e85520063c422ecbf8e4db6c54ab8f2af277dac38e0a4ba80"
+    },
+    {
+      "name": "commercial-screens",
+      "path": "assets/commercial-screens.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "eaa4e782954fbdc6d1518c9425c30bf1fc2a546a84e126e0572bb4e71a6e057c"
+    },
+    {
+      "name": "billboard",
+      "path": "assets/billboard.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "de148fb7083f4eb254b0da18b7f0828b5720faa776c380caf9250ba505cb7cbc"
+    },
+    {
+      "name": "stadium",
+      "path": "assets/stadium.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "a8e75488eb25fb721dd992e9118668ec3ceef99fb589e16fcf7eb1e58e7b0f26"
+    },
+    {
+      "name": "distant",
+      "path": "assets/distant.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "fc593b800627908353c602dfb94a41802958e83aa0f4313132418186e9bbc901"
+    },
+    {
+      "name": "receivers",
+      "path": "assets/receivers.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "184df1013b5497ea2b050a292f2d088eedf3701ed8c551e38af470128f118ce6"
+    },
+    {
+      "name": "ground-fixture",
+      "path": "assets/ground-fixture.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "48427e8b4ae411330f736b4f587f155fecf10478c6306d5032ecbda299828890",
+      "uploadCrop": [
+        500,
+        780,
+        1051,
+        489
+      ],
+      "aspect": 0.4652711703139867,
+      "bounds": [
+        500,
+        780,
+        1551,
+        1269
+      ],
+      "mount": [
+        0.49857278782112274,
+        0.5112474437627812
+      ]
+    },
+    {
+      "name": "car-front",
+      "path": "assets/car-front.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "cf13c238dfb9cc06cdfa6ed20f7963e2c1f3ea2df2e7a8c1e088be901685d853",
+      "uploadCrop": [
+        367,
+        268,
+        1313,
+        1512
+      ],
+      "aspect": 1.1515613099771516,
+      "bounds": [
+        367,
+        268,
+        1680,
+        1780
+      ],
+      "mount": [
+        0.5003808073115004,
+        0.503968253968254
+      ],
+      "lampAnchors": [
+        [
+          0.19,
+          0.835
+        ],
+        [
+          0.82,
+          0.835
+        ]
+      ]
+    },
+    {
+      "name": "car-rear",
+      "path": "assets/car-rear.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "7167b14c26bda1876f2d777b1a12ea0878870bf77150ac8f5f076e59892c375a",
+      "uploadCrop": [
+        528,
+        564,
+        959,
+        1141
+      ],
+      "aspect": 1.1897810218978102,
+      "bounds": [
+        528,
+        564,
+        1487,
+        1705
+      ],
+      "mount": [
+        0.5172054223149114,
+        0.4084136722173532
+      ],
+      "lampAnchors": [
+        [
+          0.082,
+          0.751
+        ],
+        [
+          0.879,
+          0.751
+        ]
+      ]
+    },
+    {
+      "name": "car-side",
+      "path": "assets/car-side.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "07cc2398f5a7788a67075ad3ace7218541c4b7afcbc3cb1034038930f1fd98bc",
+      "uploadCrop": [
+        151,
+        650,
+        1742,
+        824
+      ],
+      "aspect": 0.4730195177956372,
+      "bounds": [
+        151,
+        650,
+        1893,
+        1474
+      ],
+      "mount": [
+        0.5011481056257175,
+        0.46116504854368934
+      ],
+      "lampAnchors": [
+        [
+          0.94,
+          0.62
+        ],
+        [
+          0.91,
+          0.74
+        ]
+      ]
+    },
+    {
+      "name": "park-light",
+      "path": "assets/park-light.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "c1dbd55ef557d065e543ded3f66a3f4d2522b9d80658c30d8496897369e41dfd"
+    },
+    {
+      "name": "park-bollard-unlit",
+      "path": "assets/park-bollard-unlit.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "afc9dd4efdf2417bdeab0c6c623faf83e022f2dd79d3bebc02ad05204f91261e",
+      "uploadCrop": [
+        790,
+        245,
+        457,
+        1560
+      ],
+      "aspect": 3.413566739606127,
+      "bounds": [
+        790,
+        245,
+        1247,
+        1805
+      ],
+      "mount": [
+        0.5120350109409191,
+        0.5032051282051282
+      ]
+    },
+    {
+      "name": "res-vignette-base",
+      "path": "assets/res-vignette-base.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2496,
+        1664
+      ],
+      "sha256": "41cdcad9800887da8b84c43a499d4f63bd121b15d4bd049291d78d3a881324a9",
+      "uploadCrop": [
+        799,
+        599,
+        1648,
+        1007
+      ],
+      "aspect": 0.6110436893203883,
+      "bounds": [
+        799,
+        599,
+        2447,
+        1606
+      ],
+      "mount": [
+        0.13652912621359223,
+        0.42800397219463754
+      ]
+    },
+    {
+      "name": "res-vignette-open-light",
+      "path": "assets/res-vignette-open-light.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2496,
+        1664
+      ],
+      "sha256": "d9dd13cf95092bfb35e0f8482ec56b953c20e937b9aaadda234647a1e8de02b6",
+      "uploadCrop": [
+        799,
+        599,
+        1648,
+        1007
+      ],
+      "aspect": 0.6110436893203883,
+      "bounds": [
+        799,
+        599,
+        2447,
+        1606
+      ],
+      "mount": [
+        0.13652912621359223,
+        0.42800397219463754
+      ]
+    },
+    {
+      "name": "res-vignette-cap-light",
+      "path": "assets/res-vignette-cap-light.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2496,
+        1664
+      ],
+      "sha256": "431eddc38d4c273d304830805ffc6c7c6c4fda8a64a4d941191361b8cd2d7268",
+      "uploadCrop": [
+        799,
+        599,
+        1648,
+        1007
+      ],
+      "aspect": 0.6110436893203883,
+      "bounds": [
+        799,
+        599,
+        2447,
+        1606
+      ],
+      "mount": [
+        0.13652912621359223,
+        0.42800397219463754
+      ]
+    },
+    {
+      "name": "res-vignette-half-light",
+      "path": "assets/res-vignette-half-light.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2496,
+        1664
+      ],
+      "sha256": "5340c98d5cef22c68dd2ef879f2d325bb1c6cb5bf01664df161f15cb0f2979a0",
+      "uploadCrop": [
+        799,
+        599,
+        1648,
+        1007
+      ],
+      "aspect": 0.6110436893203883,
+      "bounds": [
+        799,
+        599,
+        2447,
+        1606
+      ],
+      "mount": [
+        0.13652912621359223,
+        0.42800397219463754
+      ]
+    },
+    {
+      "name": "res-vignette-full-light",
+      "path": "assets/res-vignette-full-light.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2496,
+        1664
+      ],
+      "sha256": "f1b4fe962c38d9dca5e9724e898db7080c11382c68779206eecef39c146f8667",
+      "uploadCrop": [
+        799,
+        599,
+        1648,
+        1007
+      ],
+      "aspect": 0.6110436893203883,
+      "bounds": [
+        799,
+        599,
+        2447,
+        1606
+      ],
+      "mount": [
+        0.13652912621359223,
+        0.42800397219463754
+      ]
+    },
+    {
+      "name": "whole-road-open",
+      "path": "assets/whole-road-open.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "643985f9f8db4b0b9418248e7aa7ba242376b19a06d5f539782a7f8eac0e3c67",
+      "uploadCrop": [
+        781,
+        0,
+        513,
+        1905
+      ],
+      "aspect": 5.203342618384401,
+      "bounds": [
+        781,
+        0,
+        1294,
+        1905
+      ],
+      "mount": [
+        0.48467966573816157,
+        0.5326552462526767
+      ],
+      "footFrame": [
+        1024,
+        1900
+      ],
+      "emitterFrame": [
+        1024,
+        285
+      ],
+      "kind": "complete-fixture",
+      "source": "revision-r6/reference-series/open-corrected/lp-r6-reference-open-dark-correction.png"
+    },
+    {
+      "name": "whole-road-cap",
+      "path": "assets/whole-road-cap.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "49190c8ef324c40a5e436b17f29fc84aadd1a66f3b168a4961b659127422bdc0",
+      "uploadCrop": [
+        781,
+        0,
+        513,
+        1905
+      ],
+      "aspect": 5.535502958579881,
+      "bounds": [
+        781,
+        0,
+        1294,
+        1905
+      ],
+      "mount": [
+        0.47928994082840237,
+        0.5323356493853554
+      ],
+      "footFrame": [
+        1024,
+        1900
+      ],
+      "emitterFrame": [
+        1024,
+        310
+      ],
+      "kind": "complete-fixture",
+      "source": "revision-r6/reference-series/cap/lp-r6-reference-whole-cap-20261112.png"
+    },
+    {
+      "name": "whole-road-half",
+      "path": "assets/whole-road-half.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "c998fa58abc577e1c1cff44e1232b50e45a6895b1d09d15de1d9d9089184247e",
+      "uploadCrop": [
+        781,
+        0,
+        513,
+        1905
+      ],
+      "aspect": 3.7303822937625752,
+      "bounds": [
+        781,
+        0,
+        1294,
+        1905
+      ],
+      "mount": [
+        0.46277665995975853,
+        0.5280474649406688
+      ],
+      "footFrame": [
+        1024,
+        1900
+      ],
+      "emitterFrame": [
+        1024,
+        350
+      ],
+      "kind": "complete-fixture",
+      "source": "revision-r6/reference-series/half/lp-r6-reference-whole-half-20261112.png"
+    },
+    {
+      "name": "whole-road-full",
+      "path": "assets/whole-road-full.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "8031c90b770d80c3b7f08ea6459aaa7a6bab30bec548d32aee75a2345b66083b",
+      "uploadCrop": [
+        781,
+        0,
+        513,
+        1905
+      ],
+      "aspect": 3.711500974658869,
+      "bounds": [
+        781,
+        0,
+        1294,
+        1905
+      ],
+      "mount": [
+        0.47368421052631576,
+        0.5409663865546218
+      ],
+      "footFrame": [
+        1024,
+        1900
+      ],
+      "emitterFrame": [
+        1024,
+        392
+      ],
+      "kind": "complete-fixture",
+      "source": "revision-r6/reference-series/full/lp-r6-reference-whole-full-20261112.png"
+    },
+    {
+      "name": "whole-road-off",
+      "path": "assets/whole-road-off.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "5f92666742fd3e074d7d194a14fbc2a07b25b7e7e5a4f873323f3e6664455d87",
+      "uploadCrop": [
+        781,
+        0,
+        513,
+        1905
+      ],
+      "aspect": 4.051063829787234,
+      "bounds": [
+        781,
+        0,
+        1294,
+        1905
+      ],
+      "mount": [
+        0.5127659574468085,
+        0.5409663865546218
+      ],
+      "footFrame": [
+        1024,
+        1900
+      ],
+      "emitterFrame": [
+        1024,
+        392
+      ],
+      "kind": "complete-fixture",
+      "source": "revision-r6/reference-series/off/lp-r6-reference-whole-off-20261112.png"
+    },
+    {
+      "name": "head-wall-open",
+      "path": "assets/head-wall-open.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "ee1d32fe6cc0263e91200b211a8be83bf100036f6ef1b9144a0d420b59b61f9f",
+      "uploadCrop": [
+        257,
+        153,
+        1608,
+        1741
+      ],
+      "aspect": 1.0827114427860696,
+      "bounds": [
+        257,
+        153,
+        1865,
+        1894
+      ],
+      "mount": [
+        0.35012437810945274,
+        0.46352670878805285
+      ],
+      "emitterFrame": [
+        820,
+        960
+      ],
+      "source": "Seedream 5.5 native 2K complete wall bracket fixture; r12 independent generation; off shares full physical body"
+    },
+    {
+      "name": "head-wall-cap",
+      "path": "assets/head-wall-cap.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "17f59d9c57c96ec36a90338a59926e9ac1069bd125a164bc29cab89e4b9496fa",
+      "uploadCrop": [
+        279,
+        210,
+        1401,
+        1621
+      ],
+      "aspect": 1.1570306923625981,
+      "bounds": [
+        279,
+        210,
+        1680,
+        1831
+      ],
+      "mount": [
+        0.3718772305496074,
+        0.6971005552128315
+      ],
+      "emitterFrame": [
+        800,
+        1340
+      ],
+      "source": "Seedream 5.5 native 2K complete wall bracket fixture; r12 independent generation; off shares full physical body"
+    },
+    {
+      "name": "head-wall-half",
+      "path": "assets/head-wall-half.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "ae63d01e3e008f8b4621d2826ce851dcb841718904a1da12f2918c0cede92e4c",
+      "uploadCrop": [
+        240,
+        302,
+        1521,
+        1410
+      ],
+      "aspect": 0.9270216962524654,
+      "bounds": [
+        240,
+        302,
+        1761,
+        1712
+      ],
+      "mount": [
+        0.36817882971729127,
+        0.7609929078014185
+      ],
+      "emitterFrame": [
+        800,
+        1375
+      ],
+      "source": "Seedream 5.5 native 2K complete wall bracket fixture; r12 independent generation; off shares full physical body"
+    },
+    {
+      "name": "head-wall-full",
+      "path": "assets/head-wall-full.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "8ec0cb2535d7c1617c2870c22480c890a544c961af3c76fff43eca58b694bb19",
+      "uploadCrop": [
+        185,
+        324,
+        1623,
+        1375
+      ],
+      "aspect": 0.8471965495995071,
+      "bounds": [
+        185,
+        324,
+        1808,
+        1699
+      ],
+      "mount": [
+        0.3542821934688848,
+        0.6545454545454545
+      ],
+      "emitterFrame": [
+        760,
+        1224
+      ],
+      "source": "Seedream 5.5 native 2K complete wall bracket fixture; r12 independent generation; off shares full physical body"
+    },
+    {
+      "name": "head-wall-off",
+      "path": "assets/head-wall-off.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2048,
+        2048
+      ],
+      "sha256": "8ec0cb2535d7c1617c2870c22480c890a544c961af3c76fff43eca58b694bb19",
+      "uploadCrop": [
+        185,
+        324,
+        1623,
+        1375
+      ],
+      "aspect": 0.8471965495995071,
+      "bounds": [
+        185,
+        324,
+        1808,
+        1699
+      ],
+      "mount": [
+        0.3542821934688848,
+        0.6545454545454545
+      ],
+      "emitterFrame": [
+        760,
+        1224
+      ],
+      "source": "Seedream 5.5 native 2K complete wall bracket fixture; r12 independent generation; off shares full physical body"
+    }
+  ],
+  "encoding": "sRGB sources decoded to linear RGBA16F; additive lights; final sRGB encode",
+  "generation": "Seedream 5.5 native 2K vehicle and registered complete fixture variants from Tiled; independently generated complete wall fixtures 2048 square",
+  "staticChannels": [
+    "public-pair",
+    "residential",
+    "public",
+    "commercial-windows",
+    "commercial-screens",
+    "billboard",
+    "stadium",
+    "distant"
+  ]
+}

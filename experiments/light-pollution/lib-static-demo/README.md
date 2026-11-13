@@ -2,7 +2,7 @@
 
 ## 当前功能与状态
 
-standalone.html 与 index.html 由 manifest 构建；export/verify 命令是维护位置的兼容转发。
+本目录属于旧 app/ 模块兼容层，standalone.html 与 index.html 由旧 manifest 构建；export/verify 命令转发到其维护位置。实验默认入口与根 `npm run export -- light-pollution` 已改用 city-night/ 最新夜景。
 
 ## 职责边界
 
@@ -22,7 +22,7 @@ standalone.html 与 index.html 由 manifest 构建；export/verify 命令是维�
 - [PERFORMANCE-REPORT-2026-10-28.md](PERFORMANCE-REPORT-2026-10-28.md)
 - [profile-performance.cjs](profile-performance.cjs)
 - [REFACTOR-AUDIT-2026-10-28.md](REFACTOR-AUDIT-2026-10-28.md)
-- [standalone.html](standalone.html)
+- `standalone.html`（本地构建产物，不提交）
 - [verify-ad-building.cjs](verify-ad-building.cjs)
 - [verify-buildings.cjs](verify-buildings.cjs)
 - [verify-candidates.cjs](verify-candidates.cjs)
@@ -61,34 +61,34 @@ node experiments/light-pollution/lib-static-demo/export.cjs
 
 | 文件 | 尺寸/坐标 | 字节 | 使用边界 |
 | --- | --- | ---: | --- |
-| [ad-building-controls-preview.png](ad-building-controls-preview.png) | 1600 × 900 | 976,917 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [building-street-preview.png](building-street-preview.png) | 1600 × 900 | 1,059,835 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [candidate-billboard.png](candidate-billboard.png) | 1600 × 900 | 484,188 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [candidate-editor-preview.png](candidate-editor-preview.png) | 1600 × 900 | 653,227 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [candidate-homes.png](candidate-homes.png) | 1600 × 900 | 664,645 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [candidate-preview.png](candidate-preview.png) | 1600 × 900 | 1,210,309 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [clean-preview.png](clean-preview.png) | 1600 × 900 | 487,196 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [distant-controls-preview.png](distant-controls-preview.png) | 1600 × 900 | 1,199,865 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [editor-preview.png](editor-preview.png) | 1600 × 900 | 653,437 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [future-03-preview.png](future-03-preview.png) | 1600 × 900 | 1,131,222 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [gradient-preview.png](gradient-preview.png) | 1600 × 900 | 582,223 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [ground-cutout-preview.png](ground-cutout-preview.png) | 1600 × 900 | 1,154,215 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [hint-occlusion-preview.png](hint-occlusion-preview.png) | 1600 × 900 | 1,208,457 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [interaction-hints-preview.png](interaction-hints-preview.png) | 1600 × 900 | 1,210,736 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [lamps-editor-preview.png](lamps-editor-preview.png) | 1600 × 900 | 678,844 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [lamps-preview.png](lamps-preview.png) | 1600 × 900 | 1,115,702 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [light-environment-preview.png](light-environment-preview.png) | 1600 × 900 | 1,041,146 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [objects-preview.png](objects-preview.png) | 1600 × 900 | 615,420 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [presentation-preview.png](presentation-preview.png) | 1600 × 900 | 1,209,755 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [preview.png](preview.png) | 1600 × 900 | 607,712 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [scene-effects-preview.png](scene-effects-preview.png) | 1600 × 900 | 685,723 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [sky-settings-preview.png](sky-settings-preview.png) | 1600 × 900 | 961,141 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [video-integration-preview.png](video-integration-preview.png) | 1600 × 900 | 500,007 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [water-diagnostic.png](water-diagnostic.png) | 1600 × 900 | 1,004,162 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [water-flow-preview.png](water-flow-preview.png) | 1600 × 120 | 138,705 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [water-reflection-preview.png](water-reflection-preview.png) | 1600 × 140 | 202,289 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [water-screen-reflection-preview.png](water-screen-reflection-preview.png) | 1600 × 900 | 934,373 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [zoom-preview.png](zoom-preview.png) | 1600 × 900 | 489,056 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| ad-building-controls-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 976,917 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| building-street-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,059,835 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| candidate-billboard.png（本地评审素材，不随工程发布） | 1600 × 900 | 484,188 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| candidate-editor-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 653,227 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| candidate-homes.png（本地评审素材，不随工程发布） | 1600 × 900 | 664,645 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| candidate-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,210,309 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| clean-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 487,196 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| distant-controls-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,199,865 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| editor-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 653,437 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| future-03-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,131,222 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| gradient-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 582,223 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| ground-cutout-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,154,215 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| hint-occlusion-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,208,457 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| interaction-hints-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,210,736 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| lamps-editor-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 678,844 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| lamps-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,115,702 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| light-environment-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,041,146 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| objects-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 615,420 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| presentation-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,209,755 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 607,712 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| scene-effects-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 685,723 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| sky-settings-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 961,141 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| video-integration-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 500,007 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| water-diagnostic.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,004,162 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| water-flow-preview.png（本地评审素材，不随工程发布） | 1600 × 120 | 138,705 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| water-reflection-preview.png（本地评审素材，不随工程发布） | 1600 × 140 | 202,289 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| water-screen-reflection-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 934,373 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| zoom-preview.png（本地评审素材，不随工程发布） | 1600 × 900 | 489,056 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
 
 ## 公开接口与数据
 

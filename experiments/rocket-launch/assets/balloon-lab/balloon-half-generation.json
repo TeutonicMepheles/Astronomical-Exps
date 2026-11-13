@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "f92fa2de-7f6b-49d9-926e-1fa3fefa1934",
+  "reactFlowNode": {
+    "id": "f92fa2de-7f6b-49d9-926e-1fa3fefa1934",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "现代气球-半充气-规范插画-v1",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Edit the referenced coral balloon into its HALF-INFLATED state. Keep exactly the same contemporary simplified science illustration style, coral colors, broad flat shading, subtle fine grain, upright orientation and short OPEN mouth pointing straight DOWN. Do NOT tie the mouth or add a knot/string. Slightly smaller narrower pear shaped body with two simple soft folds close to the neck. Keep whole object centered and visible. Transparent isolated asset, no background, no shadow, no text, no extra objects, no photo texture, no watercolor mottling.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "3:4",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017065035_3b60fdc86531434db203ac6b73e3aac6.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "7a5c0176-b3d4-4b83-ae1f-8577fa99144e",
+      "source": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+      "target": "f92fa2de-7f6b-49d9-926e-1fa3fefa1934"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "f92fa2de-7f6b-49d9-926e-1fa3fefa1934"
+  ]
+}
+{
+  "nodeKey": "f92fa2de-7f6b-49d9-926e-1fa3fefa1934",
+  "nodeType": "image",
+  "taskId": "20261112215703173237723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "现代气球-半充气-规范插画-v1",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017066550_80d340b842844b12b7c52bff05015a07.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Edit the referenced coral balloon into its HALF-INFLATED state. Keep exactly the same contemporary simplified science illustration style, coral colors, broad flat shading, subtle fine grain, upright orientation and short OPEN mouth pointing straight DOWN. Do NOT tie the mouth or add a knot/string. Slightly smaller narrower pear shaped body with two simple soft folds close to the neck. Keep whole object centered and visible. Transparent isolated asset, no background, no shadow, no text, no extra objects, no photo texture, no watercolor mottling.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "3:4",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017065035_3b60fdc86531434db203ac6b73e3aac6.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112215703173237723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    }
+  }
+}
