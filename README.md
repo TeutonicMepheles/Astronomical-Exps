@@ -1,6 +1,6 @@
 # 天文实验课
 
-本项目包含八个天文实验网页，由贡献者分别开发，维护者审核后合并。目前傅科摆、月面环形山、埃拉托色尼地球周长、光污染和牛顿望远镜已有可运行开发页面，且均仍在开发与验收中；其余三个实验已有需求文档，尚无正式页面。
+本项目包含八个天文实验网页，均已有可运行开发入口。功能、科学标定、教学流程和智慧白板实机仍按各实验分别验收；已有页面不作为完工模板。
 
 展示面向智慧白板大屏，统一 16:9 横屏，以点击、拖拽为主。核心流程不依赖悬停或滚动；悬停与选中效果一致（选中即悬浮）。详见[展示与交互约定](Visual-Spec/VISUAL_SPEC.md#展示与交互约定)。
 
@@ -25,7 +25,7 @@
 | EXP-07 | 牛顿望远镜 | 可运行开发版；整页验收待完成 | [index.html](experiments/newton-telescope/index.html) | [阅读](experiments/newton-telescope/REQUIREMENTS.md) |
 | EXP-08 | 火箭发射 | 可运行开发版；整页验收待完成 | [index.html](experiments/rocket-launch/index.html) | [阅读](experiments/rocket-launch/REQUIREMENTS.md) |
 
-`npm run dev`、`npm run export` 和贡献者协作工具目前只登记光污染、牛顿望远镜。傅科摆、月面环形山和地球周长已有源码页面，但目前通过根目录 HTTP 服务直接打开；尚未接入上述工具。其余实验开始制作前，请维护者补充工具入口。已有页面和公共组件都还需完善，不能当作完成验收的模板。
+`npm run dev -- --experiment <目录名>` 支持八个实验；通用离线导出支持光污染和牛顿望远镜。贡献者协作工具仍只登记这两页，其他页面须由维护者另行接入登记和导出检查，不能绕过范围校验。
 
 ## 本地运行
 
@@ -44,7 +44,7 @@ npm run dev -- --experiment light-pollution
 npm run dev -- --experiment components
 ```
 
-默认端口为 8793；占用时在命令末尾加 `--port 8795`。未接入 `npm run dev` 的傅科摆、月面环形山和地球周长，可在仓库根目录启动静态服务后打开对应目录：
+默认端口为 8793；占用时加 `--port 8795`，或用 `--port 0` 自动选择空闲端口，以终端输出地址为准。八个实验也都可以通过仓库根目录静态服务打开，例如：
 
 ```sh
 python -m http.server 8381 --bind 127.0.0.1

@@ -1,5 +1,7 @@
 # EXP-03 陨石坑 · 控制变量对照实验
 
+> 当前入口（2026-11-13）：[index.html](index.html)；从仓库根运行 `npm run dev -- --experiment meteor-impact`。根入口 smoke 已覆盖本页，通用离线导出与贡献者协作登记尚未接入；完整教学、科学和设备验收仍需分别完成。
+
 默认入口：[index.html](index.html)。从仓库根启动 `python -m http.server 8398 --bind 127.0.0.1`，打开 `http://127.0.0.1:8398/experiments/meteor-impact/`；也支持直接 file:// 打开。
 
 - 单变量对照：选大小、速度或入射角，再分别选实验 1 / 2 的档位，同时发射；其他条件固定。两边相同档位时提示重新选择。

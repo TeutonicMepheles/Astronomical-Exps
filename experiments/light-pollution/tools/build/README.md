@@ -2,7 +2,7 @@
 
 ## 当前功能与状态
 
-从单一 manifest 读取页面、代码、样式和图片，输出 `app/index.html`、`lib-static-demo/index.html`、单文件页及输入哈希回执。实验根 `index.html` 作为默认入口跳转到 `app/index.html`；根 `npm run export -- light-pollution` 复制候选单文件到 `dist/light-pollution/index.html`。
+本目录构建旧 app/ 模块兼容包：从其 manifest 输出 `app/index.html`、`lib-static-demo/index.html`、单文件页及输入哈希。当前实验根入口跳转到 `city-night/index.html`；根 `npm run export -- light-pollution` 调用 `city-night/build_offline.py` 导出最新夜景，二者不混作同一个构建。
 
 ## 职责边界
 

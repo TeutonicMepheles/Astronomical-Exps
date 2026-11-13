@@ -16,7 +16,9 @@
 
 ## 使用方法
 
-根目录运行 `npm run export -- light-pollution`。本地 HTTP 服务访问实验根入口。
+根目录运行 `npm run dev -- --experiment light-pollution --port 0`，以终端实际打印的实验 URL 访问。离线导出运行 `npm run export -- light-pollution`，结果在 `dist/light-pollution/index.html`；不会调用生图服务。
+
+专项为 `node experiments/light-pollution/city-night/verify.cjs`。先导出，再把 `CITY_URL` 环境变量设为上述服务实际地址；不设置时脚本使用9013默认地址，必须确认其确实指向本工作树。GPU检查串行执行。
 
 ## 公开接口与数据
 

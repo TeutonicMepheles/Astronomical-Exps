@@ -2,7 +2,7 @@
 
 ## 当前功能与状态
 
-standalone.html 与 index.html 由 manifest 构建；export/verify 命令是维护位置的兼容转发。
+本目录属于旧 app/ 模块兼容层，standalone.html 与 index.html 由旧 manifest 构建；export/verify 命令转发到其维护位置。实验默认入口与根 `npm run export -- light-pollution` 已改用 city-night/ 最新夜景。
 
 ## 职责边界
 
@@ -22,7 +22,7 @@ standalone.html 与 index.html 由 manifest 构建；export/verify 命令是维�
 - [PERFORMANCE-REPORT-2026-10-28.md](PERFORMANCE-REPORT-2026-10-28.md)
 - [profile-performance.cjs](profile-performance.cjs)
 - [REFACTOR-AUDIT-2026-10-28.md](REFACTOR-AUDIT-2026-10-28.md)
-- [standalone.html](standalone.html)
+- `standalone.html`（本地构建产物，不提交）
 - [verify-ad-building.cjs](verify-ad-building.cjs)
 - [verify-buildings.cjs](verify-buildings.cjs)
 - [verify-candidates.cjs](verify-candidates.cjs)

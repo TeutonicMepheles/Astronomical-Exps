@@ -76,4 +76,4 @@ layer-color-sample.cjs 支持 LIGHT_URL 指定全景试用版 URL；报告文件
 
 - [lamp-refresh-sample.cjs](lamp-refresh-sample.cjs)：灯具更新的同环境 Chrome 短时性能采样；输出 lamp-refresh-final-20261111.json，增加快速循环五款灯罩压力状态。
 
-2026-11-13：`run-tests.cjs` 在串行旧模块回归前自动构建候选/全景离线包。最新默认夜景专项使用 `node experiments/light-pollution/city-night/verify.cjs`（先运行 `npm run export -- light-pollution` 并在9013启动仓库 HTTP 服务）；两套回归串行执行。
+2026-11-13：`run-tests.cjs` 在串行旧模块回归前自动构建候选/全景离线包。最新默认夜景专项使用 `node experiments/light-pollution/city-night/verify.cjs`（先运行 `npm run export -- light-pollution`，用 `--port 0` 启动本工作树服务，并以 `CITY_URL` 指定终端实际地址；脚本默认9013仅用于已核对的服务）；两套回归串行执行。
