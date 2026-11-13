@@ -1,0 +1,130 @@
+{
+  "date": "2026-11-13",
+  "browser": "156.0.8078.4",
+  "channel": "bundled Chromium",
+  "mode": "headless; two simultaneous viewports, one size-contrast run including result captures",
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "measurement": "rAF intervals in ms; interaction run after scene-ready includes terrain rebuild, motion and snapshots; cold shader preparation is separate; no device acceptance threshold",
+  "frames": 82,
+  "p50": 16.700000000000273,
+  "p95": 466.60000000000036,
+  "max": 600,
+  "longTasks": [
+    291,
+    263,
+    263,
+    267,
+    366,
+    275,
+    267,
+    265,
+    526,
+    264,
+    509,
+    117,
+    128,
+    410,
+    139,
+    129,
+    128,
+    383,
+    125
+  ],
+  "stats": [
+    {
+      "active": false,
+      "geometries": 8,
+      "textures": 6,
+      "terrainCacheEntries": 3,
+      "captures": [
+        {
+          "cutaway": false,
+          "build": 2.200000047683716,
+          "render": 2.200000047683716,
+          "snapshot": 110,
+          "restore": 2.3999998569488525,
+          "sync": 116.79999995231628,
+          "total": 262.2000000476837
+        },
+        {
+          "cutaway": true,
+          "build": 2.4000000953674316,
+          "render": 18.299999952316284,
+          "snapshot": 385.90000009536743,
+          "restore": 3.5999999046325684,
+          "sync": 410.2000000476837,
+          "total": 554.4000000953674
+        }
+      ],
+      "cutCamera": {
+        "position": [
+          0,
+          -3,
+          44
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "frustum": [
+          -14,
+          14,
+          12.25,
+          -12.25
+        ],
+        "aspect": 1.1428571428571428
+      },
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "active": false,
+      "geometries": 8,
+      "textures": 6,
+      "terrainCacheEntries": 3,
+      "captures": [
+        {
+          "cutaway": false,
+          "build": 2.9000000953674316,
+          "render": 1.2999999523162842,
+          "snapshot": 123,
+          "restore": 2.700000047683716,
+          "sync": 129.90000009536743,
+          "total": 275.90000009536743
+        },
+        {
+          "cutaway": true,
+          "build": 2.0999999046325684,
+          "render": 22.90000009536743,
+          "snapshot": 356.09999990463257,
+          "restore": 2.299999952316284,
+          "sync": 383.39999985694885,
+          "total": 528.2000000476837
+        }
+      ],
+      "cutCamera": {
+        "position": [
+          0,
+          -3,
+          44
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "frustum": [
+          -14,
+          14,
+          12.25,
+          -12.25
+        ],
+        "aspect": 1.1428571428571428
+      },
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ]
+}

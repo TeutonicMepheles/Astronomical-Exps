@@ -1,0 +1,248 @@
+{
+  "date": "2026-11-13",
+  "browser": "157.0.8103.51",
+  "mode": "headless Chrome, same viewport and quality; actual click handlers; event to second rAF is not INP",
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "readyMs": 1245,
+  "events": [
+    {
+      "label": "launch",
+      "ms": 24.200000047683716
+    },
+    {
+      "label": "cutView",
+      "ms": 22.40000009536743
+    },
+    {
+      "label": "wholeView",
+      "ms": 24.100000143051147
+    },
+    {
+      "label": "reset",
+      "ms": 23.899999856948853
+    },
+    {
+      "label": "实验2陨石大小中",
+      "ms": 24
+    },
+    {
+      "label": "launch",
+      "ms": 24.700000047683716
+    },
+    {
+      "label": "openRecords",
+      "ms": 14.400000095367432
+    },
+    {
+      "label": "closeRecords",
+      "ms": 23.300000190734863
+    },
+    {
+      "label": "launch",
+      "ms": 23.59999990463257
+    },
+    {
+      "label": "地球 / 月球",
+      "ms": 23.09999990463257
+    },
+    {
+      "label": "launch",
+      "ms": 25.200000047683716
+    },
+    {
+      "label": "cancel",
+      "ms": 24.200000047683716
+    },
+    {
+      "label": "launch",
+      "ms": 24.59999990463257
+    },
+    {
+      "label": "reset",
+      "ms": 15.699999809265137
+    },
+    {
+      "label": "launch",
+      "ms": 25.40000009536743
+    },
+    {
+      "label": "openRecords",
+      "ms": 24.200000047683716
+    },
+    {
+      "label": "previous",
+      "ms": 22.90000009536743
+    },
+    {
+      "label": "next",
+      "ms": 24.100000143051147
+    },
+    {
+      "label": "deleteLast",
+      "ms": 23.700000047683716
+    },
+    {
+      "label": "closeRecords",
+      "ms": 23.299999952316284
+    }
+  ],
+  "tasks": [
+    {
+      "start": 2486.5,
+      "duration": 64
+    }
+  ],
+  "resources": 5,
+  "cachedResults": 5,
+  "stats": [
+    {
+      "active": false,
+      "geometries": 8,
+      "textures": 7,
+      "terrainCacheEntries": 4,
+      "captures": [
+        {
+          "cutaway": false,
+          "build": 3.5,
+          "render": 4.799999952316284,
+          "snapshot": 3.9000000953674316,
+          "restore": 1.5999999046325684,
+          "sync": 13.799999952316284,
+          "total": 29.200000047683716
+        },
+        {
+          "cutaway": true,
+          "build": 2,
+          "render": 8.700000047683716,
+          "snapshot": 2.200000047683716,
+          "restore": 1.3999998569488525,
+          "sync": 14.299999952316284,
+          "total": 16.299999952316284
+        },
+        {
+          "cutaway": false,
+          "build": 4.700000047683716,
+          "render": 1.7000000476837158,
+          "snapshot": 5.099999904632568,
+          "restore": 2.1000001430511475,
+          "sync": 13.600000143051147,
+          "total": 27.600000143051147
+        },
+        {
+          "cutaway": true,
+          "build": 2,
+          "render": 8.399999856948853,
+          "snapshot": 4.5,
+          "restore": 1.7999999523162842,
+          "sync": 16.699999809265137,
+          "total": 18.899999856948853
+        }
+      ],
+      "cutCamera": {
+        "position": [
+          0,
+          -3,
+          44
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "frustum": [
+          -11.5,
+          11.5,
+          10.0625,
+          -10.0625
+        ],
+        "aspect": 1.1428571428571428
+      },
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "active": false,
+      "geometries": 8,
+      "textures": 6,
+      "terrainCacheEntries": 4,
+      "captures": [
+        {
+          "cutaway": false,
+          "build": 2.0999999046325684,
+          "render": 1.5999999046325684,
+          "snapshot": 2,
+          "restore": 1.5,
+          "sync": 7.199999809265137,
+          "total": 25.299999952316284
+        },
+        {
+          "cutaway": true,
+          "build": 1.7999999523162842,
+          "render": 8.299999952316284,
+          "snapshot": 2.200000047683716,
+          "restore": 1.5,
+          "sync": 13.799999952316284,
+          "total": 17.200000047683716
+        },
+        {
+          "cutaway": false,
+          "build": 3.5999999046325684,
+          "render": 1.7000000476837158,
+          "snapshot": 6.099999904632568,
+          "restore": 1.5,
+          "sync": 12.899999856948853,
+          "total": 27.09999990463257
+        },
+        {
+          "cutaway": true,
+          "build": 1.7000000476837158,
+          "render": 7.299999952316284,
+          "snapshot": 4.3999998569488525,
+          "restore": 1.2000000476837158,
+          "sync": 14.599999904632568,
+          "total": 16.899999856948853
+        },
+        {
+          "cutaway": false,
+          "build": 1.5,
+          "render": 1.5,
+          "snapshot": 3.700000047683716,
+          "restore": 1.2999999523162842,
+          "sync": 8,
+          "total": 26.5
+        },
+        {
+          "cutaway": true,
+          "build": 1.5999999046325684,
+          "render": 8.300000190734863,
+          "snapshot": 4.799999952316284,
+          "restore": 1.5999999046325684,
+          "sync": 16.299999952316284,
+          "total": 24.799999952316284
+        }
+      ],
+      "cutCamera": {
+        "position": [
+          0,
+          -3,
+          44
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "frustum": [
+          -11.5,
+          11.5,
+          10.0625,
+          -10.0625
+        ],
+        "aspect": 1.1428571428571428
+      },
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}
