@@ -104,7 +104,7 @@ function createScreenRenderer(canvas, image) {
 }
 
 export function mountHallScreens(layer, controls, wake, options = {}) {
-  const { cityScreenIndex = 1, cityImages = {} } = options;
+  const { cityScreenIndex = 1, cityImages = {}, cityImageTone = {} } = options;
   const fields = [
     ['brightness', '亮度', .5, 2, 2],
     ['bloom', 'Bloom', 0, 2, 2],
@@ -249,7 +249,8 @@ export function mountHallScreens(layer, controls, wake, options = {}) {
     }
     for (const { screen, offset } of screens) {
       if (!screen.draw || screen.tick === drawTick && screen.revision === revision) continue;
-      screen.draw.draw(drawTick + offset, glitch, settings.brightness, settings.bloom);
+      const tone=screen===cityScreen?cityImageTone[screen.cityId]:null;
+      screen.draw.draw(drawTick + offset, glitch, settings.brightness*(tone?.brightness??1), settings.bloom*(tone?.bloom??1));
       screen.tick = drawTick;
       screen.revision = revision;
     }

@@ -1,0 +1,23 @@
+const {chromium}=require('playwright');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+(async()=>{const browser=await chromium.launch({channel:'chrome',headless:false});try{
+ const page=await browser.newPage({viewport:{width:1600,height:900}});
+ await page.goto('http://127.0.0.1:8795/experiments/foucault-pendulum/');
+ await page.locator('.city[data-id="shanghai"]').click();
+ await page.locator('#planeToggle').click();await page.waitForTimeout(1200);
+ assert.equal(await page.locator('#swingArc').isVisible(),true);
+ const a=await page.locator('#swingArcLine').getAttribute('d');await page.waitForTimeout(400);
+ assert.notEqual(await page.locator('#swingArcLine').getAttribute('d'),a);
+ await page.screenshot({path:'experiments/foucault-pendulum/tests/swing-arc-preview.png'});
+ const sample=await page.evaluate(()=>new Promise(resolve=>{let prev=performance.now(),start=prev;const frames=[],tasks=[];const obs=new PerformanceObserver(l=>tasks.push(...l.getEntries().map(e=>e.duration)));obs.observe({type:'longtask'});function tick(t){frames.push(t-prev);prev=t;if(t-start<3000)requestAnimationFrame(tick);else{obs.disconnect();frames.sort((a,b)=>a-b);resolve({p95:frames[Math.floor(frames.length*.95)],max:frames.at(-1),longTasks:tasks});}}requestAnimationFrame(tick);}));
+ await page.locator('#planeToggle').click();assert.equal(await page.locator('#swingArc').isVisible(),false);
+ await page.locator('#paramButton').click();await page.waitForTimeout(1000);
+ await page.locator('button[data-length="100"]').click();await page.waitForTimeout(1200);
+ const field=page.locator('[data-field-lines]');
+ assert.equal(await field.getAttribute('href'),'assets/football-field-blueprint.svg');
+ const svg=await (await page.request.get('http://127.0.0.1:8795/experiments/foucault-pendulum/assets/football-field-blueprint.svg')).text();
+ assert.ok(svg.includes('M0 0H670V1000H0Z'),'field boundary preserves the supplied 1.49:1 ratio');
+ await page.screenshot({path:'experiments/foucault-pendulum/tests/field-ratio-preview.png'});
+ console.log({passed:true,sample});
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "chrome": "157.0.8103.51",
+  "viewport": "1600×900",
+  "performanceSample": {
+    "visibility": "visible",
+    "focused": true,
+    "frames": 220,
+    "p95": 13.5,
+    "max": 39.900000000001455,
+    "longTasks": []
+  },
+  "checks": "full-length suspension transfer, hall period readout alignment, animated period intermediate value, space-to-plane entry, interrupted length animation, mass radius animation, aligned vector formula, 9 combinations, draft rollback, apply, close/Escape, focus trap/return, 12 reopen cycles, background restoration, 3 viewport sizes, reduced motion, speed control"
+}

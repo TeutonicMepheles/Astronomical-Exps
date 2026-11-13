@@ -1,15 +1,11 @@
 # Homepage visual study — 2026-11-04
 
-> 入口状态注记（2026-11-07）：当前 `main` 已包含本实验页面，默认入口为实验根 `index.html`；下文端口、分支和工作区描述属于当时研究记录。
-
-> 公共组件状态（2026-11-07）：私有 `js/globe-renderer.js` 已删除，`js/main.js` 改用 `shared/components/globe-shader-renderer/index.js`。10° 虚线纬线、白色最终网格、接触阴影、高光颗粒和实时光照对象继续由本实验配置；私有 `gl-core.js` 仍供本页其他小型 WebGL 渲染器使用。
-
 User request: Raft #Astronomical-Exps:0e4e1d96. This is a homepage composition, not the full experiment workflow in REQUIREMENTS.md. No additional visible controls or explanatory text were requested.
 
 ## Entry and provenance
 
 - `index.html`, served from this checkout at port 8378. Independent branch `experiment/foucault-pendulum/initial-delivery`; no changes to the current Earth-circumference checkout/server.
-- Historical provenance: on 2026-11-04 the textured globe began as private copies from Earth-circumference's renderer-textured.js and createGL (source branch feat/exp04-interactive-globe, base 29e13d0 plus working changes). On 2026-11-07 the shared superset renderer replaced `js/globe-renderer.js`; the experiment keeps only its own style and frame data. `js/gl-core.js` remains for this experiment's smaller shader renderers.
+- `js/globe-renderer.js` and `js/gl-core.js`: private copies extracted from Earth-circumference's current renderer-textured.js and createGL on 2026-11-04 (source branch feat/exp04-interactive-globe, base 29e13d0 plus working changes). Latitude-only graticule and stronger line visibility; same sphere projection, texture mapping and lighting. No runtime dependency on that experiment.
 - Globe assets copied from the same source: earth-eq-redraw-1152x576.png, grain-ref-512.png, grain-brush-512.png, land-relief-1024x512.png.
 - `assets/hall.png`: Visual-Designer LibTV draft, source work/foucault-bg/out/BG-大厅-16x9.png, 1280×720, message 51027008. Kept unchanged after composition review.
 - `assets/bob.png`, `assets/pedestal.svg`: Assets-Creator delivered cutout and vector reconstruction, message 944aec0c.
@@ -52,7 +48,7 @@ The globe is a transparent shader impostor rather than a scene mesh, so the floo
 
 ## Connector/cable alignment fix (2026-11-04)
 
-User reported a bend (折角) at swing extremes: the top connector looked detached from the tilted cable. Cindy ruled the highlight is environment lighting and is not the bob axis; the real defect is the top connector not rotating with the suspension->centre direction, and the cable not terminating on the connector.
+User reported a bend (�۽�) at swing extremes: the top connector looked detached from the tilted cable. Cindy ruled the highlight is environment lighting and is not the bob axis; the real defect is the top connector not rotating with the suspension->centre direction, and the cable not terminating on the connector.
 
 `js/main.js` drawPendulum now places the connector on the sphere toward the suspension point instead of a screen-fixed point directly above the centre. With suspension S=(1040,0), bob centre C=(x,y), offset off=33 (sphere radius): connector P = C - normalize(C-S)*off; the cable path ends at P and the joint circle moves to P. At rest this reduces to the old vertical top position, so no visual change there.
 
@@ -69,7 +65,7 @@ Verified headless Chromium (no recording): contact-AO present at (450,622), swin
 
 ## Trail/reference correction (2026-11-04, Cindy 62f06db8)
 
-Cindy ruled "地面绘制纹理使用高光亮色，建议白色" must be read in the trail context, not as "paint the ground white". Reverted the `.pendulum-floor` white overlay. The swing trail is now white (255,255,255) over a soft dark underlay; the swing-plane reference line is a brighter ice-blue (#b7d3ee) dashed annotation so it stays distinguishable from the white trail on the dark hall floor. Bob silver and pedestal contact-AO retained. Static check 0 errors; headless Chromium no errors.
+Cindy ruled "�����������ʹ�ø߹���ɫ�������ɫ" must be read in the trail context, not as "paint the ground white". Reverted the `.pendulum-floor` white overlay. The swing trail is now white (255,255,255) over a soft dark underlay; the swing-plane reference line is a brighter ice-blue (#b7d3ee) dashed annotation so it stays distinguishable from the white trail on the dark hall floor. Bob silver and pedestal contact-AO retained. Static check 0 errors; headless Chromium no errors.
 
 ## Bloom on trail + swing-plane line (2026-11-04, msg 5a01779a)
 
@@ -77,14 +73,14 @@ User asked for bloom on the ground swing-plane line and trail. Trail: drawTrails
 
 ## White globe + city markers (2026-11-05, thread fe190f87)
 
-User confirmed the 6 selectable cities (上海/巴黎/新加坡/悉尼/南极/北极, default 上海) and asked to show them as Chinese markers on the WHITE globe, front-side only, with selected/default states.
+User confirmed the 6 selectable cities (�Ϻ�/����/�¼���/Ϥ��/�ϼ�/����, default �Ϻ�) and asked to show them as Chinese markers on the WHITE globe, front-side only, with selected/default states.
 - `js/globe-wireframe.js` (new): white graticule globe (Eratosthenes-style), adapted from EXP-04 renderer-wireframe.js; light sphere + grey lat/lon grid + single-side lighting.
-- `js/city-markers.js` (new): CITIES list + projection. lat/lon -> sphere direction n = sin(lat)·axis + cos(lat)(cos(lon)·e2 + sin(lon)·e3); front = n.z >= 0 (>= so the poles on the fixed tilt axis stay visible); screen x=450+n.x·250, y=375?n.y·250. Selected = larger dot (r7) + ring (r11); default = small dot (r4.5); label = name + 1-decimal coordinate, flips left/right to stay inside the disc.
+- `js/city-markers.js` (new): CITIES list + projection. lat/lon -> sphere direction n = sin(lat)��axis + cos(lat)(cos(lon)��e2 + sin(lon)��e3); front = n.z >= 0 (>= so the poles on the fixed tilt axis stay visible); screen x=450+n.x��250, y=375?n.y��250. Selected = larger dot (r7) + ring (r11); default = small dot (r4.5); label = name + 1-decimal coordinate, flips left/right to stay inside the disc.
 - `main.js`: switched renderer to createWireframeRenderer(); integrated createCityMarkers with selectedCity (default shanghai); markers.update runs in drawGlobe each spin.
 - `index.html`: added `<svg id="cityMarkers" class="city-layer">` above the globe canvas. `style.css`: dark-ink markers (visible on white) with white text halo; selected = warm accent.
 Node-verified projection: 6 points length 1.0, positions within globe bounds, front/back flips with spin, poles fixed on rim. Static check 0. Browser re-test pending Cindy's GPU window.
 
-Browser re-test (Cindy 5ce64eab gave the window): white globe sampled R/G/B ≈ 237-243/239-244/242-246 (confirmed white, not textured blue); 6 markers present, default selected shanghai, click switches selection; visibility correct across spin (mid-lat cities hide on back, poles stay on rim). Fixed a float bug: cos(±90°)≈6e-17 made pole nz flip sign with spin, culling the poles; changed front test to nz > -1e-6. No console errors, browser closed.
+Browser re-test (Cindy 5ce64eab gave the window): white globe sampled R/G/B �� 237-243/239-244/242-246 (confirmed white, not textured blue); 6 markers present, default selected shanghai, click switches selection; visibility correct across spin (mid-lat cities hide on back, poles stay on rim). Fixed a float bug: cos(��90��)��6e-17 made pole nz flip sign with spin, culling the poles; changed front test to nz > -1e-6. No console errors, browser closed.
 
 
 ## Continuous rate changes (2026-11-05)
@@ -244,3 +240,95 @@ Final checks for simple-observation revision: npm run check, npm test (23 Python
 性能专项检查：示意层使用静态 SVG 色块，开启时无需解码新图片，也不增加逐帧计算。
 
 阶段一编辑模式提供摆动中心 Gizmo。拖拽整体平移悬线、摆球、摆平面、阴影、轨迹及透视示意椭圆。松手后在浏览器本地保存，刷新恢复。方向键微调，按住 Shift 以较大步长调整。轨迹画布与滤镜边界整体平移，保留现有画布尺寸和绘制循环。
+
+## 参数弹窗 — 2026-11-07
+
+本轮工作树 `Astronomical-Exps-foucault-pendulum`，分支 `experiment/foucault-pendulum/refinement-20261107`，预览端口 8795；已对比 HTTP 返回的 main.js 与本工作树文件一致。此节替代此前阶段二全屏建筑对照的实现及验收说明。
+
+- 新增实验私有 `js/parameter-dialog.js` 与 `parameter-dialog.css`，SVG 蓝图无远程依赖。大厅保留在背景，弹窗开启时暂停大厅动画与绘制；淡色单摆复用 main.js 的唯一 rAF 时钟，每帧仅更新 SVG 旋转，页面隐藏时停止调度。
+- 按钮实时修改草稿参数；应用更新大厅摆长/质量并清除旧轨迹，取消/关闭/Escape 丢弃草稿。保留地点和演示速度。焦点限制在弹窗，关闭后恢复入口焦点及原有 inert 状态。
+- 蓝图为非等比例示意，球体为易读而放大，质量按立方根改变半径。摆动周期沿用 `2π√(L/9.81)`；质量不改变周期。减少动态效果模式下仍保留用户要求的科学演示运动，无装饰转场。
+- 旧的 stage/scale/simple-stage 浏览器脚本记录全屏旧方案，不是新弹窗的验收入口。当前执行 `node experiments/foucault-pendulum/tests/parameter-dialog-browser.cjs`，结果见 `tests/parameter-dialog-results.json`。
+
+验证：
+
+- 专项有窗口 Chrome 156.0.8078.80、1600×900、DPR 1：九组参数、持续运动、取消/关闭/Escape 回退、应用生效、焦点循环/恢复、12 次反复开关、三种窗口尺寸（1280×720、1024×768、1920×1080）、减少动态效果和关闭后的演示速度均通过，无页面异常。已查看截图确认布局；不等同于用户或白板人工验收。
+- 性能专项检查适用项：动画时钟、SVG 更新、后台与弹窗生命周期、与既有大厅负载叠加。相同设备 Chrome 串行 3 秒样本：修改前大厅 226 帧、P95 13.4 ms、最大 13.5 ms；修改后弹窗 226 帧、P95 13.4 ms、最大 13.5 ms、长任务 0。仅为短时帧间隔采样，不是长期内存或白板性能结论；未采集 GPU profile、正式输入延迟及长期内存趋势。
+- `npm test` 通过（23 项及现有光学/课程测试）；`npm run test:browser` 在生成所需 dist 离线导出后通过；`motion-clock.cjs` 与 `git diff --check` 通过。
+- `npm run check` 未通过：40 处已有 EXP-04 `docs/review` 截图/录屏引用缺失，本轮未修改该目录。
+- 协作脚本未收录傅科摆入口，status 可用，但 resume/guard 无法建立绑定；只修改本实验目录，未改工具。未 commit、push 或创建 PR。离线傅科摆打包、智慧白板触控、用户整页试玩和长期运行未验收。
+
+
+### 常驻参数入口（2026-11-07）
+
+按用户要求，参数入口改为右下角常驻滑杆图标按钮，无可见文字，保留可访问名称“调整单摆参数”。与演示速度控件底边对齐（逻辑舞台底部 48 px），不再受 Ctrl 编辑按钮显隐控制。专项浏览器测试改为通过该入口完成全部弹窗操作，并核对入口可见性、对齐及焦点返回；已查看首页截图。性能专项：本改动只变更静态 SVG、定位与事件入口，不增加时钟、绘制循环、资源或缓存；弹窗专项采样仍为 P95 13.4 ms、长任务 0。
+
+
+### 公式与过渡动画（2026-11-07）
+
+- 理论周期公式改用本地浏览器原生 MathML：可伸缩根号包裹上下分式 L/g，独立排列重力加速度与单位，无外部字体或公式库。
+- 摆长与球体半径使用 550 ms 平滑插值，同步更新摆线、极限位置、轨迹弧及标注；连续切换从当前显示尺寸重新衔接，摆动相位连续。按钮与理论周期标明目标参数，几何动画期间按显示长度推进摆动。
+- 进入第二阶段使用 950 ms 空间摆到平面摆过渡：由主场景提供当前摆球及可见摆线位置，在舞台坐标中移动、缩放至蓝图的静止参考摆，弹窗与蓝图同步渐显，再继续淡色摆的运动。无新增独立动画循环；尺寸测量仅在打开或窗口 resize 发生。中途关闭清除过渡状态并恢复大厅摆。系统减少动态效果设置跳过两种转场，但保留科学摆动演示。
+- 专项有窗口 Chrome 检查通过：可见过渡摆及位置变化、摆长/质量动画中间值、快速反向切换、根式分式结构、12 次中途开关、原有参数/焦点/窗口回归。已查看最终公式及过渡中间截图。性能专项本轮 3 秒样本 P95 13.5 ms、最大 13.5 ms、长任务 0；此前基线 P95 13.4 ms，短采样不用于推断长期内存或白板性能。
+
+
+### 公式错位修正（2026-11-07）
+
+用户指出原生 MathML 根号与分式仍有错位。本轮替换为本实验内联 SVG 公式：等号与分数线共享数学中线，根号横线、折角和分子/分母位置显式定位，字体不再控制根号伸缩；保留可访问公式名称。已检查 `tests/parameter-formula-preview.png` 局部截图，专项浏览器回归通过。此次仅静态排版，不新增动画、纹理或资源生命周期；已有动效检查保持通过。此节替代上一节 MathML 实现说明。
+
+
+### 四地点屏幕素材（2026-11-07）
+
+用户提供北极、悉尼、新加坡、南极四张插画，已接入 `north/sydney/singapore/south` 地点映射。原始 2048×1024 构图仅转换为本地 WebP（质量 88），总计约 1.33 MiB。右屏复用已有 900 ms Glitch 换图，连续选点以最后一次选择为准，减少动态效果时直接切换。四张较亮插画添加显示补偿（亮度倍率 0.5、Bloom 倍率 0.08），避免沿用夜景增益导致冰雪、天空和建筑过曝；原有上海、巴黎与左侧摆屏参数不变。
+
+性能专项适用项：增加四张预加载/解码图片，沿用限定于已配置素材的缓存与同一屏幕纹理，切图时上传一次纹理；不新增动画时钟或 WebGL 上下文。已完成四地点换图、动画高峰/结束、快速连续选点、上海/巴黎回归、减少动态效果与资源可访问检查，无页面异常，并逐张查看整页截图。最终性能样本在全仓浏览器测试结束后串行采集，3 秒连续切图结果：{'frames': 226, 'p95': 13.400000000001455, 'max': 13.600000000000364, 'longTasks': []}。未做长期内存或白板触控验收。
+
+本轮 `npm test`、`npm run test:browser`、城市屏幕专项和 `git diff --check` 通过；`npm run check` 仍为 EXP-04 review 的 40 个既有缺失资源引用。未提交或推送。
+
+
+### 全长转场与单摆周期读数（2026-11-07）
+
+按用户反馈，空间转场的源悬点改为主场景完整模型悬点，移除画面顶端 96 px 裁剪点作为缩放起点的做法；超出舞台的部分由舞台裁切，不改变参与缩放的实际全长。大厅单摆右侧增加“单摆周期”读数，与左侧偏转周期控件同高（235 px），复用其排版和增减提示样式。
+
+抽取本实验私有 `period-metric.js`，复用原有数值变更反馈函数；大厅及弹窗周期在 560 ms 内插值，保留 1200 ms 增减反馈，快速切换从当前显示值继续。弹窗保持草稿语义：修改摆长时预览周期动画，应用后大厅周期动画更新，取消不改变大厅参数。质量不影响理想周期，因此单独改质量不播放虚假的周期增减动画。沿用唯一主动画时钟，减少动态效果时读数直接更新。
+
+专项已验证完整悬点位于画面上方、右侧读数同高、周期中间值及下降反馈、应用后大厅数值、原有参数与窗口回归，已查看首页截图。首次短时样本出现约 1013 ms 的长帧而未记录长任务，前台状态未采集，原因未确定，不据此作性能通过结论；后续串行前台样本见测试 JSON。白板触控及长期性能仍未验收。
+
+本轮复测：全仓浏览器测试结束后，Chrome 前台 visible/focused=true 的串行 3 秒样本为 226 帧、P95 13.4 ms、最大 13.5 ms、长任务 0。首次长帧未复现，未归因；不替代长期验收。`npm test`、`npm run test:browser` 与弹窗专项通过，静态检查仍为其他实验既有 40 处缺失资源引用。
+
+
+### 第二阶段演示速度（2026-11-07）
+
+蓝图区左上角新增“演示速度”2×、4×、8×三档，默认2×，当前页面中关闭/重开弹窗保留选择。仅乘入预览摆动的相位积分，切换保持连续；不改变理论周期、尺寸/读数变化动画时长、入场转场或第一阶段速度。按钮沿用参数选中配色，支持键盘和触屏点击。
+
+专项浏览器测试已测量各倍率下实际摆角相位变化率，三档均匹配倍率；理论周期保持16.42 s（67 m），原有参数、全长转场、焦点、反复开关和三种窗口尺寸回归通过，已查看截图。性能专项：沿用唯一动画循环，没有新增资源或逐帧布局读取；前台3秒样本226帧、P95 13.4 ms、最大13.6 ms、长任务0。白板触控和长期运行仍未验收。
+
+速度控件位置修订（2026-11-07）：按用户要求移至蓝图区右下角，仪表图标替代可见“演示速度”文字，保留组的可访问名称和2×/4×/8×档位。示意图选择器限定为蓝图区直属 SVG，避免新增图标影响转场落点。已查看截图并通过既有弹窗/速度专项。仅静态图标和定位变化，不增加动画或资源开销。
+
+重点入口视觉更新（2026-11-07）：单摆参数入口从右下角改为页面右侧垂直居中，96×112逻辑像素。采用实验内联SVG切角仪器徽章底图、蓝色渐变、双层细框与金色局部强调，保持纯图标、可访问名称和键盘焦点。按钮居中断言及完整弹窗专项通过，已核对首页截图。性能专项：静态矢量装饰，无新增动画循环或资源解码；短时前台样本P95 13.4 ms、长任务0。
+
+入口图案替换（2026-11-07）：按用户提供的五图标参考图中央方案，采用内联SVG重绘双圆环、悬线、银白摆球及虚线双向摆动箭头，替代切角徽章和滑杆。保持右侧垂直居中及112px点击区域，无可见文字；素材不依赖远程资源。截图核对及既有弹窗专项通过。静态矢量替换不增加动画循环或解码开销。
+
+入口尺寸与文字调整（2026-11-07）：按钮由112px缩为88px，右侧留白48px，圆形图标继续垂直居中；下方增加15px“单摆调节”小字。已核对截图及弹窗专项。纯静态布局变化，不新增动画或资源负载。
+
+
+### 100 m 足球场对照与返回转场（2026-11-07）
+
+100 m档位在蓝图左侧显示用户提供的足球场草地图和透明线稿，长边竖向对齐悬点至静止球心的450逻辑像素，显示100 m标尺。草地图以0.55透明度出现，短暂停留后1.1秒交叉淡化至0.46透明度线稿；整个对照保持在摆动区域左侧。其他长度档位淡出，重新选择100 m重新播放。文案“100 m ≈ 一个足球场的长度”，补充“以长边100 m的球场为例”，不把所有标准足球场描述为统一100 m。
+
+取消、关闭、Escape和应用均通过950 ms反向转场返回大厅，沿用完整悬点到摆球的几何。入场中途关闭从当前过渡位置衔接，不跳回完整蓝图。返回过程中禁止重复提交，背景仍不可操作；结束后恢复焦点。应用的参数在返回完成后提交，确保大厅周期变化动画可见；取消不提交草稿。系统减少动态效果时直接显示线稿并跳过进出场转场。
+
+性能专项适用：新增两张本地图片解码、有限时长opacity更新及反向几何插值，均由原有主时钟驱动，无新增rAF；对照静止或隐藏时不再写DOM。图片节点固定复用，不反复创建。已验证100 m实景到线稿阶段、其他档位隐藏、对照与摆空间分离、返回动画、应用生效时机及12次入场中途关闭；截图已查看。专项前台3秒样本227帧、P95 13.4 ms、最大13.6 ms、长任务0，不能替代白板触控或长期内存验收。
+
+补充100 m实景→线稿的直接负载采样：前台visible/focused=true，3秒226帧、P95 13.4 ms、最大13.5 ms、长任务0；已查看草地淡化阶段截图。
+
+### 2026-11-07 足球场比例与摆平面路径
+
+按用户参考图将球场线稿改为 1000:670 的原生 SVG；100 m 档沿长边、67 m 档沿短边对照，统一缩放，不改变篮球场。摆平面开关同时控制淡黄色高亮路径，路径与摆球共用投影和提升高度公式，随进动旋转、参数和位置更新。现有实物尺度模型产生浅弧线，未为视觉弯曲程度改变摆球运动。
+
+性能专项检查：新增 SVG 路径绘制适用；复用原帧循环，隐藏时不计算路径，可见时固定 65 点和两条描边，不新增历史缓存、纹理或计时器。Chrome 156 有窗口、1600×900、本机短时 3 秒采样：开启平面后 rAF P95 13.4 ms、最大 13.5 ms、无长任务；改动前弹窗样本 P95 13.4 ms、最大 13.7 ms、无长任务（场景不同，不作直接性能增减结论）。白板触控与长时间运行未验证。
+
+验证：`field-arc-browser.cjs` 检查平面路径可见性、旋转更新、开关并截图；实际截图已检查。根浏览器回归通过。根静态检查受 EXP-04 docs/review 内 40 个既有缺失图片/视频引用阻塞，未修改范围外资料。
+最终复核：npm test、npm run test:browser、参数弹窗专项与足球场/摆平面专项全部通过；参数弹窗专项旧 PNG 尺寸断言已改为新 SVG 尺寸，保留等比缩放断言。
+
+2026-11-07 后续维护：用户确认开发审阅附件无需入库。已将 EXP-04 的 8 个历史审阅 HTML 备份至仓库外并从工作树移除，忽略整个 docs/review/，与当前 main 规则对齐。根静态检查现为 0 错误，替代上文关于 40 条缺失引用阻塞的状态。此维护为用户单独授权的跨目录清理，不改变实验运行页面或资源检查断言。

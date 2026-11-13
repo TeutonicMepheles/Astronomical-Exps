@@ -71,8 +71,15 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .latitude-ring { fill:none; stroke:#ffc400; stroke-width:3; stroke-linecap:round; filter:url(#cityGlow); }
 #trails { position:absolute;left:580px;top:545px;width:920px;height:270px;pointer-events:none; }
 #bob{position:absolute;left:0;top:0;width:70px;height:70px;pointer-events:none}
-#paramButton{position:absolute;right:28px;top:24px;min-width:120px;min-height:44px;z-index:6;border:1px solid #647897;border-radius:8px;background:#1c2c46;color:#edf2fa;font:16px system-ui;cursor:pointer;padding:10px 16px}
-#paramButton[aria-expanded="true"]{background:#2a3d5f;border-color:#99b7ef}
+#paramButton { position:absolute;right:48px;top:50%;transform:translateY(-50%);width:88px;height:88px;z-index:20;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:radial-gradient(circle,#597ee324 55%,transparent 72%);color:#e7f5ff;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 0 8px #7397f34d); }
+#paramButton .parameter-badge { display:block;width:100%;height:100%;pointer-events:none; }
+#paramButton .badge-shell { stroke:#6f94df;stroke-width:1; }
+#paramButton .badge-ring { fill:none;stroke:#a7baff;stroke-width:1.1; }
+#paramButton .badge-cable { fill:none;stroke:#e7edff;stroke-width:1.8; }
+#paramButton .badge-swing { fill:none;stroke:#e5ecff;stroke-width:1;stroke-dasharray:3.3 2.3;stroke-linecap:round; }
+#paramButton .badge-arrows { fill:#e5ecff; }
+#paramButton:hover .badge-shell,#paramButton[aria-expanded="true"] .badge-shell { fill:#233d70;stroke:#c3d3ff; }
+#paramButton:focus-visible { outline:2px solid #d3e0ff;outline-offset:4px; }
 #debugButton{position:absolute;right:28px;top:80px;min-width:72px;min-height:44px;z-index:5}
 .stage-control { opacity:0;pointer-events:none;transition:opacity .16s ease; }
 #stage.ctrl-held .stage-control { opacity:1;pointer-events:auto; }
@@ -187,7 +194,8 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 #stage.param-mode .precession-readout,#stage.param-mode .stage1-hud { opacity:0;pointer-events:none; }
 #trails,#swingPlane,#swingSurface,#stage1Readout,.stage1-hud { transition:opacity .6s ease-in-out; }
 #stage.param-mode .scale-lines { transition-delay:.25s; }
-#swingSurface[hidden] { display:none; }
+#swingSurface[hidden],#swingArc[hidden] { display:none; }
+#stage.param-mode #swingArc { opacity:0; }
 #planeToggle {
   width:44px;height:44px;display:grid;place-items:center;padding:0;
   border:1px solid #adcdee60;border-radius:50%;background:#1e426c;color:#edf2fa;cursor:pointer;
@@ -264,3 +272,12 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 :is(#backgroundControls,#hallScreenControls,#standShaderControls) input[type=range] { width:100%;margin:0; }
 :is(#backgroundControls,#hallScreenControls,#standShaderControls) output { text-align:right;font-variant-numeric:tabular-nums; }
 
+
+#swingReadout { left:auto;right:48px;width:175px;top:235px; }
+
+#paramButton .parameter-button-label { position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:7px;white-space:nowrap;color:#d4e2f8;font:500 15px/1.4 var(--font-ui);letter-spacing:.06em;text-shadow:0 2px 6px #041125; }
+
+/* Pointer selection keeps the circular city marker; keyboard focus uses it too. */
+#cityMarkers .city:focus { outline:none; }
+#cityMarkers .city:focus-visible .ring { stroke:#fff1b5;stroke-width:3;opacity:1; }
+.city-hint-anchor { position:absolute;width:1px;height:1px;pointer-events:none; }
