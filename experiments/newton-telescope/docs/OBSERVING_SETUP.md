@@ -36,5 +36,3 @@
 补充历史测试：observation-direction.test.cjs 的54个真实网格指向案例通过，但第59行仍断言已取消的手动拖动方向，因此失败；该旧手动交互断言未修改。本次以自动选星、记录和退出专项验证当前需求。公共 test:browser 仍被 previews/components/progress.test.cjs:12 的既有失败阻挡。
 
 最终验证：npm run check（0错误）、npm test（23 Python tests及既有光学/课程检查）、观测配置多解/互斥测试、课程数据快照测试、aim/preview/flow专项通过。在线1600×900与离线file://断网1024×700完整四目标实际旋钮流程通过，记录20项数值与四张图一致，空状态/部分状态/退出保护保留；无页面错误或资源缺失。截图与性能短采样见review/target-art-integration-20261111/。离线导出198.38 MiB、67 assets。
-
-2026-11-11 整理复核：上述旧手动指向及公共进度测试阻塞已修正；本轮根三项检查及在线/断网离线完整流程通过。详见 [当前复核记录](../review/target-art-integration-20261111/REPORT.md)。任务范围和当前2.25px/3px容差保持不变。
