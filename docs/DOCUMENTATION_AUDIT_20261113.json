@@ -596,5 +596,14 @@
     "light-pollution directory READMEs": "119 PASS"
   },
   "scope": "PR #63 release tree; historical worktrees retain their branches and uncommitted files",
-  "performance": "Documentation only; no runtime workload or resource lifecycle change; new performance sampling not applicable."
+  "performance": "Documentation only; no runtime workload or resource lifecycle change; new performance sampling not applicable.",
+  "worktreePreservation": {
+    "worktreesChecked": 49,
+    "uncommittedPathsChecked": 5148,
+    "branchHeadAndStagedEntriesUnchanged": true,
+    "contentSha256MatchesBefore": true,
+    "integrationWorktreeCleanAfterOwnCommit": true,
+    "localMainSynchronization": "non-forced fast-forward; development worktrees were not checked out or merged",
+    "mainAtPreservationCheck": "1142c09d6aa94852e67db0c1469ecf7dcb1d89e1"
+  }
 }
