@@ -1,0 +1,13 @@
+{
+  "provider": "LibTV CLI",
+  "model": "Seedream 5.5",
+  "quality": "2K",
+  "ratio": "4:3",
+  "background": "transparent",
+  "project": "1079829231af45b1abfdc70eab056a54",
+  "node": "0ca0dfef-305d-4fa2-9e88-56e0c44bc8f4",
+  "task": "20261112170503476087723",
+  "width": 2368,
+  "height": 1776,
+  "sha256": "0627e133fa07a6ff31600524559c8344399cbfd936aa230e4fb5e613962fcee2"
+}

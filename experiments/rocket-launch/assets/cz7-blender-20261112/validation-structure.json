@@ -1,0 +1,1293 @@
+{
+  "passed": 319,
+  "checks": [
+    {
+      "check": "GLB2 valid header",
+      "pass": true
+    },
+    {
+      "check": "No external resources",
+      "pass": true
+    },
+    {
+      "check": "No cameras or lights",
+      "pass": true
+    },
+    {
+      "check": "Unique node names",
+      "pass": true
+    },
+    {
+      "check": "7 named animations",
+      "pass": true
+    },
+    {
+      "check": "5 independent module nodes",
+      "pass": true
+    },
+    {
+      "check": "Required tanks and engines",
+      "pass": true
+    },
+    {
+      "check": "All anchors exported",
+      "pass": true
+    },
+    {
+      "check": "4 separate boosters",
+      "pass": true
+    },
+    {
+      "check": "2 fairing meshes",
+      "pass": true
+    },
+    {
+      "check": "Interstage follows Stage1",
+      "pass": true
+    },
+    {
+      "check": "Unit scales positive",
+      "pass": true
+    },
+    {
+      "check": "Assembled base RocketRoot",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Boosters",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Payload",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Fairing",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Anchors",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Shell",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Interstage",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Seam00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Seam01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Seam02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Seam03",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Seam04",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1RedBand",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1FuelTank",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1LOXTank",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Shell",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Seam00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Seam01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Seam02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Seam03",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2FuelTank",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2LOXTank",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Engine01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Engine01Chamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Engine01Flame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Engine02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Engine02Chamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage1Engine02Flame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine01Chamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine01Flame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine02Chamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine02Flame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine03",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine03Chamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine03Flame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine04",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine04Chamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Stage2Engine04Flame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Shell",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Nose",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Seam00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Seam01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Seam02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Seam03",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01RedBand",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Engine",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01EngineChamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01EngineFlame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Bracket00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster01Bracket01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Shell",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Nose",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Seam00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Seam01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Seam02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Seam03",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02RedBand",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Engine",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02EngineChamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Bracket00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02Bracket01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster02EngineFlame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Shell",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Nose",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Seam00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Seam01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Seam02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Seam03",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03RedBand",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Engine",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03EngineChamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Bracket00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03Bracket01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster03EngineFlame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Shell",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Nose",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Seam00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Seam01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Seam02",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Seam03",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04RedBand",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Engine",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04EngineChamber",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Bracket00",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04Bracket01",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Booster04EngineFlame",
+      "pass": true
+    },
+    {
+      "check": "Assembled base FairingLeft",
+      "pass": true
+    },
+    {
+      "check": "Assembled base FairingRight",
+      "pass": true
+    },
+    {
+      "check": "Assembled base PayloadCargo",
+      "pass": true
+    },
+    {
+      "check": "Assembled base PayloadService",
+      "pass": true
+    },
+    {
+      "check": "Assembled base PayloadDock",
+      "pass": true
+    },
+    {
+      "check": "Assembled base PayloadFoldedPanelL",
+      "pass": true
+    },
+    {
+      "check": "Assembled base PayloadFoldedPanelR",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Assembly_Stage1",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Label_Stage1",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Assembly_Stage2",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Label_Stage2",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Assembly_Boosters",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Label_Boosters",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Assembly_Payload",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Label_Payload",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Assembly_Fairing",
+      "pass": true
+    },
+    {
+      "check": "Assembled base Label_Fairing",
+      "pass": true
+    },
+    {
+      "check": "Assembled base PayloadMount",
+      "pass": true
+    },
+    {
+      "check": "Assembled base CameraTarget",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "Triangle primitive",
+      "pass": true
+    },
+    {
+      "check": "Finite POSITION",
+      "pass": true
+    },
+    {
+      "check": "Finite NORMAL",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters target scope",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters default start ('Booster01', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters continuous endpoint ('Booster01', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters default start ('Booster01', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters continuous endpoint ('Booster01', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters default start ('Booster02', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters continuous endpoint ('Booster02', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters default start ('Booster02', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters continuous endpoint ('Booster02', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters default start ('Booster03', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters continuous endpoint ('Booster03', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters default start ('Booster03', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters continuous endpoint ('Booster03', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters default start ('Booster04', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters continuous endpoint ('Booster04', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters default start ('Booster04', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters continuous endpoint ('Booster04', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateStage1 target scope",
+      "pass": true
+    },
+    {
+      "check": "SeparateStage1 default start ('Stage1', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateStage1 continuous endpoint ('Stage1', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateStage1 default start ('Stage1', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateStage1 continuous endpoint ('Stage1', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing target scope",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing default start ('FairingLeft', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing continuous endpoint ('FairingLeft', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing default start ('FairingLeft', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing continuous endpoint ('FairingLeft', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing default start ('FairingRight', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing continuous endpoint ('FairingRight', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing default start ('FairingRight', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing continuous endpoint ('FairingRight', 'rotation')",
+      "pass": true
+    },
+    {
+      "check": "ReleasePayload target scope",
+      "pass": true
+    },
+    {
+      "check": "ReleasePayload default start ('Payload', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "ReleasePayload continuous endpoint ('Payload', 'translation')",
+      "pass": true
+    },
+    {
+      "check": "LaunchPreview duration",
+      "pass": true
+    },
+    {
+      "check": "LaunchPreview starts at zero",
+      "pass": true
+    },
+    {
+      "check": "AssemblyPreview duration",
+      "pass": true
+    },
+    {
+      "check": "AssemblyPreview starts at zero",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters duration",
+      "pass": true
+    },
+    {
+      "check": "SeparateBoosters starts at zero",
+      "pass": true
+    },
+    {
+      "check": "SeparationPreview duration",
+      "pass": true
+    },
+    {
+      "check": "SeparationPreview starts at zero",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing duration",
+      "pass": true
+    },
+    {
+      "check": "SeparateFairing starts at zero",
+      "pass": true
+    },
+    {
+      "check": "ReleasePayload duration",
+      "pass": true
+    },
+    {
+      "check": "ReleasePayload starts at zero",
+      "pass": true
+    },
+    {
+      "check": "SeparateStage1 duration",
+      "pass": true
+    },
+    {
+      "check": "SeparateStage1 starts at zero",
+      "pass": true
+    },
+    {
+      "check": "Shared booster Shell",
+      "pass": true
+    },
+    {
+      "check": "Shared booster Nose",
+      "pass": true
+    },
+    {
+      "check": "Shared booster Engine",
+      "pass": true
+    },
+    {
+      "check": "Shared booster Seam00",
+      "pass": true
+    },
+    {
+      "check": "Shared booster RedBand",
+      "pass": true
+    }
+  ],
+  "statistics": {
+    "uniqueTriangles": 22216,
+    "instancedTriangles": 33040,
+    "meshObjects": 80,
+    "uniqueMeshes": 47,
+    "materials": 7,
+    "textures": 0,
+    "textureBytes": 0,
+    "glbBytes": 567780,
+    "nodes": 113,
+    "animations": 7
+  }
+}

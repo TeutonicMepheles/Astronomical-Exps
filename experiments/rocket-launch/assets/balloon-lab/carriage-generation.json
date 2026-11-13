@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "fd1b3f4a-3eff-4f80-988d-0cc4b0a50fca",
+  "reactFlowNode": {
+    "id": "fd1b3f4a-3eff-4f80-988d-0cc4b0a50fca",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "气球滚轮夹具-前置胶带-v1",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Create one isolated contemporary educational balloon-on-string roller carriage attachment, matching the referenced modern navy gray teal laboratory pump illustration style. Straight-on side view, HORIZONTAL orientation, a compact slim light cool gray bridge with TWO small dark navy guide rollers on its upper edge, left and right, that can roll along ONE thin horizontal taut string passing through their grooves. The roller bearings have small muted teal centers. Two clearly visible wide translucent off-white tape tabs extend down from the bridge, one at the left and one at the right, for sticking this carriage onto the front-facing side of a balloon. Keep the bridge low-profile and narrow, not a large trolley. No balloon, no support stand, no pump, NO long string (only the roller carriage and tape tabs), no table or environment, no text, logos or shadows. Simple geometric science illustration, matte color planes, restrained two-tone shading, very fine paper grain. Genuine transparent background, including holes between the rollers and the bridge. Full apparatus centered with safe padding, occupies about 75 percent of image width.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "4:3",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017064830_6057c11addc240c2a66d4f95521e0a33.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "aebf4c53-4553-4e91-b0e0-323d2538a079",
+      "source": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+      "target": "fd1b3f4a-3eff-4f80-988d-0cc4b0a50fca"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "fd1b3f4a-3eff-4f80-988d-0cc4b0a50fca"
+  ]
+}
+{
+  "nodeKey": "fd1b3f4a-3eff-4f80-988d-0cc4b0a50fca",
+  "nodeType": "image",
+  "taskId": "20261112222203460057723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "气球滚轮夹具-前置胶带-v1",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017102052_7834d74049734055ae785bf2816625aa.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Create one isolated contemporary educational balloon-on-string roller carriage attachment, matching the referenced modern navy gray teal laboratory pump illustration style. Straight-on side view, HORIZONTAL orientation, a compact slim light cool gray bridge with TWO small dark navy guide rollers on its upper edge, left and right, that can roll along ONE thin horizontal taut string passing through their grooves. The roller bearings have small muted teal centers. Two clearly visible wide translucent off-white tape tabs extend down from the bridge, one at the left and one at the right, for sticking this carriage onto the front-facing side of a balloon. Keep the bridge low-profile and narrow, not a large trolley. No balloon, no support stand, no pump, NO long string (only the roller carriage and tape tabs), no table or environment, no text, logos or shadows. Simple geometric science illustration, matte color planes, restrained two-tone shading, very fine paper grain. Genuine transparent background, including holes between the rollers and the bridge. Full apparatus centered with safe padding, occupies about 75 percent of image width.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "4:3",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017064830_6057c11addc240c2a66d4f95521e0a33.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112222203460057723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2368,
+          "height": 1776
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2368,
+          "height": 1776
+        }
+      ]
+    }
+  }
+}

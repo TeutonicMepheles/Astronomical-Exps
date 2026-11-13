@@ -1,0 +1,75 @@
+{
+  "nodeKey": "65c0c2fa-3294-4c9a-afcf-ce86e3a2bcb8",
+  "nodeType": "image",
+  "data": {
+    "type": "image",
+    "name": "夹具-双支架透明层",
+    "url": [],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "A transparent asset layer for an educational balloon-on-string experiment. Match the reference matte hand-painted 3D illustration and restrained dark indigo blue with warm brass adjustment knobs. TWO separate laboratory retort support stands viewed nearly straight-on with a tiny view of their top surfaces. Composition wide 16:9 with fully empty transparent center. Left stand vertical pole centered at 7 percent image width, right stand at 93 percent width. Each pole top at 33 percent image height, feet resting at 88 percent image height. Each has a small brass string holder eyelet at exactly 42 percent image height. Sturdy dark slate blue weighted triangular feet and brushed metal vertical rods. Small readable clamp collars and brass screws. Both stands are independent stationary supports. No wire between the stands, no string, no track, no balloon, no pump, no hose, no table, no environment, no text, no watermark. Keep all negative space truly transparent including between the two stands. Crisp simple silhouettes, soft subtle material shading, fine paper grain, low-detail educational illustration, not a photo.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "text2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "16:9",
+        "background": "transparent"
+      },
+      "advancedSettings": {}
+    }
+  }
+}
+{
+  "nodeKey": "65c0c2fa-3294-4c9a-afcf-ce86e3a2bcb8",
+  "nodeType": "image",
+  "taskId": "20261112214203700657723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "夹具-双支架透明层",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017043961_f260a154a68041feabcaca536efa2109.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "A transparent asset layer for an educational balloon-on-string experiment. Match the reference matte hand-painted 3D illustration and restrained dark indigo blue with warm brass adjustment knobs. TWO separate laboratory retort support stands viewed nearly straight-on with a tiny view of their top surfaces. Composition wide 16:9 with fully empty transparent center. Left stand vertical pole centered at 7 percent image width, right stand at 93 percent width. Each pole top at 33 percent image height, feet resting at 88 percent image height. Each has a small brass string holder eyelet at exactly 42 percent image height. Sturdy dark slate blue weighted triangular feet and brushed metal vertical rods. Small readable clamp collars and brass screws. Both stands are independent stationary supports. No wire between the stands, no string, no track, no balloon, no pump, no hose, no table, no environment, no text, no watermark. Keep all negative space truly transparent including between the two stands. Crisp simple silhouettes, soft subtle material shading, fine paper grain, low-detail educational illustration, not a photo.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "text2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "16:9",
+        "background": "transparent"
+      }
+    },
+    "taskInfo": {
+      "taskId": "20261112214203700657723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2736,
+          "height": 1536
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2736,
+          "height": 1536
+        }
+      ]
+    }
+  }
+}

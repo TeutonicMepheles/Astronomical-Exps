@@ -1,0 +1,66 @@
+{
+  "pump-modern": {
+    "sourceSize": [
+      1776,
+      2368
+    ],
+    "sourceRectangle": [
+      462,
+      225,
+      1313,
+      2143
+    ],
+    "runtimeSize": [
+      851,
+      1918
+    ]
+  },
+  "balloon-deflated": {
+    "sourceSize": [
+      1776,
+      2368
+    ],
+    "sourceRectangle": [
+      329,
+      330,
+      1449,
+      2040
+    ],
+    "runtimeSize": [
+      1120,
+      1710
+    ]
+  },
+  "balloon-normal": {
+    "sourceSize": [
+      1776,
+      2368
+    ],
+    "sourceRectangle": [
+      30,
+      24,
+      1746,
+      2344
+    ],
+    "runtimeSize": [
+      1716,
+      2320
+    ]
+  },
+  "balloon-inflated": {
+    "sourceSize": [
+      1776,
+      2368
+    ],
+    "sourceRectangle": [
+      28,
+      23,
+      1751,
+      2345
+    ],
+    "runtimeSize": [
+      1723,
+      2322
+    ]
+  }
+}

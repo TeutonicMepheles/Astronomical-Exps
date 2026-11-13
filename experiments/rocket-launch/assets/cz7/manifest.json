@@ -1,0 +1,79 @@
+{
+  "model": "基本型长征七号，两级四助推",
+  "generator": "LibTV CLI / Seedream 5.5 / 2K / transparent",
+  "canvas": "https://www.liblib.tv/canvas?projectId=1e4009fc34bf46ecb3ecdf4869b352fd",
+  "logicalHeight": 700,
+  "referenceDiametersMetres": {
+    "core": 3.35,
+    "booster": 2.25,
+    "fairing": 4.2
+  },
+  "note": "原生像素连续裁片、无宽高拉伸；同一母版统一缩放。外形和内部布置为教学插画，不以像素宽度冒充工程尺寸。",
+  "sourceGeometry": {
+    "core": {
+      "width": 210,
+      "height": 2427,
+      "cuts": [
+        0,
+        595,
+        1104,
+        1189,
+        2427
+      ]
+    },
+    "booster": {
+      "width": 255,
+      "height": 2406
+    },
+    "payload": {
+      "width": 543,
+      "height": 1933
+    }
+  },
+  "sprites": {
+    "booster.png": [
+      255,
+      2406
+    ],
+    "fairing-left.png": [
+      105,
+      595
+    ],
+    "fairing-right.png": [
+      105,
+      595
+    ],
+    "fairing.png": [
+      210,
+      595
+    ],
+    "fuel-tank.png": [
+      122,
+      420
+    ],
+    "interstage.png": [
+      210,
+      85
+    ],
+    "lower-stage.png": [
+      210,
+      1238
+    ],
+    "nozzle.png": [
+      84,
+      110
+    ],
+    "oxygen-tank.png": [
+      122,
+      375
+    ],
+    "payload.png": [
+      543,
+      1933
+    ],
+    "upper-stage.png": [
+      210,
+      509
+    ]
+  }
+}

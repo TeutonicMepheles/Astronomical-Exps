@@ -1,0 +1,6 @@
+/* Private visual adaptation of Newton ken-v123.css; see SOURCE.md. */
+#app #next.rocket-next-action{min-width:224px;min-height:66px;padding:0 28px;display:flex;align-items:center;justify-content:center;gap:12px;border:2px solid #f1d59d;border-radius:18px;background:linear-gradient(145deg,#f3d18d,#d8b46f);color:#283126;font-size:26px;font-weight:700;letter-spacing:.04em;box-shadow:0 10px 0 #765f3266,0 18px 38px #07151f70,inset 0 1px #fff4d9}
+#app #next.rocket-next-action:where(:hover,:focus-visible){border-color:#fff0cb;filter:brightness(1.04)}
+#app #next.rocket-next-action:focus-visible{outline:3px solid #a8c4c6;outline-offset:5px}
+
+#app #next.rocket-next-action:disabled{opacity:.35;filter:none;box-shadow:none;cursor:default}

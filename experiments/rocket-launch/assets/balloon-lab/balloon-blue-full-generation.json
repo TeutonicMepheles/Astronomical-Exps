@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "e3943caf-55ea-4aa7-9a35-3801815f799b",
+  "reactFlowNode": {
+    "id": "e3943caf-55ea-4aa7-9a35-3801815f799b",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "冰蓝气球-饱满-v1",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Recolor this exact balloon to a clean pale ice blue and soft white palette suitable for the existing blue-gray contemporary science laboratory. Replace EVERY coral red, pink, orange and warm colored pixel on the balloon with powder blue, cool sky blue and light ice blue; use a soft off-white upper-left highlight plane and a muted medium blue shadow plane. Preserve the EXACT silhouette, current 饱满 inflation state, folds, open mouth, orientation and geometry of the original balloon. Keep the same simplified educational illustration, large flat color blocks, restrained two-tone shading and fine sparse grain. No red or pink remains. Not photorealistic, not glossy, no chrome, no added marks. True transparent background including mouth opening, no floor, shadow, text or extra objects.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "3:4",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017065035_3b60fdc86531434db203ac6b73e3aac6.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "cf7cebd2-eaa1-43e5-8b78-d34a49e1aa2a",
+      "source": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+      "target": "e3943caf-55ea-4aa7-9a35-3801815f799b"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "e3943caf-55ea-4aa7-9a35-3801815f799b"
+  ]
+}
+{
+  "nodeKey": "e3943caf-55ea-4aa7-9a35-3801815f799b",
+  "nodeType": "image",
+  "taskId": "20261112221803343647723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "冰蓝气球-饱满-v1",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017097752_ad5ce26490e6409eb2032c83a908f684.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Recolor this exact balloon to a clean pale ice blue and soft white palette suitable for the existing blue-gray contemporary science laboratory. Replace EVERY coral red, pink, orange and warm colored pixel on the balloon with powder blue, cool sky blue and light ice blue; use a soft off-white upper-left highlight plane and a muted medium blue shadow plane. Preserve the EXACT silhouette, current 饱满 inflation state, folds, open mouth, orientation and geometry of the original balloon. Keep the same simplified educational illustration, large flat color blocks, restrained two-tone shading and fine sparse grain. No red or pink remains. Not photorealistic, not glossy, no chrome, no added marks. True transparent background including mouth opening, no floor, shadow, text or extra objects.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "3:4",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017065035_3b60fdc86531434db203ac6b73e3aac6.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112221803343647723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    }
+  }
+}

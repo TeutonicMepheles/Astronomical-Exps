@@ -1,6 +1,6 @@
 /* EXP-08 向宇宙出发
    视觉语言取自项目参考图 01/02：深靛蓝地面、非饱和粉彩色、细线手绘、自然笔触与颗粒噪点。
-   控件一律细线轮廓，不做实心色块；暖色只用于数值与当前状态，面积控制在画面 3% 以内。 */
+   控件按语义分组，暖色标识当前选项与主要操作；保留原有深靛蓝与手绘资产。 */
 
 *{box-sizing:border-box}
 
@@ -115,7 +115,7 @@ dialog h2{margin-top:0}
 /* ---- 第一章：气泵主操作（泵本体就是控件，不是一块实心按钮） ---- */
 .pump-control{
   position:absolute;right:9%;bottom:9%;width:150px;height:306px;
-  background:transparent url('assets/props/pump.png') no-repeat center/contain;
+  background:transparent url('assets/balloon-lab/pump-modern.webp') no-repeat center/contain;
   border:0;border-radius:0;padding:0;box-shadow:none;min-height:0;cursor:grab;
   touch-action:none;filter:drop-shadow(0 14px 24px rgba(4,7,16,.55));
 }
@@ -127,10 +127,7 @@ dialog h2{margin-top:0}
   font-size:15px;letter-spacing:.14em;color:var(--ink-dim);pointer-events:none;
 }
 .pump-hint::before{content:'';position:absolute;left:0;right:0;top:-10px;height:1px;background:rgba(232,224,204,.14)}
-.axis-handle{
-  position:absolute;right:3%;top:34%;font-size:15px;letter-spacing:.08em;touch-action:none;
-  border:0;border-left:1px solid rgba(232,224,204,.16);border-radius:0;background:none;color:var(--ink-dim);padding:8px 0 8px 12px;
-}
+
 
 /* ---- 第二章：速度配对（matching 紧凑排布） ---- */
 #controls.matching{display:grid;grid-template-columns:1fr 1fr;gap:9px}
@@ -138,3 +135,354 @@ dialog h2{margin-top:0}
 #controls.matching~#feedback{font-size:17px;line-height:1.5}
 .pair{display:flex;gap:8px}
 .pair button{font-size:16px;padding:10px;flex:1}
+
+/* 第一轮：共用标题语言、按目的分组、场景内装配。 */
+header{height:100px;align-items:center;border:0;padding:0;gap:32px}
+.experiment-heading{align-self:flex-start;padding-top:11px;flex:none}
+.title-rule{display:block;width:59px;height:3px;background:var(--warm);margin-bottom:12px}
+h1{font-family:var(--font-ui);font-size:50.88px;font-weight:650;letter-spacing:4px;line-height:1.2;color:var(--ink);text-shadow:0 2px 1px #7391c84d,0 5px 16px #91baff25}
+h2{font-family:var(--font-ui);font-size:28px;font-weight:600;letter-spacing:1px;margin:12px 0 24px}
+#chapters{gap:8px;padding:0;background:none;border:0}
+#chapters button{font-size:20px;letter-spacing:0;min-height:52px;padding:10px 20px;border:1px solid transparent;border-radius:9px}
+#chapters button.active,#chapters button:hover{background:#d8b07418;border:1px solid #d8b07466;color:var(--warm)}
+#steps{align-self:flex-end;gap:0;margin:14px 0 6px;min-height:52px}
+#steps button{font-size:18px;color:var(--ink-dim);min-height:50px;padding:10px 22px;border:0;border-bottom:2px solid var(--line);border-radius:0;letter-spacing:0}
+#steps button.active,#steps button:hover{color:var(--warm);border-bottom:2px solid var(--warm);background:#d8b07412}
+.workspace{padding-top:10px;grid-template-columns:270px minmax(0,1fr);gap:20px}
+aside{padding:0 12px 0 0}
+#controls{gap:24px}
+.control-cluster{display:flex;flex-wrap:wrap;gap:10px;padding:0;border:0;background:none}
+.control-cluster button{flex:1;min-height:52px;padding:10px 14px;font-size:18px;letter-spacing:0;border-radius:9px;white-space:nowrap}
+#controls.matching{display:flex;flex-direction:column;gap:18px}
+#controls.matching .control-cluster{display:grid;grid-template-columns:1fr;gap:8px}
+#controls.matching button{font-size:17px;min-height:48px}
+button.primary{background:#d8b074;color:#241f19;border-color:#edcc9a;font-weight:650}
+button.primary:hover{background:#e5c18a;color:#241f19}
+button.active,button:hover{background-color:#d8b07418;border-color:#d8b07488;color:var(--warm)}
+#feedback{font-size:20px;letter-spacing:0;line-height:1.6}
+footer{height:54px;border:0;margin-top:8px;padding:0;justify-content:flex-end;gap:8px}
+footer button{font-size:17px;letter-spacing:0;border-radius:10px;min-height:50px}
+#dock{flex:none;margin-top:12px;padding:16px 20px;background:#11182cd9;border:1px solid var(--line);border-radius:16px}
+#dock[hidden]{display:none}
+
+#dock #controls{flex-direction:row;align-items:center;justify-content:center;gap:28px}
+#dock .control-cluster{background:none;border:0;padding:0;flex-wrap:nowrap}
+#dock fieldset{border:0;margin:0;padding:0 24px;border-right:1px solid var(--line)}
+#dock legend{font-size:20px;margin-bottom:12px;color:var(--ink-dim)}
+#dock fieldset button{min-width:64px}
+#dock #controls>.control-cluster:last-child{flex-direction:column;min-width:210px}
+#app[data-step="7"] .stage{overflow:visible}
+.assembly-board{position:absolute;left:0;top:0;width:1100px;height:650px;transform-origin:0 0;pointer-events:none}
+.assembly-slot{position:absolute;padding:0;min-width:0;min-height:44px;background:none;border:0;border-radius:0;pointer-events:auto}
+.assembly-slot img{position:absolute;opacity:.20;pointer-events:none;filter:grayscale(.5)}
+.assembly-slot.target img,.assembly-slot:hover img{opacity:.5;filter:drop-shadow(0 0 8px #d8b074)}
+.assembly-slot.filled img{opacity:1;filter:none}
+.assembly-slot:disabled{opacity:1}
+.assembly-slot:hover{background:none;border:0}
+.assembly-slot.target{outline:2px dashed var(--warm);outline-offset:6px;border-radius:8px}
+.assembly-piece{position:absolute;top:534px;width:146px;height:112px;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:6px;font-size:16px;background:#141d32;border:1px solid var(--line);border-radius:10px;touch-action:none;pointer-events:auto}
+.assembly-piece img{height:65px;width:88px;object-fit:contain;pointer-events:none}
+.assembly-piece.dragging{z-index:10;border-color:var(--warm);background:#263047;cursor:grabbing}
+.assembly-piece.selected,.assembly-piece:hover{background:#d8b07418;border-color:var(--warm)}
+.assembly-piece[hidden]{display:none}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+#app{position:fixed;left:0;top:0}
+.assembly-slot.filled{background:none;border:0}
+.assembly-art{position:absolute;inset:0;width:1100px;height:650px;pointer-events:none}
+#app[data-step="6"] #controls.matching .control-cluster:last-child{grid-template-columns:1fr}
+#app[data-step="6"] #feedback{font-size:18px}
+.assembly-piece img{height:68px;width:76px}
+.assembly-piece .piece-preview{position:relative;display:block;width:124px;height:70px;overflow:hidden;pointer-events:none}
+.assembly-piece .piece-preview img{position:absolute;left:28px;top:-27px;width:68px;height:124px;object-fit:contain;transform:rotate(-90deg)}
+.record-table{width:100%;border-collapse:collapse;font-size:18px;font-variant-numeric:tabular-nums;text-align:left}
+.record-table th,.record-table td{padding:12px 14px;border-bottom:1px solid var(--line)}
+.record-table th{font-weight:500;color:var(--ink-dim)}
+#app[data-step="5"] .workspace{grid-template-columns:360px minmax(0,1fr)}
+#app[data-step="5"] #controls.matching{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#app[data-step="5"] #controls.matching .control-cluster{padding:8px;gap:8px}
+#app[data-step="5"] #controls.matching .control-cluster button{font-size:16px;padding:8px 9px}
+#app[data-step="5"] #controls.matching .control-cluster:nth-child(n+3){grid-column:1/-1;display:flex}
+
+/* 结构清单按外部模块、内部部件分组；点选内件直接开启透视。 */
+#app[data-step="6"] .workspace{grid-template-columns:350px minmax(0,1fr)}
+#controls.structure-controls{gap:12px}
+#controls.structure-controls .control-cluster{display:grid;grid-template-columns:1fr 1fr;padding:9px;gap:7px}
+#controls.structure-controls .control-cluster:first-child{grid-template-columns:1fr}
+#controls.structure-controls button{padding:8px 6px;min-height:44px;font-size:17px}
+#app[data-step="6"] h2{margin-bottom:16px}
+#app[data-step="6"] #feedback{font-size:18px;line-height:1.5;margin-top:12px}
+#app[data-step="8"] #controls .control-cluster:first-child{flex-direction:column}
+#recordList{max-height:none;overflow:visible}
+dialog{width:min(1100px,94vw);max-height:85vh}
+#recordList .control-cluster{margin-top:18px;align-items:center;justify-content:center}
+#recordList .control-cluster button{flex:none}
+
+/* 以实验主体组织画面，减少外围控制区挤占与画布留白。 */
+header{height:88px}
+#steps{margin-top:8px;margin-bottom:2px}
+.workspace{position:relative}
+.stage{background:radial-gradient(ellipse at 65% 46%,#a8c4c60b,transparent 66%)}
+#app[data-step="7"] .workspace{grid-template-columns:220px minmax(0,1fr)}
+.assembly-board,.assembly-art{width:1500px}
+.assembly-piece{width:230px;height:112px}
+.assembly-piece .piece-preview{width:210px}
+.assembly-piece .piece-preview img{left:71px}
+#app[data-step="6"] .workspace,#app[data-step="8"] .workspace{display:block}
+#app[data-step="6"] .stage{position:absolute;inset:0 0 164px}
+#app[data-step="8"] .stage{position:absolute;inset:0 0 104px}
+#app[data-step="6"] aside,#app[data-step="8"] aside{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;display:grid;grid-template-columns:260px minmax(0,1fr);column-gap:20px;background:#10172bd9;border:1px solid var(--line);border-radius:16px}
+#app[data-step="6"] aside{height:160px}
+#app[data-step="8"] aside{height:100px;grid-template-columns:260px minmax(0,1fr)}
+#app[data-step="6"] aside h2,#app[data-step="8"] aside h2{grid-column:1;grid-row:1;font-size:24px;margin:0 0 8px}
+#app[data-step="6"] #feedback,#app[data-step="8"] #feedback{grid-column:1;grid-row:2;font-size:17px;line-height:1.5;margin:0}
+#app[data-step="6"] #controls,#app[data-step="8"] #controls{grid-column:2;grid-row:1/3;align-self:center}
+#app[data-step="6"] #controls.structure-controls{display:grid;grid-template-columns:125px 1fr 1.4fr;gap:12px}
+#app[data-step="6"] #controls.structure-controls .control-cluster{grid-template-columns:repeat(3,1fr);border:0;padding:0;background:none;gap:8px}
+#app[data-step="6"] #controls.structure-controls .control-cluster:first-child{grid-template-columns:1fr}
+#app[data-step="6"] #controls.structure-controls button{min-height:47px;font-size:16px}
+#app[data-step="8"] #controls{display:flex;flex-direction:row;justify-content:flex-end;gap:18px}
+#app[data-step="8"] #controls .control-cluster{flex-direction:row;padding:0;border:0;background:none}
+#app[data-step="8"] #controls .control-cluster:first-child{min-width:430px}
+#app[data-step="8"] #controls .control-cluster:last-child{min-width:250px}
+#app[data-step="8"] #readout{display:none}
+
+#app[data-step="2"] .workspace{display:block}
+#app[data-step="2"] .stage{position:absolute;inset:0}
+#app[data-step="2"] aside{position:absolute;top:0;left:0;width:280px;z-index:1;pointer-events:none}
+#app[data-step="8"] #controls .control-cluster:first-child{flex-direction:row;flex-wrap:nowrap}
+#app[data-step="8"] #controls button[hidden]{display:none}
+
+.rocket-flight-sky{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.8}
+#scene{position:relative;z-index:1}
+#parts,#readout{z-index:2}
+
+#app[data-step="3"] .workspace,#app[data-step="4"] .workspace{display:block}
+#app[data-step="3"] .stage{position:absolute;inset:0 0 104px}
+#app[data-step="4"] .stage{position:absolute;inset:0 0 144px}
+#app[data-step="3"] aside,#app[data-step="4"] aside{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;display:grid;grid-template-columns:240px minmax(0,1fr);column-gap:20px;background:#10172bd9;border:1px solid var(--line);border-radius:16px}
+#app[data-step="3"] aside{height:100px}
+#app[data-step="4"] aside{height:140px}
+#app[data-step="3"] aside h2,#app[data-step="4"] aside h2{grid-column:1;grid-row:1;font-size:24px;margin:0 0 8px}
+#app[data-step="3"] #feedback,#app[data-step="4"] #feedback{grid-column:1;grid-row:2;font-size:17px;line-height:1.4;margin:0;letter-spacing:0}
+#app[data-step="4"] #feedback{font-size:28px}
+#app[data-step="3"] #controls,#app[data-step="4"] #controls{grid-column:2;grid-row:1/3;align-self:center;display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:18px}
+#app[data-step="3"] #controls .control-cluster,#app[data-step="4"] #controls .control-cluster{padding:0;border:0;background:none;flex-wrap:nowrap}
+.velocity-gears{border:0;padding:0 20px 0 0;margin:0;border-right:1px solid var(--line)}
+.velocity-gears legend{color:var(--ink-dim);font-size:17px;margin-bottom:10px}
+#app[data-step="4"] .velocity-gears button{min-width:70px}
+
+/* Interaction roles: choices, persistent switches, actions and feedback. */
+#prompt{font-size:25px;line-height:1.5;margin:0 0 24px;color:var(--ink)}
+#prompt[hidden],button[hidden]{display:none!important}
+#feedback:empty{display:none}
+.control-cluster[data-control-kind="choice"] button{border-color:transparent;background:#ffffff07;text-align:left}
+.control-cluster[data-control-kind="choice"] button::before{content:'○';display:inline-block;width:22px;margin-right:6px;color:var(--ink-dim)}
+.control-cluster[data-control-kind="choice"] button.active::before{content:'●';color:var(--warm)}
+.control-cluster[data-control-kind="choice"] button.active,.control-cluster[data-control-kind="choice"] button:hover{background:#d8b07418;border-color:#d8b07488;color:var(--warm)}
+button[role="switch"]{display:flex;align-items:center;justify-content:space-between;gap:16px;border:0;background:none;min-width:138px}
+button[role="switch"]::after{content:'';flex:none;width:38px;height:22px;border-radius:12px;background:radial-gradient(circle at 11px 11px,#bbc2d0 7px,transparent 8px),#ffffff20}
+button[role="switch"][aria-checked="true"]::after{background:radial-gradient(circle at 27px 11px,#241f19 7px,transparent 8px),var(--warm)}
+button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
+#scene-controls{position:absolute;bottom:0;left:24px;right:24px;z-index:3;display:flex;align-items:center;justify-content:flex-end;gap:42px;min-height:60px}
+#scene-controls:empty{display:none}
+#app[data-step="0"] .stage,#app[data-step="1"] .stage{padding-bottom:72px}
+#app[data-step="0"] #parts{bottom:72px}
+#app[data-step="1"] .workspace{grid-template-columns:320px minmax(0,1fr)}
+#app[data-step="1"] #controls .control-cluster{flex-direction:column}
+#app[data-step="1"] #feedback{margin-top:32px}
+#app[data-step="5"] #controls.matching .control-cluster{padding:0;gap:12px}
+#app[data-step="5"] #controls.matching .control-cluster:nth-child(n+3){margin-top:8px}
+#app[data-step="5"] #controls.matching button{min-height:56px}
+#app[data-step="5"] #controls.matching .control-cluster:nth-child(4){margin-top:0}
+#dock,#app[data-step="3"] aside,#app[data-step="4"] aside,#app[data-step="6"] aside,#app[data-step="8"] aside{border:0;border-radius:0;background:#10172b80}
+#dock #controls>.control-cluster:last-child{min-width:170px}
+#dock fieldset{padding:0 16px;border:0}
+#dock #controls{gap:24px}
+#app[data-step="8"] #controls .control-cluster:first-child{min-width:230px}
+#app[data-step="8"] #controls .control-cluster:last-child{min-width:100px}
+#app[data-step="7"] #prompt{font-size:21px;color:var(--ink-dim)}
+#app[data-step="7"] #controls{gap:20px}
+#app[data-step="6"] .control-cluster[data-control-kind="choice"] button::before{width:14px;margin-right:4px;font-size:13px}
+#app[data-step="6"] #controls.structure-controls{grid-template-columns:138px 1fr 1.4fr}
+
+#scene-controls .control-cluster[data-control-kind="action"]{min-width:136px}
+#app[data-step="3"] #controls>.control-cluster{min-width:120px}
+#velocity-fire,#velocity-pause{min-width:88px}
+.control-cluster[data-control-kind="choice"] button.active:disabled{opacity:.7}
+
+/* 左侧章节目录：当前章节展开步骤，场景与操作共用右侧工作区。 */
+header{height:106px;flex:none;align-items:flex-start}
+#chapters{position:absolute;left:44px;top:164px;width:232px;margin:0;padding:0;display:flex;flex-direction:column;align-items:stretch;gap:8px;border:0;background:none}
+#chapters>button{flex:none;text-align:left;min-height:56px;padding:12px 8px;font-size:23px;font-weight:600;border:0;border-radius:0;background:none;color:var(--ink-dim)}
+#chapters>button.active,#chapters>button:hover{border:0;background:none;color:var(--warm)}
+#chapters>button::before{content:'›';display:inline-block;width:24px;color:var(--ink-faint)}
+#chapters>button.active::before{content:'⌄';color:var(--warm)}
+#chapters #steps{display:flex;flex-direction:column;align-self:stretch;gap:4px;margin:0 0 24px 20px;padding-left:12px;border-left:1px solid var(--line)}
+#chapters #steps button{flex:none;min-height:52px;padding:12px 10px;font-size:19px;font-weight:400;line-height:1.4;text-align:left;border:0;border-radius:4px;background:none;color:var(--ink-dim)}
+#chapters #steps button.active,#chapters #steps button:hover{border:0;background:#d8b07412;color:var(--warm)}
+.workspace,#dock,footer{margin-left:264px}
+.workspace{padding-top:10px}
+.workspace{grid-template-columns:240px minmax(0,1fr)}
+#app[data-step="1"] .workspace{grid-template-columns:280px minmax(0,1fr)}
+#app[data-step="5"] .workspace{grid-template-columns:320px minmax(0,1fr)}
+#app[data-step="7"] .workspace{grid-template-columns:190px minmax(0,1fr)}
+#app[data-step="3"] aside,#app[data-step="4"] aside,#app[data-step="6"] aside,#app[data-step="8"] aside{grid-template-columns:180px minmax(0,1fr);column-gap:16px;padding-left:12px;padding-right:12px}
+#app[data-step="4"] #controls{gap:12px}
+#app[data-step="4"] .velocity-gears button{min-width:62px;padding:10px 8px}
+.velocity-gears{padding-right:10px}
+#app[data-step="6"] #controls.structure-controls{grid-template-columns:116px 1fr 1.4fr;gap:8px}
+#app[data-step="6"] #controls.structure-controls button{font-size:14px;padding:8px 4px}
+#app[data-step="6"] button[role="switch"]{min-width:110px;gap:8px}
+#dock{padding:16px 12px}
+#dock #controls{gap:16px}
+#dock fieldset{padding:0 8px}
+#dock fieldset button{min-width:54px;padding:10px 9px}
+#dock #controls>.control-cluster:last-child{min-width:150px}
+
+/* 当前步骤由左侧目录表达；工作区保留可访问名称，不重复占用标题位置。 */
+#title{display:none!important}
+#app[data-step="0"] .workspace{display:block}
+#app[data-step="0"] aside{display:none}
+#app[data-step="0"] .stage{position:absolute;inset:0}
+#app[data-step="1"] aside{padding-top:66px}
+#app[data-step="1"] #prompt{font-size:24px}
+#app[data-step="5"] aside{padding-top:40px}
+#app[data-step="2"] aside{top:18px;left:20px;width:260px}
+#app[data-step="3"] .stage,#app[data-step="8"] .stage{bottom:80px}
+#app[data-step="3"] aside,#app[data-step="8"] aside{height:76px;grid-template-columns:180px minmax(0,1fr);align-items:center;background:none;padding:8px 12px}
+#app[data-step="3"] #controls{grid-column:1/-1;grid-row:1}
+#app[data-step="8"] #controls{grid-row:1}
+#app[data-step="8"] #feedback{grid-row:1}
+#app[data-step="4"] .stage{bottom:112px}
+#app[data-step="4"] aside{height:108px;grid-template-columns:150px minmax(0,1fr);align-items:center;padding:12px;background:none}
+#app[data-step="4"] #controls,#app[data-step="4"] #feedback{grid-row:1}
+#app[data-step="4"] #feedback{margin:0;font-size:28px}
+#app[data-step="6"] .stage{bottom:148px}
+#app[data-step="6"] aside{height:144px;display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:10px;padding:8px 12px;background:none}
+#app[data-step="6"] #controls.structure-controls{width:100%;align-self:stretch;grid-template-columns:138px 1fr 1.4fr;gap:16px}
+#app[data-step="6"] #controls.structure-controls button{font-size:16px;min-height:48px}
+#app[data-step="6"] #feedback{min-height:26px;font-size:17px;line-height:1.5;margin:0;padding-left:154px}
+#app[data-step="6"] #feedback:empty{display:block;visibility:hidden}
+#app[data-step="7"] .workspace{display:block}
+#app[data-step="7"] .stage{position:absolute;inset:0 0 88px}
+#app[data-step="7"] aside{position:absolute;bottom:0;left:0;right:0;height:80px;padding:10px 12px;display:flex;align-items:center;gap:24px}
+#app[data-step="7"] #prompt{flex:none;margin:0;font-size:22px}
+#app[data-step="7"] #controls{margin-left:auto;flex-direction:row;gap:24px;order:2}
+#app[data-step="7"] #controls>.control-cluster{min-width:128px}
+#app[data-step="7"] #feedback{font-size:18px;line-height:1.4;margin:0;max-width:400px}
+
+.velocity-slider{display:flex;flex-direction:column;gap:12px;font-size:18px;margin-top:15px}.velocity-slider input{width:100%;min-height:44px;accent-color:#d8b074;touch-action:pan-y}
+
+/* The native accessible range is aligned to the authored cannon axis. */
+.cannon-speed-input{pointer-events:auto;position:absolute;margin:0;padding:0;opacity:0;cursor:ew-resize;touch-action:none;z-index:5}
+.cannon-speed-input:focus-visible{opacity:1;appearance:none;background:transparent;border:2px solid var(--warm);outline-offset:6px;border-radius:4px}
+.cannon-speed-input:focus-visible::-webkit-slider-runnable-track{background:transparent}
+.cannon-speed-input:focus-visible::-webkit-slider-thumb{appearance:none;width:4px;height:36px;background:var(--warm)}
+#app[data-step="4"] #feedback{display:none}
+#app[data-step="4"] aside{grid-template-columns:1fr}
+#app[data-step="4"] #controls{grid-column:1;justify-content:flex-end}
+
+/* Full-page terrain stays behind the existing experiment and navigation. */
+#velocity-backdrop{position:absolute;inset:0;width:1600px;height:900px;z-index:0;pointer-events:none}
+#app[data-step="4"]::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(9,15,32,.91),rgba(9,15,32,.62) 17%,transparent 37%),linear-gradient(0deg,rgba(9,15,32,.94),rgba(9,15,32,.68) 12%,transparent 33%)}
+#app[data-step="4"] header,#app[data-step="4"] #chapters,#app[data-step="4"] .workspace,#app[data-step="4"] footer{position:relative;z-index:2}
+#app[data-step="4"] #chapters{position:absolute}
+#app[data-step="4"] .stage{background:none}
+
+#app[data-step="4"] .rocket-flight-sky{visibility:hidden}
+
+#velocity-backdrop[hidden]{display:none}
+
+/* Balloon bench: generated environment, independently drawn apparatus and balloon. */
+#app[data-step="0"]{background:#131e31 url('assets/balloon-lab/background.webp') center/cover no-repeat}
+#app[data-step="0"]::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#091020e8,#09102088 17%,transparent 37%),linear-gradient(0deg,#091020e8,transparent 28%)}
+#app[data-step="0"] header,#app[data-step="0"] .workspace,#app[data-step="0"] footer{position:relative;z-index:2}
+#app[data-step="0"] #chapters{z-index:3}
+#app[data-step="0"] .stage{background:none}
+#app[data-step="0"] .rocket-flight-sky{visibility:hidden}
+#app[data-step="0"] .pump-control{width:125px;height:255px;left:2.5%;right:auto;bottom:17%}
+#app[data-step="0"] .pump-hint{left:2.5%;right:auto;bottom:12%;width:125px}
+
+/* Fixed hit area and pump cylinder; only the upper handle/piston moves. */
+#app[data-step="0"] .pump-control{background:none;overflow:hidden}
+#app[data-step="0"] .pump-control:hover,#app[data-step="0"] .pump-control:active,#app[data-step="0"] .pump-control:focus-visible{transform:none}
+.pump-upper,.pump-lower{position:absolute;inset:0;pointer-events:none;background:url('assets/balloon-lab/pump-modern.webp') center/contain no-repeat}
+.pump-upper{clip-path:inset(0 0 80% 0);transform:translateY(var(--pump-travel,0px))}
+.pump-lower{clip-path:inset(19% 0 0 0)}
+.pump-count{position:absolute;left:2.5%;right:auto;bottom:7%;width:125px;text-align:center;color:var(--ink);font-size:22px;pointer-events:none;font-variant-numeric:tabular-nums}
+#app[data-step="0"] .balloon-reset{width:56px;min-width:56px;height:56px;min-height:56px;padding:14px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:#10172b55;color:var(--ink-dim)}
+.balloon-reset svg{width:26px;height:26px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+#app[data-step="0"] #scene-controls .control-cluster{min-width:0}
+
+/* Chapter 3: transparent WebGL above background; lesson overlays above WebGL. */
+.rocket-3d{position:absolute;inset:0;z-index:2;pointer-events:none}
+.rocket-3d[hidden]{display:none}
+.rocket-webgl{position:absolute;inset:0;width:100%;height:100%;pointer-events:auto;touch-action:none}
+.rocket-3d-status{position:absolute;inset:25% 12%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;background:#10172be8;text-align:center;font-size:22px;pointer-events:auto;z-index:4}
+.rocket-3d-status[hidden],.rocket-3d-label[hidden]{display:none}
+.rocket-3d-label{position:absolute;transform:translateX(-50%);max-width:240px;padding:8px 14px;border-bottom:1px solid var(--warm);background:#10172be6;color:var(--warm);font-size:20px;text-align:center;pointer-events:none}
+#app[data-step="6"] #scene,#app[data-step="7"] #scene{visibility:hidden}
+#app[data-step="8"] .rocket-3d{left:30%}
+#app[data-step="8"] .rocket-3d .rocket-webgl{pointer-events:none}
+#app[data-step="7"] #parts{z-index:3}
+#app[data-step="7"] .stage{overflow:hidden}
+.assembly-3d-board{position:absolute;inset:0;pointer-events:none}
+.assembly-3d-piece,.assembly-3d-return{position:absolute;bottom:12px;width:18%;font-size:18px;touch-action:none;background:#10172bcc;pointer-events:auto}
+.assembly-3d-piece.selected{border-color:var(--warm);color:var(--warm)}
+.assembly-3d-slot{position:absolute;transform:translate(-50%,-50%);border:2px dashed var(--warm);background:#d8b07420;min-width:100px;min-height:64px;font-size:18px;pointer-events:auto;touch-action:none}
+.assembly-3d-board button[hidden]{display:none}
+
+/* Generic staging comparison follows the CZ-7 lesson, with its own ideal data. */
+#app[data-step="9"] .workspace{display:block}
+#app[data-step="9"] .stage{position:absolute;inset:0 0 166px}
+#app[data-step="9"] aside{position:absolute;bottom:0;left:0;right:0;height:158px;padding:8px 12px}
+#app[data-step="9"] #controls{display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:12px 20px}
+#app[data-step="9"] .control-cluster{padding:0;border:0;background:none;gap:8px;min-width:0}
+#app[data-step="9"] #controls button{font-size:17px;min-height:48px;padding:9px 16px}
+#app[data-step="9"] #controls>.control-cluster:first-child{margin-right:auto}
+#app[data-step="9"] #feedback{font-size:18px;line-height:1.4;margin:8px 0 0;min-height:26px}
+#app[data-step="9"] #readout{display:none}
+.dv-scrub{flex:1 0 100%;display:grid!important;grid-template-columns:auto 1fr 70px;align-items:center;gap:18px!important;margin-top:4px;font-size:17px!important}
+.dv-scrub input{grid-column:2;grid-row:1;width:100%;height:36px;margin:0;accent-color:var(--warm);touch-action:none}
+.dv-scrub output{grid-column:3;grid-row:1;text-align:right;font-variant-numeric:tabular-nums}
+.dv-accessible{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* One linked model/curve workbench: the burn axis lives on the chart itself. */
+#app[data-step="9"] .stage{bottom:88px}
+#app[data-step="9"] aside{height:80px;display:flex;align-items:center;gap:24px}
+#app[data-step="9"] #controls{margin-left:auto;flex-wrap:nowrap;gap:20px;order:2}
+#app[data-step="9"] #feedback{flex:1;margin:0;max-width:660px}
+#app[data-step="9"] #parts{z-index:3}
+#app[data-step="9"] #controls>.control-cluster:first-child{margin-right:0}
+.dv-progress-axis{position:absolute;pointer-events:auto;appearance:none;background:transparent;border:0;padding:0;margin:0;opacity:0;touch-action:none;cursor:ew-resize}
+.dv-progress-axis::-webkit-slider-thumb{appearance:none;width:1px;height:36px;background:var(--warm)}
+.dv-progress-axis:focus-visible{opacity:1;outline:2px solid var(--warm);outline-offset:2px}
+.dv-gate{position:absolute;width:44px;height:44px;padding:0;opacity:0;border-radius:50%;touch-action:none}
+.dv-gate:focus-visible{opacity:1;background:transparent;outline:2px solid var(--warm)}
+.dv-definition p{font-size:23px;line-height:1.7}
+.dv-model-panel,.dv-chart-panel{position:absolute;pointer-events:none;border:1px solid #a9b0bf30;border-radius:16px}
+.dv-tabs{position:absolute;top:calc(20px * var(--dv-scale));left:calc(20px * var(--dv-scale));right:calc(20px * var(--dv-scale));display:flex;gap:calc(8px * var(--dv-scale));pointer-events:auto}
+#parts .dv-tabs button{flex:1;min-width:0;min-height:calc(58px * var(--dv-scale));padding:calc(10px * var(--dv-scale)) calc(5px * var(--dv-scale));font-size:calc(21px * var(--dv-scale));border:0;border-bottom:2px solid transparent;border-radius:6px;background:transparent;color:var(--muted);white-space:nowrap}
+#parts .dv-tabs button[aria-selected="true"]{color:var(--warm);border-bottom-color:var(--warm);background:#d8b07412}
+#parts .dv-tabs button[data-complete="true"]::after{content:' ✓';color:#a8c4c6;font-size:.85em}
+.dv-gate[hidden],.dv-progress-axis[hidden]{display:none}
+/* Launch pad: local environment, shared GLB, independent readable controls. */
+#app[data-step="2"],#app.launch-transition{background:linear-gradient(155deg,#142d4b,#091527 70%)}
+#app[data-step="2"]::before,#app.launch-transition::before{background:url('assets/launch-pad/background.webp') center/cover no-repeat;filter:grayscale(1) contrast(.65) brightness(.65);opacity:.2;z-index:0}
+#app[data-step="2"]::after,#app.launch-transition::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(90deg,#091020ef,transparent 58%),linear-gradient(0deg,#091020bd,transparent 35%)}
+#app[data-step="2"] header,#app[data-step="2"] .workspace,#app[data-step="2"] footer,#app.launch-transition header,#app.launch-transition .workspace,#app.launch-transition footer{position:relative;z-index:2}
+#app[data-step="2"] #chapters{z-index:3}
+#app[data-step="2"] .rocket-flight-sky,#app.launch-transition .rocket-flight-sky{visibility:hidden}
+#app[data-step="2"] aside{left:0;top:30px;width:240px;pointer-events:auto;z-index:4}
+#app[data-step="2"] #controls{display:flex;flex-direction:column;gap:16px}
+#app[data-step="2"] #controls>.control-cluster{padding:0;border:0;background:none}
+#app[data-step="2"] fieldset{padding:0;margin:0 0 14px;border:0}
+#app[data-step="2"] legend{font-size:20px;color:var(--ink-dim);margin-bottom:8px}
+#app[data-step="2"] fieldset button{min-width:60px;padding:10px}
+#app[data-step="2"] .rocket-3d{left:45%;right:18%;pointer-events:none}
+#app[data-step="2"] .rocket-webgl{pointer-events:none}
+#app[data-step="2"] #scene{position:relative;z-index:3;pointer-events:none}
+#app[data-step="8"] .rocket-3d{left:32%;right:28%}
+#app.launch-transition #parts,#app.launch-transition aside{visibility:hidden}
+#app.launch-transition .rocket-3d{transition:left 1.6s ease,right 1.6s ease;left:32%;right:28%}
+@media(prefers-reduced-motion:reduce){#app.launch-transition .rocket-3d{transition:none}}

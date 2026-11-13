@@ -1,0 +1,481 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "name": "Five separately controlled stages",
+      "pass": true
+    },
+    {
+      "name": "Three scheme roots",
+      "pass": true
+    },
+    {
+      "name": "Two exported clips",
+      "pass": true
+    },
+    {
+      "name": "Small can hide independently",
+      "pass": true
+    },
+    {
+      "name": "Large can hide independently",
+      "pass": true
+    },
+    {
+      "name": "Triple can hide independently",
+      "pass": true
+    },
+    {
+      "name": "Independent fuel material instances",
+      "pass": true
+    },
+    {
+      "name": "Independent fill uniforms",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 1 surface position",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 1 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 1 visibility",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 1 independent",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 0.5 surface position",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 0.5 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 0.5 visibility",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 0.5 independent",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 0 surface position",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 0 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 0 visibility",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 fill 0 independent",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 group moves independently",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 1 surface position",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 1 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 1 visibility",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 1 independent",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 0.5 surface position",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 0.5 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 0.5 visibility",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 0.5 independent",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 0 surface position",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 0 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 0 visibility",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 fill 0 independent",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 group moves independently",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 1 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 1 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 1 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 1 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 0.5 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 0.5 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 0.5 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 0.5 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 0 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 0 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 0 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 fill 0 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 group moves independently",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 1 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 1 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 1 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 1 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 0.5 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 0.5 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 0.5 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 0.5 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 0 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 0 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 0 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 fill 0 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 group moves independently",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 1 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 1 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 1 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 1 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 0.5 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 0.5 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 0.5 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 0.5 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 0 surface position",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 0 shell and structure fixed",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 0 visibility",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 fill 0 independent",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 group moves independently",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 independent dynamic channels",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 emissive and flame respond",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 transparent scan enabled",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 dynamic channel reset",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 independent dynamic channels",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 emissive and flame respond",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 transparent scan enabled",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 dynamic channel reset",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 independent dynamic channels",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 emissive and flame respond",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 transparent scan enabled",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage1 dynamic channel reset",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 independent dynamic channels",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 emissive and flame respond",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 transparent scan enabled",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage2 dynamic channel reset",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 independent dynamic channels",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 emissive and flame respond",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 transparent scan enabled",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 dynamic channel reset",
+      "pass": true
+    },
+    {
+      "name": "SeparateTripleStage1 backwards seek repeatable",
+      "pass": true
+    },
+    {
+      "name": "SeparateTripleStage1 reset every transform",
+      "pass": true
+    },
+    {
+      "name": "SeparateTripleStage2 backwards seek repeatable",
+      "pass": true
+    },
+    {
+      "name": "SeparateTripleStage2 reset every transform",
+      "pass": true
+    },
+    {
+      "name": "First ejected stage holds during second",
+      "pass": true
+    },
+    {
+      "name": "Small_Stage1 unchanged by separation",
+      "pass": true
+    },
+    {
+      "name": "Large_Stage1 unchanged by separation",
+      "pass": true
+    },
+    {
+      "name": "Triple_Stage3 unchanged by separation",
+      "pass": true
+    },
+    {
+      "name": "Small_Payload unchanged by separation",
+      "pass": true
+    },
+    {
+      "name": "Large_Payload unchanged by separation",
+      "pass": true
+    },
+    {
+      "name": "Triple_Payload unchanged by separation",
+      "pass": true
+    },
+    {
+      "name": "Cumulative reset exact",
+      "pass": true
+    },
+    {
+      "name": "Pause freezes rendered pixels",
+      "pass": true
+    },
+    {
+      "name": "Pause freezes clock and transforms",
+      "pass": true
+    },
+    {
+      "name": "Scan changes actual rendered pixels",
+      "pass": true
+    },
+    {
+      "name": "Scan restores original pixels",
+      "pass": true
+    },
+    {
+      "name": "30 cycles stable geometry and texture counts",
+      "pass": true
+    },
+    {
+      "name": "Viewer disposes canvas",
+      "pass": true
+    },
+    {
+      "name": "Viewer disposes tracked GPU geometries and textures",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    },
+    {
+      "name": "No external requests",
+      "pass": true
+    }
+  ],
+  "metrics": {
+    "warm": {
+      "geometries": 22,
+      "textures": 0,
+      "programs": 8,
+      "calls": 49,
+      "triangles": 19054
+    },
+    "after": {
+      "geometries": 22,
+      "textures": 0,
+      "programs": 8,
+      "calls": 49,
+      "triangles": 19054
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "dpr": 1
+  },
+  "errors": [],
+  "external": []
+}

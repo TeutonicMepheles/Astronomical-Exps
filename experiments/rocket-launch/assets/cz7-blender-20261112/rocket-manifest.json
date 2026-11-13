@@ -1,0 +1,5211 @@
+{
+  "version": "0.1.0",
+  "model": "cz7-teaching.glb",
+  "units": "metre",
+  "dimensions": {
+    "overallHeight": 53.1,
+    "coreDiameter": 3.35,
+    "boosterDiameter": 2.25,
+    "fairingDiameter": 4.2
+  },
+  "dimensionBoundary": "Overall reference dimensions; all stage lengths, tanks, engine bells and payload geometry are teaching approximations, not engineering measurements.",
+  "coordinates": {
+    "blenderUp": "+Z",
+    "gltfUp": "+Y",
+    "conversion": "Blender (x,y,z) -> glTF (x,z,-y)",
+    "origin": "core bottom axis"
+  },
+  "modules": {
+    "Stage1": {
+      "node": "Stage1",
+      "assemblyAnchor": "Assembly_Stage1",
+      "assembledBlender": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "scatteredBlender": {
+        "translation": [
+          -10,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "assembledGLTF": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "scatteredGLTF": {
+        "translation": [
+          -10,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "Stage2": {
+      "node": "Stage2",
+      "assemblyAnchor": "Assembly_Stage2",
+      "assembledBlender": {
+        "translation": [
+          0.0,
+          0.0,
+          27.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "scatteredBlender": {
+        "translation": [
+          9,
+          0,
+          18
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "assembledGLTF": {
+        "translation": [
+          0,
+          27,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "scatteredGLTF": {
+        "translation": [
+          9,
+          18,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "Boosters": {
+      "node": "Boosters",
+      "assemblyAnchor": "Assembly_Boosters",
+      "assembledBlender": {
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "scatteredBlender": {
+        "translation": [
+          -12,
+          0,
+          -5
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "assembledGLTF": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "scatteredGLTF": {
+        "translation": [
+          -12,
+          -5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "Payload": {
+      "node": "Payload",
+      "assemblyAnchor": "Assembly_Payload",
+      "assembledBlender": {
+        "translation": [
+          0.0,
+          0.0,
+          40.150001525878906
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "scatteredBlender": {
+        "translation": [
+          13,
+          0,
+          37
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "assembledGLTF": {
+        "translation": [
+          0,
+          40.150001525878906,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "scatteredGLTF": {
+        "translation": [
+          13,
+          37,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    "Fairing": {
+      "node": "Fairing",
+      "assemblyAnchor": "Assembly_Fairing",
+      "assembledBlender": {
+        "translation": [
+          0.0,
+          0.0,
+          40.099998474121094
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "scatteredBlender": {
+        "translation": [
+          8,
+          0,
+          43
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "assembledGLTF": {
+        "translation": [
+          0,
+          40.099998474121094,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "scatteredGLTF": {
+        "translation": [
+          8,
+          43,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  "assemblyDependency": {
+    "Fairing": [
+      "Payload"
+    ]
+  },
+  "parts": [
+    {
+      "node": "Stage1Shell",
+      "mesh": "Stage1ShellMesh",
+      "labelZh": "一级外壳",
+      "gltfMeshIndex": 31,
+      "gltfMeshName": "Stage1ShellMesh"
+    },
+    {
+      "node": "Interstage",
+      "mesh": "InterstageMesh",
+      "labelZh": "级间段（随一级分离）",
+      "gltfMeshIndex": 18,
+      "gltfMeshName": "InterstageMesh"
+    },
+    {
+      "node": "Stage1Seam00",
+      "mesh": "Stage1Seam00Mesh",
+      "labelZh": "一级接缝环00",
+      "gltfMeshIndex": 26,
+      "gltfMeshName": "Stage1Seam00Mesh"
+    },
+    {
+      "node": "Stage1Seam01",
+      "mesh": "Stage1Seam01Mesh",
+      "labelZh": "一级接缝环01",
+      "gltfMeshIndex": 27,
+      "gltfMeshName": "Stage1Seam01Mesh"
+    },
+    {
+      "node": "Stage1Seam02",
+      "mesh": "Stage1Seam02Mesh",
+      "labelZh": "一级接缝环02",
+      "gltfMeshIndex": 28,
+      "gltfMeshName": "Stage1Seam02Mesh"
+    },
+    {
+      "node": "Stage1Seam03",
+      "mesh": "Stage1Seam03Mesh",
+      "labelZh": "一级接缝环03",
+      "gltfMeshIndex": 29,
+      "gltfMeshName": "Stage1Seam03Mesh"
+    },
+    {
+      "node": "Stage1Seam04",
+      "mesh": "Stage1Seam04Mesh",
+      "labelZh": "一级接缝环04",
+      "gltfMeshIndex": 30,
+      "gltfMeshName": "Stage1Seam04Mesh"
+    },
+    {
+      "node": "Stage1RedBand",
+      "mesh": "Stage1RedBandMesh",
+      "labelZh": "一级红色识别环",
+      "gltfMeshIndex": 25,
+      "gltfMeshName": "Stage1RedBandMesh"
+    },
+    {
+      "node": "Stage1FuelTank",
+      "mesh": "Stage1FuelTankMesh",
+      "labelZh": "一级煤油箱（示意）",
+      "gltfMeshIndex": 23,
+      "gltfMeshName": "Stage1FuelTankMesh"
+    },
+    {
+      "node": "Stage1LOXTank",
+      "mesh": "Stage1LOXTankMesh",
+      "labelZh": "一级液氧箱（示意）",
+      "gltfMeshIndex": 24,
+      "gltfMeshName": "Stage1LOXTankMesh"
+    },
+    {
+      "node": "Stage2Shell",
+      "mesh": "Stage2ShellMesh",
+      "labelZh": "二级外壳",
+      "gltfMeshIndex": 46,
+      "gltfMeshName": "Stage2ShellMesh"
+    },
+    {
+      "node": "Stage2Seam00",
+      "mesh": "Stage2Seam00Mesh",
+      "labelZh": "二级接缝环00",
+      "gltfMeshIndex": 42,
+      "gltfMeshName": "Stage2Seam00Mesh"
+    },
+    {
+      "node": "Stage2Seam01",
+      "mesh": "Stage2Seam01Mesh",
+      "labelZh": "二级接缝环01",
+      "gltfMeshIndex": 43,
+      "gltfMeshName": "Stage2Seam01Mesh"
+    },
+    {
+      "node": "Stage2Seam02",
+      "mesh": "Stage2Seam02Mesh",
+      "labelZh": "二级接缝环02",
+      "gltfMeshIndex": 44,
+      "gltfMeshName": "Stage2Seam02Mesh"
+    },
+    {
+      "node": "Stage2Seam03",
+      "mesh": "Stage2Seam03Mesh",
+      "labelZh": "二级接缝环03",
+      "gltfMeshIndex": 45,
+      "gltfMeshName": "Stage2Seam03Mesh"
+    },
+    {
+      "node": "Stage2FuelTank",
+      "mesh": "Stage2FuelTankMesh",
+      "labelZh": "二级煤油箱（示意）",
+      "gltfMeshIndex": 40,
+      "gltfMeshName": "Stage2FuelTankMesh"
+    },
+    {
+      "node": "Stage2LOXTank",
+      "mesh": "Stage2LOXTankMesh",
+      "labelZh": "二级液氧箱（示意）",
+      "gltfMeshIndex": 41,
+      "gltfMeshName": "Stage2LOXTankMesh"
+    },
+    {
+      "node": "Stage1Engine01",
+      "mesh": "Stage1Engine01Mesh",
+      "labelZh": "一级发动机01",
+      "gltfMeshIndex": 19,
+      "gltfMeshName": "Stage1Engine01Mesh"
+    },
+    {
+      "node": "Stage1Engine01Chamber",
+      "mesh": "Stage1Engine01ChamberMesh",
+      "labelZh": "一级发动机01Chamber",
+      "gltfMeshIndex": 20,
+      "gltfMeshName": "Stage1Engine01ChamberMesh"
+    },
+    {
+      "node": "Stage1Engine02",
+      "mesh": "Stage1Engine02Mesh",
+      "labelZh": "一级发动机02",
+      "gltfMeshIndex": 21,
+      "gltfMeshName": "Stage1Engine02Mesh"
+    },
+    {
+      "node": "Stage1Engine02Chamber",
+      "mesh": "Stage1Engine02ChamberMesh",
+      "labelZh": "一级发动机02Chamber",
+      "gltfMeshIndex": 22,
+      "gltfMeshName": "Stage1Engine02ChamberMesh"
+    },
+    {
+      "node": "Stage2Engine01",
+      "mesh": "Stage2Engine01Mesh",
+      "labelZh": "二级发动机01",
+      "gltfMeshIndex": 32,
+      "gltfMeshName": "Stage2Engine01Mesh"
+    },
+    {
+      "node": "Stage2Engine01Chamber",
+      "mesh": "Stage2Engine01ChamberMesh",
+      "labelZh": "二级发动机01Chamber",
+      "gltfMeshIndex": 33,
+      "gltfMeshName": "Stage2Engine01ChamberMesh"
+    },
+    {
+      "node": "Stage2Engine02",
+      "mesh": "Stage2Engine02Mesh",
+      "labelZh": "二级发动机02",
+      "gltfMeshIndex": 34,
+      "gltfMeshName": "Stage2Engine02Mesh"
+    },
+    {
+      "node": "Stage2Engine02Chamber",
+      "mesh": "Stage2Engine02ChamberMesh",
+      "labelZh": "二级发动机02Chamber",
+      "gltfMeshIndex": 35,
+      "gltfMeshName": "Stage2Engine02ChamberMesh"
+    },
+    {
+      "node": "Stage2Engine03",
+      "mesh": "Stage2Engine03Mesh",
+      "labelZh": "二级发动机03",
+      "gltfMeshIndex": 36,
+      "gltfMeshName": "Stage2Engine03Mesh"
+    },
+    {
+      "node": "Stage2Engine03Chamber",
+      "mesh": "Stage2Engine03ChamberMesh",
+      "labelZh": "二级发动机03Chamber",
+      "gltfMeshIndex": 37,
+      "gltfMeshName": "Stage2Engine03ChamberMesh"
+    },
+    {
+      "node": "Stage2Engine04",
+      "mesh": "Stage2Engine04Mesh",
+      "labelZh": "二级发动机04",
+      "gltfMeshIndex": 38,
+      "gltfMeshName": "Stage2Engine04Mesh"
+    },
+    {
+      "node": "Stage2Engine04Chamber",
+      "mesh": "Stage2Engine04ChamberMesh",
+      "labelZh": "二级发动机04Chamber",
+      "gltfMeshIndex": 39,
+      "gltfMeshName": "Stage2Engine04ChamberMesh"
+    },
+    {
+      "node": "Booster01Shell",
+      "mesh": "Booster01ShellMesh",
+      "labelZh": "助推器01外壳",
+      "gltfMeshIndex": 10,
+      "gltfMeshName": "Booster01ShellMesh"
+    },
+    {
+      "node": "Booster01Nose",
+      "mesh": "Booster01NoseMesh",
+      "labelZh": "助推器01头锥",
+      "gltfMeshIndex": 4,
+      "gltfMeshName": "Booster01NoseMesh"
+    },
+    {
+      "node": "Booster01Seam00",
+      "mesh": "Booster01Seam00Mesh",
+      "labelZh": "助推器01接缝环00",
+      "gltfMeshIndex": 6,
+      "gltfMeshName": "Booster01Seam00Mesh"
+    },
+    {
+      "node": "Booster01Seam01",
+      "mesh": "Booster01Seam01Mesh",
+      "labelZh": "助推器01接缝环01",
+      "gltfMeshIndex": 7,
+      "gltfMeshName": "Booster01Seam01Mesh"
+    },
+    {
+      "node": "Booster01Seam02",
+      "mesh": "Booster01Seam02Mesh",
+      "labelZh": "助推器01接缝环02",
+      "gltfMeshIndex": 8,
+      "gltfMeshName": "Booster01Seam02Mesh"
+    },
+    {
+      "node": "Booster01Seam03",
+      "mesh": "Booster01Seam03Mesh",
+      "labelZh": "助推器01接缝环03",
+      "gltfMeshIndex": 9,
+      "gltfMeshName": "Booster01Seam03Mesh"
+    },
+    {
+      "node": "Booster01RedBand",
+      "mesh": "Booster01RedBandMesh",
+      "labelZh": "助推器01红色识别环",
+      "gltfMeshIndex": 5,
+      "gltfMeshName": "Booster01RedBandMesh"
+    },
+    {
+      "node": "Booster01Engine",
+      "mesh": "Booster01EngineMesh",
+      "labelZh": "助推器01发动机",
+      "gltfMeshIndex": 2,
+      "gltfMeshName": "Booster01EngineMesh"
+    },
+    {
+      "node": "Booster01EngineChamber",
+      "mesh": "Booster01EngineChamberMesh",
+      "labelZh": "助推器01发动机Chamber",
+      "gltfMeshIndex": 3,
+      "gltfMeshName": "Booster01EngineChamberMesh"
+    },
+    {
+      "node": "Booster01Bracket00",
+      "mesh": "Booster01Bracket00Mesh",
+      "labelZh": "助推器01连接支架00",
+      "gltfMeshIndex": 0,
+      "gltfMeshName": "Booster01Bracket00Mesh"
+    },
+    {
+      "node": "Booster01Bracket01",
+      "mesh": "Booster01Bracket01Mesh",
+      "labelZh": "助推器01连接支架01",
+      "gltfMeshIndex": 1,
+      "gltfMeshName": "Booster01Bracket01Mesh"
+    },
+    {
+      "node": "Booster02Shell",
+      "mesh": "Booster01ShellMesh",
+      "labelZh": "助推器02外壳",
+      "gltfMeshIndex": 10,
+      "gltfMeshName": "Booster01ShellMesh"
+    },
+    {
+      "node": "Booster02Nose",
+      "mesh": "Booster01NoseMesh",
+      "labelZh": "助推器02头锥",
+      "gltfMeshIndex": 4,
+      "gltfMeshName": "Booster01NoseMesh"
+    },
+    {
+      "node": "Booster02Seam00",
+      "mesh": "Booster01Seam00Mesh",
+      "labelZh": "助推器02接缝环00",
+      "gltfMeshIndex": 6,
+      "gltfMeshName": "Booster01Seam00Mesh"
+    },
+    {
+      "node": "Booster02Seam01",
+      "mesh": "Booster01Seam01Mesh",
+      "labelZh": "助推器02接缝环01",
+      "gltfMeshIndex": 7,
+      "gltfMeshName": "Booster01Seam01Mesh"
+    },
+    {
+      "node": "Booster02Seam02",
+      "mesh": "Booster01Seam02Mesh",
+      "labelZh": "助推器02接缝环02",
+      "gltfMeshIndex": 8,
+      "gltfMeshName": "Booster01Seam02Mesh"
+    },
+    {
+      "node": "Booster02Seam03",
+      "mesh": "Booster01Seam03Mesh",
+      "labelZh": "助推器02接缝环03",
+      "gltfMeshIndex": 9,
+      "gltfMeshName": "Booster01Seam03Mesh"
+    },
+    {
+      "node": "Booster02RedBand",
+      "mesh": "Booster01RedBandMesh",
+      "labelZh": "助推器02红色识别环",
+      "gltfMeshIndex": 5,
+      "gltfMeshName": "Booster01RedBandMesh"
+    },
+    {
+      "node": "Booster02Engine",
+      "mesh": "Booster01EngineMesh",
+      "labelZh": "助推器02发动机",
+      "gltfMeshIndex": 2,
+      "gltfMeshName": "Booster01EngineMesh"
+    },
+    {
+      "node": "Booster02EngineChamber",
+      "mesh": "Booster01EngineChamberMesh",
+      "labelZh": "助推器02发动机Chamber",
+      "gltfMeshIndex": 3,
+      "gltfMeshName": "Booster01EngineChamberMesh"
+    },
+    {
+      "node": "Booster02Bracket00",
+      "mesh": "Booster01Bracket00Mesh",
+      "labelZh": "助推器02连接支架00",
+      "gltfMeshIndex": 0,
+      "gltfMeshName": "Booster01Bracket00Mesh"
+    },
+    {
+      "node": "Booster02Bracket01",
+      "mesh": "Booster01Bracket01Mesh",
+      "labelZh": "助推器02连接支架01",
+      "gltfMeshIndex": 1,
+      "gltfMeshName": "Booster01Bracket01Mesh"
+    },
+    {
+      "node": "Booster03Shell",
+      "mesh": "Booster01ShellMesh",
+      "labelZh": "助推器03外壳",
+      "gltfMeshIndex": 10,
+      "gltfMeshName": "Booster01ShellMesh"
+    },
+    {
+      "node": "Booster03Nose",
+      "mesh": "Booster01NoseMesh",
+      "labelZh": "助推器03头锥",
+      "gltfMeshIndex": 4,
+      "gltfMeshName": "Booster01NoseMesh"
+    },
+    {
+      "node": "Booster03Seam00",
+      "mesh": "Booster01Seam00Mesh",
+      "labelZh": "助推器03接缝环00",
+      "gltfMeshIndex": 6,
+      "gltfMeshName": "Booster01Seam00Mesh"
+    },
+    {
+      "node": "Booster03Seam01",
+      "mesh": "Booster01Seam01Mesh",
+      "labelZh": "助推器03接缝环01",
+      "gltfMeshIndex": 7,
+      "gltfMeshName": "Booster01Seam01Mesh"
+    },
+    {
+      "node": "Booster03Seam02",
+      "mesh": "Booster01Seam02Mesh",
+      "labelZh": "助推器03接缝环02",
+      "gltfMeshIndex": 8,
+      "gltfMeshName": "Booster01Seam02Mesh"
+    },
+    {
+      "node": "Booster03Seam03",
+      "mesh": "Booster01Seam03Mesh",
+      "labelZh": "助推器03接缝环03",
+      "gltfMeshIndex": 9,
+      "gltfMeshName": "Booster01Seam03Mesh"
+    },
+    {
+      "node": "Booster03RedBand",
+      "mesh": "Booster01RedBandMesh",
+      "labelZh": "助推器03红色识别环",
+      "gltfMeshIndex": 5,
+      "gltfMeshName": "Booster01RedBandMesh"
+    },
+    {
+      "node": "Booster03Engine",
+      "mesh": "Booster01EngineMesh",
+      "labelZh": "助推器03发动机",
+      "gltfMeshIndex": 2,
+      "gltfMeshName": "Booster01EngineMesh"
+    },
+    {
+      "node": "Booster03EngineChamber",
+      "mesh": "Booster01EngineChamberMesh",
+      "labelZh": "助推器03发动机Chamber",
+      "gltfMeshIndex": 3,
+      "gltfMeshName": "Booster01EngineChamberMesh"
+    },
+    {
+      "node": "Booster03Bracket00",
+      "mesh": "Booster01Bracket00Mesh",
+      "labelZh": "助推器03连接支架00",
+      "gltfMeshIndex": 0,
+      "gltfMeshName": "Booster01Bracket00Mesh"
+    },
+    {
+      "node": "Booster03Bracket01",
+      "mesh": "Booster01Bracket01Mesh",
+      "labelZh": "助推器03连接支架01",
+      "gltfMeshIndex": 1,
+      "gltfMeshName": "Booster01Bracket01Mesh"
+    },
+    {
+      "node": "Booster04Shell",
+      "mesh": "Booster01ShellMesh",
+      "labelZh": "助推器04外壳",
+      "gltfMeshIndex": 10,
+      "gltfMeshName": "Booster01ShellMesh"
+    },
+    {
+      "node": "Booster04Nose",
+      "mesh": "Booster01NoseMesh",
+      "labelZh": "助推器04头锥",
+      "gltfMeshIndex": 4,
+      "gltfMeshName": "Booster01NoseMesh"
+    },
+    {
+      "node": "Booster04Seam00",
+      "mesh": "Booster01Seam00Mesh",
+      "labelZh": "助推器04接缝环00",
+      "gltfMeshIndex": 6,
+      "gltfMeshName": "Booster01Seam00Mesh"
+    },
+    {
+      "node": "Booster04Seam01",
+      "mesh": "Booster01Seam01Mesh",
+      "labelZh": "助推器04接缝环01",
+      "gltfMeshIndex": 7,
+      "gltfMeshName": "Booster01Seam01Mesh"
+    },
+    {
+      "node": "Booster04Seam02",
+      "mesh": "Booster01Seam02Mesh",
+      "labelZh": "助推器04接缝环02",
+      "gltfMeshIndex": 8,
+      "gltfMeshName": "Booster01Seam02Mesh"
+    },
+    {
+      "node": "Booster04Seam03",
+      "mesh": "Booster01Seam03Mesh",
+      "labelZh": "助推器04接缝环03",
+      "gltfMeshIndex": 9,
+      "gltfMeshName": "Booster01Seam03Mesh"
+    },
+    {
+      "node": "Booster04RedBand",
+      "mesh": "Booster01RedBandMesh",
+      "labelZh": "助推器04红色识别环",
+      "gltfMeshIndex": 5,
+      "gltfMeshName": "Booster01RedBandMesh"
+    },
+    {
+      "node": "Booster04Engine",
+      "mesh": "Booster01EngineMesh",
+      "labelZh": "助推器04发动机",
+      "gltfMeshIndex": 2,
+      "gltfMeshName": "Booster01EngineMesh"
+    },
+    {
+      "node": "Booster04EngineChamber",
+      "mesh": "Booster01EngineChamberMesh",
+      "labelZh": "助推器04发动机Chamber",
+      "gltfMeshIndex": 3,
+      "gltfMeshName": "Booster01EngineChamberMesh"
+    },
+    {
+      "node": "Booster04Bracket00",
+      "mesh": "Booster01Bracket00Mesh",
+      "labelZh": "助推器04连接支架00",
+      "gltfMeshIndex": 0,
+      "gltfMeshName": "Booster01Bracket00Mesh"
+    },
+    {
+      "node": "Booster04Bracket01",
+      "mesh": "Booster01Bracket01Mesh",
+      "labelZh": "助推器04连接支架01",
+      "gltfMeshIndex": 1,
+      "gltfMeshName": "Booster01Bracket01Mesh"
+    },
+    {
+      "node": "FairingLeft",
+      "mesh": "FairingLeftMesh",
+      "labelZh": "整流罩左瓣",
+      "gltfMeshIndex": 11,
+      "gltfMeshName": "FairingLeftMesh"
+    },
+    {
+      "node": "FairingRight",
+      "mesh": "FairingRightMesh",
+      "labelZh": "整流罩右瓣",
+      "gltfMeshIndex": 12,
+      "gltfMeshName": "FairingRightMesh"
+    },
+    {
+      "node": "PayloadCargo",
+      "mesh": "PayloadCargoMesh",
+      "labelZh": "载荷货舱（示意）",
+      "gltfMeshIndex": 13,
+      "gltfMeshName": "PayloadCargoMesh"
+    },
+    {
+      "node": "PayloadService",
+      "mesh": "PayloadServiceMesh",
+      "labelZh": "载荷服务舱",
+      "gltfMeshIndex": 17,
+      "gltfMeshName": "PayloadServiceMesh"
+    },
+    {
+      "node": "PayloadDock",
+      "mesh": "PayloadDockMesh",
+      "labelZh": "载荷对接机构",
+      "gltfMeshIndex": 14,
+      "gltfMeshName": "PayloadDockMesh"
+    },
+    {
+      "node": "PayloadFoldedPanelL",
+      "mesh": "PayloadFoldedPanelLMesh",
+      "labelZh": "载荷收拢太阳翼L",
+      "gltfMeshIndex": 15,
+      "gltfMeshName": "PayloadFoldedPanelLMesh"
+    },
+    {
+      "node": "PayloadFoldedPanelR",
+      "mesh": "PayloadFoldedPanelRMesh",
+      "labelZh": "载荷收拢太阳翼R",
+      "gltfMeshIndex": 16,
+      "gltfMeshName": "PayloadFoldedPanelRMesh"
+    }
+  ],
+  "shellNodes": [
+    "Stage1Shell",
+    "Interstage",
+    "Stage2Shell",
+    "Stage1Seam00",
+    "Stage1Seam01",
+    "Stage1Seam02",
+    "Stage1Seam03",
+    "Stage1Seam04",
+    "Stage1RedBand",
+    "Stage2Seam00",
+    "Stage2Seam01",
+    "Stage2Seam02",
+    "Stage2Seam03",
+    "FairingLeft",
+    "FairingRight"
+  ],
+  "anchors": [
+    "Stage1Engine01Flame",
+    "Stage1Engine02Flame",
+    "Stage2Engine01Flame",
+    "Stage2Engine02Flame",
+    "Stage2Engine03Flame",
+    "Stage2Engine04Flame",
+    "Booster01EngineFlame",
+    "Booster02EngineFlame",
+    "Booster03EngineFlame",
+    "Booster04EngineFlame",
+    "Assembly_Stage1",
+    "Label_Stage1",
+    "Assembly_Stage2",
+    "Label_Stage2",
+    "Assembly_Boosters",
+    "Label_Boosters",
+    "Assembly_Payload",
+    "Label_Payload",
+    "Assembly_Fairing",
+    "Label_Fairing",
+    "PayloadMount",
+    "CameraTarget"
+  ],
+  "defaultTransformsBlender": {
+    "RocketRoot": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2": {
+      "translation": [
+        0.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Boosters": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Payload": {
+      "translation": [
+        0.0,
+        0.0,
+        40.150001525878906
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Fairing": {
+      "translation": [
+        0.0,
+        0.0,
+        40.099998474121094
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Anchors": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Interstage": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Seam00": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Seam01": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Seam02": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Seam03": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Seam04": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1RedBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1FuelTank": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1LOXTank": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Seam00": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Seam01": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Seam02": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Seam03": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2FuelTank": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2LOXTank": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Engine01": {
+      "translation": [
+        -0.7799999713897705,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Engine01Chamber": {
+      "translation": [
+        -0.7799999713897705,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Engine01Flame": {
+      "translation": [
+        -0.7799999713897705,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Engine02": {
+      "translation": [
+        0.7799999713897705,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Engine02Chamber": {
+      "translation": [
+        0.7799999713897705,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage1Engine02Flame": {
+      "translation": [
+        0.7799999713897705,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine01": {
+      "translation": [
+        -0.6499999761581421,
+        -0.6499999761581421,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine01Chamber": {
+      "translation": [
+        -0.6499999761581421,
+        -0.6499999761581421,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine01Flame": {
+      "translation": [
+        -0.6499999761581421,
+        -0.6499999761581421,
+        0.15000000596046448
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine02": {
+      "translation": [
+        0.6499999761581421,
+        -0.6499999761581421,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine02Chamber": {
+      "translation": [
+        0.6499999761581421,
+        -0.6499999761581421,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine02Flame": {
+      "translation": [
+        0.6499999761581421,
+        -0.6499999761581421,
+        0.15000000596046448
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine03": {
+      "translation": [
+        0.6499999761581421,
+        0.6499999761581421,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine03Chamber": {
+      "translation": [
+        0.6499999761581421,
+        0.6499999761581421,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine03Flame": {
+      "translation": [
+        0.6499999761581421,
+        0.6499999761581421,
+        0.15000000596046448
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine04": {
+      "translation": [
+        -0.6499999761581421,
+        0.6499999761581421,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine04Chamber": {
+      "translation": [
+        -0.6499999761581421,
+        0.6499999761581421,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Stage2Engine04Flame": {
+      "translation": [
+        -0.6499999761581421,
+        0.6499999761581421,
+        0.15000000596046448
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01": {
+      "translation": [
+        2.8299999237060547,
+        0.0,
+        0.10000000149011612
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Nose": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Seam00": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Seam01": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Seam02": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Seam03": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01RedBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Engine": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01EngineChamber": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01EngineFlame": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Bracket00": {
+      "translation": [
+        -1.1200000047683716,
+        0.0,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster01Bracket01": {
+      "translation": [
+        -1.1200000047683716,
+        0.0,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02": {
+      "translation": [
+        1.7328752236161186e-16,
+        2.8299999237060547,
+        0.10000000149011612
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.7071067690849304,
+        0.7071067690849304
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Nose": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Seam00": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Seam01": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Seam02": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Seam03": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02RedBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Engine": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02EngineChamber": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Bracket00": {
+      "translation": [
+        -1.1200000047683716,
+        0.0,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02Bracket01": {
+      "translation": [
+        -1.1200000047683716,
+        0.0,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster02EngineFlame": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03": {
+      "translation": [
+        -2.8299999237060547,
+        3.465750447232237e-16,
+        0.10000000149011612
+      ],
+      "rotation": [
+        -0.0,
+        0.0,
+        1.0,
+        -4.371138828673793e-08
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Nose": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Seam00": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Seam01": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Seam02": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Seam03": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03RedBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Engine": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03EngineChamber": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Bracket00": {
+      "translation": [
+        -1.1200000047683716,
+        0.0,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03Bracket01": {
+      "translation": [
+        -1.1200000047683716,
+        0.0,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster03EngineFlame": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04": {
+      "translation": [
+        -5.198625538499458e-16,
+        -2.8299999237060547,
+        0.10000000149011612
+      ],
+      "rotation": [
+        -0.0,
+        0.0,
+        0.7071067690849304,
+        -0.7071067690849304
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Shell": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Nose": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Seam00": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Seam01": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Seam02": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Seam03": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04RedBand": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Engine": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04EngineChamber": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Bracket00": {
+      "translation": [
+        -1.1200000047683716,
+        0.0,
+        6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04Bracket01": {
+      "translation": [
+        -1.1200000047683716,
+        0.0,
+        20.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Booster04EngineFlame": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "FairingLeft": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "FairingRight": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "PayloadCargo": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "PayloadService": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "PayloadDock": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "PayloadFoldedPanelL": {
+      "translation": [
+        -1.350000023841858,
+        0.0,
+        3.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "PayloadFoldedPanelR": {
+      "translation": [
+        1.350000023841858,
+        0.0,
+        3.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Assembly_Stage1": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Label_Stage1": {
+      "translation": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Assembly_Stage2": {
+      "translation": [
+        0.0,
+        0.0,
+        27.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Label_Stage2": {
+      "translation": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Assembly_Boosters": {
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Label_Boosters": {
+      "translation": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Assembly_Payload": {
+      "translation": [
+        0.0,
+        0.0,
+        40.150001525878906
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Label_Payload": {
+      "translation": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Assembly_Fairing": {
+      "translation": [
+        0.0,
+        0.0,
+        40.099998474121094
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "Label_Fairing": {
+      "translation": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "PayloadMount": {
+      "translation": [
+        0.0,
+        0.0,
+        13.149999618530273
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "CameraTarget": {
+      "translation": [
+        0.0,
+        0.0,
+        26.549999237060547
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "simplifications": [
+    "Tank contours, all internal dimensions, stage lengths and engine/payload details are schematic.",
+    "No fuel feed plumbing, turbopumps, avionics or flight dynamics represented.",
+    "Internal blue=LOX, amber=kerosene for teaching only, not real tank paint.",
+    "Booster nose is axisymmetric simplification; does not reproduce asymmetric manufacturing shape.",
+    "Animation times are compressed teaching time, not actual mission time."
+  ],
+  "sources": [
+    {
+      "url": "https://www.cmse.gov.cn/gygc/xtzc/zzqhyzhjxt/",
+      "checked": "2026-11-12",
+      "supports": "basic two-stage, four boosters, total length 53.1 m; official page retrieved"
+    },
+    {
+      "url": "https://www.cnsa.gov.cn/n6758824/n6759008/n6759011/c6794255/content.html",
+      "supports": "diameters from repository SOURCE.md; independent retrieval failed TLS"
+    },
+    {
+      "url": "https://www.cmse.gov.cn/xwzx/yzjz/201510/t20151028_45019.html",
+      "supports": "stage 1 two engines, from repository SOURCE.md"
+    },
+    {
+      "url": "https://www.cmse.gov.cn/xwzx/yzjz/201409/t20140904_44992.html",
+      "supports": "stage 2 four engines, from repository SOURCE.md"
+    },
+    {
+      "url": "https://www.spacechina.com/n25/n146/n238/n12985/c1043803/content.html",
+      "supports": "4.2 m fairing, from repository SOURCE.md"
+    }
+  ],
+  "animations": {
+    "AssemblyPreview": {
+      "durationSeconds": 6,
+      "nodes": [
+        "Stage1",
+        "Stage2",
+        "Boosters",
+        "Payload",
+        "Fairing"
+      ],
+      "description": "Five modules assemble; payload precedes fairing.",
+      "timeMeaning": "compressed teaching time, not real flight time"
+    },
+    "LaunchPreview": {
+      "durationSeconds": 3,
+      "nodes": [
+        "RocketRoot"
+      ],
+      "description": "Horizontal rocket turns upright, then rises; standalone preview only.",
+      "timeMeaning": "compressed teaching time, not real flight time"
+    },
+    "SeparateBoosters": {
+      "durationSeconds": 2,
+      "nodes": [
+        "Booster01",
+        "Booster02",
+        "Booster03",
+        "Booster04"
+      ],
+      "description": "Animate only corresponding parts; hold endpoint before next clip.",
+      "timeMeaning": "compressed teaching time, not real flight time"
+    },
+    "SeparateStage1": {
+      "durationSeconds": 2,
+      "nodes": [
+        "Stage1"
+      ],
+      "description": "Animate only corresponding parts; hold endpoint before next clip.",
+      "timeMeaning": "compressed teaching time, not real flight time"
+    },
+    "SeparateFairing": {
+      "durationSeconds": 2,
+      "nodes": [
+        "FairingLeft",
+        "FairingRight"
+      ],
+      "description": "Animate only corresponding parts; hold endpoint before next clip.",
+      "timeMeaning": "compressed teaching time, not real flight time"
+    },
+    "ReleasePayload": {
+      "durationSeconds": 2,
+      "nodes": [
+        "Payload"
+      ],
+      "description": "Animate only corresponding parts; hold endpoint before next clip.",
+      "timeMeaning": "compressed teaching time, not real flight time"
+    },
+    "SeparationPreview": {
+      "durationSeconds": 8,
+      "nodes": [
+        "Booster01",
+        "Booster02",
+        "Booster03",
+        "Booster04",
+        "Stage1",
+        "FairingLeft",
+        "FairingRight",
+        "Payload"
+      ],
+      "description": "Four sequential events, no reset between boundaries.",
+      "timeMeaning": "compressed teaching time, not real flight time"
+    }
+  },
+  "separationOrder": [
+    "SeparateBoosters",
+    "SeparateStage1",
+    "SeparateFairing",
+    "ReleasePayload"
+  ],
+  "playbackContract": {
+    "singleStep": "Clamp each finished action at its final pose. Pause with mixer timeScale=0; seek using absolute clip time. Do not stop/reset previous component actions between sequential steps.",
+    "reset": "Stop ALL actions, then restore defaultTransformsGLTF for every node. Reset the camera separately.",
+    "incompatibility": "AssemblyPreview, LaunchPreview and SeparationPreview are stand-alone demonstrations. Reset first, and never mix them with per-step assembly/separation actions. LaunchPreview owns RocketRoot; the step clips do not.",
+    "duration": "24 fps authored. All times in seconds are pedagogical, not real mission time."
+  },
+  "xrayOccluderGroups": [
+    "Boosters"
+  ],
+  "xrayNotes": "Hide shellNodes; optionally hide Boosters group to see all four tanks unobstructed. Restore each visibility flag on exit.",
+  "defaultTransformsGLTF": {
+    "Assembly_Boosters": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Assembly_Fairing": {
+      "translation": [
+        0,
+        40.099998474121094,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Assembly_Payload": {
+      "translation": [
+        0,
+        40.150001525878906,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Assembly_Stage1": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Assembly_Stage2": {
+      "translation": [
+        0,
+        27,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "CameraTarget": {
+      "translation": [
+        0,
+        26.549999237060547,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Anchors": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Bracket00": {
+      "translation": [
+        -1.1200000047683716,
+        6,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Bracket01": {
+      "translation": [
+        -1.1200000047683716,
+        20,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Engine": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01EngineChamber": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01EngineFlame": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Nose": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01RedBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Seam00": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Seam01": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Seam02": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Seam03": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster01": {
+      "translation": [
+        2.8299999237060547,
+        0.10000000149011612,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Bracket00": {
+      "translation": [
+        -1.119999885559082,
+        6,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Bracket01": {
+      "translation": [
+        -1.119999885559082,
+        20,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Engine": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02EngineChamber": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02EngineFlame": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Nose": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02RedBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Seam00": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Seam01": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Seam02": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Seam03": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster02": {
+      "translation": [
+        0,
+        0.10000000149011612,
+        -2.8299999237060547
+      ],
+      "rotation": [
+        0,
+        0.7071068286895752,
+        0,
+        0.7071067094802856
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Bracket00": {
+      "translation": [
+        -1.1200000047683716,
+        6,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Bracket01": {
+      "translation": [
+        -1.1200000047683716,
+        20,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Engine": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03EngineChamber": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03EngineFlame": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Nose": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03RedBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Seam00": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Seam01": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Seam02": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Seam03": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster03": {
+      "translation": [
+        -2.8299999237060547,
+        0.10000000149011612,
+        0
+      ],
+      "rotation": [
+        0,
+        -1,
+        0,
+        4.371138828673793e-08
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Bracket00": {
+      "translation": [
+        -1.119999885559082,
+        6,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Bracket01": {
+      "translation": [
+        -1.119999885559082,
+        20,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Engine": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04EngineChamber": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04EngineFlame": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Nose": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04RedBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Seam00": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Seam01": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Seam02": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Seam03": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Booster04": {
+      "translation": [
+        0,
+        0.10000000149011612,
+        2.8299999237060547
+      ],
+      "rotation": [
+        0,
+        -0.7071068286895752,
+        0,
+        0.7071067094802856
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Label_Boosters": {
+      "translation": [
+        0,
+        10,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Boosters": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "FairingLeft": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "FairingRight": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Label_Fairing": {
+      "translation": [
+        0,
+        5,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Fairing": {
+      "translation": [
+        0,
+        40.099998474121094,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Label_Payload": {
+      "translation": [
+        0,
+        5,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "PayloadCargo": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "PayloadDock": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "PayloadFoldedPanelL": {
+      "translation": [
+        -1.350000023841858,
+        3.5,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "PayloadFoldedPanelR": {
+      "translation": [
+        1.350000023841858,
+        3.5,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "PayloadService": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Payload": {
+      "translation": [
+        0,
+        40.150001525878906,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Interstage": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Label_Stage1": {
+      "translation": [
+        0,
+        10,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Engine01": {
+      "translation": [
+        -0.7799999713897705,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Engine01Chamber": {
+      "translation": [
+        -0.7799999713897705,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Engine01Flame": {
+      "translation": [
+        -0.7799999713897705,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Engine02": {
+      "translation": [
+        0.7799999713897705,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Engine02Chamber": {
+      "translation": [
+        0.7799999713897705,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Engine02Flame": {
+      "translation": [
+        0.7799999713897705,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1FuelTank": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1LOXTank": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1RedBand": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Seam00": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Seam01": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Seam02": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Seam03": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Seam04": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage1": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Label_Stage2": {
+      "translation": [
+        0,
+        5,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "PayloadMount": {
+      "translation": [
+        0,
+        13.150001525878906,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine01": {
+      "translation": [
+        -0.6499999761581421,
+        0,
+        0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine01Chamber": {
+      "translation": [
+        -0.6499999761581421,
+        0,
+        0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine01Flame": {
+      "translation": [
+        -0.6499999761581421,
+        0.14999961853027344,
+        0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine02": {
+      "translation": [
+        0.6499999761581421,
+        0,
+        0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine02Chamber": {
+      "translation": [
+        0.6499999761581421,
+        0,
+        0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine02Flame": {
+      "translation": [
+        0.6499999761581421,
+        0.14999961853027344,
+        0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine03": {
+      "translation": [
+        0.6499999761581421,
+        0,
+        -0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine03Chamber": {
+      "translation": [
+        0.6499999761581421,
+        0,
+        -0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine03Flame": {
+      "translation": [
+        0.6499999761581421,
+        0.14999961853027344,
+        -0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine04": {
+      "translation": [
+        -0.6499999761581421,
+        0,
+        -0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine04Chamber": {
+      "translation": [
+        -0.6499999761581421,
+        0,
+        -0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Engine04Flame": {
+      "translation": [
+        -0.6499999761581421,
+        0.14999961853027344,
+        -0.6499999761581421
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2FuelTank": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2LOXTank": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Seam00": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Seam01": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Seam02": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Seam03": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2Shell": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "Stage2": {
+      "translation": [
+        0,
+        27,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "RocketRoot": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "statistics": {
+    "uniqueTriangles": 22216,
+    "instancedTriangles": 33040,
+    "meshObjects": 80,
+    "uniqueMeshes": 47,
+    "materials": 7,
+    "textures": 0,
+    "textureBytes": 0,
+    "glbBytes": 567780,
+    "nodes": 113,
+    "animations": 7
+  }
+}

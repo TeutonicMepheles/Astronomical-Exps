@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "85b6080a-0de8-4842-992a-45896ffe7f70",
+  "reactFlowNode": {
+    "id": "85b6080a-0de8-4842-992a-45896ffe7f70",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "现代支架夹具-统一材质-v1",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Edit the supplied modern gray white and navy hand pump into ONE matching modern laboratory retort stand with string clamp, isolated on genuine transparent background. Use ONLY the pump as the material and style reference: matte light cool gray metal shaft, dark slate navy weighted base and clamp housing, one small muted teal adjustment collar and dark gray screw knobs. Absolutely no brass, gold, bronze, wood, rust or vintage details. Same simplified science illustration: geometric shapes, broad flat color blocks, two or three restrained shading planes, subtle fine paper grain, upper-left light, not a photo, not realistic shiny 3D. Upright support pole with sturdy flat navy rectangular weighted foot base, height about 4 times base width. Near the pole top a short horizontal string clamp points to the RIGHT ending in a small visible circular eyelet. The eyelet height is about 16 percent of entire object height. Keep the whole stand in frame with transparent padding. No balloon, no pump, no hose, no string, no table, no environment, no cast shadow, no text or logos. A single clean current-day classroom apparatus, functional minimal details.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "3:4",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017064830_6057c11addc240c2a66d4f95521e0a33.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "0acde069-6cb2-4e01-9a66-e68dec83b38f",
+      "source": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+      "target": "85b6080a-0de8-4842-992a-45896ffe7f70"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "85b6080a-0de8-4842-992a-45896ffe7f70"
+  ]
+}
+{
+  "nodeKey": "85b6080a-0de8-4842-992a-45896ffe7f70",
+  "nodeType": "image",
+  "taskId": "20261112220603445517723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "现代支架夹具-统一材质-v1",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017079666_573c6689594d48e4b57edcf9b3591369.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Edit the supplied modern gray white and navy hand pump into ONE matching modern laboratory retort stand with string clamp, isolated on genuine transparent background. Use ONLY the pump as the material and style reference: matte light cool gray metal shaft, dark slate navy weighted base and clamp housing, one small muted teal adjustment collar and dark gray screw knobs. Absolutely no brass, gold, bronze, wood, rust or vintage details. Same simplified science illustration: geometric shapes, broad flat color blocks, two or three restrained shading planes, subtle fine paper grain, upper-left light, not a photo, not realistic shiny 3D. Upright support pole with sturdy flat navy rectangular weighted foot base, height about 4 times base width. Near the pole top a short horizontal string clamp points to the RIGHT ending in a small visible circular eyelet. The eyelet height is about 16 percent of entire object height. Keep the whole stand in frame with transparent padding. No balloon, no pump, no hose, no string, no table, no environment, no cast shadow, no text or logos. A single clean current-day classroom apparatus, functional minimal details.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "3:4",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017064830_6057c11addc240c2a66d4f95521e0a33.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "8fbcc38a-87ac-451d-b8d9-ba81a6d23e4a"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112220603445517723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    }
+  }
+}

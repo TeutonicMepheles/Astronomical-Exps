@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+  "reactFlowNode": {
+    "id": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "现代气球-饱满-规范插画-v1",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Use reference ONLY for the simplified educational illustration style: clear geometric shapes, large flat color blocks, restrained two-tone shading and subtle very fine grain. Create a single contemporary latex balloon, muted coral red, on REAL transparent background. Upright vertical orientation with a short OPEN rubber mouth pointing DOWN, NOT tied, NO knot, NO string, NO hanging ribbon. Fully inflated smooth oval pear-shaped body. Clean simple silhouette, one broad lighter coral plane on upper left and one darker plane on lower right, soft matte finish. Not realistic, not wet/glossy, no white shiny streak, no watercolor stains, no marbling, no crumpled foil, no mottled or damaged skin. No support, no apparatus, no background, no ground shadow. Whole balloon centered, occupies 80 percent image height, breathing room around edges. No text or UI.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "3:4",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "6c627e41-b604-4d40-bdd3-31ea26ad3650"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "6c627e41-b604-4d40-bdd3-31ea26ad3650",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/67e5f47e6c51fdeea0b78b18135a63bc84bed4d1.jpg"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "6c627e41-b604-4d40-bdd3-31ea26ad3650"
+        ]
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "7eb6da41-88e6-407e-be84-1a38f25a7577",
+      "source": "6c627e41-b604-4d40-bdd3-31ea26ad3650",
+      "target": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688"
+  ]
+}
+{
+  "nodeKey": "f9aabb8a-a15f-49b0-aec9-c2ea6ea4d688",
+  "nodeType": "image",
+  "taskId": "20261112215603508567723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "现代气球-饱满-规范插画-v1",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017065035_3b60fdc86531434db203ac6b73e3aac6.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Use reference ONLY for the simplified educational illustration style: clear geometric shapes, large flat color blocks, restrained two-tone shading and subtle very fine grain. Create a single contemporary latex balloon, muted coral red, on REAL transparent background. Upright vertical orientation with a short OPEN rubber mouth pointing DOWN, NOT tied, NO knot, NO string, NO hanging ribbon. Fully inflated smooth oval pear-shaped body. Clean simple silhouette, one broad lighter coral plane on upper left and one darker plane on lower right, soft matte finish. Not realistic, not wet/glossy, no white shiny streak, no watercolor stains, no marbling, no crumpled foil, no mottled or damaged skin. No support, no apparatus, no background, no ground shadow. Whole balloon centered, occupies 80 percent image height, breathing room around edges. No text or UI.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "3:4",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "6c627e41-b604-4d40-bdd3-31ea26ad3650"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "6c627e41-b604-4d40-bdd3-31ea26ad3650",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/67e5f47e6c51fdeea0b78b18135a63bc84bed4d1.jpg"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "6c627e41-b604-4d40-bdd3-31ea26ad3650"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261112215603508567723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 1776,
+          "height": 2368
+        }
+      ]
+    }
+  }
+}
