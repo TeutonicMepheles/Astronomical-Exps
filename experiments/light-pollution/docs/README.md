@@ -41,8 +41,8 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 
 | 文件 | 尺寸/坐标 | 字节 | 使用边界 |
 | --- | --- | ---: | --- |
-| [billboard-panel.png](billboard-panel.png) | 1600 × 900 | 1,140,070 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [chrome-billboard-panel.png](chrome-billboard-panel.png) | 2400 × 1350 | 1,901,206 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| billboard-panel.png（本地评审素材，不随工程发布） | 1600 × 900 | 1,140,070 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
+| chrome-billboard-panel.png（本地评审素材，不随工程发布） | 2400 × 1350 | 1,901,206 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
 
 ## 公开接口与数据
 

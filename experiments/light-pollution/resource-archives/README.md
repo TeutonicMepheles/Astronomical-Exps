@@ -31,3 +31,6 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 ## 验证与已知限制
 
 目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
+
+
+2026-11-13：按维护者本轮资源清理要求，未被工程运行引用的图片/视频从发布分支剔除；原始文件保留在原本地工作树与 Git 历史。来源和文字记录继续保留。

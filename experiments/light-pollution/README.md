@@ -6,6 +6,9 @@
 
 ## 当前功能与状态
 
+2026-11-13 默认入口已改为 [最新城市夜景](city-night/README.md)。旧 app 编辑器保留为独立历史入口，不覆盖最新实现。
+
+
 根目录 `index.html` 作为实验默认入口，自动进入重构后的 `app/index.html`。原街景页保留为 [legacy-preview.html](legacy-preview.html)，供回溯和对照；不再作为默认入口。
 
 ## 职责边界

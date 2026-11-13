@@ -15,5 +15,5 @@
 
 1. 先读本目录 [REQUIREMENTS.md](REQUIREMENTS.md)，其中列出正式功能、参数、待确认问题、核对项和初步资料位置。
 2. 再核对[总功能规范](../../Function-Spec/FUNCTION_SPEC.md)第 6 节（EXP-05）及[待确认决策](../../Function-Spec/OPEN_DECISIONS.md)。需求副本发生冲突时报告，不自行扩充科学参数。
-3. 初步功能资料：根 `index.html` 默认跳转至 `app/index.html`；旧街景见 `legacy-preview.html`，实现与灯具回溯见 `README.md` 和 `lamps.js`。具体链接与限制见 REQUIREMENTS.md。
+3. 初步功能资料：根 `index.html` 默认跳转至 `city-night/index.html`；旧模块编辑器为 `app/index.html`；旧街景见 `legacy-preview.html`，实现与灯具回溯见 `README.md` 和 `lamps.js`。具体链接与限制见 REQUIREMENTS.md。
 4. SpaceHTML 原始文件不随本仓库发布，见 REQUIREMENTS.md 的“历史资料”。仅供追溯，**不作为交互、视觉方案或代码实现参考**；不主动运行备份。不得用旧页面行为覆盖正式需求。

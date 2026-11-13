@@ -1,6 +1,6 @@
 # EXP-05 光污染与夜天光测量实验 · 功能需求
 
-整理日期：2026-10-16。状态：已有开发中实现，实验根 `index.html` 默认进入候选重构版 `app/index.html`；旧街景保留为 `legacy-preview.html`。光效与科学参数尚未标定，整页验收未完成。
+整理日期：2026-10-16。状态：已有开发中实现，实验根 `index.html` 默认进入2026-11-13最新夜景 `city-night/index.html`；旧模块编辑器保留 `app/index.html`；旧街景保留为 `legacy-preview.html`。光效与科学参数尚未标定，整页验收未完成。
 
 ## 阅读说明
 

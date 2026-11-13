@@ -1,7 +1,11 @@
 {
-  "excludedDirectoryNames": ["node_modules", ".git", "__pycache__"],
+  "excludedDirectoryNames": [
+    "node_modules",
+    ".git",
+    "__pycache__"
+  ],
   "immutableSubtrees": {
-    "resource-archives/20261027-01/snapshot": "原始归档快照：保持原始字节及目录，不注入 README。直接管理目录提供来源、入口和限制说明。"
+    "resource-archives/20261027-01/snapshot": "历史来源元数据：2026-11-13 维护者明确要求剔除未引用图片/视频，原始二进制留在原工作树与 Git 历史；其余文本保持原样。"
   },
   "generatedDirectories": {
     "lib-static-demo": "兼容离线产物、历史测试命令和稳定素材地址；README 由构建模板生成。",

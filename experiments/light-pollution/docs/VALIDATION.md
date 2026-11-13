@@ -25,7 +25,7 @@
 - 候选专项 26/26 通过（最近一轮整套串行运行），结果保存在 [browser-results.json](browser-results.json)：独立面板、candidate/legacy、楼体/灯具、角点/图层、渐变、反射、水体、天空、视频切换、遮罩、缩放、导航与草稿。错误导入不改变当前场景，旧版字段有迁移覆盖。
 - 源码 HTTP candidate/legacy 启动、无完整编辑器 DOM、无运行时外部请求通过；file 入口由既有专项覆盖。
 - `node experiments/light-pollution/tools/mask-editor/verify.cjs`：绘制、历史、资源保留、非法导入、PNG 往返、实时 GPU 刷新、Shader 一致性、平移、布局、源图替换、离线加载通过。
-- `node experiments/light-pollution/tools/audit/check-readmes.cjs`：106 目录通过。广告独立面板截图已检查，未见完整编辑器面板串入或控件截断，见 [billboard-panel.png](billboard-panel.png)。接口内容由本轮逐模块核对，结构检查本身不能证明文档语义正确。
+- `node experiments/light-pollution/tools/audit/check-readmes.cjs`：106 目录通过。广告独立面板截图已检查，未见完整编辑器面板串入或控件截断，见 billboard-panel.png（本地评审素材，不随工程发布）。接口内容由本轮逐模块核对，结构检查本身不能证明文档语义正确。
 
 测试中旧广告用例原先寻找完整编辑器输入，现改为对应独立面板输入；像素用例仍显式进入完整编辑器保持原缩放场景。保留原有数值和像素断言，没有降低标准。
 

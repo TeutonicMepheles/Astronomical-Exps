@@ -48,7 +48,7 @@ node experiments/light-pollution/tools/audit/check-readmes.cjs
 范围是 review-light-pollution 当前工作目录，不含其他目录或服务内的 sky-preview 实现。归档不代表正式验收。
 
 - [35 张候选浏览页](snapshot/experiments/light-pollution/assets/libtv-composite-options-20261027/index.html)
-- [Lib Image 静态试拼](snapshot/experiments/light-pollution/lib-static-demo/standalone.html)
+- Lib Image 静态试拼（历史离线包留在本地，不随工程发布）
 - [完整清单与校验值](manifest.json)
 
 生成脚本仅供追溯，查看资源不需要重新执行生图命令。
