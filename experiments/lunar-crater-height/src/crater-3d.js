@@ -11,6 +11,9 @@
     renderer.localClippingEnabled = true;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    // Reference terrain is static: recompute shadows only when lighting/cut changes.
+    renderer.shadowMap.autoUpdate = false;
+    renderer.shadowMap.needsUpdate = true;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.08;
@@ -20,7 +23,8 @@
   topScene.background = new THREE.Color(0xdcd6ca);
   for (const scene of [topScene, sideScene]) {
     scene.add(new THREE.HemisphereLight(0xf9f1e7, 0x77716f, 0.72));
-    const sun = new THREE.DirectionalLight(0xfff4e4, 1.6);
+    // 固定为原光强调节的最大值（200%）；仅为视觉演示强度。
+    const sun = new THREE.DirectionalLight(0xfff4e4, 3.2);
     sun.position.set(180*Math.cos(35*Math.PI/180),180*Math.sin(35*Math.PI/180),0);
     sun.castShadow = true;
     sun.shadow.mapSize.set(2048, 2048);
@@ -36,10 +40,11 @@
   topCamera.lookAt(0, 0, 0);
   const sideCamera = new THREE.OrthographicCamera(-165, 165, 110, -110, 1, 600);
   const view = { measuring: false, cut: 0, angle: 35, points: [], length: null, height: null };
+  const clampSolarAngle = angle => Math.max(30,Math.min(75,Math.round(angle)));
   sideCamera.position.set(0, -7, 255);
   sideCamera.lookAt(0, -7, 0);
 
-  // 与标准受光测试页共用的演示高度场；测量长度仍以模型单位表示。
+  // 用户指定参考模型的上表面；沿用原材质与模型单位，不采用 GLB 材质。
   const fract = x => x - Math.floor(x);
   const smooth = (a, b, value) => {
     const t = Math.max(0, Math.min(1, (value-a)/(b-a)));
@@ -56,18 +61,10 @@
     const a = Math.atan2(z, x);
     return 88 + 10*Math.sin(3*a+1.2)+6*Math.sin(5*a+0.4)+4*Math.cos(2*a-0.8);
   }
-  function heightAt(x, z) {
-    const r = Math.hypot(x, z), a = Math.atan2(z, x), radius = rimRadius(x,z);
-    const rim = 28 * Math.exp(-Math.pow((r-radius)/14, 2));
-    const bowl = -27 * Math.exp(-Math.pow(r/(radius*0.70), 4));
-    const peak = 13 * Math.exp(-Math.pow(r/18, 2));
-    const reliefFade = 1 - 0.8*smooth(radius+12,radius+65,r);
-    const ripples = ((noise(x*0.18,z*0.18)-0.5)*3.5 + (noise(x*0.65+20,z*0.65)-0.5)*0.8)*reliefFade;
-    const wall = 3*Math.sin(a*9+0.3)*Math.exp(-Math.pow((r-radius*0.73)/18, 2));
-    return rim + bowl + peak + wall + ripples;
-  }
-  const SIZE = 320, SEG = 200;
-  const geometry = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG);
+  const terrain=window.LunarReferenceTerrain;
+  const heightAt=terrain.heightAt;
+  const SIZE=terrain.size, SEG=200;
+  const geometry=new THREE.PlaneGeometry(SIZE,SIZE,terrain.segments,terrain.segments);
   const positions = geometry.attributes.position, colors = [];
   const fieldColor = new THREE.Color(0xd9d2c7), floorColor = new THREE.Color(0xd8cbbd);
   const outerColor = new THREE.Color(0xc7b7a5);
@@ -182,6 +179,7 @@
   // 与剖切面深色阴影带共用同一份判定，避免视觉显示与可选区域不一致。
   const sectionShadow=new Uint8Array(SEG);
   function rebuildSection() {
+    sideRenderer.shadowMap.needsUpdate=true;
     cutPlane.constant = view.cut;
     const verts = [], outline = [], colors=[],capUV=[];
     const profile=Array.from({length:SEG+1},(_,i)=>heightAt(-160+i*SIZE/SEG,view.cut));
@@ -283,7 +281,7 @@
       const shaded=i<SEG&&(cut===view.cut?sectionShadow[i]===1:isInSectionShadow(x+SIZE/SEG/2,cut));
       if(shaded&&start===null)start=x;
       if(!shaded&&start!==null){
-        if(start>-SIZE/2&&i<SEG)ranges.push([start,x]);
+        if(start>-SIZE/2&&i<SEG&&terrain.contains(start,cut)&&terrain.contains(x,cut))ranges.push([start,x]);
         start=null;
       }
     }
@@ -324,17 +322,12 @@
     $('status').textContent=view.measuring?'剖切面已更新，请重新选取两点。':'剖切面已更新，可开始测量。';
   }
   $('cut').addEventListener('input',e=>setCut(Number(e.target.value)));
-  $('intensity').addEventListener('input',e=>{
-    const percent=Number(e.target.value);
-    $('intensityValue').textContent=percent+'%';
-    // 相对视觉强度，100% 保持原有 1.6；不表示真实辐照度，也不改变几何测量。
-    for(const scene of [topScene,sideScene])scene.userData.sun.intensity=1.6*percent/100;
-    requestRender();
-  });
   $('angle').addEventListener('input',e=>{
-    view.angle=Number(e.target.value);$('angleValue').textContent=view.angle+'°';
+    view.angle=clampSolarAngle(Number(e.target.value));
+    e.target.value=view.angle;$('angleValue').textContent=view.angle+'°';
     // 光源始终位于剖面的 X/Y 平面内：俯视从正右方入射，高度角仅改变仰角。
     for(const scene of [topScene,sideScene]) scene.userData.sun.position.set(180*Math.cos(view.angle*Math.PI/180),180*Math.sin(view.angle*Math.PI/180),0);
+    topRenderer.shadowMap.needsUpdate=sideRenderer.shadowMap.needsUpdate=true;
     clearReadout();
     view.points=[];
     $('status').textContent='太阳角度已改变，请重新选择阴影两端。';
@@ -529,7 +522,7 @@
     if(!rayDrag)return;
     const delta=pointerAngle(event)-rayDrag.pointerAngle;
     const wrappedDelta=((delta+540)%360)-180;
-    $('angle').value=Math.max(10,Math.min(85,Math.round(rayDrag.angle+wrappedDelta)));
+    $('angle').value=clampSolarAngle(rayDrag.angle+wrappedDelta);
     $('angle').dispatchEvent(new Event('input'));
   });
   for(const event of ['pointerup','pointercancel','lostpointercapture'])overlay.addEventListener(event,()=>{rayDrag=null;});
@@ -656,8 +649,8 @@
     fit(topRenderer,topCanvas,topCamera,160);
     fit(sideRenderer,sideCanvas,sideCamera,165);
     const focused=view.points.length===2&&measurementAnimation.phase!=='idle';
-    // 左侧始终保留稍远的完整月面；测量聚焦只作用于右侧剖面。
-    topCamera.zoom=.82;
+    // 拉远左侧取景，为圆形观察窗中的坑缘及左侧投影留白；测量聚焦只作用于右侧剖面。
+    topCamera.zoom=.66;
     topCamera.position.set(0,260,0);
     topCamera.lookAt(0,0,0);
     topCamera.updateProjectionMatrix();topCamera.updateMatrixWorld();

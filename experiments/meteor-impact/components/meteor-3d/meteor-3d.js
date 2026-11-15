@@ -9,17 +9,25 @@
   };
   const fract = value => value - Math.floor(value);
   const hash = (x, y) => fract(Math.sin(x * 127.1 + y * 311.7) * 43758.5453);
-  const sizeScale = { small: 2.05, medium: 2.85, large: 3.85 };
+  // Visual sizing: the previous small meteor is now the largest tier.
+  const meteorScaleFactor = 2.05 / 3.85;
+  const sizeScale = { small: 2.05 * meteorScaleFactor, medium: 2.85 * meteorScaleFactor, large: 2.05 };
   const sizeRadius = { small: 4.8, medium: 6.8, large: 9.2 };
   const sizeDepth = { small: 2.1, medium: 3.0, large: 4.0 };
   const speedFactor = { low: .84, medium: 1, high: 1.2 };
   const speedSpread = { low: .72, medium: 1, high: 1.3 };
 
   class MeteorScene3D {
-    constructor(canvas) {
+    constructor(canvas, appearance = {}) {
       if (!window.THREE) throw new Error('Three.js 未加载');
       this.canvas = canvas;
       this.THREE = window.THREE;
+      const initial = appearance.initialRotation || [.2, .4, -.3];
+      this.initialMeteorRotation = new this.THREE.Quaternion().setFromEuler(new this.THREE.Euler(...initial));
+      this.meteorSpinAxis = new this.THREE.Vector3(...(appearance.angularVelocity || [1.8, 2.4, .9]));
+      this.meteorSpinSpeed = this.meteorSpinAxis.length();
+      this.meteorSpinAxis.normalize();
+      this.meteorSpinDelta = new this.THREE.Quaternion();
       this.scene = new this.THREE.Scene();
       this.camera = new this.THREE.PerspectiveCamera(44, 1, .1, 500);
       this.camera.position.set(0, 31, 46);
@@ -143,12 +151,13 @@
       trailCanvas.width = 64;
       trailCanvas.height = 192;
       const trail = trailCanvas.getContext('2d');
-      const trailGradient = trail.createLinearGradient(0, 192, 0, 0);
-      trailGradient.addColorStop(0, 'rgba(248,224,191,.72)');
-      trailGradient.addColorStop(.55, 'rgba(222,190,158,.32)');
+      trail.scale(1, 3);
+      const trailGradient = trail.createRadialGradient(32, 32, 1, 32, 32, 32);
+      trailGradient.addColorStop(0, 'rgba(255,239,207,.9)');
+      trailGradient.addColorStop(.4, 'rgba(242,197,144,.48)');
       trailGradient.addColorStop(1, 'rgba(160,177,194,0)');
       trail.fillStyle = trailGradient;
-      trail.fillRect(0, 0, 64, 192);
+      trail.fillRect(0, 0, 64, 64);
       this.trailTexture = new T.CanvasTexture(trailCanvas);
     }
 
@@ -232,20 +241,23 @@
     _visualParams(params) {
       // Presentation dimensions only; no physical units or calibrated prediction.
       const atmosphere = params.scene === 'earth' ? .78 : 1;
-      const radius = sizeRadius[params.size] * speedFactor[params.speed] * atmosphere;
-      const depth = sizeDepth[params.size] * (params.speed === 'high' ? 1.42 : params.speed === 'low' ? .65 : 1) * atmosphere;
+      const loose = params.ground === 'loose';
+      // Qualitative ground comparison, not calibrated soil or impact physics.
+      const radius = sizeRadius[params.size] * speedFactor[params.speed] * atmosphere * (loose ? .65 : 1);
+      const depth = sizeDepth[params.size] * (params.speed === 'high' ? 1.42 : params.speed === 'low' ? .65 : 1) * atmosphere * (loose ? 1.5 : .85);
       const strain = Number(params.angle);
       return {
         radius,
         depth,
         round: strain === 90 ? 1 : strain === 45 ? 1.08 : 1.65,
-        spread: speedSpread[params.speed] * (params.size === 'large' ? 1.18 : params.size === 'small' ? .82 : 1),
+        ejectaAmount: loose ? .25 : 1.4,
+        spread: (loose ? .55 : 1.3) * speedSpread[params.speed] * (params.size === 'large' ? 1.18 : params.size === 'small' ? .82 : 1),
         seed: 29
       };
     }
 
     _terrainKey(impacted, params = { ...this.params, scene: this.sceneMode }) {
-      return JSON.stringify(impacted ? [params.scene, params.size, params.speed, params.angle] : [params.scene, 'flat']);
+      return JSON.stringify(impacted ? [params.scene, params.size, params.speed, params.angle, params.ground || 'compact'] : [params.scene, 'flat']);
     }
 
     *_terrainSteps(impacted, params = { ...this.params, scene: this.sceneMode }) {
@@ -285,7 +297,7 @@
           const distance = Math.hypot(x / visual.round, y) / visual.radius;
           const bearing = Math.atan2(y, x);
           const ray = Math.pow(Math.max(0, Math.cos(bearing * 19 + .8)), 12);
-          height += .12 * ray * smooth(1.1, 1.3, distance) * (1 - smooth(1.3, 1.3 + visual.spread, distance));
+          height += .12 * visual.ejectaAmount * ray * smooth(1.1, 1.3, distance) * (1 - smooth(1.3, 1.3 + visual.spread, distance));
           for (const background of backgroundCraters) {
             height += this._crater(x - background.x, y - background.y, background.radius, background.radius * .23, visual.seed, false, .45);
           }
@@ -305,7 +317,7 @@
           const radial = Math.hypot(x / visual.round, y) / visual.radius;
           const rays = Math.pow(Math.max(0, Math.cos(angle * 19 + .8)), 12);
           const ejecta = rays * smooth(1.1, 1.3, radial) * (1 - smooth(1.3, 1.3 + visual.spread, radial));
-          color.lerp(rimColor, ejecta * .65);
+          color.lerp(rimColor, Math.min(1, ejecta * .65 * visual.ejectaAmount));
         }
         colors.setXYZ(i, color.r, color.g, color.b);
         if (i % 128 === 127) yield;
@@ -358,57 +370,71 @@
       this.impactGroup = new T.Group();
       this.impactGroup.visible = false;
       this.scene.add(this.impactGroup);
-      this.meteorGeometry = new T.IcosahedronGeometry(1, 3);
-      const positions = this.meteorGeometry.attributes.position;
-      const colors = [];
-      const dark = new T.Color(0x252d49);
-      const light = new T.Color(0xa3adc1);
-      for (let i = 0; i < positions.count; i++) {
-        const x = positions.getX(i);
-        const y = positions.getY(i);
-        const z = positions.getZ(i);
-        const ridge = Math.sin(x * 13 + y * 7) * Math.cos(z * 11 - y * 5);
-        const grain = Math.sin(x * 37 + z * 23) * Math.sin(y * 29 - z * 17);
-        const radius = 1 + ridge * .115 + grain * .045;
-        positions.setXYZ(i, x * radius, y * radius, z * radius);
-        const tint = clamp(.52 + ridge * .3 + grain * .19, 0, 1);
-        const color = dark.clone().lerp(light, tint);
-        colors.push(color.r, color.g, color.b);
-      }
-      this.meteorGeometry.setAttribute('color', new T.Float32BufferAttribute(colors, 3));
-      this.meteorGeometry.computeVertexNormals();
-      const textureCanvas = document.createElement('canvas');
-      textureCanvas.width = textureCanvas.height = 256;
-      const textureContext = textureCanvas.getContext('2d');
-      textureContext.fillStyle = '#ced3df';
-      textureContext.fillRect(0, 0, 256, 256);
-      let seed = 0x5141a7;
-      const random = () => ((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296);
-      for (let i = 0; i < 7000; i++) {
-        const shade = Math.floor(55 + random() * 150);
-        textureContext.fillStyle = `rgba(${Math.floor(shade * .86)},${Math.floor(shade * .92)},${shade},${.08 + random() * .32})`;
-        textureContext.fillRect(random() * 256, random() * 256, 1 + random() * 3, 1 + random() * 3);
-      }
-      const texture = new T.CanvasTexture(textureCanvas);
-      texture.wrapS = texture.wrapT = T.RepeatWrapping;
-      texture.colorSpace = T.SRGBColorSpace;
-      this.meteorMaterial = new T.MeshStandardMaterial({
-        map: texture,
-        bumpMap: texture,
-        bumpScale: .14,
-        vertexColors: true,
-        roughness: .94,
-        metalness: .06,
-        flatShading: true
-      });
+      this.meteorGeometry = new T.BufferGeometry();
+      this.meteorMaterial = new T.MeshStandardMaterial();
       this.meteor = new T.Mesh(this.meteorGeometry, this.meteorMaterial);
       this.meteor.castShadow = true;
       this.impactGroup.add(this.meteor);
     }
 
+    async _loadMeteor() {
+      if (this.meteorLoaded) return;
+      const T = this.THREE;
+      // Asset-specific GLB reader: this bundled file is one uncompressed triangle mesh.
+      // Preserve original normals, UVs and embedded base-color image.
+      const response = await fetch(new URL('assets/porous-meteor.glb', document.baseURI));
+      if (!response.ok) throw new Error('Meteor GLB load failed');
+      const buffer = await response.arrayBuffer();
+      const header = new DataView(buffer);
+      if (header.getUint32(0, true) !== 0x46546c67 || header.getUint32(4, true) !== 2) throw new Error('Unsupported meteor GLB');
+      let asset, binary;
+      for (let offset = 12; offset < buffer.byteLength;) {
+        const length = header.getUint32(offset, true), type = header.getUint32(offset + 4, true);
+        if (type === 0x4e4f534a) asset = JSON.parse(new TextDecoder().decode(new Uint8Array(buffer, offset + 8, length)));
+        if (type === 0x004e4942) binary = buffer.slice(offset + 8, offset + 8 + length);
+        offset += 8 + length;
+      }
+      const primitive = asset.meshes[0].primitives[0];
+      if (primitive.mode !== 4 || asset.extensionsRequired?.length || asset.nodes.some(n => n.matrix || n.translation || n.rotation || n.scale)) throw new Error('Meteor asset format changed');
+      const attribute = index => {
+        const accessor = asset.accessors[index], view = asset.bufferViews[accessor.bufferView];
+        const ArrayType = {5126: Float32Array, 5125: Uint32Array}[accessor.componentType];
+        const count = {SCALAR: 1, VEC2: 2, VEC3: 3}[accessor.type];
+        if (!ArrayType || !count || view.byteStride || accessor.sparse) throw new Error('Unsupported meteor attribute');
+        return new T.BufferAttribute(new ArrayType(binary, (view.byteOffset || 0) + (accessor.byteOffset || 0), accessor.count * count).slice(), count);
+      };
+      const geometry = new T.BufferGeometry();
+      geometry.setAttribute('position', attribute(primitive.attributes.POSITION));
+      geometry.setAttribute('normal', attribute(primitive.attributes.NORMAL));
+      geometry.setAttribute('uv', attribute(primitive.attributes.TEXCOORD_0));
+      geometry.setIndex(attribute(primitive.indices));
+      geometry.center(); geometry.computeBoundingSphere();
+      const normalization = 1 / geometry.boundingSphere.radius;
+      geometry.scale(normalization, normalization, normalization);
+      const pbr = asset.materials[primitive.material].pbrMetallicRoughness;
+      const image = asset.images[asset.textures[pbr.baseColorTexture.index].source];
+      const view = asset.bufferViews[image.bufferView];
+      const url = URL.createObjectURL(new Blob([binary.slice(view.byteOffset || 0, (view.byteOffset || 0) + view.byteLength)], {type: image.mimeType}));
+      let texture;
+      try { texture = await new T.TextureLoader().loadAsync(url); }
+      catch (error) { geometry.dispose(); throw error; }
+      finally { URL.revokeObjectURL(url); }
+      texture.flipY = false;
+      texture.colorSpace = T.SRGBColorSpace;
+      if (this.disposed) { geometry.dispose(); texture.dispose(); return; }
+      const material = new T.MeshStandardMaterial({map: texture, metalness: pbr.metallicFactor ?? 1, roughness: pbr.roughnessFactor ?? 1});
+      this.meteorGeometry.dispose(); this.meteorMaterial.dispose();
+      this.meteor.geometry = this.meteorGeometry = geometry;
+      this.meteor.material = this.meteorMaterial = material;
+      this.meteorLoaded = true;
+      this._render();
+    }
+
     _buildImpactEffects() {
       const T = this.THREE;
       this.trails = [];
+      this.projectedHead = new T.Vector3();
+      this.projectedTail = new T.Vector3();
       for (let i = 0; i < 18; i++) {
         const sprite = new T.Sprite(new T.SpriteMaterial({
           map: this.trailTexture,
@@ -577,6 +603,11 @@
       if (changed || this.terrainImpacted) this._rebuildTerrain(false, false);
     }
 
+    _setMeteorRotation(elapsed) {
+      this.meteorSpinDelta.setFromAxisAngle(this.meteorSpinAxis, this.meteorSpinSpeed * elapsed);
+      this.meteor.quaternion.copy(this.initialMeteorRotation).premultiply(this.meteorSpinDelta);
+    }
+
     preview(params) {
       this.cancel(false, false);
       this.params = { ...this.params, ...params };
@@ -588,7 +619,7 @@
       this.impactGroup.visible = true;
       this.meteor.position.copy(start);
       this.meteor.scale.setScalar(sizeScale[params.size]);
-      this.meteor.rotation.set(.2, .4, -.3);
+      this._setMeteorRotation(0);
       this.entryGlow.visible = false;
       this.flash.material.opacity = 0;
       this.shock.material.opacity = 0;
@@ -623,6 +654,7 @@
       this.meteor.position.copy(start);
       this.meteor.scale.setScalar(sizeScale[params.size]);
       this._resetEffects();
+      this._setMeteorRotation(0);
       const prepared = this._prepareImpact(this.preparationToken);
       const activeToken = this.preparationToken;
       const reduced = Boolean(options.reduced);
@@ -675,21 +707,34 @@
         const progress = elapsed / fallEnd;
         this.meteor.visible = true;
         this.meteor.position.copy(this.motion.startPoint).lerp(this.motion.endPoint, progress * progress);
-        this.meteor.rotation.set(elapsed * 1.8, elapsed * 2.4, elapsed * .9);
+        this._setMeteorRotation(elapsed);
         const earth = this.sceneMode === 'earth';
+        const meteorSize = sizeScale[this.params.size];
+        this.projectedHead.copy(this.meteor.position).project(this.camera);
+        this.projectedTail.copy(this.motion.startPoint).project(this.camera);
+        const flowRotation = -Math.atan2(
+          (this.projectedTail.x - this.projectedHead.x) * this.camera.aspect,
+          this.projectedTail.y - this.projectedHead.y
+        );
         this.entryGlow.visible = earth;
-        this.entryGlow.material.opacity = earth ? .5 : 0;
+        this.entryGlow.material.opacity = earth ? .26 : 0;
         this.entryGlow.scale.setScalar(sizeScale[this.params.size] * 2.5);
         this.entryGlow.position.copy(this.meteor.position);
         this.entryLight.intensity = earth ? 3.2 : 0;
         this.entryLight.position.copy(this.meteor.position);
         this.trails.forEach((sprite, index) => {
-          const previous = clamp(progress - index * .022, 0, 1);
-          sprite.visible = earth && previous > 0;
+          // Reuse the fixed pool: hot wake near the rock, cool airflow behind it.
+          const smoke = index >= 12;
+          const offset = smoke ? .12 + (index - 12) * .035 : index * .016;
+          const previous = clamp(progress - offset, 0, 1);
+          sprite.visible = earth && progress > offset;
           sprite.position.copy(this.motion.startPoint).lerp(this.motion.endPoint, previous * previous);
-          sprite.position.x += Math.sin(index * 1.7 + elapsed * 3) * (.06 + index * .02);
-          sprite.material.opacity = earth ? .48 * Math.pow(1 - index / this.trails.length, .8) : 0;
-          sprite.scale.set(.28 + index * .012, 1.7 + index * .035, 1);
+          sprite.position.x += Math.sin(index * 1.7 + elapsed * 3) * (.06 + index * .025) * meteorSize;
+          sprite.position.z += Math.cos(index * 1.3 + elapsed * 2) * index * .012 * meteorSize;
+          sprite.material.rotation = flowRotation + Math.sin(index * 1.8 + elapsed) * .11;
+          sprite.material.color.setHex(smoke ? (index % 3 ? 0xb5c3d0 : 0x839bb7) : [0xf6dfbd, 0xe9c6a7, 0xf0d4b5][index % 3]);
+          sprite.material.opacity = sprite.visible ? (smoke ? .32 : .55) * Math.pow(1 - index / this.trails.length, .75) : 0;
+          sprite.scale.set(meteorSize * (smoke ? 1.7 : 1.15 + index * .025), meteorSize * (smoke ? 2.7 : 2.5 + (index % 4) * .15), 1);
         });
       } else {
         this.meteor.visible = false;
@@ -819,6 +864,8 @@
     }
 
     async warmCapture() {
+      await this._loadMeteor();
+      if (this.disposed) return;
       // Warm both environments while the scene is loading, not on a parameter click.
       const token = this.preparationToken;
       for (const scene of ['moon','earth']) {
@@ -996,10 +1043,12 @@
     }
 
     dispose() {
+      this.disposed = true;
       this.cancel(false, false);
       this.geometry.dispose();
       this.material.dispose();
       this.meteorGeometry.dispose();
+      this.meteorMaterial.map?.dispose();
       this.meteorMaterial.dispose();
       this.terrainCache?.clear();
       this.renderer.dispose();

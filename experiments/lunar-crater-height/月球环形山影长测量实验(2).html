@@ -14,7 +14,7 @@ header{position:absolute;inset:0;z-index:5;pointer-events:none}
 .heading::before{content:"EXP 02";color:#9bb6be;font-size:15px;letter-spacing:3px;padding-right:18px;border-right:1px solid #78909a66}
 h1{font-size:26px;line-height:1.2;font-weight:500;letter-spacing:2px;margin:0;color:#eaf0ff;white-space:nowrap}
 header small{display:none}
-.controls{position:absolute;left:48px;bottom:14px;width:680px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 20px;padding:20px 24px;border:0;background:transparent;text-shadow:0 1px 3px #07131f,0 0 5px #07131f;pointer-events:auto}
+.controls{position:absolute;left:48px;bottom:14px;width:680px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px;padding:20px 24px;border:0;background:transparent;text-shadow:0 1px 3px #07131f,0 0 5px #07131f;pointer-events:auto}
 .control{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 16px;min-height:46px;white-space:nowrap}
 .control input{grid-column:1/-1;grid-row:2;width:100%}
 .control output{grid-column:2;grid-row:1}
@@ -71,11 +71,10 @@ main::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;b
 <body><main>
 <header><div class="heading"><h1>月面环形山 · 影长测量</h1><small>三维地形与几何测量演示 · 数值为模型单位</small></div><div class="controls">
 <label class="control"><span>剖切位置</span><input id="cut" type="range" min="-155" max="155" step="1" value="0"><output id="cutValue" for="cut">0</output></label>
-<label class="control"><span>太阳高度角</span><input id="angle" type="range" min="10" max="85" step="1" value="35"><output id="angleValue" for="angle">35°</output></label>
-<label class="control"><span>太阳光强</span><input id="intensity" type="range" min="0" max="200" step="5" value="100" aria-label="相对太阳光强（演示值）"><output id="intensityValue" for="intensity">100%</output></label>
+<label class="control"><span>太阳高度角</span><input id="angle" type="range" min="30" max="75" step="1" value="35"><output id="angleValue" for="angle">35°</output></label>
 
 </div><ol class="measurement-steps" aria-label="测量进度"><li data-step="start" class="active" aria-current="step"><b>1</b><span class="step-name">选取两点</span></li><li data-step="measure"><b>2</b><span class="step-name">测量影长</span></li><li data-step="height"><b>3</b><span class="step-name">计算高度差</span></li></ol></header>
 <div class="views"><section class="view top"><button id="clear" type="button">↺ 重新选点</button><canvas id="top" aria-describedby="cutHint"></canvas><p id="cutHint">拖动虚线调整剖切位置</p><div class="label">俯视 · 三维月面</div></section><section class="view side"><div class="step-guide" id="pickGuide"><h2 id="pickTitle">第一步 · 选取两点</h2><p id="pickInstruction">先调整剖切位置与太阳高度角，再开始选点。</p><button id="start" class="primary" type="button">开始选点</button><div id="pickStatusHost"><p id="status" role="status" aria-live="polite">在左侧俯视图完成选点，右侧同步显示剖面。</p></div></div><div class="step-guide" id="sectionGuide" hidden><div id="measureGuide" hidden><h2>第二步 · 测量影长</h2><div class="step-action"><p>A、B 已同步到剖面。测量两点间的水平距离，记录影长 L。</p><button id="measure" class="primary" type="button">测量影长</button></div></div><div id="heightGuide" hidden><h2 id="heightTitle">第三步 · 计算高度差</h2><div class="step-action"><p id="heightInstruction">用已测影长与太阳高度角计算 Δh = L × tan(α)。</p><button id="height" class="primary" type="button">计算高度差</button></div></div><div id="rightStatusHost"></div></div><canvas id="section"></canvas><div class="label" id="sectionLabel">剖面 · 两点高度差</div></section></div>
 <section class="lunar-closeup" id="lunarCloseup" aria-label="影长测量局部放大" hidden><header>影长测量 · 局部放大<span id="closeupScale"></span></header><div class="lunar-closeup-viewport"><canvas id="closeupCanvas" aria-hidden="true"></canvas><svg id="closeupOverlay" role="img" aria-label="选取的 A、B 两点及水平影长"></svg></div><footer id="closeupCaption">当前选点的剖面细节</footer></section>
 <div class="result"><div><span id="lengthLabel">影长 L</span>：<strong id="lengthValue">—</strong></div><div>高度差 Δh：<strong id="heightValue">—</strong></div><span id="formula"></span></div>
-</main><script src="./assets/three.reference.local.js"></script><script src="./src/crater-3d.js"></script></body></html>
+</main><script src="./assets/three.reference.local.js"></script><script src="./assets/reference-terrain.js"></script><script src="./src/reference-terrain.js"></script><script src="./src/crater-3d.js"></script></body></html>

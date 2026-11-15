@@ -18,3 +18,23 @@
 @keyframes meteor-callout-draw{to{stroke-dashoffset:0}}
 @keyframes meteor-callout-label{to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.meteor-annotations .rc-trace{animation:none;stroke-dashoffset:0}.meteor-annotations .rc-label{animation:none;opacity:1}}
+
+/* Full-width observation area; settings only occupy space while open. */
+#lab{grid-template-columns:1fr;grid-template-rows:88px minmax(0,1fr) 80px;padding-bottom:12px;gap:0}
+.workspace{grid-template-rows:48px minmax(0,1fr) 25px;gap:8px}
+.experiment-controls{display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
+#conditionSummary{font-size:17px;color:var(--muted);line-height:1.6}
+.experiment-controls .launch-area{margin:0;display:flex;align-items:center;gap:14px}
+.experiment-controls .launch{min-width:230px;min-height:52px;gap:35px}
+.experiment-controls #status{max-width:240px;min-height:0}
+.topbar #openRecords{margin-left:0}.topbar #openSettings{margin-left:auto}
+#settingsDialog{width:760px;max-width:90vw;max-height:90vh;padding:24px;font-size:18px}
+#settingsDialog #settings{padding:20px;gap:16px}
+#settingsDialog #choices{grid-template-columns:1fr 1fr}
+#settingsDialog .shared-row,#settingsDialog .compare-worlds{grid-column:1/-1}
+#settingsDialog .shared-row{grid-template-columns:100px 1fr}
+.settings-note{color:var(--muted);font-size:15px;margin:16px 0 0}
+.side-0 .option-row button:hover{border-color:var(--one);color:var(--one);background:#203e50}
+.side-1 .option-row button:hover{border-color:var(--two);color:var(--two);background:#2b4037}
+
+#conditionSummary{max-width:900px;font-size:15px}#overviewCards:has(> :nth-child(2):last-child){grid-template-columns:repeat(2,1fr)}
