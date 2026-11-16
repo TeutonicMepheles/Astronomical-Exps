@@ -1,14 +1,9 @@
 /* Serial A/B comparison with the copied panorama controller as the pre-change baseline. */
-const {chromium}=require('playwright'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
-const root=path.resolve(__dirname,'../..'),baseline=process.env.LIGHT_STADIUM_BASELINE,url=process.env.LIGHT_STADIUM_URL,output=process.argv[2];
-if(!baseline)throw Error('Set LIGHT_STADIUM_BASELINE to an explicitly restored historical baseline; old worktrees are not required');
-if(!url)throw Error('Set LIGHT_STADIUM_URL to the current worktree panorama URL including profile=1');
-if(!output)throw Error('Pass a new output JSON path to preserve earlier evidence');
-const outputPath=path.resolve(output);if(fs.existsSync(outputPath))throw Error('Output already exists: '+outputPath);
-const baselineSource=fs.readFileSync(baseline,'utf8');
+const {chromium}=require('playwright'),fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'../..'),baseline=process.env.LIGHT_STADIUM_BASELINE||'B:/GithubProject/Astronomical-Exps-lp-panorama/experiments/light-pollution/features/buildings/controller.js';
 (async()=>{const browser=await chromium.launch({channel:'chrome',headless:false}),results=[];try{for(const kind of ['before','after']){
- const page=await browser.newPage({viewport:{width:1600,height:900}});if(kind==='before')await page.route('**/features/buildings/controller.js',route=>route.fulfill({contentType:'application/javascript',body:baselineSource}));
- await page.goto(url);await page.waitForSelector('html[data-ready=true]');await page.bringToFront();await page.waitForTimeout(1500);
+ const page=await browser.newPage({viewport:{width:1600,height:900}});if(kind==='before')await page.route('**/features/buildings/controller.js',route=>route.fulfill({contentType:'application/javascript',body:fs.readFileSync(baseline,'utf8')}));
+ await page.goto('http://127.0.0.1:8397/experiments/light-pollution/app/index.html?scene=panorama-20261111&profile=1');await page.waitForSelector('html[data-ready=true]');await page.bringToFront();await page.waitForTimeout(1500);
  await page.evaluate(()=>{LightPollution.profile.reset();window.measure={gaps:[],long:[],inputs:[],memory:performance.memory?.usedJSHeapSize};let last=performance.now();window.unsub=LightPollution.scheduler.add(t=>{measure.gaps.push(t-last);last=t;});window.longObserver=new PerformanceObserver(l=>measure.long.push(...l.getEntries().map(e=>e.duration)));longObserver.observe({type:'longtask'});});
  for(let cycle=0;cycle<6;cycle++){
   await page.evaluate(()=>LightPollution.panels.open('building','stadium'));if(kind==='after')await page.locator('.stadium-bubble').click();await page.waitForTimeout(600);
@@ -16,4 +11,4 @@ const baselineSource=fs.readFileSync(baseline,'utf8');
   if(kind==='after')await page.locator('.stadium-close').click();else await page.locator('#building-close').click();await page.waitForTimeout(350);
  }
  results.push(await page.evaluate(kind=>{unsub();longObserver.disconnect();const quant=(a,q)=>a.toSorted((a,b)=>a-b)[Math.min(a.length-1,Math.floor(a.length*q))]||0;return{kind,ua:navigator.userAgent,viewport:[innerWidth,innerHeight],dpr:devicePixelRatio,foreground:document.hasFocus(),rAF:{count:measure.gaps.length,p95:quant(measure.gaps,.95),max:Math.max(...measure.gaps)},inputToNextFrame:{p95:quant(measure.inputs,.95),max:Math.max(...measure.inputs)},longTasks:measure.long,heapStart:measure.memory,heapEnd:performance.memory?.usedJSHeapSize,composition:LightPollution.profile.snapshot(),animations:document.getAnimations().length};},kind));await page.close();
- }fs.writeFileSync(outputPath,JSON.stringify({baseline,url,sourceHash:crypto.createHash('sha256').update(baselineSource).digest('hex'),results},null,2));console.log(JSON.stringify(results,null,2));}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+ }fs.writeFileSync(path.join(root,'docs/stadium-ui-performance-20261111.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(results,null,2));}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -122,7 +122,7 @@
         "different-existing": 10,
         "unpublished": 14
       },
-      "decision": "提取可选 Tiled 地图、转换、独立初始化、离线与像素/性能回归；生成的巨型 HTML 和旧证据仅归档。",
+      "decision": "用户明确横版已废弃；Tiled 小样及审查提交完整归档，PR #71关闭未合并，不增加当前开发或交付入口。",
       "archive_manifest": "worktrees/08-Astronomical-Exps-lp-tiled/manifest.json",
       "worktree_unregistered": true,
       "original_directory_removed": true,
@@ -301,5 +301,6 @@
     "tree": "13-Astronomical-Exps-pr49",
     "files_and_directories": 1360,
     "head_and_staged_unstaged_untracked_status": "exact match"
-  }
+  },
+  "current_light_pollution_implementation": "city-night only; panorama-20261111 abandoned by explicit user correction on 2026-11-16"
 }

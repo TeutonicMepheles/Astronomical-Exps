@@ -25,7 +25,7 @@
 ## 保留的独立入口
 
 - 地球周长：`orientation-preview.html` 保留旧线框地球演示；`globe-preview.html` 保留独立 360° 观察球。
-- 光污染：`legacy-preview.html` 保留原街景交互；`app/index.html` 与 `lib-static-demo/index.html` 是重构源码入口；候选离线文件由实验构建生成。
+- 光污染：旧横版 `app/index.html?scene=panorama-20261111`、候选/旧街景和 lib-static-demo 均已废弃，仅留历史追溯，不继续开发或作为现行验收对象。有效实现仅为 city-night。
 - 牛顿望远镜：`*-preview.html` 是专项对照页，不是默认教学入口。
 
 ## 公共渲染组件
@@ -49,7 +49,7 @@
 - `npm run dev` 支持八个实验；`npm run export` 只支持光污染最新 `city-night` 与牛顿望远镜。
 - 贡献者协作登记仍仅光污染、牛顿望远镜，不能将开发服务支持误记为协作/导出工具全部接入。
 - `npm run test:browser` 覆盖八个默认入口、共享地球/光束接入、组件预览、旋转控件取消/销毁及两套离线导出；完整教学与专项几何/性能流程另查各实验脚本。
-- 光污染最新场景专项为 `city-night/verify.cjs`；旧模块专项 `tools/audit/run-tests.cjs` 会先构建候选/全景离线包。它们属于两个明确入口，不能混用结果。
+- 光污染现行专项为 `city-night/verify.cjs`，资产回归见 city-night/tests；旧横版 `tools/audit/run-tests.cjs` 只属废弃版本的历史工具，不纳入当前产品交付验收。
 - 自动检查不代表科学模型、视觉质量、真实白板触控或人工试玩通过。
 
 ## 当前交付与后续维护
