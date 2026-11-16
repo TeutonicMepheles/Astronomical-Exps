@@ -5,8 +5,8 @@ import {createShadowLayout} from './shadow-layout.mjs';
 // replace the astronomical model, change its constants, or move the camera.
 const observerCache=new Map();
 export function referenceScene(M,{phi,preset,vector,E,er,year=0,observerAt}){
- const pos=angle=>{const q=vector(M.displayPoint(M.moonAt(angle),0));return {x:q[0]*.8,y:q[1],z:q[2]};};
- const earth={x:0,y:0,z:0},moon=pos(phi),ref=pos(Math.PI),light=vector({x:1,y:0,z:0}),axis=M.unit({x:light[0]*.8,y:light[1],z:light[2]}),SUN=M.mul(axis,-M.SUN_DIST);
+ const pos=angle=>{const q=vector(M.displayPoint(M.moonAt(angle),0));return {x:q[0],y:q[1],z:q[2]};};
+ const earth={x:0,y:0,z:0},moon=pos(phi),ref=pos(Math.PI),light=vector({x:1,y:0,z:0}),axis=M.unit({x:light[0],y:light[1],z:light[2]}),SUN=M.mul(axis,-M.SUN_DIST);
  const ratio0=Math.asin(M.RM/(M.ORBIT-1))/Math.asin(M.SUN_R/(M.SUN_DIST-1)),ratio=preset==='annular'?1/ratio0:ratio0,near=M.unit(ref),SUN_R=Math.sin(Math.asin(M.RM/(M.len(ref)-1))/ratio)*M.dist(SUN,near),sun={...SUN,r:SUN_R};
  function visibility(p,source=moon,r=M.RM){const as=Math.asin(SUN_R/M.dist(p,SUN)),ao=Math.asin(Math.min(1,r/M.dist(p,source))),sep=Math.acos(M.clamp(M.dot(M.unit(M.sub(SUN,p)),M.unit(M.sub(source,p))),-1,1));return M.clamp(1-M.discOverlap(as,ao,sep)/(Math.PI*as*as),0,1);}
  let observer=near;

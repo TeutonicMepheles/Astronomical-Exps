@@ -31,6 +31,8 @@
   function clamp(x,lo,hi){return Math.max(lo,Math.min(hi,x));}
   function setNodeAngle(a){nodeAngle=a;}
   function setOverview(value){overview=value;}
+  // Explicit teaching exaggeration requested by the user; default model stays 5.145 degrees.
+  function setTeachingInclination(degrees){if(!Number.isFinite(degrees)||degrees<=0||degrees>10)throw new RangeError('Teaching inclination must be in (0,10] degrees');INCLINATION=degrees*DEG;global.EclipseModel.INCLINATION=INCLINATION;}
   function moonAt(phi){var a=phi-nodeAngle,c=Math.cos(nodeAngle),s=Math.sin(nodeAngle),u=Math.cos(a),w=Math.sin(a)*Math.cos(INCLINATION);return v(ORBIT*(c*u-s*w),ORBIT*(s*u+c*w),ORBIT*Math.sin(a)*Math.sin(INCLINATION));}
   // 球面内保持局部比例，球间距离压缩以便同框；投影位置不参与遮挡计算。
   function displayPoint(p,focus){var r=len(p),scale=r>1?(1+(r-1)*3.6/19)/r:1,t=focus||0,ax=Math.abs(p.x),compressed=ax>1?Math.sign(p.x)*(1+(ax-1)*3.6/19):p.x;return v(p.x*scale*(1-t)+compressed*t,p.y*(scale+(1-scale)*t),(p.z||0)*(scale+(1-scale)*t));}
@@ -208,7 +210,7 @@
     RE: RE, RM: RM, ORBIT: ORBIT, SUN_DIST: SUN_DIST, SUN_R: SUN_R,
     DEG: DEG, SUN: SUN, EARTH: EARTH,
     v: v, sub: sub, add: add, mul: mul, dot: dot, len: len, dist: dist,
-    setOverview:setOverview, setNodeAngle:setNodeAngle, orbitInfo:orbitInfo, displayPoint:displayPoint, eclipticAt:eclipticAt, INCLINATION:INCLINATION, unit: unit, clamp: clamp, moonAt: moonAt, angularRadius: angularRadius,
+    setOverview:setOverview, setNodeAngle:setNodeAngle, setTeachingInclination:setTeachingInclination, orbitInfo:orbitInfo, displayPoint:displayPoint, eclipticAt:eclipticAt, INCLINATION:INCLINATION, unit: unit, clamp: clamp, moonAt: moonAt, angularRadius: angularRadius,
     lunarStatus: lunarStatus, orbitCamera: orbitCamera, surfaceVisibility: surfaceVisibility, sunVisible: sunVisible, cone: cone, solarSky: solarSky, lunarGap: lunarGap,
     discOverlap: discOverlap, nodes: nodes, MODES: MODES
   };

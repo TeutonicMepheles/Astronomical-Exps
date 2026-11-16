@@ -16,7 +16,7 @@ export function createShadowVolume(){
  if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));
  const axialSegments=32,radialSegments=192,meshData=new Float32Array(axialSegments*radialSegments*6*10);
  const buffer=gl.createBuffer(),position=gl.getAttribLocation(program,'position'),facing=gl.getAttribLocation(program,'facing'),tint=gl.getUniformLocation(program,'tint'),outline=gl.getUniformLocation(program,'outline'),bodiesUniform=gl.getUniformLocation(program,'bodies[0]'),dprUniform=gl.getUniformLocation(program,'dpr'),world=gl.getAttribLocation(program,'world'),receiverUniform=gl.getUniformLocation(program,'receiver'),originUniform=gl.getUniformLocation(program,'coneOrigin'),axisUniform=gl.getUniformLocation(program,'coneAxis'),shapeUniform=gl.getUniformLocation(program,'coneShape'),endFadeUniform=gl.getUniformLocation(program,'endFade'),raySource=gl.getAttribLocation(program,'raySource'),cameraReceiverUniform=gl.getUniformLocation(program,'cameraReceiver'),edgeTintUniform=gl.getUniformLocation(program,'edgeTint'),sourceMaskUniform=gl.getUniformLocation(program,'sourceMask'),normalMapUniform=gl.getUniformLocation(program,'normalMap'),analyticNormalUniform=gl.getUniformLocation(program,'analyticNormal');
- return {draw(ctx,{origin,cone,length,project,projectGenerator,normalForGenerator,vector,dpr,bodies,receiver,clipReceiver,sourceBody,layout,meshMode='subdivided'}){
+ return {draw(ctx,{origin,cone,length,project,projectGenerator,normalForGenerator,vector,dpr,bodies,receiver,clipReceiver,sourceBody,layout,meshMode='subdivided',showAntumbra=true}){
   draws++;const axialSegments=meshMode==='cone'?1:32;
   const w=1600*dpr,h=900*dpr;if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
   gl.viewport(0,0,w,h);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(program);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
@@ -26,7 +26,7 @@ export function createShadowVolume(){
   gl.uniform4f(cameraReceiverUniform,clipReceiver?.x||0,clipReceiver?.y||0,clipReceiver?.depth||0,clipReceiver?.r||0);
   gl.uniform4f(receiverUniform,receiver?.center.x||0,receiver?.center.y||0,receiver?.center.z||0,receiver?.radius||0);gl.uniform3f(originUniform,origin.x,origin.y,origin.z||0);gl.uniform3f(axisUniform,cone.axis.x,cone.axis.y,cone.axis.z||0);
   const sections=[{type:'penumbra',r:cone.penumbraRadiusAt(0),s:cone.penumbraRadiusAt(1)-cone.penumbraRadiusAt(0),start:0,end:length},{type:'umbra',r:cone.umbraRadiusAt(0),s:cone.umbraRadiusAt(1)-cone.umbraRadiusAt(0),start:0,end:Math.min(length,cone.umbraLength)}];
-  if(length>cone.umbraLength)sections.push({type:'antumbra',r:-cone.umbraRadiusAt(0),s:cone.umbraRadiusAt(0)/cone.umbraLength,start:cone.umbraLength,end:length});
+  if(showAntumbra&&length>cone.umbraLength)sections.push({type:'antumbra',r:-cone.umbraRadiusAt(0),s:cone.umbraRadiusAt(0)/cone.umbraLength,start:cone.umbraLength,end:length});
   lastSections=sections.map(s=>s.type);
   for(const section of sections){
    const penumbra=section.type==='penumbra',antumbra=section.type==='antumbra',radius=section.r,slope=section.s,start=section.start,end=section.end,vertices=meshData.subarray(0,axialSegments*radialSegments*6*10);

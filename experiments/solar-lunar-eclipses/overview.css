@@ -78,7 +78,7 @@ input[type=range]::-moz-range-track{height:4px;background:#647183}input[type=ran
 .rail-head{top:112px;right:45px;font-size:20px}.rail-sub,.rail-rest{display:none}.rail-node{min-width:100px;min-height:52px;font-size:23px;border:0;background:transparent}.rail-node:hover,.rail-node.is-on{color:#f6d49a;background:#26384c88}
 
 .observation-transport{position:absolute;left:430px;top:696px;display:flex;align-items:center;gap:12px}.observation-transport button,.observation-transport select{font-size:20px}.observation-transport label{margin-left:12px;font-size:20px}.observation-transport select{padding:12px;background:#142032;color:#e8edf6;border:1px solid #72829466;border-radius:10px}
-#observationOptions{position:absolute;left:50px;top:104px;z-index:5;width:515px}#observationOptions summary{width:max-content;padding:12px 20px;min-height:48px;border:1px solid #72829466;border-radius:12px;background:#142032e8;font-size:20px;cursor:pointer}#observationOptions[open]{padding:14px;background:#101c2dfa;border:1px solid #72829466;border-radius:15px}.observation-options-body{display:grid;gap:12px;padding-top:15px;font-size:19px}.observation-options-body button{font-size:18px;padding:8px 12px}.observation-options-body div{display:flex;gap:8px}.observation-options-body output{color:#d7c49e}button:disabled{opacity:.4;cursor:default}#stage[data-outside=true] .rail-glow,#stage[data-outside=true] .rail-head{visibility:hidden}#stage[data-outside=true] .rail-read,#stage[data-outside=true] .rail-trail{opacity:0!important}#stage[data-outside=true] .rail-node.is-on{color:#b8c8db;background:transparent}
+#observationOptions{position:absolute;left:50px;top:104px;z-index:5;width:515px}#observationOptions summary{width:max-content;padding:12px 20px;min-height:48px;border:1px solid #72829466;border-radius:12px;background:#142032e8;font-size:20px;cursor:pointer}#observationOptions[open]{padding:14px;background:#101c2dfa;border:1px solid #72829466;border-radius:15px}.observation-options-body{display:grid;gap:12px;padding-top:15px;font-size:19px}.observation-options-body button{font-size:18px;padding:8px 12px}.observation-options-body div{display:flex;gap:8px}.observation-options-body output{color:#d7c49e}button:disabled{opacity:.4;cursor:default}#stage[data-outside=true] .rail-glow,#stage[data-outside=true] .rail-pct{visibility:hidden}#stage[data-outside=true] .rail-read,#stage[data-outside=true] .rail-trail{opacity:0!important}#stage[data-outside=true] .rail-node.is-on{color:#b8c8db;background:transparent}
 
 #overviewCameras{position:absolute;left:48px;top:38px;display:flex;gap:12px}
 #overviewCameras button{background:#142032bb}
@@ -109,3 +109,30 @@ input[type=range]::-moz-range-track{height:4px;background:#647183}input[type=ran
 #splitDivider:hover,#splitDivider[data-dragging=true],#splitDivider:focus-visible{background:#8faac011;outline:2px solid #d8c09a;outline-offset:0}
 #splitDivider:hover::before,#splitDivider[data-dragging=true]::before,#splitDivider:focus-visible::before{background:#efd5a4}
 #splitViewLabels{left:44px;right:44px;gap:48px}
+
+/* Observation is the default entry; progression uses discrete contacts. */
+#stage[data-view=observe] .progress,#stage[data-view=observe] #back,#stage[data-view=observe] #observationOptions,#stage[data-view=observe] #overviewCameras{display:none!important}
+#eventTypes{position:absolute;left:48px;top:36px;display:flex;gap:12px;z-index:6}
+#eventTypes button{min-width:128px}
+#observerCandidates{position:absolute;inset:0;pointer-events:none;z-index:4}
+#observerCandidates button{position:absolute;width:44px;min-height:44px;padding:0;border-radius:50%;pointer-events:auto;background:#18283de8;color:#ffdea2;border-color:#ffdea2}
+#observerCandidates button[aria-pressed=true]{background:#e6c590;color:#101c2d}
+#observationCameraToggle{position:absolute;left:1115px;top:36px;min-width:154px;z-index:6}
+.observation-transport{left:420px;top:805px;gap:10px}
+.observation-transport button{padding:10px 14px;font-size:20px}
+#observer{top:635px}
+#surfaceZoom{top:105px}
+
+#nodeTools{position:absolute;left:48px;top:105px;display:flex;gap:10px;z-index:4}#nodeTools button{font-size:18px;padding:10px 12px}#stage[data-view=observe] #surfaceZoom{left:370px;top:105px}
+
+#stage[data-view=observe] #shadowLegend{left:950px;top:120px;gap:22px;font-size:17px}
+
+#stage[data-view=observe] #splitDivider{top:190px;height:430px}
+
+#observationCameras{position:absolute;left:1115px;top:36px;display:flex;gap:12px;z-index:6}#observationCameras button{width:64px;height:56px;padding:10px;display:grid;place-items:center}#observationCameras svg{width:36px;height:32px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+
+#observerPrompt{position:absolute;right:70px;top:400px;font-size:24px;color:#c8d6e4}.rail-node:disabled{cursor:default}.rail-node:disabled:hover{color:inherit}#stageRail .rail-head-label{white-space:nowrap}
+
+/* Observer selection is presentation-only; local contacts remain discrete. */
+#observerCandidates button {transition: background-color .35s ease, color .35s ease, border-color .35s ease;}
+@media (prefers-reduced-motion: reduce) {#observerCandidates button {transition:none;}}

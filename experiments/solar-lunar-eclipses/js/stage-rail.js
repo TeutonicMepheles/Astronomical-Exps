@@ -22,7 +22,7 @@
 
   /* 每个阶段的一句说明，展开在当前节点下方 */
   var SUBS = {
-    solar: ['月面边缘刚接触日面', '日面被完全遮住', '日月中心最接近', '日面重新露出', '月面完全离开日面'],
+    solar: ['月面与日面开始接触', '进入中间阶段', '日月中心最接近', '退出中间阶段', '月面与日面结束接触'],
     lunar: ['月球开始进入地影', '月球完全进入本影', '月面中心最暗', '月球开始离开本影', '月球完全离开地影']
   };
 
@@ -213,6 +213,8 @@
       var left = stages.length - 1 - index;
       restEl.innerHTML = left <= 0 ? '已复圆' : '剩 <b>' + left + '</b> 步';
     };
+
+    api.setForwardOnly = function(phi,locked) {var next=phis.findIndex(function(p){return p>phi+1e-7;});for(var i=0;i<buttons.length;i++){buttons[i].disabled=!!locked||i!==next;}};
 
     return api;
   }
