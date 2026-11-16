@@ -74,8 +74,8 @@
       for (let i = 0; i < size * size; i++) {
         const shade = 238 + Math.floor(random() * 12);
         pixels.data[i * 4] = shade;
-        pixels.data[i * 4 + 1] = shade - 3;
-        pixels.data[i * 4 + 2] = shade - 9;
+        pixels.data[i * 4 + 1] = shade;
+        pixels.data[i * 4 + 2] = shade;
         pixels.data[i * 4 + 3] = 255;
       }
       lunar.putImageData(pixels, 0, 0);
@@ -84,7 +84,7 @@
         const y = random() * size;
         const rx = 18 + random() * 100;
         const ry = 9 + random() * 50;
-        lunar.fillStyle = i % 3 === 0 ? 'rgba(139,118,95,.025)' : 'rgba(255,251,237,.045)';
+        lunar.fillStyle = i % 3 === 0 ? 'rgba(139,139,139,.025)' : 'rgba(250,250,250,.045)';
         lunar.beginPath();
         lunar.ellipse(x, y, rx, ry, random() * Math.PI, 0, Math.PI * 2);
         lunar.fill();
@@ -93,10 +93,10 @@
         const x = random() * size;
         const y = random() * size;
         const radius = .7 + random() * 3.2;
-        lunar.fillStyle = i % 4 === 0 ? 'rgba(255,255,246,.2)' : 'rgba(126,107,89,.13)';
+        lunar.fillStyle = i % 4 === 0 ? 'rgba(250,250,250,.2)' : 'rgba(126,126,126,.13)';
         lunar.fillRect(x, y, radius, radius * .7);
       }
-      lunar.fillStyle = 'rgba(121,106,90,.16)';
+      lunar.fillStyle = 'rgba(121,121,121,.16)';
       for (let i = 0; i < 48000; i++) {
         lunar.fillRect(random() * size, random() * size, .5 + random() * 1.5, .5 + random() * 1.2);
       }
@@ -113,12 +113,21 @@
       for (let i = 0; i < size * size; i++) {
         const detail = pixels.data[i * 4] - 238;
         const grain = (random() - .5) * 18;
-        soilPixels.data[i * 4] = clamp(137 + detail * 1.7 + grain, 0, 255);
-        soilPixels.data[i * 4 + 1] = clamp(99 + detail * 1.25 + grain * .8, 0, 255);
-        soilPixels.data[i * 4 + 2] = clamp(65 + detail + grain * .6, 0, 255);
+        const shade = clamp(233 + detail + grain, 0, 255);
+        soilPixels.data[i * 4] = shade;
+        soilPixels.data[i * 4 + 1] = shade;
+        soilPixels.data[i * 4 + 2] = shade;
         soilPixels.data[i * 4 + 3] = 255;
       }
       soil.putImageData(soilPixels, 0, 0);
+      // Dry aggregate texture, not a universal Earth soil. Same neutral albedo family.
+      for (let i = 0; i < 4200; i++) {
+        const x = random() * size, y = random() * size, radius = 1.5 + random() * 5;
+        soil.fillStyle = i % 3 ? 'rgba(110,110,110,.12)' : 'rgba(255,255,255,.24)';
+        soil.beginPath();
+        soil.ellipse(x, y, radius, radius * (.45 + random() * .4), random() * Math.PI, 0, Math.PI * 2);
+        soil.fill();
+      }
       this.soilTexture = new T.CanvasTexture(soilCanvas);
       this.soilTexture.colorSpace = T.SRGBColorSpace;
       this.soilTexture.anisotropy = 4;
@@ -256,6 +265,14 @@
       };
     }
 
+    _ejectaStructure(x, y, angle, visual, scene) {
+      // Irregular aggregate patches versus broken radial streaks; visual presets only.
+      const patch = clamp(.5 + this._fbm(x * .8 + visual.seed, y * .8) * 2, 0, 1);
+      const direction = angle * 19 + 1.8 * Math.sin(angle * 5 + .8);
+      const ray = Math.pow(Math.max(0, Math.cos(direction)), 8);
+      return scene === 'earth' ? patch * patch * .75 + ray * .25 : ray * (.35 + patch * .65);
+    }
+
     _terrainKey(impacted, params = { ...this.params, scene: this.sceneMode }) {
       return JSON.stringify(impacted ? [params.scene, params.size, params.speed, params.angle, params.ground || 'compact'] : [params.scene, 'flat']);
     }
@@ -272,11 +289,11 @@
       const colors = new T.BufferAttribute(new Float32Array(position.count * 3), 3);
       geometry.setAttribute('position', position); geometry.setAttribute('color', colors);
       const visual = this._visualParams(params);
-      const fieldColor = new T.Color(params.scene === 'earth' ? 0xa78c71 : 0x969ba1);
-      const floorColor = new T.Color(params.scene === 'earth' ? 0x9f7654 : 0x9a9287);
-      const outerColor = new T.Color(params.scene === 'earth' ? 0x927459 : 0xb8aa95);
-      const wallColor = new T.Color(params.scene === 'earth' ? 0x5f4633 : 0x77736e);
-      const rimColor = new T.Color(params.scene === 'earth' ? 0xb29a7b : 0xb4b8bb);
+      const fieldColor = new T.Color(0x989b9f);
+      const floorColor = new T.Color(0x929599);
+      const outerColor = new T.Color(0xa6a8ab);
+      const wallColor = new T.Color(0x727578);
+      const rimColor = new T.Color(0xb4b7ba);
       const color = new T.Color();
       const backgroundCraters = impacted ? Array.from({ length: 4 }, (_, i) => {
         const angle = hash(i + visual.seed, 1.7) * Math.PI * 2;
@@ -296,7 +313,7 @@
           height += this._crater(x / visual.round, y, visual.radius, visual.depth, visual.seed, false, .82);
           const distance = Math.hypot(x / visual.round, y) / visual.radius;
           const bearing = Math.atan2(y, x);
-          const ray = Math.pow(Math.max(0, Math.cos(bearing * 19 + .8)), 12);
+          const ray = this._ejectaStructure(x, y, bearing, visual, params.scene);
           height += .12 * visual.ejectaAmount * ray * smooth(1.1, 1.3, distance) * (1 - smooth(1.3, 1.3 + visual.spread, distance));
           for (const background of backgroundCraters) {
             height += this._crater(x - background.x, y - background.y, background.radius, background.radius * .23, visual.seed, false, .45);
@@ -315,7 +332,7 @@
         color.multiplyScalar(.96 + .06 * this._noise(x * .075 + 12, y * .075 - 7));
         if (impacted) {
           const radial = Math.hypot(x / visual.round, y) / visual.radius;
-          const rays = Math.pow(Math.max(0, Math.cos(angle * 19 + .8)), 12);
+          const rays = this._ejectaStructure(x, y, angle, visual, params.scene);
           const ejecta = rays * smooth(1.1, 1.3, radial) * (1 - smooth(1.3, 1.3 + visual.spread, radial));
           color.lerp(rimColor, Math.min(1, ejecta * .65 * visual.ejectaAmount));
         }
@@ -533,7 +550,7 @@
       const debrisGeometry = new T.IcosahedronGeometry(1, 0);
       for (let i = 0; i < 24; i++) {
         const debris = new T.Mesh(debrisGeometry, new T.MeshStandardMaterial({
-          color: 0xbda98f,
+          color: 0xa6a8aa,
           roughness: 1,
           flatShading: true
         }));
@@ -599,6 +616,7 @@
       this.params.scene = scene;
       this.material.map = scene === 'earth' ? this.soilTexture : this.lunarTexture;
       this.material.bumpMap = this.material.map;
+      this.material.bumpScale = scene === 'earth' ? .018 : .009;
       this.material.needsUpdate = true;
       if (changed || this.terrainImpacted) this._rebuildTerrain(false, false);
     }
@@ -924,7 +942,7 @@
         const geometry = new T.BufferGeometry();
         geometry.setAttribute('position', new T.Float32BufferAttribute(vertices, 3));
         geometry.setIndex(indices); geometry.computeVertexNormals();
-        const material = new T.MeshStandardMaterial({ color: this.sceneMode === 'earth' ? 0x8c6a49 : 0x77828d, roughness: 1, side: T.DoubleSide });
+        const material = new T.MeshStandardMaterial({ color: 0x7d8084, roughness: 1, side: T.DoubleSide });
         overlay.add(new T.Mesh(geometry, material));
         // Same mesh-strip technique as the lunar section edge: reliable thickness
         // on WebGL implementations where native line widths are limited to 1px.

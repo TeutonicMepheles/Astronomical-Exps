@@ -31,7 +31,7 @@
   function combos() {
     return state.mode === 'world'
       ? [{ ...state.shared, scene: 'earth' }, { ...state.shared, scene: 'moon' }]
-      : state.values.map(value => ({ ...defaults, [state.factor]: value, scene: state.world }));
+      : state.values.map(value => ({ ...state.shared, [state.factor]: value, scene: state.world }));
   }
   function outcome(combo) {
     const size = ['small','medium','large'].indexOf(combo.size);
@@ -52,54 +52,39 @@
   function switchMode(mode) {
     reset(() => { state.mode = mode; });
   }
-  function optionRow(key, value, side, shared = false) {
-    const row = document.createElement('div'); row.className = 'option-row';
-    options[key].forEach(([id, text]) => {
-      const button = document.createElement('button'); button.type = 'button'; button.textContent = text;
-      button.dataset.key = key; button.dataset.value = id; button.dataset.side = shared ? 'shared' : side;
-      button.setAttribute('aria-pressed', String(value === id));
-      button.disabled = !sceneReady;
-      button.setAttribute('aria-label', (shared ? '共同条件' : '实验' + (side + 1)) + names[key] + text);
-      button.onclick = () => {
-        reset(() => { if (shared) state.shared[key] = id; else state.values[side] = id; });
-      };
-      row.append(button);
-    });
-    return row;
+  function headerSelect(key, value, choices, side, change) {
+    const control = document.createElement('label');
+    const caption = document.createElement('span'); caption.textContent = key;
+    const select = document.createElement('select');
+    select.setAttribute('aria-label', '实验' + (side + 1) + key);
+    choices.forEach(([id, text]) => { const option = new Option(text, id); select.add(option); });
+    select.value = value;
+    select.disabled = !sceneReady || ['running','preparing'].includes(state.phase) || (key === '环境' && state.mode === 'world');
+    select.onchange = () => reset(() => change(select.value));
+    control.append(caption, select); return control;
   }
   function renderSettings() {
-    $$('[data-mode], [data-factor], [data-world]').forEach(button => { button.disabled = !sceneReady; });
-    $('#setupTitle').textContent = state.mode === 'factor' ? '选择研究因素' : '相同条件 · 地月对照';
-    $('#factors').hidden = state.mode !== 'factor'; $('#worldChoice').hidden = state.mode !== 'factor';
+    const locked = !sceneReady || ['running','preparing'].includes(state.phase);
+    $$('[data-mode]').forEach(button => { button.disabled = locked; button.setAttribute('aria-pressed', String(button.dataset.mode === state.mode)); });
+    $('#factorSelect').disabled = locked;
+    $('#factorSelect').parentElement.hidden = state.mode !== 'factor';
+    $('#factorSelect').value = state.factor;
     $('#overview').hidden = state.mode !== 'factor';
     $('#overview').textContent = state.factor === 'ground' ? '地面对照总览' : '三档总览';
-    $$('[data-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === state.mode)));
-    $$('[data-factor]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.factor === state.factor)));
-    $$('[data-world]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.world === state.world)));
-    const container = $('#choices'); container.replaceChildren();
-    if (state.mode === 'factor') {
-      [0,1].forEach(side => {
-        const block = document.createElement('section'); block.className = 'choice-block side-' + side;
-        block.innerHTML = '<header><b class="number">' + (side + 1) + '</b><strong>' + names[state.factor] + '</strong></header>';
-        block.append(optionRow(state.factor, state.values[side], side)); container.append(block);
-      });
-    } else {
-      const worldTags = document.createElement('div'); worldTags.className = 'compare-worlds';
-      worldTags.innerHTML = '<span>① 地球</span><span>② 月球</span>'; container.append(worldTags);
+    combos().forEach((combo, side) => {
+      const container = $('#inlineSettings' + side); container.replaceChildren();
+      container.append(headerSelect('环境', combo.scene, [['moon','月球'],['earth','地球']], side, value => { state.world = value; }));
       Object.keys(options).forEach(key => {
-        const row = document.createElement('div'); row.className = 'shared-row';
-        const text = document.createElement('span'); text.textContent = names[key];
-        row.append(text, optionRow(key, state.shared[key], 0, true)); container.append(row);
+        const control = headerSelect({size:'大小',speed:'速度',angle:'入射角',ground:'地面'}[key], combo[key], options[key], side, value => {
+          if (state.mode === 'factor' && key === state.factor) state.values[side] = value;
+          else state.shared[key] = value;
+        });
+        control.classList.toggle('research-variable', state.mode === 'factor' && key === state.factor);
+        container.append(control);
       });
-    }
-    const fixed = $('#fixed'); fixed.replaceChildren();
-    if (state.mode === 'factor') Object.keys(defaults).filter(key => key !== state.factor).forEach(key => {
-      const tag = document.createElement('span'); tag.textContent = names[key] + ' ' + label(key, defaults[key]) + ' · 固定'; fixed.append(tag);
     });
-    else fixed.textContent = '大小、速度、入射角、地面同步锁定';
-    $('#fixedSummary').textContent = state.mode === 'factor' ? '仅改变' + names[state.factor] + ' · 其余条件一致' : '仅改变大气环境 · 输入条件一致';
+    $('#fixedSummary').textContent = state.mode === 'factor' ? '仅改变' + names[state.factor] + ' · 其余条件两侧同步' : '仅改变大气环境 · 输入条件一致';
     $('#conditionSummary').textContent = combos().map((c, i) => `${i + 1} · ${worldName(c.scene)}  大小${label('size', c.size)} / 速度${label('speed', c.speed)} / ${label('angle', c.angle)} / ${label('ground', c.ground)}`).join('    ｜    ');
-    $('#openSettings').disabled = ['running','preparing'].includes(state.phase);
     $('#pairTitle').textContent = state.mode === 'factor' ? names[state.factor] + '对照' : '地球与月球对照';
     $('#launch').disabled = !sceneReady || Boolean(error) || ['running','preparing'].includes(state.phase) || (state.mode === 'factor' && state.values[0] === state.values[1]);
     $('#cancel').hidden = !['running','preparing'].includes(state.phase);
@@ -108,8 +93,6 @@
   function renderViews() {
     const current = state.result?.combos || combos();
     current.forEach((combo, side) => {
-      $('#title' + side).textContent = worldName(combo.scene) + ' · ' + (state.mode === 'factor' ? label(state.factor, combo[state.factor]) : '相同输入');
-      $('#environment' + side).textContent = combo.scene === 'earth' ? '有大气' : '无大气';
       const image = $('#result' + side); const canvas = $('#scene' + side);
       const callouts = $('#annotations' + side);
       const result = state.phase === 'result' && state.result;
@@ -120,11 +103,10 @@
         image.src = state.result.sides[side][state.view];
         const data = state.result.sides[side].outcome;
         MeteorResultCallouts.render(callouts, state.result.sides[side].annotations[state.view], data, state.view);
-        $('#outcome' + side).innerHTML = [['坑口',data.scale],['坑深',data.depth],['坑形',data.shape],['溅射',data.ejecta]].map(([key,value]) => '<span>' + key + '<b>' + value + '</b></span>').join('');
+        $('#outcome' + side).innerHTML = [['坑口',data.scale],['坑深',data.depth],['坑形',data.shape],['溅射（定性示意）',data.ejecta]].map(([key,value]) => '<span>' + key + '<b>' + value + '</b></span>').join('');
       }
       if (state.phase !== 'running') $('#phase' + side).textContent = '';
     });
-    $('#boundaryNote').hidden = state.phase !== 'result';
     $('#wholeView').setAttribute('aria-pressed', String(state.view === 'whole'));
     $('#cutView').setAttribute('aria-pressed', String(state.view === 'cutaway'));
     $('#wholeView').disabled = $('#cutView').disabled = state.phase !== 'result';
@@ -140,12 +122,12 @@
       state.phase = 'preparing'; renderSettings();
       // Keep one scale for both sides and all three grades of this research factor.
       const framingCombos = mode === 'factor'
-        ? options[factor].map(([value]) => ({ ...defaults, [factor]: value, scene: 'moon' })) : input;
+        ? options[factor].map(([value]) => ({ ...state.shared, [factor]: value, scene: 'moon' })) : input;
       const framing = engines[0].framingFor(framingCombos);
       for (const [side, combo] of input.entries()) {
         if (token !== state.token) return;
         const sideFraming = { ...framing, outlineColor: side === 0 ? 0x53c7eb : 0xa5df9c };
-        const key = JSON.stringify([combo, sideFraming]);
+        const key = JSON.stringify([combo, sideFraming, mode, factor]);
         let result = resultCache.get(key);
         if (!result) {
           await nextTask();
@@ -203,7 +185,7 @@
     const record = state.records[state.page]; const container = $('#recordBody');
     if (!record) container.textContent = '尚无对照记录';
     else {
-      container.innerHTML = '<table><thead><tr><th>组 / 实验</th><th>场景</th><th>大小</th><th>速度</th><th>入射角</th><th>地面</th><th>坑口</th><th>坑深</th><th>坑形</th><th>溅射</th><th>3D / 立体剖面</th></tr></thead><tbody>' + record.combos.map((combo,side) => {
+      container.innerHTML = '<table><thead><tr><th>组 / 实验</th><th>场景</th><th>大小</th><th>速度</th><th>入射角</th><th>地面</th><th>坑口</th><th>坑深</th><th>坑形</th><th>溅射<br>（定性示意）</th><th>3D / 立体剖面</th></tr></thead><tbody>' + record.combos.map((combo,side) => {
         const data = record.sides[side];
         return '<tr><td>' + record.id + ' / ' + (side+1) + '</td><td>' + worldName(combo.scene) + '</td><td>' + label('size',combo.size) + '</td><td>' + label('speed',combo.speed) + '</td><td>' + combo.angle + '°</td><td>' + label('ground',combo.ground) + '</td><td>' + data.outcome.scale + '</td><td>' + data.outcome.depth + '</td><td>' + data.outcome.shape + '</td><td>' + data.outcome.ejecta + '</td><td class="images"><img src="' + data.whole + '" alt="本轮3D"><img src="' + data.cutaway + '" alt="本轮立体剖面"></td></tr>';
       }).join('') + '</tbody></table>';
@@ -220,7 +202,7 @@
       let found;
       for (const record of [...state.records].reverse()) {
         if (record.mode !== 'factor' || record.factor !== state.factor) continue;
-        const side = record.combos.findIndex(combo => combo.scene === state.world && combo[state.factor] === value);
+        const side = record.combos.findIndex(combo => combo.scene === state.world && combo[state.factor] === value && Object.keys(options).every(key => key === state.factor || combo[key] === state.shared[key]));
         if (side >= 0) { found = record.sides[side]; break; }
       }
       const article = document.createElement('article'); article.className = 'overview-card';
@@ -230,12 +212,13 @@
     })); $('#overviewDialog').showModal();
   }
   $$('[data-mode]').forEach(button => button.onclick = () => switchMode(button.dataset.mode));
-  $$('[data-factor]').forEach(button => button.onclick = () => { reset(() => { state.factor = button.dataset.factor; state.values = [options[state.factor][0][0],options[state.factor].at(-1)[0]]; }); });
-  $$('[data-world]').forEach(button => button.onclick = () => { reset(() => { state.world = button.dataset.world; }); });
-  $('#openSettings').onclick = () => $('#settingsDialog').showModal();
-  $('#closeSettings').onclick = () => $('#settingsDialog').close();
+  Object.entries(names).forEach(([key, text]) => $('#factorSelect').add(new Option(text, key)));
+  $('#factorSelect').onchange = event => reset(() => {
+    state.factor = event.target.value;
+    state.values = [options[state.factor][0][0], options[state.factor].at(-1)[0]];
+  });
   $('#launch').onclick = launch;
-  $('#cancel').onclick = $('#reset').onclick = () => { reset(); $('#settingsDialog').showModal(); };
+  $('#cancel').onclick = $('#reset').onclick = () => reset();
   $('#wholeView').onclick = () => { state.view = 'whole'; renderViews(); };
   $('#cutView').onclick = () => { state.view = 'cutaway'; renderViews(); };
   $('#overview').onclick = overview; $('#closeOverview').onclick = () => $('#overviewDialog').close();
