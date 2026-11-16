@@ -21,7 +21,7 @@ def build(target):
         if hashlib.sha256(path.read_bytes()).hexdigest() != resource['sha256']:
             raise ValueError('Production asset hash mismatch: ' + resource['path'])
     script = ''.join((ROOT / name).read_text(encoding='utf-8') for name in
-                     ['lighting-layout.js', 'resident-vignette-layout.js'])
+                     ['lighting-layout.js', 'resident-vignette-layout.js', 'resident-fixed-lighting.js'])
     values = {
         'BUNDLE': manifest,
         'EMBEDDED': {r['name']: data(ROOT / r['path']) for r in manifest['runtime']},
@@ -34,8 +34,8 @@ def build(target):
                       for key, value in values.items())
     script += (ROOT / 'runtime.js').read_text(encoding='utf-8')
     html = (ROOT / 'index.html').read_text(encoding='utf-8')
-    html = re.sub(r'<script src="(?:lighting-layout|resident-vignette-layout)\.js"></script>', '', html)
-    html = html.replace('<script src="runtime.js"></script>', '<script>' + script.replace('</script', '<\\/script') + '</script>')
+    html = re.sub(r'<script src="(?:lighting-layout|resident-vignette-layout|resident-fixed-lighting)\.js(?:\?[^" ]*)?"></script>', '', html)
+    html = re.sub(r'<script src="runtime\.js(?:\?[^"]*)?"></script>', lambda _: '<script>' + script.replace('</script', '<\\/script') + '</script>', html)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(html, encoding='utf-8')
     print(target)
