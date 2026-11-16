@@ -18,3 +18,48 @@
 @keyframes meteor-callout-draw{to{stroke-dashoffset:0}}
 @keyframes meteor-callout-label{to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.meteor-annotations .rc-trace{animation:none;stroke-dashoffset:0}.meteor-annotations .rc-label{animation:none;opacity:1}}
+
+/* Full-width observation area; settings only occupy space while open. */
+#lab{grid-template-columns:1fr;grid-template-rows:88px minmax(0,1fr) 80px;padding-bottom:12px;gap:0}
+.workspace{grid-template-rows:48px minmax(0,1fr) 25px;gap:8px}
+.experiment-controls{display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
+#conditionSummary{font-size:17px;color:var(--muted);line-height:1.6}
+.experiment-controls .launch-area{margin:0;display:flex;align-items:center;gap:14px}
+.experiment-controls .launch{min-width:230px;min-height:52px;gap:35px}
+.experiment-controls #status{max-width:240px;min-height:0}
+.topbar #openRecords{margin-left:0}.topbar #openSettings{margin-left:auto}
+#settingsDialog{width:760px;max-width:90vw;max-height:90vh;padding:24px;font-size:18px}
+#settingsDialog #settings{padding:20px;gap:16px}
+#settingsDialog #choices{grid-template-columns:1fr 1fr}
+#settingsDialog .shared-row,#settingsDialog .compare-worlds{grid-column:1/-1}
+#settingsDialog .shared-row{grid-template-columns:100px 1fr}
+.settings-note{color:var(--muted);font-size:15px;margin:16px 0 0}
+.side-0 .option-row button:hover{border-color:var(--one);color:var(--one);background:#203e50}
+.side-1 .option-row button:hover{border-color:var(--two);color:var(--two);background:#2b4037}
+
+#conditionSummary{max-width:900px;font-size:15px}#overviewCards:has(> :nth-child(2):last-child){grid-template-columns:repeat(2,1fr)}
+
+/* Keep the model scope visible during setup, playback and result review. */
+.workspace>footer{gap:20px}.workspace>footer strong{font-weight:500;color:var(--ink)}#boundaryNote{white-space:nowrap}.record-note{color:var(--muted);font-size:16px;line-height:1.5;margin:0 0 16px}
+#records .record-gallery img{height:190px;object-fit:contain}
+
+/* Initial conditions are directly editable in each observation title. */
+.topbar #openRecords{margin-left:auto}.factor-picker{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:15px}
+.factor-picker select,.inline-settings select{font:inherit;color:var(--ink);background:#203342;border:1px solid #657d8e;border-radius:7px;min-height:42px;padding:0 8px;cursor:pointer}
+select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}select:disabled{opacity:.65;cursor:default}
+.viewport header{gap:8px;top:12px;left:12px;right:12px;padding:8px}.inline-settings{display:flex;gap:8px;flex:1;min-width:0}.inline-settings label{display:flex;align-items:center;gap:4px;min-width:0;flex:1}.inline-settings label>span{font-size:12px;color:var(--muted);white-space:nowrap}.inline-settings select{width:100%;min-width:0;font-size:16px;padding:0 3px}.inline-settings label:last-child{flex:1.45}.inline-settings .research-variable select{border-color:var(--one)}.side-1 .inline-settings .research-variable select{border-color:var(--two)}
+
+.viewbar nav{display:flex;gap:5px;padding:3px;border:1px solid var(--line);border-radius:10px}.viewbar nav button{min-height:38px;padding:0 12px;font-size:16px;white-space:nowrap}.viewbar #pairTitle{font-size:18px;white-space:nowrap}
+
+/* Expanded record review within the same 1600 x 900 teaching stage. */
+#records{width:1544px;max-width:none;height:856px;max-height:none;padding:22px;overflow:hidden}
+#records[open]{display:flex;flex-direction:column;gap:10px}
+#records>header{margin:0;flex:none}#records .record-note{margin:0;font-size:14px}
+#recordBody{min-height:0;flex:1;display:flex;flex-direction:column;gap:10px}
+#recordBody h3{margin:0;font-size:18px}#recordBody table{flex:none}#recordBody th,#recordBody td{padding:8px 10px}
+#records .record-gallery{flex:1;min-height:0;gap:24px}
+#records .record-gallery figure{margin:0;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:28px minmax(0,1fr);gap:0}
+#records .record-gallery figcaption{grid-column:1/-1;margin:0;font-size:18px}
+#records .record-gallery img{width:100%;height:100%;min-height:0;object-fit:contain}
+#records>footer{margin:0;flex:none}
+#records{position:fixed;left:50%;top:50%;margin:0;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center}
