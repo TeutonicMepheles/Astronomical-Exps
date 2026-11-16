@@ -2,6 +2,10 @@
 
 遵守[根约定](../../../../AGENTS.md)及[实验约定](../../AGENTS.md)。本文件位于性能诊断工具目录；上级入口要求本实验新增或修改功能、制定及执行跑测时主动阅读，不依赖子目录规则自动覆盖其他模块。功能任务同时遵守所属模块 README。
 
+## 当前实现与历史工具边界
+
+用户于 2026-11-16 明确废弃横版 panorama-20261111。本文件的通用性能检查原则继续适用于现行 city-night；其专项从 city-night/README.md 和 city-night/tests/README.md 进入。下文旧 app/candidate/legacy 的架构映射、脚本命令与场景清单仅作历史追溯，不要求为当前交付构建、改造或跑测已废弃横版，也不将其结果计为当前验收。
+
 ## 每次功能变更的性能检查
 
 - 实现前判断是否新增或改变动画时钟、事件频率、整景合成、Canvas/WebGL 绘制、纹理上传、图片解码、同步计算、DOM 布局、存储写入、缓存容量或资源生命周期。将适用项纳入方案，不等出现卡顿才分析。
@@ -49,7 +53,7 @@ node experiments/light-pollution/tools/audit/chrome-interactions.cjs chrome-revi
 默认访问 8090 的候选 standalone；其他地址用 LIGHT_URL 指定。输出写入实验 docs，使用未占用且以 `.json` 结尾的文件名，其对应 `.cpuprofile` 也不得覆盖基线。脚本截图目前固定写入 `docs/chrome-billboard-panel.png`，不会随结果文件名改变；运行前将需要保留的截图另存为带日期或轮次的证据文件，运行后核对 Git 差异，不覆盖或丢弃用户已有修改。脚本 pass 表示所含功能断言通过，不代表所有性能场景通过。
 
 - 覆盖默认动画、广告转场、整页平移、建筑亮度/色温/窗帘连续拖动和全窗帘压力状态。广告屏必须验证独立面板、无需完整编辑器 DOM、零亮度点选、实时预览、单步撤销/重做、Esc/取消、面板互斥和播放控制。
-- 按改动运行核心测试与专项；交付执行 `npm run check`、`npm test`，影响页面时执行 `npm run test:browser` 及 `node experiments/light-pollution/tools/audit/run-tests.cjs`。文档检查运行 `node experiments/light-pollution/tools/audit/check-readmes.cjs`。
+- 按改动运行核心测试与专项；现行交付执行 `npm run check`、`npm test`，影响页面时执行 `npm run test:browser` 及 `node experiments/light-pollution/city-night/verify.cjs`；固定住宅和窗灯按 city-night/tests/README.md 选择专项。旧 run-tests.cjs 不再作为现行交付要求。文档检查运行 `node experiments/light-pollution/tools/audit/check-readmes.cjs`。
 - 异步渲染测试等待实际绘制再读像素，保留原有视觉、几何和状态断言；同时验证 candidate、legacy 及离线兼容，不把生成成功视为浏览器通过。
 - 报告记录原因、修复、环境、前后数据、原始证据及未归因异常。合成频率不是屏幕 FPS，事件到后续 rAF 不是正式 INP，短时堆快照不能排除长期泄漏，0 长任务不代表无卡顿。
 - 分开列出自动化通过、人工试玩、白板触控、真实旧草稿与长期运行的验收状态。未执行的明确标记待验收；不得承诺所有设备绝对流畅。

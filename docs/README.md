@@ -26,6 +26,7 @@
 | --- | --- |
 | [Agent 工作约定](../AGENTS.md) | 工作范围、检查要求和实验入口 |
 | [Git 工作流程](AGENT_GIT_WORKFLOW.md) | 分支、提交、同步和 PR |
+| [本地工作区恢复与维护](WORKSPACE_RECOVERY.md) | 当前旧工作树清理状态、完整备份校验与恢复方法 |
 | [贡献者协作 Skill](../.agents/skills/astronomical-collab/SKILL.md) | Agent 执行贡献者协作任务的步骤 |
 | [协作工具](collaboration/README.md) | 命令、模板、检查记录和新网页接入 |
 | [GitHub 配置记录](GITHUB_SETUP.md) | 远程仓库及服务端保护的历史状态 |

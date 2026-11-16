@@ -1,5 +1,7 @@
 # 离线构建
 
+> 状态：本目录属于已废弃的旧横版/候选实现，仅用于历史追溯，不继续开发或作为现行交付验收对象。当前唯一有效实现及检查入口为实验内 city-night/README.md。
+
 ## 当前功能与状态
 
 本目录构建旧 app/ 模块兼容包：从其 manifest 输出 `app/index.html`、`lib-static-demo/index.html`、单文件页及输入哈希。当前实验根入口跳转到 `city-night/index.html`；根 `npm run export -- light-pollution` 调用 `city-night/build_offline.py` 导出最新夜景，二者不混作同一个构建。
