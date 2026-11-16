@@ -1,0 +1,22 @@
+/* PR66 Alibaba PuHuiTi 3.0; final design reference: 1920 x 1080.
+   Existing scene coordinates remain 1600 x 900; 1.2x fit gives the reference sizes. */
+:root { --type-unit: .8333333333px; }
+body { font-family:var(--font-ui);font-size:var(--type-body);font-weight:400; }
+button,input,select,textarea { font-family:var(--font-ui); }
+
+.experiment-heading h1,.introduction h1 {font-size:var(--type-title);font-family:var(--font-ui);font-weight:500;line-height:1.2;letter-spacing:1px}
+:root {--newton-instruction-size:var(--type-body);--newton-action-size:var(--type-action)}
+.newton-objective {--type-unit:min(.0520833333vw,.0925925926vh)}
+.newton-objective .newton-objective__paper h2 {font-family:var(--font-ui);font-size:var(--type-title);font-weight:500;line-height:1.2}
+#newton-objective-body {font-size:var(--type-body);font-weight:400;line-height:var(--type-leading)}
+.newton-objective__kicker {font-size:var(--type-help);font-weight:300}
+.newton-objective__confirm {font-family:var(--font-ui);font-size:var(--type-action);font-weight:600}
+
+.newton-objective {--type-title:calc(48 * var(--type-unit));--type-body:calc(24 * var(--type-unit));--type-leading:calc(32 * var(--type-unit));--type-data-label:calc(30 * var(--type-unit));--type-number:calc(36 * var(--type-unit));--type-action:calc(36 * var(--type-unit));--type-help:calc(14 * var(--type-unit));}
+
+.observatory[data-stage=observation] .introduction h1 {font-size:var(--type-title);font-weight:500;line-height:1.2;letter-spacing:1px}
+.observation-open {font-size:var(--type-action);font-weight:600}
+.observation-reset,.observation-transparency,.observation-is-open .live-control {font-size:var(--type-body);font-weight:400}
+.observation-section-readout {font-size:var(--type-data-label);font-weight:500}
+.observation-is-open .preview-readout {font-size:var(--type-body);font-weight:500}
+.observation-ray-legend,.observation-message,.observation-aim-hint,.observation-is-open .preview-assumption,.observation-is-open .observation-status {font-size:var(--type-help);font-weight:300}

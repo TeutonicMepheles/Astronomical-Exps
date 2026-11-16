@@ -8,7 +8,7 @@
     var cx=760,cy=430,R=405;
     function point(a,flat){var u=a+state.year,x=Math.cos(u),z=Math.sin(u)*Math.cos(tilt),y=flat?0:Math.sin(u)*Math.sin(tilt);var xx=x*Math.cos(state.year)+z*Math.sin(state.year),zz=-x*Math.sin(state.year)+z*Math.cos(state.year);return {x:cx+xx*R,y:cy-zz*R*.48-y*R};}
     function line(points,color,width,dash){c.beginPath();points.forEach(function(p,i){if(i)c.lineTo(p.x,p.y);else c.moveTo(p.x,p.y);});c.strokeStyle=color;c.lineWidth=width;c.setLineDash(dash||[]);c.stroke();c.setLineDash([]);}
-    function text(t,x,y,color,size){c.fillStyle=color||'#d9e5f9';c.font=(size||20)+'px "Microsoft YaHei",sans-serif';c.fillText(t,x,y);}
+    function text(t,x,y,color,size){c.fillStyle=color||'#d9e5f9';c.font=(size||20)+'px "Alibaba PuHuiTi 3",sans-serif';c.fillText(t,x,y);}
     c.fillStyle='rgba(114,165,209,.10)';c.beginPath();c.ellipse(cx,cy,R+45,(R+45)*.48,0,0,tau);c.fill();
     var flat=[],orbit=[];for(var i=0;i<=180;i++){flat.push(point(i*tau/180,true));orbit.push(point(i*tau/180,false));}line(flat,'#7599b2',2,[7,8]);line(orbit,'#efd2a0',3);
     for(var y=280;y<590;y+=65){line([{x:220,y:y},{x:1270,y:y}],'rgba(255,225,161,.26)',1);text('→',260,y+6,'#e4c895',22);}

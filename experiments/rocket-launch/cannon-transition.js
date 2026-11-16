@@ -111,16 +111,16 @@ export function createCannonTransition(onReady=()=>{}){
    if(!(low&&progress===1)){
     const forceArrow=(magnitude,sign,color,text)=>{
      const end=[xy[0]+sign*radial[0]*Math.min(180,68*magnitude),xy[1]+sign*radial[1]*Math.min(180,68*magnitude)];
-     const a=Math.atan2(end[1]-xy[1],end[0]-xy[0]);c.strokeStyle=color;c.lineWidth=2;c.beginPath();c.moveTo(...xy);c.lineTo(...end);c.moveTo(end[0]-9*Math.cos(a-.4),end[1]-9*Math.sin(a-.4));c.lineTo(...end);c.lineTo(end[0]-9*Math.cos(a+.4),end[1]-9*Math.sin(a+.4));c.stroke();c.fillStyle=color;c.font='16px "Microsoft YaHei",sans-serif';c.textAlign='left';c.fillText(text,end[0]+12,end[1]);
+     const a=Math.atan2(end[1]-xy[1],end[0]-xy[0]);c.strokeStyle=color;c.lineWidth=2;c.beginPath();c.moveTo(...xy);c.lineTo(...end);c.moveTo(end[0]-9*Math.cos(a-.4),end[1]-9*Math.sin(a-.4));c.lineTo(...end);c.lineTo(end[0]-9*Math.cos(a+.4),end[1]-9*Math.sin(a+.4));c.stroke();c.fillStyle=color;c.font='16px "Alibaba PuHuiTi 3",sans-serif';c.textAlign='left';c.fillText(text,end[0]+12,end[1]);
     };
     forceArrow(gravity,1,'#a8c4c6','引力');forceArrow(centrifugal,-1,'#edb27b','离心惯性力');
-    c.fillStyle='#a9b0bf';c.font='16px "Microsoft YaHei",sans-serif';c.fillText('旋转参考系',28,865);
+    c.fillStyle='#a9b0bf';c.font='16px "Alibaba PuHuiTi 3",sans-serif';c.fillText('旋转参考系',28,865);
    }
    st.presentation={launched:true,projectile:xy,groundY:ty+scale*594,landed:low&&progress===1,kind:path.m.kind,progress};
    st.presentation.effect=muzzleSequence.draw(c,flightAge,st.transition.muzzle,(low?78:52)*Math.abs(scale));
    if(low&&st.presentation.landed){
     const end=project(last),y=625,rangeKm=theta(last)*6371;c.strokeStyle='#a8c4c6';c.lineWidth=2;c.beginPath();c.moveTo(479,y);c.lineTo(end[0],y);for(const x of [479,end[0]]){c.moveTo(x,y-8);c.lineTo(x,y+8);}c.stroke();
-    c.fillStyle='#eee4ca';c.font='24px "Microsoft YaHei",sans-serif';c.textAlign='center';c.fillText('射程 '+rangeKm.toFixed(1)+' km（示意）',(479+end[0])/2,y+34);Object.assign(st.presentation,{rangeKm,rangeStart:[479,y],rangeEnd:[end[0],y]});
+    c.fillStyle='#eee4ca';c.font='24px "Alibaba PuHuiTi 3",sans-serif';c.textAlign='center';c.fillText('射程 '+rangeKm.toFixed(1)+' km（示意）',(479+end[0])/2,y+34);Object.assign(st.presentation,{rangeKm,rangeStart:[479,y],rangeEnd:[end[0],y]});
    }
   }
   c.restore();

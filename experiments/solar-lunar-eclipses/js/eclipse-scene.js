@@ -185,7 +185,7 @@
     if (state.mode === 'lunar' && moon.x > 0 && M.sunVisible(moon, M.EARTH, M.RE) < 0.5) {
       ctx.save();ctx.strokeStyle='rgba(226,126,100,.65)';ctx.lineWidth=2;
       [-1,1].forEach(function(sign){ctx.beginPath();ctx.moveTo(sx(-2),sy(sign*1.1));ctx.quadraticCurveTo(sx(0),sy(sign*1.13),sx(moon.x),sy(moon.y));ctx.stroke();});
-      ctx.fillStyle='#e5aa97';ctx.font='16px "Microsoft YaHei",sans-serif';ctx.fillText('大气折射红光（光路示意）',sx(0.3),sy(-1.5));ctx.restore();
+      ctx.fillStyle='#e5aa97';ctx.font='16px "Alibaba PuHuiTi 3",sans-serif';ctx.fillText('大气折射红光（光路示意）',sx(0.3),sy(-1.5));ctx.restore();
     }
     /* 传 state.mode：影斑那行只在日食档出现，不传就永远落不到 */
     if (view.mode === 'earth' || view.mode === 'system') this.drawScale(ctx, state.mode);
@@ -421,7 +421,7 @@
 
     if (isEarth && state.mode === 'lunar') this.drawUmbraGlow(ctx, C, cone, alpha);
     if (view.mode === 'earth' && ((state.mode === 'lunar') === isEarth)) {
-      ctx.save(); ctx.font = '18px "Microsoft YaHei",sans-serif'; ctx.fillStyle = '#e4e8ef';
+      ctx.save(); ctx.font = '18px "Alibaba PuHuiTi 3",sans-serif'; ctx.fillStyle = '#e4e8ef';
       var lx = origin.x + (end.x-origin.x)*0.42;
       var ly = origin.y + (end.y-origin.y)*0.42;
       ctx.fillText('本影', lx, ly + 5);
@@ -694,7 +694,7 @@
     ctx.restore();
 
     ctx.save();
-    ctx.font = '500 13px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
+    ctx.font = '500 13px "Alibaba PuHuiTi 3", sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     var label = function (text, x, y, color, align) {
@@ -995,7 +995,7 @@
     }
 
     ctx.save();
-    ctx.font = '500 15px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
+    ctx.font = '500 15px "Alibaba PuHuiTi 3", sans-serif';
     ctx.textBaseline = 'middle';
     var label = function (text, x, y, color, align) {
       ctx.textAlign = align || 'left';
@@ -1081,7 +1081,7 @@
             : ['月地距离按 4.6 个地球半径绘制（实际 60.3，压缩以便同框）',
                '太阳角半径按 3.4° 绘制（真值 0.27°），' + reach];
     ctx.save();
-    ctx.font = '15px "Microsoft YaHei", sans-serif';
+    ctx.font = '15px "Alibaba PuHuiTi 3", sans-serif';
     ctx.fillStyle = '#9aafc9';
     ctx.fillText('教学压缩比例 · 不用于真实食象预报', 56, 788);
     ctx.restore();
@@ -1295,7 +1295,7 @@
     var bx = lx + dx, by = ly;
 
     ctx.save();
-    ctx.font = '500 13px "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
+    ctx.font = '500 13px "Alibaba PuHuiTi 3", sans-serif';
     var tw = ctx.measureText(text).width;
     var padX = 6, boxH = 20;
     var left = align === 'left' ? bx : align === 'right' ? bx - tw - padX * 2 : bx - tw / 2 - padX;

@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent
 
 
 def data(path):
-    mime = 'image/jpeg' if path.suffix == '.jpg' else 'image/png'
+    mime = {'.jpg': 'image/jpeg', '.woff2': 'font/woff2'}.get(path.suffix, 'image/png')
     return 'data:' + mime + ';base64,' + base64.b64encode(path.read_bytes()).decode('ascii')
 
 
@@ -34,6 +34,15 @@ def build(target):
                       for key, value in values.items())
     script += (ROOT / 'runtime.js').read_text(encoding='utf-8')
     html = (ROOT / 'index.html').read_text(encoding='utf-8')
+    def stylesheet(match):
+        path = (ROOT / match[1]).resolve()
+        if not path.is_relative_to(ROOT.parents[2]):
+            raise ValueError('Stylesheet outside project: ' + str(path))
+        css = path.read_text(encoding='utf-8')
+        css = re.sub(r'url\(["\']?([^\)"\']+)["\']?\)',
+                     lambda m: 'url("' + data(path.parent / m[1]) + '")', css)
+        return '<style>' + css + '</style>'
+    html = re.sub(r'<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>', stylesheet, html)
     html = re.sub(r'<script src="(?:lighting-layout|resident-vignette-layout|resident-fixed-lighting)\.js(?:\?[^" ]*)?"></script>', '', html)
     html = re.sub(r'<script src="runtime\.js(?:\?[^"]*)?"></script>', lambda _: '<script>' + script.replace('</script', '<\\/script') + '</script>', html)
     target.parent.mkdir(parents=True, exist_ok=True)

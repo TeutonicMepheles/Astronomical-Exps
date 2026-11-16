@@ -34,7 +34,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
               <path class="fp-dimension-guides" data-field-guides/>
               <text class="fp-dimension-label" data-field-label x="320"/>
             </g>
-            <g data-caption-art><svg x="45" y="550" width="610" height="74" viewBox="0 200 2172 300" preserveAspectRatio="xMinYMid meet"><image data-caption-image width="2172" height="724"/></svg><text data-field-caption class="fp-caption-accessible" aria-hidden="true"/></g>
+            <g data-caption-art><text data-field-caption class="fp-reference-caption" x="45" y="592"/></g>
           </g>
           <g transform="translate(85 0)"><path d="M365 45H575V65H365Z" fill="url(#fpHatch)"/>
           <path d="M365 65H575" stroke="#d8e7ff" stroke-width="6" stroke-linecap="round"/>
@@ -113,7 +113,6 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     const captionText=isBasket?'28m —— 约为标准篮球场长度':isWidth?'67m —— 约为足球场宽度':'100m —— 约为标准足球场长度';
     if(caption.textContent!==captionText){
       caption.textContent=captionText;
-      set('[data-caption-image]',{href:`assets/chalk-caption-${draft.length}.png`,'aria-label':captionText});
       for(const animation of find('[data-caption-art]').getAnimations())animation.cancel();
       if(!reduced.matches)find('[data-caption-art]').animate([{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0% 0 0)'}],{duration:800,easing:'ease-out'});
     }

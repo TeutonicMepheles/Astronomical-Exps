@@ -1,0 +1,21 @@
+/* PR66 Alibaba PuHuiTi 3.0; final design reference: 1920 x 1080.
+   Existing scene coordinates remain 1600 x 900; 1.2x fit gives the reference sizes. */
+:root { --type-unit: .8333333333px; }
+body { font-family:var(--font-ui);font-size:var(--type-body);font-weight:400; }
+button,input,select,textarea { font-family:var(--font-ui); }
+
+.topbar h1 {font-size:var(--type-title);font-weight:500}
+.topbar h1 span {font-size:var(--type-help);font-weight:300}
+button,select,.factor-picker,.viewbar #pairTitle,.viewbar nav button {font-size:var(--type-body);font-weight:400}
+.inline-settings {gap:10px;align-items:flex-start}
+.inline-settings label {flex-direction:column;align-items:stretch;gap:5px}
+.inline-settings label>span {font-size:var(--type-body);font-weight:400}
+.inline-settings select {font-size:var(--type-body);min-height:44px}
+.viewport header {align-items:flex-start;gap:12px}
+#launch,.experiment-controls .launch {font-size:var(--type-action);font-weight:600;min-width:260px;min-height:62px}
+.workspace>footer,#conditionSummary,.settings-note,#records .record-note {font-size:var(--type-help);font-weight:300}
+.workspace>footer {flex-wrap:wrap;gap:4px 18px}
+#boundaryNote {white-space:normal}
+#records h2 {font-size:var(--type-title);font-weight:500}
+#recordBody h3,#records .record-gallery figcaption {font-size:var(--type-body);font-weight:500}
+#recordBody table {font-size:var(--type-body);font-variant-numeric:tabular-nums}

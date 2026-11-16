@@ -470,3 +470,6 @@ function changeObservationCamera(name){
 function startSolarCamera(){changeObservationCamera('solar');}
 for(const [id,name] of [['observationSolar','solar'],['observationOblique','oblique'],['observationSide','level'],['observationTop','overhead']])$(id).onclick=()=>changeObservationCamera(name);
 $('nodeTools').append($('alignNodes'),$('missNodes'));M.setNodeAngle(0);enterEvent('total');fit();
+
+// A paused scene also needs one redraw after the local font replaces its fallback.
+document.fonts.ready.then(()=>{skyKey='';request();});

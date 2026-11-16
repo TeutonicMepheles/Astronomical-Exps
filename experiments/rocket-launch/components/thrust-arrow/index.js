@@ -27,7 +27,7 @@ export class ThrustArrow {
   c.drawImage(image,0,0,TAIL,HEIGHT,0,-height/2,slices.tail,height);
   if(slices.body>0)c.drawImage(image,TAIL,0,WIDTH-TAIL-HEAD,HEIGHT,slices.tail,-height/2,slices.body,height);
   c.drawImage(image,WIDTH-HEAD,0,HEAD,HEIGHT,slices.tail+slices.body,-height/2,slices.head,height);c.restore();
-  if(label){c.save();c.globalAlpha*=Math.min(1,slices.opacity*2);c.font='20px "Microsoft YaHei",sans-serif';c.textAlign='center';c.fillStyle=color;c.fillText(label,x+Math.cos(angle)*Math.max(labelMinOffset,slices.length/2),y+Math.sin(angle)*Math.max(labelMinOffset,slices.length/2)+(labelBelow?height*.6+24:-height*.6-9));c.restore();}return record;
+  if(label){c.save();c.globalAlpha*=Math.min(1,slices.opacity*2);c.font='20px "Alibaba PuHuiTi 3",sans-serif';c.textAlign='center';c.fillStyle=color;c.fillText(label,x+Math.cos(angle)*Math.max(labelMinOffset,slices.length/2),y+Math.sin(angle)*Math.max(labelMinOffset,slices.length/2)+(labelBelow?height*.6+24:-height*.6-9));c.restore();}return record;
  }
  destroy(){this.disposed=true;this.image.onload=this.image.onerror=null;this.cache.clear();this.lastDraws.length=0;}
 }

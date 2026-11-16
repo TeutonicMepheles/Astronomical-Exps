@@ -4,7 +4,7 @@ import {MODEL,GEARS,model,pathOf,solarPath,positionAt} from './orbital-model.js'
 export {MODEL,model,pathOf,solarPath,positionAt} from './orbital-model.js';
 const ink='#e8e0cc',dim='#a9b0bf',warm='#d8b074',cool='#a8c4c6',tau=Math.PI*2;
 const GEO={cx:940,cy:345,s:180};
-function label(c,s,x,y,size=22,color=ink){c.fillStyle=color;c.font=`${size}px "Microsoft YaHei",sans-serif`;c.fillText(s,x,y);}
+function label(c,s,x,y,size=22,color=ink){c.fillStyle=color;c.font=`${size}px "Alibaba PuHuiTi 3",sans-serif`;c.fillText(s,x,y);}
 function line(c,pts,color=warm,width=2,dash=[]){if(!pts.length)return;c.save();c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.lineJoin='round';c.setLineDash(dash);c.beginPath();pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.stroke();c.restore();}
 function dot(c,x,y,r=4,color=ink){c.fillStyle=color;c.beginPath();c.arc(x,y,r,0,tau);c.fill();}
 function arrow(c,a,b,color=warm){line(c,[a,b],color,2);const ang=Math.atan2(b[1]-a[1],b[0]-a[0]);line(c,[[b[0]-10*Math.cos(ang-.4),b[1]-10*Math.sin(ang-.4)],b,[b[0]-10*Math.cos(ang+.4),b[1]-10*Math.sin(ang+.4)]],color,2);}
