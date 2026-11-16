@@ -3,7 +3,7 @@ import {createShadowLayout} from './shadow-layout.mjs';
 // One rigid teaching space for the actually displayed Earth, Moon and light.
 // Screen layout and body radii are inputs; no body is moved to meet a shadow.
 export function lunarGeometry(M,vector){
- const origin={x:0,y:0,z:0},position=phi=>{const q=vector(M.displayPoint(M.moonAt(phi),0));return {x:q[0]*.8,y:q[1],z:q[2]};},q=vector({x:1,y:0,z:0}),axis=M.unit({x:q[0]*.8,y:q[1],z:q[2]});
+ const origin={x:0,y:0,z:0},position=phi=>{const q=vector(M.displayPoint(M.moonAt(phi),0));return {x:q[0],y:q[1],z:q[2]};},q=vector({x:1,y:0,z:0}),axis=M.unit({x:q[0],y:q[1],z:q[2]});
  // Apply the existing distance-display ratio to the Sun as well as the Moon.
  // This is a teaching light, not a newly adopted astronomical distance.
  const distance=M.SUN_DIST*M.len(position(0))/M.ORBIT,SUN=M.mul(axis,-distance),SUN_R=M.SUN_R,au=Math.asin((SUN_R-M.RE)/distance),ap=Math.asin((SUN_R+M.RE)/distance),ru=M.RE/Math.cos(au),rp=M.RE/Math.cos(ap),su=-Math.tan(au),sp=Math.tan(ap),umbraLength=-ru/su;

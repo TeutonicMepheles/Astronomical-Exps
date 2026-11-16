@@ -12,8 +12,11 @@
 <button id="surfaceZoom" hidden aria-pressed="false" aria-controls="surfaceDetail">受影面放大</button>
 <div id="shadowLegend" hidden aria-label="阴影边界"><span class="umbra-key">本影边界</span><span class="penumbra-key">半影边界</span><span class="antumbra-key" hidden>伪本影边界</span></div>
 <section id="surfaceDetail" hidden role="region" aria-label="受影面放大观察"><div class="surface-header"><strong id="surfaceTitle">地球受影面</strong><div><button id="surfaceScale2" aria-pressed="true">×2</button><button id="surfaceScale4" aria-pressed="false">×4</button><button id="surfaceClose">关闭</button></div></div><canvas id="surfaceCanvas" role="img" aria-label="受影球面本影和半影分布"></canvas><div class="surface-legend"><span class="umbra-key">本影边界</span><span class="penumbra-key">半影边界</span><span class="antumbra-key" hidden>伪本影边界</span></div></section>
+<nav id="eventTypes" aria-label="食象类型"><button data-event="total">日全食</button><button data-event="partial">日偏食</button><button data-event="annular">日环食</button><button data-event="lunar">月食</button></nav>
+<div id="nodeTools" role="group" aria-label="轨道交点对照"></div><div id="observerCandidates" role="group" aria-label="地球受影面候选观测点"></div>
+<div id="observationCameras" role="group" aria-label="观察视角"><button id="observationSolar" aria-label="日食观察" title="日食观察" aria-pressed="false" aria-controls="scene"><svg viewBox="0 0 36 32" aria-hidden="true"><path d="M2 16s6-10 16-10 16 10 16 10-6 10-16 10S2 16 2 16Z"/><circle cx="18" cy="16" r="6"/><circle cx="14" cy="18" r="2"/></svg></button><button id="observationOblique" aria-label="侧视" title="侧视" aria-pressed="true" aria-controls="scene"><svg viewBox="0 0 36 32" aria-hidden="true"><ellipse cx="18" cy="17" rx="14" ry="6" transform="rotate(-15 18 17)"/><circle cx="18" cy="17" r="5"/><path d="M20 6l-4 22"/></svg></button><button id="observationSide" aria-label="正视" title="正视" aria-pressed="false" aria-controls="scene"><svg viewBox="0 0 36 32" aria-hidden="true"><path d="M3 21h30M5 24l26-8"/><circle cx="18" cy="21" r="5"/><path d="M12 6h12m-6-3v6"/></svg></button><button id="observationTop" aria-label="俯视" title="俯视" aria-pressed="false" aria-controls="scene"><svg viewBox="0 0 36 32" aria-hidden="true"><ellipse cx="18" cy="16" rx="13" ry="12"/><circle cx="18" cy="16" r="5"/><circle cx="31" cy="16" r="2"/></svg></button></div>
 <div id="observationTools" hidden>
-<div class="observation-transport" role="group" aria-label="食相播放控制"><button id="previousPhase">上一步</button><button id="nextPhase">下一步</button><button id="restartEvent">重播</button><label>速度 <select id="observationSpeed" aria-label="观测播放速度"><option value="1">×1</option><option value="5">×5</option><option value="10">×10</option></select></label></div>
+<div class="observation-transport" role="group" aria-label="食相播放控制"><button id="nextPhase">下一阶段</button><button id="continuousPlay">连续播放</button><button id="restartEvent">重播</button><label>速度 <select id="observationSpeed" aria-label="观测播放速度"><option value="1">×1</option><option value="5">×5</option><option value="10">×10</option></select></label></div>
 <details id="observationOptions"><summary>观测调节</summary><div class="observation-options-body">
 <div role="group" aria-label="选择食象"><button data-observation-mode="solar" aria-pressed="true">日食</button><button data-observation-mode="lunar" aria-pressed="false">月食</button></div>
 <label for="referenceCase">典型场景（示意） <select id="referenceCase"><option value="free">自由观测</option><option value="total">日全食</option><option value="annular">日环食</option><option value="partial">日偏食</option></select></label>
@@ -23,7 +26,8 @@
 <output id="observationGeometry"></output><output id="observerCoordinates" aria-label="观察点 A 固定模型经纬度"></output>
 </div></details></div>
 <aside id="eventTip" hidden aria-live="polite"><span id="eventText"></span><button id="enter">进入地月观测 →</button></aside>
-<section id="observer" hidden aria-label="观察点 A 地面视角"><canvas id="sky" role="img" aria-label="观察点 A 看到的日月食"></canvas><div class="observer-caption">● 观察点 A <output id="phaseName"></output></div></section>
+<section id="observer" hidden aria-label="观察点 A 地面视角"><canvas id="sky" role="img" aria-label="观察点 A 看到的日月食"></canvas><div class="observer-caption"><span id="observerLabel">地面观测</span> <output id="phaseName"></output></div></section>
+    <div id="observerPrompt" hidden>选择观测点</div>
     <nav class="rail" id="stageRail" hidden aria-label="食相阶段">
       <svg class="rail-cv" viewBox="0 0 1600 900" aria-hidden="true">
         <defs>
@@ -39,7 +43,7 @@
         <circle class="rail-end" r="2.5"/>
       </svg>
       <div class="rail-head" aria-hidden="true">
-        <span class="rail-head-label">食相</span>
+        <span class="rail-head-label" id="railScope">月食</span>
         <span class="rail-pct" id="railPct">0%</span>
         <span class="rail-sub" id="railSub">月面边缘刚接触日面</span>
         <span class="rail-rest" id="railRest">剩 <b>4</b> 步</span>
@@ -51,4 +55,4 @@
 <div id="dateRow" class="progress-row"><label for="date">日期 <output id="dateValue"></output></label><input id="date" type="range" min="0" max="364" step="1" value="0" aria-description="统一加速时间轴：现实2秒对应模拟1天；日期调节同步地月运动，非真实食象预报"></div>
 <div class="progress-row"><label for="moon">月球公转 <output id="moonValue"></output></label><input id="moon" type="range" min="0" max="360" step="0.1" value="135" aria-label="月球公转进度"><button id="play" aria-label="暂停地月运动" aria-pressed="true">Ⅱ</button></div>
 </section><p id="status" class="sr-only" aria-live="polite"></p>
-</main><script src="js/eclipse-model.js"></script><script src="js/sky-window.js"></script><script src="js/stage-rail.js"></script><script type="module" src="js/overview.js"></script></body></html>
+</main><script src="vendor/three.min.js"></script><script src="../../shared/components/optical-beam.js"></script><script src="js/eclipse-model.js"></script><script src="js/sky-window.js"></script><script src="js/stage-rail.js"></script><script type="module" src="js/overview.js"></script></body></html>

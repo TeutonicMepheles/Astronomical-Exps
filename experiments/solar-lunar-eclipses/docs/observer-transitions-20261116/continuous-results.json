@@ -1,0 +1,78 @@
+{
+  "pass": true,
+  "cases": [
+    {
+      "kind": "total",
+      "point": 0,
+      "blend": 0.022062065792000044,
+      "ground": "{\"latitude\":-0.40141852829655633,\"longitude\":1.3760562732894708}"
+    },
+    {
+      "kind": "total",
+      "point": 1,
+      "blend": 0.02225586580970023,
+      "ground": "{\"latitude\":-0.6927358151494658,\"longitude\":1.451508495599435}"
+    },
+    {
+      "kind": "total",
+      "point": 2,
+      "blend": 0.022353062,
+      "ground": "{\"latitude\":-0.0887579130115262,\"longitude\":1.3139867568320254}"
+    },
+    {
+      "kind": "total",
+      "point": 0,
+      "blend": 0.02196546204099126,
+      "ground": "{\"latitude\":-0.40141852829655633,\"longitude\":1.3760562732894708}"
+    },
+    {
+      "kind": "partial",
+      "point": 0,
+      "blend": 0.022450455423999913,
+      "ground": "{\"latitude\":-0.630286662884488,\"longitude\":2.209918021482645}"
+    },
+    {
+      "kind": "partial",
+      "point": 1,
+      "blend": 0.022158867041794456,
+      "ground": "{\"latitude\":-0.8913381997761225,\"longitude\":2.294042608482983}"
+    },
+    {
+      "kind": "partial",
+      "point": 2,
+      "blend": 0.022110441703841365,
+      "ground": "{\"latitude\":-0.3100078830341313,\"longitude\":2.142849651122347}"
+    },
+    {
+      "kind": "partial",
+      "point": 0,
+      "blend": 0.022645833657986683,
+      "ground": "{\"latitude\":-0.630286662884488,\"longitude\":2.209918021482645}"
+    },
+    {
+      "kind": "annular",
+      "point": 0,
+      "blend": 0.02162890625,
+      "ground": "{\"latitude\":-0.40141852829655633,\"longitude\":3.01984788149189}"
+    },
+    {
+      "kind": "annular",
+      "point": 1,
+      "blend": 0.022062065722832962,
+      "ground": "{\"latitude\":-0.6927358151494658,\"longitude\":3.095300103801854}"
+    },
+    {
+      "kind": "annular",
+      "point": 2,
+      "blend": 0.021724817642437298,
+      "ground": "{\"latitude\":-0.0887579130115262,\"longitude\":2.9577783650344447}"
+    },
+    {
+      "kind": "annular",
+      "point": 0,
+      "blend": 0.022401733965118218,
+      "ground": "{\"latitude\":-0.40141852829655633,\"longitude\":3.01984788149189}"
+    }
+  ],
+  "errors": []
+}
