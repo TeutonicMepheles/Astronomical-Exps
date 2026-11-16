@@ -486,3 +486,25 @@ header{height:106px;flex:none;align-items:flex-start}
 #app.launch-transition #parts,#app.launch-transition aside{visibility:hidden}
 #app.launch-transition .rocket-3d{transition:left 1.6s ease,right 1.6s ease;left:32%;right:28%}
 @media(prefers-reduced-motion:reduce){#app.launch-transition .rocket-3d{transition:none}}
+
+/* 2026-11-15: selected part information stays prominent in the main view. */
+#app[data-step="6"] #feedback{position:absolute;left:32px;top:-510px;width:550px;min-height:90px;padding:22px 26px;font-size:28px;line-height:1.5;color:#f0eadb;background:#10172bec;border-left:3px solid #d8b074;pointer-events:none}
+#app[data-step="6"] #feedback:empty{visibility:hidden}
+#app[data-step="4"] aside{height:172px;align-items:center}
+#app[data-step="4"] #controls{display:flex;flex-wrap:wrap;gap:10px 18px}
+#app[data-step="4"] #controls .control-cluster{display:flex;flex-wrap:nowrap;gap:7px;padding:0;border:0}
+#app[data-step="4"] #controls button{font-size:17px;padding:8px 12px;min-height:46px}
+
+#velocity-preset-axis{position:absolute;inset:0;pointer-events:none}#velocity-preset-axis button{pointer-events:auto;padding:6px;border:1px solid #72829466;background:#142032df;color:#e8e0cc;border-radius:8px}#velocity-preset-axis button:hover,#velocity-preset-axis button[aria-pressed=true]{border-color:#d8b074;background:#534b3e}
+#app[data-step="4"] aside{z-index:5}
+
+#app[data-step="4"] .cannon-height-label{align-self:center;font-size:18px;white-space:nowrap;color:#a9b0bf;margin-right:4px}
+
+#app[data-step="4"] #controls{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"mode height compare" "play play play";gap:12px 22px;align-items:center}
+#app[data-step="4"] .cannon-mode-controls{grid-area:mode}
+#app[data-step="4"] .cannon-height-options{grid-area:height;justify-content:center}
+#app[data-step="4"] .cannon-playback-controls{grid-area:play;justify-content:flex-end}
+#app[data-step="4"] #controls>.control-cluster:last-child{grid-area:compare}
+#app[data-step="4"] #velocity-adjust[hidden]{display:inline-flex!important;visibility:hidden;pointer-events:none}
+#app[data-step="4"] #velocity-fire,#app[data-step="4"] #velocity-pause{min-width:94px}
+#app[data-step="4"] .cannon-playback-controls{display:flex!important}#app[data-step="4"] .cannon-playback-controls button{flex:none;width:auto;min-width:94px}
