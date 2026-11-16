@@ -1,3 +1,4 @@
+import {createCannonTransition,usesGroundView} from './cannon-transition.js';
 import {CANNON_ART,artPoint} from './assets/cannon-scene/geometry.js';
 import {MODEL,GEARS,model,pathOf,solarPath,positionAt} from './orbital-model.js';
 export {MODEL,model,pathOf,solarPath,positionAt} from './orbital-model.js';
@@ -11,32 +12,38 @@ const projected=(path,project)=>path.screen||(path.screen=path.pts.map(project))
 function trace(c,path,project,progress=1,color=warm){const head=positionAt(path,progress),points=projected(path,project).slice(0,head.index);points.push(project(head));line(c,points,color,2.4);const xy=project(head);dot(c,...xy,4,color);return xy;}
 function continuation(c,path,project,color=warm){const p=path.pts,tail=project(p[p.length-8]),end=project(p.at(-1)),a=Math.atan2(end[1]-tail[1],end[0]-tail[0]);arrow(c,[end[0]-18*Math.cos(a),end[1]-18*Math.sin(a)],end,color);}
 export function createVelocityScene(hooks={}){
- const st={v:4.5,age:0,paused:true,compare:false,solar:0,replay:0,dragging:false,cam:{...GEO}},cache=new Map(),solarCache=new Map();let cannon=null,grain=null,globe=null,backdrop=null,lastState='';
- const getPath=(v,far=3)=>{const key=v+':'+far;if(!cache.has(key))cache.set(key,pathOf(v,far));return cache.get(key);};
- const getSolar=v=>{if(!solarCache.has(v))solarCache.set(v,solarPath(v));return solarCache.get(v);};
- const mk=()=>GEARS.find(g=>g.v===st.v)||{name:st.v<7.9?'水平发射':'轨道探索',result:st.v<7.9?'落回地面':model(st.v).kind==='closed'?'环绕地球':'逃离地球',note:'理想条件下的水平发射演示。'},duration=()=>st.v===16.7?7:5;
- function setValue(v){st.v=Math.round(Math.max(.5,Math.min(16.7,v))*100)/100;cache.clear();st.age=0;st.replay=0;st.paused=true;}
+ const st={mode:'horizontal',height:100000,v:4.5,age:0,paused:true,compare:false,solar:0,replay:0,dragging:false,cam:{...GEO}},cache=new Map(),solarCache=new Map();let cannon=null,grain=null,globe=null,backdrop=null,lastState='';
+ const transition=createCannonTransition(()=>hooks.onFrame?.());
+ const videoMode=()=>st.mode==='horizontal'&&st.v!==16.7;
+ const getPath=(v,far=3)=>{const key=v+':'+far;if(!cache.has(key))cache.set(key,pathOf(v,far,st.height));return cache.get(key);};
+ const getSolar=v=>{if(!solarCache.has(v))solarCache.set(v,solarPath(v,3,st.height));return solarCache.get(v);};
+ const mk=()=>GEARS.find(g=>g.v===st.v)||{name:st.v<7.9?'水平发射':'轨道探索',result:model(st.v,st.height).kind==='impact'?'落回地面':model(st.v,st.height).kind==='closed'?'环绕地球':'逃离地球',note:'理想条件下的水平发射演示。'},duration=()=>st.mode==='vertical'?12:st.v===16.7?7:(usesGroundView(st.v,st.height)?6.5:8.85);
+ function setValue(v){transition.reset();st.presentation=null;st.v=Math.round(Math.max(.5,Math.min(16.7,v))*100)/100;cache.clear();st.age=0;st.replay=0;st.paused=true;}
  function earth(c,x,y,r){if(globe)globe(c,x,y,r);else{dot(c,x,y,r,'#596d77');if(grain){c.save();c.beginPath();c.arc(x,y,r,0,tau);c.clip();c.globalAlpha=.2;c.fillStyle=grain;c.fillRect(x-r,y-r,r*2,r*2);c.restore();}}}
  const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
  function storyboard(c,v,progress,alpha=1){
   if(alpha<=.001)return;
+  if(videoMode()&&backdrop){transition.draw(backdrop,st,getPath(v));if(st.age>0)return;}
+  if(videoMode()&&backdrop&&st.age===0){drawSpeedAxis(c,v);return;}
   c.save();c.globalAlpha=alpha;
   const path=getPath(v),wide=ease((st.age-.25)/1.8),space=v>=7?ease((st.age-1.15)/1.6):0;
   st.shot=space>.99?'earth':wide>.99?'terrain':'close';
   // A single projection carries the muzzle, projectile and planet through the zoom.
   // Local scale is independent of speed: faster shots travel further on screen.
-  const mx=360,my=230,ground=530,impact=getPath(4.5).pts.at(-1);
+  const r0=1+st.height/6371000;const mx=360,my=230,ground=530,impact=getPath(4.5).pts.at(-1);
   const z=1.8-.8*wide,blend=space;
-  const localX=850/impact.x*z,localY=(ground-my)/(MODEL.R0-impact.y)*z;
-  const sx=Math.exp(Math.log(localX)*(1-blend)+Math.log(180)*blend);
-  const sy=Math.exp(Math.log(localY)*(1-blend)+Math.log(180)*blend);
-  const muzzleX=mx+(750-mx)*blend,muzzleY=my+(340-180*MODEL.R0-my)*blend;
-  const project=p=>[muzzleX+p.x*sx,muzzleY+(MODEL.R0-p.y)*sy];
+  const angle=p=>Math.atan2(p.x,p.y),radius=p=>p.r??Math.hypot(p.x,p.y);
+  const extent=Math.max(angle(impact),path.m.kind==='impact'?angle(path.pts.at(-1)):0);
+  const localX=850/extent*z,localY=(ground-my)/(r0-1)*z;
+  const muzzleX=mx+(750-mx)*blend,muzzleY=my+(340-180*r0-my)*blend;
+  // Local view unwraps the spherical surface to a flat ground line. During
+  // pullback, both the ground and trajectory blend into the same globe projection.
+  const project=p=>[muzzleX+(1-blend)*angle(p)*localX+blend*p.x*180,muzzleY+(1-blend)*(r0-radius(p))*localY+blend*(r0-p.y)*180];
   // Animation uses the page-wide canvas; the stage canvas is only for labels/controls.
   // Keep the same projection so changing layers never shifts the muzzle or projectile.
   const visual=backdrop||c;visual.save();visual.globalAlpha=alpha;
   if(!backdrop){visual.beginPath();visual.rect(0,155,1500,425);visual.clip();}
-  if(space>0)earth(visual,muzzleX,muzzleY+MODEL.R0*sy,sy);
+  if(space>0)earth(visual,muzzleX,muzzleY+r0*180,180);
   visual.save();visual.globalAlpha=alpha*(1-space);
   visual.translate(mx*(1-z),my*(1-z));visual.scale(z,z);
   for(let layer=0;layer<3;layer++){
@@ -44,27 +51,42 @@ export function createVelocityScene(hooks={}){
    for(let x=-600;x<=2100;x+=60)visual.lineTo(x,430+layer*45-45*Math.sin(x/170+layer)-28*Math.cos(x/87));
    visual.lineTo(2100,1100);visual.lineTo(-600,1100);visual.fill();
   }
-  line(visual,[[-600,ground],[2100,ground]],'#a8c4c644',2);visual.restore();
-  if(st.compare)for(const value of [4.5,7.89,7.9,11.2])if(value!==v)line(visual,getPath(value).pts.map(project),'#a8c4c655',1.3,[4,7]);
-  if(cannon?.naturalWidth){visual.save();visual.translate(muzzleX,muzzleY);visual.rotate(CANNON_ART.rotation);const sc=.20*z*(1-blend)+.035*blend;visual.scale(sc,sc);visual.drawImage(cannon,-CANNON_ART.muzzle[0],-CANNON_ART.muzzle[1]);visual.restore();}
-  if(st.age>0){const head=positionAt(path,progress),pts=path.pts.slice(0,head.index).map(project);pts.push(project(head));line(visual,pts,ink,2.6);dot(visual,...project(head),6,warm);}
   visual.restore();
+  const groundY=muzzleY+(ground-my)*z;visual.save();visual.globalAlpha=alpha*(1-space);visual.fillStyle='#152331';visual.fillRect(-600,groundY,3000,1200);line(visual,[[-600,groundY],[2100,groundY]],'#a8c4c688',2);visual.restore();
+  if(st.compare)for(const value of [4.5,7.89,7.9,11.2])if(value!==v)line(visual,getPath(value).pts.map(project),'#a8c4c655',1.3,[4,7]);
+  if(cannon?.naturalWidth){visual.save();visual.translate(muzzleX,muzzleY);visual.rotate(CANNON_ART.rotation);const groundDeltaY=(CANNON_ART.ground[0]-CANNON_ART.muzzle[0])*Math.sin(CANNON_ART.rotation)+(CANNON_ART.ground[1]-CANNON_ART.muzzle[1])*Math.cos(CANNON_ART.rotation),sc=((ground-my)*z*(1-blend)+(r0-1)*180*blend)/groundDeltaY;visual.scale(sc,sc);visual.drawImage(cannon,-CANNON_ART.muzzle[0],-CANNON_ART.muzzle[1]);visual.restore();}
+  if(st.age>0){const head=positionAt(path,progress),pts=path.pts.slice(0,head.index).map(project);pts.push(project(head));line(visual,pts,ink,2.6);dot(visual,...project(head),6,warm);
+   const a=project(head),center=project({x:head.x*.999,y:head.y*.999,r:head.r*.999}),dx=center[0]-a[0],dy=center[1]-a[1],len=Math.hypot(dx,dy),u=[dx/len,dy/len],gravity=1/head.r**2,centrifugal=path.m.h**2/head.r**3,scale=68;
+   const landed=path.m.kind==='impact'&&progress>=1;st.presentation={projectile:a,groundY,landed,kind:path.m.kind,progress};if(!landed){arrow(visual,a,[a[0]+u[0]*scale*gravity,a[1]+u[1]*scale*gravity],'#a8c4c6');
+   arrow(visual,a,[a[0]-u[0]*Math.min(180,scale*centrifugal),a[1]-u[1]*Math.min(180,scale*centrifugal)],'#edb27b');
+   label(visual,'引力',a[0]+u[0]*scale*gravity+12,a[1]+u[1]*scale*gravity,16,cool);label(visual,'离心惯性力',a[0]-u[0]*Math.min(180,scale*centrifugal)+12,a[1]-u[1]*Math.min(180,scale*centrifugal),16,'#edb27b');}
+   st.forces={gravity,centrifugal,head,center,frame:'rotating',circularSpeed:7.9/Math.sqrt(r0)};
+  }
+  visual.restore();
+  if(path.m.kind==='impact'&&progress>=1&&space===0){
+   const end=project(path.pts.at(-1)),startX=muzzleX,y=groundY+28,rangeKm=angle(path.pts.at(-1))*6371;
+   line(c,[[startX,y],[end[0],y]],cool,1.5);
+   for(const x of [startX,end[0]])line(c,[[x,y-8],[x,y+8]],cool,1.5);
+   c.save();c.textAlign='center';label(c,'射程 '+rangeKm.toFixed(1)+' km（示意）',(startX+end[0])/2,y+35,23,ink);c.restore();
+   st.presentation.rangeKm=rangeKm;st.presentation.rangeStart=[startX,y];st.presentation.rangeEnd=[end[0],y];
+  }
   if(st.age===0&&st.paused){
    const x=360,y=230,w=960,f=(v-.5)/16.2;
    line(c,[[x,y],[x+w,y]],'#8ea7b544',18);
    line(c,[[x,y],[x+w*f,y]],'#a8c4c6',18);
-   for(const tick of [1,7.9,11.2,16.7]){const tx=x+w*(tick-.5)/16.2;line(c,[[tx,y-10],[tx,y+10]],ink,2);label(c,String(tick),tx-15,y+48,22,dim);}
+   for(const tick of [1,4.5,7.9,11.2,16.7]){const tx=x+w*(tick-.5)/16.2;line(c,[[tx,y-10],[tx,y+10]],ink,2);label(c,String(tick),tx-15,y+48,22,dim);}
    const tx=x+w*f;line(c,[[tx,y-20],[tx,y+20]],warm,7);
    label(c,'初速度  '+String(v)+' km/s',x,y-42,30,ink);
   }
-  const measure=ease((st.age-3.65)/1.1);
-  if(v<7&&measure>0){const end=project(path.pts.at(-1)),x=mx+(end[0]-mx)*measure;
-   c.save();c.beginPath();c.rect(0,155,1500,445);c.clip();c.globalAlpha=alpha*measure;line(c,[[mx,my],[mx,ground]],cool,1.5,[5,7]);line(c,[[mx,ground+23],[x,ground+23]],ink,2,[5,6]);
-   line(c,[[mx,ground+15],[mx,ground+31]],ink);line(c,[[x,ground+15],[x,ground+31]],ink);
-   label(c,'水平距离 '+(Math.atan2(path.pts.at(-1).x,path.pts.at(-1).y)*100*measure).toFixed(1)+' 示意格',(mx+x)/2-100,ground+59,23);c.restore();
-  }
-  if(st.age>0)label(c,space>.5?'地球视角':'牛顿大炮 · 水平发射',65,145,25);
   c.restore();
+ }
+ function drawSpeedAxis(c,v){
+   const x=360,y=230,w=960,f=(v-.5)/16.2;
+   line(c,[[x,y],[x+w,y]],'#8ea7b544',18);
+   line(c,[[x,y],[x+w*f,y]],'#a8c4c6',18);
+   for(const tick of [1,4.5,7.9,11.2,16.7]){const tx=x+w*(tick-.5)/16.2;line(c,[[tx,y-10],[tx,y+10]],ink,2);label(c,String(tick),tx-15,y+48,22,dim);}
+   const tx=x+w*f;line(c,[[tx,y-20],[tx,y+20]],warm,7);
+   label(c,'初速度  '+String(v)+' km/s',x,y-42,30,ink);
  }
  function geocentric(c,v,progress,alpha=1){storyboard(c,v,progress,alpha);}
  function solar(c,progress,alpha){c.save();c.globalAlpha=alpha;const cx=700,cy=335,s=170,project=p=>[cx+s*p.x,cy-s*p.y];
@@ -76,14 +98,15 @@ export function createVelocityScene(hooks={}){
   if(st.compare){const bound=getSolar(11.2);line(visual,projected(bound,project),'#a8c4c699',1.4,[5,6]);label(visual,'11.2：仍绕太阳',cx-245,cy+220,19,cool);}
   const path=getSolar(16.7);line(visual,projected(path,project),'#d8b07455',1.5,[3,7]);trace(visual,path,project,progress);continuation(visual,path,project);label(visual,'向太阳系外延伸',1160,540,20,warm);
   visual.restore();
-  label(c,'日心图另用尺度 · 天体大小放大 · 忽略其他天体',65,610,17,dim);c.restore();
+  c.restore();
  }
- return{get value(){return st.v;},state:st,gears:GEARS.map(g=>g.v),setValue,name:()=>mk().name,note:()=>mk().note,cam:()=>({...GEO}),toPixel:(x,y)=>[GEO.cx+GEO.s*x,GEO.cy-GEO.s*y],
+ return{get value(){return st.v;},state:st,setHeight(h){if(![1000,10000,100000].includes(h))return;st.height=h;cache.clear();solarCache.clear();setValue(st.v);},setMode(mode){transition.stop();st.mode=mode;st.age=0;st.paused=true;},gears:GEARS.map(g=>g.v),setValue,name:()=>mk().name,note:()=>mk().note,cam:()=>({...GEO}),toPixel:(x,y)=>[GEO.cx+GEO.s*x,GEO.cy-GEO.s*y],
   nudge(dir){const values=GEARS.map(g=>g.v);const next=dir<0?[...values].reverse().find(v=>v<st.v):values.find(v=>v>st.v);setValue(next??st.v);hooks.onChange?.();},down:()=>false,move(){},up(){},setBackdrop:context=>backdrop=context,setGrain:v=>grain=v,setGlobe:fn=>globe=fn,setCannon:im=>cannon=im,
-  replay(){st.age=0;st.replay=0;st.paused=false;},togglePause(){st.paused=!st.paused;},toggleCompare(){st.compare=!st.compare;},needsFrame:()=>!st.paused&&st.age<duration(),
-  draw(c,W,H,dt){if(!st.paused){st.age=Math.min(duration(),st.age+Math.min(dt||.016,.05));if(st.age>=duration()){st.paused=true;hooks.onChange?.();}}st.replay=st.age/duration();const state=String(st.v)+' km/s';if(state!==lastState){lastState=state;hooks.onState?.(state);}const g=mk();label(c,st.age===0&&st.paused?'牛顿大炮':g.name+' · '+g.result,65,55,32);if(st.age>0)label(c,g.note,65,91,20,dim);
+  get duration(){return duration();},suspend(){st.paused=true;transition.stop();},
+  replay(){transition.reset();st.presentation=null;st.age=0;st.replay=0;st.paused=false;},togglePause(){st.paused=!st.paused;},toggleCompare(){st.compare=!st.compare;},needsFrame:()=>!st.paused&&st.age<duration(),
+  draw(c,W,H,dt){if(!st.paused&&(!videoMode()||transition.ready())){st.age=Math.min(duration(),st.age+Math.min(dt||.016,.05));if(st.age>=duration()){st.paused=true;hooks.onChange?.();}}st.replay=st.age/duration();const state=String(st.v)+' km/s';if(state!==lastState){lastState=state;hooks.onState?.(state);}if(st.mode==='vertical'){drawDirectionScene(c,{time:st.age,earth,grain});return;}const g=mk();label(c,st.age===0&&st.paused?'牛顿大炮':String(st.v)+' km/s · '+g.result,65,55,32);
    if(st.v===16.7){st.solar=Math.max(0,Math.min(1,(st.age-1.6)/.65));geocentric(c,st.v,Math.min(1,st.age/1.6),1-st.solar);if(st.solar>0)solar(c,Math.max(0,(st.age-2.25)/4.75),st.solar);}else{st.solar=0;geocentric(c,st.v,Math.min(1,st.age/5));}
-   if(st.solar<.01)label(c,'山高与距离示意 · 近地参考速度 · 忽略大气与自转 · 时间压缩',65,610,17,dim);
+
   }
  };
 }

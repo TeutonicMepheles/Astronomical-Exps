@@ -105,3 +105,22 @@ export class StagingComparison {
  seek(progress,options){this.current.seek(progress,options);}
  reset(){this.lessons.forEach(l=>l.reset());this.completed.clear();}
 }
+
+/** One clock, simultaneous ignition, automatic staging; no manual teaching gates. */
+export class AutoStagingComparison extends StagingComparison {
+ constructor(){super();this.activeIndex=undefined;}
+ get current(){return this.lessons[2];}
+ get actionLabel(){return this.complete?'重播':this.running?'暂停':this.progress>0?'继续':'同时点火';}
+ get explanation(){return '理想速度 · 忽略重力与阻力；单级大与三级采用相同推进剂、结构和载荷。';}
+ act(){if(this.complete)this.reset();const run=!this.running;this.lessons.forEach(l=>l.running=run);}
+ advance(dt){
+  if(!this.running)return false;
+  const triple=this.current;
+  if(triple.phase==='gate'||triple.phase==='after')triple.act();
+  triple.advance(dt);
+  if(triple.phase==='gate'||triple.phase==='after')triple.act();
+  for(const l of this.lessons.slice(0,2)){l.progress=triple.progress;l.edge='after';l.running=triple.running;l.phase=triple.complete?'complete':'fuel';l.effectTime=triple.effectTime;}
+  if(triple.complete){this.lessons.forEach(l=>l.running=false);this.completed=new Set([0,1,2]);}
+  return true;
+ }
+}

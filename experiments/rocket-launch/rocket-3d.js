@@ -2,9 +2,10 @@ import * as T from './vendor/three/three.module.js';
 import {StagingRig} from './staging-rig.js';
 import {LaunchSupport} from './launch-support.js';
 import {createScanMaterial} from './scan-material.js';
+import {applyRocketPaint} from './rocket-paint-material.js';
 import {GLTFLoader} from './vendor/three/loaders/GLTFLoader.js';
 
-const asset=new URL('./assets/cz7-blender-20261112/',import.meta.url);
+const asset=new URL('./assets/cz7-kiu-20261116/',import.meta.url);
 export const MODULES=['Stage1','Stage2','Boosters','Payload','Fairing'];
 export const STRUCTURE_NODES=['Stage1','Stage2','Boosters','Payload','Fairing','Stage1LOXTank','Stage1FuelTank','Stage1Engine01','Stage2LOXTank','Stage2FuelTank','Stage2Engine01'];
 const apply=(o,t)=>{o.position.fromArray(t.translation);o.quaternion.fromArray(t.rotation);o.scale.fromArray(t.scale);};
@@ -40,7 +41,7 @@ export class Rocket3D {
     const response=await fetch(new URL('rocket-manifest.json',asset));if(!response.ok)throw Error('manifest HTTP '+response.status);
     const manifest=await response.json();const gltf=await new GLTFLoader().loadAsync(new URL(manifest.model,asset).href);
     if(this.disposed){this.disposeObject(gltf.scene);return this;}
-    this.manifest=manifest;this.model=gltf.scene;this.pivot.add(this.model);this.model.traverse(o=>{if(o.name)this.nodes[o.name]=o;});
+    this.manifest=manifest;this.model=gltf.scene;this.model.traverse(o=>{if(o.isMesh)for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(m.map&&!m.userData.rocketPaint)applyRocketPaint(m);});this.pivot.add(this.model);this.model.traverse(o=>{if(o.name)this.nodes[o.name]=o;});
     for(const n of Object.keys(manifest.defaultTransformsGLTF))if(!this.nodes[n])throw Error('缺少节点 '+n);
     this.clips=Object.fromEntries(gltf.animations.map(c=>[c.name,c]));this.mixer=new T.AnimationMixer(this.model);
     this.centers={};this.targetCenters={};
@@ -73,7 +74,7 @@ export class Rocket3D {
   this.effects.forEach(e=>{e.group.visible=false;e.flame.scale.setScalar(1);e.smoke.scale.set(1.5,2,1.5);});this.layout.position.set(0,0,0);this.layout.rotation.set(0,0,0);this.layout.scale.setScalar(1);this.pivot.position.set(0,-26.55,0);this.launchTime=null;if(this.reference){this.reference.visible=false;for(const n of MODULES)this.reference.getObjectByName(n).visible=true;}
   this.launchSupport?.reset();this.model.visible=true;if(this.stagingRig)this.stagingRig.root.visible=false;this.camera.position.set(0,0,100);this.camera.zoom=1;this.camera.far=400;this.camera.lookAt(0,0,0);this.resize();this.invalidateFrame();
  }
- setScene(mode){this.mode=mode;this.layer.hidden=!mode;if(!this.ready)return;this.status.hidden=true;this.renderer.domElement.setAttribute('aria-label',mode==='comparison'?'三方案火箭交互三维模型':'长征七号交互三维模型');this.reset();this.layout.rotation.z=['separation','launch'].includes(mode)?0:Math.PI/2;if(this.reference)this.reference.visible=mode==='assembly';if(mode==='launch')this.launchSupport.update(0);if(mode==='comparison'){this.model.visible=false;if(this.stagingRig)this.stagingRig.root.visible=true;else if(this.stagingError)this.showComparisonError();else this.loadComparison();}this.resize();}
+ setScene(mode){this.mode=mode;this.layer.hidden=!mode;if(!this.ready)return;this.renderer.toneMapping=mode==='comparison'?T.NoToneMapping:T.ACESFilmicToneMapping;this.status.hidden=true;this.renderer.domElement.setAttribute('aria-label',mode==='comparison'?'三方案火箭交互三维模型':'长征七号交互三维模型');this.reset();this.layout.rotation.z=['separation','launch'].includes(mode)?0:Math.PI/2;if(this.reference)this.reference.visible=mode==='assembly';if(mode==='launch')this.launchSupport.update(0);if(mode==='comparison'){this.model.visible=false;if(this.stagingRig)this.stagingRig.root.visible=true;else if(this.stagingError)this.showComparisonError();else this.loadComparison();}this.resize();}
  resize(){if(!this.renderer)return;const w=this.layer.clientWidth,h=this.layer.clientHeight;if(!w||!h)return;this.renderer.setSize(w,h,false);const aspect=w/h;if(this.mode==='comparison'){this.camera.far=2000;const half=Math.max(325,750/aspect);this.camera.position.set(750,325,1000);this.camera.lookAt(750,325,0);this.camera.left=-half*aspect;this.camera.right=half*aspect;this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();this.invalidateFrame();return;}const half=['separation','launch'].includes(this.mode)?35:this.mode==='assembly'?22:32/aspect;this.camera.left=-half*aspect;this.camera.right=half*aspect;this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();this.invalidateFrame();}
  setXray(enabled){if(!this.manifest)return;
   if(enabled&&!this.xraySaved.size){for(const n of this.xrayMeshNames||[]){this.xraySaved.set(n,this.nodes[n].visible);this.nodes[n].visible=false;const scan=this.scanMeshes.get(n);if(scan)scan.visible=true;}}
@@ -81,7 +82,7 @@ export class Rocket3D {
   this.invalidateFrame();
  }
  clearSelection(){for(const [mesh,original,clones] of this.highlights){mesh.material=original;clones.forEach(m=>m.dispose());}this.highlights=[];this.selected=null;this.label.hidden=true;}
- select(n,label){this.clearSelection();const o=this.nodes[n];if(!o)return;this.selected=n;o.traverse(mesh=>{if(!mesh.isMesh)return;const original=mesh.material,clones=(Array.isArray(original)?original:[original]).map(m=>{const c=m.clone();c.emissive?.set(0x8b5720);if(mesh.userData.scan){c.uniforms.tint.value.set(0xe8bf7e);c.uniforms.strength.value=.65;}return c;});mesh.material=Array.isArray(original)?clones:clones[0];this.highlights.push([mesh,original,clones]);});this.label.textContent=label;this.label.hidden=false;this.invalidateFrame();}
+ select(n,label){this.clearSelection();const o=this.nodes[n];if(!o)return;this.selected=n;o.traverse(mesh=>{if(!mesh.isMesh)return;const original=mesh.material,clones=(Array.isArray(original)?original:[original]).map(m=>{const c=m.clone();if(m.userData.rocketPaint)applyRocketPaint(c);c.emissive?.set(0x8b5720);if(mesh.userData.scan){c.uniforms.tint.value.set(0xe8bf7e);c.uniforms.strength.value=.65;}return c;});mesh.material=Array.isArray(original)?clones:clones[0];this.highlights.push([mesh,original,clones]);});this.label.textContent=label;this.label.hidden=false;this.invalidateFrame();}
  partFor(mesh){let o=mesh;while(o){if(STRUCTURE_NODES.includes(o.name))return o.name;if(o.name.startsWith('Stage1Engine'))return 'Stage1Engine01';if(o.name.startsWith('Stage2Engine'))return 'Stage2Engine01';o=o.parent;}return null;}
  pick(e){this.scene.updateMatrixWorld(true);const r=this.renderer.domElement.getBoundingClientRect(),ray=new T.Raycaster();ray.setFromCamera(new T.Vector2((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1),this.camera);
   const hits=ray.intersectObject(this.model,true).filter(h=>h.object.isMesh&&visible(h.object)&&!this.effects.some(e=>e.group===h.object.parent));
@@ -126,6 +127,6 @@ export class Rocket3D {
   this.effects.forEach(e=>{const show=flames&&(upper?e.name.startsWith('Stage2'):!e.name.startsWith('Stage2'));if(show!==e.group.visible)this.dirty=true;e.group.visible=show;if(show){e.flame.scale.y=.9+.12*Math.sin(effectTime*28);e.smoke.scale.setScalar(1.8+.15*Math.sin(effectTime*7));}});
   if(this.dirty){this.renderer.render(this.scene,this.camera);if(this.selected){const p=this.moduleCenter(this.selected);this.label.style.left=Math.max(100,Math.min(this.host.clientWidth-100,p.x))+'px';this.label.style.top=Math.max(16,Math.min(this.host.clientHeight-55,p.y-75))+'px';}this.dirty=false;}
  }
- disposeObject(root){const geometries=new Set(),materials=new Set();root.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m));});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());}
+ disposeObject(root){const geometries=new Set(),materials=new Set(),textures=new Set();root.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m));});geometries.forEach(g=>g.dispose());materials.forEach(m=>{for(const value of Object.values(m))if(value?.isTexture)textures.add(value);m.dispose();});textures.forEach(t=>t.dispose());}
  destroy(){this.disposed=true;this.ready=false;this.mode=null;this.abort.abort();this.ro.disconnect();this.mixer?.stopAllAction();this.clearSelection();this.stagingRig?.dispose();this.launchSupport?.dispose();this.launchSupport=null;if(this.model)this.disposeObject(this.model);this.referenceMaterial?.dispose();this.renderer?.dispose();this.renderer?.forceContextLoss();this.pivot?.clear();if(this.stagingRig)this.scene.remove(this.stagingRig.root);this.stagingRig=null;this.model=null;this.nodes={};this.scanMeshes.clear();this.reference=null;this.effects=[];this.clips={};this.active=null;this.mixer=null;this.layer.remove();}
 }

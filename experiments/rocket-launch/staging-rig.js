@@ -64,7 +64,7 @@ export class StagingRig {
    this.mixer.update(0);this.poseKey=key;
   }
   this.root.updateMatrixWorld(true);
-  this.actors.forEach((actor,index)=>{actor.root.visible=lesson.activeIndex===undefined||lesson.activeIndex===index;const state=lesson.lessons?.[index]||lesson;actor.stages.forEach((s,i)=>{
+  this.actors.forEach((actor,index)=>{actor.root.visible=lesson.activeIndex===undefined||lesson.activeIndex===index;actor.root.position.x=lesson.activeIndex===undefined?260+index*470:340;actor.root.scale.setScalar((lesson.activeIndex===undefined?280:400)/this.manifest.schemes[['Small','Large','Triple'][index]].displayHeight);actor.root.position.y=110+(lesson.activeIndex===undefined?samples[index].dv*16:0);const state=lesson.lessons?.[index]||lesson;actor.stages.forEach((s,i)=>{
    const sample=samples[index],fraction=sample.remaining[i]/(index===0?100:index===1?300:100),fade=index===2?times[i]||0:0;
    s.u.fill.value=fraction;s.fuel.visible=fraction>1e-6;s.surface.visible=fraction>1e-6;
    const p=new T.Vector3(0,T.MathUtils.lerp(s.spec.minLocalY,s.spec.maxLocalY,fraction),0);s.fuel.localToWorld(p);s.surface.parent.worldToLocal(p);s.surface.position.copy(p);
