@@ -17,7 +17,7 @@
 
 - 根 `npm run check`、`npm test`、`npm run test:browser`。
 - `python tools/check_scope.py --base origin/main --experiment rocket-launch`：仅火箭目录。
-- `python experiments/rocket-launch/tools/validate-kiu-model.py`：223 条校验，含 23 组源部件到实际 GLB 顶点世界范围对照、无逐件缩放、共享几何、离线贴图和累计动画终态。
+- `python experiments/rocket-launch/tools/validate-kiu-model.py`：319 条校验，含 23 组源部件到实际 GLB 顶点世界范围对照、无逐件缩放、共享几何、离线贴图和累计动画终态。
 - `test-review-20261115.cjs`、`test-transition-geometry.cjs`、`test-transition-timing.cjs`：理想速度解析结果、同步分级、不同山高、轨迹等比投影、炮口对齐、转场时序。
 - `test-review-browser-20261115.cjs`：高度记录、视频分支受力、同页垂直/转向、结构说明、自动分离、三模型同步/暂停/重置、重复切换及三视口。脚本、资源和外部网络错误为零。
 - `test-kiu-model.cjs`：原贴图/笔触 GPU 对照、六处内部点选、三视口 15 次真实拖装、取消/依赖、自动分离/暂停、七动画累计终态、20 次切换、静态不重绘及纹理/几何销毁。
@@ -34,3 +34,12 @@ KIU 衍生外观遵循 CC BY-NC-SA 4.0，作者/固定来源/改动说明见 [SO
 SubAgent Review 与 GitHub CI 的最终状态记录在本次 PR；只有无待修复问题且检查通过后才合并。
 
 本轮视频短样本为 1,900 帧，P95/P99 约 13.4/13.5 ms，出现 1 个约 57 ms 长任务；炮口专项 387 帧、0 长任务。该短时结果不构成设备性能承诺，亦未以降低画质或断言换取通过。
+
+## 独立 Review 修复
+
+SubAgent 首轮发现两项 P2，合并前修复：
+
+- 源整流罩拼缝变化后，旧 ±X 分离向量会先向内穿越。现按源瓣外法向平移，并绕对应切向轴向外倾斜；导出的逐步与累计动画一并重建。新增两瓣各 48 帧、全部顶点沿源外法向不后退的验证（总校验 319 条）。旧 PR GLB 作为负例，在第一帧被新断言拒绝，证明本检查能检出旧错误。
+- 不带 metric 的旧记录仍用 distance 字段保存历史高度。现保留独立“旧版高度（示意）”列，与 typed distance/current height 分开显示。`test-record-compatibility.cjs` 验证三类记录、翻页、零数据改写。
+
+两项修复的运行输出位于本机本轮 review 目录；推送后由同一 SubAgent 对最终提交复核。

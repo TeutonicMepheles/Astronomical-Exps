@@ -41,3 +41,5 @@ python experiments/rocket-launch/tools/validate-kiu-model.py
 `../../rocket-paint-material.js` 的来源为 `shared/components/globe-shader-renderer/renderer.js`，读取版本 SHA-256：`99AC1FF59B45395FA00CE4FD2179C8AFB9862751DC5125AA690D18F7EA6931F6`。
 
 复用其 hash、三维 value noise、双频 fbm、各向异性笔触与颜料粗糙度思路，适配为 Three.js 网格材质。公共地球 API 专门绘制球体，无法直接绘制火箭网格，故使用本实验独立命名的副本；不修改共享实现，不引用其他实验私有代码。模型 UV 颜色仍由原贴图提供；无新增时间 uniform、渲染循环、后处理或噪点纹理。高亮副本重新绑定 Shader，避免点选后质感丢失。导入颜色图在销毁时释放。
+
+独立 Review 修复：整流罩按源瓣外法向平移、绕对应切向轴朝外倾斜，不再沿旧教学模型的 ±X 外抛。逐瓣每帧顶点验证见 validation-structure.json 的 fairingMotion；旧 GLB 已通过负例验证被拒绝。

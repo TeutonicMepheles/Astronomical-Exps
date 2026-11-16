@@ -2,9 +2,12 @@
 import json
 import math
 import struct
+import argparse
 from pathlib import Path
 
-OUT = Path(__file__).resolve().parents[1] / 'assets/cz7-kiu-20261116'
+parser = argparse.ArgumentParser()
+parser.add_argument('--asset-dir', type=Path, default=Path(__file__).resolve().parents[1] / 'assets/cz7-kiu-20261116')
+OUT = parser.parse_args().asset_dir
 manifest = json.loads((OUT / 'rocket-manifest.json').read_text(encoding='utf8'))
 raw = (OUT / manifest['model']).read_bytes()
 length = struct.unpack_from('<I', raw, 12)[0]
@@ -88,6 +91,45 @@ for name, animation in animations.items():
         for (node, prop), (times, values) in c.items():
             check(name + ' reset start ' + node + prop, near(values[0], defaults[node][prop]))
             check(name + ' cumulative endpoint ' + node + prop, near(values[-1], combined[node, prop][1][-1]))
+
+def sample(values, time, rotation=False):
+    times, rows = values
+    i = next((i for i,t in enumerate(times) if t[0] >= time), len(times)-1)
+    if i == 0 or time >= times[-1][0]:
+        return rows[i]
+    a, b = rows[i-1], rows[i]
+    u = (time-times[i-1][0])/(times[i][0]-times[i-1][0])
+    if rotation:
+        dot = sum(x*y for x,y in zip(a,b))
+        if dot < 0: b = tuple(-x for x in b); dot = -dot
+        if dot < .9995:
+            theta = math.acos(max(-1,min(1,dot)))
+            return tuple((x*math.sin((1-u)*theta)+y*math.sin(u*theta))/math.sin(theta) for x,y in zip(a,b))
+    out = tuple(x+(y-x)*u for x,y in zip(a,b))
+    norm = math.sqrt(sum(x*x for x in out)) if rotation else 1
+    return tuple(x/norm for x in out)
+def rotate(v, q):
+    x,y,z,w=q; vx,vy,vz=v
+    tx,ty,tz=2*(y*vz-z*vy),2*(z*vx-x*vz),2*(x*vy-y*vx)
+    return (vx+w*tx+y*tz-z*ty, vy+w*ty+z*tx-x*tz, vz+w*tz+x*ty-y*tx)
+fairing_motion = {}
+event = channels(animations['SeparateFairing'])
+for name in ['FairingLeft','FairingRight']:
+    dx,dy,dz = reference['fairingOutwardBlender'][name]
+    outward = (dx,dz,-dy)
+    index = next(i for i,n in enumerate(g['nodes']) if n['name']==name)
+    vertices = [v for p in g['meshes'][nodes[name]['mesh']]['primitives'] for v in accessor(p['attributes']['POSITION'])]
+    p0,q0 = defaults[name]['translation'],defaults[name]['rotation']
+    rest = [tuple(x+y for x,y in zip(rotate(v,q0),p0)) for v in vertices]
+    minimum = 0; previous = 0
+    for frame in range(1,49):
+        time=frame/24
+        p=sample(event[name,'translation'],time);q=sample(event[name,'rotation'],time,True)
+        displacement=[sum((x+y-z)*d for x,y,z,d in zip(rotate(v,q),p,base,outward)) for v,base in zip(vertices,rest)]
+        centroid=sum(displacement)/len(displacement)
+        check(name+f' source outward motion frame {frame}', min(displacement)>-1e-4 and centroid>=previous-1e-4)
+        minimum=min(minimum,min(displacement));previous=centroid
+    fairing_motion[name]={'minimumOutwardVertexDisplacement':minimum,'finalOutwardCentroidDisplacement':previous}
 for mesh in g['meshes']:
     for primitive in mesh['primitives']:
         for attribute, index in primitive['attributes'].items():
@@ -101,5 +143,5 @@ for part in manifest['parts']:
 triangles = lambda mesh: sum(g['accessors'][p['indices']]['count'] // 3 for p in mesh['primitives'])
 manifest['statistics'] = {'uniqueTriangles': sum(map(triangles, g['meshes'])), 'instancedTriangles': sum(triangles(g['meshes'][n['mesh']]) for n in g['nodes'] if 'mesh' in n), 'meshObjects': sum('mesh' in n for n in g['nodes']), 'uniqueMeshes': len(g['meshes']), 'materials': len(g['materials']), 'textures': len(g.get('textures', [])), 'textureBytes': sum(g['bufferViews'][i['bufferView']]['byteLength'] for i in g.get('images', [])), 'glbBytes': len(raw), 'nodes': len(g['nodes']), 'animations': len(g['animations'])}
 (OUT / 'rocket-manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf8')
-(OUT / 'validation-structure.json').write_text(json.dumps({'passed': len(checks), 'checks': checks, 'sourceBoundsErrors': source_errors, 'statistics': manifest['statistics']}, ensure_ascii=False, indent=2), encoding='utf8')
+(OUT / 'validation-structure.json').write_text(json.dumps({'passed': len(checks), 'checks': checks, 'sourceBoundsErrors': source_errors, 'fairingMotion': fairing_motion, 'statistics': manifest['statistics']}, ensure_ascii=False, indent=2), encoding='utf8')
 print(json.dumps({'passed': len(checks), 'statistics': manifest['statistics']}, indent=2))

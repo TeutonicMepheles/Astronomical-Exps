@@ -317,8 +317,13 @@ for name in boosters:
     tilt = Quaternion((-direction.y,direction.x,0), math.radians(14))
     ends[name] = (p + direction * 9 + Vector((0,0,-10)), tilt @ quat(name))
 ends['Stage1'] = (loc('Stage1') + Vector((0,0,-18)), Quaternion((0,1,0), math.radians(-5)))
-ends['FairingLeft'] = (loc('FairingLeft') + Vector((10,0,1)), Quaternion((0,1,0), math.radians(50)))
-ends['FairingRight'] = (loc('FairingRight') + Vector((-10,0,1)), Quaternion((0,1,0), math.radians(-50)))
+source_reference['fairingOutwardBlender'] = {}
+for name in ['FairingLeft', 'FairingRight']:
+    lo, hi = source_reference['parts'][name]['assembledBoundsBlender']
+    outward = Vector(((lo[0]+hi[0])/2, (lo[1]+hi[1])/2, 0)).normalized()
+    source_reference['fairingOutwardBlender'][name] = list(outward)
+    tangent = Vector((-outward.y, outward.x, 0))
+    ends[name] = (loc(name) + outward * 10 + Vector((0,0,1)), Quaternion(tangent, math.radians(50)) @ quat(name))
 ends['Payload'] = (loc('Payload') + Vector((0,0,12)), quat('Payload'))
 groups = [('SeparateBoosters', boosters), ('SeparateStage1',['Stage1']), ('SeparateFairing',['FairingLeft','FairingRight']), ('ReleasePayload',['Payload'])]
 for clip, names in groups:
