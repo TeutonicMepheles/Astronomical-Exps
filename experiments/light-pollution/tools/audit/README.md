@@ -77,3 +77,17 @@ layer-color-sample.cjs 支持 LIGHT_URL 指定全景试用版 URL；报告文件
 - [lamp-refresh-sample.cjs](lamp-refresh-sample.cjs)：灯具更新的同环境 Chrome 短时性能采样；输出 lamp-refresh-final-20261111.json，增加快速循环五款灯罩压力状态。
 
 2026-11-13：`run-tests.cjs` 在串行旧模块回归前自动构建候选/全景离线包。最新默认夜景专项使用 `node experiments/light-pollution/city-night/verify.cjs`（先运行 `npm run export -- light-pollution`，用 `--port 0` 启动本工作树服务，并以 `CITY_URL` 指定终端实际地址；脚本默认9013仅用于已核对的服务）；两套回归串行执行。
+
+## 历史面板对照采样
+
+paper-panels-sample.cjs 与 stadium-ui-sample.cjs 不再依赖某个旧工作树或固定端口。先按 [工作树恢复说明](../../../../docs/WORKSPACE_RECOVERY.md) 将所需历史版本恢复到新目录，再显式指定基线、当前页面和新的输出文件：
+
+```powershell
+$env:LIGHT_PAPER_BASELINE = 'B:/GithubProject/Recovered-astro/experiments/light-pollution'
+$env:LIGHT_STADIUM_BASELINE = 'B:/GithubProject/Recovered-astro/experiments/light-pollution/features/buildings/controller.js'
+$env:LIGHT_STADIUM_URL = 'http://127.0.0.1:<port>/experiments/light-pollution/app/index.html?scene=panorama-20261111&profile=1'
+node experiments/light-pollution/tools/audit/paper-panels-sample.cjs <new-output.json>
+node experiments/light-pollution/tools/audit/stadium-ui-sample.cjs <another-new-output.json>
+```
+
+基线须与所测历史功能/API 相符；脚本记录基线哈希和页面 URL，拒绝覆盖已有输出。旧报告中的面板 DOM、采样值和脚本版本只证明当轮结果，不因备份恢复或 CLI 检查通过成为当前性能验收。本轮只调整路径/参数与证据输出，不修改页面调度、绘制、缓存或动画，性能前后采样不适用。

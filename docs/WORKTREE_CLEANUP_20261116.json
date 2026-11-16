@@ -1,0 +1,305 @@
+{
+  "baseline": "5656dce419449d92aa59fb33d085227d22527c4b",
+  "backup_root": "B:\\GithubProject\\_worktree-archives\\Astronomical-Exps\\20261116-remaining-19",
+  "worktrees": [
+    {
+      "id": "01-Astronomical-Exps-delivery-20261111",
+      "head": "8a613a0ee1c58c564291e6398f7f965cb2996a11",
+      "branch": "refs/heads/maintenance/local-experiments-20261111",
+      "candidate_counts": {
+        "older-main-blob": 322,
+        "same-main": 108,
+        "different-existing": 8,
+        "unpublished": 695
+      },
+      "decision": "旧整合提交的有效代码已进入主线；原图、SR 回执和早期 panorama-preview 完整归档。",
+      "archive_manifest": "worktrees/01-Astronomical-Exps-delivery-20261111/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "02-Astronomical-Exps-delivery-check-20261111",
+      "head": "14a0a5903e682178f6c3aa5cb7d2743e93eca179",
+      "branch": null,
+      "candidate_counts": {
+        "older-main-blob": 48,
+        "same-main": 129,
+        "unpublished": 55,
+        "deleted": 1,
+        "different-existing": 9
+      },
+      "decision": "交付检查及截图为历史运行证据；相同运行代码已进入主线，不恢复已排除媒体。",
+      "archive_manifest": "worktrees/02-Astronomical-Exps-delivery-check-20261111/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "03-Astronomical-Exps-eclipse-course",
+      "head": "b37d493fc36f872d88404603f14b6713ca6bbac9",
+      "branch": "refs/heads/experiment/solar-lunar-eclipses/course-20261112",
+      "candidate_counts": {
+        "different-existing": 40,
+        "same-main": 135,
+        "unpublished": 659
+      },
+      "decision": "主体运行代码已在 #63/#67 合并；剩余为空白、样式所属文件调整、专项证据及旧测试环境差异。",
+      "archive_manifest": "worktrees/03-Astronomical-Exps-eclipse-course/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "04-Astronomical-Exps-foucault-pendulum",
+      "head": "d81701a563f94bacbd7063dab3354146b332be5e",
+      "branch": "refs/heads/experiment/foucault-pendulum/refinement-20261107",
+      "candidate_counts": {
+        "older-main-blob": 87,
+        "same-main": 223,
+        "deleted": 9,
+        "different-existing": 5
+      },
+      "decision": "傅科摆运行代码已收录；旧地球周长评审页及 .gitignore 不覆盖当前规范；字体许可仅多一个行尾空格。",
+      "archive_manifest": "worktrees/04-Astronomical-Exps-foucault-pendulum/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "05-Astronomical-Exps-lp-latest-preview-20261111",
+      "head": "7b0b9d23144fb29d642f9e7a4724b9239779a701",
+      "branch": "refs/heads/codex/light-pollution-latest-preview-20261111",
+      "candidate_counts": {
+        "different-existing": 31,
+        "older-main-blob": 274,
+        "same-main": 256,
+        "unpublished": 703
+      },
+      "decision": "长场景主体已合并；旧 bootstrap 缺主线的引用图隐藏和亮度初值，工具/原始素材归档。",
+      "archive_manifest": "worktrees/05-Astronomical-Exps-lp-latest-preview-20261111/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "06-Astronomical-Exps-lp-panorama",
+      "head": "7b0b9d23144fb29d642f9e7a4724b9239779a701",
+      "branch": "refs/heads/experiment/light-pollution/panorama-lighting-20261110",
+      "candidate_counts": {
+        "different-existing": 63,
+        "same-main": 141,
+        "unpublished": 667,
+        "older-main-blob": 261
+      },
+      "decision": "旧灯罩面板、车流与反射版本缺后续统一面板、草稿迁移、防追尾和缓存改进，不回退。",
+      "archive_manifest": "worktrees/06-Astronomical-Exps-lp-panorama/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "07-Astronomical-Exps-lp-stadium-ui",
+      "head": "7b0b9d23144fb29d642f9e7a4724b9239779a701",
+      "branch": "refs/heads/experiment/light-pollution/stadium-ui-20261111",
+      "candidate_counts": {
+        "different-existing": 90,
+        "same-main": 85,
+        "unpublished": 126,
+        "older-main-blob": 4
+      },
+      "decision": "早期体育场/纸质面板已被后续整合覆盖；兼容文档以实存接口为准，旧候选及生成脚本归档。",
+      "archive_manifest": "worktrees/07-Astronomical-Exps-lp-stadium-ui/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "08-Astronomical-Exps-lp-tiled",
+      "head": "fc893faac180866838ce94eaf32ba5e682e118f6",
+      "branch": "refs/heads/experiment/light-pollution/tiled-sample-20261112",
+      "candidate_counts": {
+        "different-existing": 10,
+        "unpublished": 14
+      },
+      "decision": "提取可选 Tiled 地图、转换、独立初始化、离线与像素/性能回归；生成的巨型 HTML 和旧证据仅归档。",
+      "archive_manifest": "worktrees/08-Astronomical-Exps-lp-tiled/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "09-Astronomical-Exps-main-preview",
+      "head": "5a993f3d9a303898542ee384350783008f8978b0",
+      "branch": "refs/heads/codex/light-pollution-building-lighting-20261113",
+      "candidate_counts": {
+        "unpublished": 1104,
+        "different-existing": 19,
+        "older-main-blob": 16,
+        "same-main": 17
+      },
+      "decision": "固定暗底与窗灯最终实现已在 #64/#65 合并；早期编译脚本会重新覆盖已锁定几何，保留当前重建契约，原生成工程完整归档。",
+      "archive_manifest": "worktrees/09-Astronomical-Exps-main-preview/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "10-Astronomical-Exps-newton-integration-20261110",
+      "head": "4899ab162e63f9e08e06ca5b34f04074648b0708",
+      "branch": "refs/heads/experiment/newton-telescope/integration-20261110",
+      "candidate_counts": {
+        "older-main-blob": 1,
+        "same-main": 1
+      },
+      "decision": "两处公共组件文档/代码变化均已合并或被现行文档替代，无独有有效运行增量。",
+      "archive_manifest": "worktrees/10-Astronomical-Exps-newton-integration-20261110/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "11-Astronomical-Exps-newton-stage3-20261111",
+      "head": "b9556d9ee87ec3c9c193ffb6be0db16786535b14",
+      "branch": "refs/heads/codex/newton-stage3-integration-20261111",
+      "candidate_counts": {
+        "older-main-blob": 56,
+        "different-existing": 4,
+        "same-main": 85
+      },
+      "decision": "四天体/自动对准实现已合并；旧手动找星测试违反当前确认流程，评审素材完整归档。",
+      "archive_manifest": "worktrees/11-Astronomical-Exps-newton-stage3-20261111/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "12-Astronomical-Exps-pr-docs-20261111",
+      "head": "843a3a6f131d1bf6144f90f433123f2545cce101",
+      "branch": "refs/heads/maintenance/experiment-docs-delivery-20261111",
+      "candidate_counts": {
+        "older-main-blob": 6,
+        "same-main": 1
+      },
+      "decision": "唯一历史提交的有效交付说明已收录，当前版本补充了实际入口和排除资源边界。",
+      "archive_manifest": "worktrees/12-Astronomical-Exps-pr-docs-20261111/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "13-Astronomical-Exps-pr49",
+      "head": "1e7a44a8ac28b3339d0314dcfd590fea4bdf4fdc",
+      "branch": null,
+      "candidate_counts": {
+        "older-main-blob": 77,
+        "different-existing": 64,
+        "same-main": 360,
+        "unpublished": 17
+      },
+      "decision": "旧 #49 提交的源码三方比较均已被后续版本覆盖；量表/控件与原始资源仅供历史恢复，不重新引入未标定输出。",
+      "archive_manifest": "worktrees/13-Astronomical-Exps-pr49/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "14-Astronomical-Exps-review-ci-20261112",
+      "head": "b19b5d573c793d466c3a75a818cdc73e9f73f1d4",
+      "branch": "refs/heads/codex/lunar-debug-cleanup-20261112",
+      "candidate_counts": {
+        "older-main-blob": 1,
+        "same-main": 9,
+        "unpublished": 1
+      },
+      "decision": "3D 和目镜更新已合并，扩展名清理已由 #70 合并；原始生成图归档。",
+      "archive_manifest": "worktrees/14-Astronomical-Exps-review-ci-20261112/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "15-Astronomical-Exps-scene-rotation-control",
+      "head": "64ccd60d5b8cbc568dae8965d468b88bfbbee0db",
+      "branch": "refs/heads/maintenance/scene-rotation-control",
+      "candidate_counts": {
+        "same-main": 4,
+        "different-existing": 8,
+        "unpublished": 1
+      },
+      "decision": "公共旋转控件已合并并补充取消 Promise 修复；旧牛顿宿主会撤掉材质、自动检视与固定视角，不回退。",
+      "archive_manifest": "worktrees/15-Astronomical-Exps-scene-rotation-control/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "16-tmp-compare-b",
+      "head": "99a73c5a59830b197498c59e658b7319cbe4d47f",
+      "branch": null,
+      "candidate_counts": {
+        "different-existing": 1
+      },
+      "decision": "仅为旧日食影轴屏距诊断括号，非正式功能或科学测量，完整归档而不加入产品。",
+      "archive_manifest": "worktrees/16-tmp-compare-b/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "17-lp-vehicle-glare-demo",
+      "head": "7b0b9d23144fb29d642f9e7a4724b9239779a701",
+      "branch": "refs/heads/experiment/light-pollution/vehicle-glare-demo",
+      "candidate_counts": {
+        "different-existing": 33,
+        "unpublished": 12
+      },
+      "decision": "早期独立车灯小样与旧画布/路径控件已被新版车流替代；不复活旧 UI，完整保留可恢复样例。",
+      "archive_manifest": "worktrees/17-lp-vehicle-glare-demo/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    },
+    {
+      "id": "18-lunar-flow-orchestration",
+      "head": "a5d1e5a533e33173e099bd151f41855754939ea1",
+      "branch": "refs/heads/experiment/meteor-impact/flow-orchestration-20261112",
+      "candidate_counts": {
+        "older-main-blob": 2,
+        "different-existing": 5,
+        "same-main": 14,
+        "unpublished": 5
+      },
+      "decision": "当前陨石代码已合并；差异主要是有意不发布的评审截图、旧报告链接及供应商文件空白。",
+      "archive_manifest": "worktrees/18-lunar-flow-orchestration/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": false,
+      "remaining_entries": 0
+    },
+    {
+      "id": "19-pr-49-light-pollution-review",
+      "head": "1e7a44a8ac28b3339d0314dcfd590fea4bdf4fdc",
+      "branch": null,
+      "candidate_counts": {
+        "older-main-blob": 63,
+        "different-existing": 77,
+        "same-main": 360,
+        "unpublished": 18
+      },
+      "decision": "与 #49 旧评审工作树同源；后续运行代码已覆盖，额外截图和构建产物完整归档。",
+      "archive_manifest": "worktrees/19-pr-49-light-pollution-review/manifest.json",
+      "worktree_unregistered": true,
+      "original_directory_removed": true,
+      "remaining_entries": 0
+    }
+  ],
+  "verified_objects": 7577,
+  "unique_file_bytes": 7334543506,
+  "git_bundle_bytes": 3012594302,
+  "bundle_sha256": "18e7e7adce2218bd3b26b729527782422846085562ffbee637de29daa9732c0a",
+  "restore_test": {
+    "tree": "13-Astronomical-Exps-pr49",
+    "files_and_directories": 1360,
+    "head_and_staged_unstaged_untracked_status": "exact match"
+  }
+}
