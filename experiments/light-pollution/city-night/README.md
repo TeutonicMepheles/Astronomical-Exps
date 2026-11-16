@@ -13,6 +13,7 @@
 - [assets](assets/README.md)：运行清单实际引用的资源。
 - [previews](previews/README.md)：当前调节面板缩略图。
 - [tiled](tiled/README.md)：原场景布局资料。
+- [tooling](tooling/README.md)：当前资产重建输入和依赖。
 - [tests](tests/README.md)：当前固定场景的回归参考。
 - runtime.js：WebGL2 合成、统一调度、车流和面板。
 - resident-fixed-lighting.js：锁定几何、UV、接收光场和住宅 shader。
@@ -34,3 +35,7 @@ lightingUI 提供选择、特写和关闭接口；scenePreview 提供只读状�
 ## 验证与已知限制
 
 性能专项适用纹理解码、线性缓存合成、车流和事件调度。复用单一 rAF 与静态帧缓冲；暂停后应无重绘和上传，亮度切换不改变相机、几何或纹理数量。住宅窗灯增加一张 1700×1130 RGBA 派生光图，额外解码约 7.33 MiB。整页、全景/特写连续调节及断网 file:// 验证分别记录，不代替用户美术验收。白板实机、长期运行与科学光度仍待验收。
+
+当前生产重建：compile-resident-fixed.py 仅重建窗灯光图并刷新哈希，固定底图/接收图/材质图逐字节不变；bake-car-sprites.cjs 离线生成车辆图集。详见 tooling 与 tests。
+
+本次分批整合的检查范围、性能与未验收项见 [验证记录](VALIDATION_20261116.md)。

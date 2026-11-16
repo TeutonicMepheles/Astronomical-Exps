@@ -10,11 +10,13 @@
 
 ## 文件与子目录索引
 
+asset-lock.json 保存当前四张住宅资产的完整哈希；verify-assets.py 验证边界、影区及光量范围；verify-window-response.cjs 生成实际浏览器窗灯截图；verify-fixed-integration.cjs 检查 84 个灯光组合。
+
 residential-reference.json：人物、侧墙、地面和屋顶固定坐标及四种灯罩的目标像素。
 
 ## 使用方法
 
-运行父级 verify.cjs，CITY_URL 指向当前工作树。
+先运行父级 verify.cjs。CITY_URL 指向当前工作树，然后串行运行 node experiments/light-pollution/city-night/tests/verify-fixed-integration.cjs、node experiments/light-pollution/city-night/tests/verify-window-response.cjs、python experiments/light-pollution/city-night/tests/verify-assets.py。先运行窗灯浏览器脚本再检查截图，结果写入根 artifacts/city-night-current/。车辆专项运行 node experiments/light-pollution/city-night/verify-car-perspective.cjs；先导出当前离线包。
 
 ## 公开接口与数据
 
