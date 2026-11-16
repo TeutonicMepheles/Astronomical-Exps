@@ -10,6 +10,9 @@
 
 ## 文件与子目录索引
 
+- [LAYERED-LIGHTING-RUNTIME-20261112.md](LAYERED-LIGHTING-RUNTIME-20261112.md)：2026-11-12 旧 app 回读与分层资产接入设计，非当前 city-night 验收。
+- [LAYERED-RUNTIME-READBACK-20261112.json](LAYERED-RUNTIME-READBACK-20261112.json)：对应历史隔离浏览器回执。
+
 - [PANORAMA-20261111.md](PANORAMA-20261111.md)：Seedream 5.5 4:1 可编辑场景交付。
 
 - [CHROME-PERFORMANCE-2026-10-29.md](CHROME-PERFORMANCE-2026-10-29.md)：本机 Chrome 的真实输入、84 秒采样、卡顿原因、修复及异常边界；链接全部原始结果与 CPU profile。

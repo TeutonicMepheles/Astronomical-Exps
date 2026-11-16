@@ -1,0 +1,83 @@
+{
+  "url": "http://127.0.0.1:8830/experiments/light-pollution/app/index.html?scene=panorama-20261111",
+  "canvas": [
+    2172,
+    543
+  ],
+  "variants": {
+    "open": {
+      "spill": 1,
+      "ground": 0.44,
+      "light": [
+        512,
+        165
+      ]
+    },
+    "cap": {
+      "spill": 1,
+      "ground": 0.44,
+      "light": [
+        512,
+        202
+      ]
+    },
+    "half": {
+      "spill": 0.46,
+      "ground": 0.69,
+      "light": [
+        512,
+        248
+      ]
+    },
+    "full": {
+      "spill": 0.08,
+      "ground": 0.87,
+      "light": [
+        512,
+        270
+      ]
+    },
+    "sensor": {
+      "spill": 0,
+      "ground": 0,
+      "light": [
+        512,
+        270
+      ]
+    }
+  },
+  "vehicles": 11,
+  "motionChanged": true,
+  "shadeStates": [
+    {
+      "roadShade": "open",
+      "vehicles": 11
+    },
+    {
+      "roadShade": "full",
+      "vehicles": 11
+    },
+    {
+      "roadShade": "sensor",
+      "vehicles": 11
+    }
+  ],
+  "highBeamLowMode": "low",
+  "highBeamCountAfterLow": 0,
+  "errors": [],
+  "notVerified": [
+    "Wall fixtures absent in searched source",
+    "Photometric correctness",
+    "Whiteboard",
+    "Long-run performance"
+  ],
+  "gitHead": "b37d493fc36f872d88404603f14b6713ca6bbac9",
+  "sourceFiles": {
+    "experiments/light-pollution/features/lamps/variants.js": "01d05626dec4a8850038b31bc4052ab6b09a5ceae1f0575266bb82626cd0538e",
+    "experiments/light-pollution/rendering/panorama-lighting.js": "7e5cca5286c673ba60d07d875849edfe4dc27024109c323c1687031fe20c7bde",
+    "experiments/light-pollution/rendering/vehicle-traffic.js": "34eaf2e68519a77c66db7db59a62bf12bb4fa88f0b14f7844e479625e73c36e5",
+    "experiments/light-pollution/rendering/vehicle-glare.js": "7d4afa56a8cfeb12eaefd3dbe9e9e5fbb44d4b0c80a9a56749cf79459ecde86a",
+    "experiments/light-pollution/features/vehicles/controller.js": "bf415820fa67b4e1402ff0673464046eac34a5860bd12b7cfb59fd450ad559f6",
+    "experiments/light-pollution/core/runtime.js": "62bbcfbaf2c8126f263f6396f62bcdf30171773e5ee846141fe1ba139faef103"
+  }
+}
