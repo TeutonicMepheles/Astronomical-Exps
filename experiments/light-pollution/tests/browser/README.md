@@ -12,6 +12,8 @@
 
 ## 文件与子目录索引
 
+- [verify-tiled-sample.cjs](verify-tiled-sample.cjs)：Tiled 输入拒绝、光照/命中/遮挡变换、离线、撤销与独立草稿。
+
 - [verify-panorama.cjs](verify-panorama.cjs)：全景分层、屏面独立编辑、历史、JSON、离线回归。
 
 - [data-compatibility.cjs](data-compatibility.cjs)：迁移前候选 fixture 和 v1 可选字段兼容。

@@ -21,5 +21,15 @@ live.previewValue('brightness',25);live.previewValue('brightness',75);assert.equ
  let value={n:1};const port={getData:()=>value,setData:v=>value=v,validate:v=>{if(!v||!Number.isFinite(v.n))throw Error('invalid');return v;},preload:async v=>{if(v.n===9)throw Error('decode failed');},reset:()=>value={n:1}};
  const store=LP.createSceneStore({W:10,H:10,specs:[['layer']],sceneId:'test',storageKey:'test',slices:{feature:port},compose(){}});
  const doc=store.documentData();doc.feature={n:9};await assert.rejects(store.importDocument(doc));assert.equal(value.n,1,'failed preparation is atomic');doc.feature={n:2};await store.importDocument(doc);assert.equal(value.n,2);store.history.undo();assert.equal(value.n,1);assert.equal(store.documentData().version,2);store.destroy();
- console.log('PASS asset retention/eviction, gesture cancel, history lock, shared billboard commands, atomic scene import and v2 encoding');
+ const initialLayers=[{id:'layer',x:3,y:2,scale:.85,opacity:1,visible:true,locked:false}];
+ const imported=LP.createSceneStore({W:10,H:10,specs:[['layer']],sceneId:'tiled-test',storageKey:'tiled-test',initialLayers,slices:{feature:port},compose(){}});
+ imported.changeExternal(()=>{imported.layers[0].x=7;});
+ assert.equal(initialLayers[0].x,3,'editing an imported scene cannot mutate its reset baseline');
+ imported.reset();assert.equal(imported.layers[0].x,3);assert.equal(imported.layers[0].scale,.85);
+ imported.history.undo();assert.equal(imported.layers[0].x,7,'resetting imported placement remains one reversible history action');
+ await assert.rejects(imported.importDocument({...imported.documentData(),sceneId:'panorama-20261111'}));
+ assert.equal(imported.layers[0].x,7,'another scene identity cannot overwrite the imported draft');
+ imported.destroy();
+ assert.throws(()=>LP.createSceneStore({W:10,H:10,specs:[['layer']],sceneId:'tiled-test',storageKey:'invalid',initialLayers:[{...initialLayers[0],scale:0}],slices:{feature:port},compose(){}}));
+ console.log('PASS asset retention/eviction, gesture cancel, history lock, shared billboard commands, atomic scene import, v2 encoding and imported layout reset/isolation');
 })().catch(e=>{console.error(e);process.exitCode=1;});

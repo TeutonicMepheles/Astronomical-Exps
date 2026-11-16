@@ -1,0 +1,223 @@
+{
+  "date": "2026-11-16T05:13:34.129Z",
+  "chrome": "157.0.8103.51",
+  "viewport": [
+    1600,
+    900
+  ],
+  "dpr": 1,
+  "headless": false,
+  "samples": [
+    {
+      "label": "baseline",
+      "url": "file:///B:/GithubProject/Astronomical-Exps-remaining-audit-20261116/experiments/light-pollution/assets/panorama-20261111/editor.html?profile=1",
+      "loadMs": 3739,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "phases": [
+        {
+          "phase": "stable",
+          "raf": {
+            "count": 374,
+            "p95": 13.400000000001455,
+            "max": 13.800000000000182
+          },
+          "longTasks": {
+            "count": 0,
+            "p95": 0,
+            "max": 0
+          },
+          "heap": 435000000,
+          "focused": true,
+          "visible": "visible",
+          "dpr": 1.0000000298023224,
+          "compose": {
+            "seconds": 5,
+            "sceneFps": 74.9,
+            "renderP95": 3.3,
+            "renderMax": 6.4,
+            "gapP95": 14.1,
+            "gapMax": 17.8,
+            "longTasks": 0,
+            "heap": 435000000,
+            "dpr": 1.0000000298023224,
+            "viewport": [
+              1600,
+              900
+            ]
+          }
+        },
+        {
+          "phase": "layout-edits",
+          "raf": {
+            "count": 479,
+            "p95": 39.80000000000109,
+            "max": 53.400000000001455
+          },
+          "longTasks": {
+            "count": 0,
+            "p95": 0,
+            "max": 0
+          },
+          "heap": 435000000,
+          "focused": true,
+          "visible": "visible",
+          "dpr": 1.0000000298023224,
+          "compose": {
+            "seconds": 7.1,
+            "sceneFps": 67.9,
+            "renderP95": 34.5,
+            "renderMax": 44.2,
+            "gapP95": 51.2,
+            "gapMax": 71.2,
+            "longTasks": 0,
+            "heap": 435000000,
+            "dpr": 1.0000000298023224,
+            "viewport": [
+              1600,
+              900
+            ]
+          }
+        },
+        {
+          "phase": "all-curtains",
+          "raf": {
+            "count": 185,
+            "p95": 39.89999999999782,
+            "max": 146.59999999999854
+          },
+          "longTasks": {
+            "count": 1,
+            "p95": 122,
+            "max": 122
+          },
+          "heap": 435000000,
+          "focused": true,
+          "visible": "visible",
+          "dpr": 1.0000000298023224,
+          "compose": {
+            "seconds": 5.1,
+            "sceneFps": 36.8,
+            "renderP95": 6.4,
+            "renderMax": 120,
+            "gapP95": 30.5,
+            "gapMax": 42.9,
+            "longTasks": 1,
+            "heap": 435000000,
+            "dpr": 1.0000000298023224,
+            "viewport": [
+              1600,
+              900
+            ]
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "tiled",
+      "url": "file:///B:/GithubProject/Astronomical-Exps-remaining-audit-20261116/experiments/light-pollution/scenes/tiled-sample/editor.html?profile=1",
+      "loadMs": 3200,
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5080 (0x00002C02) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "phases": [
+        {
+          "phase": "stable",
+          "raf": {
+            "count": 375,
+            "p95": 13.400000000001455,
+            "max": 13.5
+          },
+          "longTasks": {
+            "count": 0,
+            "p95": 0,
+            "max": 0
+          },
+          "heap": 435000000,
+          "focused": true,
+          "visible": "visible",
+          "dpr": 1.0000000298023224,
+          "compose": {
+            "seconds": 5,
+            "sceneFps": 75.1,
+            "renderP95": 3.6,
+            "renderMax": 6.8,
+            "gapP95": 14,
+            "gapMax": 18.7,
+            "longTasks": 0,
+            "heap": 435000000,
+            "dpr": 1.0000000298023224,
+            "viewport": [
+              1600,
+              900
+            ]
+          }
+        },
+        {
+          "phase": "layout-edits",
+          "raf": {
+            "count": 474,
+            "p95": 39.79999999999927,
+            "max": 53.30000000000109
+          },
+          "longTasks": {
+            "count": 0,
+            "p95": 0,
+            "max": 0
+          },
+          "heap": 435000000,
+          "focused": true,
+          "visible": "visible",
+          "dpr": 1.0000000298023224,
+          "compose": {
+            "seconds": 7,
+            "sceneFps": 67.8,
+            "renderP95": 33.7,
+            "renderMax": 40.5,
+            "gapP95": 50.1,
+            "gapMax": 71.8,
+            "longTasks": 0,
+            "heap": 435000000,
+            "dpr": 1.0000000298023224,
+            "viewport": [
+              1600,
+              900
+            ]
+          }
+        },
+        {
+          "phase": "all-curtains",
+          "raf": {
+            "count": 182,
+            "p95": 40,
+            "max": 119.89999999999964
+          },
+          "longTasks": {
+            "count": 1,
+            "p95": 102,
+            "max": 102
+          },
+          "heap": 435000000,
+          "focused": true,
+          "visible": "visible",
+          "dpr": 1.0000000298023224,
+          "compose": {
+            "seconds": 5,
+            "sceneFps": 36.3,
+            "renderP95": 6.8,
+            "renderMax": 100.1,
+            "gapP95": 31.2,
+            "gapMax": 34.6,
+            "longTasks": 1,
+            "heap": 435000000,
+            "dpr": 1.0000000298023224,
+            "viewport": [
+              1600,
+              900
+            ]
+          }
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "conditions": "Background full-worktree archival and static/unit checks were active; same resources/quality, different layouts. Not a performance gain claim or device acceptance."
+}

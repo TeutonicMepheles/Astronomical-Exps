@@ -10,6 +10,8 @@
 
 ## 文件与子目录索引
 
+- [tiled-performance.cjs](tiled-performance.cjs)：串行比较旧全景与导入构图，必须传入新的结果 JSON 路径；不覆盖既有证据。
+
 - [panorama-sample.cjs](panorama-sample.cjs)：串行有窗口 Chrome，候选/全景/全窗帘各 6 秒短采样；LIGHT_BASE 指定当前源页面。
 
 - [AGENTS.md](AGENTS.md)：性能任务工作约定、证据要求、模块责任与验收边界；根目录及实验 AGENTS.md 均索引此文件。

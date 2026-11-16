@@ -10,6 +10,8 @@
 
 ## 文件与子目录索引
 
+- [tiled-layout.cjs](tiled-layout.cjs)、[build-tiled-sample.cjs](build-tiled-sample.cjs)、[seed-tiled-sample.cjs](seed-tiled-sample.cjs)：旧全景的 Tiled 转换、独立离线小样与显式建图；详见 [制作说明](../../scenes/tiled-sample/README.md)。
+
 
 - [build-panorama.cjs](build-panorama.cjs)：构建独立 4:1 离线编辑包，仅依赖已提交的运行图层与遮罩。
 

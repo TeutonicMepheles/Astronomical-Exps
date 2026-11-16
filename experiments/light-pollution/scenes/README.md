@@ -12,6 +12,8 @@
 
 ## 文件与子目录索引
 
+- [tiled-sample/](tiled-sample/README.md)：可选 Tiled 图层编排与独立离线预览。
+
 - [candidate/](candidate/README.md)
 - [legacy/](legacy/README.md)
 

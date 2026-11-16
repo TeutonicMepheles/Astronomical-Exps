@@ -28,6 +28,8 @@ node experiments/light-pollution/tests/unit/core.cjs
 
 ## 公开接口与数据
 
+`createSceneStore` 可选 `initialLayers` 提供已验证的初始构图；恢复构图和撤销使用该基线，未传入时沿用原行为。`tiledInitialLayers(profile,bounds)` 将完整图片左上角转换为现有 alpha 包围框原点，不改变渲染器。
+
 公开入口：`LightPollution`、`createHistory`、`createSceneStore`。具体参数与返回值以入口定义和专项测试为准。 SceneStore 提供 snapshot/documentData/subscribe/importDocument/restore 与事务端口；History 提供 begin/commit/cancel/change/undo/redo/destroy。Session 的 active/selectedId 不进入场景 JSON。
 
 ## 依赖与解耦策略

@@ -4,7 +4,7 @@
 
 ## 当前功能与状态
 
-page.html 是页面模板；bootstrap 创建服务、恢复草稿并按需挂载完整编辑器。index.html 由构建生成，实验根 `index.html` 默认跳转到本入口；旧街景保留在实验根 `legacy-preview.html`。
+page.html 是页面模板；bootstrap 创建服务、恢复草稿并按需挂载完整编辑器。index.html 由构建生成，是旧模块兼容入口；实验根默认进入 city-night。旧街景保留在实验根 `legacy-preview.html`。可选 [Tiled 小样](../scenes/tiled-sample/README.md) 通过显式内嵌布局启用独立文档身份和草稿键。
 
 ## 职责边界
 

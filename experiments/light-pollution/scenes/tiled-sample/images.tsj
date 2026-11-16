@@ -1,0 +1,201 @@
+{
+  "type": "tileset",
+  "version": "1.10",
+  "tiledversion": "1.12.2",
+  "name": "Existing transparent images",
+  "tilewidth": 4096,
+  "tileheight": 3072,
+  "tilecount": 31,
+  "columns": 0,
+  "margin": 0,
+  "spacing": 0,
+  "objectalignment": "topleft",
+  "tiles": [
+    {
+      "id": 0,
+      "image": "../../assets/panorama-20261111/sr-ground-only.png",
+      "imagewidth": 4096,
+      "imageheight": 1024
+    },
+    {
+      "id": 1,
+      "image": "../../assets/panorama-20261111/sr-distant-mountains.png",
+      "imagewidth": 4096,
+      "imageheight": 302
+    },
+    {
+      "id": 2,
+      "image": "../../assets/panorama-20261111/sr-distant-buildings.png",
+      "imagewidth": 4096,
+      "imageheight": 147
+    },
+    {
+      "id": 3,
+      "image": "../../assets/panorama-20261111/sr-distant-viaduct.png",
+      "imagewidth": 4096,
+      "imageheight": 166
+    },
+    {
+      "id": 4,
+      "image": "../../assets/panorama-20261111/sr-residential-backdrop.png",
+      "imagewidth": 4096,
+      "imageheight": 1634
+    },
+    {
+      "id": 5,
+      "image": "../../assets/panorama-20261111/sr-reuse-05-residential-01.png",
+      "imagewidth": 2340,
+      "imageheight": 2284
+    },
+    {
+      "id": 6,
+      "image": "../../assets/panorama-20261111/sr-reuse-06-public-building-02.png",
+      "imagewidth": 2946,
+      "imageheight": 588
+    },
+    {
+      "id": 7,
+      "image": "../../assets/panorama-20261111/sr-reuse-07-billboard-building-02.png",
+      "imagewidth": 2004,
+      "imageheight": 1856
+    },
+    {
+      "id": 8,
+      "image": "../../assets/panorama-20261111/sr-stadium.png",
+      "imagewidth": 4096,
+      "imageheight": 1380
+    },
+    {
+      "id": 9,
+      "image": "../../assets/panorama-20261111/sr-reuse-trees-01-04.png",
+      "imagewidth": 1056,
+      "imageheight": 804
+    },
+    {
+      "id": 10,
+      "image": "../../assets/panorama-20261111/sr-reuse-trees-01-01.png",
+      "imagewidth": 1524,
+      "imageheight": 860
+    },
+    {
+      "id": 11,
+      "image": "../../assets/panorama-20261111/sr-highway.png",
+      "imagewidth": 4096,
+      "imageheight": 1652
+    },
+    {
+      "id": 12,
+      "image": "../../assets/panorama-20261111/sr-reuse-trees-01-02.png",
+      "imagewidth": 632,
+      "imageheight": 856
+    },
+    {
+      "id": 13,
+      "image": "../../assets/panorama-20261111/sr-reuse-trees-01-03.png",
+      "imagewidth": 872,
+      "imageheight": 848
+    },
+    {
+      "id": 14,
+      "image": "../../assets/panorama-20261111/sr-reuse-trees-01-05.png",
+      "imagewidth": 548,
+      "imageheight": 716
+    },
+    {
+      "id": 15,
+      "image": "../../assets/panorama-20261111/sr-reuse-trees-01-06.png",
+      "imagewidth": 624,
+      "imageheight": 656
+    },
+    {
+      "id": 16,
+      "image": "../../assets/panorama-20261111/sr-reuse-promenade-rail.png",
+      "imagewidth": 2160,
+      "imageheight": 86
+    },
+    {
+      "id": 17,
+      "image": "../../assets/panorama-20261111/sr-billboard.png",
+      "imagewidth": 2578,
+      "imageheight": 3072
+    },
+    {
+      "id": 18,
+      "image": "../../assets/panorama-20261111/sr-vehicles-01.png",
+      "imagewidth": 488,
+      "imageheight": 312
+    },
+    {
+      "id": 19,
+      "image": "../../assets/panorama-20261111/sr-vehicles-02.png",
+      "imagewidth": 668,
+      "imageheight": 392
+    },
+    {
+      "id": 20,
+      "image": "../../assets/panorama-20261111/sr-vehicles-03.png",
+      "imagewidth": 660,
+      "imageheight": 364
+    },
+    {
+      "id": 21,
+      "image": "../../assets/panorama-20261111/sr-vehicles-04.png",
+      "imagewidth": 1324,
+      "imageheight": 952
+    },
+    {
+      "id": 22,
+      "image": "../../assets/panorama-20261111/sr-vehicles-05.png",
+      "imagewidth": 984,
+      "imageheight": 612
+    },
+    {
+      "id": 23,
+      "image": "../../assets/panorama-20261111/sr-vehicles-06.png",
+      "imagewidth": 1152,
+      "imageheight": 672
+    },
+    {
+      "id": 24,
+      "image": "../../assets/panorama-20261111/sr-vehicles-07.png",
+      "imagewidth": 1312,
+      "imageheight": 768
+    },
+    {
+      "id": 25,
+      "image": "../../assets/panorama-20261111/sr-vehicles-08.png",
+      "imagewidth": 1320,
+      "imageheight": 836
+    },
+    {
+      "id": 26,
+      "image": "../../assets/panorama-20261111/sr-vehicles-09.png",
+      "imagewidth": 1416,
+      "imageheight": 1004
+    },
+    {
+      "id": 27,
+      "image": "../../assets/panorama-20261111/sr-vehicles-10.png",
+      "imagewidth": 1548,
+      "imageheight": 936
+    },
+    {
+      "id": 28,
+      "image": "../../assets/panorama-20261111/sr-vehicles-11.png",
+      "imagewidth": 1468,
+      "imageheight": 860
+    },
+    {
+      "id": 29,
+      "image": "../../assets/panorama-20261111/sr-reuse-lamp-half.png",
+      "imagewidth": 688,
+      "imageheight": 2940
+    },
+    {
+      "id": 30,
+      "image": "../../assets/panorama-20261111/sr-foreground-water-restored.png",
+      "imagewidth": 4096,
+      "imageheight": 1024
+    }
+  ]
+}

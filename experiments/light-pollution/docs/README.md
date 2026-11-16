@@ -10,6 +10,8 @@
 
 ## 文件与子目录索引
 
+- [Tiled 制作说明](../scenes/tiled-sample/README.md)与[2026-11-16 采样](tiled-performance-20261116.json)：可选旧全景构图工具、离线回归和性能边界。
+
 - [LAYERED-LIGHTING-RUNTIME-20261112.md](LAYERED-LIGHTING-RUNTIME-20261112.md)：2026-11-12 旧 app 回读与分层资产接入设计，非当前 city-night 验收。
 - [LAYERED-RUNTIME-READBACK-20261112.json](LAYERED-RUNTIME-READBACK-20261112.json)：对应历史隔离浏览器回执。
 

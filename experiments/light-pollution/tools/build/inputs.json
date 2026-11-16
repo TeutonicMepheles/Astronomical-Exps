@@ -398,8 +398,8 @@
     },
     {
       "path": "core/scene-store.js",
-      "bytes": 2096,
-      "sha256": "96925420fc25ce1b3e21d0c328ac508b6f57d21167a3a9566e0c1e09e9bedfd7"
+      "bytes": 2720,
+      "sha256": "573ea0e830a7f69dd70bf6831d334e62517ba0914eaabd8fcfd6bd191e8443a8"
     },
     {
       "path": "features/billboard/commands.js",
@@ -618,13 +618,13 @@
     },
     {
       "path": "app/bootstrap.js",
-      "bytes": 27675,
-      "sha256": "63d08c79d370bb7d290bf75e5855da07ff57291fdf3789950a191425b8da85d5"
+      "bytes": 28048,
+      "sha256": "35c61d23aadd7518a425f3a1f80eac6d74c7c978cdb36eb52c34ac3d23bf2f7c"
     }
   ],
   "output": {
     "path": "lib-static-demo/standalone.html",
-    "bytes": 106384251,
-    "sha256": "0c68802a648dd025b00a7b23636cd0bd554ed1da5cfc7c5c714e74f7aa70aa6b"
+    "bytes": 106385248,
+    "sha256": "6cf60320ad70ebe952666ea0cfeda83cca90b3e6366d1036d1f5d6b307762948"
   }
 }
