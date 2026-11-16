@@ -52,4 +52,4 @@ python B:/GithubProject/_worktree-archives/Astronomical-Exps/20261116-remaining-
 
 主线仅保留 city-night 及实验根入口/README/需求/Agent文档；1,428个旧文件见 [移除清单](LIGHT_POLLUTION_REMOVAL_20261116.json)。当前运行代码和生产资源字节保持不变，旧入口返回404，现行性能约定移至 city-night/PERFORMANCE.md。历史报告中的旧模块链接改为外部归档提示，不保留失效入口。历史资料须解压到新的仓库外目录，不直接覆盖当前实现。
 
-截图里的其他目录没有一并删除，分类及删除前提见 [目录核对](DIRECTORY_ASSESSMENT_20261116.md)。独立备份不是 Git 工作树，应保留或先合并为已校验归档。
+截图里的17个纯历史检出已按追加授权重新核对并删除；其余目录保留，分类及删除前提见 [目录核对](DIRECTORY_ASSESSMENT_20261116.md)。独立备份不是 Git 工作树，应保留或先合并为已校验归档。
