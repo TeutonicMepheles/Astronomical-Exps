@@ -15,6 +15,7 @@
 - [tiled](tiled/README.md)：原场景布局资料。
 - [tooling](tooling/README.md)：当前资产重建输入和依赖。
 - [tests](tests/README.md)：当前固定场景的回归参考。
+- [PERFORMANCE.md](PERFORMANCE.md)：现行性能设计、串行采样与回归要求。
 - runtime.js：WebGL2 合成、统一调度、车流和面板。
 - resident-fixed-lighting.js：锁定几何、UV、接收光场和住宅 shader。
 - runtime-manifest.json：当前纹理及内容哈希。

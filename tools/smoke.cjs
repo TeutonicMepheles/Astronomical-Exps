@@ -49,11 +49,10 @@ const root=path.resolve(__dirname,'..');
     await page.locator('#panel-body [data-shade="full"]').click();
     assert.equal(await page.evaluate(()=>scenePreview.state().groups.path.shade),'full');
     await page.locator('#close-panel').click();
-    // Preserve coverage of the previous modular editor through its explicit entry.
-    await page.goto(base+'/experiments/light-pollution/app/index.html?mode=editor');
-    await page.waitForSelector('html[data-ready=true]');
-    await page.locator('#lamp-toggle').click({force:true});
-    assert(await page.locator('#lamp-controls').isVisible());
+    // Retired entry points must stay absent; only city-night is shipped.
+    for(const retired of ['app/index.html?scene=panorama-20261111','legacy-preview.html','lib-static-demo/index.html']){
+     assert.equal((await fetch(base+'/experiments/light-pollution/'+retired)).status,404,'Retired light-pollution entry must not be served: '+retired);
+    }
    }else{
     assert((await page.locator('canvas').count())>0,name+' renders a canvas');
    }

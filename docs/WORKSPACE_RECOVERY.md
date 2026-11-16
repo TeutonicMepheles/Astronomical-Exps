@@ -45,3 +45,11 @@ python B:/GithubProject/_worktree-archives/Astronomical-Exps/20261116-remaining-
 更新功能时同时修订所属 README 的现行操作、已知限制与验证入口，以及 CURRENT_STATUS 的对应行；需求确有变化才更新 REQUIREMENTS。历史报告增加状态注记，不能仅新增日期报告后留下旧入口说明。
 
 本轮备份/清理没有改变科学参数或默认教学流程；未将 Tiled 功能或历史脚本参数改造合入主线。白板、科学标定、人工美术与长期运行验收不因归档或清理而自动通过。
+
+## 光污染旧版主线移除
+
+完整备份为 B:/GithubProject/_worktree-archives/Astronomical-Exps/20261116-city-night-only/light-pollution-before.zip，配套 manifest 保存逐文件大小和 SHA-256。备份包含删除前实验目录全部1,584个实际文件（含忽略/未跟踪内容），合计551,279,251字节；ZIP逐项读回通过，SHA-256为94697d01e5997eb13af07974a373c454485b20506714f9a2818340c69f091f71。
+
+主线仅保留 city-night 及实验根入口/README/需求/Agent文档；1,428个旧文件见 [移除清单](LIGHT_POLLUTION_REMOVAL_20261116.json)。当前运行代码和生产资源字节保持不变，旧入口返回404，现行性能约定移至 city-night/PERFORMANCE.md。历史报告中的旧模块链接改为外部归档提示，不保留失效入口。历史资料须解压到新的仓库外目录，不直接覆盖当前实现。
+
+截图里的其他目录没有一并删除，分类及删除前提见 [目录核对](DIRECTORY_ASSESSMENT_20261116.md)。独立备份不是 Git 工作树，应保留或先合并为已校验归档。

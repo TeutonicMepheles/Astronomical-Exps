@@ -44,9 +44,6 @@ experiments/newton-telescope/assets/studio-body/
 experiments/newton-telescope/assets/studio-candidates/
 experiments/newton-telescope/assets/studio-parts/
 experiments/newton-telescope/assets/studio-refinements/
-experiments/light-pollution/lib-static-demo/standalone-light.html
-experiments/light-pollution/lib-static-demo/standalone.html
-experiments/light-pollution/assets/lamp-variants/*.zip
 experiments/foucault-pendulum/tests/*.png
 
 # 本地归档与工具状态
@@ -54,7 +51,3 @@ archive/*.bundle
 .libtv/
 _chk.py
 _cmp2.py
-
-# Rebuildable historical panorama packs; latest city-night exports go to dist/.
-experiments/light-pollution/assets/panorama-20261111/editor.html
-experiments/light-pollution/assets/panorama-20261111/user.html

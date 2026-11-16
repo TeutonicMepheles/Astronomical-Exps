@@ -4,11 +4,11 @@
 
 ## 当前操作与维护入口
 
-从实验根进入：先在同一段完整阴影两端选点，再分别点击“测量影长”和“计算高度差”；修改太阳角度或剖切位置后重选。左侧保持完整环形山取景，测量时右侧按线段聚焦；无有效阴影时按提示调整太阳高度角或剖切位置。输出仍为模型单位，正式比例和科学标定未完成。现行规则以 [REQUIREMENTS](REQUIREMENTS.md) 为准。
+当前采用用户指定参考模型转换的上表面地形。先用把手或滑条框出坑缘并确认轮廓，再选择可投影的候选山峰 A，自动得到同一阴影的 B 点与水平影长；无需再选 B 或点击“测量影长”。随后按步骤标出太阳高度角并计算高度差。修改轮廓或太阳角度会取消旧结果，无候选时按提示调整。
 
-[陨石动效调试台](陨石参考/陨石动效调试.html) 是独立历史副本，供播放、暂停、重播和定位，不是默认测量页面。文件扩展名已恢复为 `.html`，与该目录 README 链接一致；后续修改此副本不会自动更新正式实验。
+太阳高度角为35°—70°，光强固定为原视觉上限。第三步可打开手动计算，输入厘米影长和经老师确认的“1 cm 对应 k km”比例；比例默认空，不输出未标定实际尺度。法线入射角与水平高度角明确区分。主读数仍为模型单位，手量结果不覆盖主读数。现行依据见 [需求](REQUIREMENTS.md)、[轮廓测量](docs/RIM_MEASUREMENT.md)、[参考地形](docs/REFERENCE_TERRAIN.md)及[手量计算](docs/MANUAL_CALCULATION.md)。
 
-当前检查命令：根目录 `npm run check`、`npm test`、`npm run test:browser`；3D 专项为 `node experiments/lunar-crater-height/tools/verify-3d.cjs`。自动检查、历史截图、白板触控与长期运行分别验收；下方旧记录中的环境缺失或检查结果仅适用于记录当时。
+根检查为 npm run check、npm test、npm run test:browser；专项为 tools/rim-measurement.test.cjs、tools/verify-reference-terrain.cjs、tools/verify-manual-calculation.cjs 和 tools/verify-3d.cjs。模型转换、交互、白板与科学验收分别记录。
 
 ## 历史实现与验证记录
 

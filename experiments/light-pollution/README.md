@@ -1,231 +1,25 @@
-# 光污染实验工程
-
-当前默认实现为 [city-night](city-night/README.md)，整合来源、生产资源与验证边界见[2026-11-13记录](../../docs/INTEGRATION_20261113.md)。
-
-[2026-11-11整合记录](docs/LATEST-PREVIEW-20261111.md)与[模块架构](docs/ARCHITECTURE.md)描述旧 app/ 编辑器及兼容入口，不代替最新夜景。
-
-## 当前功能与状态
-
-当前默认入口为 [城市夜景](city-night/README.md)，运行及资产工具已分别通过 PR #64/#65 合并。用户已确认旧横版 panorama-20261111 废弃；app、legacy-preview 和相关全景工具只留作历史追溯，不继续开发或作为现行验收入口。
-
-
-根 `index.html` 跳转到 `city-night/index.html`：11个对象气泡、统一路灯、公园短柱灯、住宅固定暗底及独立窗灯/墙灯、公共建筑受光、随位置变化的车辆透视、远景天空与静态屏幕。住宅相邻入口的窗灯同步，墙灯单独调节；按住 Ctrl 三秒可打开城市光晕开发参数。亮度与配光为教学美术演示，未做科学光度标定。
-
-## 职责边界
-
-最新夜景代码和资源由 city-night/ 拥有。旧 app/ 模块编辑器与 legacy-preview.html 已废弃，仅保留历史资料，不在最新场景中探查其内部 DOM 或复用其私有运行实例。
-
-## 文件与子目录索引
-
-- [city-night/](city-night/README.md)
-- [adapters/](adapters/README.md)
-- [app/](app/README.md)
-- [archive/](archive/README.md)
-- [assets/](assets/README.md)
-- [baseline-scroll/](baseline-scroll/README.md)
-- [components/](components/README.md)
-- `concepts/`（本地概念资料，不随源码交付）
-- [core/](core/README.md)
-- [docs/](docs/README.md)
-- [features/](features/README.md)
-- [layered-demo/](layered-demo/README.md)
-- [lib-static-demo/](lib-static-demo/README.md)
-- [mask-editor/](mask-editor/README.md)
-- [persistence/](persistence/README.md)
-- [rendering/](rendering/README.md)
-- [resource-archives/](resource-archives/README.md)
-- [resources/](resources/README.md)
-- [scenes/](scenes/README.md)
-- [sky-preview/](sky-preview/README.md)
-- [static-demo/](static-demo/README.md)
-- [tests/](tests/README.md)
-- [tools/](tools/README.md)
-- [AGENTS.md](AGENTS.md)
-- [app.js](app.js)
-- [asset-review.html](asset-review.html)
-- [billboard-display.js](billboard-display.js)
-- [billboard-surface.js](billboard-surface.js)
-- [billboard.js](billboard.js)
-- [export.py](export.py)
-- [index.html](index.html)
-- [legacy-preview.html](legacy-preview.html)
-- [INTEGRATION.md](INTEGRATION.md)
-- [lamp-hints.js](lamp-hints.js)
-- [lamp-layout.js](lamp-layout.js)
-- [lamps.css](lamps.css)
-- [lamps.js](lamps.js)
-- [public-building.js](public-building.js)
-- [REQUIREMENTS.md](REQUIREMENTS.md)
-- [residential.css](residential.css)
-- [residential.js](residential.js)
-- [sky.js](sky.js)
-- [style.css](style.css)
-- [WINDOW_SURFACE_SPEC.md](WINDOW_SURFACE_SPEC.md)
-
-## 使用方法
-
-在仓库根目录运行：
-
-```sh
-npm run dev -- --experiment light-pollution
-```
-
-导出最新默认夜景：
-
-```sh
-npm run export -- light-pollution
-```
-
-导出文件为 `dist/light-pollution/index.html`，由 `city-night/build_offline.py` 打包当前生产清单并核对哈希。旧 app 模块包另用 `node experiments/light-pollution/lib-static-demo/export.cjs` 生成，只用于兼容入口和旧专项。
-
-### 本目录资源实测清单
-
-资源 ID、SHA-256 和尺寸见[资源目录清单](docs/resource-catalog.json)。未声明的来源或许可证仍为未确认，不推断授权。生成方法与配准沿用本目录或父目录来源说明；构建只内嵌素材，不重新生成美术。诊断截图会在测试时更新，可运行 tools/audit/catalog.py 刷新元数据。
-
-| 文件 | 尺寸/坐标 | 字节 | 使用边界 |
-| --- | --- | ---: | --- |
-| [preview-all-lamps.png](preview-all-lamps.png) | 892 × 1117 | 53,983 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [preview-click-hint.png](preview-click-hint.png) | 892 × 1117 | 56,903 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [preview-lamps.png](preview-lamps.png) | 1280 × 720 | 75,351 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [preview-v2.png](preview-v2.png) | 1267 × 1005 | 109,512 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-| [preview.png](preview.png) | 1267 × 1005 | 141,711 | 保留素材/独立入口/诊断图，未由主 manifest 直接内嵌 |
-
-## 公开接口与数据
-
-公开入口：`BillboardScene`、`BillboardSurface`、`ForegroundLamps`、`LampScene`、`PublicBuildingScene`、`ResidentialScene`、`SkyScene`。具体参数与返回值以入口定义和专项测试为准。
-
-## 依赖与解耦策略
-
-旧街景与候选实现仍分开维护，根入口默认进入候选重构版；实验私有代码只在本目录维护。依赖通过显式入口或 manifest 声明；不跨实验引用私有实现，不通过其他模块内部 DOM 或模拟点击执行业务。
-
-## 验证与已知限制
-
-目录文档由 `tools/audit/check-readmes.cjs` 检查覆盖、子目录索引与本地链接。功能验证执行上述命令及关联专项；自动检查不等于真实白板触控或用户已有草稿验收。
-
----
-
-## 既有说明与来源记录
-
-以下保留原说明；当前模块归属及迁移入口以上文为准。
-
 # 光污染与夜天光测量实验
 
-当前处于开发中，光效是未标定的演示。功能要求见 [REQUIREMENTS.md](REQUIREMENTS.md)，修改范围见 [AGENTS.md](AGENTS.md)。
+## 当前实现
 
-## 运行和检查
+唯一运行实现为 [city-night](city-night/README.md)，根 [index.html](index.html) 跳转至该页面。固定暗底住宅、独立墙灯/窗灯、公共建筑受光、随位置变化的车辆透视与城市光晕属于视觉演示，尚未完成科学光度标定。
 
-在仓库根目录运行：
+旧横版 panorama-20261111、app 编辑器、candidate/legacy、历史预览和其代码/资源/构建工具已从主线移除，旧 URL 返回 404。完整仓库外备份、校验与恢复方法见 [工作区恢复说明](../../docs/WORKSPACE_RECOVERY.md)，不提供旧入口跳转或在产品中继续加载其资源。
+
+## 使用与验证
 
 ```sh
 npm run dev -- --experiment light-pollution
-```
-
-打开终端显示的地址，默认是 [本地页面](http://127.0.0.1:8793/experiments/light-pollution/)。
-
-```sh
-npm run check
-npm test
-npm run test:browser
 npm run export -- light-pollution
 ```
 
-离线文件为 `dist/light-pollution/index.html`，当前来源为候选重构版。试玩时应覆盖街景移动、灯具选择、灯罩和色温切换、建筑和广告屏控制、星空及素材编辑，并明确记录未通过项。
+离线结果为 dist/light-pollution/index.html。根目录执行 npm run check、npm test、npm run test:browser；当前灯光/资产/面板/离线专项见 [city-night 检查](city-night/tests/README.md) 和 [性能约定](city-night/PERFORMANCE.md)。先生成离线包再运行整页 verify.cjs，CITY_URL 指向本工作树。
 
-## 已有功能
+## 文件索引
 
-2026-10-23：住宅窗灯已接入独立图层。点按任意住宅亮窗，或用键盘选择前景住宅窗灯后按 Enter/空格，弹出色温与亮度面板；所有住宅窗灯共用参数，与路灯独立。点击空白、按 Esc、关闭按钮或改选路灯可关闭面板，参数在本次页面会话内保留。街景拖动不会打开面板；锚点移出画面时面板关闭。亮度为 0 时仍可点击原窗灯位置或键盘入口重新调亮。
+- [city-night/](city-night/README.md)：运行代码、资产、离线打包、制作输入和专项回归。
+- [REQUIREMENTS.md](REQUIREMENTS.md)：正式需求、当前行为和未确认科学参数。
+- [AGENTS.md](AGENTS.md)：本实验维护边界。
+- [index.html](index.html)：唯一默认入口。
 
-住宅色温沿用现有路灯的 2200–6500 K 演示范围及暖冷配色，默认 3000 K；亮度为 0–100% 的视觉强度，默认 100%，不是照度读数。近景住宅已加入四档窗帘，开启比例尚未实现。刷新页面恢复默认值。旧街景页使用第二版精修底图和住宅/公共建筑/广告屏图层，各组提供独立控制。
-
-调节器初始隐藏；可无限次重复“点窗灯打开—点别处关闭—再点窗灯重新打开”。直接点击另一扇可见窗灯会移动面板，调节滑条不会关面板，亮度为 0 时仍可重新打开。分层预览 asset-review.html 不提供这一交互；旧街景交互见 `legacy-preview.html`，旧模块候选入口见 `app/index.html`。
-
-街景支持拖动、滚轮、触控板、左右按钮和位置滑条。场景获得焦点后可用方向键、Home、End；到两端停止。展示区保持 16:9，按窗口等比缩放。
-
-前景有 7 盏路灯、6 盏步道灯，统一使用 155 逻辑单位的显示高度，不按类别或位置缩小。选择一盏后，通过面板联动修改全部灯具的三种灯罩和色温。点击空白或按 Esc 关闭面板；对象移出画面时面板也会收起，参数保留。拖动超过 6 屏幕像素时按移动处理。
-
-空闲后在可见灯具上显示手势提示；拖动时隐藏，首次选中或按 Esc 后，本次会话不再提示。
-
-## 尚未完成
-
-按[智慧白板约定](../../Visual-Spec/VISUAL_SPEC.md#展示与交互约定)，后续需检查并调整街景滚动、滚轮输入和悬停/选中反馈。上文记录现状，不代表已符合该约定。
-
-住宅窗灯已拆分并支持色温、亮度；左侧两栋近景住宅支持 25%、50%、75%、100% 拉帘，从右向左合拢，默认未拉帘。窗帘覆盖比例与未来的灯光开启比例分别处理；不推算科学遮光系数。远景住宅只联动色温和亮度，公共建筑支持独立的色温、亮度调节，广告屏支持独立亮度调节。科学读数暂缓。
-
-窗帘使用本地 SVG 褶皱纹理，按窗洞与原图前景遮挡裁切，不影响全景拖动；完全合帘或亮度为零时仍可点选窗灯，关闭面板后保留参数。窗帘检查：`node experiments/light-pollution/tests/curtains.browser.cjs`，同样支持 `LIGHT_URL` 离线入口。
-
-天空、星场、光晕、地面光斑和水面反光为演示层；2200–6500 K 色温范围和光效系数尚未标定。页面不输出科学光污染等级或可见星数量。底图可能残留固定受光，需要继续检查美术资源。
-
-## 文件分工
-
-| 文件 | 用途 |
-| --- | --- |
-| `legacy-preview.html`、`style.css` | 旧街景页面结构和布局 |
-| `app.js` | 街景移动和输入 |
-| `lamp-layout.js` | 灯具清单与坐标 |
-| `lamps.js`、`lamps.css` | 灯具参数、轮廓、光效和面板 |
-| `lamp-hints.js` | 手势提示 |
-| `residential.js`、`residential.css` | 住宅窗口命中、独立色温/亮度面板和图层调节 |
-| `assets/` | 街景分层和灯具图集 |
-
-描边和手势使用根目录 `shared/components/` 的公开接口；实验提供目标、轮廓和状态。资源说明见 [LAYERS.md](assets/LAYERS.md)、[ALL-LAMPS.md](assets/ALL-LAMPS.md)。背景于 2026-10-13 使用 imagegen 生成，为无文字的连续滨河街景插画。
-
-住宅功能检查：`node experiments/light-pollution/tests/residential.browser.cjs`，默认使用 8795 端口的本地页；可用 `LIGHT_URL` 指定服务地址或离线文件。精修图层说明见 [第二版资源](assets/source-layers-v2/README.md)。
-
-`baseline-scroll/` 保留接入灯具前的滚动版本，仅供历史对照，不是正式入口。
-
-公共建筑：点击任意公共建筑窗户打开面板，所有公共建筑窗灯联动；点击空白或 Esc 收起，参数保留，亮度为零仍可选择。与住宅、路灯面板互斥，色温沿用演示范围，不代表科学标定。检查：`node experiments/light-pollution/tests/public-building.browser.cjs`。
-
-广告屏：点击屏幕打开亮度滑块（0–100% 视觉演示值），保留原图色彩；熄屏后仍可点选，关闭面板保留亮度。与其他三个面板互斥，拖动不触发选中。检查：`node experiments/light-pollution/tests/billboard.browser.cjs`，支持 `LIGHT_URL` 离线入口。
-
-路灯面板新增 0–100% 亮度（默认 100%，视觉演示值），全部前景路灯和步道灯联动。灯头、天空散射、地面光斑、光束和水面反光随亮度变化；0% 时保留暗色灯头、灯罩及灯杆，仍可点选。切换灯罩、色温或关闭面板不重置亮度。检查：node experiments/light-pollution/tests/lamp-brightness.browser.cjs。
-
-星空联动由 sky.js 统一渲染：四类控制器通过 SkyScene.update 发布各自光源，使用统一全景坐标，固定随机种子保持星位；局部光晕和暗星显隐随亮度平滑变化，色温只改变光晕色彩。近景住宅按剩余未遮挡比例贡献光晕，远景住宅不受窗帘影响；路灯保留灯罩上射差异；广告屏使用图案的浅紫白代表色。全部关闭时移除所有受控天空光晕。响应系统减少动态效果设置，动画收敛后停止刷新。扩散半径、权重和恒星数量均是美术演示系数，未做科学标定，不输出等级或可见星数。专项检查：node experiments/light-pollution/tests/sky.browser.cjs。
-
-星点使用固定随机种子分到三个独立透明 `.stars` 画布中，与天空渐变和光晕图层分离。图层顺序由下至上为：完整不透明的黑色天空与光晕画布、三个星点画布、使用透明天空 Alpha 遮罩的山体和建筑底图、拆分灯光图层。每个星点图层都以 2 秒线性周期循环：第 1 秒由初始颜色逐渐变为完全透明，第 2 秒由完全透明逐渐恢复到初始颜色；三层延迟依次为 0、0.5、1.0 秒。光污染联动仍会更新三个图层内各星点的基础可见度。专项检查：node experiments/light-pollution/tests/star-layer.browser.cjs。
-
-
-### 广告屏动态预览（2026-10-27）
-
-`billboard-display.js` 在现有广告屏上叠加本地图片轮播：6 秒停留、800 毫秒淡化、换片短暂轻微条带错位与弱扫描线。Canvas 内容经 CSS 四点单应投影匹配场景坐标；四角配置位于文件顶部，仍可按底图内沿微调。广告屏面板可下一张、暂停/继续，亮度与原控制器一致。零亮度、隐藏页面停止轮播；减少动态效果时仅手动无动画换片。素材加载失败保留原屏幕图。
-
-更换图片：修改 `config.slides` 中的本地资源路径（建议放在 `assets/`，保持显式字符串以支持离线导出）；按铺满居中裁切显示。`assets/billboard-demo/` 三张 SVG 为本次原创演示海报，不代表正式广告内容。无新增第三方运行依赖。专项检查：`node experiments/light-pollution/tests/billboard-display.browser.cjs`（默认 8797，支持 LIGHT_URL 和 LIGHT_SCREENSHOT）。
-
-广告屏 Bloom 从当前画面提取亮部，以近场与远场两层模糊叠加，随换片同步更新；随亮度非线性减弱，0% 完全关闭。该效果为美术演示，不代表物理亮度或科学光污染计算。
-
-广告屏持续显示约 2.8 秒一轮、自上而下的柔和刷新带，暂停轮播不暂停刷新。换片 Glitch 已适度增强。面板新增“放大预览”，保留同一透视、内容、刷新带及 Bloom，并可同步调节亮度。页面隐藏、0% 亮度及减少动态效果模式停止连续动画。
-
-
-### 广告屏四角编辑
-
-点击广告屏面板的“调整四角”，直接拖动 1–4 四个控制点（左上、右上、右下、左下）。方向键每次微调 1 个场景单位，Shift+方向键每次 10 个。拖动不会移动街景；画面透视、Bloom、点击区域、选中描边及面板定位共享 `billboard-surface.js` 的几何。放大预览自动适配新范围。
-
-“保存配置”存入当前浏览器的 localStorage（键 `astronomical.light-pollution.billboard-surface.v1`），刷新自动载入；“恢复已保存”丢弃尚未保存的位置修改；“默认位置”只重置当前角点，需再保存才覆盖旧记录。“完成调整”隐藏控制点，不会自动保存。配置绑定浏览器和页面来源，不自动跨端口、浏览器或设备迁移；离线 file 页面也使用其自身的存储范围。读取无效配置会回退默认位置，保存失败会显示提示。交叉、退化及越界四边形不接受。
-
-专项检查：`node experiments/light-pollution/tests/billboard-surface.browser.cjs`，支持 `LIGHT_URL` 指定离线页。默认四角已统一放在 `billboard-surface.js`，不再修改渲染器的 `config.corners`。
-
-
-## 2026-10-28 开发进度与换机记录（历史）
-
-当时分支为 `experiment/light-pollution/sky-preview`。新增的 [独立星空预览](sky-preview/README.md) 和 [PollutionStarfield 组件](components/pollution-starfield/README.md) 作为独立开发入口保存；候选重构页现已使用星空调节能力。该记录还保存了全部前景灯具统一为 155 逻辑单位高度的调整。完整整合范围、各入口和换机步骤见 [整合清单](INTEGRATION.md)。
-
-换机请克隆完整仓库并切换到该分支；已有仓库且工作区干净时，执行 `git fetch origin`、`git switch experiment/light-pollution/sky-preview`、`git pull --ff-only`。首次安装及检查环境见根目录 README（Python 3.10+、Node.js 22+、`npm ci`、`npx playwright install chromium`）。贡献者本地绑定可用 `python tools/collab.py resume --experiment light-pollution --task sky-preview` 恢复。
-
-启动本实验服务后，访问 `/experiments/light-pollution/sky-preview/` 继续编辑预览。预览依赖本目录的 `sky-preview/index.html`、`preview.css`、`preview.js`、`components/pollution-starfield/starfield.js` 以及仓库内 `shared/typography/typography.css`；无需另行下载图片、字体或运行库。候选与旧街景使用的灯具图集位于已纳入 Git 的 `assets/`，公共组件仍从仓库 `shared/` 加载，因此不要只复制预览目录。
-
-**浏览器参数不随 Git 迁移：**“保存当前档位”只写入当前站点的 localStorage（键为 `light-pollution.starfield-presets.v1`），不修改源码。换机默认使用源码预设；如需保留手调结果，应另行迁移该键的 JSON。`dist/`、`node_modules/` 和测试截图均为本地生成内容，在新电脑重新生成。根目录导出命令生成候选单文件，不包含独立的 `sky-preview/` 入口。
-
-此分支用于开发备份，星空档位与参数仍是未标定的美术演示，尚未完成整页人工验收。
-
-### 4:1 场景调光验证
-
-panorama-preview/（本地保留：`panorama-preview/README.md`） 为独立素材验收入口，验证住宅、广告牌与体育场局部调光；不替换默认页面。
-
-## 4:1 可编辑全景素材（2026-11-11）
-
-离线编辑器（本地保留：`assets/panorama-20261111/editor.html`） · [素材与使用说明](assets/panorama-20261111/README.md)。新场景独立草稿，保留默认场景入口。
-
-## 2026-11-11 整理交付
-
-长场景使用 `app/index.html?scene=panorama-20261111`，编辑模式追加 `&mode=editor`。源码只包含实际使用的图层、遮罩、纸质面板及前后对比图；未引用的选图和参考图保留本地。执行 `node experiments/light-pollution/tools/build/build-panorama.cjs` 重建离线 user.html/editor.html，生成页不提交。旧默认候选与 legacy 兼容入口继续保留。
-
-最终精简源码复核：49/49浏览器专项通过（含三项历史素材依赖修正后的复测），根三项检查和离线构建通过，详见 [本轮交付记录](docs/DELIVERY_20261111.md)。
+当前实现与清理前的 city-night 运行文件逐字节一致。自动检查不代替白板触控、用户美术接受、科学标定或长期运行验收。
