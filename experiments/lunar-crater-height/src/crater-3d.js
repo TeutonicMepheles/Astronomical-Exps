@@ -295,6 +295,7 @@
     Object.assign(measurementAnimation,{frame:0,horizontal:0,baseline:0,angle:0,vertical:0,angleShown:false,phase:'idle'});
   }
   function clearReadout(){
+    document.dispatchEvent(new Event('lunar-measurement-reset'));
     cancelMeasurementAnimation();view.points=[];view.length=null;view.height=null;
     $('lengthLabel').textContent='水平影长 L';
     $('lengthValue').textContent=$('heightValue').textContent='—';$('formula').textContent='';

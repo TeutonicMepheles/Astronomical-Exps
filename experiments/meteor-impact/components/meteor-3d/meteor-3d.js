@@ -94,11 +94,28 @@
         const y = random() * size;
         const radius = .7 + random() * 3.2;
         lunar.fillStyle = i % 4 === 0 ? 'rgba(250,250,250,.2)' : 'rgba(126,126,126,.13)';
-        lunar.fillRect(x, y, radius, radius * .7);
+        const rotation = random() * Math.PI * 2;
+        lunar.beginPath();
+        for (let j = 0; j < 5; j++) {
+          const angle = rotation + j * Math.PI * 2 / 5;
+          const r = radius * (.55 + random() * .45);
+          const px = x + Math.cos(angle) * r, py = y + Math.sin(angle) * r;
+          if (j === 0) lunar.moveTo(px, py); else lunar.lineTo(px, py);
+        }
+        lunar.closePath(); lunar.fill();
       }
       lunar.fillStyle = 'rgba(121,121,121,.16)';
       for (let i = 0; i < 48000; i++) {
         lunar.fillRect(random() * size, random() * size, .5 + random() * 1.5, .5 + random() * 1.2);
+      }
+      // Shallow pits from the supplied lunar material, retaining neutral gray.
+      for (let i = 0; i < 90; i++) {
+        const x = 30 + random() * (size - 60), y = 30 + random() * (size - 60);
+        const radius = i < 14 ? 12 + random() * 13 : 2 + random() * 8;
+        lunar.fillStyle = 'rgba(125,125,125,.12)';
+        lunar.beginPath(); lunar.ellipse(x + 1, y + 1, radius, radius * .72, random() * Math.PI, 0, Math.PI * 2); lunar.fill();
+        lunar.strokeStyle = 'rgba(250,250,250,.46)'; lunar.lineWidth = 1 + random() * 2;
+        lunar.beginPath(); lunar.arc(x, y, radius, Math.PI * .78, Math.PI * 1.8); lunar.stroke();
       }
       this.lunarTexture = new T.CanvasTexture(lunarCanvas);
       this.lunarTexture.colorSpace = T.SRGBColorSpace;
@@ -177,8 +194,9 @@
       sun.castShadow = true;
       sun.shadow.mapSize.set(1024, 1024);
       Object.assign(sun.shadow.camera, { left: -42, right: 42, top: 42, bottom: -42, near: 1, far: 120 });
-      sun.shadow.bias = -.00015;
-      sun.shadow.normalBias = .06;
+      // Prevent terrain self-shadow bands while retaining meteor and crater shadows.
+      sun.shadow.bias = -.0005;
+      sun.shadow.normalBias = .25;
       this.scene.add(sun);
       this.scene.add(new T.HemisphereLight(0xb9c8dc, 0x49433d, .65));
     }
@@ -492,15 +510,10 @@
 
       let seed = 4137;
       const random = () => ((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296);
+      this.dustVolumeGeometry = new T.SphereGeometry(1, 16, 12);
       this.dust = [];
-      for (let i = 0; i < 64; i++) {
-        const sprite = new T.Sprite(new T.SpriteMaterial({
-          map: this.dustTexture,
-          color: i % 3 === 0 ? 0xcabba6 : 0xeee5d6,
-          transparent: true,
-          depthWrite: false,
-          opacity: 0
-        }));
+      for (let i = 0; i < 24; i++) {
+        const sprite = this._createDustVolume(i);
         sprite.userData = {
           angle: random() * Math.PI * 2,
           distance: .15 + random() * .88,
@@ -512,14 +525,8 @@
         this.dust.push(sprite);
       }
       this.plume = [];
-      for (let i = 0; i < 20; i++) {
-        const sprite = new T.Sprite(new T.SpriteMaterial({
-          map: this.dustTexture,
-          color: 0xf1e8d9,
-          transparent: true,
-          depthWrite: false,
-          opacity: 0
-        }));
+      for (let i = 0; i < 12; i++) {
+        const sprite = this._createDustVolume(i + 24);
         sprite.userData = {
           angle: random() * Math.PI * 2,
           height: .18 + random() * .58,
@@ -532,8 +539,8 @@
       this.sandGeometry = new T.BufferGeometry();
       this.sandGeometry.setAttribute('position', new T.BufferAttribute(sandPositions, 3));
       this.sand = new T.Points(this.sandGeometry, new T.PointsMaterial({
-        color: 0xe4d4ba,
-        size: .12,
+        color: 0xf0eeea,
+        size: .19,
         transparent: true,
         opacity: 0,
         depthWrite: false
@@ -550,7 +557,7 @@
       const debrisGeometry = new T.IcosahedronGeometry(1, 0);
       for (let i = 0; i < 24; i++) {
         const debris = new T.Mesh(debrisGeometry, new T.MeshStandardMaterial({
-          color: 0xa6a8aa,
+          color: i % 3 === 0 ? 0xc3c5c7 : 0x55595e,
           roughness: 1,
           flatShading: true
         }));
@@ -568,6 +575,34 @@
       this.impactGroup.add(this.entryLight);
     }
 
+    _createDustVolume(index) {
+      const T = this.THREE;
+      const tint = new T.Color(0xc9c9c9);
+      const material = new T.ShaderMaterial({
+        vertexShader: "varying vec3 localPoint;void main(){localPoint=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}",
+        fragmentShader: "\n    precision highp float;\n    varying vec3 localPoint;\n    uniform vec3 eye,tint;\n    uniform float strength,phase,offset;\n    float textureField(vec3 p){\n      p+=vec3(offset,offset*.7,offset*.3);\n      return .52+.24*sin(p.x*4.+sin(p.z*3.))*cos(p.y*4.5-p.z*2.)\n        +.13*sin(p.z*9.3+p.y*5.2)*cos(p.x*8.1-p.y*6.7);\n    }\n    void main(){\n      vec3 ray=normalize(localPoint-eye),p=localPoint+ray*.025;\n      vec3 result=vec3(0.);float alpha=0.;\n      for(int i=0;i<20;i++){\n        float n=textureField(p+vec3(phase*.09,-phase*.12,phase*.06));\n        float radial=1.-smoothstep(.42,1.,length(p));\n        float density=radial*smoothstep(.15,.72,n)*.28*strength;\n        float shade=.79+.13*p.y-.065*p.x+.12*n;\n        shade=mix(shade,floor(shade*14.)/14.,.45);\n        vec3 pigment=sqrt(tint)*vec3(1.)*shade;\n        result+=(1.-alpha)*density*pigment;alpha+=(1.-alpha)*density;\n        p+=ray*.10;\n      }\n      if(alpha<.012)discard;\n      float grain=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);\n      gl_FragColor=vec4(result/max(alpha,.001)*( .98+.035*grain),alpha);\n    }",
+        transparent: true, depthWrite: false,
+        uniforms: { eye: { value: new T.Vector3() }, tint: { value: tint }, strength: { value: 0 }, phase: { value: 0 }, offset: { value: index * .731 } }
+      });
+      material.color = tint; material.opacity = 0;
+      return new T.Mesh(this.dustVolumeGeometry, material);
+    }
+
+    _syncDustVolumes(time) {
+      for (const group of [this.dust, this.plume]) for (const puff of group) {
+        puff.visible = puff.material.opacity > .005 && puff.scale.x > .001;
+        const uniforms = puff.material.uniforms;
+        uniforms.strength.value = puff.visible ? puff.material.opacity * 1.45 : 0;
+        if (!puff.visible) continue;
+        puff.scale.z = puff.scale.x * .88;
+        puff.scale.multiplyScalar(.5);
+        puff.updateMatrixWorld(true);
+        uniforms.eye.value.copy(this.camera.position);
+        puff.worldToLocal(uniforms.eye.value);
+        uniforms.phase.value = time;
+      }
+    }
+
     _buildPreviewGuide() {
       const T = this.THREE;
       this.guideMaterial = new T.LineDashedMaterial({ color: 0xecba7d, dashSize: .7, gapSize: 1.2, transparent: true, opacity: .44 });
@@ -583,9 +618,20 @@
     }
 
     _startForAngle(angle) {
-      if (angle === '90') return new this.THREE.Vector3(0, 13, -5);
-      if (angle === '45') return new this.THREE.Vector3(-18, 12, -9);
-      return new this.THREE.Vector3(-26, 9, -7);
+      const T = this.THREE;
+      const point = angle === '90' ? new T.Vector3(0, 13, -5) : angle === '45' ? new T.Vector3(-18, 12, -9) : new T.Vector3(-26, 9, -7);
+      const end = this._groundPoint();
+      const direction = point.clone().sub(end);
+      this.camera.updateMatrixWorld(true);
+      const frustum = new T.Frustum().setFromProjectionMatrix(new T.Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse));
+      // Use the largest size for every grade so size comparisons share one path.
+      const bounds = new T.Sphere(point, sizeScale.large * 1.3);
+      let extension = 1;
+      while (frustum.intersectsSphere(bounds) && extension < 10) {
+        extension += .15;
+        point.copy(end).addScaledVector(direction, extension);
+      }
+      return point;
     }
 
     _groundPoint() {
@@ -643,6 +689,7 @@
       this.shock.material.opacity = 0;
       this.dust.forEach(sprite => { sprite.material.opacity = 0; });
       this.plume.forEach(sprite => { sprite.material.opacity = 0; });
+      this._syncDustVolumes(0);
       this.debris.forEach(item => { item.visible = false; });
       this.trails.forEach(sprite => { sprite.visible = false; });
       this.guide.geometry.dispose();
@@ -675,9 +722,11 @@
       this._setMeteorRotation(0);
       const prepared = this._prepareImpact(this.preparationToken);
       const activeToken = this.preparationToken;
+      // Scene units/second are visual teaching presets, not physical velocities.
+      const fallDuration = start.distanceTo(end) / ({ low: 13, medium: 22, high: 36 }[params.speed] || 22);
       const reduced = Boolean(options.reduced);
       if (reduced) {
-        this.motion = { start: performance.now(), reduced: true, startPoint: start, endPoint: end, duration: 3.7, visual: this._visualParams(params) };
+        this.motion = { start: performance.now(), reduced: true, startPoint: start, endPoint: end, fallDuration, duration: fallDuration + 2.58, visual: this._visualParams(params) };
         prepared.then(ready => { if (ready && activeToken === this.preparationToken && this.motion) this._finishMotion(); });
         return;
       }
@@ -686,7 +735,8 @@
         reduced: false,
         startPoint: start,
         endPoint: end,
-        duration: 3.7,
+        fallDuration,
+        duration: fallDuration + 2.58,
         visual: this._visualParams(params)
       };
       const tick = now => {
@@ -706,6 +756,7 @@
       this.trails.forEach(sprite => { sprite.visible = false; sprite.material.opacity = 0; });
       this.dust.forEach(sprite => { sprite.material.opacity = 0; });
       this.plume.forEach(sprite => { sprite.material.opacity = 0; });
+      this._syncDustVolumes(0);
       this.debris.forEach(item => { item.visible = false; });
     }
 
@@ -717,14 +768,14 @@
 
     _updateMotion(elapsed) {
       if (!this.motion) return;
-      const fallEnd = 1.12;
-      const contactEnd = 1.43;
+      const fallEnd = this.motion.fallDuration;
+      const contactEnd = fallEnd + .31;
       const duration = this.motion.duration;
       if (elapsed < fallEnd) {
         this._setPhase('fall');
-        const progress = elapsed / fallEnd;
+        const progress = clamp(elapsed / fallEnd, 0, 1);
         this.meteor.visible = true;
-        this.meteor.position.copy(this.motion.startPoint).lerp(this.motion.endPoint, progress * progress);
+        this.meteor.position.copy(this.motion.startPoint).lerp(this.motion.endPoint, progress);
         this._setMeteorRotation(elapsed);
         const earth = this.sceneMode === 'earth';
         const meteorSize = sizeScale[this.params.size];
@@ -746,7 +797,7 @@
           const offset = smoke ? .12 + (index - 12) * .035 : index * .016;
           const previous = clamp(progress - offset, 0, 1);
           sprite.visible = earth && progress > offset;
-          sprite.position.copy(this.motion.startPoint).lerp(this.motion.endPoint, previous * previous);
+          sprite.position.copy(this.motion.startPoint).lerp(this.motion.endPoint, previous);
           sprite.position.x += Math.sin(index * 1.7 + elapsed * 3) * (.06 + index * .025) * meteorSize;
           sprite.position.z += Math.cos(index * 1.3 + elapsed * 2) * index * .012 * meteorSize;
           sprite.material.rotation = flowRotation + Math.sin(index * 1.8 + elapsed) * .11;
@@ -762,40 +813,43 @@
         const local = clamp((elapsed - fallEnd) / .42, 0, 1);
         this.flash.material.opacity = Math.max(0, 1 - local) * .88;
         this.flash.scale.setScalar(2.2 + local * 8.5);
-        this.shock.material.opacity = elapsed < contactEnd ? (1 - local) * .38 : 0;
+        this.shock.material.opacity = 0;
         this.shock.scale.setScalar(1 + local * 15 * this.motion.visual.spread);
         if (elapsed < contactEnd) this._setPhase('contact');
       }
 
       if (elapsed >= fallEnd) {
-        const dustProgress = clamp((elapsed - fallEnd) / (duration - fallEnd), 0, 1);
-        if (elapsed >= contactEnd) this._setPhase(dustProgress > .86 ? 'result' : 'dust');
-        const fade = dustProgress < .7 ? 1 : 1 - smooth(.7, 1, dustProgress);
-        const expansion = smooth(0, .16, dustProgress);
+        // Dust clears quickly; solid ejecta retain their original independent timing.
+        const dustProgress = clamp((elapsed - fallEnd) / 1.29, 0, 1);
+        const ejectaProgress = clamp((elapsed - fallEnd) / 2.58, 0, 1);
+        if (elapsed >= contactEnd) this._setPhase(ejectaProgress > .86 ? 'result' : 'dust');
         const extent = this.motion.visual.radius;
-        this.dust.forEach((sprite, index) => {
-          const data = sprite.userData;
+        this.dust.forEach((puff, i) => {
+          const data = puff.userData;
           const local = clamp((dustProgress - data.delay) / (1 - data.delay), 0, 1);
-          const distance = extent * data.distance * (1 + local * .7) * this.motion.visual.spread;
-          sprite.position.set(
-            Math.cos(data.angle) * distance * this.motion.visual.round,
-            .3 + data.lift * local,
-            Math.sin(data.angle) * distance
-          );
-          sprite.scale.setScalar(extent * data.size * (.5 + local * 1.4));
-          sprite.material.color.setHex(index % 4 === 0 ? 0xb8a995 : this.sceneMode === 'moon' ? 0xe9e2d6 : 0xf0dfca);
-          sprite.material.opacity = expansion * fade * (.3 + (index % 5) * .06);
+          const grow = smooth(0, .22, local);
+          const angle = data.angle + Math.sin(local * 3 + i) * .08;
+          const reach = extent * (.18 + data.distance * .55 + local * (.65 + data.distance * .5));
+          const width = extent * (.40 + data.size) * grow * (1 + local * .65);
+          puff.position.set(Math.cos(angle) * reach * this.motion.visual.round, extent * (.04 + Math.sin(local * Math.PI) * (.10 + data.lift * .3)), Math.sin(angle) * reach);
+          puff.scale.set(width, width * (.38 + data.lift * .5), 1);
+          puff.rotation.y = angle + local * .25;
+          puff.material.opacity = grow * (1 - smooth(.35, 1, local)) * (.30 + data.size * .3);
         });
-        this.plume.forEach((sprite, index) => {
-          const data = sprite.userData;
-          sprite.position.set(
-            Math.cos(data.angle) * extent * .16 * this.motion.visual.round,
-            .2 + data.height * extent * dustProgress * .48,
-            Math.sin(data.angle) * extent * .16
-          );
-          sprite.scale.setScalar(extent * data.size * (1 + dustProgress * 1.5));
-          sprite.material.opacity = expansion * fade * .19;
+        this.plume.forEach((puff, i) => {
+          const data = puff.userData;
+          const delay = (i % 5) * .035;
+          const local = clamp((dustProgress - delay) / (1 - delay), 0, 1);
+          const grow = smooth(0, .24, local);
+          const angle = data.angle + Math.sin(i + local * 4) * .12;
+          const reach = extent * (.35 + data.height * .45 + local * (1 + data.size));
+          const width = extent * (.26 + data.size * 1.2) * grow * (1 + local);
+          puff.position.set(Math.cos(angle) * reach * this.motion.visual.round, extent * (.06 + Math.sin(local * Math.PI) * (.18 + data.height * .3)), Math.sin(angle) * reach);
+          puff.scale.set(width, width * (.6 + data.height * .3), 1);
+          puff.rotation.y = angle;
+          puff.material.opacity = grow * (1 - smooth(.28, 1, local)) * .36;
         });
+        this._syncDustVolumes(dustProgress * 3);
         const positions = this.sandGeometry.attributes.position.array;
         const age = elapsed - fallEnd;
         this.sandSpecs.forEach((spec, index) => {
@@ -806,18 +860,18 @@
           positions[index * 3 + 2] = Math.sin(spec.angle) * distance;
         });
         this.sandGeometry.attributes.position.needsUpdate = true;
-        this.sand.material.opacity = fade * .72;
+        this.sand.material.opacity = (1 - smooth(.7, 1, ejectaProgress)) * .9;
         this.debris.forEach((item, index) => {
           const data = item.userData;
           const local = clamp((age - .1) / 1.7, 0, 1);
-          item.visible = dustProgress < .94;
+          item.visible = ejectaProgress < .94;
           const distance = extent * data.speed * local * this.motion.visual.spread * 1.2;
           item.position.set(
             Math.cos(data.angle) * distance * this.motion.visual.round,
             Math.max(.16, Math.sin(Math.PI * local) * data.lift * 2.1),
             Math.sin(data.angle) * distance
           );
-          item.scale.setScalar((.08 + (index % 4) * .035) * (1 - smooth(.82, 1, local)));
+          item.scale.setScalar((.15 + (index % 4) * .055) * (1 - smooth(.82, 1, local)));
           item.rotation.set(local * data.rotation * 5, local * data.rotation * 3, data.angle);
         });
         if (dustProgress > .32 && !this.terrainImpacted && this.terrainCache.has(this._terrainKey(true))) this._rebuildTerrain(true);
@@ -1063,6 +1117,8 @@
     dispose() {
       this.disposed = true;
       this.cancel(false, false);
+      this.dustVolumeGeometry.dispose();
+      [...this.dust, ...this.plume].forEach(puff => puff.material.dispose());
       this.geometry.dispose();
       this.material.dispose();
       this.meteorGeometry.dispose();

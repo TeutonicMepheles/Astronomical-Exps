@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>月面环形山 · 影长测量演示</title>
 <link rel="stylesheet" href="../../shared/typography/typography.css">
+<link rel="stylesheet" href="./src/manual-calculation.css">
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05080d;color:#f0f3fa;font-family:var(--font-ui);line-height:1.6}
@@ -76,7 +77,20 @@ main::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;b
 <label class="control"><span>太阳高度角</span><input id="angle" type="range" min="35" max="70" step="1" value="35"><output id="angleValue" for="angle">35°</output></label>
 
 </div><ol class="measurement-steps" aria-label="测量进度"><li data-step="start" class="active" aria-current="step"><b>1</b><span class="step-name">框出轮廓</span></li><li data-step="measure"><b>2</b><span class="step-name">选择山峰 A</span></li><li data-step="height"><b>3</b><span class="step-name">计算高度差</span></li></ol></header>
-<div class="views"><section class="view top"><button id="clear" type="button">↺ 重新框选</button><canvas id="top" aria-describedby="cutHint"></canvas><p id="cutHint">调整辅助圆，框出环形山山峰轮廓</p><div class="label">俯视 · 三维月面</div></section><section class="view side"><div class="step-guide" id="pickGuide"><h2 id="pickTitle">第一步 · 框出轮廓</h2><p id="pickInstruction">调整圆的大小，让辅助线贴合坑缘，再确认轮廓。</p><button id="start" class="primary" type="button">确认轮廓</button><div id="pickStatusHost"><p id="status" role="status" aria-live="polite">先用辅助圆框出坑缘，再选择有明显投影的山峰 A。</p></div></div><div class="step-guide" id="sectionGuide" hidden><div id="heightGuide" hidden><h2 id="heightTitle">第三步 · 计算高度差</h2><div class="step-action"><p id="heightInstruction">用已测影长与太阳高度角计算 Δh = L × tan(α)。</p><button id="height" class="primary" type="button">计算高度差</button></div></div><div id="rightStatusHost"></div></div><canvas id="section"></canvas><div class="label" id="sectionLabel">剖面 · 两点高度差</div></section></div>
+<div class="views"><section class="view top"><button id="clear" type="button">↺ 重新框选</button><canvas id="top" aria-describedby="cutHint"></canvas><p id="cutHint">调整辅助圆，框出环形山山峰轮廓</p><div class="label">俯视 · 三维月面</div></section><section class="view side"><div class="step-guide" id="pickGuide"><h2 id="pickTitle">第一步 · 框出轮廓</h2><p id="pickInstruction">调整圆的大小，让辅助线贴合坑缘，再确认轮廓。</p><button id="start" class="primary" type="button">确认轮廓</button><div id="pickStatusHost"><p id="status" role="status" aria-live="polite">先用辅助圆框出坑缘，再选择有明显投影的山峰 A。</p></div></div><div class="step-guide" id="sectionGuide" hidden><div id="heightGuide" hidden><h2 id="heightTitle">第三步 · 计算高度差</h2><div class="step-action"><p id="heightInstruction">用已测影长与太阳高度角计算 Δh = L × tan(α)。</p><div class="lunar-height-actions"><button id="height" class="primary" type="button">计算高度差</button><button id="manualCalculation" type="button">手动计算</button></div></div></div><div id="rightStatusHost"></div></div><canvas id="section"></canvas><div class="label" id="sectionLabel">剖面 · 两点高度差</div></section></div>
 <section class="lunar-closeup" id="lunarCloseup" aria-label="影长测量局部放大" hidden><header>影长测量 · 局部放大<span id="closeupScale"></span></header><div class="lunar-closeup-viewport"><canvas id="closeupCanvas" aria-hidden="true"></canvas><svg id="closeupOverlay" role="img" aria-label="选取的 A、B 两点及水平影长"></svg></div><footer id="closeupCaption">当前选点的剖面细节</footer></section>
 <div class="result"><div><span id="lengthLabel">影长 L</span>：<strong id="lengthValue">—</strong></div><div>高度差 Δh：<strong id="heightValue">—</strong></div><span id="formula"></span></div>
-</main><script src="./assets/three.reference.local.js"></script><script src="./assets/reference-terrain.js"></script><script src="./src/reference-terrain.js"></script><script src="./src/rim-measurement.js"></script><script src="./src/crater-3d.js"></script></body></html>
+
+<dialog id="lunarManualDialog" class="lunar-manual" aria-labelledby="manualTitle" aria-describedby="manualIntro">
+  <div class="manual-heading"><h2 id="manualTitle">手动计算高度差</h2><button id="manualClose" type="button" aria-label="关闭手动计算">关闭 ×</button></div>
+  <p id="manualIntro">用直尺量取水平影长，输入读数与太阳角度，按本次比例换算月面长度。</p>
+  <div class="manual-fields">
+    <label for="manualLength">手量水平影长（cm）<input id="manualLength" type="number" inputmode="decimal" min="0" step="any" placeholder="输入你的测量值" aria-describedby="manualLengthHint"><small id="manualLengthHint">量水平距离，不量倾斜的 A—B 连线。</small></label>
+    <div><label for="manualAngle">太阳角度（°）</label><div class="manual-angle-fields"><select id="manualAngleBasis" aria-label="角度基准"><option value="horizontal">高度角 α</option><option value="normal">入射角（法线）</option></select><input id="manualAngle" type="number" inputmode="decimal" min="35" max="70" step="any" aria-describedby="manualAngleHint"></div><small id="manualAngleHint">相对水平面，35°～70°。</small></div>
+  </div>
+  <fieldset><legend>尺度比例 · 由老师按天文馆数据设置</legend><label class="manual-scale-row" for="manualScale">手量 1 cm 对应月面 <input id="manualScale" type="number" inputmode="decimal" min="0" step="any" placeholder="待设置" aria-describedby="manualScaleHint"> km</label><p id="manualScaleHint">天文馆 Excel 数据待补充。比例须对应测量画面；缩放或更换设备后重新核对。</p></fieldset>
+  <div class="manual-results" aria-live="polite" aria-atomic="true"><div>月面实际水平影长 L<output id="manualActualLength" for="manualLength manualScale">—</output></div><div>估算高度差 Δh<output id="manualHeight" for="manualLength manualScale manualAngle manualAngleBasis">—</output></div></div>
+  <p id="manualFormula">L = 手量影长 × 比例；Δh = L × tan(α)</p>
+  <p id="manualMessage" role="status"></p>
+</dialog>
+</main><script src="./assets/three.reference.local.js"></script><script src="./assets/reference-terrain.js"></script><script src="./src/reference-terrain.js"></script><script src="./src/rim-measurement.js"></script><script src="./src/crater-3d.js"></script><script src="./src/scale-config.js"></script><script src="./src/manual-calculation.js"></script></body></html>
