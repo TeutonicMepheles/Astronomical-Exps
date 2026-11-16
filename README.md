@@ -20,7 +20,7 @@
 | EXP-02 | 月面环形山高度 | 可运行开发版；整页验收待完成 | [index.html](experiments/lunar-crater-height/index.html) | [阅读](experiments/lunar-crater-height/REQUIREMENTS.md) |
 | EXP-03 | 陨石坑撞击 | 可运行开发版；整页验收待完成 | [index.html](experiments/meteor-impact/index.html) | [阅读](experiments/meteor-impact/REQUIREMENTS.md) |
 | EXP-04 | 地球周长 | 可运行三阶段开发版；科学参数与整页验收待完成 | [index.html](experiments/earth-circumference/index.html) | [阅读](experiments/earth-circumference/REQUIREMENTS.md) |
-| EXP-05 | 光污染 | 2026-11-13 最新城市夜景、整体光照与车流；科学参数尚未标定 | [index.html](experiments/light-pollution/index.html) | [阅读](experiments/light-pollution/REQUIREMENTS.md) |
+| EXP-05 | 光污染 | 固定暗底夜景、独立窗灯/墙灯、车辆透视；科学参数尚未标定 | [index.html](experiments/light-pollution/index.html) | [阅读](experiments/light-pollution/REQUIREMENTS.md) |
 | EXP-06 | 日月食 | 可运行开发版；整页验收待完成 | [index.html](experiments/solar-lunar-eclipses/index.html) | [阅读](experiments/solar-lunar-eclipses/REQUIREMENTS.md) |
 | EXP-07 | 牛顿望远镜 | 可运行开发版；整页验收待完成 | [index.html](experiments/newton-telescope/index.html) | [阅读](experiments/newton-telescope/REQUIREMENTS.md) |
 | EXP-08 | 火箭发射 | 可运行开发版；整页验收待完成 | [index.html](experiments/rocket-launch/index.html) | [阅读](experiments/rocket-launch/REQUIREMENTS.md) |
