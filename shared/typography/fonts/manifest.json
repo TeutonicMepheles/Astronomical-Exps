@@ -1,0 +1,59 @@
+{
+  "downloaded": "2026-11-16",
+  "homepage": "https://www.alibabafonts.com/",
+  "legal": "https://www.yuque.com/yiguang-wkqc2/hgpff0/nus9wiinq4aeiegy",
+  "fonts": [
+    {
+      "file": "AlibabaPuHuiTi-3-45-Light.woff2",
+      "sha256": "ac4eaa13d55aa8a3127e19456325371439aa5bfc6046aecb8ab405f4a9617dc7",
+      "bytes": 5382804,
+      "weight": 300,
+      "source": "https://fonts.alibabadesign.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-45-Light/AlibabaPuHuiTi-3-45-Light.woff2",
+      "copyright": [
+        "Copyright (c) 2020-2023 Alibaba (China) Co., Ltd. All rights reserved.",
+        "(c) 2020-2023 阿里巴巴（中国）有限公司，版权所有",
+        "Copyright © 2020-2023 Alibaba (China) Co., Ltd. All rights reserved.",
+        "© 2020-2023 阿里巴巴（中国）有限公司，版权所有"
+      ]
+    },
+    {
+      "file": "AlibabaPuHuiTi-3-55-Regular.woff2",
+      "sha256": "1cb8418d80b01ec08cb6f2d64b6244aaaf1bb80dc35491b66ddba16c5e24f444",
+      "bytes": 5256740,
+      "weight": 400,
+      "source": "https://fonts.alibabadesign.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2",
+      "copyright": [
+        "Copyright (c) 2020-2023 Alibaba (China) Co., Ltd. All rights reserved.",
+        "(c) 2020-2023 阿里巴巴（中国）有限公司，版权所有",
+        "Copyright © 2020-2023 Alibaba (China) Co., Ltd. All rights reserved.",
+        "© 2020-2023 阿里巴巴（中国）有限公司，版权所有"
+      ]
+    },
+    {
+      "file": "AlibabaPuHuiTi-3-65-Medium.woff2",
+      "sha256": "628a0d5be684bae0e7a8e3ad15b7c4f623fd15b3375082624f778326e343467a",
+      "bytes": 5469328,
+      "weight": 500,
+      "source": "https://fonts.alibabadesign.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-65-Medium/AlibabaPuHuiTi-3-65-Medium.woff2",
+      "copyright": [
+        "Copyright (c) 2020-2023 Alibaba (China) Co., Ltd. All rights reserved.",
+        "(c) 2020-2023 阿里巴巴（中国）有限公司，版权所有",
+        "Copyright © 2020-2023 Alibaba (China) Co., Ltd. All rights reserved.",
+        "© 2020-2023 阿里巴巴（中国）有限公司，版权所有"
+      ]
+    },
+    {
+      "file": "AlibabaPuHuiTi-3-75-SemiBold.woff2",
+      "sha256": "75e2ba042e1c8ad8cf3dd5bf26f25984ffeca6c4ebb86977c8f8e1abeeb2652f",
+      "bytes": 5481108,
+      "weight": 600,
+      "source": "https://fonts.alibabadesign.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-75-SemiBold/AlibabaPuHuiTi-3-75-SemiBold.woff2",
+      "copyright": [
+        "Copyright (c) 2020-2023 Alibaba (China) Co., Ltd. All rights reserved.",
+        "(c) 2020-2023 阿里巴巴（中国）有限公司，版权所有",
+        "Copyright © 2020-2023 Alibaba (China) Co., Ltd. All rights reserved.",
+        "© 2020-2023 阿里巴巴（中国）有限公司，版权所有"
+      ]
+    }
+  ]
+}

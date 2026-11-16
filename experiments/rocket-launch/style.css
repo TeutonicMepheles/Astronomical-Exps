@@ -17,7 +17,7 @@
 
 body{
   margin:0;background:#070b16;color:var(--ink);overflow:hidden;
-  font-family:var(--font-ui,system-ui,"Microsoft YaHei",sans-serif);
+  font-family:var(--font-ui,var(--font-ui),"Microsoft YaHei",sans-serif);
   -webkit-tap-highlight-color:transparent;
 }
 

@@ -16,7 +16,7 @@
 | [功能需求](../Function-Spec/README.md) | 八个实验的正式需求和待确认问题 |
 | [视觉规范](../Visual-Spec/README.md) | 画风、参考图和实验设计说明 |
 | [设计资料与前端参考](DESIGN_REFERENCES.md) | 设计词典、交互原则、图标和前端案例 |
-| [字体规范](../shared/typography/README.md) | 字体、字号和数值排版；区分现有基线与待选方案，原始资料从该入口查阅 |
+| [字体规范](../shared/typography/README.md) | 现行普惠体3.0、字号与数值排版、1920×1080映射；原始资料及历史基线从该入口查阅 |
 | [公共组件](../shared/README.md) | 组件接口和预览入口 |
 | [组件使用规则](COMPONENT_POLICY.md) | 公共接口、实验适配和定制副本 |
 

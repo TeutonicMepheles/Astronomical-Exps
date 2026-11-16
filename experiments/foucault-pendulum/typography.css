@@ -1,0 +1,32 @@
+/* PR66 Alibaba PuHuiTi 3.0; final design reference: 1920 x 1080.
+   Existing scene coordinates remain 1600 x 900; 1.2x fit gives the reference sizes. */
+:root { --type-unit: .8333333333px; }
+body { font-family:var(--font-ui);font-size:var(--type-body);font-weight:400; }
+button,input,select,textarea { font-family:var(--font-ui); }
+
+#stage {font-family:var(--font-ui)}
+.city text,.city .name,.city .coord,.latitude-overlay .lat-label {font-family:var(--font-ui)}
+.city .name {font-size:var(--type-body);font-weight:500}
+.city .coord,.latitude-overlay .lat-label {font-size:var(--type-help);font-weight:300}
+#paramButton .parameter-button-label,.time-speed-label {font-size:var(--type-body);font-weight:400}
+#timeSpeedVal {font-size:var(--type-number);font-weight:500}
+.fp-parameter-dialog h2 {font-size:var(--type-title);font-weight:500}
+.fp-parameter-settings legend,.fp-period>div {font-size:var(--type-data-label);font-weight:500}
+.fp-options button {font-size:var(--type-number);font-weight:500}
+.fp-period output {font-size:var(--type-number);font-weight:500}
+.fp-parameter-settings footer button {font-size:var(--type-body);font-weight:400}
+.fp-parameter-settings footer [data-apply] {font-size:var(--type-action);font-weight:600}
+.fp-parameter-settings i,.fp-gravity i {font-family:var(--font-ui)}
+.fp-parameter-settings small,.fp-gravity {font-size:var(--type-help);font-weight:300}
+.fp-chalk-caption {font-family:var(--font-ui);font-size:var(--type-body);font-weight:400}
+.fp-demo-speed button {font-size:var(--type-body);font-weight:400}
+.fp-dimension-label {font-family:var(--font-ui);font-weight:500}
+
+.location-heading b {font-size:var(--type-data-label);font-weight:500}
+.location-coordinates {font-size:var(--type-help);font-weight:300}
+.precession-readout dt {font-size:var(--type-data-label);font-weight:500}
+.precession-readout output {font-size:var(--type-number);font-weight:500}
+.precession-readout .metric-unit,.speed-label {font-size:var(--type-body);font-weight:400}
+.stage-next {font-size:var(--type-action);font-weight:600;min-height:62px}
+
+.fp-reference-caption {font-family:var(--font-ui);font-size:var(--type-body);font-weight:400;fill:#d2e5fa}

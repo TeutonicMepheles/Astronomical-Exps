@@ -42,13 +42,13 @@
   SkyWindow.prototype.renderObserved = function (state,observation) {
     if(state.mode==='solar'){this.renderReference(observation);return;}
     this.setup();var ctx=this.ctx;ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.clearRect(0,0,this.w,this.h);
-    if(observation.moonAltitude<=0){ctx.fillStyle='#080e1b';ctx.fillRect(0,0,this.w,this.h);ctx.fillStyle='#d8e2ef';ctx.font='16px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：月球在地平线下',this.w/2,this.h/2);ctx.textAlign='left';return;}
+    if(observation.moonAltitude<=0){ctx.fillStyle='#080e1b';ctx.fillRect(0,0,this.w,this.h);ctx.fillStyle='#d8e2ef';ctx.font='16px "Alibaba PuHuiTi 3",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：月球在地平线下',this.w/2,this.h/2);ctx.textAlign='left';return;}
     this.drawOrbitMoon(ctx,observation.M,observation);
   };
 
   SkyWindow.prototype.renderLunarScene = function (options) {
     this.setup();var ctx=this.ctx;ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.clearRect(0,0,this.w,this.h);ctx.fillStyle='#080e1b';ctx.fillRect(0,0,this.w,this.h);
-    if(!options.visible){ctx.fillStyle='#d8e2ef';ctx.font='16px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：月球在地平线下',this.w/2,this.h/2);ctx.textAlign='left';return;}
+    if(!options.visible){ctx.fillStyle='#d8e2ef';ctx.font='16px "Alibaba PuHuiTi 3",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：月球在地平线下',this.w/2,this.h/2);ctx.textAlign='left';return;}
     var R=this.h*.34,side=R/.47;ctx.drawImage(options.texture,this.w/2-side/2,this.h/2-side/2,side,side);options.shadow(ctx,{width:this.w,height:this.h,dpr:this.dpr});
   };
 
@@ -59,7 +59,7 @@
   SkyWindow.prototype.drawSolar = function (ctx, sky) {
     var w = this.w, h = this.h;
     var altitude=sky.altitude===undefined?M.dot(M.unit(sky.P),M.unit(M.sub(M.SUN,sky.P))):sky.altitude;
-    if(altitude<=0){ctx.fillStyle='#080e1b';ctx.fillRect(0,0,w,h);ctx.fillStyle='#d8e2ef';ctx.font='16px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：太阳在地平线下',w/2,h/2);ctx.textAlign='left';return;}
+    if(altitude<=0){ctx.fillStyle='#080e1b';ctx.fillRect(0,0,w,h);ctx.fillStyle='#d8e2ef';ctx.font='16px "Alibaba PuHuiTi 3",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：太阳在地平线下',w/2,h/2);ctx.textAlign='left';return;}
     var cx = w / 2, cy = h / 2;
     var extent = Math.max(sky.moonR * 1.5, Math.min(0.7, sky.sep) + sky.moonR * 0.75);
     if(sky.visibility!==undefined)extent=Math.max(sky.sunR*1.3,Math.min(.7,sky.sep)+sky.moonR)*1.1;

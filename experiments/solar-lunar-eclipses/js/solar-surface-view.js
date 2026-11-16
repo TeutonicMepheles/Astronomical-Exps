@@ -6,7 +6,7 @@ function render(scene,state){
  var ctx=scene.ctx,moon=M.moonAt(state.phi),camera=M.orbitCamera(state.phi,'solar',scene.surfaceZoom),px=camera.px,cx=camera.cx,cy=camera.cy;
  ctx.save();ctx.beginPath();ctx.rect(375,258,1065,466);ctx.clip();
  function project(p){p=M.displayPoint(p,camera.focus);return {x:cx+(p.x*C+(p.z||0)*S)*px,y:cy-p.y*px};}
- function label(t,x,y,color){ctx.font='18px "Microsoft YaHei",sans-serif';ctx.fillStyle=color||'#dce7f6';ctx.fillText(t,x,y);}
+ function label(t,x,y,color){ctx.font='18px "Alibaba PuHuiTi 3",sans-serif';ctx.fillStyle=color||'#dce7f6';ctx.fillText(t,x,y);}
  function polygon(points,fill,stroke){ctx.beginPath();points.forEach(function(p,i){var q=project(p);if(i)ctx.lineTo(q.x,q.y);else ctx.moveTo(q.x,q.y);});ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.2;ctx.stroke();}}
  // 平行入射方向的屏幕投影仍为水平方向。
  ctx.strokeStyle='rgba(243,216,168,.22)';ctx.lineWidth=1;

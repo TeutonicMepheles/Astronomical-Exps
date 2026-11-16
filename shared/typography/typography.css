@@ -1,3 +1,8 @@
-:root{--font-ui:system-ui,-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;--font-display:"SimSun","Songti SC",serif;--font-mono:ui-monospace,Consolas,monospace}
+@font-face{font-family:"Alibaba PuHuiTi 3";src:url("fonts/AlibabaPuHuiTi-3-45-Light.woff2") format("woff2");font-style:normal;font-weight:300;font-display:swap}
+@font-face{font-family:"Alibaba PuHuiTi 3";src:url("fonts/AlibabaPuHuiTi-3-55-Regular.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"Alibaba PuHuiTi 3";src:url("fonts/AlibabaPuHuiTi-3-65-Medium.woff2") format("woff2");font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:"Alibaba PuHuiTi 3";src:url("fonts/AlibabaPuHuiTi-3-75-SemiBold.woff2") format("woff2");font-style:normal;font-weight:600;font-display:swap}
+:root{--font-ui:"Alibaba PuHuiTi 3",system-ui,-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;--font-display:var(--font-ui);--font-mono:var(--font-ui);--type-unit:1px;--type-title:calc(48 * var(--type-unit));--type-body:calc(24 * var(--type-unit));--type-leading:calc(32 * var(--type-unit));--type-data-label:calc(30 * var(--type-unit));--type-number:calc(36 * var(--type-unit));--type-action:calc(36 * var(--type-unit));--type-help:calc(14 * var(--type-unit))}
 body,button,input,select,textarea{font-family:var(--font-ui)}
+body{font-synthesis:none}
 output,[data-numeric]{font-variant-numeric:tabular-nums}
