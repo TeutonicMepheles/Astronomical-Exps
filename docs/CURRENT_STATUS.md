@@ -14,8 +14,8 @@
 | 实验 | 默认入口 | 当前实现 | 已知主要缺口 |
 | --- | --- | --- | --- |
 | EXP-01 傅科摆 | [index.html](../experiments/foucault-pendulum/index.html) | 可运行开发版 | 完整教学流程、最终参数与读数、白板触控及整页验收未完成 |
-| EXP-02 月面环形山高度 | [index.html](../experiments/lunar-crater-height/index.html)，跳转至 [月球环形山影长测量实验(2).html](../experiments/lunar-crater-height/月球环形山影长测量实验%282%29.html) | 可运行 3D 开发版：程序化坑体、连续剖面、光照联动与选点测量 | 输出仍为模型单位；厘米比例尺、测量建模、真实白板触控和整页验收未完成 |
-| EXP-03 陨石坑撞击 | [index.html](../experiments/meteor-impact/index.html) | 参数组合、三维撞击、双结果对照与记录开发版 | 科学公式、真实白板与整页验收待完成 |
+| EXP-02 月面环形山高度 | [index.html](../experiments/lunar-crater-height/index.html)，跳转至 [月球环形山影长测量实验(2).html](../experiments/lunar-crater-height/月球环形山影长测量实验%282%29.html) | 参考地形与连续剖面：轮廓辅助、坑缘 A 点自动求 B/影长、太阳角度/高度差及手量比例弹窗 | 输出仍为模型单位；厘米比例尺、测量建模、真实白板触控和整页验收未完成 |
+| EXP-03 陨石坑撞击 | [index.html](../experiments/meteor-impact/index.html) | 页内双侧条件、地面疏松度对照、多孔陨石与体积扬尘、双结果和记录 | 科学公式、真实白板与整页验收待完成 |
 | EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 可运行三阶段开发版：日期/当地时间双轴、手动对齐正午、单点杆影、固定点经线测距与三步计算 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
 | EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [city-night/index.html](../experiments/light-pollution/city-night/index.html) | 固定暗底夜景：独立窗灯/墙灯、公共建筑受光、车辆透视与可调城市光晕 | 浮点 WebGL2 支持必需；科学光度、等级与设备验收未完成 |
 | EXP-06 日月食 | [index.html](../experiments/solar-lunar-eclipses/index.html) | 日食观察默认入口；日全/偏/环食及月食，独立机位连续切换、A/B/C 当地阶段与地面小窗 | 教学几何不等于历表；科学及设备验收待完成 |
@@ -25,7 +25,7 @@
 ## 保留的独立入口
 
 - 地球周长：`orientation-preview.html` 保留旧线框地球演示；`globe-preview.html` 保留独立 360° 观察球。
-- 光污染：旧横版 `app/index.html?scene=panorama-20261111`、候选/旧街景和 lib-static-demo 均已废弃，仅留历史追溯，不继续开发或作为现行验收对象。有效实现仅为 city-night。
+- 光污染：旧横版、app/candidate/legacy 和全部配套代码、资源、入口已从主线移除；旧 URL 返回404，完整备份在仓库外。有效实现仅为 city-night。
 - 牛顿望远镜：`*-preview.html` 是专项对照页，不是默认教学入口。
 
 ## 公共渲染组件
@@ -49,7 +49,7 @@
 - `npm run dev` 支持八个实验；`npm run export` 只支持光污染最新 `city-night` 与牛顿望远镜。
 - 贡献者协作登记仍仅光污染、牛顿望远镜，不能将开发服务支持误记为协作/导出工具全部接入。
 - `npm run test:browser` 覆盖八个默认入口、共享地球/光束接入、组件预览、旋转控件取消/销毁及两套离线导出；完整教学与专项几何/性能流程另查各实验脚本。
-- 光污染现行专项为 `city-night/verify.cjs`，资产回归见 city-night/tests；旧横版 `tools/audit/run-tests.cjs` 只属废弃版本的历史工具，不纳入当前产品交付验收。
+- 光污染现行专项为 `city-night/verify.cjs`，资产回归见 city-night/tests；旧横版工具已移至仓库外备份。
 - 自动检查不代表科学模型、视觉质量、真实白板触控或人工试玩通过。
 
 ## 当前交付与后续维护
@@ -73,3 +73,5 @@
 本轮回归与待验项目见 [整理交付记录](LOCAL_EXPERIMENTS_DELIVERY_20261111.md)。自动化不替代白板触控、科学参数标定和长期运行验收。
 
 完整整合范围和原工作树处理见 [2026-11-13 记录](INTEGRATION_20261113.md)。
+
+PR #73 已按用户授权合并；月面环形山与陨石撞击的现行流程见所属 README/REQUIREMENTS。手量比例默认空，不冒充科学标定。光污染移除范围见 [清单](LIGHT_POLLUTION_REMOVAL_20261116.json)。

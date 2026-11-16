@@ -1,15 +1,18 @@
+const localPage=require('./local-page.cjs');
 const fs=require('node:fs');
 const path=require('node:path');
 const assert=require('node:assert/strict');
 const {pathToFileURL}=require('node:url');
 const {chromium}=require('../../../node_modules/playwright');
 (async()=>{
+ const evidenceDir=path.resolve(process.env.METEOR_EVIDENCE_DIR||path.join(__dirname,'../../../artifacts','meteor-'+Date.now()));fs.mkdirSync(evidenceDir,{recursive:true});
  const browser=await chromium.launch({channel:'chrome'});
+ let server;
  try{
   const page=await browser.newPage({viewport:{width:1600,height:900}});
   const errors=[]; page.on('pageerror',e=>errors.push(e.message));
   const loaded=Date.now();
-  await page.goto(pathToFileURL(path.resolve(__dirname,'../index.html')).href);
+  server=await localPage();await page.goto(server.url);
   await page.waitForFunction(()=>meteorExperiment.state().ready);
   const readyMs=Date.now()-loaded;
   await page.evaluate(()=>{
@@ -21,7 +24,7 @@ const {chromium}=require('../../../node_modules/playwright');
   const result=async count=>page.waitForFunction(n=>meteorExperiment.state().count===n,count);
   await page.locator('#launch').click();await result(1);
   await page.locator('#cutView').click();await page.locator('#wholeView').click();
-  await page.locator('#reset').click();await page.locator('[data-side="1"][data-value="medium"]').click();
+  await page.locator('#reset').click();await page.getByLabel('实验2大小',{exact:true}).selectOption('medium');
   await page.locator('#launch').click();
   await page.locator('#openRecords').click();await page.locator('#closeRecords').click();
   await result(2);
@@ -45,8 +48,8 @@ const {chromium}=require('../../../node_modules/playwright');
   await page.waitForTimeout(200);
   const summary=await page.evaluate(()=>{interactionProbe.observer.disconnect();return {...interactionProbe,observer:undefined,resources:meteorExperiment.state().imageResources,cachedResults:meteorExperiment.state().cachedResults,stats:meteorExperiment.stats()};});
   assert(summary.cachedResults<=8);assert(summary.stats.every(item=>!item.active&&item.terrainCacheEntries<=4));assert.deepEqual(errors,[]);
-  const evidence={date:'2026-11-13',browser:browser.version(),mode:'headless Chrome, same viewport and quality; actual click handlers; event to second rAF is not INP',viewport:{width:1600,height:900},readyMs,...summary};
-  fs.writeFileSync(path.resolve(__dirname,'../docs/INTERACTION-PERFORMANCE-20261113.json'),JSON.stringify(evidence,null,2));
+  const evidence={date:new Date().toISOString(),browser:browser.version(),mode:'headless Chrome, same viewport and quality; actual click handlers; event to second rAF is not INP',viewport:{width:1600,height:900},readyMs,...summary};
+  fs.writeFileSync(path.join(evidenceDir,'interaction-performance.json'),JSON.stringify(evidence,null,2));
   console.log(JSON.stringify(evidence));
- }finally{await browser.close();}
+ }finally{await browser.close();await server?.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

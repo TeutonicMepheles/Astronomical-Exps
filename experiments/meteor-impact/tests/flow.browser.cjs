@@ -1,13 +1,15 @@
+const localPage=require('./local-page.cjs');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const { chromium } = require('../../../node_modules/playwright');
 (async () => {
  const browser = await chromium.launch();
+ let server;
  try {
   const page = await browser.newPage({ viewport: { width:1600, height:900 } });
   const errors = []; page.on('pageerror', e => errors.push(e.message)); page.on('requestfailed', request => errors.push(request.url()));
-  await page.goto(pathToFileURL(path.resolve(__dirname,'../index.html')).href);
+  server=await localPage();await page.goto(server.url);
   await page.waitForFunction(() => window.meteorExperiment);
   assert.equal(await page.evaluate(() => meteorExperiment.state().error), '');
   assert.deepEqual(await page.evaluate(() => meteorExperiment.state().combos.map(c => c.size)), ['small','large']);
@@ -42,29 +44,29 @@ const { chromium } = require('../../../node_modules/playwright');
   await page.emulateMedia({reducedMotion:'reduce'});
   assert.equal(await page.locator('#annotations0 .rc-trace').first().evaluate(node => getComputedStyle(node).animationName), 'none');
   await page.locator('#reset').click();
-  await page.locator('[data-side="1"][data-value="medium"]').click();
+  await page.getByLabel('实验2大小',{exact:true}).selectOption('medium');
   await page.locator('#launch').click();
   await page.waitForFunction(() => meteorExperiment.state().count === 2);
   await page.locator('#overview').click();
   assert.equal(await page.locator('#overviewCards img').count(), 6);
   await page.locator('#closeOverview').click();
-  await page.locator('[data-side="0"][data-value="medium"]').click();
+  await page.getByLabel('实验1大小',{exact:true}).selectOption('medium');
   assert.equal(await page.locator('#launch').isDisabled(), true, 'Identical factor choices are not a controlled contrast');
-  await page.locator('[data-factor="speed"]').click();
+  await page.locator('#factorSelect').selectOption('speed');
   await page.locator('#launch').click();
   await page.waitForFunction(() => meteorExperiment.state().count === 3);
   const speed = await page.evaluate(() => meteorExperiment.state().records[2]);
   assert.equal(speed.combos[0].size, speed.combos[1].size);
   assert.equal(speed.combos[0].angle, speed.combos[1].angle);
   assert(speed.sides[0].visual.radius < speed.sides[1].visual.radius);
-  await page.locator('[data-factor="angle"]').click();
+  await page.locator('#factorSelect').selectOption('angle');
   await page.locator('#launch').click(); await page.waitForFunction(() => meteorExperiment.state().count === 4);
   const angle = await page.evaluate(() => meteorExperiment.state().records[3]);
   assert.deepEqual(angle.combos.map(c => c.size), ['medium','medium']);
   assert.deepEqual(angle.combos.map(c => c.speed), ['medium','medium']);
   assert.notEqual(angle.sides[0].outcome.shape, angle.sides[1].outcome.shape);
   await page.locator('[data-mode="world"]').click();
-  await page.locator('[data-key="speed"][data-side="shared"][data-value="high"]').click();
+  await page.getByLabel('实验1速度',{exact:true}).selectOption('high');
   const worlds = await page.evaluate(() => meteorExperiment.state().combos);
   assert.deepEqual({...worlds[0],scene:'moon'}, worlds[1]);
   await page.locator('#launch').click(); await page.waitForFunction(() => meteorExperiment.state().count === 5);
@@ -96,5 +98,5 @@ const { chromium } = require('../../../node_modules/playwright');
   assert(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight));
   assert.deepEqual(errors,[]);
   console.log('PASS paired launches, controlled inputs, three-grade overview, Earth/Moon lock, real cutaway capture, paired records, deterministic replay, cancellation, bounded GPU resources and 16:9.');
- } finally { await browser.close(); }
+ } finally { await browser.close();await server?.close(); }
 })().catch(error => { console.error(error); process.exitCode=1; });

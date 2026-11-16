@@ -16,7 +16,7 @@ if args.experiment=='light-pollution':
         'source':'experiments/light-pollution/city-night/index.html',
         'sha256':hashlib.sha256(target.read_bytes()).hexdigest(),
     },ensure_ascii=False,indent=2),encoding='utf-8')
-    print(str(target));print(f'{target.stat().st_size/1024/1024:.2f} MiB; self-contained candidate')
+    print(str(target));print(f'{target.stat().st_size/1024/1024:.2f} MiB; self-contained city-night')
     raise SystemExit(0)
 
 assets={}

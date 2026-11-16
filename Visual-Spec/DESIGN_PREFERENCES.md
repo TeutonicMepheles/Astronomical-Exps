@@ -456,7 +456,7 @@ DO NOT:
 - [正式功能规范](../Function-Spec/FUNCTION_SPEC.md)、[待确认决策](../Function-Spec/OPEN_DECISIONS.md)
 - [公共组件政策](../docs/COMPONENT_POLICY.md)
 - [牛顿需求](../experiments/newton-telescope/REQUIREMENTS.md)、[光污染需求](../experiments/light-pollution/REQUIREMENTS.md)
-- [光污染架构](../experiments/light-pollution/docs/ARCHITECTURE.md)、[性能专项约定](../experiments/light-pollution/tools/audit/AGENTS.md)
+- 光污染架构（已移至仓库外历史备份）、性能专项约定（已移至仓库外历史备份）
 
 历史候选用于视觉研究，不自动成为交互方案、生产资源或验收结果。以牛顿光具座“先形成一致母版，再按同一画布拆分并记录接触点”和光污染“分层后重新合成、检查遮挡与透明边缘”为方法案例，但不复制其具体布局、参数和素材。
 

@@ -11,7 +11,7 @@ description: 在 Astronomical-Exps 中从参考图制作可独立调光的二维
 
 - 先遵守根 README、`docs/AGENT_GIT_WORKFLOW.md` 及负责实验的 AGENTS、REQUIREMENTS。本 skill 不扩大目录权限，不代替贡献者协作流程。
 - 制作资产或独立美术预览，不等于授权接入正式实验、提交、推送或发布。保持原有工作和已交付版本。
-- 光污染实现、资源接入或跑测前，读 `experiments/light-pollution/tools/audit/AGENTS.md`；记录解码、纹理、整景合成、事件和释放的适用风险。仅仓库外资产处理可说明正式页面跑测不适用。
+- 光污染实现、资源接入或跑测前，读 `experiments/light-pollution/city-night/PERFORMANCE.md`；记录解码、纹理、整景合成、事件和释放的适用风险。仅仓库外资产处理可说明正式页面跑测不适用。
 - 本流程沿用用户确认的 **Seedream 5.5、原生 2K**；用户本轮指定优先。生成前检查实际模型 schema。LibTV 操作通过 `libtv` CLI，按可用的 `libtv-cli` skill 与 CLI 帮助执行；不自造 HTTP 调用或静默换模型。工具不可用时说明限制，仍可整理已有资产与配准信息。
 - 制作提示词、计算灯光或核对既有案例时，按需读 [制作与验证细节](references/production.md)。
 - 涉及灯罩、墙灯、车流或移动眩光时，读 [参数光与动态层](references/runtime-lights.md)。整景静态光增量只能调强度，不能假定它支持改变配光方向或移动光源。

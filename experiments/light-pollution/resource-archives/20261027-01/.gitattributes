@@ -1,2 +1,0 @@
-# Immutable historical snapshot: preserve original bytes and original EOF blank lines.
-snapshot/** -text whitespace=cr-at-eol,-blank-at-eof
