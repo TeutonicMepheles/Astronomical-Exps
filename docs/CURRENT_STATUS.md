@@ -1,6 +1,6 @@
 # 当前实现与文档状态
 
-核对日期：2026-11-13。范围：本提交中的八个实验、目录默认入口和现有验证。此页用于快速定位当前状态；科学参数、教学流程和确认边界仍以各实验 `REQUIREMENTS.md` 与 [OPEN_DECISIONS](../Function-Spec/OPEN_DECISIONS.md) 为准。
+核对日期：2026-11-16。范围：本提交中的八个实验、目录默认入口和现有验证。此页用于快速定位当前状态；科学参数、教学流程和确认边界仍以各实验 `REQUIREMENTS.md` 与 [OPEN_DECISIONS](../Function-Spec/OPEN_DECISIONS.md) 为准。
 
 ## 入口约定
 
@@ -17,10 +17,10 @@
 | EXP-02 月面环形山高度 | [index.html](../experiments/lunar-crater-height/index.html)，跳转至 [月球环形山影长测量实验(2).html](../experiments/lunar-crater-height/月球环形山影长测量实验%282%29.html) | 可运行 3D 开发版：程序化坑体、连续剖面、光照联动与选点测量 | 输出仍为模型单位；厘米比例尺、测量建模、真实白板触控和整页验收未完成 |
 | EXP-03 陨石坑撞击 | [index.html](../experiments/meteor-impact/index.html) | 参数组合、三维撞击、双结果对照与记录开发版 | 科学公式、真实白板与整页验收待完成 |
 | EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 可运行三阶段开发版：日期/当地时间双轴、手动对齐正午、单点杆影、固定点经线测距与三步计算 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
-| EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [city-night/index.html](../experiments/light-pollution/city-night/index.html) | 2026-11-13 最新城市夜景：统一路灯、公园短灯、住宅整体遮光、车流与静态屏幕 | 浮点 WebGL2 支持必需；科学光度、等级与设备验收未完成 |
-| EXP-06 日月食 | [index.html](../experiments/solar-lunar-eclipses/index.html) | 公转总览、双视图、五接触节点与地面观察开发版 | 教学几何不等于历表；科学及设备验收待完成 |
+| EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [city-night/index.html](../experiments/light-pollution/city-night/index.html) | 固定暗底夜景：独立窗灯/墙灯、公共建筑受光、车辆透视与可调城市光晕 | 浮点 WebGL2 支持必需；科学光度、等级与设备验收未完成 |
+| EXP-06 日月食 | [index.html](../experiments/solar-lunar-eclipses/index.html) | 日食观察默认入口；日全/偏/环食及月食，独立机位连续切换、A/B/C 当地阶段与地面小窗 | 教学几何不等于历表；科学及设备验收待完成 |
 | EXP-07 牛顿望远镜 | [index.html](../experiments/newton-telescope/index.html) | 五镜片、组装检视与四天体记录开发版 | 整页教学与真实设备验收未完成；[standalone.html](../experiments/newton-telescope/standalone.html) 和 `Export/` 是离线产物 |
-| EXP-08 火箭发射 | [index.html](../experiments/rocket-launch/index.html) | 气球反冲、自动组装/发射、轨道与分级对照开发版 | 动力学为教学示意；科学及设备验收待完成 |
+| EXP-08 火箭发射 | [index.html](../experiments/rocket-launch/index.html) | 气球反冲与载荷；速度/轨道对照和连续视频转场；源比例长征七号、五模块组装分离与三火箭分级对照 | 动力学为教学示意；科学及设备验收待完成 |
 
 ## 保留的独立入口
 
@@ -52,11 +52,17 @@
 - 光污染最新场景专项为 `city-night/verify.cjs`；旧模块专项 `tools/audit/run-tests.cjs` 会先构建候选/全景离线包。它们属于两个明确入口，不能混用结果。
 - 自动检查不代表科学模型、视觉质量、真实白板触控或人工试玩通过。
 
+## 当前交付与后续维护
+
+夜景运行与工具已分别在 PR #64/#65 合并，字体资料在 #66 合并，日月食和火箭在 #67/#68 合并。当前功能和专项用法分别从 [夜景](../experiments/light-pollution/city-night/README.md)、[日月食](../experiments/solar-lunar-eclipses/README.md)、[火箭](../experiments/rocket-launch/README.md)进入；不要从旧开发分支恢复当前实现。
+
+后续变更需同步本页的受影响状态行、实验 README 的当前行为/操作与待验项，以及确有需求变化的 REQUIREMENTS；只增加日期报告不算完成同步。验证记录链接到实际执行结果，保留设备、科学与长期运行的未验收边界。
+
 ## 历史记录阅读规则
 
 带日期或“审计”“性能报告”“前期研究”的文件保留当时状态。若后续入口或实现变化，在文首增加状态注记，不改写历史测量和结论。当前状态以本页、根 README、各实验 `REQUIREMENTS.md` 和实际 `index.html` 为准。
 
-## 2026-11-11 整理交付现状
+## 2026-11-11 历史交付摘要（非当前全量状态）
 
 - 地球周长：PR #52 已合并；日期/当地太阳时轴、手动正午对齐、单杆影长、固定两点经线测距和可重播的三步计算已进入主线。本轮无新增运行代码。
 - 光污染：长场景、远景三层调色、窗光/体育场/高架路灯、四车道车流、纸质面板、跟随气泡和改造前后对比整合；只交付页面使用的资源。星空、等级及灯光数值仍为未标定演示。
