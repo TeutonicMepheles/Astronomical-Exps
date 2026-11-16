@@ -1,0 +1,66 @@
+{
+  "pass": true,
+  "results": [
+    {
+      "source": "observationSolar",
+      "target": "observationOblique",
+      "blend": 0.08339660987172008
+    },
+    {
+      "source": "observationSolar",
+      "target": "observationSide",
+      "blend": 0.08146587369248558
+    },
+    {
+      "source": "observationSolar",
+      "target": "observationTop",
+      "blend": 0.08152785800583112
+    },
+    {
+      "source": "observationOblique",
+      "target": "observationSolar",
+      "blend": 0.07961560452999542
+    },
+    {
+      "source": "observationOblique",
+      "target": "observationSide",
+      "blend": 0.08140390922565248
+    },
+    {
+      "source": "observationOblique",
+      "target": "observationTop",
+      "blend": 0.10489297901093243
+    },
+    {
+      "source": "observationSide",
+      "target": "observationSolar",
+      "blend": 0.0819623047762386
+    },
+    {
+      "source": "observationSide",
+      "target": "observationOblique",
+      "blend": 0.0806001815163629
+    },
+    {
+      "source": "observationSide",
+      "target": "observationTop",
+      "blend": 0.08090890934818556
+    },
+    {
+      "source": "observationTop",
+      "target": "observationSolar",
+      "blend": 0.08352182639208912
+    },
+    {
+      "source": "observationTop",
+      "target": "observationOblique",
+      "blend": 0.08396070535582335
+    },
+    {
+      "source": "observationTop",
+      "target": "observationSide",
+      "blend": 0.08377249608970196
+    }
+  ],
+  "errors": []
+}

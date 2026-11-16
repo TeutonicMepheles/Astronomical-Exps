@@ -1,0 +1,1265 @@
+{
+  "pass": true,
+  "results": [
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 41752
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 3618
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 3609
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 44543
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 3826
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 3853
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 44934
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 3863
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 3849
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 45272
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 3917
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 3836
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 47960
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 4627
+    },
+    {
+      "dpr": 1,
+      "kind": "total",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 3685
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 45703
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 3933
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 3909
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 49175
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 4635
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 3963
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 47887
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 4558
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 3612
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 44925
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 4208
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 3420
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 47010
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 4103
+    },
+    {
+      "dpr": 1,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 3102
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 49269
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 4665
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 3807
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 47857
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 4070
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 3147
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 48326
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 4107
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 3129
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 48732
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 4201
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 3103
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 49351
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 4826
+    },
+    {
+      "dpr": 1,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 3455
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 47204
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 3981
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 3127
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 41776
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 3520
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 3262
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 48745
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 4688
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 3369
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 45393
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 3783
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 3802
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 49086
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 4155
+    },
+    {
+      "dpr": 1,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 3165
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 74526
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 6390
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 6389
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 79446
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 6778
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 6784
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 80137
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 6849
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 6781
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 80755
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 6913
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 6801
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 85511
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 8226
+    },
+    {
+      "dpr": 1.333,
+      "kind": "total",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 6508
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 81561
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 6955
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 6894
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 87718
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 8206
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 6991
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 85491
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 8061
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 6390
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 80124
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 7462
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 6013
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 83856
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 7277
+    },
+    {
+      "dpr": 1.333,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 5488
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 87869
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 8241
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 6745
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 85331
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 7204
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 5531
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 86190
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 7277
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 5498
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 86919
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 7448
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 5483
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 87993
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 8549
+    },
+    {
+      "dpr": 1.333,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 6117
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 84134
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 7039
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 5517
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 74453
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 6242
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 5781
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 86813
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 8276
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 5960
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 80884
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 6691
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 6748
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 87415
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 7352
+    },
+    {
+      "dpr": 1.333,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 5587
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 166418
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 14229
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 14191
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 177467
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 15041
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 15112
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 178935
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 15135
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 15094
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 180381
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 15299
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 15106
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 191190
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 18253
+    },
+    {
+      "dpr": 2,
+      "kind": "total",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 14456
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 182237
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 15465
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 15347
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 196072
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 18244
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 15558
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 191046
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 17909
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 14182
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 179087
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 16541
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 13338
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 187455
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 16150
+    },
+    {
+      "dpr": 2,
+      "kind": "partial",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 12191
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 196416
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 18377
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 14971
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 190819
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 16001
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 12305
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 192704
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 16146
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 12237
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 194346
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 16496
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 12163
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 196691
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 19001
+    },
+    {
+      "dpr": 2,
+      "kind": "annular",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 13552
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "oblique",
+      "pixels": 188211
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "level",
+      "pixels": 15721
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 0,
+      "camera": "overhead",
+      "pixels": 12304
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "oblique",
+      "pixels": 166432
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "level",
+      "pixels": 13906
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 1,
+      "camera": "overhead",
+      "pixels": 12845
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "oblique",
+      "pixels": 194249
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "level",
+      "pixels": 18496
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 2,
+      "camera": "overhead",
+      "pixels": 13246
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "oblique",
+      "pixels": 180804
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "level",
+      "pixels": 14939
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 3,
+      "camera": "overhead",
+      "pixels": 15043
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "oblique",
+      "pixels": 195567
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "level",
+      "pixels": 16417
+    },
+    {
+      "dpr": 2,
+      "kind": "lunar",
+      "phase": 4,
+      "camera": "overhead",
+      "pixels": 12444
+    }
+  ]
+}
