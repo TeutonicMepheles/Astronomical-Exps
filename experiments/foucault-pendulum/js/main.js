@@ -97,6 +97,9 @@ const precessionReadout=document.querySelector('#precessionReadout');
 const precessionPeriod=document.querySelector('#precessionPeriod');
 const precessionPeriodUnit=document.querySelector('#precessionPeriodUnit');
 const precessionRate=document.querySelector('#precessionRate');
+const selectedLatitude=document.querySelector('#selectedLatitude');
+const selectedHemisphere=document.querySelector('#selectedHemisphere');
+const latitudeMetric=document.querySelector('.latitude-value');
 const periodMetric=document.querySelector('.period-value');
 const rateMetric=document.querySelector('.rate-value');
 let precessionTransition=null;
@@ -117,10 +120,18 @@ function renderPrecessionMetrics(rate,period){
     precessionPeriodUnit.textContent='';
   }
 }
+function renderLatitude(latitude){
+  selectedLatitude.textContent=Math.abs(latitude).toFixed(2);
+  selectedLatitude.dataset.value=String(latitude);
+  selectedHemisphere.textContent=latitude>0?'° N':latitude<0?'° S':'°';
+}
 function finishPrecessionTransition(){
   const a=precessionTransition;
   if(!a)return;
+  renderLatitude(a.toLatitude);
   renderPrecessionMetrics(a.toRate,a.toPeriod);
+  latitudeMetric.classList.remove('is-changing');
+  precessionReadout.classList.remove('is-linking');
   setMetricFeedback(periodMetric,'none',false);
   setMetricFeedback(rateMetric,'none',false);
   precessionReadout.setAttribute('aria-busy','false');
@@ -130,23 +141,32 @@ function updatePrecession(now){
   if(!precessionTransition)return;
   const a=precessionTransition;
   const elapsed=now-a.start;
-  const t=Math.min(1,elapsed/a.duration),e=t*t*(3-2*t);
-  const rate=a.fromRate+(a.toRate-a.fromRate)*e;
+  const latitudeT=Math.min(1,elapsed/a.latitudeDuration);
+  const latitudeEase=latitudeT*latitudeT*(3-2*latitudeT);
+  const resultT=Math.min(1,Math.max(0,(elapsed-a.resultDelay)/(a.duration-a.resultDelay)));
+  const resultEase=resultT*resultT*(3-2*resultT);
+  const latitude=a.fromLatitude+(a.toLatitude-a.fromLatitude)*latitudeEase;
+  const rate=a.fromRate+(a.toRate-a.fromRate)*resultEase;
   const period=Number.isFinite(a.fromPeriod)&&Number.isFinite(a.toPeriod)
-    ?a.fromPeriod+(a.toPeriod-a.fromPeriod)*e
-    :a.toPeriod;
+    ?a.fromPeriod+(a.toPeriod-a.fromPeriod)*resultEase
+    :resultT<1?a.fromPeriod:a.toPeriod;
+  renderLatitude(latitude);
   renderPrecessionMetrics(rate,period);
-  if(t===1)precessionReadout.setAttribute('aria-busy','false');
+  if(resultT===1)precessionReadout.setAttribute('aria-busy','false');
   if(elapsed>=a.feedbackDuration)finishPrecessionTransition();
 }
 function updatePrecessionMetrics(city,animate=false){
   const s=Math.abs(Math.sin(city.lat*Math.PI/180));
   const toRate=15*s,toPeriod=s<1e-6?Infinity:24/s;
+  const fromLatitude=Number(selectedLatitude.dataset.value??city.lat);
   const fromRate=Number(precessionRate.dataset.value??precessionRate.textContent)||0;
   const fromPeriod=precessionPeriod.dataset.value==='Infinity'?Infinity:Number(precessionPeriod.dataset.value??precessionPeriod.textContent);
   if(!animate||reduced.matches){
     precessionTransition=null;
+    renderLatitude(city.lat);
     renderPrecessionMetrics(toRate,toPeriod);
+    latitudeMetric.classList.remove('is-changing');
+    precessionReadout.classList.remove('is-linking');
     setMetricFeedback(periodMetric,'none',false);
     setMetricFeedback(rateMetric,'none',false);
     precessionReadout.setAttribute('aria-busy','false');
@@ -154,12 +174,19 @@ function updatePrecessionMetrics(city,animate=false){
   }
   const periodDirection=metricDirection(fromPeriod,toPeriod);
   const rateDirection=metricDirection(fromRate,toRate);
-  if(periodDirection==='none'&&rateDirection==='none'){
+  const latitudeChanged=fromLatitude!==city.lat;
+  if(!latitudeChanged&&periodDirection==='none'&&rateDirection==='none'){
+    renderLatitude(city.lat);
     renderPrecessionMetrics(toRate,toPeriod);
     return;
   }
-  precessionTransition={start:performance.now(),duration:560,feedbackDuration:1200,fromRate,toRate,fromPeriod,toPeriod};
+  precessionTransition={start:performance.now(),duration:900,latitudeDuration:430,resultDelay:260,feedbackDuration:1350,fromLatitude,toLatitude:city.lat,fromRate,toRate,fromPeriod,toPeriod};
   precessionReadout.setAttribute('aria-busy','true');
+  latitudeMetric.classList.remove('is-changing');
+  precessionReadout.classList.remove('is-linking');
+  void precessionReadout.offsetWidth;
+  latitudeMetric.classList.add('is-changing');
+  precessionReadout.classList.add('is-linking');
   setMetricFeedback(periodMetric,periodDirection,true);
   setMetricFeedback(rateMetric,rateDirection,true);
 }

@@ -7,6 +7,7 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="../../shared/typography/typography.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components/metric-backdrop.css">
   <link rel="stylesheet" href="parameter-dialog.css">
 <link rel="stylesheet" href="../../shared/components/components.css">
 </head>
@@ -127,7 +128,19 @@
       <span class="parameter-button-label">单摆调节</span>
     </button>
     <div id="stage1Readout" aria-live="polite"></div>
-    <dl id="precessionReadout" class="precession-readout" aria-label="偏转数据" aria-live="polite" aria-busy="false">
+    <dl id="precessionReadout" class="precession-readout metric-backdrop metric-backdrop--stacked" aria-label="单摆与偏转数据" aria-live="polite" aria-busy="false">
+      <div id="swingReadout" class="metric swing-period-metric">
+        <dt>单摆周期</dt>
+        <dd class="metric-value"><span class="metric-delta" aria-hidden="true"></span><span class="metric-value-group"><output id="hallSwingPeriod">16.42</output><small class="metric-unit">s</small></span></dd>
+      </div>
+      <div class="metric latitude-metric">
+        <dt>地理纬度</dt>
+        <dd class="metric-value latitude-value">
+          <span class="metric-delta" aria-hidden="true"></span>
+          <span class="metric-value-group"><output id="selectedLatitude">31.23</output><small id="selectedHemisphere" class="metric-unit">° N</small></span>
+        </dd>
+        <div class="metric-formula" aria-label="偏转周期等于二十四小时除以纬度正弦绝对值">T = 24 h ÷ |sin φ|</div>
+      </div>
       <div class="metric period-metric">
         <dt>偏转周期</dt>
         <dd class="metric-value period-value">
@@ -142,9 +155,6 @@
           <span class="metric-value-group"><output id="precessionRate">7.78</output><small class="metric-unit unit-degree">°</small></span>
         </dd>
       </div>
-    </dl>
-    <dl id="swingReadout" class="precession-readout" aria-label="单摆周期" aria-live="polite">
-      <div class="metric"><dt>单摆周期</dt><dd class="metric-value"><span class="metric-delta" aria-hidden="true"></span><span class="metric-value-group"><output id="hallSwingPeriod">16.42</output><small class="metric-unit">s</small></span></dd></div>
     </dl>
     <div class="stage1-hud" aria-label="第一阶段读数与演示速度">
       <div class="time-speed" role="group" aria-label="演示速度">

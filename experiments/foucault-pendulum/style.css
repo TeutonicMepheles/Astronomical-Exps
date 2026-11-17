@@ -71,7 +71,7 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .latitude-ring { fill:none; stroke:#ffc400; stroke-width:3; stroke-linecap:round; filter:url(#cityGlow); }
 #trails { position:absolute;left:580px;top:545px;width:920px;height:270px;pointer-events:none; }
 #bob{position:absolute;left:0;top:0;width:70px;height:70px;pointer-events:none}
-#paramButton { position:absolute;right:48px;top:50%;transform:translateY(-50%);width:88px;height:88px;z-index:20;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:radial-gradient(circle,#597ee324 55%,transparent 72%);color:#e7f5ff;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 0 8px #7397f34d); }
+#paramButton { position:absolute;right:92px;top:64px;width:88px;height:88px;z-index:20;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:radial-gradient(circle,#597ee324 55%,transparent 72%);color:#e7f5ff;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 0 8px #7397f34d); }
 #paramButton .parameter-badge { display:block;width:100%;height:100%;pointer-events:none; }
 #paramButton .badge-shell { stroke:#6f94df;stroke-width:1; }
 #paramButton .badge-ring { fill:none;stroke:#a7baff;stroke-width:1.1; }
@@ -124,22 +124,26 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .location-coordinates strong { color:#ffdc78; }
 .location-coordinates span { color:#edf5ff;font-weight:600; }
 .precession-readout {
-  position:absolute;left:655px;top:235px;width:225px;margin:0;z-index:19;
-  display:grid;gap:24px;padding-left:18px;border-left:1px solid #b9d9ff66;
+  position:absolute;left:auto;right:48px;top:198px;width:180px;margin:0;z-index:19;
+  display:grid;gap:16px;padding-left:14px;border-left:1px solid #b9d9ff66;
   color:#edf5ff;pointer-events:none;text-shadow:0 2px 12px #041125e6;
   transition:opacity .6s ease-in-out;
 }
-.precession-readout dt { color:#d2e3f4;font-size:18px;font-weight:600;letter-spacing:.02em; }
-.precession-readout dd { display:flex;align-items:center;gap:8px;margin:5px 0 0;font-variant-numeric:tabular-nums; }
-.metric-value-group { display:inline-flex;align-items:baseline;gap:7px; }
-.precession-readout output { font-size:36px;font-weight:650;line-height:1.1; }
-.precession-readout .metric-unit { color:#fff;font-size:20px;font-weight:600;line-height:1.1; }
+.precession-readout dt { color:#d2e3f4;font-size:15px;font-weight:600;letter-spacing:.02em; }
+.precession-readout dd { display:flex;align-items:center;gap:6px;margin:3px 0 0;font-variant-numeric:tabular-nums; }
+.latitude-metric { position:relative; }
+.latitude-value { color:#ffdc78; }
+.latitude-value.is-changing { animation:latitude-metric-refresh .43s ease-out; }
+.metric-formula { margin:4px 0 0 30px;color:#86cfff;font-size:10px;font-weight:650;letter-spacing:.02em;opacity:.55;white-space:nowrap; }
+.metric-value-group { display:inline-flex;align-items:baseline;gap:5px; }
+.precession-readout output { font-size:29px;font-weight:650;line-height:1.08; }
+.precession-readout .metric-unit { color:#fff;font-size:16px;font-weight:600;line-height:1.08; }
 .period-value .metric-unit { align-self:flex-end;margin-bottom:0; }
 .rate-value .metric-unit { align-self:flex-start;margin-top:0; }
 .precession-readout small:empty { display:none; }
 .metric-delta {
-  display:grid;place-items:center;flex:none;width:30px;height:32px;border-radius:50%;
-  background:#8cc8ff18;font-size:29px;font-weight:900;line-height:1;opacity:0;
+  display:grid;place-items:center;flex:none;width:24px;height:26px;border-radius:50%;
+  background:#8cc8ff18;font-size:23px;font-weight:900;line-height:1;opacity:0;
 }
 .metric-value.is-changing { animation:metric-card-refresh .56s ease-out; }
 .metric-value.is-changing output { animation:metric-number-refresh .56s ease-out; }
@@ -148,6 +152,7 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .metric-value.is-down .metric-delta { color:#7ddcff;background:#7ddcff20;box-shadow:0 0 14px #7ddcff38;animation:metric-arrow-down .56s ease-out; }
 @keyframes metric-card-refresh { from{filter:brightness(1.45)}to{filter:none} }
 @keyframes metric-number-refresh { from{opacity:.45;transform:translateY(4px)}to{opacity:1;transform:none} }
+@keyframes latitude-metric-refresh { 0%{filter:brightness(1);transform:translateY(3px)}45%{filter:brightness(1.65)}100%{filter:none;transform:none} }
 @keyframes metric-arrow-up { from{opacity:0;transform:translateY(9px)}35%{opacity:1}to{opacity:1;transform:none} }
 @keyframes metric-arrow-down { from{opacity:0;transform:translateY(-9px)}35%{opacity:1}to{opacity:1;transform:none} }
 @media(prefers-reduced-motion:reduce){.metric-value,.metric-value output,.metric-delta{animation:none!important}}
@@ -272,8 +277,6 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 :is(#backgroundControls,#hallScreenControls,#standShaderControls) input[type=range] { width:100%;margin:0; }
 :is(#backgroundControls,#hallScreenControls,#standShaderControls) output { text-align:right;font-variant-numeric:tabular-nums; }
 
-
-#swingReadout { left:auto;right:48px;width:175px;top:235px; }
 
 #paramButton .parameter-button-label { position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:7px;white-space:nowrap;color:#d4e2f8;font:500 15px/1.4 var(--font-ui);letter-spacing:.06em;text-shadow:0 2px 6px #041125; }
 

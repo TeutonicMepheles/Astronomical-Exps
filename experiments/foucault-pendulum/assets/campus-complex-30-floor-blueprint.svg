@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 1000" role="img" aria-labelledby="title desc">
+  <title id="title">三十层校园综合楼线稿</title>
+  <desc id="desc">与二十层宿舍楼采用相同立面语言、向上增加十层的校园综合楼教学线稿</desc>
+  <defs>
+    <pattern id="floor" width="210" height="33" patternUnits="userSpaceOnUse">
+      <path d="M0 33H210" fill="none" stroke="#dcecff" stroke-width="2"/>
+      <g fill="none" stroke="#dcecff" stroke-width="1.6">
+        <path d="M15 8h20v15H15zM55 8h20v15H55zM95 8h20v15H95zM135 8h20v15h-20zM175 8h20v15h-20z"/>
+      </g>
+    </pattern>
+  </defs>
+  <!-- 30 equal floors × 33 units = 990 units. The ten-unit roof zone
+       completes the 0–100 m comparison while preserving the 67 m facade. -->
+  <g fill="none" stroke="#dcecff" stroke-linejoin="round">
+    <rect x="25" y="10" width="210" height="990" fill="url(#floor)" stroke-width="3"/>
+    <path d="M16 10H244M25 2h210v8M14 1000h232" stroke-width="3"/>
+    <path d="M96 1000v-24h68v24M104 1000v-17h24v17M136 1000v-17h20v17" stroke-width="2"/>
+    <path d="M25 10 16 22M235 10l9 12" stroke-width="1.5"/>
+  </g>
+</svg>

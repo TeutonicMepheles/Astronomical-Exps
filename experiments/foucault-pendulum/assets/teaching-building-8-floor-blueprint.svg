@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280">
+  <defs>
+    <pattern id="floor" width="170" height="35" patternUnits="userSpaceOnUse">
+      <path d="M0 35H170" fill="none" stroke="#dcecff" stroke-width="1.8"/>
+      <g fill="none" stroke="#dcecff" stroke-width="1.4">
+        <path d="M12 8h21v17H12zM45 8h21v17H45zM78 8h21v17H78zM111 8h21v17h-21zM144 8h14v17h-14z"/>
+      </g>
+    </pattern>
+  </defs>
+  <!-- Eight equal 35-unit floors map to eight 3.5 m teaching-building floors. -->
+  <g fill="none" stroke="#dcecff" stroke-linejoin="round">
+    <rect x="15" y="0" width="170" height="280" fill="url(#floor)" stroke-width="2.8"/>
+    <path d="M7 0h186M15 0v-7h170v7M5 280h190" stroke-width="2.8"/>
+    <path d="M64 280v-27h72v27M75 280v-18h23v18M104 280v-18h21v18" stroke-width="1.8"/>
+    <path d="M15 0 7 11M185 0l8 11" stroke-width="1.4"/>
+  </g>
+</svg>

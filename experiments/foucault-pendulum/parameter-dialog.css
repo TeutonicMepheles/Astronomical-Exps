@@ -61,3 +61,6 @@
 .fp-chalk-caption { font-family:'FP Chalk',cursive;font-size:26px;font-weight:400;letter-spacing:1px;fill:#d2e5fa; }
 
 .fp-caption-accessible { opacity:0;pointer-events:none;font-size:1px; }
+.fp-dorm-caption { fill:#d2e5fa;font:600 28px/1 var(--font-ui);letter-spacing:.02em; }
+.fp-dorm-subcaption { fill:#a9c7e7;font:500 18px/1 var(--font-ui);letter-spacing:.02em; }
+:is(.fp-dorm-scale,.fp-teaching-scale,.fp-campus-scale) .fp-dimension-label { font-size:17px; }

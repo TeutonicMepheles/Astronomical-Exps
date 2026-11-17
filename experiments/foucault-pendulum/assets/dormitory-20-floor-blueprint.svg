@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 670">
+  <defs>
+    <pattern id="floor" width="210" height="33" patternUnits="userSpaceOnUse">
+      <path d="M0 33H210" fill="none" stroke="#dcecff" stroke-width="2"/>
+      <g fill="none" stroke="#dcecff" stroke-width="1.6">
+        <path d="M15 8h20v15H15zM55 8h20v15H55zM95 8h20v15H95zM135 8h20v15h-20zM175 8h20v15h-20z"/>
+      </g>
+    </pattern>
+  </defs>
+  <!-- The main body is 660 units tall: 20 equal floors × 33 units.
+       The remaining 10-unit headroom maps to 1 m on the 0–67 m scale. -->
+  <g fill="none" stroke="#dcecff" stroke-linejoin="round">
+    <rect x="25" y="10" width="210" height="660" fill="url(#floor)" stroke-width="3"/>
+    <path d="M16 10H244M25 2h210v8M14 670h232" stroke-width="3"/>
+    <path d="M96 670v-24h68v24M104 670v-17h24v17M136 670v-17h20v17" stroke-width="2"/>
+    <path d="M25 10 16 22M235 10l9 12" stroke-width="1.5"/>
+  </g>
+</svg>

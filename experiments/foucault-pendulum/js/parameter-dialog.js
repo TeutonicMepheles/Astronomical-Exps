@@ -22,10 +22,10 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
           </defs>
           <g class="fp-field-reference" opacity="1" aria-hidden="false">
             <g mask="url(#fpFieldMask)" clip-path="url(#fpFieldReveal)">
-              <g data-field-art><image data-field-lines href="assets/football-field-blueprint.svg" x="-8" y="-32" width="686" height="1064" preserveAspectRatio="xMidYMid meet" opacity=".7"/></g>
-              <g data-basketball fill="none" stroke="#dcecff" stroke-width="1.4" opacity=".7">
-                <path d="M0 0H150V280H0ZM0 140H150M50 0V58H100V0M50 280V222H100V280M35 0V38A40 40 0 0 0 115 38V0M35 280V242A40 40 0 0 1 115 242V280M62 12H88M62 268H88"/>
-                <circle cx="75" cy="140" r="18"/><circle cx="75" cy="58" r="18"/><circle cx="75" cy="222" r="18"/><circle cx="75" cy="17" r="4"/><circle cx="75" cy="263" r="4"/>
+              <g data-field-art>
+                <image data-campus-lines href="assets/campus-complex-30-floor-blueprint.svg" x="0" y="0" width="260" height="1000" preserveAspectRatio="xMidYMid meet" opacity=".82"/>
+                <image data-dormitory-lines href="assets/dormitory-20-floor-blueprint.svg" x="0" y="0" width="260" height="670" preserveAspectRatio="xMidYMid meet" opacity=".82" visibility="hidden"/>
+                <image data-teaching-lines href="assets/teaching-building-8-floor-blueprint.svg" x="0" y="0" width="200" height="280" preserveAspectRatio="xMidYMid meet" opacity=".82" visibility="hidden"/>
               </g>
             </g>
             <g class="fp-dimension" data-field-dimension>
@@ -34,7 +34,25 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
               <path class="fp-dimension-guides" data-field-guides/>
               <text class="fp-dimension-label" data-field-label x="320"/>
             </g>
-            <g data-caption-art><svg x="45" y="550" width="610" height="74" viewBox="0 200 2172 300" preserveAspectRatio="xMinYMid meet"><image data-caption-image width="2172" height="724"/></svg><text data-field-caption class="fp-caption-accessible" aria-hidden="true"/></g>
+            <g class="fp-dimension fp-dorm-scale" data-dorm-scale visibility="hidden">
+              <path class="fp-dimension-line" data-dorm-ruler/>
+              ${[0,10,20,30,40,50,60,67].map(m=>`<g data-dorm-meter="${m}"><path class="fp-dimension-ticks"/><text class="fp-dimension-label" x="320">${m} m</text></g>`).join('')}
+            </g>
+            <g class="fp-dimension fp-campus-scale" data-campus-scale visibility="hidden">
+              <path class="fp-dimension-line" data-campus-ruler/>
+              ${[0,10,20,30,40,50,60,70,80,90,100].map(m=>`<g data-campus-meter="${m}"><path class="fp-dimension-ticks"/><text class="fp-dimension-label" x="320">${m} m</text></g>`).join('')}
+            </g>
+            <g class="fp-dimension fp-teaching-scale" data-teaching-scale visibility="hidden">
+              <path class="fp-dimension-line" data-teaching-ruler/>
+              ${[0,5,10,15,20,25,28].map(m=>`<g data-teaching-meter="${m}"><path class="fp-dimension-ticks"/><text class="fp-dimension-label" x="320">${m} m</text></g>`).join('')}
+            </g>
+            <g data-caption-art>
+              <svg x="45" y="550" width="610" height="74" viewBox="0 200 2172 300" preserveAspectRatio="xMinYMid meet"><image data-caption-image width="2172" height="724"/></svg>
+              <g data-dorm-caption visibility="hidden"><text class="fp-dorm-caption" x="45" y="574">67 m ≈ 20层校园宿舍楼</text><text class="fp-dorm-subcaption" x="45" y="608">按3.3 m/层估算</text></g>
+              <g data-teaching-caption visibility="hidden"><text class="fp-dorm-caption" x="45" y="574">28 m ≈ 8层校园教学楼</text><text class="fp-dorm-subcaption" x="45" y="608">按3.5 m/层估算</text></g>
+              <g data-campus-caption visibility="hidden"><text class="fp-dorm-caption" x="45" y="574">100 m ≈ 30层校园综合楼</text><text class="fp-dorm-subcaption" x="45" y="608">按约3.3 m/层估算</text></g>
+              <text data-field-caption class="fp-caption-accessible" aria-hidden="true"/>
+            </g>
           </g>
           <g transform="translate(85 0)"><path d="M365 45H575V65H365Z" fill="url(#fpHatch)"/>
           <path d="M365 65H575" stroke="#d8e7ff" stroke-width="6" stroke-linecap="round"/>
@@ -100,24 +118,57 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
   // Independent EXP-01 adaptation of EXP-04 line-styles.js drafting endpoints;
   // no runtime import of another experiment's private implementation.
   function renderFieldGeometry(){
-    const span=shown.span,bottom=80+span,isBasket=draft.length===28,isWidth=draft.length===67;
-    const scale=span/(isWidth?670:1000);
-    set('[data-field-art]',{visibility:isBasket?'hidden':'visible',transform:isWidth?`translate(280 80) rotate(90) scale(${scale})`:`translate(${280-670*scale} 80) scale(${scale})`});
-    set('[data-basketball]',{visibility:isBasket?'visible':'hidden',transform:`translate(${280-150*span/280} 80) scale(${span/280})`});
+    const span=shown.span,bottom=80+span,isTeaching=draft.length===28,isDorm=draft.length===67,isCampus=draft.length===100;
+    const scale=span/(isTeaching?280:isDorm?670:1000);
+    set('[data-field-art]',{visibility:'visible',transform:isTeaching?`translate(70 80) scale(${scale})`:isDorm?`translate(95 80) scale(${scale})`:`translate(95 80) scale(${scale})`});
+    set('[data-campus-lines]',{visibility:isCampus?'visible':'hidden'});
+    set('[data-dormitory-lines]',{visibility:isDorm?'visible':'hidden'});
+    set('[data-teaching-lines]',{visibility:isTeaching?'visible':'hidden'});
+    set('[data-field-dimension]',{visibility:'hidden'});
     set('[data-field-measure]',{d:`M302 80V${bottom}`});
     set('[data-field-ticks]',{d:`M295 73L309 87M295 ${bottom-7}L309 ${bottom+7}`});
     set('[data-field-guides]',{d:`M280 80H613M280 ${bottom}H613`});
     set('[data-field-label]',{y:80+span/2});
     find('[data-field-label]').textContent=`L = ${draft.length} m`;
+    set('[data-dorm-scale]',{visibility:isDorm?'visible':'hidden'});
+    if(isDorm){
+      set('[data-dorm-ruler]',{d:`M302 80V${bottom}`});
+      for(const mark of overlay.querySelectorAll('[data-dorm-meter]')){
+        const meter=Number(mark.dataset.dormMeter),y=bottom-span*meter/67;
+        mark.querySelector('path').setAttribute('d',`M295 ${y}H309`);
+        mark.querySelector('text').setAttribute('y',String(y+6));
+      }
+    }
+    set('[data-campus-scale]',{visibility:isCampus?'visible':'hidden'});
+    if(isCampus){
+      set('[data-campus-ruler]',{d:`M302 80V${bottom}`});
+      for(const mark of overlay.querySelectorAll('[data-campus-meter]')){
+        const meter=Number(mark.dataset.campusMeter),y=bottom-span*meter/100;
+        mark.querySelector('path').setAttribute('d',`M295 ${y}H309`);
+        mark.querySelector('text').setAttribute('y',String(y+6));
+      }
+    }
+    set('[data-teaching-scale]',{visibility:isTeaching?'visible':'hidden'});
+    if(isTeaching){
+      set('[data-teaching-ruler]',{d:`M302 80V${bottom}`});
+      for(const mark of overlay.querySelectorAll('[data-teaching-meter]')){
+        const meter=Number(mark.dataset.teachingMeter),y=bottom-span*meter/28;
+        mark.querySelector('path').setAttribute('d',`M295 ${y}H309`);
+        mark.querySelector('text').setAttribute('y',String(y+6));
+      }
+    }
     const caption=find('[data-field-caption]');
-    const captionText=isBasket?'28m —— 约为标准篮球场长度':isWidth?'67m —— 约为足球场宽度':'100m —— 约为标准足球场长度';
+    const captionText=isTeaching?'28 m ≈ 8层校园教学楼，按3.5 m/层估算':isDorm?'67 m ≈ 20层校园宿舍楼，按3.3 m/层估算':'100 m ≈ 30层校园综合楼，按约3.3 m/层估算';
     if(caption.textContent!==captionText){
       caption.textContent=captionText;
-      set('[data-caption-image]',{href:`assets/chalk-caption-${draft.length}.png`,'aria-label':captionText});
+      set('[data-caption-image]',{visibility:'hidden',href:`assets/chalk-caption-${draft.length}.png`,'aria-label':captionText});
+      set('[data-dorm-caption]',{visibility:isDorm?'visible':'hidden'});
+      set('[data-teaching-caption]',{visibility:isTeaching?'visible':'hidden'});
+      set('[data-campus-caption]',{visibility:isCampus?'visible':'hidden'});
       for(const animation of find('[data-caption-art]').getAnimations())animation.cancel();
       if(!reduced.matches)find('[data-caption-art]').animate([{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0% 0 0)'}],{duration:800,easing:'ease-out'});
     }
-    find('.fp-field-reference').dataset.reference=isBasket?'basketball-length':isWidth?'football-width':'football-length';
+    find('.fp-field-reference').dataset.reference=isTeaching?'teaching-building-height':isDorm?'dormitory-height':'campus-complex-height';
   }
   function renderControls(){
     for(const button of overlay.querySelectorAll('button[data-length]'))button.setAttribute('aria-pressed',String(+button.dataset.length===draft.length));
