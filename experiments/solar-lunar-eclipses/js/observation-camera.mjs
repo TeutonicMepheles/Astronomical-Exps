@@ -1,5 +1,5 @@
 // Rotate the existing teaching space rigidly; event geometry stays camera independent.
-export function observationCamera(M, observationVector, name, transition) {
+export function observationCamera(M, observationVector, name, transition, options={}) {
  const dot=(a,b)=>a.x*b.x+a.y*b.y+(a.z||0)*(b.z||0);
  const cross=(a,b)=>({x:a.y*b.z-a.z*b.y,y:a.z*b.x-a.x*b.z,z:a.x*b.y-a.y*b.x});
  const teaching=p=>{const q=observationVector(p);return {x:q[0],y:q[1],z:q[2]};};
@@ -10,12 +10,17 @@ export function observationCamera(M, observationVector, name, transition) {
  if(name==='oblique'){right={x:1,y:0,z:0};up={x:0,y:1,z:0};front={x:0,y:0,z:1};}
  if(name==='solar'){
   // The virtual eye lies between Sun and Moon, above the lunar foreground.
-  const elevation=20*Math.PI/180,shoulder=20*Math.PI/180;
-  front=M.unit(teaching({x:-Math.cos(elevation)*Math.cos(shoulder),y:-Math.cos(elevation)*Math.sin(shoulder),z:Math.sin(elevation)}));
+  const elevation=(options.solarElevation??20)*Math.PI/180,shoulder=(options.solarShoulder??20)*Math.PI/180;
+  front=options.solarFront||M.unit(teaching({x:-Math.cos(elevation)*Math.cos(shoulder),y:-Math.cos(elevation)*Math.sin(shoulder),z:Math.sin(elevation)}));
   right=M.unit(cross(normal,front));up=M.unit(cross(front,right));
+  if(options.solarMoonDirection){
+   const q=options.solarMoonDirection,angle=Math.atan2(dot(q,up),dot(q,right))+165*Math.PI/180,co=Math.cos(angle),si=Math.sin(angle),r=right,u=up;
+   right={x:r.x*co+u.x*si,y:r.y*co+u.y*si,z:r.z*co+u.z*si};
+   up={x:-r.x*si+u.x*co,y:-r.y*si+u.y*co,z:-r.z*si+u.z*co};
+  }
  }
  if(transition&&transition.progress<1){
-  const from=transition.fromRows?null:observationCamera(M,observationVector,transition.from);
+  const from=transition.fromRows?null:observationCamera(M,observationVector,transition.from,null,options);
   const rows=blendRotation(transition.fromRows||[from.right,from.up,from.front],[right,up,front],transition.progress);
   [right,up,front]=rows;
  }

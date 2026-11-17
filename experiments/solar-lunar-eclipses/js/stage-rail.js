@@ -5,17 +5,14 @@
  * 当前位置并带一段尾迹、顶部一行读数。轨道位置、节点、刻度、进度点都由当前 φ
  * 推出来，实现是本页自己的（原站是 canvas + rAF，这里是 SVG + 按需更新）。
  *
- * 轨道上的位置 t 不是角度真值，而是 √跨度 加权后的位置：
- * 日食的偏食段 : 全食段真实是 10.6 : 1，照真值画会把食既/食甚/生光挤成相距
- * 24px 的三连；开方阻尼后是 3.25 : 1（节点落在 0 / 38.2 / 50 / 61.8 / 100%），
- * 仍然不对称、仍看得出全食很短，但三个节点分得开。月食本来就接近等分
- * （0.8 : 1），阻尼后依然接近均分。
+ * 轨道位置不代表角度或真实时长：60% 等距与 40% 开方跨度混合，
+ * 为触控按钮保留间距，同时保留阶段相对长短的视觉提示。
  */
 (function () {
   'use strict';
 
   var NS = 'http://www.w3.org/2000/svg';
-  var TOP = 180;      // 轨道上端（舞台坐标，1600×900）
+  var TOP = 280;      // 轨道上端（舞台坐标，1600×900）
   var BOT = 744;      // 下端：给右下角播放按钮留出空
   var MINOR = 24;     // 两节点之间再插 24 分之一间距的短刻度
   var TRAIL = 0.05;   // 琥珀点身后那段尾迹的弧长（t 单位）
@@ -121,6 +118,8 @@
         name.className = 'rail-node-name';
         name.textContent = stages[i].name;
         b.appendChild(name);
+        b.dataset.stageKind=stages[i].kind||'contact';
+        if(stages[i].kind==='teaching'){var note=document.createElement('span');note.className='rail-node-kind';note.textContent='教学节点';b.appendChild(note);b.setAttribute('aria-label',stages[i].name+'：教学中间节点，非天文接触时刻');}
         b.addEventListener('click', (function (idx) {
           return function () { if (api.onPick) api.onPick(idx); };
         })(i));
@@ -133,7 +132,7 @@
       var subs = SUBS[mode] || SUBS.solar;
       stages = [];
       for (var i = 0; i < list.length; i++) {
-        stages.push({ name: list[i].name, sub: subs[i] || '', phi: list[i].phi });
+        stages.push({ name: list[i].name, sub: subs[i] || '', phi: list[i].phi, kind: list[i].kind });
       }
       phis = stages.map(function (s) { return s.phi; });
 
@@ -148,7 +147,8 @@
       ts = [];
       var acc = 0;
       for (var m = 0; m < stages.length; m++) {
-        ts.push(m === stages.length - 1 ? 1 : acc / total);
+        // Reserve touch spacing while retaining relative phase-duration cues.
+        ts.push(m === stages.length - 1 ? 1 : .6 * m / (stages.length - 1) + .4 * acc / total);
         if (m < w.length) acc += w[m];
       }
 
