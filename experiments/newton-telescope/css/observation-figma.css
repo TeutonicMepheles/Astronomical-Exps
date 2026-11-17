@@ -203,8 +203,8 @@
 .observation-is-open .preview-badge{font-size:34px;font-weight:700;line-height:1.2;color:#ffe3a2;letter-spacing:1px;padding:8px 20px;border:1px solid #d9bc7955;border-radius:24px;background:#101b32b3;}
 .observation-is-open .preview-badge>span:first-child{display:none;}
 
-/* Scenery follows the camera push-in about the ground contact zone. */
-.observation-art .newton-nebula-image,.newton-nebula-flow,.newton-dynamic-stars,.observation-art .newton-distant-landscape,.observation-art .newton-ground-landscape{transform:scale(var(--environment-zoom,1));transform-origin:800px 780px;}
+/* Scenery and the telescope share the camera's projected scale and translation. */
+.observation-art .newton-nebula-image,.newton-nebula-flow,.newton-dynamic-stars,.observation-art .newton-distant-landscape,.observation-art .newton-ground-landscape{transform:translate(var(--environment-x,0px),var(--environment-y,0px)) scale(var(--environment-zoom,1));transform-origin:0 0;}
 
 /* Cool atmospheric rim follows the distant layer's alpha skyline. */
 .observation-art .newton-distant-landscape{filter:drop-shadow(0 -1px 1.5px #b9d8ff70) drop-shadow(0 -3px 8px #789fdf42);}
@@ -218,5 +218,9 @@
 .observation-is-open .observation-saturn-marker{opacity:0}
 .observation-saturn-layer .observation-targets button{background:#142c4e22;border-color:#f0dca5cc;border-width:1px}
 .observation-saturn-layer .observation-targets button:hover,.observation-saturn-layer .observation-targets button[aria-pressed=true]{background:#88afd333;border-color:#f9e8b9;box-shadow:0 0 5px #bcd8ff55}
-.observation-saturn-layer .observation-targets button[data-observed=true]::after{content:'✓';font-size:10px;color:#b0efd3}
+.observation-saturn-layer .observation-targets button[data-observed=true]::after{content:'✓';position:absolute;right:-5px;top:-5px;font-size:8px;color:#b0efd3}
+.observation-completion-star{position:absolute;left:50%;top:50%;width:13.5px;height:13.5px;margin:-6.75px;pointer-events:none;opacity:.48;background:url('../assets/observation-star/natural-star.png') center/contain no-repeat}
+.observation-targets button.is-completing .observation-completion-star{animation:newton-observation-complete 1.2s ease-out both}
+@keyframes newton-observation-complete{0%,100%{opacity:.48;transform:scale(1)}50%{opacity:1;transform:scale(1.333)}}
+@media(prefers-reduced-motion:reduce){.observation-targets button.is-completing .observation-completion-star{animation-name:newton-observation-complete-still;animation-duration:.6s}@keyframes newton-observation-complete-still{0%,90%{opacity:1}100%{opacity:.48}}}
 .observation-aim-hint{font-size:20px}

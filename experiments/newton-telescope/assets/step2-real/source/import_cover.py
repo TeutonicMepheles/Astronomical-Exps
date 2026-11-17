@@ -1,5 +1,6 @@
 """Convert the supplied Cover GLB into the existing offline viewer buffer format.
-Preserves GLB positions/normals/UV and node transforms; reuses the existing material palette.
+Preserves source geometry except the documented closure of the old interior window;
+reuses the existing material palette and keeps the source GLB untouched.
 """
 from pathlib import Path
 import base64, hashlib, json, struct
@@ -29,7 +30,74 @@ def matrix(node):
  m[:3,:3]=np.array([[1-2*(y*y+z*z),2*(x*y-z*w),2*(x*z+y*w)],[2*(x*y+z*w),1-2*(x*x+z*z),2*(y*z-x*w)],[2*(x*z-y*w),2*(y*z+x*w),1-2*(x*x+y*y)]])@np.diag(node.get('scale',[1,1,1]))
  m[:3,3]=node.get('translation',[0,0,0]);return m
 def encode(a,dtype):return base64.b64encode(np.asarray(a,dtype=dtype).tobytes()).decode()
+
+def close_interior_window(name, points, normals, uv):
+ # Cover closes the exterior, but its two old interior lips still leave a gap.
+ # Extend them to meet at pi/2, keeping the inner radius, length and mesh count.
+ sectors={'Tube_UpperInterior':(0.,.86,0.,np.pi/2),
+          'Tube_LowerInterior':(2.28,np.pi,np.pi/2,np.pi)}
+ if name not in sectors:return points,normals,uv
+ start,end,new_start,new_end=sectors[name]
+ c,s=np.cos(-.295),np.sin(-.295)
+ rotation=np.array([[c,-s,0],[s,c,0],[0,0,1]])
+ local=(points-[0,4,0])@rotation
+ normal=normals@rotation
+ angle=np.clip(np.arctan2(local[:,2],local[:,1]),start,end)
+ scale=(new_end-new_start)/(end-start)
+ mapped=new_start+(angle-start)*scale
+ radius=np.hypot(local[:,1],local[:,2])
+ radial=normal[:,1]*np.cos(angle)+normal[:,2]*np.sin(angle)
+ tangent=(-normal[:,1]*np.sin(angle)+normal[:,2]*np.cos(angle))/scale
+ local[:,1]=radius*np.cos(mapped);local[:,2]=radius*np.sin(mapped)
+ normal[:,1]=radial*np.cos(mapped)-tangent*np.sin(mapped)
+ normal[:,2]=radial*np.sin(mapped)+tangent*np.cos(mapped)
+ normal/=np.maximum(np.linalg.norm(normal,axis=1,keepdims=True),1e-12)
+ # Mirror the intact back lining: same texel density, continuous at both edges.
+ uv[:,1]=(np.pi-mapped)/(2*np.pi)
+ return local@rotation.T+[0,4,0],normal@rotation.T,uv
+
+def smooth_interior_wall(name, points, normals):
+ # Imported triangle normals and angularly extended normals use different
+ # approximations. Use the same analytic cylinder normal on all lining walls.
+ # Leave the bevels, end caps and the distinct hard-edge normals intact.
+ if name not in {'Tube_BackInterior','Tube_UpperInterior','Tube_LowerInterior'}:
+  return normals
+ c,s=np.cos(-.295),np.sin(-.295)
+ rotation=np.array([[c,-s,0],[s,c,0],[0,0,1]])
+ local=(points-[0,4,0])@rotation;normal=normals@rotation
+ radius=np.hypot(local[:,1],local[:,2])
+ radial=np.column_stack((np.zeros(len(points)),local[:,1]/radius,local[:,2]/radius))
+ alignment=np.sum(normal*radial,axis=1)
+ wall=(np.isclose(radius,.889,atol=1e-6)|np.isclose(radius,.896,atol=1e-6)) & (np.abs(alignment)>.98)
+ normal[wall]=radial[wall]*np.sign(alignment[wall,None])
+ return normal@rotation.T
+
 objects=[]
+def trim_secondary_support(name, points, normals, uv, indices):
+ # Keep only the joint inside the opaque backing; remove protrusions on both sides.
+ if name != 'Secondary_SupportArm':return points,normals,uv,indices
+ c,s=np.cos(-.295),np.sin(-.295)
+ rotation=np.array([[c,-s,0],[s,c,0],[0,0,1]])
+ local=(points-[0,4,0])@rotation
+ depth=(local[:,0]+3.09+local[:,1])/np.sqrt(2)
+ attributes=np.column_stack((points,normals,uv,depth))
+ vertices=[];faces=[]
+ for face in indices:
+  polygon=[attributes[i] for i in face]
+  for sign in [-1,1]:
+   clipped=[]
+   for i,a in enumerate(polygon):
+    b=polygon[(i+1)%len(polygon)];da=sign*a[8]-.018;db=sign*b[8]-.018
+    if da<=0:clipped.append(a)
+    if (da<=0)!=(db<=0):clipped.append(a+(b-a)*da/(da-db))
+   polygon=clipped
+  if len(polygon)<3:continue
+  start=len(vertices);vertices.extend(polygon)
+  for i in range(1,len(polygon)-1):faces.append([start,start+i,start+i+1])
+ result=np.asarray(vertices);normal=result[:,3:6]
+ normal/=np.maximum(np.linalg.norm(normal,axis=1,keepdims=True),1e-12)
+ return result[:,:3],normal,result[:,6:8],np.asarray(faces)
+
 def visit(index,parent):
  node=gltf['nodes'][index]; world=parent@matrix(node)
  if 'mesh' in node:
@@ -40,8 +108,11 @@ def visit(index,parent):
   uv[:,1]=1-uv[:,1]
   points=points@world[:3,:3].T+world[:3,3]
   normals=normals@np.linalg.inv(world[:3,:3]);normals/=np.maximum(np.linalg.norm(normals,axis=1,keepdims=True),1e-12)
+  points,normals,uv=close_interior_window(name,points,normals,uv)
+  normals=smooth_interior_wall(name,points,normals)
   indices=accessor(primitive['indices']).reshape(-1,3)
   if np.linalg.det(world[:3,:3])<0:indices=indices[:,[0,2,1]]
+  points,normals,uv,indices=trim_secondary_support(name,points,normals,uv,indices)
   material=gltf['materials'][primitive['material']]['name'].split('.')[0]
   assert material in base['materials'],material
   original=metadata.get(name,metadata['Tube_BackShell'] if name=='Tube_BackShell.001' else None)
@@ -53,5 +124,5 @@ def visit(index,parent):
 for node in gltf['scenes'][gltf.get('scene',0)]['nodes']:visit(node,np.eye(4))
 assert len(objects)==129
 base.update(version='MESH-R2-COVER',objects=objects,sourceFile=source.name,sourceSHA256=hashlib.sha256(blob).hexdigest())
-(ROOT/'model-data-cover.js').write_text('window.NEWTON_MODEL='+json.dumps(base,separators=(',',':'))+';\n',encoding='utf-8')
+(ROOT/'model-data-cover.js').write_text('window.NEWTON_MODEL='+json.dumps(base,separators=(',',':'))+';\n',encoding='utf-8',newline='\n')
 print(json.dumps({'source':source.name,'sha256':base['sourceSHA256'],'meshes':len(objects),'triangles':sum(len(base64.b64decode(o['index']))//12 for o in objects)},indent=2))

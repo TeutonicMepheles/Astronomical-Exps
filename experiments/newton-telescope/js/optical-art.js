@@ -1,5 +1,4 @@
-/* Preserve the registered apparatus layers. Only the curved mirror region is remapped;
- * the rail, carriage, upright and mounting pivot retain their original pixels and scale. */
+/* Registered mounted instruments. Mirror faces respond to focus; hardware stays fixed. */
 (function(N){
 'use strict';const T=window.THREE;
 N.OpticalArt=class{
@@ -19,23 +18,26 @@ N.OpticalArt=class{
   this.concaveGlass=document.createElement('canvas');this.concaveGlass.id='concave-original-glass';this.concaveGlass.hidden=true;this.concaveGlass.setAttribute('aria-hidden','true');this.convexGlass.after(this.concaveGlass);
   this.concaveArt=new N.ConcaveOriginalArt(()=>{this.view.dirty=true;});
   for(const key of ['concave','convex']){const image=new Image();image.src=this.roundSources[key];}
-  this.profiles={};this.surfaceKey='';this.parts=new N.MirrorPartsArt(()=>{this.view.dirty=true;});
+  this.profiles={};this.surfaceKey='';this.parts=new N.MirrorPartsArt(()=>{this.view.dirty=true;},{preload:false});
+  this.mountedArt=new N.MountedMirrorArt(()=>{this.view.dirty=true;});
   this.rail=document.querySelector('#optical-rail-art');this.emitter=document.querySelector('#optical-emitter-art');
   this.assetRoot='assets/rail-lab/coherent-v4/';this.kind='';
   for(const el of [this.canvas,this.rail,this.emitter])el.addEventListener('load',()=>{this.view.dirty=true;});
-  // Preload installed variants so switching does not flash an empty holder.
-  this.images={};for(const type of ['holder','plane','concave','convex']){const img=new Image();img.addEventListener('load',()=>{this.view.dirty=true;});img.src=this.assetRoot+(type==='plane'?'plane-extended':type)+'.png';this.images[type]=img;}
  }
  local(p){const q=this.room.project(p),r=this.view.container.getBoundingClientRect();return{x:(q.x-r.left)/r.width*this.view.container.clientWidth,y:(q.y-r.top)/r.height*this.view.container.clientHeight};}
- curvePoint(type,f,y,offset=0){return ['concave','convex'].includes(type)?N.mirrorParts.surface(type,f*300,y):N.mirrorOptics.surface(type,f,y,offset);}
- profile(type){return this.parts.source(type);}
+ curvePoint(type,f,y,offset=0){return N.mountedMirrorModel?N.mountedMirrorModel.surface(type,f*300,y):['concave','convex'].includes(type)?N.mirrorParts.surface(type,f*300,y):N.mirrorOptics.surface(type,f,y,offset);}
+ profile(type){return this.mountedArt.source(type);}
  renderSurface(s){
-  if(!s.mirrorMounted||!['concave','convex'].includes(s.mirror))return false;
-  const key=s.mirror+'/'+s.mirrorFocal;if(key===this.surfaceKey)return true;
-  if(!this.parts.render(s.mirror,s.mirrorFocal,this.surfaceCanvas))return false;
+  const type=s.mirrorMounted?s.mirror:'holder',key=type+'/'+s.mirrorFocal;
+  if(!this.mountedArt.render(type,s.mirrorFocal,this.surfaceCanvas))return false;
   this.surfaceKey=key;return true;
  }
  contour(type,focal){
+  if(N.mountedMirrorModel?.specs[type]){
+   const key='mounted/'+type+'/'+focal;if(this.contourKey===key)return this.currentContour;
+   if(!this.mountedArt.render(type,focal,this.surfaceCanvas))return null;
+   this.contourKey=key;return this.currentContour=this.parts.contour(this.surfaceCanvas);
+  }
   if(!this.profile(type))return window.CourseContours?.['mounted-'+type];
   const key=type+'/'+focal;if(this.contourKey===key)return this.currentContour;
   if(!this.renderSurface({mirrorMounted:true,mirror:type,mirrorFocal:focal}))return window.CourseContours?.['mounted-'+type];
@@ -54,8 +56,8 @@ N.OpticalArt=class{
   const anchor={holder:1243,plane:1118,concave:1094,convex:1018}[kind];
   const left=center.x-anchor*scale;
   this.roundActive=s.stage==='mirrors'&&document.querySelector('.observatory').dataset.trayPage==='lenses';
-  this.roundHolder.hidden=!this.roundActive;
-  this.frameOcclusion.hidden=!this.roundActive;
+  this.roundHolder.hidden=!this.roundActive||!s.lens;
+  this.frameOcclusion.hidden=!this.roundActive||!s.lens;
   this.convexGlass.hidden=!this.roundActive||s.lens!=='convex';
   this.concaveGlass.hidden=!this.roundActive||s.lens!=='concave';
   if(this.roundActive){
@@ -80,19 +82,19 @@ N.OpticalArt=class{
    this.geometryInfo=null;this.cableInfo={exit:{x:source.x-576*scale,y:top+635*scale}};
    this.registration={scale,top,railTop,saddleX};return;
   }
-  if(kind!==this.kind){this.canvas.src=this.assetRoot+(kind==='plane'?'plane-extended':kind)+'.png';this.kind=kind;}
-  this.canvas.hidden=false;set(this.canvas,left);
-  const parametric=this.renderSurface(s);this.canvas.style.visibility=parametric?'hidden':'';
-  this.surfaceCanvas.hidden=!parametric;if(parametric)set(this.surfaceCanvas,left);
-  this.mount={x:center.x,y:center.y,width:3.6*unit,height:4.4*unit,left:center.x-1.2*unit,top:center.y-1.6*unit};
-  const guideAnchor=document.querySelector('#mirror-guide-anchor');if(guideAnchor)Object.assign(guideAnchor.style,{left:center.x+'px',top:center.y+'px'});
+  this.kind=kind;this.canvas.hidden=true;
+  const parametric=this.renderSurface(s);
+  this.surfaceCanvas.hidden=!parametric||!s.mirrorMounted;set(this.surfaceCanvas,left);
+  const bounds=N.mountedMirrorModel.bounds(kind);
+  this.mount={x:left+(bounds.x+bounds.width/2)*scale,y:center.y,width:bounds.width*scale,height:bounds.height*scale,left:left+bounds.x*scale,top:top+bounds.y*scale};
+  const guideAnchor=document.querySelector('#mirror-guide-anchor');if(guideAnchor)Object.assign(guideAnchor.style,{left:this.mount.x+'px',top:center.y+'px'});
   const carriage=document.querySelector('#rail-carriage');
   Object.assign(carriage.style,{left:this.mount.left+'px',top:this.mount.top+'px',width:this.mount.width+'px',height:this.mount.height+'px'});
   carriage.hidden=false;carriage.setAttribute('aria-label',s.mirrorMounted?'拖动托镜座沿导轨移动镜面，当前位置 '+Math.round(s.mirrorPosition*30)+' 厘米；左右方向键微调':'空镜片夹具：拖入镜片安装，点击选中或拖动托镜座沿导轨移动');
   const handle=document.querySelector('#mirror-move-handle');if(handle)Object.assign(handle.style,{left:(left+1248*scale)+'px',top:(top+665*scale)+'px'});
   const controls=document.querySelector('#mounted-mirror-controls');if(controls){const controlsX=Math.min(1460,left+1350*scale),controlsY=top+240*scale;Object.assign(controls.style,{left:controlsX+'px',top:controlsY+'px'});const remove=controls.querySelector('[data-remove-optic]'),mount=controls.querySelector('[data-mount-optic]'),x=left+1248*scale-controlsX-32,y=top+100*scale-controlsY;if(remove)Object.assign(remove.style,{left:x+'px',top:y+'px'});if(mount)Object.assign(mount.style,{left:(x+(remove?.hidden?0:76))+'px',top:y+'px'});}
-  const approved=N.mirrorParts.config[kind],aperture=approved?2*Math.min(330-approved.start.y,approved.end.y-330)/125-.01:1.8;
-  this.geometryInfo=s.mirrorMounted?{type:s.mirror,focal:s.mirrorFocal,angle:kind==='plane'?45:90,aperture,edge:[-aperture/2,0,aperture/2].map(y=>this.curvePoint(kind,s.mirrorFocal/300,y))}:null;
+  const aperture=s.mirrorMounted?2*N.mountedMirrorModel.profile(kind,s.mirrorFocal).radius/125:1.8;
+  this.geometryInfo=s.mirrorMounted?{type:s.mirror,focal:s.mirrorFocal,angle:kind==='plane'?45:90,aperture,edge:[-aperture/2,0,aperture/2].map(y=>N.mountedMirrorModel.surface(kind,s.mirrorFocal,y))}:null;
   this.cableInfo={exit:{x:source.x-576*scale,y:top+635*scale}};
   this.registration={scale,top,railTop:top+625*scale,saddleX:left+1248*scale};
  }

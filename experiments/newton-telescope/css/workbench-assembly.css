@@ -32,14 +32,20 @@
 .assembly-slot.selected{border-color:#ffe3a1}
 
 
-/* Keep the assembly canvas free of instruction panels and tray captions. */
-.assembly-preview .assembly-caption,.assembly-mirror-tray .loose-mirror>span{display:none}
+/* Keep the old instruction panel hidden; placement feedback lives on the stage. */
+.assembly-preview .assembly-caption{display:none}
+.assembly-placement-feedback{position:absolute;z-index:60;left:50%;top:610px;transform:translateX(-50%);width:max-content;max-width:720px;padding:16px 24px;border:2px solid #f4cb83;border-radius:16px;background:#213b58;color:#fff0cc;font:500 24px/1.5 var(--font-ui,system-ui);text-align:center;box-shadow:0 6px 20px #07162866;pointer-events:none;}
+.observatory:not([data-stage=assembly]) .assembly-placement-feedback{display:none}
+.assembly-mirror-tray .loose-mirror{position:relative;height:188px;font-family:var(--font-ui,system-ui);}
+.assembly-mirror-tray .loose-mirror>span{position:absolute;display:block;left:0;right:0;top:160px;margin:0;color:#e8f2ff;font-size:22px;line-height:28px;text-align:center;text-shadow:0 2px 4px #142643;pointer-events:none;white-space:nowrap;}
+.loose-mirror:is(:hover,.selected) img{filter:drop-shadow(0 0 8px #ffe0a3)}
+.loose-mirror:focus-visible{outline:2px solid #f4cb83;outline-offset:4px;border-radius:10px}
 
 /* Restore the approved studio-final composition from 3e6cd2c, not its review UI.
    Installation is still owned by Newton.course; all layers share the art canvas. */
 .observatory[data-stage=assembly] .assembly-preview{z-index:15}
 .observatory[data-stage=assembly] .assembly-targets{z-index:16}
-.observatory[data-stage=assembly] .assembly-mirror-tray{top:744px;z-index:17}
+.observatory[data-stage=assembly] .assembly-mirror-tray{top:700px;z-index:17}
 .observatory .assembly-telescope{left:390px;top:100px;width:860px;height:645px}
 .observatory .assembly-installed-secondary{left:493.5369873046875px;top:209.022216796875px;width:134.375px;height:134.375px;transform:none}
 .assembly-telescope[hidden]{display:none}
@@ -57,3 +63,18 @@
 @media(prefers-reduced-motion:reduce){.assembly-slot-outline ellipse{animation:none;}.assembly-slot-dashes{opacity:1;}.assembly-slot-glow{opacity:.22;}}
 
 .observatory[data-stage=assembly] .assembly-slot span{bottom:5px;}
+.assembly-optical-path{position:absolute;inset:0;width:1600px;height:900px;pointer-events:none;}
+.observatory[data-stage=assembly] .assembly-complete-feedback{left:48px;top:510px;max-width:300px;transform:translateY(-12px)}
+.observatory[data-stage=assembly].is-assembly-completing .assembly-complete-feedback{transform:translateY(0)}
+/* The old front overlay contains the closed eyepiece. Expose the replacement
+   cutaway in this region while retaining its original foreground elsewhere. */
+.assembly-preview>.assembly-telescope{z-index:1}
+.assembly-preview>.assembly-installed-primary{z-index:2}
+.assembly-preview>.assembly-installed-secondary{z-index:3}
+.assembly-preview>.assembly-optical-path{z-index:4}
+.observatory .assembly-front{z-index:5;clip-path:polygon(0 0,18% 0,18% 25%,34% 25%,34% 0,100% 0,100% 100%,0 100%)}
+
+/* Click placement remains discoverable on whiteboards without dragging. */
+.assembly-placement-hint{position:absolute;z-index:18;left:48px;top:390px;width:280px;margin:0;color:#e8f2ff;font:500 24px/1.6 var(--font-ui,system-ui);text-shadow:0 2px 5px #142643;pointer-events:none;}
+.assembly-placement-hint[hidden],.observatory.newton-rotation-active .assembly-placement-hint{display:none;}
+.assembly-slot:is(:hover,.selected,.hovered,:focus-visible) .assembly-slot-dashes{stroke:#fff6d3;stroke-width:5.5;}

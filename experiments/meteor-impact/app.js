@@ -84,7 +84,6 @@
       });
     });
     $('#fixedSummary').textContent = state.mode === 'factor' ? '仅改变' + names[state.factor] + ' · 其余条件两侧同步' : '仅改变大气环境 · 输入条件一致';
-    $('#conditionSummary').textContent = combos().map((c, i) => `${i + 1} · ${worldName(c.scene)}  大小${label('size', c.size)} / 速度${label('speed', c.speed)} / ${label('angle', c.angle)} / ${label('ground', c.ground)}`).join('    ｜    ');
     $('#pairTitle').textContent = state.mode === 'factor' ? names[state.factor] + '对照' : '地球与月球对照';
     $('#launch').disabled = !sceneReady || Boolean(error) || ['running','preparing'].includes(state.phase) || (state.mode === 'factor' && state.values[0] === state.values[1]);
     $('#cancel').hidden = !['running','preparing'].includes(state.phase);
@@ -126,7 +125,7 @@
       const framing = engines[0].framingFor(framingCombos);
       for (const [side, combo] of input.entries()) {
         if (token !== state.token) return;
-        const sideFraming = { ...framing, outlineColor: side === 0 ? 0x53c7eb : 0xa5df9c };
+        const sideFraming = { ...framing, captureAspect: $('#scene' + side).clientWidth / $('#scene' + side).clientHeight, outlineColor: side === 0 ? 0x53c7eb : 0xa5df9c };
         const key = JSON.stringify([combo, sideFraming, mode, factor]);
         let result = resultCache.get(key);
         if (!result) {

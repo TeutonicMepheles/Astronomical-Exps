@@ -63,8 +63,8 @@ const tick=(target,focus=15)=>progress.update({active:true,state:{...defaultStat
 assert.equal(progress.suggestedTarget(),'saturn');
 for(let i=0;i<order.length;i++){
  const target=order[i];progress.select(target);
- assert.equal(tick(target).focused,false);assert.equal(tick(target).observed,false);
- assert.equal(tick(target,58).focused,true);assert.equal(tick(target,58).observed,false,'clear view still requires explicit recording');
+ assert.equal(tick(target).acquired,true);assert.equal(tick(target).observed,false);
+ assert.equal(tick(target,58).acquired,true);assert.equal(tick(target,58).observed,false,'clear view still requires explicit recording');
  saved.push(target);assert.equal(tick(target,58).observed,true);
  assert.equal(progress.suggestedTarget(),order[i+1]??null);
 }
@@ -99,19 +99,3 @@ for(const focal of [400,800,1600]){
  assert(check(5,.096).recordingCentered,'Reacquiring the same pointing at 5 mm cannot depend on a previous frame');
 }
 console.log(`PASS ${configurations} four-target pointing cases; canvas details require acquisition, frozen snapshots remain stable; explicit-record completion, off-center/frozen/inactive/back-facing guards, independent completion and ordered hints.`);
-
-// Several neighboring knob pairs qualify while retaining nonzero visual blur.
-const tolerant=new N.ObservationAim();tolerant.select('saturn');
-const adjust=(focal,eyepiece)=>tolerant.update({active:true,state:{...defaultState,target:'saturn',focal,eyepiece},pointing:{horizontalError:0,verticalError:0,facing:true}});
-for(const pair of [[1500,35],[1550,25],[1480,45]]){
- tolerant.reset();tolerant.select('saturn');
- assert(N.store.focusBlur({focal:pair[0],eyepiece:pair[1]})>0);
- assert(adjust(...pair).focused,'near-focus pair is accepted without exact matching');
-}
-tolerant.reset();tolerant.select('saturn');
-assert.equal(adjust(1450,33).focused,false,'outside entry band cannot start discovery');
-assert.equal(adjust(1500,35).focused,true);
-assert.equal(adjust(1450,33).focused,true,'small movement retains focus inside wider exit band');
-assert.equal(adjust(1400,25).focused,false,'obvious defocus disables recording');
-assert.equal(adjust(1450,33).focused,false,'must re-enter clear band after losing focus');
-console.log('PASS near-focus range and hysteresis across multiple original knob settings.');

@@ -42,7 +42,8 @@
  dot.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();e.stopPropagation();nudge(e.key==='ArrowLeft'?-1:1);}});
  for(const button of tip.querySelectorAll('button'))button.onclick=()=>nudge(Number(button.dataset.focusDirection));
  const off=N.course.subscribe(s=>{if(motion&&!motion.applying&&(s.stage!=='mirrors'||config(s).key!==motion.c.key||N.course.resetVersion!==motion.reset||Math.abs(config(s).value-motion.value)>1e-6))stopMotion();if(drag&&(s.stage!=='mirrors'||config(s).key!==drag.c.key||N.course.resetVersion!==drag.reset)){cancelAnimationFrame(moveFrame);moveFrame=0;pendingX=null;drag=null;}const c=config(s),virtual=c.lens?s.lens==='concave':s.mirror==='convex';output.querySelector('.newton-focus-name').textContent=virtual?'虚焦点 F':'实焦点 F';output.querySelector('.newton-focus-value').textContent='焦距 '+Math.round(c.lens?N.lensOptics.focalLength(s):c.value)+' mm'+(c.lens?'（示意）':'');dot.setAttribute('aria-label',output.textContent+'，左右拖动调节');});
- N.focusControls={place(x,y,w,h){dot.hidden=x<0||x>w||y<0||y>h;tip.style.setProperty('--focus-tip-offset',Math.max(245,Math.min(w-245,x))-x+'px');},};
+ // Keep the controls in the clear upper band; the draggable dot still marks F.
+ N.focusControls={place(x,y,w,h){dot.hidden=x<0||x>w||y<0||y>h;tip.style.setProperty('--focus-tip-offset',w*.5-x+'px');tip.style.setProperty('--focus-tip-top',64-y+'px');},};
  document.addEventListener('visibilitychange',()=>{if(document.hidden)stopMotion();});
  N.course.refresh();window.addEventListener('pagehide',()=>{off();stopMotion();cancelAnimationFrame(moveFrame);pendingX=null;drag=null;});
 })(window.Newton);

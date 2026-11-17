@@ -964,10 +964,13 @@
       const started = performance.now();
       const width = this.renderer.domElement.width;
       const height = this.renderer.domElement.height;
-      const camera = new this.THREE.OrthographicCamera(-23.5, 23.5, 20.5625, -20.5625, .1, 500);
+      const captureWidth = 800;
+      const aspect = framing.captureAspect || this.canvas.clientWidth / this.canvas.clientHeight || 800 / 700;
+      const captureHeight = Math.round(captureWidth / aspect);
+      const camera = new this.THREE.OrthographicCamera(-23.5, 23.5, 23.5 * captureHeight / captureWidth, -23.5 * captureHeight / captureWidth, .1, 500);
       camera.position.copy(this.camera.position); camera.quaternion.copy(this.camera.quaternion);
       if (cutaway) {
-        const halfHeight = framing.halfWidth * 700 / 800;
+        const halfHeight = framing.halfWidth * captureHeight / captureWidth;
         camera.left = -framing.halfWidth; camera.right = framing.halfWidth;
         camera.top = halfHeight; camera.bottom = -halfHeight;
         camera.updateProjectionMatrix();
@@ -977,10 +980,10 @@
           position: camera.position.toArray(),
           direction: camera.getWorldDirection(new this.THREE.Vector3()).toArray(),
           frustum: [camera.left, camera.right, camera.top, camera.bottom],
-          aspect: 800 / 700
+          aspect: captureWidth / captureHeight
         };
       }
-      this.renderer.setSize(800, 700, false);
+      this.renderer.setSize(captureWidth, captureHeight, false);
       const T = this.THREE;
       const overlay = new T.Group();
       const samples = this.sectionSamples();
@@ -1054,6 +1057,7 @@
       const extent = visual.radius * (1.3 + visual.spread);
       this.annotationViews ||= {};
       this.annotationViews[cutaway ? 'cutaway' : 'whole'] = {
+        viewportHeight: captureHeight,
         baseline: project(0, 0, 0),
         left: project(leftRim.x, leftRim.height, 0), right: project(rightRim.x, rightRim.height, 0),
         floor: project(floor.x, floor.height, 0),

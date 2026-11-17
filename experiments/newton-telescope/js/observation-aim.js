@@ -40,11 +40,9 @@
       const withinCenter=aligned&&recordOffset<=centerZone;
       const stablePointing=recordOffset<=(wasCentered ? .14 : .12);
       const recordingCentered=Boolean(facing&&distance<=1&&(withinCenter||stablePointing));
-      const wasFocused=this.current?.target===state.target&&this.current.focused;
-      const focused=N.store.focusAcceptable(state,Boolean(wasFocused));
       if(N.course?.get?.().observedTargets?.includes(state.target))this.completed.add(state.target);
       return this.current={...base,selected:true,available:true,acquired:this.acquired,inField:facing&&distance<=1,x,y,distance,
-        facing,aligned,focused,recordingCentered,observed:this.completed.has(state.target),horizontalError:pointing.horizontalError,verticalError:pointing.verticalError};
+        facing,aligned,recordingCentered,observed:this.completed.has(state.target),horizontalError:pointing.horizontalError,verticalError:pointing.verticalError};
     }
     suggestedTarget(recordedTarget){
       const order=Object.keys(N.observationTargets);
