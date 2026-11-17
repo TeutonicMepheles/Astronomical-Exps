@@ -1,0 +1,38 @@
+{
+  "workflow": "Seedream 5.5 via LibTV CLI",
+  "projectUuid": "6e1c75a3bcfe4d439a073c1ed919eaff",
+  "styleNode": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+  "styleFile": "../../assets/car-side.png",
+  "settings": {
+    "quality": "2K",
+    "ratio": "1:1",
+    "background": "transparent",
+    "modeType": "image2image"
+  },
+  "outputs": {
+    "sedan": {
+      "node": "baf40222-e623-475a-bdbd-ff75ccea723f",
+      "task": "20261116154303365507723",
+      "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023218417_88ce0afc07e648f7807249683168b039.png",
+      "sha256": "e238ba4fb3faff662d046db07690b4d64928e552ed3a792e8031e918400cfcf0"
+    },
+    "suv": {
+      "node": "c75f09b6-45dc-45ae-a27f-5412cf5dd087",
+      "task": "20261116154403107037723",
+      "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023223541_6669dc00ac254a288e19ec8f116fb5d0.png",
+      "sha256": "da126a9aec31c7a80074e4ce3edaa331120dc2d08dbceaf2a2607ee8de6eb107"
+    },
+    "bus": {
+      "node": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+      "task": "20261116154503894727723",
+      "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023225896_dae35bbd07494018871b7f16f0a9b9af.png",
+      "sha256": "a2de364a9cbe6743785cf99b70652ed5d01b420d293d0cfe035924312b47f9f4"
+    },
+    "bus-rear": {
+      "node": "67fae1c3-2ed2-4641-9950-b19cfa624b3e",
+      "task": "20261116154703824497723",
+      "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023233937_1fb57aa83d0645e3a9678f99f86b77bc.png",
+      "sha256": "82f315c4711d94c03c3a238222f1642196a1595e18e10f32de9c9d018235523c"
+    }
+  }
+}

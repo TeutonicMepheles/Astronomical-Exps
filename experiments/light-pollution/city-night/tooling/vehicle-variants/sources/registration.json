@@ -1,0 +1,1946 @@
+[
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 0,
+    "sourceBounds": [
+      105,
+      141,
+      232,
+      276
+    ],
+    "correction": null,
+    "registeredBounds": [
+      40,
+      51,
+      88,
+      102
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 1,
+    "sourceBounds": [
+      58,
+      138,
+      270,
+      280
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      50,
+      104,
+      104
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 2,
+    "sourceBounds": [
+      32,
+      141,
+      294,
+      277
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      52,
+      113,
+      103
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 3,
+    "sourceBounds": [
+      43,
+      149,
+      291,
+      267
+    ],
+    "correction": null,
+    "registeredBounds": [
+      16,
+      54,
+      111,
+      99
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 4,
+    "sourceBounds": [
+      38,
+      146,
+      297,
+      277
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      53,
+      113,
+      103
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 5,
+    "sourceBounds": [
+      60,
+      149,
+      272,
+      280
+    ],
+    "correction": null,
+    "registeredBounds": [
+      23,
+      55,
+      103,
+      104
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 6,
+    "sourceBounds": [
+      105,
+      146,
+      231,
+      271
+    ],
+    "correction": null,
+    "registeredBounds": [
+      40,
+      55,
+      87,
+      102
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 7,
+    "sourceBounds": [
+      57,
+      141,
+      271,
+      275
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      54,
+      104,
+      104
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 8,
+    "sourceBounds": [
+      33,
+      139,
+      295,
+      272
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      53,
+      113,
+      103
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 9,
+    "sourceBounds": [
+      46,
+      141,
+      295,
+      261
+    ],
+    "correction": null,
+    "registeredBounds": [
+      17,
+      53,
+      112,
+      99
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 10,
+    "sourceBounds": [
+      40,
+      134,
+      299,
+      272
+    ],
+    "correction": null,
+    "registeredBounds": [
+      15,
+      50,
+      114,
+      103
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 0,
+    "yaw": 11,
+    "sourceBounds": [
+      62,
+      131,
+      272,
+      275
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      49,
+      104,
+      104
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 0,
+    "sourceBounds": [
+      105,
+      120,
+      231,
+      299
+    ],
+    "correction": null,
+    "registeredBounds": [
+      40,
+      46,
+      88,
+      114
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 1,
+    "sourceBounds": [
+      58,
+      116,
+      268,
+      300
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      46,
+      104,
+      116
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 2,
+    "sourceBounds": [
+      33,
+      126,
+      294,
+      293
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      50,
+      113,
+      113
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 3,
+    "sourceBounds": [
+      43,
+      139,
+      290,
+      270
+    ],
+    "correction": null,
+    "registeredBounds": [
+      16,
+      55,
+      111,
+      105
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 4,
+    "sourceBounds": [
+      39,
+      134,
+      297,
+      292
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      52,
+      113,
+      113
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 5,
+    "sourceBounds": [
+      62,
+      115,
+      270,
+      301
+    ],
+    "correction": null,
+    "registeredBounds": [
+      23,
+      44,
+      103,
+      116
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 6,
+    "sourceBounds": [
+      105,
+      116,
+      231,
+      297
+    ],
+    "correction": null,
+    "registeredBounds": [
+      40,
+      45,
+      88,
+      114
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 7,
+    "sourceBounds": [
+      58,
+      115,
+      268,
+      298
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      46,
+      104,
+      116
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 8,
+    "sourceBounds": [
+      34,
+      133,
+      296,
+      292
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      54,
+      113,
+      114
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 9,
+    "sourceBounds": [
+      46,
+      137,
+      296,
+      269
+    ],
+    "correction": null,
+    "registeredBounds": [
+      17,
+      55,
+      112,
+      105
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 10,
+    "sourceBounds": [
+      41,
+      127,
+      299,
+      292
+    ],
+    "correction": null,
+    "registeredBounds": [
+      15,
+      51,
+      114,
+      114
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 1,
+    "yaw": 11,
+    "sourceBounds": [
+      62,
+      116,
+      271,
+      300
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      46,
+      104,
+      116
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 0,
+    "sourceBounds": [
+      105,
+      101,
+      231,
+      326
+    ],
+    "correction": null,
+    "registeredBounds": [
+      40,
+      41,
+      88,
+      127
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 1,
+    "sourceBounds": [
+      58,
+      97,
+      267,
+      327
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      40,
+      104,
+      128
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 2,
+    "sourceBounds": [
+      33,
+      120,
+      295,
+      312
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      49,
+      113,
+      122
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 3,
+    "sourceBounds": [
+      43,
+      149,
+      291,
+      281
+    ],
+    "correction": null,
+    "registeredBounds": [
+      16,
+      60,
+      111,
+      111
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 4,
+    "sourceBounds": [
+      39,
+      121,
+      298,
+      310
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      50,
+      113,
+      122
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 5,
+    "sourceBounds": [
+      62,
+      97,
+      271,
+      328
+    ],
+    "correction": null,
+    "registeredBounds": [
+      23,
+      40,
+      103,
+      128
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 6,
+    "sourceBounds": [
+      105,
+      92,
+      232,
+      320
+    ],
+    "correction": null,
+    "registeredBounds": [
+      40,
+      40,
+      88,
+      126
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 7,
+    "sourceBounds": [
+      59,
+      91,
+      268,
+      321
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      40,
+      104,
+      128
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 8,
+    "sourceBounds": [
+      34,
+      113,
+      296,
+      304
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      50,
+      113,
+      122
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 9,
+    "sourceBounds": [
+      45,
+      141,
+      296,
+      275
+    ],
+    "correction": null,
+    "registeredBounds": [
+      17,
+      59,
+      112,
+      110
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 10,
+    "sourceBounds": [
+      40,
+      113,
+      299,
+      303
+    ],
+    "correction": null,
+    "registeredBounds": [
+      15,
+      49,
+      114,
+      122
+    ]
+  },
+  {
+    "type": "sedan",
+    "pitch": 2,
+    "yaw": 11,
+    "sourceBounds": [
+      62,
+      92,
+      272,
+      323
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      40,
+      104,
+      128
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 0,
+    "sourceBounds": [
+      95,
+      118,
+      228,
+      277
+    ],
+    "correction": null,
+    "registeredBounds": [
+      42,
+      50,
+      85,
+      101
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 1,
+    "sourceBounds": [
+      49,
+      119,
+      275,
+      282
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      45,
+      105,
+      103
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 2,
+    "sourceBounds": [
+      34,
+      125,
+      298,
+      279
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      44,
+      113,
+      102
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 3,
+    "sourceBounds": [
+      41,
+      137,
+      293,
+      268
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      50,
+      111,
+      98
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 4,
+    "sourceBounds": [
+      37,
+      133,
+      293,
+      277
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      46,
+      113,
+      102
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 5,
+    "sourceBounds": [
+      47,
+      134,
+      264,
+      281
+    ],
+    "correction": null,
+    "registeredBounds": [
+      23,
+      48,
+      104,
+      103
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 6,
+    "sourceBounds": [
+      94,
+      108,
+      225,
+      292
+    ],
+    "correction": "register correct rear master to low-elevation guide",
+    "registeredBounds": [
+      44,
+      46,
+      83,
+      101
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 7,
+    "sourceBounds": [
+      48,
+      119,
+      274,
+      272
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      48,
+      105,
+      103
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 8,
+    "sourceBounds": [
+      32,
+      122,
+      294,
+      271
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      46,
+      113,
+      102
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 9,
+    "sourceBounds": [
+      40,
+      122,
+      293,
+      257
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      49,
+      110,
+      98
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 10,
+    "sourceBounds": [
+      38,
+      110,
+      292,
+      270
+    ],
+    "correction": null,
+    "registeredBounds": [
+      17,
+      43,
+      111,
+      102
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 0,
+    "yaw": 11,
+    "sourceBounds": [
+      67,
+      119,
+      293,
+      282
+    ],
+    "correction": "mirror matching front 30-degree view for 330 degrees",
+    "registeredBounds": [
+      23,
+      45,
+      104,
+      103
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 0,
+    "sourceBounds": [
+      92,
+      88,
+      228,
+      298
+    ],
+    "correction": null,
+    "registeredBounds": [
+      42,
+      47,
+      85,
+      113
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 1,
+    "sourceBounds": [
+      52,
+      89,
+      271,
+      304
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      36,
+      105,
+      116
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 2,
+    "sourceBounds": [
+      37,
+      105,
+      294,
+      295
+    ],
+    "correction": null,
+    "registeredBounds": [
+      15,
+      39,
+      112,
+      111
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 3,
+    "sourceBounds": [
+      39,
+      130,
+      294,
+      272
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      51,
+      111,
+      103
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 4,
+    "sourceBounds": [
+      37,
+      123,
+      290,
+      293
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      44,
+      113,
+      111
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 5,
+    "sourceBounds": [
+      55,
+      111,
+      265,
+      295
+    ],
+    "correction": null,
+    "registeredBounds": [
+      23,
+      45,
+      104,
+      116
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 6,
+    "sourceBounds": [
+      94,
+      108,
+      225,
+      292
+    ],
+    "correction": null,
+    "registeredBounds": [
+      42,
+      54,
+      85,
+      114
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 7,
+    "sourceBounds": [
+      46,
+      108,
+      271,
+      297
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      48,
+      105,
+      116
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 8,
+    "sourceBounds": [
+      32,
+      117,
+      294,
+      286
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      48,
+      113,
+      112
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 9,
+    "sourceBounds": [
+      39,
+      124,
+      293,
+      268
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      51,
+      111,
+      104
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 10,
+    "sourceBounds": [
+      37,
+      112,
+      291,
+      286
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      44,
+      113,
+      112
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 1,
+    "yaw": 11,
+    "sourceBounds": [
+      71,
+      89,
+      290,
+      304
+    ],
+    "correction": "mirror matching front 30-degree view for 330 degrees",
+    "registeredBounds": [
+      23,
+      36,
+      104,
+      116
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 0,
+    "sourceBounds": [
+      93,
+      95,
+      227,
+      330
+    ],
+    "correction": null,
+    "registeredBounds": [
+      42,
+      51,
+      85,
+      126
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 1,
+    "sourceBounds": [
+      49,
+      105,
+      267,
+      329
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      45,
+      105,
+      128
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 2,
+    "sourceBounds": [
+      36,
+      116,
+      294,
+      315
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      45,
+      113,
+      121
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 3,
+    "sourceBounds": [
+      38,
+      143,
+      292,
+      292
+    ],
+    "correction": null,
+    "registeredBounds": [
+      20,
+      56,
+      109,
+      108
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 4,
+    "sourceBounds": [
+      38,
+      128,
+      291,
+      314
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      48,
+      113,
+      121
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 5,
+    "sourceBounds": [
+      57,
+      109,
+      266,
+      328
+    ],
+    "correction": null,
+    "registeredBounds": [
+      23,
+      43,
+      104,
+      128
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 6,
+    "sourceBounds": [
+      94,
+      95,
+      226,
+      321
+    ],
+    "correction": null,
+    "registeredBounds": [
+      42,
+      52,
+      85,
+      126
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 7,
+    "sourceBounds": [
+      50,
+      94,
+      266,
+      321
+    ],
+    "correction": null,
+    "registeredBounds": [
+      24,
+      43,
+      105,
+      128
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 8,
+    "sourceBounds": [
+      33,
+      115,
+      294,
+      300
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      50,
+      113,
+      120
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 9,
+    "sourceBounds": [
+      39,
+      129,
+      294,
+      278
+    ],
+    "correction": null,
+    "registeredBounds": [
+      20,
+      56,
+      109,
+      108
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 10,
+    "sourceBounds": [
+      38,
+      115,
+      291,
+      301
+    ],
+    "correction": null,
+    "registeredBounds": [
+      14,
+      47,
+      113,
+      120
+    ]
+  },
+  {
+    "type": "suv",
+    "pitch": 2,
+    "yaw": 11,
+    "sourceBounds": [
+      75,
+      105,
+      293,
+      329
+    ],
+    "correction": "mirror matching front 30-degree view for 330 degrees",
+    "registeredBounds": [
+      23,
+      45,
+      104,
+      128
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 0,
+    "sourceBounds": [
+      144,
+      131,
+      230,
+      280
+    ],
+    "correction": null,
+    "registeredBounds": [
+      51,
+      58,
+      77,
+      103
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 1,
+    "sourceBounds": [
+      80,
+      133,
+      278,
+      281
+    ],
+    "correction": null,
+    "registeredBounds": [
+      30,
+      50,
+      99,
+      102
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 2,
+    "sourceBounds": [
+      48,
+      142,
+      296,
+      276
+    ],
+    "correction": null,
+    "registeredBounds": [
+      16,
+      48,
+      111,
+      99
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 3,
+    "sourceBounds": [
+      45,
+      158,
+      293,
+      264
+    ],
+    "correction": null,
+    "registeredBounds": [
+      17,
+      55,
+      111,
+      95
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 4,
+    "sourceBounds": [
+      79,
+      292,
+      337,
+      434
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      17,
+      47,
+      111,
+      99
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 5,
+    "sourceBounds": [
+      114,
+      280,
+      304,
+      444
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      30,
+      43,
+      98,
+      102
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 6,
+    "sourceBounds": [
+      165,
+      276,
+      245,
+      441
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      51,
+      49,
+      77,
+      103
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 7,
+    "sourceBounds": [
+      106,
+      279,
+      300,
+      444
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      30,
+      43,
+      99,
+      102
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 8,
+    "sourceBounds": [
+      74,
+      293,
+      334,
+      433
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      16,
+      48,
+      111,
+      99
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 9,
+    "sourceBounds": [
+      43,
+      133,
+      293,
+      240
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      55,
+      111,
+      95
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 10,
+    "sourceBounds": [
+      42,
+      112,
+      283,
+      256
+    ],
+    "correction": null,
+    "registeredBounds": [
+      20,
+      47,
+      107,
+      99
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 0,
+    "yaw": 11,
+    "sourceBounds": [
+      52,
+      104,
+      237,
+      257
+    ],
+    "correction": null,
+    "registeredBounds": [
+      29,
+      45,
+      98,
+      102
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 0,
+    "sourceBounds": [
+      144,
+      71,
+      228,
+      279
+    ],
+    "correction": null,
+    "registeredBounds": [
+      51,
+      53,
+      77,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 1,
+    "sourceBounds": [
+      79,
+      71,
+      274,
+      279
+    ],
+    "correction": null,
+    "registeredBounds": [
+      30,
+      43,
+      99,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 2,
+    "sourceBounds": [
+      44,
+      91,
+      296,
+      269
+    ],
+    "correction": null,
+    "registeredBounds": [
+      17,
+      43,
+      110,
+      109
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 3,
+    "sourceBounds": [
+      45,
+      127,
+      293,
+      238
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      57,
+      110,
+      98
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 4,
+    "sourceBounds": [
+      82,
+      282,
+      336,
+      456
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      16,
+      44,
+      111,
+      109
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 5,
+    "sourceBounds": [
+      110,
+      260,
+      304,
+      479
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      29,
+      39,
+      98,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 6,
+    "sourceBounds": [
+      163,
+      252,
+      247,
+      481
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      51,
+      46,
+      77,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 7,
+    "sourceBounds": [
+      106,
+      260,
+      300,
+      479
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      30,
+      39,
+      99,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 8,
+    "sourceBounds": [
+      74,
+      281,
+      334,
+      456
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      16,
+      45,
+      111,
+      109
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 9,
+    "sourceBounds": [
+      45,
+      119,
+      294,
+      231
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      57,
+      109,
+      98
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 10,
+    "sourceBounds": [
+      42,
+      83,
+      286,
+      257
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      43,
+      111,
+      109
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 1,
+    "yaw": 11,
+    "sourceBounds": [
+      53,
+      62,
+      245,
+      272
+    ],
+    "correction": null,
+    "registeredBounds": [
+      29,
+      42,
+      98,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 0,
+    "sourceBounds": [
+      143,
+      48,
+      228,
+      279
+    ],
+    "correction": null,
+    "registeredBounds": [
+      51,
+      57,
+      77,
+      128
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 1,
+    "sourceBounds": [
+      83,
+      49,
+      273,
+      291
+    ],
+    "correction": null,
+    "registeredBounds": [
+      30,
+      40,
+      99,
+      128
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 2,
+    "sourceBounds": [
+      44,
+      74,
+      298,
+      261
+    ],
+    "correction": null,
+    "registeredBounds": [
+      16,
+      47,
+      111,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 3,
+    "sourceBounds": [
+      45,
+      115,
+      294,
+      223
+    ],
+    "correction": null,
+    "registeredBounds": [
+      20,
+      63,
+      108,
+      101
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 4,
+    "sourceBounds": [
+      82,
+      294,
+      334,
+      486
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      17,
+      45,
+      111,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 5,
+    "sourceBounds": [
+      109,
+      262,
+      303,
+      515
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      29,
+      38,
+      98,
+      128
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 6,
+    "sourceBounds": [
+      162,
+      257,
+      247,
+      516
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      51,
+      49,
+      77,
+      128
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 7,
+    "sourceBounds": [
+      108,
+      264,
+      299,
+      514
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      30,
+      38,
+      99,
+      128
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 8,
+    "sourceBounds": [
+      74,
+      294,
+      334,
+      486
+    ],
+    "correction": "dedicated rear-only Seedream pass",
+    "registeredBounds": [
+      16,
+      47,
+      111,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 9,
+    "sourceBounds": [
+      45,
+      118,
+      295,
+      222
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      63,
+      109,
+      101
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 10,
+    "sourceBounds": [
+      41,
+      67,
+      285,
+      255
+    ],
+    "correction": null,
+    "registeredBounds": [
+      18,
+      45,
+      111,
+      117
+    ]
+  },
+  {
+    "type": "bus",
+    "pitch": 2,
+    "yaw": 11,
+    "sourceBounds": [
+      53,
+      45,
+      237,
+      277
+    ],
+    "correction": null,
+    "registeredBounds": [
+      29,
+      41,
+      98,
+      128
+    ]
+  }
+]

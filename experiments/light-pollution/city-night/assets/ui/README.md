@@ -27,3 +27,5 @@ runtime-manifest.json 记录纹理、上传裁切及 SHA-256；lightingUI/sceneP
 ## 验证与已知限制
 
 整合验证见仓库 docs/INTEGRATION_20261113.md。科学光度、白板实机与长期运行仍待验收。
+
+2026-11-17：场景气泡及对应面板标题改用runtime.js原生面性SVG，不再使用本目录的对象PNG。关闭等操作按钮仍可沿用本目录资源；灯罩按钮另用assets/lamp-heads原素材裁片。

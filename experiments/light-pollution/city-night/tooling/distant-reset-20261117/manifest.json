@@ -1,0 +1,27 @@
+{
+  "canvas": [
+    2736,
+    1536
+  ],
+  "baseSHA256": "a660819692244b3843b9011d77cefc3c4668f4f2574c895b633d8cadb6506ccb",
+  "model": "Seedream 5.5",
+  "nativeOutput": [
+    2048,
+    2048
+  ],
+  "nodeKey": "99e4fb6c-f6fb-4499-890a-3f51147b749a",
+  "taskId": "20261117000903515227723",
+  "sourceCrop": [
+    2460,
+    860,
+    2736,
+    1150
+  ],
+  "buildingGroups": 87,
+  "apertures": 195,
+  "skylineComponents": 75,
+  "skyContribution": 0,
+  "windowLightEncoding": "sRGB-encoded linear increment; additive after decode",
+  "runtimeTextureSlotsAdded": 0,
+  "notes": "Source crop is 276x290, not native 2K detail. Raw model output is 2K. Generated architecture never replaces original geometry. Manual glass masks and isolated skyline components own all support."
+}
