@@ -88,7 +88,12 @@
   const skyTargets=scene.querySelector('.observation-targets');
   scene.querySelector('.observation-saturn-layer').append(skyTargets);
   scene.querySelector('.observation-art').removeAttribute('aria-hidden');
-  for(const button of targetButtons){const meta=N.observationTargets[button.dataset.observationTarget];button.style.left=meta.x+'px';button.style.top=meta.y+'px';}
+  for(const button of targetButtons){
+    const meta=N.observationTargets[button.dataset.observationTarget];button.style.left=meta.x+'px';button.style.top=meta.y+'px';
+    const star=document.createElement('i');star.className='observation-completion-star';star.setAttribute('aria-hidden','true');button.append(star);
+    star.addEventListener('animationend',()=>button.classList.remove('is-completing'));
+  }
+  function clearCompletionStars(){targetButtons.forEach(button=>button.classList.remove('is-completing'));}
   let active=false,lastStage='',lastReset=N.course.resetVersion,lastAimEnabled=false;
   const recording=N.observationRecording=new N.ObservationRecording(stage,inputs[1],renderAimGuide);
   function renderAimGuide(){
@@ -104,7 +109,7 @@
       direction.style.transform=`translate(-50%,-50%) rotate(${Math.atan2(value.y,value.x)*180/Math.PI}deg)`;
     }
     const name=N.observationTargets[value.target]?.name||'目标';
-    let hint=!value.selected?'选择天空热区':model?.autoAim?'正在进入观测范围':!value.acquired?'正在寻找目标':value.focused?'':'调节主镜或目镜，使画面清晰';
+    let hint=!value.selected?'选择天空热区':model?.autoAim?'正在进入观测范围':!value.acquired?'正在寻找目标':'';
     hint=record.hint??hint;
     aimHint.hidden=!hint;
     if(aimHint.textContent!==hint)aimHint.textContent=hint;
@@ -126,16 +131,18 @@
     targetButtons.forEach(button=>{
       const id=button.dataset.observationTarget,recorded=course.records.some(r=>r.target===id&&r.image);
       const observed=recorded||course.observedTargets.includes(id);
+      if(recorded&&button.dataset.observed==='false'&&active&&!document.hidden)button.classList.add('is-completing');
+      if(!observed)button.classList.remove('is-completing');
       button.dataset.observed=String(observed);
       button.setAttribute('aria-label',recorded?N.observationTargets[id].name+'，已记录':'待观测热区 '+(targetButtons.indexOf(button)+1));
     });
   }
   N.app.preview.subscribeDraw(renderAimGuide);
-  document.addEventListener('visibilitychange',()=>updateAim());
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)clearCompletionStars();updateAim();});
   $('.observation-instrument').addEventListener('pointingchange',()=>updateAim());
   function open(value){
     active=value;stage.classList.toggle('observation-is-open',active);
-    if(!active){recording.leave();model?.cancelAutoAim();}
+    if(!active){clearCompletionStars();recording.leave();model?.cancelAutoAim();}
     previewReveal.hidden=N.course.get().stage==='observation'&&!active;
     feedback.inert=!active;
     $('.observation-instrument').setAttribute('aria-expanded',String(active));

@@ -65,7 +65,7 @@ select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}select:dis
 #records{position:fixed;left:50%;top:50%;margin:0;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center}
 
 /* Consolidate notes and actions above the observation area. */
-#lab{grid-template-rows:88px minmax(0,1fr)}.workspace{grid-template-rows:48px minmax(0,1fr)}
+#lab{grid-template-rows:88px minmax(0,1fr)}.workspace{grid-template-rows:minmax(62px,auto) minmax(0,1fr)}
 .header-notes{display:grid;gap:7px;flex:1;font-size:14px;line-height:1.4;color:var(--muted)}.header-notes strong{font-weight:500;color:var(--ink)}
 .viewbar .launch-area{display:flex;align-items:center;gap:8px;margin:0 0 0 auto}.viewbar .launch{min-width:170px;min-height:44px;padding:0 15px;font-size:20px;gap:18px}.viewbar #status{font-size:12px;max-width:140px;min-height:0}.viewbar #status:empty{display:none}.viewbar #cancel{font-size:14px;padding:0 9px}
 

@@ -2,10 +2,10 @@
 (function(N){
  'use strict';
  const $=s=>document.querySelector(s),course=N.course;
- const progress=new NewtonTaskProgress($('#course-progress'),{onRequest:id=>course.requestEnter(id)});
+ const progress=new NewtonTaskProgress($('#course-progress'),{onRequest:id=>course.requestEnter(id,{manual:true})});
  const restart=document.createElement('button');restart.type='button';restart.id='restart-course';restart.className='course-restart';restart.textContent='重新开始实验';progress.popup.append(restart);
  restart.addEventListener('click',()=>{course.restart();progress.setExpanded(false);});
- const disconnect=connectNewtonProgress({course,view:progress});
+ const disconnect=connectNewtonProgress({course,view:progress,manualNavigation:true});
  // Catalog paths are relative to the preview page; resolve them without copying artwork.
  const hand=ExperimentHints.handIcons.find(icon=>icon.id==='grab');
  const guide=new ExperimentHints.GestureHint(),nameBubble=new ExperimentHints.NameBubble();
@@ -23,11 +23,12 @@
   timer=setTimeout(()=>{
    const s=course.get();if(N.trayTransition?.busy||s.stage!=='mirrors'||document.querySelector('.observatory').dataset.trayPage==='lenses'||s.seen.length||s.mirrorMounted||interacting||dismissed)return;
    guide.show({target:$('[data-mirror="'+(s.mirrorSelection||'concave')+'"]'),destination:anchor,mode:'drag',iconId:'grab'});
-   guide.node.querySelector('.exp-gesture-label').textContent='按住镜片，拖入光轴夹具';
+   guide.node.querySelector('.exp-gesture-label').textContent='按住镜片，拖到导轨安装位置';
   },700);
  }
  function describe(el){
   const s=course.get();if(N.trayTransition?.busy||s.stage!=='mirrors'||interacting||el.disabled)return;
+  if(!el.dataset.mirror&&!s.mirrorMounted&&!s.lens)return;
   const text=el.dataset.mirror?names[el.dataset.mirror]:document.querySelector('.observatory').dataset.trayPage==='lenses'?(s.lens?(s.lens==='concave'?'凹透镜':'凸透镜'):'透镜圆环镜座'):(s.mirrorMounted?names[s.mirror]:'镜片夹具');
   bubble.show({target:el,text});
  }
@@ -41,7 +42,7 @@
   if(el.dataset.mirror)on(el,'click',()=>queueMicrotask(()=>describe(el)));
   on(el,'pointerdown',()=>{interacting=true;stop();});
  });
- on($('#rail-carriage'),'click',()=>{course.clearMirrorSelection();arrows.hidden=false;bubble.hide();});
+ on($('#rail-carriage'),'click',()=>{course.clearMirrorSelection();const s=course.get();arrows.hidden=!s.mirrorMounted&&!s.lens;bubble.hide();});
  on(arrows,'pointerdown',()=>{interacting=true;stop();});
  on(arrows,'keydown',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();course.setMirrorPosition(course.get().mirrorPosition+(e.key==='ArrowLeft'?-.1:.1));}});
  on(document,'pointerdown',e=>{if(!e.target.closest('#rail-carriage,#mirror-move-handle,#mounted-mirror-controls'))arrows.hidden=true;});
@@ -50,7 +51,7 @@
  for(const event of ['pointerup','pointercancel','dragend'])on(document,event,release);
  on(document,'keydown',e=>{if(e.key==='Escape'){dismissed=true;arrows.hidden=true;stop();}});
  const unsubscribe=course.subscribe(s=>{
-  bubble.hide();if(N.trayTransition?.busy||s.stage!=='mirrors'||s.seen.length===0&&lastSeen>0)arrows.hidden=true;
+  bubble.hide();if(N.trayTransition?.busy||s.stage!=='mirrors'||!s.mirrorMounted&&!s.lens||s.seen.length===0&&lastSeen>0)arrows.hidden=true;
   if(s.stage!==lastStage||s.seen.length===0&&lastSeen>0){dismissed=false;stop();}
   if(N.trayTransition?.busy||s.stage!=='mirrors'||s.seen.length||s.mirrorMounted)stop();else schedule();
   lastStage=s.stage;lastSeen=s.seen.length;

@@ -4,6 +4,7 @@
  N.ObservationRecording=class{
   constructor(stage,eyepiece,changed){
    this.preview=N.app.preview;this.changed=changed;
+   this.criteria=new N.ObservationCriteria(this.preview.canvas.closest('.preview-card'));
    this.discovery=document.createElement('div');this.discovery.className='observation-discovery';this.discovery.hidden=true;
    this.discovery.innerHTML='<span role="status"></span><button type="button">记录结果</button>';
    this.discoveryTitle=this.discovery.querySelector('span');this.saveButton=this.discovery.querySelector('button');
@@ -29,17 +30,20 @@
    if(this.count.textContent!==count)this.count.textContent=count;
    const inRange=active&&aim?.acquired&&aim.target===optical.target&&!N.app.observationModel?.autoAim;
    const setup=N.store.observationSetup(optical);
-   const ready=setup.suitable&&N.observationArt?.ready&&inRange&&aim.aligned&&aim.focused&&optical.live&&N.store.focusAcceptable(optical,aim.focused);
+   const ready=setup.suitable&&N.observationArt?.ready&&inRange&&aim.aligned&&optical.live;
    const saved=course.records.some(r=>r.target===optical.target&&r.image);
-   this.discovery.hidden=!ready;
+   this.criteria.render(active,aim,optical,ready);
+   this.discovery.hidden=!inRange;
    this.saveButton.hidden=saved;
-   this.discoveryTitle.textContent=ready?'观测到'+N.observationTargets[optical.target].name:'';
+   this.saveButton.disabled=!ready;
+   this.saveButton.textContent=ready?'记录结果':'达标后记录';
+   this.discoveryTitle.textContent=saved?'已记录'+N.observationTargets[optical.target].name:ready?'观测到'+N.observationTargets[optical.target].name:'';
    return {hint:inRange&&!setup.suitable?setup.hint:inRange&&!N.observationArt?.ready?(N.observationArt?.failed?'观测图像加载失败，请刷新':'正在加载观测图像…'):ready?'':undefined};
   }
   captureObserved(){
    if(!N.observationArt?.ready||!this.active||this.capturing||document.hidden||N.app.observationModel?.autoAim)return;
    const optical=this.preview.state,live=N.store.get(),aim=this.preview.aim,course=N.course.get();
-   if(!N.store.observationSetup(optical).suitable||!optical.live||!live.live||optical.mode!=='parallel'||!aim?.aligned||!aim.focused||!N.store.focusAcceptable(optical,aim.focused)||aim.target!==optical.target)return;
+   if(!N.store.observationSetup(optical).suitable||!optical.live||!live.live||optical.mode!=='parallel'||!aim?.aligned||aim.target!==optical.target)return;
    if(['target','focal','eyepiece','aperture','mode'].some(k=>live[k]!==optical[k]))return;
    if(course.records.some(r=>r.target===optical.target&&r.image))return;
    const source=this.preview.canvas;if(!source.width||!source.height)return;
