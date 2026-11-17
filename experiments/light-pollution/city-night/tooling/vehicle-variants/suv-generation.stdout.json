@@ -1,0 +1,148 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "6e1c75a3bcfe4d439a073c1ed919eaff",
+  "newNodeKey": "c75f09b6-45dc-45ae-a27f-5412cf5dd087",
+  "reactFlowNode": {
+    "id": "c75f09b6-45dc-45ae-a27f-5412cf5dd087",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "lp-20261116-painted-suv-36views",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Create a production transparent sprite sheet for an educational night-city illustration. Image 1 is the exact pose and registration guide: preserve its SIX columns and SIX rows, all 36 separate vehicles, cell centers, wheel contacts, orientation, body size and every silhouette. Image 2 is the ORIGINAL painted sedan art and is the strict style reference. Repaint each guide vehicle as a muted burgundy compact SUV, visibly with a hood and taller cabin, with the SAME matte gouache-like hand-painted texture, restrained geometric simplification, fine grain, muted night palette, subtle soft shading and dark glass as Image 2. Do not leave any flat untextured polygon placeholder. Geometry and registration come from Image 1, painting style from Image 2. Each consecutive pair of rows forms a full 360 degree turntable of 12 poses in 30 degree steps; the three pairs use elevations 20, 40 and 60 degrees. Keep exactly those poses and cell centers. No ground, shadows, road, environment, labels, grid lines, borders, people or text. All headlights and taillights OFF, no baked glare or bloom; runtime adds lights separately. Whole body and wheels visible in each cell. True transparent alpha background, including spaces between vehicles; original 2K square output.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "1:1",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "87562dce-7d08-4c94-8d7f-d28bdaa4d68f",
+          "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "87562dce-7d08-4c94-8d7f-d28bdaa4d68f",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/18fef4761706e2259089c9b0022ea5bca2412aee.png"
+          },
+          {
+            "nodeId": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017446350_d4814040840747c68954cc39979da08c.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "87562dce-7d08-4c94-8d7f-d28bdaa4d68f",
+          "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+        ]
+      }
+    },
+    "position": {
+      "x": 5200,
+      "y": 2000
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 2,
+  "deletedCount": 0,
+  "createdCount": 2,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "51dfb497-d5d8-4218-9c52-e219cd5ebf4c",
+      "source": "87562dce-7d08-4c94-8d7f-d28bdaa4d68f",
+      "target": "c75f09b6-45dc-45ae-a27f-5412cf5dd087"
+    },
+    {
+      "connectionId": "2070a85b-48e3-4f4b-b98c-250a34e09c83",
+      "source": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+      "target": "c75f09b6-45dc-45ae-a27f-5412cf5dd087"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "c75f09b6-45dc-45ae-a27f-5412cf5dd087"
+  ]
+}
+{
+  "nodeKey": "c75f09b6-45dc-45ae-a27f-5412cf5dd087",
+  "nodeType": "image",
+  "taskId": "20261116154403107037723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "lp-20261116-painted-suv-36views",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023223541_6669dc00ac254a288e19ec8f116fb5d0.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Create a production transparent sprite sheet for an educational night-city illustration. Image 1 is the exact pose and registration guide: preserve its SIX columns and SIX rows, all 36 separate vehicles, cell centers, wheel contacts, orientation, body size and every silhouette. Image 2 is the ORIGINAL painted sedan art and is the strict style reference. Repaint each guide vehicle as a muted burgundy compact SUV, visibly with a hood and taller cabin, with the SAME matte gouache-like hand-painted texture, restrained geometric simplification, fine grain, muted night palette, subtle soft shading and dark glass as Image 2. Do not leave any flat untextured polygon placeholder. Geometry and registration come from Image 1, painting style from Image 2. Each consecutive pair of rows forms a full 360 degree turntable of 12 poses in 30 degree steps; the three pairs use elevations 20, 40 and 60 degrees. Keep exactly those poses and cell centers. No ground, shadows, road, environment, labels, grid lines, borders, people or text. All headlights and taillights OFF, no baked glare or bloom; runtime adds lights separately. Whole body and wheels visible in each cell. True transparent alpha background, including spaces between vehicles; original 2K square output.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "1:1",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "87562dce-7d08-4c94-8d7f-d28bdaa4d68f",
+        "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "87562dce-7d08-4c94-8d7f-d28bdaa4d68f",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/18fef4761706e2259089c9b0022ea5bca2412aee.png"
+        },
+        {
+          "nodeId": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017446350_d4814040840747c68954cc39979da08c.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "87562dce-7d08-4c94-8d7f-d28bdaa4d68f",
+        "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261116154403107037723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    }
+  }
+}

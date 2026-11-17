@@ -1,0 +1,62 @@
+{
+  "open": {
+    "source": "assets/whole-road-open.png",
+    "sourceSHA256": "643985f9f8db4b0b9418248e7aa7ba242376b19a06d5f539782a7f8eac0e3c67",
+    "crop": [
+      760,
+      0,
+      1305,
+      448
+    ],
+    "output": "assets/lamp-heads/open.png",
+    "outputSHA256": "061e180f811d3298667b2e7cdd55d9b3bb879ba0b2c2588df2f292762149f589"
+  },
+  "cap": {
+    "source": "assets/whole-road-cap.png",
+    "sourceSHA256": "49190c8ef324c40a5e436b17f29fc84aadd1a66f3b168a4961b659127422bdc0",
+    "crop": [
+      760,
+      0,
+      1305,
+      448
+    ],
+    "output": "assets/lamp-heads/cap.png",
+    "outputSHA256": "6d62a008c29a8039d388840910ad4ce08ab99562b7ce48ccba89441ca035e7c9"
+  },
+  "half": {
+    "source": "assets/whole-road-half.png",
+    "sourceSHA256": "c998fa58abc577e1c1cff44e1232b50e45a6895b1d09d15de1d9d9089184247e",
+    "crop": [
+      760,
+      0,
+      1305,
+      416
+    ],
+    "output": "assets/lamp-heads/half.png",
+    "outputSHA256": "35a38c1a8247fbe36981cd1e6a31c0535d9463d5c8da5c42531765c514b0d8c0"
+  },
+  "full": {
+    "source": "assets/whole-road-full.png",
+    "sourceSHA256": "8031c90b770d80c3b7f08ea6459aaa7a6bab30bec548d32aee75a2345b66083b",
+    "crop": [
+      760,
+      0,
+      1305,
+      416
+    ],
+    "output": "assets/lamp-heads/full.png",
+    "outputSHA256": "c2c8999f3d5d4ae70be6a291aea5e375ee0e5e27aec64b48b859068d96a084cf"
+  },
+  "off": {
+    "source": "assets/whole-road-off.png",
+    "sourceSHA256": "5f92666742fd3e074d7d194a14fbc2a07b25b7e7e5a4f873323f3e6664455d87",
+    "crop": [
+      760,
+      0,
+      1305,
+      416
+    ],
+    "output": "assets/lamp-heads/off.png",
+    "outputSHA256": "2fe9caaa12f7ce13764f60151169c921f9f76b4b612694969e81a8f076cfffae"
+  }
+}

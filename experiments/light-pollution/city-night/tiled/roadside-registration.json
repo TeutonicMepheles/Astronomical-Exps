@@ -1,0 +1,131 @@
+{
+  "reference": "User annotated road-edge image, 2026-11-16; registered against current fixed base, 82 feature inliers. Visual placement only. Middle cross street: latest annotated image registered with 219 feature inliers; separate north/south curb constraints. West middle street corrected independently using latest user annotation, 334 feature inliers; path-34 moved from diagonal corner to south sidewalk.",
+  "routes": {
+    "west": {
+      "xPerY": -0.2782248384422223,
+      "intercept": 1517.538795086382,
+      "worldPoints": [
+        [
+          1345.8639688586181,
+          617.036304842405
+        ],
+        [
+          1172.682942450575,
+          1239.4862175737112
+        ]
+      ]
+    },
+    "east": {
+      "xPerY": 0.12160314335013436,
+      "intercept": 1325.2277427473593,
+      "worldPoints": [
+        [
+          1400.2621096336286,
+          617.0429876982864
+        ],
+        [
+          1475.9576935786938,
+          1239.5234751237929
+        ]
+      ]
+    },
+    "middleNorth": {
+      "yPerX": -0.002615683835838886,
+      "intercept": 918.7593797571718,
+      "worldPoints": [
+        [
+          1460.4680371088261,
+          914.9392571197473
+        ],
+        [
+          2386.8053266602624,
+          912.5162516449327
+        ]
+      ]
+    },
+    "middleSouth": {
+      "yPerX": -0.022003445185585523,
+      "intercept": 1009.5875990337478,
+      "worldPoints": [
+        [
+          1942.3845732028474,
+          966.8484465479519
+        ],
+        [
+          2373.2854976704098,
+          957.3671416760119
+        ]
+      ]
+    },
+    "westMiddleNorth": {
+      "yPerX": 0.010118992635372184,
+      "intercept": 890.0553135882548,
+      "worldPoints": [
+        [
+          510.47647976254217,
+          895.2208213275027
+        ],
+        [
+          1259.9048529580107,
+          902.8042815166066
+        ]
+      ]
+    },
+    "westMiddleSouth": {
+      "yPerX": 0.01621063119009621,
+      "intercept": 930.4382197756581,
+      "worldPoints": [
+        [
+          548.0742661798142,
+          939.3228495694817
+        ],
+        [
+          1234.2083498367094,
+          950.4455161465983
+        ]
+      ]
+    }
+  },
+  "frontRoadY": 1309.419476913334,
+  "assignments": {
+    "road-1": "west",
+    "road-3": "west",
+    "road-5": "west",
+    "road-7": "west",
+    "road-16": "west",
+    "road-18": "west",
+    "road-20": "west",
+    "road-22": "west",
+    "road-24": "west",
+    "road-2": "east",
+    "road-4": "east",
+    "road-6": "east",
+    "road-8": "east",
+    "road-17": "east",
+    "road-19": "east",
+    "road-21": "east",
+    "road-23": "east",
+    "road-25": "east",
+    "road-11": "front",
+    "road-12": "front",
+    "road-14": "front",
+    "road-15": "front",
+    "path-31": "front",
+    "path-32": "front",
+    "path-45": "front",
+    "path-35": "westMiddleNorth",
+    "path-36": "westMiddleNorth",
+    "path-38": "westMiddleNorth",
+    "path-39": "middleNorth",
+    "path-40": "middleNorth",
+    "path-43": "middleSouth",
+    "path-44": "middleSouth",
+    "path-34": "westMiddleSouth",
+    "path-37": "westMiddleSouth"
+  },
+  "reviewedCurvedOrSideRoutes": {
+    "road-9": "southwest intersection sidewalk island",
+    "road-10": "southeast intersection sidewalk island",
+    "road-13": "west diagonal side street sidewalk"
+  }
+}

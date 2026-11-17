@@ -1,0 +1,165 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "6e1c75a3bcfe4d439a073c1ed919eaff",
+  "newNodeKey": "67fae1c3-2ed2-4641-9950-b19cfa624b3e",
+  "reactFlowNode": {
+    "id": "67fae1c3-2ed2-4641-9950-b19cfa624b3e",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "lp-20261116-painted-bus-rear-15views",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Create EXACTLY FIFTEEN separate teal-and-cream city bus sprites in FIVE columns and THREE rows, matching every pose and registration in image 1 exactly. This sheet contains ONLY REAR VIEWS. Every single bus FACES AWAY from the viewer; the BACK END, rear window and RED TAILLIGHTS are visible. Never put a front windshield, destination sign or white headlight on the visible back end. Columns are rear three-quarter left 120 degrees, rear three-quarter left 150 degrees, dead straight REAR 180 degrees, rear three-quarter right 210 degrees, rear three-quarter right 240 degrees. Rows are elevation 20,40,60 degrees. Image 2 is the existing painted bus body design; keep its teal paint, cream band, long body, window rhythm, wheels and proportions. Image 3 is the original painted sedan STYLE reference: use the same matte hand-painted gouache grain, subdued night palette and subtle shading. No road, ground, shadows, labels, borders, text or baked glare; all lamps off, red glass only on rear lamps. True transparent alpha 2K square PNG. The pose reference takes priority over trying to show the front of the bus.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "1:1",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "7bb8e12c-acdf-4435-87a4-4791f412135d",
+          "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+          "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "7bb8e12c-acdf-4435-87a4-4791f412135d",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/d37651d75f1c67bfc9fafab002543a61bd8441ab.png"
+          },
+          {
+            "nodeId": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023225896_dae35bbd07494018871b7f16f0a9b9af.png"
+          },
+          {
+            "nodeId": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017446350_d4814040840747c68954cc39979da08c.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "7bb8e12c-acdf-4435-87a4-4791f412135d",
+          "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+          "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+        ]
+      }
+    },
+    "position": {
+      "x": 6500,
+      "y": 3200
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 3,
+  "deletedCount": 0,
+  "createdCount": 3,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "be935f18-0dff-44c9-adf3-9ca24b37b219",
+      "source": "7bb8e12c-acdf-4435-87a4-4791f412135d",
+      "target": "67fae1c3-2ed2-4641-9950-b19cfa624b3e"
+    },
+    {
+      "connectionId": "9324acb8-e6da-4578-8ba0-2378cc1fdd58",
+      "source": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+      "target": "67fae1c3-2ed2-4641-9950-b19cfa624b3e"
+    },
+    {
+      "connectionId": "5063c6c8-ed61-481b-b79f-a7fb01a29823",
+      "source": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+      "target": "67fae1c3-2ed2-4641-9950-b19cfa624b3e"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "67fae1c3-2ed2-4641-9950-b19cfa624b3e"
+  ]
+}
+{
+  "nodeKey": "67fae1c3-2ed2-4641-9950-b19cfa624b3e",
+  "nodeType": "image",
+  "taskId": "20261116154703824497723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "lp-20261116-painted-bus-rear-15views",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023233937_1fb57aa83d0645e3a9678f99f86b77bc.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Create EXACTLY FIFTEEN separate teal-and-cream city bus sprites in FIVE columns and THREE rows, matching every pose and registration in image 1 exactly. This sheet contains ONLY REAR VIEWS. Every single bus FACES AWAY from the viewer; the BACK END, rear window and RED TAILLIGHTS are visible. Never put a front windshield, destination sign or white headlight on the visible back end. Columns are rear three-quarter left 120 degrees, rear three-quarter left 150 degrees, dead straight REAR 180 degrees, rear three-quarter right 210 degrees, rear three-quarter right 240 degrees. Rows are elevation 20,40,60 degrees. Image 2 is the existing painted bus body design; keep its teal paint, cream band, long body, window rhythm, wheels and proportions. Image 3 is the original painted sedan STYLE reference: use the same matte hand-painted gouache grain, subdued night palette and subtle shading. No road, ground, shadows, labels, borders, text or baked glare; all lamps off, red glass only on rear lamps. True transparent alpha 2K square PNG. The pose reference takes priority over trying to show the front of the bus.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "1:1",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "7bb8e12c-acdf-4435-87a4-4791f412135d",
+        "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+        "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "7bb8e12c-acdf-4435-87a4-4791f412135d",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/d37651d75f1c67bfc9fafab002543a61bd8441ab.png"
+        },
+        {
+          "nodeId": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023225896_dae35bbd07494018871b7f16f0a9b9af.png"
+        },
+        {
+          "nodeId": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017446350_d4814040840747c68954cc39979da08c.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "7bb8e12c-acdf-4435-87a4-4791f412135d",
+        "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+        "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261116154703824497723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    }
+  }
+}

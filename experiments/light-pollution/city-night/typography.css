@@ -18,3 +18,21 @@ aside button,aside select {font-size:var(--type-body);font-weight:400;min-height
 aside .detail-button {font-size:var(--type-action);font-weight:600;min-height:3.4cqw}
 
 .layout {--type-title:calc(48 * var(--type-unit));--type-body:calc(24 * var(--type-unit));--type-leading:calc(32 * var(--type-unit));--type-data-label:calc(30 * var(--type-unit));--type-number:calc(36 * var(--type-unit));--type-action:calc(36 * var(--type-unit));--type-help:calc(14 * var(--type-unit));}
+
+.editing-markers .marker{touch-action:none;cursor:grab}.editing-markers .marker:active{cursor:grabbing}.editing-markers .marker::before{outline:2px dashed #e8bc6b;outline-offset:4px}.marker-editor-bar{position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:13;display:flex;align-items:center;gap:.5cqw;padding:.45cqw .65cqw;border:1px solid #d5deeb;background:#f3f6ffed;border-radius:.65cqw;color:#29446b;box-shadow:0 .2cqw .8cqw #07173044;white-space:nowrap}.marker-editor-bar span,.marker-editor-bar button{font-size:var(--type-help)}.marker-editor-bar button{color:#29446b;background:#dfe7f4;border:1px solid #a7bad3;min-height:2cqw}
+
+/* Local heading/readout treatment, aligned with Newton and Foucault.
+   Static gradients keep the sky readable without a backdrop-filter pass. */
+.layout::before {content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#06102080,transparent 28%),radial-gradient(ellipse 42% 34% at 0 0,#06102066,transparent 100%),radial-gradient(ellipse 32% 52% at 100% 0,#06102080,transparent 100%)}
+.masthead {left:3.3%;top:5%;margin:0;color:#dbe8ff;line-height:1.2;letter-spacing:calc(1 * var(--type-unit));text-shadow:0 2px 12px #04112599}
+.masthead::before {content:"";display:block;width:3.6875cqw;height:.1875cqw;margin-bottom:.75cqw;background:#648fcf}
+.sky-readout {right:3%;top:5%;display:grid;gap:1.5cqw;margin:0;padding:0 0 0 1.125cqw;border:0;border-left:1px solid #b9d9ff66;border-radius:0;background:none;backdrop-filter:none;color:#edf5ff;text-shadow:0 2px 12px #041125e6}
+.sky-readout>div {min-width:0}
+.sky-readout dt {font-size:var(--type-data-label);font-weight:500;letter-spacing:.02em;color:#d2e3f4;line-height:1.2}
+.sky-readout output {color:#fff;font-size:var(--type-number);font-weight:500;line-height:1.1}
+
+.sky-readout {position:absolute;z-index:2;pointer-events:none;gap:1.5cqw}
+.sky-readout dd {display:flex;align-items:center;gap:.5cqw;margin:.3125cqw 0 0;font-variant-numeric:tabular-nums}
+.sky-readout .sky-metric-delta {display:grid;place-items:center;flex:none;width:1.875cqw;height:2cqw;border-radius:50%;background:#8cc8ff18;font-size:1.8125cqw;font-weight:900;line-height:1;opacity:0}
+.sky-readout .is-up .sky-metric-delta {opacity:1;color:#ffd36a;background:#ffd36a20;box-shadow:0 0 .875cqw #ffd36a38}
+.sky-readout .is-down .sky-metric-delta {opacity:1;color:#7ddcff;background:#7ddcff20;box-shadow:0 0 .875cqw #7ddcff38}

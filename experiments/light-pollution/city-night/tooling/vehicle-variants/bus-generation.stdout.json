@@ -1,0 +1,148 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "6e1c75a3bcfe4d439a073c1ed919eaff",
+  "newNodeKey": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+  "reactFlowNode": {
+    "id": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "lp-20261116-painted-bus-36views",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Create a production transparent sprite sheet for an educational night-city illustration. Image 1 is the exact pose and registration guide: preserve its SIX columns and SIX rows, all 36 separate vehicles, cell centers, wheel contacts, orientation, body size and every silhouette. Image 2 is the ORIGINAL painted sedan art and is the strict style reference. Repaint each guide vehicle as a teal and cream single-decker city bus, long body, repeated side windows, two axles and front passenger doors, with the SAME matte gouache-like hand-painted texture, restrained geometric simplification, fine grain, muted night palette, subtle soft shading and dark glass as Image 2. Do not leave any flat untextured polygon placeholder. Geometry and registration come from Image 1, painting style from Image 2. Each consecutive pair of rows forms a full 360 degree turntable of 12 poses in 30 degree steps; the three pairs use elevations 20, 40 and 60 degrees. Keep exactly those poses and cell centers. No ground, shadows, road, environment, labels, grid lines, borders, people or text. All headlights and taillights OFF, no baked glare or bloom; runtime adds lights separately. Whole body and wheels visible in each cell. True transparent alpha background, including spaces between vehicles; original 2K square output.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "1:1",
+          "background": "transparent"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "9fe637ae-4e95-40e4-a038-e2b018e92116",
+          "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "9fe637ae-4e95-40e4-a038-e2b018e92116",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/54108be750af4b87fe7d4c57c3546430797733c6.png"
+          },
+          {
+            "nodeId": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+            "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017446350_d4814040840747c68954cc39979da08c.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "9fe637ae-4e95-40e4-a038-e2b018e92116",
+          "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+        ]
+      }
+    },
+    "position": {
+      "x": 5200,
+      "y": 3200
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 2,
+  "deletedCount": 0,
+  "createdCount": 2,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "8264cfb5-61ab-4888-848d-b61992ddd57f",
+      "source": "9fe637ae-4e95-40e4-a038-e2b018e92116",
+      "target": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d"
+    },
+    {
+      "connectionId": "1199e928-3743-4708-b643-e5d23e1367e1",
+      "source": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+      "target": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d"
+  ]
+}
+{
+  "nodeKey": "74c2e9b4-a4f1-4814-815c-ee1b3de34d2d",
+  "nodeType": "image",
+  "taskId": "20261116154503894727723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "lp-20261116-painted-bus-36views",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1023225896_dae35bbd07494018871b7f16f0a9b9af.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Create a production transparent sprite sheet for an educational night-city illustration. Image 1 is the exact pose and registration guide: preserve its SIX columns and SIX rows, all 36 separate vehicles, cell centers, wheel contacts, orientation, body size and every silhouette. Image 2 is the ORIGINAL painted sedan art and is the strict style reference. Repaint each guide vehicle as a teal and cream single-decker city bus, long body, repeated side windows, two axles and front passenger doors, with the SAME matte gouache-like hand-painted texture, restrained geometric simplification, fine grain, muted night palette, subtle soft shading and dark glass as Image 2. Do not leave any flat untextured polygon placeholder. Geometry and registration come from Image 1, painting style from Image 2. Each consecutive pair of rows forms a full 360 degree turntable of 12 poses in 30 degree steps; the three pairs use elevations 20, 40 and 60 degrees. Keep exactly those poses and cell centers. No ground, shadows, road, environment, labels, grid lines, borders, people or text. All headlights and taillights OFF, no baked glare or bloom; runtime adds lights separately. Whole body and wheels visible in each cell. True transparent alpha background, including spaces between vehicles; original 2K square output.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "1:1",
+        "background": "transparent"
+      },
+      "imageListOrder": [
+        "9fe637ae-4e95-40e4-a038-e2b018e92116",
+        "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "9fe637ae-4e95-40e4-a038-e2b018e92116",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/54108be750af4b87fe7d4c57c3546430797733c6.png"
+        },
+        {
+          "nodeId": "c4e07bc0-80ee-4cd8-a22e-a76753f98db5",
+          "url": "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1017446350_d4814040840747c68954cc39979da08c.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "9fe637ae-4e95-40e4-a038-e2b018e92116",
+        "c4e07bc0-80ee-4cd8-a22e-a76753f98db5"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261116154503894727723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    }
+  }
+}

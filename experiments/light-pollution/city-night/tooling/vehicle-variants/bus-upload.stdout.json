@@ -1,0 +1,18 @@
+{
+  "nodeKey": "9fe637ae-4e95-40e4-a038-e2b018e92116",
+  "mediaKind": "image",
+  "cdnUrl": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/54108be750af4b87fe7d4c57c3546430797733c6.png",
+  "resourceMeta": {
+    "items": [
+      {
+        "kind": "image",
+        "mimeType": "image/png",
+        "byteSize": 1066035,
+        "extension": "png",
+        "hashSha1": "54108be750af4b87fe7d4c57c3546430797733c6",
+        "width": 2048,
+        "height": 2048
+      }
+    ]
+  }
+}

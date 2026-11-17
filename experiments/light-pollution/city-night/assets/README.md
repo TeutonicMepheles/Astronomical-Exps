@@ -29,3 +29,5 @@ runtime-manifest.json 记录纹理、上传裁切及 SHA-256；lightingUI/sceneP
 ## 验证与已知限制
 
 整合验证见仓库 docs/INTEGRATION_20261113.md。科学光度、白板实机与长期运行仍待验收。
+
+`lamp-heads/` 为原场景 `whole-road-*.png` 的无损灯头裁片，专用于灯罩按钮；source.json 记录源哈希、裁切框和输出哈希。由 tooling/build-lamp-head-icons.py 重建，不生成新造型，不包含灯杆。

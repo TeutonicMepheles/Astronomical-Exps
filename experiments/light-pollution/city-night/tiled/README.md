@@ -27,3 +27,7 @@ runtime-manifest.json 记录纹理、上传裁切及 SHA-256；lightingUI/sceneP
 ## 验证与已知限制
 
 整合验证见仓库 docs/INTEGRATION_20261113.md。科学光度、白板实机与长期运行仍待验收。
+
+立杆路灯尺寸仅由深度决定。Tiled 可调整灯脚位置；之后运行 `python experiments/light-pollution/city-night/tooling/normalize-fixture-scale.py`，同步本目录和 lighting-layout.json/js，不单独调整对象宽高。统一规则与美术标定记录见 lighting-layout.json 的 fixturePerspective。
+
+沿线灯脚还受 roadside-registration.json 约束：主干道可改纵深、横街可改沿街位置；横向/纵向的路沿对齐由归一化脚本计算。需要更改路沿时修订注册数据，避免单独拖动灯脚偏离路沿。

@@ -1,0 +1,131 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "image",
+  "projectUuid": "6e1c75a3bcfe4d439a073c1ed919eaff",
+  "newNodeKey": "99e4fb6c-f6fb-4499-890a-3f51147b749a",
+  "reactFlowNode": {
+    "id": "99e4fb6c-f6fb-4499-890a-3f51147b749a",
+    "type": "image",
+    "data": {
+      "type": "image",
+      "name": "lp-distant-right-pilot-relit-20261117",
+      "url": [],
+      "alt": "图片",
+      "action": "image_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Relight this exact local architectural crop only. Preserve every roof, wall plane, camera angle, facade perspective and EACH EXISTING WINDOW APERTURE at exactly the same location and shape. Turn on warm interior lights inside all existing windows, with softly textured painterly glass and restrained subtle light on the adjacent wall. Preserve the original matte hand-painted night-city illustration style. Do not redraw architecture, do not create rectangular stickers, do not enlarge the windows, do not add windows, do not change the window spacing, do not add stars, street lights, beams or sky glow. All dark non-window surfaces retain their original blue-gray material and texture. Only illumination changes; no crop or reposition. Native 2K output.",
+        "model": "doubao-seedream-5-5",
+        "count": 1,
+        "modeType": "image2image",
+        "settings": {
+          "quality": "2K",
+          "ratio": "1:1",
+          "background": "opaque"
+        },
+        "advancedSettings": {},
+        "imageListOrder": [
+          "6fdc3610-1603-4ac1-82f6-5b96f42ee8fc"
+        ],
+        "textList": [],
+        "imageList": [
+          {
+            "nodeId": "6fdc3610-1603-4ac1-82f6-5b96f42ee8fc",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/8ea7f6e0aceb42e6ec3151898d0092fe53d70f25.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "mixedListOrder": [
+          "6fdc3610-1603-4ac1-82f6-5b96f42ee8fc"
+        ]
+      }
+    },
+    "position": {
+      "x": 10000,
+      "y": 4000
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "8e2b79c4-64a7-414d-b9d7-105ff2f71f45",
+      "source": "6fdc3610-1603-4ac1-82f6-5b96f42ee8fc",
+      "target": "99e4fb6c-f6fb-4499-890a-3f51147b749a"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "99e4fb6c-f6fb-4499-890a-3f51147b749a"
+  ]
+}
+{
+  "nodeKey": "99e4fb6c-f6fb-4499-890a-3f51147b749a",
+  "nodeType": "image",
+  "taskId": "20261117000903515227723",
+  "status": 2,
+  "data": {
+    "type": "image",
+    "name": "lp-distant-right-pilot-relit-20261117",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/image/4bee29b0c9bf4a2fa62e3e7f16e337db/1024318850_de9aa6cc8aa24ab791e307fe11db0453.png"
+    ],
+    "alt": "图片",
+    "action": "image_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Relight this exact local architectural crop only. Preserve every roof, wall plane, camera angle, facade perspective and EACH EXISTING WINDOW APERTURE at exactly the same location and shape. Turn on warm interior lights inside all existing windows, with softly textured painterly glass and restrained subtle light on the adjacent wall. Preserve the original matte hand-painted night-city illustration style. Do not redraw architecture, do not create rectangular stickers, do not enlarge the windows, do not add windows, do not change the window spacing, do not add stars, street lights, beams or sky glow. All dark non-window surfaces retain their original blue-gray material and texture. Only illumination changes; no crop or reposition. Native 2K output.",
+      "model": "Seedream 5.5",
+      "count": 1,
+      "modeType": "image2image",
+      "settings": {
+        "quality": "2K",
+        "ratio": "1:1",
+        "background": "opaque"
+      },
+      "imageListOrder": [
+        "6fdc3610-1603-4ac1-82f6-5b96f42ee8fc"
+      ],
+      "textList": [],
+      "imageList": [
+        {
+          "nodeId": "6fdc3610-1603-4ac1-82f6-5b96f42ee8fc",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/8ea7f6e0aceb42e6ec3151898d0092fe53d70f25.png"
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "mixedListOrder": [
+        "6fdc3610-1603-4ac1-82f6-5b96f42ee8fc"
+      ]
+    },
+    "taskInfo": {
+      "taskId": "20261117000903515227723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "image",
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    }
+  }
+}
