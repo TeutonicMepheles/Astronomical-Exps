@@ -69,7 +69,13 @@
       <canvas width="1024" height="1024"></canvas>
     </div>
     <div class="ball-base-ao" aria-hidden="true"></div>
-    <canvas id="globe" tabindex="0" role="img" aria-label="可拖动旋转的地球，方向键旋转" ></canvas>
+    <canvas id="globe" tabindex="0" role="img" aria-label="可拖动旋转的地球，点按表面将该处转到正前方，方向键旋转" ></canvas>
+    <button id="globeTurnLeft" class="globe-turn" type="button" aria-label="地球向左转30度">
+      <svg viewBox="0 0 64 72" aria-hidden="true"><path d="M50 8 14 36 50 64Z"/></svg>
+    </button>
+    <button id="globeTurnRight" class="globe-turn" type="button" aria-label="地球向右转30度">
+      <svg viewBox="0 0 64 72" aria-hidden="true"><path d="M14 8 50 36 14 64Z"/></svg>
+    </button>
     <div class="meridian-stem" aria-hidden="true">
       <img src="assets/meridian-stem.png" alt="" draggable="false">
       <canvas width="1024" height="1024"></canvas>
@@ -127,7 +133,28 @@
       </svg>
       <span class="parameter-button-label">单摆调节</span>
     </button>
-    <div id="stage1Readout" aria-live="polite"></div>
+    <div id="stage1Readout" aria-live="polite">
+      <div class="location-heading">
+        <svg class="location-pendulum" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <radialGradient id="locationBobFill" cx="35%" cy="32%" r="68%">
+              <stop offset="0" stop-color="#ffffff"/>
+              <stop id="locationBobMid" offset=".5" stop-color="#dce9f8"/>
+              <stop id="locationBobEdge" offset="1" stop-color="#7f9fc4"/>
+            </radialGradient>
+          </defs>
+          <g id="locationPendulumSwing">
+            <line id="locationPendulumLine" x1="24" y1="6" x2="24" y2="30" stroke="#e8f3ff" stroke-width="1.6" stroke-linecap="round"/>
+            <circle id="locationPendulumBob" cx="24" cy="36" r="6.4" fill="url(#locationBobFill)" stroke="#f5f9ff" stroke-width=".8"/>
+          </g>
+          <circle cx="24" cy="6" r="1.8" fill="#d7e8ff"/>
+        </svg>
+        <div>
+          <b id="locationName"></b>
+          <span class="location-coordinates"><strong id="locationLat"></strong> <span id="locationLon"></span></span>
+        </div>
+      </div>
+    </div>
     <dl id="precessionReadout" class="precession-readout" aria-label="偏转数据" aria-live="polite" aria-busy="false">
       <div class="metric period-metric">
         <dt>偏转周期</dt>
@@ -187,6 +214,67 @@
       <label class="stage-one-period">往返周期 <span><input id="stageOnePeriod" type="number" min="4" step="0.01" placeholder="16.42"> s</span></label>
     </section>
   </main>
+  <aside id="miniPendulumPanel" class="side-tune" aria-label="迷你摆调节">
+    <div class="tune-head">
+      <h2>迷你摆调节</h2>
+      <button class="tune-collapse" type="button" aria-expanded="true" aria-controls="miniPendulumBody" aria-label="收起迷你摆调节">
+        <svg class="tune-icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 6 8 12l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="tune-icon-shut" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="3" x2="12" y2="14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="18" r="3.2" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <div id="miniPendulumBody" class="tune-body">
+    <p>调地点标签里的小摆。速度 1 与大厅单摆的往返节奏相同，改动会留在这台浏览器里。</p>
+    <fieldset>
+      <legend>摆动</legend>
+      <label>速度<input data-mini="speed" type="range" min="0" max="8" step="0.05" value="3.15"><output>3.15</output></label>
+      <label>摆幅<input data-mini="amplitude" type="range" min="0" max="34" step="1" value="20"><output>20</output></label>
+    </fieldset>
+    <fieldset>
+      <legend>外形</legend>
+      <label>摆球<input data-mini="bob" type="range" min="3" max="9" step="0.1" value="6.4"><output>6.4</output></label>
+      <label>绳长<input data-mini="rope" type="range" min="16" max="32" step="1" value="30"><output>30</output></label>
+      <label>绳粗<input data-mini="stroke" type="range" min="0.6" max="3.2" step="0.1" value="1.6"><output>1.6</output></label>
+      <label>颜色<input data-mini="color" type="color" value="#dce9f8"><output>#dce9f8</output></label>
+    </fieldset>
+    <button id="miniPendulumReset" type="button">恢复默认</button>
+    </div>
+  </aside>
+  <aside id="globeTurnPanel" class="side-tune" aria-label="箭头调节">
+    <div class="tune-head">
+      <h2>箭头调节</h2>
+      <button class="tune-collapse" type="button" aria-expanded="true" aria-controls="globeTurnBody" aria-label="收起箭头调节">
+        <svg class="tune-icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="tune-icon-shut" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7 5 12l5 5M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div id="globeTurnBody" class="tune-body">
+    <p>坐标按 1600×900 页面计算，改动会留在这台浏览器里。</p>
+    <fieldset>
+      <legend>位置</legend>
+      <label>左箭头 X<input data-turn="leftX" type="range" min="-80" max="480" step="1" value="67"><output>67</output></label>
+      <label>左箭头 Y<input data-turn="leftY" type="range" min="120" max="820" step="1" value="700"><output>700</output></label>
+      <label>右箭头 X<input data-turn="rightX" type="range" min="360" max="980" step="1" value="612"><output>612</output></label>
+      <label>右箭头 Y<input data-turn="rightY" type="range" min="120" max="820" step="1" value="700"><output>700</output></label>
+    </fieldset>
+    <fieldset>
+      <legend>外形</legend>
+      <label>宽度<input data-turn="width" type="range" min="24" max="180" step="1" value="46"><output>46</output></label>
+      <label>高度<input data-turn="height" type="range" min="24" max="200" step="1" value="97"><output>97</output></label>
+      <label>描边<input data-turn="stroke" type="range" min="0" max="32" step="1" value="12"><output>12</output></label>
+      <label>不透明度<input data-turn="opacity" type="range" min="0.15" max="1" step="0.01" value="1"><output>1.00</output></label>
+      <label>颜色<input data-turn="color" type="color" value="#f5f8fc"><output>#f5f8fc</output></label>
+    </fieldset>
+    <fieldset>
+      <legend>阴影</legend>
+      <label>水平<input data-turn="shadowX" type="range" min="-24" max="24" step="1" value="0"><output>0</output></label>
+      <label>垂直<input data-turn="shadowY" type="range" min="-24" max="24" step="1" value="2"><output>2</output></label>
+      <label>模糊<input data-turn="shadowBlur" type="range" min="0" max="32" step="1" value="2"><output>2</output></label>
+      <label>浓淡<input data-turn="shadowAlpha" type="range" min="0" max="1" step="0.01" value="0.8"><output>0.80</output></label>
+      <label>颜色<input data-turn="shadowColor" type="color" value="#06101c"><output>#06101c</output></label>
+    </fieldset>
+    <button id="globeTurnReset" type="button">恢复默认</button>
+    </div>
+  </aside>
   <script src="../../shared/components/gesture.js"></script>
   <script src="../../shared/components/name-bubble.js"></script>
   <script type="module" src="js/main.js"></script>
