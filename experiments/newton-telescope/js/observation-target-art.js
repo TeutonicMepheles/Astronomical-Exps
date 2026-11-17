@@ -1,15 +1,20 @@
 /* LibTV transparent celestial sprites, decoded once and cached with original alpha. */
 (function(N){
  'use strict';
- const art=N.observationArt={ready:false,failed:false,sprites:{},listeners:new Set(),
+ const art=N.observationArt={ready:false,failed:false,sprites:{},extents:{},listeners:new Set(),
   subscribe(fn){this.listeners.add(fn);return()=>this.listeners.delete(fn);},
+  frameSize(target,magnification,w,h){
+   const reference=N.store.observationSetup({target,focal:800,eyepiece:25,aperture:130}).displayReference;
+   const height=Math.min(h,w*.55),base=target==='pleiades'?Math.min(w,h)*.88:height*(target==='jupiter'?.14:target==='moon'?.38:.31)*(target==='saturn'?4.15:2.84);
+   return base*magnification/reference;
+  },
+  footprint(target,magnification,w,h){return this.frameSize(target,magnification,w,h)*(this.extents[target]||1);},
   draw(ctx,target,r,w,h,scale){
    const sprite=this.sprites[target];if(!sprite)return;
    // Preserve the existing teaching angular-size hierarchy, not a common scale.
-   const reference=N.store.observationSetup({target,focal:800,eyepiece:25,aperture:130}).displayReference;
    // Illustration framing only: keep useful detail visible at the task power.
    // These painted sizes are not measured angular diameters.
-   const size=(target==='pleiades'?Math.min(w,h)*.88*scale:r*(target==='saturn'?4.15:2.84))*32/reference;
+   const size=this.frameSize(target,scale*32,w,h);
    ctx.drawImage(sprite,-size/2,-size/2,size,size);
   }
  };
@@ -26,6 +31,10 @@
   image.onload=()=>{
    const canvas=document.createElement('canvas');canvas.width=canvas.height=512;
    canvas.getContext('2d').drawImage(image,0,0,512,512);
+   // One alpha scan per decoded sprite, never per frame. Ignore faint halo pixels.
+   const pixels=canvas.getContext('2d').getImageData(0,0,512,512).data;let radiusSquared=0;
+   for(let y=0;y<512;y++)for(let x=0;x<512;x++)if(pixels[(y*512+x)*4+3]>=32)radiusSquared=Math.max(radiusSquared,(x+.5-256)**2+(y+.5-256)**2);
+   art.extents[target]=Math.sqrt(radiusSquared)/256;
    art.sprites[target]=canvas;
    if(--pending===0&&!art.failed){art.ready=true;for(const fn of art.listeners)fn();}
   };

@@ -140,3 +140,24 @@ for(const [lens,min] of [['convex',92],['concave',85]]){
  assert.equal(lenses.shapeFromFocal(lens,2000),min);
 }
 console.log('PASS expanded lens focal ranges, signs, inverse control mapping, unchanged shape bounds and matching ray intersections.');
+
+// Current mounted artwork: the production meridian differs from historical side-view parts.
+vm.runInContext(fs.readFileSync(require('node:path').join(root,'js/mounted-mirror-model.js'),'utf8'),context);
+const mounted=context.window.Newton.mountedMirrorModel;
+for(const mirror of ['plane','concave','convex'])for(const focal of mirror==='plane'?[700]:mirror==='concave'?[300,450,600]:[300,600,900,1200])for(const position of [-2,0,3.5]){
+ const s={mirror,mirrorFocal:focal,mirrorPosition:position,mirrorSource:-6,mirrorMounted:true};
+ for(const ray of calc(s)){
+  const hit=ray.points[1],direction=ray.reflected,normal=ray.normal;
+  assert.ok(ray.points.flat().every(Number.isFinite));
+  assert.ok(Math.abs(normal[0]*(1+direction[0])+normal[1]*direction[1])<1e-10);
+  const py=330-hit[1]*125,px=(hit[0]-position)*125+mounted.specs[mirror].anchor;
+  assert.ok(Math.abs(px-mounted.profile(mirror,focal).atY(py))<1e-9);
+  if(mirror==='plane'){assert.ok(Math.abs(direction[0])<1e-10);assert.ok(direction[1]>.999);}
+  else{
+   const target=context.window.Newton.mirrorOptics.focus(s);
+   assert.ok(Math.abs((target[0]-hit[0])*direction[1]-(target[1]-hit[1])*direction[0])<1e-9);
+   assert.equal(Boolean(ray.virtual),mirror==='convex');
+  }
+ }
+}
+console.log('PASS current mounted illustrations: registered hits, plane deflection, curved reflection and real/virtual focus at all focal endpoints.');

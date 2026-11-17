@@ -33,7 +33,7 @@
  const focus=(type,focal)=>toScene(type,curve(type,focal).focus);
  N.mirrorParts={config,ppu,axis,limits,curve,surface,focus,toScene};
  N.MirrorPartsArt=class{
-  constructor(onload){this.images={};this.sources={};for(const type of Object.keys(config)){
+  constructor(onload,{preload=true}={}){this.images={};this.sources={};if(!preload)return;for(const type of Object.keys(config)){
    this.images[type]={};for(const part of ['deformable','fixed']){const img=new Image();img.onload=onload;img.src=config[type][part].src;this.images[type][part]=img;}
   }}
   source(type){

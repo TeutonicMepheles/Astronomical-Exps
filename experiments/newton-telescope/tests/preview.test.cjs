@@ -1,9 +1,9 @@
 /* Canvas-level regression: scaling endpoints, scene spacing and frozen snapshots. */
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
-const elements=new Map(),arcs=[],translations=[];
+const elements=new Map(),arcs=[],translations=[],filters=[];
 const element=id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);};
 const gradient=()=>({addColorStop(){}});
-const ctx=new Proxy({arc(...args){assert(args.every(Number.isFinite));arcs.push(args);},translate(...args){translations.push(args);},createRadialGradient:gradient,createLinearGradient:gradient},{get:(target,key)=>target[key]||(()=>{})});
+const ctx=new Proxy({arc(...args){assert(args.every(Number.isFinite));arcs.push(args);},translate(...args){translations.push(args);},createRadialGradient:gradient,createLinearGradient:gradient},{set(target,key,value){if(key==='filter')filters.push(value);target[key]=value;return true;},get:(target,key)=>target[key]||(()=>{})});
 const canvas={clientWidth:270,clientHeight:142,getContext:()=>ctx,setAttribute(key,value){this[key]=value;}};
 const context={window:{},devicePixelRatio:1,ResizeObserver:class{observe(){}},document:{createElement:()=>({getContext:()=>ctx}),getElementById:element,querySelector:element}};
 vm.createContext(context);
@@ -61,10 +61,15 @@ arcs.length=0;preview.update({...N.store.get(),target:'saturn',live:true});
 assert.equal(JSON.stringify(arcs),sky,'Off-field target cannot drag the background away');
 console.log('PASS persistent star field before selection and during off-field search.');
 
-const initialBlur=N.store.focusBlur({focal:800,eyepiece:25});
-const primaryAdjusted=N.store.focusBlur({focal:1500,eyepiece:25});
-assert(initialBlur>8&&primaryAdjusted>0&&primaryAdjusted<initialBlur,'Primary focal adjustment changes defocus');
-assert.equal(N.store.focusBlur({focal:1500,eyepiece:47}),0,'Eyepiece adjustment completes focus at the current primary setting');
-assert(N.store.focusBlur({focal:800,eyepiece:47})>8,'Eyepiece alone does not bypass a mismatched primary setting');
-assert.equal(N.store.focusBlur({focal:1600,eyepiece:25}),0,'Another matched pair also focuses');
-console.log('PASS focus derives jointly from the original primary and eyepiece controls.');
+
+// Every target stays sharp throughout focal and aperture adjustments.
+preview.pendingAim={enabled:true,selected:true,acquired:true,x:0,y:0};
+for(const target of ['saturn','moon','jupiter','pleiades'])
+ for(const focal of [400,800,1600])for(const eyepiece of [5,25,50])for(const aperture of [80,130,250]){
+  preview.pendingAim.target=target;
+  preview.update({...N.store.get(),target,focal,eyepiece,aperture,live:true});
+ }
+assert(filters.length>0);
+assert(filters.every(filter=>!filter.includes('blur(')),'No drawing path applies defocus');
+assert(filters.some(filter=>filter.includes('brightness(')),'Brightness still responds');
+console.log('PASS all targets stay sharp across focal and brightness ranges.');

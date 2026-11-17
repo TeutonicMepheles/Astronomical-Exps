@@ -1,7 +1,7 @@
 /* Local supplied telescope, with a fixed-height horizontal camera orbit. */
 (function(N){
   'use strict';
-  const T=window.THREE,initialYaw=.9;
+  const T=window.THREE,initialYaw=1.42;
   N.ObservationModel=class{
     constructor(container){
       this.container=container;this.yaw=initialYaw;this.enabled=false;this.drag=null;this.frame=0;
@@ -195,15 +195,29 @@
       }
     }
     setEnabled(value){this.enabled=value;if(!value){this.end();if(this.transition)this.finishViewMode(this.viewMode);}else this.render();}
-    exteriorPose(yaw=this.exteriorYaw){return {center:new T.Vector3(0,1.62,0),span:1.53,yaw,lift:1.5};}
+    exteriorPose(yaw=this.exteriorYaw){return {center:new T.Vector3(0,1.62,0),span:1.53,yaw,lift:1.2};}
     applyPose(pose){
       const aspect=this.container.clientWidth/this.container.clientHeight;
       this.currentPose={center:pose.center.clone(),span:pose.span,yaw:pose.yaw,lift:pose.lift??1.2};this.yaw=pose.yaw;
-      // The painted environment follows the exact camera zoom, including reversals.
-      this.backdrop.style.setProperty('--environment-zoom',String(this.exteriorPose().span/pose.span));
       this.camera.left=-pose.span*aspect;this.camera.right=pose.span*aspect;this.camera.top=pose.span;this.camera.bottom=-pose.span;
       this.camera.updateProjectionMatrix();this.camera.position.copy(pose.center).add(new T.Vector3(Math.sin(pose.yaw)*6,pose.lift??1.2,Math.cos(pose.yaw)*6));
       this.camera.lookAt(pose.center);this.camera.updateMatrixWorld(true);
+      // A fixed camera direction makes every world point follow the same 2D
+      // scale + translation. Apply that mapping to the painted ground too;
+      // scaling about a fixed ground pivot alone makes the feet slide/lift.
+      const exterior=this.exteriorPose();
+      const origin=exterior.center.project(this.camera);
+      const stageRect=this.backdrop.getBoundingClientRect(),instrumentRect=this.container.getBoundingClientRect();
+      const stageScale=stageRect.width/1600;
+      // The canvas uses integer client dimensions, even between fractional CSS layout frames.
+      const width=this.container.clientWidth,height=this.container.clientHeight;
+      const cx=(instrumentRect.left-stageRect.left)/stageScale+width/2;
+      const cy=(instrumentRect.top-stageRect.top)/stageScale+height/2;
+      if(!this.environmentFrame||this.viewMode==='exterior'&&!this.transition)this.environmentFrame={cx,cy,height};
+      const reference=this.environmentFrame,zoom=exterior.span/pose.span*height/reference.height;
+      this.backdrop.style.setProperty('--environment-zoom',String(zoom));
+      this.backdrop.style.setProperty('--environment-x',`${cx-reference.cx*zoom+origin.x*width/2}px`);
+      this.backdrop.style.setProperty('--environment-y',`${cy-reference.cy*zoom-origin.y*height/2}px`);
       const marker=this.pointingTarget&&!this.pointingTarget.hidden?this.pointingTarget.getBoundingClientRect():null;
       const rect=this.container.getBoundingClientRect();
       const css=getComputedStyle(this.container);

@@ -32,8 +32,7 @@
       const optics=N.optics.calculate(state),scale=(60/32)/optics.field;
       // Compress the collecting-area response so highlights remain readable.
       // This brightness cue is illustrative, not calibrated surface photometry.
-      const areaRatio=((state.aperture||130)/130)**2,response=Math.sqrt(areaRatio);
-      const brightness=2*response/(1+response);
+      const brightness=N.store.observationBrightness(state);
       ctx.save();ctx.filter=`brightness(${brightness})`;
       // Keep the full default Saturn visible in the circular observation viewport.
       // The original wide viewport retains its existing image scale.
@@ -52,18 +51,15 @@
           if(star.radius>1){ctx.fillStyle='rgba(150,184,230,.10)';ctx.beginPath();ctx.arc(x,y,r*2.5,0,Math.PI*2);ctx.fill();}
         }
       }else [[.16,.35,1],[.81,.61,.8],[.75,.17,.5],[.26,.79,.7],[.93,.29,.5],[.1,.84,.4]].forEach(([x,y,r])=>{ctx.fillStyle='#cddfff99';ctx.beginPath();ctx.arc(cx+(x-.51)*w*scale,cy+(y-.52)*h*scale,r,0,Math.PI*2);ctx.fill();});
-      const blur=guided?N.store.focusBlur(state):Math.min(5,Math.abs(optics.focusHeight-3.1)*.45);
-      this.canvas.setAttribute('data-focus-blur',String(blur));
       this.canvas.setAttribute('data-target-art',guided&&N.observationArt?.ready?'libtv-transparent-v2':'procedural');
       if(!guided||aim.acquired){
       if(guided){
-        // Blur the completed object, not each clipped primitive: even the limb
-        // and ring silhouette must lose focus. Reuse one bounded canvas.
+        // Apply brightness once to the completed object. Reuse one bounded canvas.
         const layer=this.targetLayer??(this.targetLayer=document.createElement('canvas'));
         if(layer.width!==this.canvas.width||layer.height!==this.canvas.height){layer.width=this.canvas.width;layer.height=this.canvas.height;}
         ctx=layer.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
       }
-      ctx.save();ctx.translate(cx,cy);ctx.rotate(guided&&N.observationArt?.ready?0:-.37);ctx.filter=guided?'none':`blur(${blur}px) brightness(${brightness})`;
+      ctx.save();ctx.translate(cx,cy);ctx.rotate(guided&&N.observationArt?.ready?0:-.37);ctx.filter=guided?'none':`brightness(${brightness})`;
       if(!guided){const halo=ctx.createRadialGradient(0,0,r*.3,0,0,r*1.9);halo.addColorStop(0,'#d3b59318');halo.addColorStop(1,'#d3b59300');ctx.fillStyle=halo;ctx.fillRect(-r*2,-r*2,r*4,r*4);}
       if(guided&&N.observationArt?.ready){
         N.observationArt.draw(ctx,state.target,r,w,h,scale);
@@ -86,12 +82,12 @@
         }
       }
       ctx.restore();
-      if(guided){ctx=this.ctx;ctx.filter=`blur(${blur}px) brightness(${brightness})`;ctx.drawImage(this.targetLayer,0,0,w,h);}
+      if(guided){ctx=this.ctx;ctx.filter=`brightness(${brightness})`;ctx.drawImage(this.targetLayer,0,0,w,h);}
       }
       ctx.restore();
       const vignette=ctx.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,w*.61);vignette.addColorStop(0,'#050b1e00');vignette.addColorStop(1,'#050b1e66');ctx.fillStyle=vignette;ctx.fillRect(0,0,w,h);
       document.getElementById('magnification').textContent=`${Number(optics.magnification.toFixed(1))}×`;
-      const identified=!guided||(aim?.aligned&&aim.focused&&N.store.observationSetup(state).suitable);
+      const identified=!guided||(aim?.aligned&&N.store.observationSetup(state).suitable);
       const target=state.mode==='point'?'点光源':!identified?'待观测目标':({saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'}[state.target]);
       document.getElementById('preview-target').textContent=target;
       document.getElementById('preview-field').textContent=`${optics.field.toFixed(2)}°`;

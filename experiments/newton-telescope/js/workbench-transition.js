@@ -5,7 +5,7 @@
   const studyWall=document.createElement('div');studyWall.className='assembly-study-wall';studyWall.dataset.studyLayer='wall';studyWall.setAttribute('aria-hidden','true');stage.append(studyWall);
   const table=document.createElement('div');table.className='workbench-table';table.dataset.studyLayer='desk';table.setAttribute('aria-hidden','true');stage.append(table);
   const assembly=document.createElement('section');assembly.className='assembly-preview';assembly.setAttribute('aria-label','牛顿望远镜组装台');
-  assembly.innerHTML='<img class="assembly-telescope" src="assets/studio-final/rear-empty.png" alt="待组装的复古牛顿望远镜" draggable="false"><img class="assembly-telescope assembly-installed-primary" src="assets/studio-final/primary.png" alt="" hidden><img class="assembly-telescope assembly-installed-secondary" src="assets/studio-final/secondary.png" alt="" hidden><img class="assembly-telescope assembly-front" src="assets/studio-final/front.png" alt="" draggable="false"><div class="assembly-caption"><strong>组装牛顿望远镜</strong></div>';
+  assembly.innerHTML='<img class="assembly-telescope" src="assets/studio-final/rear-cutaway.png" alt="待组装的复古牛顿望远镜" draggable="false"><img class="assembly-telescope assembly-installed-primary" src="assets/studio-final/primary.png" alt="" hidden><img class="assembly-telescope assembly-installed-secondary" src="assets/studio-final/secondary.png" alt="" hidden><img class="assembly-telescope assembly-front" src="assets/studio-final/front.png" alt="" draggable="false"><div class="assembly-caption"><strong>组装牛顿望远镜</strong></div>';
   stage.append(assembly);
   const tray=document.createElement('div');tray.className='assembly-mirror-tray';tray.setAttribute('aria-label','组装镜片托盘');
   document.querySelectorAll('[data-mirror] .mirror-art').forEach(img=>{const copy=img.cloneNode();copy.alt=img.closest('button').getAttribute('aria-label');tray.append(copy);});stage.append(tray);
@@ -13,7 +13,13 @@
   function sync(s){const isAssembly=s.stage==='assembly';stage.classList.toggle('layered-assembly',isAssembly);studyWall.hidden=!isAssembly;assembly.hidden=tray.hidden=!isAssembly;viewport.inert=isAssembly;consolePanel.inert=isAssembly;}
   function motion(el,frames,duration,delay=0){if(!el)return Promise.resolve();const a=el.animate(frames,{duration:reduced.matches?0:N.developer?.duration(duration)??duration,delay:reduced.matches?0:N.developer?.duration(delay)??delay,fill:'forwards',easing:'cubic-bezier(.22,.7,.25,1)'});animations.add(a);return a.finished.catch(()=>{});}
   function cleanup(){animations.forEach(a=>a.cancel());animations.clear();busy=false;stage.classList.remove('workbench-transition');stage.removeAttribute('aria-busy');stage.inert=false;sync(N.course.get());for(const resolve of idleWaiters)resolve();idleWaiters.clear();}
-  N.course.requestEnter=async function(target,{completionConfirmed=false}={}){
+  N.course.requestEnter=async function(target,{completionConfirmed=false,manual=false}={}){
+    if(manual){
+      if(busy||target===N.course.get().stage||!N.course.canEnter(target,{manual:true}))return false;
+      N.app.telescope.lab.darkroom.endDrag();N.mirrorDragVisual?.end();
+      N.courseInteractions?.guide.hide();N.courseInteractions?.bubble.hide();N.courseCompletion?.dismiss();
+      return N.course.enter(target,{manual:true});
+    }
     if(N.developer?.enabled){N.workbenchTransition.cancel();N.trayTransition?.cancel();return N.course.enter(target);}
     if(busy||target===N.course.get().stage||!N.course.canEnter(target))return false;
     const from=N.course.get().stage;if(from!=='mirrors'||target!=='assembly')return N.course.enter(target);
