@@ -11,6 +11,8 @@ import {createMotion} from './pendulum-model.js';
 import { createTexturedRenderer } from './globe-renderer.js';
 import { createCityMarkers, CITIES } from './city-markers.js';
 import { mountProgress } from './progress.js';
+import { mountGlobeTurnPanel } from './globe-turn-panel.js';
+import { mountMiniPendulumPanel, advanceMiniPendulum, miniPendulumDegrees } from './mini-pendulum-panel.js';
 
 // Homepage motion study; these visual clock values are not experimental readings.
 const stage=document.querySelector('#stage'), globe=document.querySelector('#globe');
@@ -92,6 +94,10 @@ periodInput.addEventListener('change',()=>{
   updateReadout();wake();
 });
 const readout=document.querySelector('#stage1Readout');
+const locationName=document.querySelector('#locationName');
+const locationLat=document.querySelector('#locationLat');
+const locationLon=document.querySelector('#locationLon');
+const locationSwing=document.querySelector('#locationPendulumSwing');
 const swingPeriodMetric=createPeriodMetric(document.querySelector('#swingReadout .metric-value'),document.querySelector('#hallSwingPeriod'));
 const precessionReadout=document.querySelector('#precessionReadout');
 const precessionPeriod=document.querySelector('#precessionPeriod');
@@ -170,18 +176,19 @@ function updateReadout(animatePrecession=false){
   document.querySelector('#swingReadout').style.visibility=city?'visible':'hidden';
   precessionReadout.hidden=!city;
   precessionReadout.style.visibility=city?'visible':'hidden';
-  if(!city){readout.innerHTML='';readout.style.visibility='hidden';return;}
+  if(!city){
+    locationName.textContent='';
+    locationLat.textContent='';
+    locationLon.textContent='';
+    readout.style.visibility='hidden';
+    return;
+  }
   pendulumConfig.latitude=city.lat;
   updatePrecessionMetrics(city,animatePrecession);
   const latitude = `${Math.abs(city.lat).toFixed(2)}°${city.lat >= 0 ? 'N' : 'S'}`;
-  readout.innerHTML = `
-    <div class="location-heading">
-      <svg viewBox="0 0 32 32" aria-hidden="true">
-        <circle cx="16" cy="16" r="11"/><ellipse cx="16" cy="16" rx="5" ry="11"/>
-        <path d="M5 16h22"/><circle class="location-dot" cx="23" cy="11" r="3"/>
-      </svg>
-      <div><b>${city.name}</b><span class="location-coordinates"><strong>${latitude}</strong> <span>${Math.abs(city.lon).toFixed(2)}°${city.lon >= 0 ? 'E' : 'W'}</span></span></div>
-    </div>`;
+  locationName.textContent=city.name;
+  locationLat.textContent=latitude;
+  locationLon.textContent=`${Math.abs(city.lon).toFixed(2)}°${city.lon >= 0 ? 'E' : 'W'}`;
 }
 markers.onClick(id=>{
   if(paramMode)return;
@@ -190,10 +197,8 @@ markers.onClick(id=>{
     selectedCity=id;syncCityHint();progress.update();updateReadout(true);history.clearTrail();drawTrails();hallScreens.selectCity(id);
   }
   const city=CITIES.find(c=>c.id===id);
-  const targetSpin=Math.PI/2-city.lon*Math.PI/180;
-  const delta=targetSpin-spin;
-  cityFocus=Math.abs(city.lat)===90?null:{start:performance.now(),spin,delta:Math.atan2(Math.sin(delta),Math.cos(delta))};
-  dirty=true;wake();
+  if(Math.abs(city.lat)===90){cityFocus=null;dirty=true;wake();}
+  else focusLongitude(city.lon*Math.PI/180);
 });
 const timeSpeedVal=document.querySelector('#timeSpeedVal');
 const speedDown=document.querySelector('#speedDown'),speedUp=document.querySelector('#speedUp');
@@ -227,7 +232,9 @@ const hallScreens=mountHallScreens(stage.querySelector('.hall-displays'),documen
 });
 const drawHallScreens=hallScreens.draw;
 function resize(){
-  scale=Math.min(innerWidth/1600,innerHeight/900);
+  const style=getComputedStyle(document.documentElement);
+  const panelSpace=(Number.parseFloat(style.getPropertyValue('--turn-panel-space'))||0)+(Number.parseFloat(style.getPropertyValue('--mini-panel-space'))||0);
+  scale=Math.min(Math.max(0,innerWidth-panelSpace)/1600,innerHeight/900);
   stage.style.transform=`translate(-50%,-50%) scale(${scale})`;
   const dpr=Math.min(devicePixelRatio||1,2);
   size=Math.round(550*scale*dpr);globe.width=globe.height=size;renderer.resize(size,size);
@@ -243,11 +250,46 @@ function updateCityFocus(now){
   dirty=true;
   if(t===1)cityFocus=null;
 }
-function drawGlobe(){
+function globeBasis(){
   const c=Math.cos(spin),s=Math.sin(spin),a=23.5*Math.PI/180,p=Math.cos(a),q=Math.sin(a);
   // Right-handed basis: e2 (Greenwich meridian) negated so East lands on the
   // screen's right (the previous e2 gave a left-handed frame, mirroring the globe).
-  const basis={axis:[-q,p,0],e2:[-p*c,-q*c,s],e3:[p*s,q*s,c]};
+  return {axis:[-q,p,0],e2:[-p*c,-q*c,s],e3:[p*s,q*s,c]};
+}
+// Same turn as a city tap: spin about the polar axis until this longitude is
+// the meridian facing the viewer. Poles have no longitude, so they do not turn.
+const GLOBE_STEP=Math.PI/6;
+function rotateGlobe(direction){
+  if(paramMode)return;
+  const target=(cityFocus?cityFocus.spin+cityFocus.delta:spin)+direction*GLOBE_STEP;
+  cityFocus={start:performance.now(),spin,delta:target-spin};
+  dirty=true;wake();
+}
+document.querySelector('#globeTurnLeft').addEventListener('click',()=>rotateGlobe(-1));
+document.querySelector('#globeTurnRight').addEventListener('click',()=>rotateGlobe(1));
+function focusLongitude(lon){
+  const targetSpin=Math.PI/2-lon;
+  const delta=targetSpin-spin;
+  cityFocus={start:performance.now(),spin,delta:Math.atan2(Math.sin(delta),Math.cos(delta))};
+  dirty=true;wake();
+}
+function focusGlobePoint(clientX,clientY){
+  const rect=globe.getBoundingClientRect();
+  if(rect.width<=0||rect.height<=0)return;
+  // Canvas is 550px with the 250px globe centred, matching the city markers.
+  const nx=((clientX-rect.left)/rect.width-.5)*(550/250);
+  const ny=(.5-(clientY-rect.top)/rect.height)*(550/250);
+  const radial=nx*nx+ny*ny;
+  if(radial>1)return;
+  const nz=Math.sqrt(1-radial);
+  const {e2,e3}=globeBasis();
+  const alongE2=nx*e2[0]+ny*e2[1]+nz*e2[2];
+  const alongE3=nx*e3[0]+ny*e3[1]+nz*e3[2];
+  if(alongE2*alongE2+alongE3*alongE3<1e-8)return;
+  focusLongitude(Math.atan2(alongE3,alongE2));
+}
+function drawGlobe(){
+  const basis=globeBasis();
   renderer.draw({sizePx:size,pxPerLogical:size/550*250/202,zoom:1,focus:{x:781,y:324},basis,sun:[.64,.48,.6],dashLen:grid.dashLen*Math.PI/180,dashGap:grid.dashGap*Math.PI/180});
   const selected=markers.update(basis, selectedCity);
   syncCityHint();
@@ -372,6 +414,7 @@ function drawPendulum(config=pendulumConfig){
   const jx=bx-vx/len*off, jy=by-vy/len*off;
   const d=`M${sx.toFixed(2)} ${sy.toFixed(2)}L${jx.toFixed(3)} ${jy.toFixed(3)}`;
   cable.setAttribute('d',d);cableBack.setAttribute('d',d);
+  locationSwing.setAttribute('transform',`rotate(${miniPendulumDegrees(reduced.matches).toFixed(2)} 24 6)`);
   bob.style.transformOrigin='0 0';
   bob.style.transform=`translate(${(bx-BOB_SIZE/2*bobScale).toFixed(2)}px,${(by-BOB_SIZE/2*bobScale).toFixed(2)}px) scale(${bobScale})`;
   joint.setAttribute('cx',jx);joint.setAttribute('cy',jy);
@@ -401,6 +444,10 @@ function tick(now){
   frame=0;if(document.hidden)return;
   if(last){
     const dt=Math.min((now-last)/1000,.5);
+    if(!reduced.matches){
+      const period=pendulumConfig.periodOverride??2*Math.PI*Math.sqrt(pendulumConfig.length/9.81);
+      advanceMiniPendulum(dt,period);
+    }
     if(selectedCity&&!reduced.matches&&!paramMode){elapsed+=dt;history.advance(dt);}
     if(paramMode)parameterDialog.advance(dt);
   }
@@ -416,19 +463,36 @@ function tick(now){
 }
 function wake(){if(!frame&&!document.hidden){last=0;frame=requestAnimationFrame(tick);}}
 let drag=null;
-globe.addEventListener('pointerdown',e=>{cityFocus=null;drag={x:e.clientX,spin};globe.setPointerCapture(e.pointerId);});
-globe.addEventListener('pointermove',e=>{
-  if(!drag||e.clientX===drag.x&&!drag.moved)return;
-  if(!drag.moved){drag.moved=true;readout.style.visibility='hidden';}
-  spin=drag.spin+(e.clientX-drag.x)/scale*.008;dirty=true;wake();
+const GLOBE_TAP_SLOP=10;
+globe.addEventListener('pointerdown',e=>{
+  if(e.button!==0)return;
+  cityFocus=null;drag={id:e.pointerId,x:e.clientX,y:e.clientY,spin};globe.setPointerCapture(e.pointerId);
 });
-function finishGlobeDrag(){drag=null;dirty=true;wake();}
+globe.addEventListener('pointermove',e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+  if(!drag.moved){
+    if(dx*dx+dy*dy<=GLOBE_TAP_SLOP*GLOBE_TAP_SLOP)return;
+    drag.moved=true;readout.style.visibility='hidden';
+  }
+  spin=drag.spin+dx/scale*.008;dirty=true;wake();
+});
+function finishGlobeDrag(e){
+  if(!drag||e.pointerId!==drag.id)return;
+  const tap=!drag.moved&&e.type==='pointerup';
+  const x=e.clientX,y=e.clientY;
+  drag=null;
+  if(tap)focusGlobePoint(x,y);
+  dirty=true;wake();
+}
 globe.addEventListener('pointerup',finishGlobeDrag);globe.addEventListener('pointercancel',finishGlobeDrag);
 globe.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();cityFocus=null;spin+=(e.key==='ArrowRight'?.12:e.key==='ArrowLeft'?-.12:0);spin+=(e.key==='ArrowUp'?.12:e.key==='ArrowDown'?-.12:0);dirty=true;wake();});
 addEventListener('resize',()=>{resize();wake();});
 addEventListener('globe-texture-ready',()=>{dirty=true;wake();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;last=0;}else wake();});
 reduced.addEventListener('change',wake);
+mountGlobeTurnPanel();
+mountMiniPendulumPanel();
 resize();wake();
 // Apply the pedestal (meridian ring) placement + contact-shadow strength from
 // the edit-panel params to the DOM.
