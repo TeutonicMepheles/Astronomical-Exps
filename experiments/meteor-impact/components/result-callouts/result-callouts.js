@@ -1,9 +1,12 @@
 /* Local result annotations. See SOURCE.md for the shared MeasureMode provenance. */
 (() => {
  'use strict';
- const point = value => ({x:value.x*800,y:value.y*700});
+
  function render(root, data, outcome, view) {
   if (!data) { root.replaceChildren(); return; }
+  const height = data.viewportHeight || 700;
+  root.setAttribute('viewBox', `0 0 800 ${height}`);
+  const point = value => ({x:value.x*800,y:value.y*height});
   const path = (d, order=0, extra='') => `<path class="rc-trace ${extra}" pathLength="1" d="${d}" style="--delay:${order*180}ms"/>`;
   const label = (x,y,text,order=0) => `<g class="rc-label" style="--delay:${order*180}ms" transform="translate(${x} ${y})"><rect x="-72" y="-19" width="144" height="38" rx="9"/><text text-anchor="middle" dominant-baseline="middle">${text}</text></g>`;
   let content = '';
