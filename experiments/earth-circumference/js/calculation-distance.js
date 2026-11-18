@@ -5,9 +5,16 @@ export function mountCalculationDistance(scene, host, { onStart, onDone }) {
   const tip=new window.ExperimentUI.OperationTip(scene.stage,{top:'116px',className:'calculation-distance-tip'});
   const selected=scene.stage.querySelector('.geo-selected');
   const reference=scene.stage.querySelector('.geo-subsolar');
-  let animation=null;
+  const shade=document.createElement('div');
+  shade.className='distance-focus-shade';shade.setAttribute('aria-hidden','true');
+  scene.stage.append(shade);
+  let animation=null,focusTimer=null;
+  function clearFocus(){clearTimeout(focusTimer);focusTimer=null;scene.stage.classList.remove('is-distance-focus');}
+
   function phase(value){
     host.dataset.phase=value;
+    if(value==='committing'){clearTimeout(focusTimer);scene.stage.classList.add('is-distance-focus');}
+    if(value==='idle')clearFocus();
     scene.stage.classList.toggle('is-connecting-distance',value==='committing');
     selected.classList.toggle('distance-target',value==='pickStart');
     reference.classList.toggle('distance-target',value==='pickEnd');
@@ -35,6 +42,8 @@ export function mountCalculationDistance(scene, host, { onStart, onDone }) {
       label.setAttribute('x',midpoint.x);label.setAttribute('y',midpoint.y-16);
       label.textContent=`${Math.round(Math.abs(arc.selLat-arc.subLat)*Math.PI/180*arc.radiusKm)} km`;
       label.removeAttribute('hidden');onDone();
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches)clearFocus();
+      else focusTimer=setTimeout(clearFocus,800);
     };
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){finish();return;}
     animation=path.animate([{strokeDashoffset:1},{strokeDashoffset:0}],{duration:1615,easing:'ease-in-out'});
@@ -52,5 +61,5 @@ export function mountCalculationDistance(scene, host, { onStart, onDone }) {
   scene.stage.addEventListener('click',activate,true);
   scene.stage.addEventListener('keydown',activate,true);
   phase('idle');
-  return {enter,exit,destroy(){exit();tip.destroy();scene.stage.removeEventListener('click',activate,true);scene.stage.removeEventListener('keydown',activate,true);}};
+  return {enter,exit,destroy(){exit();shade.remove();tip.destroy();scene.stage.removeEventListener('click',activate,true);scene.stage.removeEventListener('keydown',activate,true);}};
 }

@@ -1147,3 +1147,28 @@ html, body {
   outline-offset: 2px;
 }
 .stage.is-measuring .view-mode-tabs { display: none !important; }
+
+/* Fixed-date noon-meridian workflow, 2026-11-17. */
+#timeline,#timelineStepper,.orbit-transport,.observation-orbit-date-control,.axis-switch,.time-card,.date-card{display:none!important}
+.meridian-selection{position:absolute;left:70px;bottom:60px;z-index:30;display:flex;align-items:center;gap:18px;padding:18px 24px;background:#15243ded;border:1px solid #647b99;border-radius:16px;color:#eef4ff;font-size:20px}
+.meridian-selection[hidden]{display:none}
+.meridian-selection input{width:100px;padding:10px;color:inherit;background:#243956;border:1px solid #91a6c2;border-radius:8px;font:inherit}
+.meridian-selection button{padding:12px 18px;border:1px solid #a9c7e6;border-radius:10px;background:#304f73;color:inherit;font:inherit;cursor:pointer}
+.meridian-selection p{margin:0;font-size:18px}
+
+
+.local-time-card{display:none!important}
+
+.stage .prime-meridian{display:block}
+.stage .prime-front{stroke:#8fd9ff;stroke-width:3;stroke-dasharray:none;opacity:1}
+.stage .prime-back{stroke:#8fd9ff;stroke-width:2;stroke-dasharray:5 7;opacity:.25}
+.stage[data-meridian-state="pending"] .prime-meridian{animation:meridian-preview-pulse 1.4s ease-in-out infinite}
+@keyframes meridian-preview-pulse{0%,100%{opacity:.25}50%{opacity:.7}}
+.meridian-selection [data-longitude]{min-width:85px;text-align:center;font-variant-numeric:tabular-nums}
+.meridian-selection button[hidden]{display:none}
+@media(prefers-reduced-motion:reduce){.stage[data-meridian-state="pending"] .prime-meridian{animation:none;opacity:.55}}
+.stage .calculation-distance-tip{translate:0 0!important;left:64px!important;max-width:670px}
+.simple-calculation [data-angle]:disabled{opacity:1;cursor:default}
+.simple-calculation .central-equation{display:none}
+
+.meridian-selection button:disabled{opacity:.4;cursor:default}

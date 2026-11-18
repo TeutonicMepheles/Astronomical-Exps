@@ -450,6 +450,7 @@ export function createScene(sceneRenderer) {
    *  通过底部时间轴调整，日期变化不再把地球拉回正午。 */
   function setPhase(phase, { allowMeasuring = false, keepNoon = false, preserveCamera = false } = {}) {
     if (state.measuring && !allowMeasuring) return false;
+    phase=(initialDay-1)/(daysInYear(state.year)-1);
     if (!preserveCamera) camAnim = null;
     stage.classList.remove('aligning-point');
     const d=daysInYear(state.year);
@@ -495,13 +496,23 @@ export function createScene(sceneRenderer) {
     const nx = (point.x-GLOBE_CENTER.x)/GLOBE_RADIUS;
     const ny = (GLOBE_CENTER.y-point.y)/GLOBE_RADIUS;
     if (nx*nx+ny*ny>1 || !picker) return;
-    const {lat,lon} = screenToLatLon(nx,ny,basisVectors(state.tilt,state.spin));
+    const {lat,lon:clickedLongitude} = screenToLatLon(nx,ny,basisVectors(state.tilt,state.spin));
+    if(state.meridianAligning)return;
+    if(state.pickingMeridian){
+      state.selectedMeridian=Math.round(clickedLongitude);
+      picker.dataset.latlon=`0,${state.selectedMeridian}`;
+      paintPicker();updateUI();dirty=true;
+      window.dispatchEvent(new Event('meridian-selection-change'));
+      return;
+    }
+    const lon = state.selectedMeridian ?? 0;
     picker.dataset.latlon = `${lat.toFixed(2)},${lon.toFixed(2)}`;
     if (!stage.classList.contains('has-selection')) selectedAxis='time';
     stage.classList.add('has-selection');
     stage.classList.remove('aligning-point');
     camAnim = null;
     picker.querySelector('.geo-ring')?.animate([{scale:'1'},{scale:'1.5'},{scale:'1'}],{duration:400});
+    state.spin=noonSpinValue(lon);
     paintPicker(); updateUI();
     dirty = true; // Refresh guides and entry gates after a point-only change.
   });
@@ -717,6 +728,46 @@ export function createScene(sceneRenderer) {
     redraw() { dirty = true; },
     basis() { return basisVectors(state.tilt, state.spin); },
     refresh() { updateUI(); dirty = true; },
+    get pickingMeridian(){return Boolean(state.pickingMeridian);},
+    get meridianAligning(){return Boolean(state.meridianAligning);},
+    beginMeridianSelection(){
+      if(state.measuring)return;
+      camAnim=null;state.meridianAligning=false;state.pickingMeridian=true;
+      state.selectedMeridian=0;
+      state.spin=screenToLatLon(0,0,basisVectors(state.tilt,0)).lon;
+      picker.dataset.latlon='0,0';
+      stage.dataset.meridianState='pending';
+      stage.classList.remove('has-selection','awaiting-noon','aligning-point');
+      paintPicker();updateUI();dirty=true;
+      window.dispatchEvent(new Event('meridian-selection-change'));
+    },
+    get selectedMeridian(){return state.selectedMeridian??0;},
+    previewMeridian(value){
+      if(state.measuring||state.meridianAligning)return;
+      state.pickingMeridian=true;
+      state.selectedMeridian=Math.max(-180,Math.min(180,Math.round(Number(value)||0)));
+      picker.dataset.latlon=`0,${state.selectedMeridian}`;
+      stage.dataset.meridianState='pending';
+      stage.classList.remove('has-selection','awaiting-noon');
+      paintPicker();updateUI();dirty=true;
+      window.dispatchEvent(new Event('meridian-selection-change'));
+    },
+    setMeridian(value){
+      if(state.measuring||state.meridianAligning)return;
+      state.selectedMeridian=Math.max(-180,Math.min(180,Math.round(Number(value)||0)));
+      state.pickingMeridian=false;state.meridianAligning=true;
+      picker.dataset.latlon=`0,${state.selectedMeridian}`;
+      stage.dataset.meridianState='aligning';
+      stage.classList.remove('has-selection','awaiting-noon');
+      stage.classList.add('aligning-point');
+      animateCamera({zoom:state.zoom,fx:state.focus.x,fy:state.focus.y,spin:noonSpinValue(state.selectedMeridian)},1400,()=>{
+        state.meridianAligning=false;stage.dataset.meridianState='confirmed';
+        updateUI();dirty=true;
+        window.dispatchEvent(new Event('meridian-selection-change'));
+      });
+      paintPicker();updateUI();dirty=true;
+      window.dispatchEvent(new Event('meridian-selection-change'));
+    },
     enterMeasure,
     exitMeasure,
     get calculating() { return Boolean(state.calculating); },
@@ -779,20 +830,8 @@ export function createScene(sceneRenderer) {
     },
     get measuring() { return state.measuring; },
     get observationDate(){return dateFromDay(state.year,state.day);},
-    set observationDate(value){
-      if(state.measuring)return;
-      const [year,month,day]=String(value).split('-').map(Number);
-      const n=calendarDay(year,month,day);state.year=year;
-      setPhase((n-1)/(daysInYear(year)-1));updateUI();
-    },
-    setObservationDateDuringMeasurement(value){
-      if(!state.measuring)return false;
-      const [year,month,day]=String(value).split('-').map(Number);
-      const n=calendarDay(year,month,day);state.year=year;
-      const applied=setPhase((n-1)/(daysInYear(year)-1),{allowMeasuring:true,keepNoon:true,preserveCamera:true});
-      updateUI();
-      return applied;
-    },
+    set observationDate(value){ /* Fixed to the current local date. */ },
+    setObservationDateDuringMeasurement(){return false;},
     get solarModel(){return {version:SOLAR_MODEL_VERSION,year:state.year,day:state.day,days:daysInYear(state.year),declination:declination(state.year,state.day)};},
     get phaseAligned() { return Boolean(state.phaseAligned); },
     noonSpin: noonSpinValue,
