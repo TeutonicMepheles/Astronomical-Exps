@@ -1,0 +1,75 @@
+{
+  "nominalCoreDiameter": 3.35,
+  "visualRadialInset": 0.175,
+  "visualEngineGap": 0.2,
+  "tanks": {
+    "Stage1LOXTank": {
+      "localBottom": 13.019999618530273,
+      "localTop": 24.179999237060546,
+      "barrelDiameter": 3.0,
+      "barrelStart": 13.709999618530272,
+      "barrelEnd": 23.489999237060545,
+      "ringCentres": [
+        14.209999618530272,
+        15.209999618530272,
+        16.209999618530272,
+        17.209999618530272,
+        18.209999618530272,
+        19.209999618530272,
+        20.209999618530272,
+        21.209999618530272,
+        22.209999618530272,
+        23.209999618530272
+      ],
+      "surfaceType": "LOX"
+    },
+    "Stage1FuelTank": {
+      "localBottom": 3.671010208129883,
+      "localTop": 12.480000381469727,
+      "barrelDiameter": 3.0,
+      "barrelStart": 4.361010208129883,
+      "barrelEnd": 11.790000381469728,
+      "ringCentres": [
+        4.861010208129883,
+        5.861010208129883,
+        6.861010208129883,
+        7.861010208129883,
+        8.861010208129883,
+        9.861010208129883,
+        10.861010208129883
+      ],
+      "surfaceType": "Fuel"
+    },
+    "Stage2LOXTank": {
+      "localBottom": 7.170000190734863,
+      "localTop": 12.680000190734864,
+      "barrelDiameter": 3.0,
+      "barrelStart": 7.860000190734864,
+      "barrelEnd": 11.990000190734865,
+      "ringCentres": [
+        8.360000190734864,
+        9.360000190734864,
+        10.360000190734864,
+        11.360000190734864
+      ],
+      "surfaceType": "LOX"
+    },
+    "Stage2FuelTank": {
+      "localBottom": 3.584246826171875,
+      "localTop": 6.680000190734863,
+      "barrelDiameter": 3.0,
+      "barrelStart": 4.265312566375733,
+      "barrelEnd": 5.998934450531006,
+      "ringCentres": [
+        4.765312566375733,
+        5.765312566375733
+      ],
+      "surfaceType": "Fuel"
+    }
+  },
+  "ringPitch": 1.0,
+  "ringWidth": 0.075,
+  "ringBoundary": "Uniform model-unit spacing for visual consistency, not measured CZ7 manufacturing segment dimensions.",
+  "displayMode": "Teaching cutaway with deliberately visible radial separation",
+  "boundary": "Tank walls can be load-bearing arrow-body structure, not vessels floating inside an independent shell. Nominal core diameter is public; the deliberately enlarged visual inset is for part legibility, not real wall thickness, cavity or installation clearance. Axial partitions and head shape remain schematic; source engine geometry is retained."
+}

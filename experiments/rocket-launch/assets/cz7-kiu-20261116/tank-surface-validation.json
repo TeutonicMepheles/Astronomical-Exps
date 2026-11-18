@@ -1,0 +1,51 @@
+{
+  "styles": {
+    "LOX": {
+      "RGB": [
+        158,
+        186,
+        196
+      ],
+      "roughness": 0.7372549019607844
+    },
+    "Fuel": {
+      "RGB": [
+        140,
+        152,
+        107
+      ],
+      "roughness": 0.5803921568627451
+    }
+  },
+  "tanks": [
+    {
+      "node": "Stage1LOXTank",
+      "pitch": 1.000000042661814,
+      "bandWidth": 0.07324219062464458,
+      "middleRingCount": 10,
+      "unitObjectScale": true
+    },
+    {
+      "node": "Stage1FuelTank",
+      "pitch": 0.9999999839534998,
+      "bandWidth": 0.07324218632471922,
+      "middleRingCount": 7,
+      "unitObjectScale": true
+    },
+    {
+      "node": "Stage2LOXTank",
+      "pitch": 1.0,
+      "bandWidth": 0.0732421875,
+      "middleRingCount": 4,
+      "unitObjectScale": true
+    },
+    {
+      "node": "Stage2FuelTank",
+      "pitch": 1.0,
+      "bandWidth": 0.0732421875,
+      "middleRingCount": 2,
+      "unitObjectScale": true
+    }
+  ],
+  "boundary": "Teaching material coding and regular model-unit seam spacing; not CZ7 measured paint or manufacturing dimensions."
+}

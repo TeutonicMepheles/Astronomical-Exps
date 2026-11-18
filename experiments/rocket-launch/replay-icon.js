@@ -1,0 +1,1 @@
+export function decorateReplayButton(button,label='重播'){button.classList.add('balloon-reset','rocket-replay-icon');button.setAttribute('aria-label',label);button.title=label;button.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.83 6.36"/><path d="M3 4v7h7"/></svg>';return button;}

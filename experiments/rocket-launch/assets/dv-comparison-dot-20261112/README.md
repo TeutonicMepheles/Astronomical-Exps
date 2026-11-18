@@ -1,5 +1,7 @@
 # Δv 三方案教学模型 · v0.1.0
 
+2026-11-18：现行“为什么要分级”已改为复用当前火箭模型及贮箱，不再请求本目录GLB。这里保留独立历史资产与验证入口，见[现行接入](../../docs/COURSE_REFINEMENTS_20261118.md)。
+
 交付：2026-11-12。文件位置：`B:\GithubProject\Astronomical-Exps\experiments\rocket-launch\assets\dv-comparison-dot-20261112`。
 
 这是独立可控的教学资产，不是正式页面实现，不是具体火箭型号，不是 CZ7。

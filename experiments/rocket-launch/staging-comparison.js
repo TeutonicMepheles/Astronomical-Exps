@@ -1,15 +1,5 @@
+import {decorateReplayButton} from './replay-icon.js';
 import {STAGING_PLANS as PLANS} from './staging-model.js';
-export function drawStagingComparison(c,lesson){
- c.save();c.font='24px "Alibaba PuHuiTi 3", sans-serif';
- const samples=lesson.samples();
- PLANS.forEach((p,i)=>{const x=100+i*470,v=samples[i];c.fillStyle=p.color;c.fillText(p.name,x,52);c.font='36px "Alibaba PuHuiTi 3", sans-serif';c.fillText(v.dv.toFixed(2)+' km/s',x,108);c.font='21px "Alibaba PuHuiTi 3", sans-serif';c.fillText('理想速度',x,142);});
- c.fillStyle='#a9b0bf';c.font='19px "Alibaba PuHuiTi 3", sans-serif';c.fillText('小火箭：100 t 推进剂 · 大火箭 / 三级：300 t 推进剂 · 相同载荷 5 t',80,625);c.restore();
-}
-export function mountStagingComparison({lesson,controls,parts,feedback,invalidate,onRunning}){
- const output=document.createElement('output');output.id='dv-metrics';output.className='dv-accessible';output.setAttribute('aria-label','三枚火箭实时理想速度');parts.append(output);
- const play=document.createElement('button');play.id='dv-play';play.className='primary';controls.append(play);
- const reset=document.createElement('button');reset.id='dv-reset';reset.textContent='全部重来';controls.append(reset);
- play.onclick=()=>{lesson.act();sync();};reset.onclick=()=>{lesson.reset();sync();};
- let last='';function sync(){play.textContent=lesson.actionLabel;onRunning(lesson.running);const text=lesson.samples().map((v,i)=>PLANS[i].name+' '+v.dv.toFixed(2)+' km/s').join('；');if(text!==last){output.textContent=text;last=text;}feedback.textContent=lesson.explanation;invalidate();}
- sync();return{sync,destroy(){lesson.pause();output.remove();}};
-}
+import {comparisonFlight} from './comparison-flight.js';
+export function drawStagingComparison(c,lesson){const flight=comparisonFlight(lesson),{zoom,centerY}=flight.view,toY=y=>325+(centerY-y)*zoom;c.save();c.font='22px "Alibaba PuHuiTi 3",sans-serif';c.fillStyle='#a8c4c6';c.textAlign='left';c.fillText('相对高度',24,155);c.save();c.beginPath();c.rect(20,165,1460,415);c.clip();for(let h=0;h<=180;h+=20){const y=toY(95+h*2.7);if(y<165||y>575)continue;c.strokeStyle='#a8c4c62d';c.lineWidth=1;c.setLineDash([4,8]);c.beginPath();c.moveTo(82,y);c.lineTo(1450,y);c.stroke();c.fillText(String(h),25,y+7);}c.setLineDash([]);PLANS.forEach((p,i)=>{const x=260+i*470,y=toY(95+flight.heights[i]*2.7);c.strokeStyle=p.color;c.lineWidth=3;c.beginPath();c.moveTo(x-70,y);c.lineTo(x+70,y);c.stroke();});c.restore();PLANS.forEach((p,i)=>{const x=260+i*470;c.textAlign='center';c.fillStyle=p.color;c.font='24px "Alibaba PuHuiTi 3",sans-serif';c.fillText(p.name,x,44);c.font='34px "Alibaba PuHuiTi 3",sans-serif';c.fillText(String(Math.round(flight.heights[i])),x,91);});c.restore();}
+export function mountStagingComparison({lesson,controls,parts,feedback,invalidate,onRunning,isReady=()=>true}){const output=document.createElement('output');output.id='dv-metrics';output.className='dv-accessible';output.setAttribute('aria-label','三枚火箭实时相对高度');parts.append(output);const play=document.createElement('button');play.id='dv-play';decorateReplayButton(play);controls.append(play);play.onclick=()=>{lesson.reset();lesson.act();sync();};let last='';function sync(){play.disabled=!isReady();onRunning(lesson.running);const text=comparisonFlight(lesson).heights.map((h,i)=>PLANS[i].name+' '+Math.round(h)).join('；');if(text!==last){output.textContent=text;last=text;}feedback.textContent='';invalidate();}sync();return{sync,destroy(){lesson.pause();output.remove();}};}

@@ -47,8 +47,9 @@ export function createCannonTransition(onReady=()=>{}){
  mc.fillStyle='white';mc.fillRect(0,0,1600,900);mc.globalCompositeOperation='destination-in';
  for(const horizontal of [true,false]){const g=mc.createLinearGradient(0,0,horizontal?1600:0,horizontal?0:900);g.addColorStop(0,'transparent');g.addColorStop(.07,'white');g.addColorStop(.93,'white');g.addColorStop(1,'transparent');mc.fillStyle=g;mc.fillRect(0,0,1600,900);}
  const framed=document.createElement('canvas');framed.width=1600;framed.height=900;const fc=framed.getContext('2d');
+ function prepare(){for(const video of clips)if(!video.getAttribute('src'))video.src=video.dataset.src;}
  function draw(c,st,path){
-  for(const video of clips)if(!video.getAttribute('src'))video.src=video.dataset.src;
+  prepare();
   const low=path.m.kind==='impact',cameraEnd=low?TRANSITION_TIMING.groundEnd:TRANSITION_TIMING.earthEnd,videoIndex=low?0:1;
   const video=clips[videoIndex];let age=st.age;
   // One decoder and its media clock span the positioning/launch boundary.
@@ -126,5 +127,5 @@ export function createCannonTransition(onReady=()=>{}){
   c.restore();
  }
 
- return{draw,stop,reset(){stop();for(const video of clips)if(video.readyState&&video.currentTime>.001)video.currentTime=0;},ready:()=>muzzleSequence.ready()&&images.every(im=>im.complete&&im.naturalWidth>0)&&clips.every(v=>v.readyState>=2),dispose(){stop();clips.forEach(v=>{v.removeAttribute('src');v.load();});}};
+ return{draw,prepare,stop,reset(){stop();for(const video of clips)if(video.readyState&&video.currentTime>.001)video.currentTime=0;},ready:()=>muzzleSequence.ready()&&images.every(im=>im.complete&&im.naturalWidth>0)&&clips.every(v=>v.readyState>=2),dispose(){stop();clips.forEach(v=>{v.removeAttribute('src');v.load();});}};
 }

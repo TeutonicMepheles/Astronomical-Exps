@@ -1,0 +1,19 @@
+{
+  "originalBinaryPrefixUnchanged": true,
+  "nodeTransformsAndHierarchyUnchanged": true,
+  "sevenAnimationDefinitionsUnchanged": true,
+  "allTexturesEmbedded": true,
+  "physicalMaterials": 11,
+  "changedInteriorNodes": [
+    "PayloadCargo",
+    "PayloadDock",
+    "PayloadFoldedPanelL",
+    "PayloadFoldedPanelR",
+    "PayloadService",
+    "Stage1FuelTank",
+    "Stage1LOXTank",
+    "Stage2FuelTank",
+    "Stage2LOXTank"
+  ],
+  "runtimeSHA256": "cedf9106566e004608629309c2bb468459507fd2e86dcd3529710c643bd1f27f"
+}

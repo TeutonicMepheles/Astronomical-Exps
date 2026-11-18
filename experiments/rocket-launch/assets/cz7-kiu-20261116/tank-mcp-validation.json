@@ -1,0 +1,11 @@
+{
+  "fourMCPPhotoTanks": true,
+  "embeddedPrimerNormalMaps": true,
+  "payloadGeometryNormalsUVUnchanged": true,
+  "tankNames": [
+    "Stage1LOXTank",
+    "Stage1FuelTank",
+    "Stage2LOXTank",
+    "Stage2FuelTank"
+  ]
+}

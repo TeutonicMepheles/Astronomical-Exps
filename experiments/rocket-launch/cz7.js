@@ -4,21 +4,21 @@ import {SOURCE_GEOMETRY} from './assets/cz7/asset-geometry.js';
 // Native source aspect ratios are preserved; axial partitions are educational.
 export const HEIGHT=700;
 export const PARTS=[
- {id:'lower',name:'一级',role:'贮箱和两台发动机组成一级，耗尽后与二级分离。'},
- {id:'upper',name:'二级',role:'有独立贮箱和四台发动机，一级分离后继续推进。'},
- {id:'boosters',name:'四枚助推器',role:'环绕一级，起飞时共同提供推力，先于一级分离。'},
- {id:'payload',name:'载荷',role:'安装在二级顶部，发射时由整流罩包覆。'},
- {id:'fairing',name:'整流罩',role:'保护载荷，飞出稠密大气后分成两片抛离。'}
+ {id:'lower',name:'一级芯级箭体',role:'由贮箱和两台发动机构成，推进剂耗尽后与二级芯级箭体分离。'},
+ {id:'upper',name:'二级芯级箭体',role:'配有独立贮箱和四台发动机，一级芯级箭体分离后继续推进。'},
+ {id:'boosters',name:'助推器',role:'围绕一级芯级箭体布置，起飞时共同提供推力，先于一级芯级箭体分离。'},
+ {id:'payload',name:'有效载荷',role:'以天舟一号为外形参考，由货物舱和推进舱组成；太阳翼在发射时收拢，由整流罩保护。'},
+ {id:'fairing',name:'有效载荷整流罩',role:'保护有效载荷，飞出稠密大气后分成两片抛离。'}
 ];
 
 // Hit rectangles use the same axial coordinates as the cutaway rendering.
 export const INTERNAL_PARTS=[
- {name:'一级液氧箱',role:'储存液氧，为一级发动机提供氧化剂。',box:[-16,355,32,130]},
- {name:'一级煤油箱',role:'储存煤油，与液氧一同供给一级发动机。',box:[-16,495,32,110.5]},
- {name:'一级发动机',role:'两台发动机燃烧煤油和液氧，向后喷气产生推力。',box:[-21,676,42,24]},
- {name:'二级液氧箱',role:'储存液氧，供二级发动机继续工作。',box:[-16,183,32,55]},
- {name:'二级煤油箱',role:'储存煤油，供二级发动机继续工作。',box:[-16,248,32,46.75]},
- {name:'二级发动机',role:'四台发动机在一级分离后继续推进。',box:[-20,303,40,20]}
+ {name:'一级液氧贮箱',role:'储存液氧，为一级发动机组提供氧化剂。',box:[-16,355,32,130]},
+ {name:'一级煤油贮箱',role:'储存煤油，与液氧一同供给一级发动机组。',box:[-16,495,32,110.5]},
+ {name:'一级发动机组',role:'两台发动机燃烧煤油和液氧，向后喷气产生推力。',box:[-21,676,42,24]},
+ {name:'二级液氧贮箱',role:'储存液氧，供二级发动机组继续工作。',box:[-16,183,32,55]},
+ {name:'二级煤油贮箱',role:'储存煤油，供二级发动机组继续工作。',box:[-16,248,32,46.75]},
+ {name:'二级发动机组',role:'四台发动机在一级芯级箭体分离后继续推进。',box:[-20,303,40,20]}
 ];
 export const STRUCTURE_PARTS=[...PARTS,...INTERNAL_PARTS];
 export function hitStructure(images,x,y,{xray=false}={}){
@@ -62,4 +62,4 @@ export function drawRocket(ctx,images,{x=570,y=40,height=560,t=0,xray=false,sele
 // Transparent pixels never count as an object hit; masks are decoded only once.
 const masks=new WeakMap();
 export function hitPart(images,x,y,{xray=false}={}){const list=instances({xray});const ordered=[...list.filter(r=>r.rear),...list.filter(r=>r.part===0||r.part===1),...list.filter(r=>r.part===3),...list.filter(r=>r.part===4),...list.filter(r=>r.part===2&&!r.rear)].reverse();for(const r of ordered){if(xray&&r.part===4)continue;const u=(x-r.x)/r.w,v=(y-r.y)/r.h;if(u<0||u>=1||v<0||v>=1)continue;const im=images[r.asset];if(!im?.naturalWidth)continue;let mask=masks.get(im);if(!mask){const c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;const cx=c.getContext('2d',{willReadFrequently:true});cx.drawImage(im,0,0);mask=cx.getImageData(0,0,c.width,c.height);masks.set(im,mask);}if(mask.data[(Math.floor(v*mask.height)*mask.width+Math.floor(u*mask.width))*4+3]>=32)return r.part;}return null;}
-export function drawPlan(ctx,x=155,y=475){ctx.save();ctx.translate(x,y);ctx.strokeStyle='#aeb7c6';ctx.fillStyle='#dfe4eb';const circle=(x,y,r)=>{ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.stroke();};circle(0,0,16);for(const [dx,dy] of [[0,-28],[28,0],[0,28],[-28,0]])circle(dx,dy,10);ctx.fillStyle='#c5ccd7';ctx.font='17px "Alibaba PuHuiTi 3", sans-serif';ctx.textAlign='center';ctx.fillText('四枚助推器环绕一级',0,68);ctx.fillText('俯视示意',0,91);ctx.restore();}
+export function drawPlan(ctx,x=155,y=475){ctx.save();ctx.translate(x,y);ctx.strokeStyle='#aeb7c6';ctx.fillStyle='#dfe4eb';const circle=(x,y,r)=>{ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.stroke();};circle(0,0,16);for(const [dx,dy] of [[0,-28],[28,0],[0,28],[-28,0]])circle(dx,dy,10);ctx.fillStyle='#c5ccd7';ctx.font='17px "Alibaba PuHuiTi 3", sans-serif';ctx.textAlign='center';ctx.fillText('助推器环绕一级',0,68);ctx.fillText('俯视示意',0,91);ctx.restore();}

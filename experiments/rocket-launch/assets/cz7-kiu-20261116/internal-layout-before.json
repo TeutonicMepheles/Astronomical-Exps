@@ -1,0 +1,79 @@
+{
+  "boundary": "Assembled graphic-model coordinates; source engine dimensions, exact tank lengths/volumes and installation clearances are not independently verified engineering values.",
+  "stages": [
+    {
+      "stage": "Stage1",
+      "engineCount": 2,
+      "engineBounds": {
+        "bottom": 0.006989479064941406,
+        "top": 3.4720983505249023,
+        "maximumRadialDiameter": 3.4107931443746278
+      },
+      "fuelBounds": {
+        "bottom": 3.2199997901916504,
+        "top": 12.480000495910645,
+        "maximumRadialDiameter": 2.82910001400706
+      },
+      "LOXBounds": {
+        "bottom": 13.019999504089355,
+        "top": 24.17999839782715,
+        "maximumRadialDiameter": 2.82910001400706
+      },
+      "fuelMinusEngineTop": -0.25209856033325195,
+      "intertankGap": 0.5399990081787109,
+      "fuelBelowLOX": true,
+      "engineXYCentres": [
+        [
+          -0.8042628468771104,
+          -0.04301413017347144
+        ],
+        [
+          0.8044108453808132,
+          0.04316250062719684
+        ]
+      ],
+      "engineVerticesInsideFuelEnvelope": 356
+    },
+    {
+      "stage": "Stage2",
+      "engineCount": 4,
+      "engineBounds": {
+        "bottom": 26.188398278969352,
+        "top": 29.57266108301385,
+        "maximumRadialDiameter": 3.5094202071809497
+      },
+      "fuelBounds": {
+        "bottom": 28.8084077835083,
+        "top": 32.868408203125,
+        "maximumRadialDiameter": 2.7700000457453102
+      },
+      "LOXBounds": {
+        "bottom": 33.358407974243164,
+        "top": 38.868408203125,
+        "maximumRadialDiameter": 2.7700000457453102
+      },
+      "fuelMinusEngineTop": -0.7642532995055475,
+      "intertankGap": 0.48999977111816406,
+      "fuelBelowLOX": true,
+      "engineXYCentres": [
+        [
+          0.8081109705371583,
+          -0.001312637235969305
+        ],
+        [
+          -0.009569980212898177,
+          0.797228537623804
+        ],
+        [
+          -0.8081109925908037,
+          -0.020452800524827064
+        ],
+        [
+          -0.0007469574375211785,
+          -0.8293153726130142
+        ]
+      ],
+      "engineVerticesInsideFuelEnvelope": 3751
+    }
+  ]
+}

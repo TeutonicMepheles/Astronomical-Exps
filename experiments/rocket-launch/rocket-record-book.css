@@ -1,0 +1,23 @@
+.rocket-record-button{position:absolute;right:44px;bottom:112px;z-index:4;min-height:52px;padding:12px 20px;border:1px solid #d8b07477;background:#142b40ed;color:#e8d6b3;font-size:var(--type-body);font-weight:500}
+.rocket-record-button[hidden]{display:none}
+.rocket-record-book{position:fixed;inset:0;width:100vw;height:100vh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#020b1bbd;color:#17334c;overflow:hidden}
+.rocket-record-book::backdrop{background:transparent}
+.rocket-record-book[open]{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);place-items:center}
+.rocket-record-paper{width:1240px;height:680px;box-sizing:border-box;flex:none;padding:32px 36px 24px;border:1px solid #bda47a;border-radius:16px;background:#f3eee3;box-shadow:0 16px 55px #02081580;transform:scale(var(--record-fit,1));transform-origin:center;display:grid;grid-template-rows:64px 1fr 52px;gap:18px}
+.rocket-record-header{height:auto;padding:0;border:0;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.rocket-record-header h2{font-size:var(--type-title);font-weight:500;color:#17334c;margin:0}
+.rocket-record-paper button{font-size:var(--type-body);color:#17334c;border-color:#b9a586;min-height:48px;background:#fff9eb}
+.rocket-record-paper button:is(:hover,:focus-visible){background:#e8dcc1;color:#17334c;border-color:#967a50}
+.rocket-record-paper button:disabled{opacity:.35}
+.rocket-record-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;min-height:0;grid-template-rows:minmax(0,1fr)}
+.rocket-record-card{border:1px solid #cbb895;border-radius:10px;padding:18px;background:#fff9ec;display:grid;grid-template-rows:42px minmax(0,1fr);gap:12px;min-width:0;min-height:0;overflow:hidden}
+.rocket-record-card h3{font-size:var(--type-body);font-weight:500;margin:0;text-align:center;color:#17334c}
+.rocket-record-card img,.record-image-empty{width:100%;height:100%;min-height:0;object-fit:contain;border-radius:6px;background:#10263b}
+.record-image-empty{display:grid;place-items:center;background:transparent;border:1px dashed #bead90;color:#897b64;font-size:var(--type-body)}
+.rocket-record-card.is-empty{background:transparent;border-style:dashed}
+.rocket-record-pages{display:flex;align-items:center;justify-content:center;gap:28px;margin:0}
+.rocket-record-pages output{font-size:var(--type-body);font-variant-numeric:tabular-nums;min-width:100px;text-align:center}
+
+.record-card-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
+.record-card-heading h3{flex:none;text-align:left}
+.record-result{padding:6px 10px;border:1px solid #cbb895;border-radius:7px;background:#e8dcc1;color:#17334c;font-size:var(--type-body);font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}

@@ -1,0 +1,32 @@
+{
+  "Payload": {
+    "x": 224,
+    "y": 126,
+    "width": 197,
+    "height": 67
+  },
+  "Stage1LOXTank": {
+    "x": 858,
+    "y": 123,
+    "width": 293,
+    "height": 73
+  },
+  "Stage1FuelTank": {
+    "x": 1160,
+    "y": 123,
+    "width": 244,
+    "height": 73
+  },
+  "Stage2LOXTank": {
+    "x": 479,
+    "y": 124,
+    "width": 148,
+    "height": 71
+  },
+  "Stage2FuelTank": {
+    "x": 634,
+    "y": 124,
+    "width": 110,
+    "height": 71
+  }
+}

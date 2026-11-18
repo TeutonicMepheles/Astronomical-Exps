@@ -1,0 +1,46 @@
+{
+  "recognition": {
+    "Stage1LOXTank": {
+      "type": "LOX",
+      "ringCount": 10,
+      "modelPitch": 1
+    },
+    "Stage1FuelTank": {
+      "type": "Fuel",
+      "ringCount": 7,
+      "modelPitch": 1
+    },
+    "Stage2LOXTank": {
+      "type": "LOX",
+      "ringCount": 4,
+      "modelPitch": 1
+    },
+    "Stage2FuelTank": {
+      "type": "Fuel",
+      "ringCount": 2,
+      "modelPitch": 1
+    }
+  },
+  "assembly": {
+    "Stage1LOXTank": {
+      "type": "LOX",
+      "ringCount": 10,
+      "modelPitch": 1
+    },
+    "Stage1FuelTank": {
+      "type": "Fuel",
+      "ringCount": 7,
+      "modelPitch": 1
+    },
+    "Stage2LOXTank": {
+      "type": "LOX",
+      "ringCount": 4,
+      "modelPitch": 1
+    },
+    "Stage2FuelTank": {
+      "type": "Fuel",
+      "ringCount": 2,
+      "modelPitch": 1
+    }
+  }
+}
