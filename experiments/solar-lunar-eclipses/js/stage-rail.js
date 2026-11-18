@@ -5,25 +5,22 @@
  * 当前位置并带一段尾迹、顶部一行读数。轨道位置、节点、刻度、进度点都由当前 φ
  * 推出来，实现是本页自己的（原站是 canvas + rAF，这里是 SVG + 按需更新）。
  *
- * 轨道上的位置 t 不是角度真值，而是 √跨度 加权后的位置：
- * 日食的偏食段 : 全食段真实是 10.6 : 1，照真值画会把食既/食甚/生光挤成相距
- * 24px 的三连；开方阻尼后是 3.25 : 1（节点落在 0 / 38.2 / 50 / 61.8 / 100%），
- * 仍然不对称、仍看得出全食很短，但三个节点分得开。月食本来就接近等分
- * （0.8 : 1），阻尼后依然接近均分。
+ * 轨道位置不代表角度或真实时长：60% 等距与 40% 开方跨度混合，
+ * 为触控按钮保留间距，同时保留阶段相对长短的视觉提示。
  */
 (function () {
   'use strict';
 
   var NS = 'http://www.w3.org/2000/svg';
-  var TOP = 180;      // 轨道上端（舞台坐标，1600×900）
-  var BOT = 744;      // 下端：给右下角播放按钮留出空
+  var TOP = 218;      // 轨道上端（舞台坐标，1600×900）
+  var BOT = 682;      // 下端：给右下角播放按钮留出空
   var MINOR = 24;     // 两节点之间再插 24 分之一间距的短刻度
   var TRAIL = 0.05;   // 琥珀点身后那段尾迹的弧长（t 单位）
 
   /* 每个阶段的一句说明，展开在当前节点下方 */
   var SUBS = {
     solar: ['月面与日面开始接触', '进入中间阶段', '日月中心最接近', '退出中间阶段', '月面与日面结束接触'],
-    lunar: ['月球开始进入地影', '月球完全进入本影', '月面中心最暗', '月球开始离开本影', '月球完全离开地影']
+    lunar: ['月缘开始进入地球本影', '月面全部进入本影，全食开始', '月球最深入地影', '月缘开始露出本影，全食结束', '月面完全离开本影，仍在半影中']
   };
 
   /* 轨道曲线：两端同为 x=1566，中段向左收 26px（= 参考站 34px/632px 的比例）。
@@ -76,9 +73,10 @@
     var buttons = [];
     var nodeTicks = [];
     var lastKey = '';
+    var furthest = -Infinity;
 
-    basePath.setAttribute('d', pathData(0, 1));
-    var end = point(1);
+    basePath.setAttribute('d', pathData(-.1, 1.1));
+    var end = point(1.1);
     endRing.setAttribute('cx', end.x.toFixed(2));
     endRing.setAttribute('cy', end.y.toFixed(2));
 
@@ -120,7 +118,19 @@
         var name = document.createElement('span');
         name.className = 'rail-node-name';
         name.textContent = stages[i].name;
+        if (stages[i].showIcon) {
+          var icon = document.createElement('img');
+          icon.className = 'rail-node-icon';
+          icon.src = 'assets/selected-icons/lunar-stage-' + i + '.png';
+          icon.alt = '';
+          icon.width = 44;
+          icon.height = 44;
+          icon.setAttribute('aria-hidden', 'true');
+          b.appendChild(icon);
+        }
         b.appendChild(name);
+        b.dataset.stageKind=stages[i].kind||'contact';
+        if(stages[i].kind==='teaching'){var note=document.createElement('span');note.className='rail-node-kind';note.textContent='教学节点';b.appendChild(note);b.setAttribute('aria-label',stages[i].name+'：教学中间节点，非天文接触时刻');}
         b.addEventListener('click', (function (idx) {
           return function () { if (api.onPick) api.onPick(idx); };
         })(i));
@@ -130,10 +140,11 @@
     }
 
     api.setStages = function (list, mode) {
+      furthest = -Infinity;
       var subs = SUBS[mode] || SUBS.solar;
       stages = [];
       for (var i = 0; i < list.length; i++) {
-        stages.push({ name: list[i].name, sub: subs[i] || '', phi: list[i].phi });
+        stages.push({ name: list[i].name, sub: subs[i] || '', phi: list[i].phi, kind: list[i].kind, showIcon: mode === 'lunar' });
       }
       phis = stages.map(function (s) { return s.phi; });
 
@@ -148,7 +159,8 @@
       ts = [];
       var acc = 0;
       for (var m = 0; m < stages.length; m++) {
-        ts.push(m === stages.length - 1 ? 1 : acc / total);
+        // Reserve touch spacing while retaining relative phase-duration cues.
+        ts.push(m === stages.length - 1 ? 1 : .6 * m / (stages.length - 1) + .4 * acc / total);
         if (m < w.length) acc += w[m];
       }
 
@@ -160,7 +172,8 @@
     /* φ → 轨道位置：节点之间按 φ 线性插值，所以进度点是连续的 */
     function tAt(phi) {
       if (!phis.length) return 0;
-      if (phi <= phis[0]) return 0;
+      if (phi < phis[0]) return -.1 * Math.min(1, (phis[0]-phi)/((phis[phis.length-1]-phis[0])*.06));
+      if (phi === phis[0]) return 0;
       if (phi >= phis[phis.length - 1]) return 1;
       for (var i = 0; i < phis.length - 1; i++) {
         if (phi <= phis[i + 1]) {
@@ -198,7 +211,7 @@
       /* 文字三档（已过 / 当前 / 未到）再叠一层弱的距离衰减 */
       for (var i = 0; i < buttons.length; i++) {
         var d = Math.abs(ts[i] - t);
-        var tier = i === index ? 1 : (i < index ? 0.85 : 0.66);
+        var tier = i === index ? 1 : (phis[i] <= furthest+1e-7 ? 0.85 : 0.66);
         buttons[i].style.opacity = (tier * Math.max(0.7, 1 - d * 0.8)).toFixed(3);
         buttons[i].classList.toggle('is-on', i === index);
         buttons[i].classList.toggle('is-past', i < index);
@@ -208,13 +221,20 @@
       }
 
       var span0 = phis[phis.length - 1] - phis[0] || 1;
-      pctEl.textContent = Math.round((phi - phis[0]) / span0 * 100) + '%';
+      var outsideName=phi < phis[0]-1e-7 ? '初亏前' : phi > phis[phis.length-1]+1e-7 ? '复圆后' : '';
+      pctEl.textContent = outsideName ? '' : stages[index] ? stages[index].name : '';
+      pctEl.setAttribute('aria-label','当前阶段：'+(outsideName||pctEl.textContent));
       if (stages[index]) subEl.textContent = stages[index].sub;
       var left = stages.length - 1 - index;
       restEl.innerHTML = left <= 0 ? '已复圆' : '剩 <b>' + left + '</b> 步';
     };
 
-    api.setForwardOnly = function(phi,locked) {var next=phis.findIndex(function(p){return p>phi+1e-7;});for(var i=0;i<buttons.length;i++){buttons[i].disabled=!!locked||i!==next;}};
+    api.canReview = function(index) {return index>=0&&index<phis.length&&phis[index]<=furthest+1e-7;};
+    api.setForwardOnly = function(phi,locked,playing) {
+      furthest=Math.max(furthest,phi);
+      var next=phis.findIndex(function(p){return p>phi+1e-7;});
+      for(var i=0;i<buttons.length;i++)buttons[i].disabled=!!locked||!(api.canReview(i)||(!playing&&i===next));
+    };
 
     return api;
   }

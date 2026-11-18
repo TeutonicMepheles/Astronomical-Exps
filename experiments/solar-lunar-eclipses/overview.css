@@ -72,13 +72,13 @@ input[type=range]::-moz-range-track{height:4px;background:#647183}input[type=ran
 }
 
 
-#observer{position:absolute;left:48px;top:618px;width:320px;padding:10px;background:#101c2ded;border:1px solid #647f9b66;border-radius:16px}
-#sky{display:block;width:298px;height:174px;border-radius:10px}
+#observer{position:absolute;left:48px;top:522px;width:340px;height:340px;padding:10px;background:#101c2ded;border:1px solid #647f9b66;border-radius:16px}
+#sky{display:block;width:318px;height:286px;border-radius:10px}
 .observer-caption{display:flex;justify-content:space-between;align-items:center;font-size:17px;min-height:32px;color:#efd2a0}.observer-caption output{color:#dce7f6}
 .rail-head{top:112px;right:45px;font-size:20px}.rail-sub,.rail-rest{display:none}.rail-node{min-width:100px;min-height:52px;font-size:23px;border:0;background:transparent}.rail-node:hover,.rail-node.is-on{color:#f6d49a;background:#26384c88}
 
 .observation-transport{position:absolute;left:430px;top:696px;display:flex;align-items:center;gap:12px}.observation-transport button,.observation-transport select{font-size:20px}.observation-transport label{margin-left:12px;font-size:20px}.observation-transport select{padding:12px;background:#142032;color:#e8edf6;border:1px solid #72829466;border-radius:10px}
-#observationOptions{position:absolute;left:50px;top:104px;z-index:5;width:515px}#observationOptions summary{width:max-content;padding:12px 20px;min-height:48px;border:1px solid #72829466;border-radius:12px;background:#142032e8;font-size:20px;cursor:pointer}#observationOptions[open]{padding:14px;background:#101c2dfa;border:1px solid #72829466;border-radius:15px}.observation-options-body{display:grid;gap:12px;padding-top:15px;font-size:19px}.observation-options-body button{font-size:18px;padding:8px 12px}.observation-options-body div{display:flex;gap:8px}.observation-options-body output{color:#d7c49e}button:disabled{opacity:.4;cursor:default}#stage[data-outside=true] .rail-glow,#stage[data-outside=true] .rail-pct{visibility:hidden}#stage[data-outside=true] .rail-read,#stage[data-outside=true] .rail-trail{opacity:0!important}#stage[data-outside=true] .rail-node.is-on{color:#b8c8db;background:transparent}
+#observationOptions{position:absolute;left:50px;top:104px;z-index:5;width:515px}#observationOptions summary{width:max-content;padding:12px 20px;min-height:48px;border:1px solid #72829466;border-radius:12px;background:#142032e8;font-size:20px;cursor:pointer}#observationOptions[open]{padding:14px;background:#101c2dfa;border:1px solid #72829466;border-radius:15px}.observation-options-body{display:grid;gap:12px;padding-top:15px;font-size:19px}.observation-options-body button{font-size:18px;padding:8px 12px}.observation-options-body div{display:flex;gap:8px}.observation-options-body output{color:#d7c49e}button:disabled{opacity:.4;cursor:default}#stage[data-outside=true] .rail-glow,#stage[data-outside=true] .rail-pct{visibility:visible}#stage[data-outside=true] .rail-read,#stage[data-outside=true] .rail-trail{opacity:0!important}#stage[data-outside=true] .rail-node.is-on{color:#b8c8db;background:transparent}
 
 #overviewCameras{position:absolute;left:48px;top:38px;display:flex;gap:12px}
 #overviewCameras button{background:#142032bb}
@@ -115,15 +115,15 @@ input[type=range]::-moz-range-track{height:4px;background:#647183}input[type=ran
 #eventTypes{position:absolute;left:48px;top:36px;display:flex;gap:12px;z-index:6}
 #eventTypes button{min-width:128px}
 #observerCandidates{position:absolute;inset:0;pointer-events:none;z-index:4}
-#observerCandidates button{position:absolute;width:44px;min-height:44px;padding:0;border-radius:50%;pointer-events:auto;background:#18283de8;color:#ffdea2;border-color:#ffdea2}
+#observerCandidates button{position:absolute;width:172px;min-height:52px;height:52px;padding:8px 10px;border-radius:12px;white-space:nowrap;word-break:keep-all;line-height:1.2;font-size:var(--type-body);pointer-events:auto;background:#18283de8;color:#ffdea2;border-color:#ffdea2}
 #observerCandidates button[aria-pressed=true]{background:#e6c590;color:#101c2d}
 #observationCameraToggle{position:absolute;left:1115px;top:36px;min-width:154px;z-index:6}
 .observation-transport{left:420px;top:805px;gap:10px}
 .observation-transport button{padding:10px 14px;font-size:20px}
-#observer{top:635px}
+#observer{top:522px}
 #surfaceZoom{top:105px}
 
-#nodeTools{position:absolute;left:48px;top:105px;display:flex;gap:10px;z-index:4}#nodeTools button{font-size:18px;padding:10px 12px}#stage[data-view=observe] #surfaceZoom{left:370px;top:105px}
+#stage[data-view=observe] #surfaceZoom{left:370px;top:105px}
 
 #stage[data-view=observe] #shadowLegend{left:950px;top:120px;gap:22px;font-size:17px}
 
@@ -136,3 +136,116 @@ input[type=range]::-moz-range-track{height:4px;background:#647183}input[type=ran
 /* Observer selection is presentation-only; local contacts remain discrete. */
 #observerCandidates button {transition: background-color .35s ease, color .35s ease, border-color .35s ease;}
 @media (prefers-reduced-motion: reduce) {#observerCandidates button {transition:none;}}
+
+/* Keep the experiment identity above two aligned rows of controls. */
+#experimentTitle{position:absolute;left:48px;top:28px;width:auto;margin:0;text-align:left;line-height:1.35;pointer-events:none;padding:4px 12px;margin:-4px 0;background:#060a13df;border-radius:8px}
+#viewTitle{position:absolute;left:600px;top:38px;width:400px;margin:0;text-align:center;font-size:20px;font-weight:300}
+#eventTypes{top:104px;gap:12px}
+#eventTypes button{min-height:56px;min-width:128px}
+#observationCameras{left:auto;right:48px;top:32px}
+
+
+#stage[data-view=observe] #surfaceZoom{left:370px;top:178px;min-height:52px}
+#stage[data-view=observe] #shadowLegend{left:auto;right:48px;top:195px}
+#stage[data-view=observe] .rail-head{top:224px}
+.observation-transport{left:420px;right:300px;top:auto;bottom:38px;gap:14px;justify-content:center}
+.observation-transport button{min-height:56px}
+.observation-transport label{display:flex;align-items:center;gap:12px;white-space:nowrap;margin-left:8px}
+
+/* Choose an observation category before its solar event subtype. */
+#observationModes{position:absolute;left:48px;top:112.6666666667px;display:flex;gap:12px;z-index:6}
+#observationModes button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:190px;min-height:56px;padding:8px 16px;font-size:var(--type-body);font-weight:500;white-space:nowrap}
+#observationModes .observation-mode-icon{display:block;width:40px;height:40px;flex:0 0 40px;object-fit:contain;pointer-events:none}
+#eventTypes{top:178px;gap:8px;padding-left:16px;border-left:2px solid #d8c09a80}
+#eventTypes button{min-width:120px;min-height:52px;padding:10px 14px;background:#101b2acc}
+#eventTypes button:hover,#eventTypes button[aria-pressed=true]{background:#26384c;border-color:#d8c09a}
+
+#stage[data-view=observe] #surfaceZoom{left:640px}
+
+#stage[data-view=observe][data-eclipse-category=lunar] #surfaceZoom{left:48px}
+
+
+.rail-node-kind{display:block;font-size:var(--type-help);font-weight:300;line-height:14px;letter-spacing:0;color:#b9c7d9}
+
+#sweepLegend{position:absolute;left:48px;top:256px;display:grid;gap:12px;font-size:var(--type-body);color:#c9d6e5;pointer-events:none}
+.sweep-central,.sweep-partial{display:flex;gap:12px;align-items:center}
+.sweep-central::before,.sweep-partial::before{content:"";width:30px;height:16px;display:inline-block;border:1px solid #ffb46d;background:repeating-linear-gradient(135deg,#f99f5555 0 3px,#f99f5518 3px 7px)}
+.sweep-partial::before{border-color:#60aab6;background:#389da83b}
+#observationSummary{position:absolute;left:48px;top:400px;width:290px;display:grid;gap:14px;font-size:var(--type-body)}
+#observationSummary div{display:flex;justify-content:space-between;gap:16px}#observationSummary span{color:#a8b7ca}#observationSummary output{color:#f0d2a1;font-weight:500}
+.current-shadow-label{color:#a8b7ca}
+
+#sweepToggle{position:absolute;right:364px;top:32px;width:64px;height:56px;padding:10px;display:grid;place-items:center;z-index:6}
+#sweepToggle svg{width:36px;height:32px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+
+#sweepToggle[aria-pressed=true] svg{stroke:#efd5a4}#sweepToggle[aria-pressed=true] .sweep-hidden{display:none}
+
+/* Solar comparisons use one fitted receiving-face camera; lunar orbit views remain available. */
+#stage[data-eclipse-category=solar] #sweepToggle{right:48px}
+
+#stage[data-view=observe] .rail-head{top:170px;color:#c6d4e6;letter-spacing:0}
+#stage[data-eclipse-category=lunar] .penumbra-key::before{height:0;border-top:2px solid #73e6ff;background:none;box-shadow:none}
+#stage[data-eclipse-category=lunar] .observer-caption{font-size:16px;gap:8px}
+#stage[data-eclipse-category=lunar] .observer-caption output{white-space:nowrap}
+
+/* User review: remove repeated labels; keep phase position on the rail. */
+#stage[data-eclipse-category=lunar] #railScope,
+#stage[data-eclipse-category=lunar] .observer-caption{display:none}
+#stage[data-eclipse-category=lunar] #sky{height:318px}
+
+.observer-title{position:absolute;padding:2px 10px;background:#101c2d;border-radius:6px;left:0;bottom:calc(100% + 12px);margin:0;color:#e8edf6;font-size:var(--type-body);font-weight:500;line-height:var(--type-leading)}
+
+/* Subtle contrast beneath the right-hand controls; never intercept input. */
+#stage[data-view=observe]::after{content:"";position:absolute;right:0;top:0;bottom:0;width:200px;background:linear-gradient(to right,transparent 0%,rgba(7,12,22,.30) 35%,rgba(7,12,22,.30) 100%);pointer-events:none;z-index:1}
+#stage[data-view=observe] #stageRail,#stage[data-view=observe] #shadowLegend{z-index:2}
+
+/* In-scene labels replace the detached line legend. */
+#stage[data-view=observe] #shadowLegend{display:none}
+#observer{top:466px;height:396px;padding:10px;background:#e6e8eb;border:0;border-radius:22px}
+.observer-title{position:static;height:56px;display:flex;align-items:center;justify-content:center;padding:0;margin:0;background:none;border-radius:0;color:#101722;font-size:30px;font-weight:600;line-height:40px}
+#sky{width:320px;border-radius:18px}
+#stage[data-eclipse-category=lunar] #sky{height:320px}
+
+.observation-transport{left:auto;right:48px;top:auto;bottom:38px;gap:16px;justify-content:flex-end;z-index:3}
+.observation-transport button{display:grid;place-items:center;width:72px;height:72px;min-height:72px;padding:19px;border-radius:50%}
+.observation-transport svg{display:block;width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#continuousPlay .transport-pause,#continuousPlay[aria-pressed=true] .transport-play{display:none}
+#continuousPlay[aria-pressed=true] .transport-pause{display:block}
+
+/* The highlighted node already names the current phase. */
+#stage[data-view=observe] .rail-head{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+#observationModes{left:420px;top:27px}
+
+/* Lunar stage symbols from the approved LibTV icon set. */
+#stage[data-eclipse-category="lunar"] #stageRail .rail-node{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:4px 10px;min-height:52px}
+#stageRail .rail-node-icon{display:block;width:44px;height:44px;flex:0 0 44px;pointer-events:none}
+
+#observationCameras .camera-view-icon{display:block;width:40px;height:40px;object-fit:contain;pointer-events:none}
+
+/* Match the circular top-view symbol to the wider orbit silhouettes. */
+#observationTop .camera-view-icon{width:40px;height:40px}
+
+/* Observation controls: keep the scene and ground window unobstructed. */
+#observerCandidates{inset:auto;left:560px;bottom:38px;top:auto;display:flex;align-items:center;gap:14px;width:auto;height:52px;pointer-events:auto}
+#observerCandidates::before{content:"选择观察点：";font-size:var(--type-body);color:#e8edf6}
+#observerCandidates button{position:static;width:52px;min-width:52px;height:52px;min-height:52px;padding:0;border-radius:50%;font-size:var(--type-body)}
+#stage[data-eclipse-category=solar] #sweepToggle{left:48px;right:auto;top:256px;width:246px;height:48px;padding:0 12px;display:flex;justify-content:space-between;align-items:center;font-size:var(--type-body)}
+.sweep-switch{width:42px;height:24px;border-radius:14px;background:#435164;padding:3px}
+.sweep-switch::after{content:"";display:block;width:18px;height:18px;border-radius:50%;background:#e8edf6}
+#sweepToggle[aria-pressed=true] .sweep-switch{background:#b8955c}
+#sweepToggle[aria-pressed=true] .sweep-switch::after{margin-left:18px}
+#sweepLegend{top:320px}
+#surfaceZoom,#surfaceDetail,#observationSummary{display:none}
+#stage[data-eclipse-category=solar] #stageRail{display:none}
+#stage[data-eclipse-category=solar] #observerPrompt{display:none}
+
+#stage[data-eclipse-category=solar] #observer{top:290px}
+#stage[data-eclipse-category=solar] #sweepToggle{top:auto;bottom:142px;width:340px}
+#stage[data-eclipse-category=solar] #sweepLegend{top:auto;bottom:48px}
+
+.observer-title{gap:12px}
+.observer-site-tag{display:inline-flex;align-items:center;padding:4px 10px;border-radius:7px;background:#243951;color:#fff;font-size:18px;font-weight:500;line-height:26px;white-space:nowrap}
+#stage[data-eclipse-category=lunar] .observer-site-tag{display:none}
+#observer .observer-caption{justify-content:flex-end;color:#243951}
+#observer .observer-caption output{color:#243951}
