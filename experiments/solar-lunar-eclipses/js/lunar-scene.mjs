@@ -29,7 +29,7 @@ export function lunarScene(M,{phi,vector,E,er,geometry=lunarGeometry(M,vector)})
 }
 
 export function lunarLocalView(M,{scene,observer,width,height}){
- const forward=M.unit(M.sub(scene.moon,observer)),toward=M.mul(forward,-1),cross=(a,b)=>({x:a.y*b.z-a.z*b.y,y:a.z*b.x-a.x*b.z,z:a.x*b.y-a.y*b.x});let right=cross(forward,M.unit(observer));if(M.len(right)<1e-6)right=cross(forward,{x:0,y:1,z:0});right=M.unit(right);const up=M.unit(cross(right,forward)),vector=p=>[M.dot(p,right),M.dot(p,up),M.dot(p,toward)],radius=height*.34,scale=radius/M.RM,center={x:width/2,y:height/2,depth:0},project=p=>{const q=vector(M.sub(p,scene.moon));return {x:center.x+q[0]*scale,y:center.y-q[1]*scale,depth:q[2]*scale};},layout=createShadowLayout({origin:scene.origin,cone:scene.cone,sourceScreen:project(scene.origin),scale,vector,compression:1,horizontalScale:1});
+ const forward=M.unit(M.sub(scene.moon,observer)),toward=M.mul(forward,-1),cross=(a,b)=>({x:a.y*b.z-a.z*b.y,y:a.z*b.x-a.x*b.z,z:a.x*b.y-a.y*b.x});let right=cross(forward,M.unit(observer));if(M.len(right)<1e-6)right=cross(forward,{x:0,y:1,z:0});right=M.unit(right);const up=M.unit(cross(right,forward)),vector=p=>[M.dot(p,right),M.dot(p,up),M.dot(p,toward)],radius=Math.min(width,height)*.44,scale=radius/M.RM,center={x:width/2,y:height/2,depth:0},project=p=>{const q=vector(M.sub(p,scene.moon));return {x:center.x+q[0]*scale,y:center.y-q[1]*scale,depth:q[2]*scale};},layout=createShadowLayout({origin:scene.origin,cone:scene.cone,sourceScreen:project(scene.origin),scale,vector,compression:1,horizontalScale:1});
  return {vector,radius,center,layout,sun:vector(M.unit(M.sub(scene.model.SUN,scene.moon)))};
 }
 

@@ -49,7 +49,7 @@
   SkyWindow.prototype.renderLunarScene = function (options) {
     this.setup();var ctx=this.ctx;ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.clearRect(0,0,this.w,this.h);ctx.fillStyle='#080e1b';ctx.fillRect(0,0,this.w,this.h);
     if(!options.visible){ctx.fillStyle='#d8e2ef';ctx.font='16px "Alibaba PuHuiTi 3",sans-serif';ctx.textAlign='center';ctx.fillText('观察点 A：月球在地平线下',this.w/2,this.h/2);ctx.textAlign='left';return;}
-    var R=this.h*.34,side=R/.47;ctx.drawImage(options.texture,this.w/2-side/2,this.h/2-side/2,side,side);options.shadow(ctx,{width:this.w,height:this.h,dpr:this.dpr});
+    var R=Math.min(this.w,this.h)*.44,side=R/.47;ctx.drawImage(options.texture,this.w/2-side/2,this.h/2-side/2,side,side);options.shadow(ctx,{width:this.w,height:this.h,dpr:this.dpr});
   };
 
   SkyWindow.prototype.renderReference = function (sky) {
@@ -73,52 +73,48 @@
     var vis = sky.visibility===undefined?M.sunVisible(sky.P, sky.M, M.RM):sky.visibility;
     var light = 0.09 + 0.91 * Math.pow(vis, 0.55);
 
-    var g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, mix('#254a72', light));
-    g.addColorStop(0.55, mix('#152c4d', light));
-    g.addColorStop(1, mix('#0b1730', light));
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
-
-    var total = sky.sep <= Math.max(0, sky.moonR - sky.sunR);
+    ctx.fillStyle='#07090f';ctx.fillRect(0,0,w,h);
+    var total = sky.moonR >= sky.sunR && sky.sep <= sky.moonR - sky.sunR;
     var ring = total ? M.clamp(1 - sky.sep / Math.max(1e-6, sky.moonR - sky.sunR), 0, 1) : 0;
 
     if (ring > 0.001) {
-      var cg = ctx.createRadialGradient(mx, my, Rm * 0.96, mx, my, Rm * 2.1);
-      cg.addColorStop(0, 'rgba(255,246,224,' + (0.55 * ring).toFixed(3) + ')');
-      cg.addColorStop(0.28, 'rgba(255,226,168,' + (0.24 * ring).toFixed(3) + ')');
-      cg.addColorStop(1, 'rgba(255,210,150,0)');
-      ctx.fillStyle = cg;
-      ctx.beginPath();
-      ctx.arc(mx, my, Rm * 2.1, 0, TAU);
-      ctx.fill();
+      if(!this.coronaTexture){
+        var corona=document.createElement('canvas');corona.width=corona.height=512;
+        var cc=corona.getContext('2d'),ci=cc.createImageData(512,512);
+        for(var yy=0;yy<512;yy++)for(var xx=0;xx<512;xx++){
+          var dx=(xx-255.5)/114,dy=(yy-255.5)/114,rr=Math.hypot(dx,dy),angle=Math.atan2(dy,dx),j=(yy*512+xx)*4;
+          if(rr<.98)continue;
+          var streamer=.22+.11*Math.pow(Math.cos(angle-.25),6)+.07*Math.pow(Math.sin(3*angle+.8),8);
+          var rays=.72+.28*Math.pow(Math.sin(angle*17+Math.sin(angle*7)),2),intensity=Math.exp(-(rr-1)/streamer)*rays;
+          ci.data[j]=232;ci.data[j+1]=239;ci.data[j+2]=247;ci.data[j+3]=Math.round(165*intensity);
+        }
+        cc.putImageData(ci,0,0);this.coronaTexture=corona;
+      }
+      ctx.save();ctx.globalAlpha=ring;ctx.drawImage(this.coronaTexture,mx-Rm*2.245,my-Rm*2.245,Rm*4.49,Rm*4.49);ctx.restore();
     }
 
-    var halo = ctx.createRadialGradient(cx, cy, Rs * 0.85, cx, cy, Rs * 2.6);
-    halo.addColorStop(0, 'rgba(255,232,186,0.55)');
-    halo.addColorStop(0.4, 'rgba(255,214,150,0.16)');
-    halo.addColorStop(1, 'rgba(255,206,140,0)');
-    ctx.fillStyle = halo;
-    ctx.beginPath();
-    ctx.arc(cx, cy, Rs * 2.6, 0, TAU);
-    ctx.fill();
-
-    var sun = ctx.createRadialGradient(cx, cy, 0, cx, cy, Rs);
-    sun.addColorStop(0, '#fffdf4');
-    sun.addColorStop(0.62, '#ffe7b4');
-    sun.addColorStop(0.9, '#ffc873');
-    sun.addColorStop(1, '#f7ab52');
-    ctx.fillStyle = sun;
-    ctx.beginPath();
-    ctx.arc(cx, cy, Rs, 0, TAU);
-    ctx.fill();
-
+    // A cached filtered-light photosphere. Appearance only; disc geometry stays exact.
+    if(!this.solarTexture){
+      var texture=document.createElement('canvas');texture.width=texture.height=384;
+      var tc=texture.getContext('2d'),image=tc.createImageData(384,384),seed=3187;
+      for(var y=0;y<384;y++)for(var x=0;x<384;x++){
+        var nx=(x+0.5-192)/191,ny=(y+0.5-192)/191,r2=nx*nx+ny*ny,i=(y*384+x)*4;
+        if(r2>1)continue;
+        seed=(seed*1664525+1013904223)>>>0;
+        var grain=(seed/4294967296-.5)*.055,mu=Math.sqrt(1-r2),limb=.76+.24*mu;
+        var structure=.016*Math.sin(x*.64+Math.sin(y*.18)*2)*Math.sin(y*.59);
+        var value=limb+grain+structure;
+        image.data[i]=Math.min(255,255*value);image.data[i+1]=Math.min(255,222*value);image.data[i+2]=Math.min(255,156*value);image.data[i+3]=255;
+      }
+      tc.putImageData(image,0,0);this.solarTexture=texture;
+    }
+    ctx.drawImage(this.solarTexture,cx-Rs,cy-Rs,Rs*2,Rs*2);
     ctx.fillStyle = '#07090f';
     ctx.beginPath();
     ctx.arc(mx, my, Rm, 0, TAU);
     ctx.fill();
 
-    ctx.strokeStyle = total ? 'rgba(255,196,120,0.55)' : 'rgba(140,160,190,0.28)';
+    ctx.strokeStyle = total ? 'rgba(255,230,197,0.3)' : 'rgba(7,9,15,0)';
     ctx.lineWidth = 1.1;
     ctx.beginPath();
     ctx.arc(mx, my, Rm, 0, TAU);

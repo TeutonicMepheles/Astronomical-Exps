@@ -15,3 +15,5 @@
 - [历史整合验证与限制（2026-11-13）](../../docs/INTEGRATION_20261113.md)
 
 根检查为 `npm run check`、`npm test`、`npm run test:browser`；完整教学、专项几何和性能按本实验对应脚本另行验证。科学参数、真实智慧白板及长期运行仍待验收。
+
+月食地面小窗明暗与颜色渐变更新见 [2026-11-17 验证记录](docs/LUNAR_APPEARANCE_20261117.md)。
