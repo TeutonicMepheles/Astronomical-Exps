@@ -1,0 +1,402 @@
+{
+  "pass": true,
+  "cases": [
+    {
+      "height": 1000,
+      "speed": 0.5,
+      "projectile": [
+        437.7771945252384,
+        530.0000000025464
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 7.159250240444447,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        437.7771945252384,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 1000,
+      "speed": 1,
+      "projectile": [
+        516.501574539159,
+        530.0000000025464
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 14.405687193896311,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        516.501574539159,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 1000,
+      "speed": 4.5,
+      "projectile": [
+        1210,
+        529.9999999995756
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 78.2409643536719,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        1210,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 1000,
+      "speed": 6.5,
+      "projectile": [
+        1210,
+        530
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 163.4573025997702,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        1210,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 10000,
+      "speed": 0.5,
+      "projectile": [
+        437.74665125411354,
+        530.0000000023554
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 22.655594935020215,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        437.74665125411354,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 10000,
+      "speed": 1,
+      "projectile": [
+        516.4416972243871,
+        529.9999999997029
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 45.58755478327129,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        516.4416972243871,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 10000,
+      "speed": 4.5,
+      "projectile": [
+        1210,
+        529.9999999999576
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 247.6924135526452,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        1210,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 10000,
+      "speed": 6.5,
+      "projectile": [
+        1210,
+        530
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 518.1585247793472,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        1210,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 100000,
+      "speed": 0.5,
+      "projectile": [
+        437.4398183741526,
+        530.0000000001124
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 72.14915156240245,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        437.4398183741526,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 100000,
+      "speed": 1,
+      "projectile": [
+        515.8400768540248,
+        529.999999999983
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 145.19312623014036,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        515.8400768540248,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 100000,
+      "speed": 4.5,
+      "projectile": [
+        1210,
+        530
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 791.9282368631095,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        1210,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    },
+    {
+      "height": 100000,
+      "speed": 6.5,
+      "projectile": [
+        1210,
+        530
+      ],
+      "groundY": 530,
+      "landed": true,
+      "kind": "impact",
+      "progress": 1,
+      "rangeKm": 1679.5396890595202,
+      "rangeStart": [
+        360,
+        558
+      ],
+      "rangeEnd": [
+        1210,
+        558
+      ],
+      "pixel": [
+        216,
+        176,
+        116,
+        255
+      ],
+      "ground": [
+        100,
+        121,
+        129,
+        255
+      ]
+    }
+  ],
+  "errors": []
+}

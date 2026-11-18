@@ -1,6 +1,6 @@
 {
   "version": "0.3.0-kiu-source-geometry",
-  "model": "cz7-kiu.glb",
+  "model": "cz7-interior-20261117.glb",
   "units": "metre",
   "dimensions": {
     "overallHeight": 53.1,
@@ -421,15 +421,15 @@
       "node": "Stage1FuelTank",
       "mesh": "Stage1FuelTankMesh",
       "labelZh": "一级煤油箱（示意）",
-      "gltfMeshIndex": 12,
-      "gltfMeshName": "Stage1FuelTankMesh"
+      "gltfMeshIndex": 20,
+      "gltfMeshName": "Stage1FuelTank_MCPPhotoSurface"
     },
     {
       "node": "Stage1LOXTank",
       "mesh": "Stage1LOXTankMesh",
       "labelZh": "一级液氧箱（示意）",
-      "gltfMeshIndex": 13,
-      "gltfMeshName": "Stage1LOXTankMesh"
+      "gltfMeshIndex": 19,
+      "gltfMeshName": "Stage1LOXTank_MCPPhotoSurface"
     },
     {
       "node": "Stage2Shell",
@@ -442,15 +442,15 @@
       "node": "Stage2FuelTank",
       "mesh": "Stage2FuelTankMesh",
       "labelZh": "二级煤油箱（示意）",
-      "gltfMeshIndex": 16,
-      "gltfMeshName": "Stage2FuelTankMesh"
+      "gltfMeshIndex": 22,
+      "gltfMeshName": "Stage2FuelTank_MCPPhotoSurface"
     },
     {
       "node": "Stage2LOXTank",
       "mesh": "Stage2LOXTankMesh",
       "labelZh": "二级液氧箱（示意）",
-      "gltfMeshIndex": 17,
-      "gltfMeshName": "Stage2LOXTankMesh"
+      "gltfMeshIndex": 21,
+      "gltfMeshName": "Stage2LOXTank_MCPPhotoSurface"
     },
     {
       "node": "Stage1Engine01",
@@ -596,36 +596,36 @@
       "node": "PayloadCargo",
       "mesh": "PayloadCargoMesh",
       "labelZh": "载荷货舱（示意）",
-      "gltfMeshIndex": 5,
-      "gltfMeshName": "PayloadCargoMesh"
+      "gltfMeshIndex": 23,
+      "gltfMeshName": "PayloadCargo_MCPDetailed"
     },
     {
       "node": "PayloadService",
       "mesh": "PayloadServiceMesh",
       "labelZh": "载荷服务舱",
-      "gltfMeshIndex": 9,
-      "gltfMeshName": "PayloadServiceMesh"
+      "gltfMeshIndex": 25,
+      "gltfMeshName": "Tianzhou_AftMount"
     },
     {
       "node": "PayloadDock",
       "mesh": "PayloadDockMesh",
       "labelZh": "载荷对接机构",
-      "gltfMeshIndex": 6,
-      "gltfMeshName": "PayloadDockMesh"
+      "gltfMeshIndex": 24,
+      "gltfMeshName": "PayloadDock_MCPDetailed"
     },
     {
       "node": "PayloadFoldedPanelL",
       "mesh": "PayloadFoldedPanelLMesh",
       "labelZh": "载荷收拢太阳翼L",
-      "gltfMeshIndex": 7,
-      "gltfMeshName": "PayloadFoldedPanelLMesh"
+      "gltfMeshIndex": 26,
+      "gltfMeshName": "PayloadFoldedPanelL_MCPDetailed"
     },
     {
       "node": "PayloadFoldedPanelR",
       "mesh": "PayloadFoldedPanelRMesh",
       "labelZh": "载荷收拢太阳翼R",
-      "gltfMeshIndex": 8,
-      "gltfMeshName": "PayloadFoldedPanelRMesh"
+      "gltfMeshIndex": 27,
+      "gltfMeshName": "PayloadFoldedPanelR_MCPDetailed"
     }
   ],
   "shellNodes": [
@@ -3128,15 +3128,47 @@
     }
   },
   "statistics": {
-    "uniqueTriangles": 83639,
-    "instancedTriangles": 176633,
+    "uniqueTriangles": 123343,
+    "instancedTriangles": 210201,
     "meshObjects": 32,
-    "uniqueMeshes": 19,
-    "materials": 6,
-    "textures": 1,
-    "textureBytes": 1739201,
-    "glbBytes": 11129016,
+    "uniqueMeshes": 28,
+    "materials": 17,
+    "textures": 10,
+    "textureBytes": 5372894,
+    "glbBytes": 15602088,
     "nodes": 65,
     "animations": 7
-  }
+  },
+  "interiorRevision": "2026-11-17: reviewed primer tank appearance and original Tianzhou-1-inspired cylindrical payload with stowed solar-wing stacks; exterior rig and clips preserved.",
+  "payloadReference": {
+    "type": "Tianzhou-1-inspired educational exterior",
+    "overallLength": 10.6,
+    "maxDiameter": 3.35,
+    "source": "https://www.cnsa.gov.cn/n6758824/n6759008/n6759014/c6794316/content.html",
+    "boundary": "overall public envelope; module partitions and stow hardware simplified; original authored geometry, not CAD"
+  },
+  "interiorLayoutReview": {
+    "date": "2026-11-17",
+    "status": "Public overall configuration checked; model interferences removed. Exact engineering installation/tank partition dimensions remain unverified.",
+    "nominalCoreDiameter": 3.35,
+    "policy": "interior-layout-policy.json",
+    "audit": "internal-layout-audit.json",
+    "evidence": "../../docs/INTERNAL_LAYOUT_REVIEW_20261117.md",
+    "engineGeometry": "Original KIU meshes/poses retained; count 2/4 supported by public sources; exact dimensions not independently validated.",
+    "displayBoundary": "Interior tanks deliberately inset for cutaway legibility; the visible radial separation is not a real cavity, wall thickness or engineering fit."
+  },
+  "modelRevision": "tank-material-spacing-20261117",
+  "approvedInterior": {
+    "date": "2026-11-17",
+    "scope": [
+      "structure-recognition",
+      "assembly"
+    ],
+    "sha256": "cedf9106566e004608629309c2bb468459507fd2e86dcd3529710c643bd1f27f",
+    "description": "User-approved tank appearance, teaching cutaway separation, Tianzhou-inspired payload and retained source engines. One shared GLB for both phases.",
+    "previousApprovedSHA256": "7f43ce063895381a717234566b251c6265062ea09d0794b955c30038840d9fcc",
+    "modelRevision": "tank-material-spacing-20261117",
+    "refinement": "User-requested LOX/fuel material distinction and uniform model-unit ring pitch."
+  },
+  "blueprintRevision": "assembly-uniform-20261117"
 }

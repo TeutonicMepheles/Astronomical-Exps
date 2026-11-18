@@ -1,4 +1,4 @@
-import {createCannonTransition,usesGroundView} from './cannon-transition.js';
+import {createCannonTransition,usesGroundView} from './cannon-transition.js?v=canonical-adjustment-20261118';
 import {CANNON_ART,artPoint} from './assets/cannon-scene/geometry.js';
 import {MODEL,GEARS,model,pathOf,solarPath,positionAt} from './orbital-model.js';
 export {MODEL,model,pathOf,solarPath,positionAt} from './orbital-model.js';
@@ -18,13 +18,13 @@ export function createVelocityScene(hooks={}){
  const getPath=(v,far=3)=>{const key=v+':'+far;if(!cache.has(key))cache.set(key,pathOf(v,far,st.height));return cache.get(key);};
  const getSolar=v=>{if(!solarCache.has(v))solarCache.set(v,solarPath(v,3,st.height));return solarCache.get(v);};
  const mk=()=>GEARS.find(g=>g.v===st.v)||{name:st.v<7.9?'水平发射':'轨道探索',result:model(st.v,st.height).kind==='impact'?'落回地面':model(st.v,st.height).kind==='closed'?'环绕地球':'逃离地球',note:'理想条件下的水平发射演示。'},duration=()=>st.mode==='vertical'?12:st.v===16.7?7:(usesGroundView(st.v,st.height)?6.5:8.85);
- function setValue(v){transition.reset();st.presentation=null;st.v=Math.round(Math.max(.5,Math.min(16.7,v))*100)/100;cache.clear();st.age=0;st.replay=0;st.paused=true;}
+ function setValue(v){transition.reset();st.presentation=null;st.transition=null;st.shot='close';st.v=Math.round(Math.max(.5,Math.min(16.7,v))*100)/100;cache.clear();st.age=0;st.replay=0;st.paused=true;}
  function earth(c,x,y,r){if(globe)globe(c,x,y,r);else{dot(c,x,y,r,'#596d77');if(grain){c.save();c.beginPath();c.arc(x,y,r,0,tau);c.clip();c.globalAlpha=.2;c.fillStyle=grain;c.fillRect(x-r,y-r,r*2,r*2);c.restore();}}}
  const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
  function storyboard(c,v,progress,alpha=1){
   if(alpha<=.001)return;
-  if(videoMode()&&backdrop){transition.draw(backdrop,st,getPath(v));if(st.age>0)return;}
-  if(videoMode()&&backdrop&&st.age===0){drawSpeedAxis(c,v);return;}
+  if(videoMode()&&backdrop&&st.age>0){transition.draw(backdrop,st,getPath(v));return;}
+  if(videoMode()&&backdrop)transition.prepare();
   c.save();c.globalAlpha=alpha;
   const path=getPath(v),wide=ease((st.age-.25)/1.8),space=v>=7?ease((st.age-1.15)/1.6):0;
   st.shot=space>.99?'earth':wide>.99?'terrain':'close';
@@ -71,6 +71,7 @@ export function createVelocityScene(hooks={}){
    st.presentation.rangeKm=rangeKm;st.presentation.rangeStart=[startX,y];st.presentation.rangeEnd=[end[0],y];
   }
   if(st.age===0&&st.paused){
+   st.adjustment={shot:'close',muzzle:[muzzleX,muzzleY],axisOrigin:[360,230]};
    const x=360,y=230,w=960,f=(v-.5)/16.2;
    line(c,[[x,y],[x+w,y]],'#8ea7b544',18);
    line(c,[[x,y],[x+w*f,y]],'#a8c4c6',18);
@@ -79,14 +80,6 @@ export function createVelocityScene(hooks={}){
    label(c,'初速度  '+String(v)+' km/s',x,y-42,30,ink);
   }
   c.restore();
- }
- function drawSpeedAxis(c,v){
-   const x=360,y=230,w=960,f=(v-.5)/16.2;
-   line(c,[[x,y],[x+w,y]],'#8ea7b544',18);
-   line(c,[[x,y],[x+w*f,y]],'#a8c4c6',18);
-   for(const tick of [1,4.5,7.9,11.2,16.7]){const tx=x+w*(tick-.5)/16.2;line(c,[[tx,y-10],[tx,y+10]],ink,2);label(c,String(tick),tx-15,y+48,22,dim);}
-   const tx=x+w*f;line(c,[[tx,y-20],[tx,y+20]],warm,7);
-   label(c,'初速度  '+String(v)+' km/s',x,y-42,30,ink);
  }
  function geocentric(c,v,progress,alpha=1){storyboard(c,v,progress,alpha);}
  function solar(c,progress,alpha){c.save();c.globalAlpha=alpha;const cx=700,cy=335,s=170,project=p=>[cx+s*p.x,cy-s*p.y];

@@ -1,3 +1,5 @@
+// Historical nine-step flow with prediction, pairing and persistent records.
+// Current layout/semantics: test-current-control-contract.cjs; behavior: test-course-refinements.cjs.
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
@@ -7,7 +9,7 @@ const out='experiments/rocket-launch/docs/review/glb-integration-20261112/contro
  try {
  const page=await browser.newPage({viewport:{width:1600,height:900}});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(process.env.ROCKET_BASE||'http://127.0.0.1:9011/experiments/rocket-launch/');
+ await page.goto(process.env.ROCKET_BASE||((process.env.TEST_ORIGIN||'http://127.0.0.1:9011')+'/experiments/rocket-launch/'));
  await page.evaluate(()=>document.fonts.ready);fs.mkdirSync(out,{recursive:true});
  const step=async n=>{await page.locator('#chapters > button').nth(Math.floor(n/3)).click();await page.locator('#steps button').nth(n%3).click();};
  const report=[];
@@ -54,7 +56,7 @@ const out='experiments/rocket-launch/docs/review/glb-integration-20261112/contro
  await page.locator('#pair-check').click();assert.equal(await page.locator('#feedback').textContent(),'三组配对正确。');await page.screenshot({path:`${out}/pair-result.png`});await page.getByRole('button',{name:'重新配对'}).click();assert.equal(await page.locator('#pair-check').isEnabled(),false);
  await step(6);await page.waitForFunction(()=>RocketChapter3.adapter.ready);await page.getByRole('button',{name:'一级液氧箱',exact:true}).click();assert.equal(await page.getByRole('switch',{name:'透视'}).getAttribute('aria-checked'),'true');
  await step(7);assert.equal(await page.getByRole('button',{name:'点火',exact:true}).isEnabled(),false);
- for(const name of ['一级','二级','四枚助推器','载荷','整流罩']){await page.locator('.assembly-3d-piece').filter({hasText:name}).click();await page.getByRole('button',{name:'安装'+name,exact:true}).click();}
+ for(const name of ['一级','二级','助推器','载荷','整流罩']){await page.locator('.assembly-3d-piece').filter({hasText:name}).click();await page.getByRole('button',{name:'安装'+name,exact:true}).click();}
  assert.equal(await page.getByRole('button',{name:'点火',exact:true}).isEnabled(),true);await page.getByRole('button',{name:'点火',exact:true}).click();assert.equal(await page.getByRole('button',{name:'点火',exact:true}).isEnabled(),false);
  await step(8);assert.equal(await page.locator('#separation-replay').isVisible(),false);await page.locator('#separation-start').click();for(let i=0;i<3;i++){await page.waitForFunction(()=>!document.querySelector('#separate').disabled);await page.locator('#separate').click();}await page.waitForFunction(()=>document.querySelector('#feedback').textContent==='分离完成。',{},{timeout:10000});await page.screenshot({path:`${out}/separation-result.png`});
  // Negative fixture demonstrates the audit rejects mixed control semantics.

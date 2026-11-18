@@ -1,0 +1,38 @@
+{
+  "Stage1LOXTank": {
+    "previousMesh": 13,
+    "replacementMesh": 19
+  },
+  "Stage1FuelTank": {
+    "previousMesh": 12,
+    "replacementMesh": 20
+  },
+  "Stage2LOXTank": {
+    "previousMesh": 17,
+    "replacementMesh": 21
+  },
+  "Stage2FuelTank": {
+    "previousMesh": 16,
+    "replacementMesh": 22
+  },
+  "PayloadCargo": {
+    "previousMesh": 5,
+    "replacementMesh": 23
+  },
+  "PayloadDock": {
+    "previousMesh": 6,
+    "replacementMesh": 24
+  },
+  "PayloadService": {
+    "previousMesh": 9,
+    "replacementMesh": 25
+  },
+  "PayloadFoldedPanelL": {
+    "previousMesh": 7,
+    "replacementMesh": 26
+  },
+  "PayloadFoldedPanelR": {
+    "previousMesh": 8,
+    "replacementMesh": 27
+  }
+}

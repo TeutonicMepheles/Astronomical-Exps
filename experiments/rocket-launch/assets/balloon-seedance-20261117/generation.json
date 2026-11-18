@@ -1,0 +1,145 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "video",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "e4e4cb49-0c9a-492c-9af9-23c92de48392",
+  "reactFlowNode": {
+    "id": "e4e4cb49-0c9a-492c-9af9-23c92de48392",
+    "type": "video",
+    "data": {
+      "type": "video",
+      "name": "气球胶带同步收缩-Seedance25-20261117",
+      "url": [],
+      "poster": "",
+      "action": "video_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Locked camera orthographic side view, isolated educational game sprite on perfectly uniform pure chroma green background RGB 0 255 0. Use reference apparatus exactly: pale ice blue balloon, two navy teal guide rollers, slim white rigid bridge, two ivory adhesive tape strips firmly stuck onto front balloon skin. Over five seconds inflated balloon steadily releases air through left nozzle and collapses into wrinkled limp balloon, ending about 55 percent of initial height. CRITICAL both tape strips bonded flush onto latex surface bend, wrinkle, shorten and fold together with balloon skin throughout deflation; no dangling rigid rectangular tabs, no floating tape, no separation from latex. Two rollers and rigid bridge stay completely fixed in position size shape at exact frame center. Balloon stays attached beneath fixed carriage. No horizontal movement, rotation, camera motion, zoom, background shadows, added elements, text or string outside carriage. Preserve illustration style colors. First frame fully inflated, final frame deflated, smooth continuous deformation.",
+        "model": "star-video2.5",
+        "modeType": "singleImage2video",
+        "count": 1,
+        "imageList": [
+          {
+            "nodeId": "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/91ca4d2e4655b4720dec5702b2295c5aaae0185d.png"
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "settings": {
+          "ratio": "4:3",
+          "resolution": "1080p",
+          "duration": 5,
+          "enableSound": "off",
+          "enablePortraitCheck": 1
+        },
+        "advancedSettings": {
+          "search_enabled": 1,
+          "autoCompliance": 1
+        },
+        "imageListOrder": [
+          "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e"
+        ],
+        "mixedListOrder": [
+          "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e"
+        ],
+        "textList": []
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "600555f7-9952-46de-91f0-c640af1bacdb",
+      "source": "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e",
+      "target": "e4e4cb49-0c9a-492c-9af9-23c92de48392"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "e4e4cb49-0c9a-492c-9af9-23c92de48392"
+  ]
+}
+{
+  "nodeKey": "e4e4cb49-0c9a-492c-9af9-23c92de48392",
+  "nodeType": "video",
+  "taskId": "20261117214303248927723",
+  "status": 2,
+  "data": {
+    "type": "video",
+    "name": "气球胶带同步收缩-Seedance25-20261117",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/video/4bee29b0c9bf4a2fa62e3e7f16e337db/0b10aa394177a914d74a0ff35009513c0934234aa2af460dd6b478b39e845216.mp4"
+    ],
+    "poster": "",
+    "action": "video_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Locked camera orthographic side view, isolated educational game sprite on perfectly uniform pure chroma green background RGB 0 255 0. Use reference apparatus exactly: pale ice blue balloon, two navy teal guide rollers, slim white rigid bridge, two ivory adhesive tape strips firmly stuck onto front balloon skin. Over five seconds inflated balloon steadily releases air through left nozzle and collapses into wrinkled limp balloon, ending about 55 percent of initial height. CRITICAL both tape strips bonded flush onto latex surface bend, wrinkle, shorten and fold together with balloon skin throughout deflation; no dangling rigid rectangular tabs, no floating tape, no separation from latex. Two rollers and rigid bridge stay completely fixed in position size shape at exact frame center. Balloon stays attached beneath fixed carriage. No horizontal movement, rotation, camera motion, zoom, background shadows, added elements, text or string outside carriage. Preserve illustration style colors. First frame fully inflated, final frame deflated, smooth continuous deformation.",
+      "model": "Seedance 2.5",
+      "modeType": "singleImage2video",
+      "count": 1,
+      "imageList": [
+        {
+          "nodeId": "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/91ca4d2e4655b4720dec5702b2295c5aaae0185d.png",
+          "compliantExempt": true
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "settings": {
+        "ratio": "4:3",
+        "resolution": "1080p",
+        "duration": 5,
+        "enableSound": "off",
+        "enablePortraitCheck": 1
+      },
+      "advancedSettings": {
+        "search_enabled": 1,
+        "autoCompliance": 1
+      },
+      "imageListOrder": [
+        "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e"
+      ],
+      "mixedListOrder": [
+        "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e"
+      ],
+      "textList": []
+    },
+    "taskInfo": {
+      "taskId": "20261117214303248927723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "video",
+          "width": 1664,
+          "height": 1248,
+          "durationSec": 5.042
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "video",
+          "width": 1664,
+          "height": 1248,
+          "durationSec": 5.042
+        }
+      ]
+    }
+  }
+}

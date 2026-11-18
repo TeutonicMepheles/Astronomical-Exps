@@ -1,8 +1,10 @@
+// Historical original-KIU model contract, before the approved interior/blueprint integration.
+// Current source/hash/assembly coverage: test-approved-interior.cjs and test-recognize-assemble.cjs.
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const BASE=process.env.ROCKET_BASE||'http://127.0.0.1:9026/experiments/rocket-launch/';
+const BASE=process.env.ROCKET_BASE||((process.env.TEST_ORIGIN||'http://127.0.0.1:9026')+'/experiments/rocket-launch/');
 const OUT=process.env.ROCKET_KIU_OUT||path.join(__dirname,'docs/review/kiu-20261116');
 (async()=>{
  fs.mkdirSync(OUT,{recursive:true});
@@ -12,7 +14,7 @@ const OUT=process.env.ROCKET_KIU_OUT||path.join(__dirname,'docs/review/kiu-20261
  p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  p.on('response',r=>{if(r.status()>=400)bad.push(r.url());});p.on('request',r=>{if(new URL(r.url()).origin!==new URL(BASE).origin)external.push(r.url());if(r.url().endsWith('cz7-kiu.glb'))loads.push(r.url());});
  await p.goto(BASE);await p.locator('#chapters > button').nth(2).click();await p.waitForFunction(()=>RocketChapter3.adapter.ready);
- const step=async i=>{await p.locator('#steps button').nth(i).click();await p.waitForTimeout(100);};
+ const step=async i=>{if(i===1){await p.getByRole('button',{name:'认识与组装火箭',exact:true}).click();if(await p.evaluate(()=>RocketChapter3.adapter.mode==='structure'))await p.locator('#next').click();await p.waitForFunction(()=>!RocketChapter3.adapter.assemblyMotion);}else{await p.getByRole('button',{name:i===0?'认识与组装火箭':i===2?'分级分离':'为什么要分级',exact:true}).click();}await p.waitForTimeout(100);};
  const shot=name=>p.screenshot({path:path.join(OUT,name+'.png')});
  const asset=await p.evaluate(()=>{const a=RocketChapter3.adapter,paint=a.nodes.Stage1Shell.material;let meshes=0;a.model.traverse(o=>{if(o.isMesh&&!o.userData.scan)meshes++;});return{model:a.manifest.model,statistics:a.manifest.statistics,meshes,textured:!!paint.map,paint:paint.userData.rocketPaint,clips:Object.fromEntries(Object.entries(a.clips).map(([n,c])=>[n,c.duration]))};});
  assert.equal(asset.model,'cz7-kiu.glb');assert.equal(asset.statistics.meshObjects,32);assert.equal(asset.meshes,52);assert.equal(asset.statistics.textures,1);assert.equal(asset.textured,true);assert.equal(asset.paint,true);
@@ -33,7 +35,7 @@ const OUT=process.env.ROCKET_KIU_OUT||path.join(__dirname,'docs/review/kiu-20261
  await shot('internal');await p.getByRole('switch',{name:'透视'}).click();
  assert.ok(await p.evaluate(()=>{const a=RocketChapter3.adapter;return a.manifest.shellNodes.every(n=>a.nodes[n].visible)&&a.highlights.length===0&&[...a.scanMeshes.values()].every(m=>!m.visible);}));
  for(const [width,height] of [[1600,900],[1280,960],[1024,768]]){
-  await p.setViewportSize({width,height});await step(1);await p.getByRole('button',{name:'重新组装',exact:true}).click();
+  await p.setViewportSize({width,height});await step(1);await p.getByRole('button',{name:'重新组装',exact:true}).click();await p.waitForFunction(()=>!RocketChapter3.adapter.assemblyMotion);
   await p.locator('[data-piece="4"]').click();await p.locator('.slot').nth(4).click();assert.deepEqual(await p.evaluate(()=>RocketChapter3.assembled),[]);
   // A cancelled real drag returns to the exact scattered transform.
   const initial=await p.evaluate(()=>RocketChapter3.adapter.nodes.Stage1.position.toArray()),b=await p.locator('[data-piece="0"]').boundingBox();

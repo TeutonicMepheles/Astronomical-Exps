@@ -1,0 +1,146 @@
+{
+  "mode": "create-and-connect",
+  "nodeType": "video",
+  "projectUuid": "1d6d2e4711f54d1d87af333a9a562ab9",
+  "newNodeKey": "faaeabb1-ef1f-4974-ae84-60f4c2faec1a",
+  "reactFlowNode": {
+    "id": "faaeabb1-ef1f-4974-ae84-60f4c2faec1a",
+    "type": "video",
+    "data": {
+      "type": "video",
+      "name": "气球贴合胶带收缩-Seedance25-v2-20261117",
+      "url": [],
+      "poster": "",
+      "action": "video_generate",
+      "generatorType": "default",
+      "params": {
+        "prompt": "Scientific animation asset, locked orthographic camera, uniform pure green chroma background. Match reference illustration. The most important moving objects are TWO IVORY ADHESIVE TAPE PATCHES attached to the blue latex balloon. Over 5 seconds each tape patch visibly folds into an accordion and shortens from a long flat strip to a small crumpled patch one third its original length, while staying bonded to the balloon skin. Tape is flexible fabric, absolutely not rigid plastic. This must be obvious: first frame straight long tape; middle frame curved bent shortened tape; last frame crumpled tiny folded tape. The blue balloon simultaneously deflates to 65 percent original height with subtle wrinkles. Both navy rollers and white crossbar remain locked at original screen coordinates with unchanged shape and size. No carriage translation. Left balloon nozzle stays pointing left, never down. Balloon collapses symmetrically around fixed carriage, remains wide enough to cover both patches. Entire apparatus isolated in same green backdrop, no shadow, no text, no new elements, no camera motion. Prioritize visible bending and folding of BOTH white adhesive strips.",
+        "model": "star-video2.5",
+        "modeType": "singleImage2video",
+        "count": 1,
+        "imageList": [
+          {
+            "nodeId": "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e",
+            "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/91ca4d2e4655b4720dec5702b2295c5aaae0185d.png",
+            "compliantExempt": true
+          }
+        ],
+        "videoList": [],
+        "audioList": [],
+        "settings": {
+          "ratio": "4:3",
+          "resolution": "1080p",
+          "duration": 5,
+          "enableSound": "off",
+          "enablePortraitCheck": 1
+        },
+        "advancedSettings": {
+          "search_enabled": 1,
+          "autoCompliance": 1
+        },
+        "imageListOrder": [
+          "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e"
+        ],
+        "mixedListOrder": [
+          "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e"
+        ],
+        "textList": []
+      }
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "sourcePosition": "right",
+    "targetPosition": "left"
+  },
+  "count": 1,
+  "deletedCount": 0,
+  "createdCount": 1,
+  "deleted": [],
+  "connections": [
+    {
+      "connectionId": "0faf3c7c-f5f6-404e-9215-3bae1d3e6d94",
+      "source": "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e",
+      "target": "faaeabb1-ef1f-4974-ae84-60f4c2faec1a"
+    }
+  ],
+  "incomingRecalcNodeKeys": [
+    "faaeabb1-ef1f-4974-ae84-60f4c2faec1a"
+  ]
+}
+{
+  "nodeKey": "faaeabb1-ef1f-4974-ae84-60f4c2faec1a",
+  "nodeType": "video",
+  "taskId": "20261117214703852887723",
+  "status": 2,
+  "data": {
+    "type": "video",
+    "name": "气球贴合胶带收缩-Seedance25-v2-20261117",
+    "url": [
+      "https://libtv-res.liblib.art/sd-gen-save-img/genius_playground/video/4bee29b0c9bf4a2fa62e3e7f16e337db/4355bf5521515f5f6af452a93ffecab982e14dc6e11b608f9bff6b1a11e1f741.mp4"
+    ],
+    "poster": "",
+    "action": "video_generate",
+    "generatorType": "default",
+    "params": {
+      "prompt": "Scientific animation asset, locked orthographic camera, uniform pure green chroma background. Match reference illustration. The most important moving objects are TWO IVORY ADHESIVE TAPE PATCHES attached to the blue latex balloon. Over 5 seconds each tape patch visibly folds into an accordion and shortens from a long flat strip to a small crumpled patch one third its original length, while staying bonded to the balloon skin. Tape is flexible fabric, absolutely not rigid plastic. This must be obvious: first frame straight long tape; middle frame curved bent shortened tape; last frame crumpled tiny folded tape. The blue balloon simultaneously deflates to 65 percent original height with subtle wrinkles. Both navy rollers and white crossbar remain locked at original screen coordinates with unchanged shape and size. No carriage translation. Left balloon nozzle stays pointing left, never down. Balloon collapses symmetrically around fixed carriage, remains wide enough to cover both patches. Entire apparatus isolated in same green backdrop, no shadow, no text, no new elements, no camera motion. Prioritize visible bending and folding of BOTH white adhesive strips.",
+      "model": "Seedance 2.5",
+      "modeType": "singleImage2video",
+      "count": 1,
+      "imageList": [
+        {
+          "nodeId": "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e",
+          "url": "https://libtv-res.liblib.art/upload-images/4bee29b0c9bf4a2fa62e3e7f16e337db/91ca4d2e4655b4720dec5702b2295c5aaae0185d.png",
+          "compliantExempt": true
+        }
+      ],
+      "videoList": [],
+      "audioList": [],
+      "settings": {
+        "ratio": "4:3",
+        "resolution": "1080p",
+        "duration": 5,
+        "enableSound": "off",
+        "enablePortraitCheck": 1
+      },
+      "advancedSettings": {
+        "search_enabled": 1,
+        "autoCompliance": 1
+      },
+      "imageListOrder": [
+        "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e"
+      ],
+      "mixedListOrder": [
+        "4ca9c5d3-3656-48d8-b2a5-b5a86868f57e"
+      ],
+      "textList": []
+    },
+    "taskInfo": {
+      "taskId": "20261117214703852887723",
+      "loading": false,
+      "status": 2,
+      "progressPercent": 100
+    },
+    "resourceMeta": {
+      "items": [
+        {
+          "kind": "video",
+          "width": 1664,
+          "height": 1248,
+          "durationSec": 5.042
+        }
+      ]
+    },
+    "_resourceMeta": {
+      "items": [
+        {
+          "kind": "video",
+          "width": 1664,
+          "height": 1248,
+          "durationSec": 5.042
+        }
+      ]
+    }
+  }
+}
