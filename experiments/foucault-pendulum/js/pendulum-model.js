@@ -2,6 +2,12 @@
 // explicitly requested in Raft db142a28, 2026-11-04. No runtime dependency.
 export const defaults={latitude:39.9,length:67,mass:28,speedMode:'earth',speed:3600};
 export function stageOnePeriod(config){return config.periodOverride??2*Math.PI*Math.sqrt(config.length/9.81);}
+// Presentation clock only; physical period/readouts remain unchanged.
+export function demonstrationRates(config){
+  const swingRate=4*2*Math.PI/stageOnePeriod(config);
+  const rotationRate=swingRate*(5/1080)*Math.sin(config.latitude*Math.PI/180)/Math.sin(31.23*Math.PI/180);
+  return {swingRate,rotationRate};
+}
 export function pendulumState(time,config=defaults){
   const period=stageOnePeriod(config);
   const pendulumTime=time*(config.speedMode==='all'?config.speed:1);
@@ -35,8 +41,9 @@ export function createMotion(config=defaults){
     const steps=Math.ceil(dt/.025),step=dt/steps;
     for(let i=0;i<steps;i++){
       const period=stageOnePeriod(config);
-      swingPhase+=step*(config.speedMode==='all'?config.speed:1)*2*Math.PI/period;
-      rotation+=step*config.speed*15*Math.sin(config.latitude*Math.PI/180)/3600*Math.PI/180;
+      const rates=config.fixedDemonstration?demonstrationRates(config):{swingRate:(config.speedMode==='all'?config.speed:1)*2*Math.PI/period,rotationRate:config.speed*15*Math.sin(config.latitude*Math.PI/180)/3600*Math.PI/180};
+      swingPhase+=step*rates.swingRate;
+      rotation+=step*rates.rotationRate;
       time+=step;
       const p=state();points.push({time,x:p.x,z:p.z});
     }

@@ -1,6 +1,8 @@
 * { box-sizing:border-box; }
 html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none; }
-:root { --turn-panel-space:320px; --mini-panel-space:320px; }
+:root { --turn-panel-space:0px; --mini-panel-space:0px; }
+:root.developer-mode { --turn-panel-space:320px; --mini-panel-space:320px; }
+:root:not(.developer-mode) .side-tune { display:none; }
 #stage { position:absolute;width:1600px;height:900px;left:calc((100% - var(--turn-panel-space) + var(--mini-panel-space)) / 2);top:50%;transform:translate(-50%,-50%);transform-origin:center;overflow:hidden;isolation:isolate; }
 .hall,.pendulum,.city-layer { position:absolute;inset:0;width:100%;height:100%;pointer-events:none; }
 .hall { object-fit:cover; }
@@ -326,3 +328,7 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 #cityMarkers .city:focus { outline:none; }
 #cityMarkers .city:focus-visible .ring { stroke:#fff1b5;stroke-width:3;opacity:1; }
 .city-hint-anchor { position:absolute;width:1px;height:1px;pointer-events:none; }
+
+/* Readable data over the animated hall screens. */
+.precession-readout {background:rgba(5,17,39,.9);padding:18px;border:1px solid #91b9df55;border-radius:14px;gap:16px;}
+.precession-readout .metric {border-radius:7px;}

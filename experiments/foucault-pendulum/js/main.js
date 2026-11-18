@@ -14,6 +14,9 @@ import { mountProgress } from './progress.js';
 import { mountGlobeTurnPanel } from './globe-turn-panel.js';
 import { mountMiniPendulumPanel, advanceMiniPendulum, miniPendulumDegrees } from './mini-pendulum-panel.js';
 
+const developerMode=new URLSearchParams(location.search).get('dev')==='1';
+document.documentElement.classList.toggle('developer-mode',developerMode);
+
 // Homepage motion study; these visual clock values are not experimental readings.
 const stage=document.querySelector('#stage'), globe=document.querySelector('#globe');
 const hallBackground=stage.querySelector('.hall-background');
@@ -82,7 +85,7 @@ window.addEventListener('pagehide',()=>{cityGesture.destroy();cityBubble.destroy
 
 // Pendulum model config (Stage 1: deflection follows the selected city's latitude).
 // The ideal pendulum period depends on length; mass cancels from its equation.
-const pendulumConfig={latitude:CITIES.find(c=>c.id==='shanghai').lat,...PARAMETER_DEFAULTS,speed:0,speedMode:'earth'};
+const pendulumConfig={latitude:CITIES.find(c=>c.id==='shanghai').lat,...PARAMETER_DEFAULTS,fixedDemonstration:true};
 const periodInput=document.querySelector('#stageOnePeriod');
 periodInput.addEventListener('change',()=>{
   const period=periodInput.valueAsNumber;
@@ -103,6 +106,9 @@ const precessionReadout=document.querySelector('#precessionReadout');
 const precessionPeriod=document.querySelector('#precessionPeriod');
 const precessionPeriodUnit=document.querySelector('#precessionPeriodUnit');
 const precessionRate=document.querySelector('#precessionRate');
+const observationLatitude=document.querySelector('#observationLatitude');
+const observationHemisphere=document.querySelector('#observationHemisphere');
+function renderLatitude(lat){observationLatitude.textContent=Math.abs(lat).toFixed(2);observationLatitude.dataset.value=String(lat);observationHemisphere.textContent=lat<0?'°S':'°N';}
 const periodMetric=document.querySelector('.period-value');
 const rateMetric=document.querySelector('.rate-value');
 let precessionTransition=null;
@@ -126,6 +132,7 @@ function renderPrecessionMetrics(rate,period){
 function finishPrecessionTransition(){
   const a=precessionTransition;
   if(!a)return;
+  renderLatitude(a.toLatitude);
   renderPrecessionMetrics(a.toRate,a.toPeriod);
   setMetricFeedback(periodMetric,'none',false);
   setMetricFeedback(rateMetric,'none',false);
@@ -136,7 +143,9 @@ function updatePrecession(now){
   if(!precessionTransition)return;
   const a=precessionTransition;
   const elapsed=now-a.start;
-  const t=Math.min(1,elapsed/a.duration),e=t*t*(3-2*t);
+  const t=Math.min(1,Math.max(0,(elapsed-300)/a.duration)),e=t*t*(3-2*t);
+  const latitudeT=Math.min(1,elapsed/300);
+  renderLatitude(a.fromLatitude+(a.toLatitude-a.fromLatitude)*latitudeT);
   const rate=a.fromRate+(a.toRate-a.fromRate)*e;
   const period=Number.isFinite(a.fromPeriod)&&Number.isFinite(a.toPeriod)
     ?a.fromPeriod+(a.toPeriod-a.fromPeriod)*e
@@ -146,6 +155,13 @@ function updatePrecession(now){
   if(elapsed>=a.feedbackDuration)finishPrecessionTransition();
 }
 function updatePrecessionMetrics(city,animate=false){
+  const fromLatitude=Number(observationLatitude.dataset.value??city.lat);
+  renderLatitude(city.lat);
+  for(const animation of precessionReadout.getAnimations({subtree:true}))animation.cancel();
+  if(animate&&!reduced.matches){
+    precessionReadout.querySelector('.latitude-metric').animate([{backgroundColor:'#75caff55'},{backgroundColor:'transparent'}],{duration:650});
+    for(const metric of precessionReadout.querySelectorAll('.period-metric,.rate-metric'))metric.animate([{backgroundColor:'#75caff55'},{backgroundColor:'transparent'}],{delay:300,duration:850});
+  }
   const s=Math.abs(Math.sin(city.lat*Math.PI/180));
   const toRate=15*s,toPeriod=s<1e-6?Infinity:24/s;
   const fromRate=Number(precessionRate.dataset.value??precessionRate.textContent)||0;
@@ -164,7 +180,7 @@ function updatePrecessionMetrics(city,animate=false){
     renderPrecessionMetrics(toRate,toPeriod);
     return;
   }
-  precessionTransition={start:performance.now(),duration:560,feedbackDuration:1200,fromRate,toRate,fromPeriod,toPeriod};
+  precessionTransition={start:performance.now(),duration:560,feedbackDuration:1500,fromLatitude,toLatitude:city.lat,fromRate,toRate,fromPeriod,toPeriod};
   precessionReadout.setAttribute('aria-busy','true');
   setMetricFeedback(periodMetric,periodDirection,true);
   setMetricFeedback(rateMetric,rateDirection,true);
@@ -200,21 +216,6 @@ markers.onClick(id=>{
   if(Math.abs(city.lat)===90){cityFocus=null;dirty=true;wake();}
   else focusLongitude(city.lon*Math.PI/180);
 });
-const timeSpeedVal=document.querySelector('#timeSpeedVal');
-const speedDown=document.querySelector('#speedDown'),speedUp=document.querySelector('#speedUp');
-const demonstrationSpeeds=[1,2,4,8,16,32];
-let demonstrationSpeedIndex=0;
-function updatePrecessionRate(){
-  const multiplier=demonstrationSpeeds[demonstrationSpeedIndex];
-  // Preserve the original default demonstration rate as 1×.
-  pendulumConfig.speed=3600*0.05*multiplier;
-  timeSpeedVal.textContent=multiplier+'×';
-  speedDown.disabled=paramMode||demonstrationSpeedIndex===0;
-  speedUp.disabled=paramMode||demonstrationSpeedIndex===demonstrationSpeeds.length-1;
-}
-speedDown.addEventListener('click',()=>{demonstrationSpeedIndex=Math.max(0,demonstrationSpeedIndex-1);updatePrecessionRate();wake();});
-speedUp.addEventListener('click',()=>{demonstrationSpeedIndex=Math.min(demonstrationSpeeds.length-1,demonstrationSpeedIndex+1);updatePrecessionRate();wake();});
-updatePrecessionRate();
 updateReadout();
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const hallScreens=mountHallScreens(stage.querySelector('.hall-displays'),document.querySelector('#hallScreenControls'),wake,{
@@ -491,7 +492,7 @@ addEventListener('resize',()=>{resize();wake();});
 addEventListener('globe-texture-ready',()=>{dirty=true;wake();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;last=0;}else wake();});
 reduced.addEventListener('change',wake);
-mountGlobeTurnPanel();
+if(developerMode)mountGlobeTurnPanel();
 mountMiniPendulumPanel();
 resize();wake();
 // Apply the pedestal (meridian ring) placement + contact-shadow strength from
@@ -542,7 +543,7 @@ const parameterDialog=mountParameterDialog(stage,{
   },
   onOpenChange:open=>{
     paramMode=open;syncCityHint();paramButton.setAttribute('aria-expanded',String(open));
-    updatePrecessionRate();progress.update();drawTrails();wake();
+    progress.update();drawTrails();wake();
   },
 });
 paramButton.setAttribute('aria-controls','parameterDialog');

@@ -9,7 +9,6 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     <header><h2 id="parameterTitle">调整单摆参数</h2><button class="fp-close" type="button" aria-label="关闭参数弹窗">×</button></header>
     <div class="fp-parameter-body">
       <div class="fp-blueprint">
-        <div class="fp-demo-speed" role="group" aria-label="单摆演示速度"><svg class="fp-speed-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M6.5 22.5a10.5 10.5 0 1 1 19 0M16 17.5l5.1-5.1M12.5 5h7M16 5v3"/><circle cx="16" cy="17.5" r="1.7"/></svg>${[2,4,8].map(speed=>`<button type="button" data-demo-speed="${speed}" aria-pressed="${speed===2}">${speed}×</button>`).join('')}</div>
         <svg viewBox="0 0 940 630" role="img" aria-label="单摆蓝图：静止位置、摆动范围及持续摆动的淡色单摆">
           <defs>
             <filter id="fpChalk" x="-5%" y="-15%" width="110%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .45 .55"/><feComposite in="SourceGraphic" operator="in"/></filter>
@@ -22,11 +21,8 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
           </defs>
           <g class="fp-field-reference" opacity="1" aria-hidden="false">
             <g mask="url(#fpFieldMask)" clip-path="url(#fpFieldReveal)">
-              <g data-field-art><image data-field-lines href="assets/football-field-blueprint.svg" x="-8" y="-32" width="686" height="1064" preserveAspectRatio="xMidYMid meet" opacity=".7"/></g>
-              <g data-basketball fill="none" stroke="#dcecff" stroke-width="1.4" opacity=".7">
-                <path d="M0 0H150V280H0ZM0 140H150M50 0V58H100V0M50 280V222H100V280M35 0V38A40 40 0 0 0 115 38V0M35 280V242A40 40 0 0 1 115 242V280M62 12H88M62 268H88"/>
-                <circle cx="75" cy="140" r="18"/><circle cx="75" cy="58" r="18"/><circle cx="75" cy="222" r="18"/><circle cx="75" cy="17" r="4"/><circle cx="75" cy="263" r="4"/>
-              </g>
+              <g data-field-art opacity="1"></g>
+            </g>
             </g>
             <g class="fp-dimension" data-field-dimension>
               <path class="fp-dimension-line" data-field-measure pathLength="1"/>
@@ -58,7 +54,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
         <div class="fp-period"><div><span>理论周期 <i>T</i> <small>（s）</small></span><span class="metric-value fp-period-value"><span class="metric-delta" aria-hidden="true"></span><output id="swingPeriod" aria-live="polite"></output></span></div><div class="fp-formula"><svg class="fp-equation" viewBox="0 0 180 80" role="img" aria-label="T 等于二π乘以 L 除以 g 的平方根">
           <g fill="currentColor" font-family="Georgia, Times New Roman, serif" font-size="36"><text x="2" y="52" font-style="italic">T</text><text x="33" y="52">=</text><text x="64" y="52">2π</text><text x="151" y="30" text-anchor="middle" font-size="30" font-style="italic">L</text><text x="151" y="65" text-anchor="middle" font-size="30" font-style="italic">g</text></g>
           <path d="M108 44L114 40L122 65L132 9H173M138 40H165" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter"/>
-        </svg><span class="fp-gravity"><i>g</i> = 9.81 m/s²</span></div></div>
+        </svg></div></div>
         <footer><button type="button" data-cancel>取消</button><button type="button" data-apply>应用</button></footer>
       </div>
     </div>
@@ -74,7 +70,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
   const set=(selector,attrs)=>{const node=find(selector);for(const [key,val] of Object.entries(attrs))node.setAttribute(key,val);};
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const transfer=find('.fp-transfer'),blueprint=find('.fp-blueprint>svg');
-  let demoSpeed=2;
+  const demoSpeed=4;
   let fieldTime=0,fieldOpacity=0,closing=null,transferPose=null;
   let draft,shown,resizeAnimation=null,opening=null,targetFrame=null,phase=0,returnFocus=null,inertStates=[];
   const smooth=t=>t*t*(3-2*t),mix=(a,b,t)=>a+(b-a)*t;
@@ -100,23 +96,27 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
   // Independent EXP-01 adaptation of EXP-04 line-styles.js drafting endpoints;
   // no runtime import of another experiment's private implementation.
   function renderFieldGeometry(){
-    const span=shown.span,bottom=80+span,isBasket=draft.length===28,isWidth=draft.length===67;
-    const scale=span/(isWidth?670:1000);
-    set('[data-field-art]',{visibility:isBasket?'hidden':'visible',transform:isWidth?`translate(280 80) rotate(90) scale(${scale})`:`translate(${280-670*scale} 80) scale(${scale})`});
-    set('[data-basketball]',{visibility:isBasket?'visible':'hidden',transform:`translate(${280-150*span/280} 80) scale(${span/280})`});
+    const span=shown.span,bottom=80+span,floors=Math.round(draft.length/3);
+    const art=find('[data-field-art]');
+    if(art.dataset.floors!==String(floors)){
+      art.dataset.floors=String(floors);
+      art.innerHTML=`<path d="M804 0V${floors*30}" fill="none" stroke="white" stroke-width="2" vector-effect="non-scaling-stroke"/>`+Array.from({length:floors+1},(_,i)=>`<path d="M0 ${i*30}H804" fill="none" stroke="white" stroke-width="1.2" vector-effect="non-scaling-stroke"/>`).join('');
+    }
+    const buildingScale=span/(floors*30);
+    art.setAttribute('transform',`translate(${280-804*buildingScale} 80) scale(${buildingScale})`);
     set('[data-field-measure]',{d:`M302 80V${bottom}`});
     set('[data-field-ticks]',{d:`M295 73L309 87M295 ${bottom-7}L309 ${bottom+7}`});
     set('[data-field-guides]',{d:`M280 80H613M280 ${bottom}H613`});
     set('[data-field-label]',{y:80+span/2});
     find('[data-field-label]').textContent=`L = ${draft.length} m`;
     const caption=find('[data-field-caption]');
-    const captionText=isBasket?'28m —— 约为标准篮球场长度':isWidth?'67m —— 约为足球场宽度':'100m —— 约为标准足球场长度';
+    const captionText=`${draft.length} m ≈ ${floors} 层教学楼（每层约 3 m）`;
     if(caption.textContent!==captionText){
       caption.textContent=captionText;
       for(const animation of find('[data-caption-art]').getAnimations())animation.cancel();
       if(!reduced.matches)find('[data-caption-art]').animate([{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0% 0 0)'}],{duration:800,easing:'ease-out'});
     }
-    find('.fp-field-reference').dataset.reference=isBasket?'basketball-length':isWidth?'football-width':'football-length';
+    find('.fp-field-reference').dataset.reference='school-floors';
   }
   function renderControls(){
     for(const button of overlay.querySelectorAll('button[data-length]'))button.setAttribute('aria-pressed',String(+button.dataset.length===draft.length));
@@ -224,11 +224,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
   }
   overlay.addEventListener('click',event=>{
     const button=event.target.closest('button');if(!button)return;
-    if(button.matches('[data-demo-speed]')){
-      demoSpeed=Number(button.dataset.demoSpeed);
-      for(const option of overlay.querySelectorAll('[data-demo-speed]'))option.setAttribute('aria-pressed',String(Number(option.dataset.demoSpeed)===demoSpeed));
-    }
-    else if(button.matches('[data-length]'))selectParameter('length',+button.dataset.length);
+    if(button.matches('[data-length]'))selectParameter('length',+button.dataset.length);
     else if(button.matches('[data-mass]'))selectParameter('mass',+button.dataset.mass);
     else close(button.hasAttribute('data-apply'));
   });
