@@ -1,3 +1,5 @@
+// Historical original-KIU model contract, before the approved interior/blueprint integration.
+// Current source/hash/assembly coverage: test-approved-interior.cjs and test-recognize-assemble.cjs.
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');

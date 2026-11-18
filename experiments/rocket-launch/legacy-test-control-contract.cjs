@@ -1,3 +1,5 @@
+// Historical nine-step flow with prediction, pairing and persistent records.
+// Current layout/semantics: test-current-control-contract.cjs; behavior: test-course-refinements.cjs.
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
