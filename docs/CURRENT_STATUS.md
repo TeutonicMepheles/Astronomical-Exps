@@ -1,6 +1,8 @@
 # 当前实现与文档状态
 
-核对日期：2026-11-16。范围：本提交中的八个实验、目录默认入口和现有验证。此页用于快速定位当前状态；科学参数、教学流程和确认边界仍以各实验 `REQUIREMENTS.md` 与 [OPEN_DECISIONS](../Function-Spec/OPEN_DECISIONS.md) 为准。
+本轮整合来源、保留草稿与验证边界见 [2026-11-18 分批整合](LOCAL_BATCHES_20261118.md)。
+
+核对日期：2026-11-18。范围：本提交中的八个实验、目录默认入口和现有验证。此页用于快速定位当前状态；科学参数、教学流程和确认边界仍以各实验 `REQUIREMENTS.md` 与 [OPEN_DECISIONS](../Function-Spec/OPEN_DECISIONS.md) 为准。
 
 ## 入口约定
 
@@ -16,11 +18,11 @@
 | EXP-01 傅科摆 | [index.html](../experiments/foucault-pendulum/index.html) | 可运行开发版 | 完整教学流程、最终参数与读数、白板触控及整页验收未完成 |
 | EXP-02 月面环形山高度 | [index.html](../experiments/lunar-crater-height/index.html)，跳转至 [月球环形山影长测量实验(2).html](../experiments/lunar-crater-height/月球环形山影长测量实验%282%29.html) | 参考地形与连续剖面：轮廓辅助、坑缘 A 点自动求 B/影长、太阳角度/高度差及手量比例弹窗 | 输出仍为模型单位；厘米比例尺、测量建模、真实白板触控和整页验收未完成 |
 | EXP-03 陨石坑撞击 | [index.html](../experiments/meteor-impact/index.html) | 页内双侧条件、地面疏松度对照、多孔陨石与体积扬尘、双结果和记录 | 科学公式、真实白板与整页验收待完成 |
-| EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 可运行三阶段开发版：日期/当地时间双轴、手动对齐正午、单点杆影、固定点经线测距与三步计算 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
-| EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [city-night/index.html](../experiments/light-pollution/city-night/index.html) | 固定暗底夜景：独立窗灯/墙灯、公共建筑受光、车辆透视与可调城市光晕 | 浮点 WebGL2 支持必需；科学光度、等级与设备验收未完成 |
-| EXP-06 日月食 | [index.html](../experiments/solar-lunar-eclipses/index.html) | 日食观察默认入口；日全/偏/环食及月食，独立机位连续切换、A/B/C 当地阶段与地面小窗 | 教学几何不等于历表；科学及设备验收待完成 |
+| EXP-04 埃拉托色尼地球周长 | [index.html](../experiments/earth-circumference/index.html)，跳转至 [textured.html](../experiments/earth-circumference/textured.html) | 固定当天日期：±1°/±10°预选经线、确认后旋转至正午、选点自动显示模型夹角/杆影、圆心演示与固定端点测距计算 | 科学参数、误差容限、真实白板触控和整页验收未完成 |
+| EXP-05 光污染 | [index.html](../experiments/light-pollution/index.html)，跳转至 [city-night/index.html](../experiments/light-pollution/city-night/index.html) | 固定暗底夜景：独立窗灯/墙灯、远景窗灯、车辆透视、星空联动与四屏序列/Bloom/Glitch；主线已包含本地夜景批次 | 浮点 WebGL2 支持必需；科学光度、等级与设备验收未完成 |
+| EXP-06 日月食 | [index.html](../experiments/solar-lunar-eclipses/index.html) | 全食/环食事件与 A/B/C 同刻地点比较、地面小窗及多视角；偏食为当地结果；日食隐藏阶段轴，月食保留已达节点回看 | 教学几何不等于历表；科学及设备验收待完成 |
 | EXP-07 牛顿望远镜 | [index.html](../experiments/newton-telescope/index.html) | 五镜片、组装检视与四天体记录开发版 | 整页教学与真实设备验收未完成；[standalone.html](../experiments/newton-telescope/standalone.html) 和 `Export/` 是离线产物 |
-| EXP-08 火箭发射 | [index.html](../experiments/rocket-launch/index.html) | 气球反冲与载荷；速度/轨道对照和连续视频转场；源比例长征七号、五模块组装分离与三火箭分级对照 | 动力学为教学示意；科学及设备验收待完成 |
+| EXP-08 火箭发射 | [index.html](../experiments/rocket-launch/index.html) | 气球反冲与慢镜头、推力/重力主力图及会话记录本；高山大炮/垂直发射；内部模型与蓝图连续组装、自动分离和三箭同步相对高度比较 | 动力学为教学示意；科学及设备验收待完成 |
 
 ## 保留的独立入口
 
@@ -54,7 +56,7 @@
 
 ## 当前交付与后续维护
 
-夜景运行与工具已分别在 PR #64/#65 合并，字体资料在 #66 合并，日月食和火箭在 #67/#68 合并。当前功能和专项用法分别从 [夜景](../experiments/light-pollution/city-night/README.md)、[日月食](../experiments/solar-lunar-eclipses/README.md)、[火箭](../experiments/rocket-launch/README.md)进入；不要从旧开发分支恢复当前实现。
+历史批次：夜景运行/工具 #64/#65、字体资料 #66、日月食/火箭 #67/#68。后续 #76 统一字体，#77/#81 更新陨石撞击与牛顿，#78/#82 更新傅科摆，#80 已合并当前夜景、星空与屏幕动效；本轮分批记录见文首入口。当前功能和专项用法分别从 [夜景](../experiments/light-pollution/city-night/README.md)、[日月食](../experiments/solar-lunar-eclipses/README.md)、[火箭](../experiments/rocket-launch/README.md)进入；不要从旧开发分支恢复当前实现。
 
 后续变更需同步本页的受影响状态行、实验 README 的当前行为/操作与待验项，以及确有需求变化的 REQUIREMENTS；只增加日期报告不算完成同步。验证记录链接到实际执行结果，保留设备、科学与长期运行的未验收边界。
 
