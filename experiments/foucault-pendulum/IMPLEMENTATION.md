@@ -1,5 +1,7 @@
 # Homepage visual study — 2026-11-04
 
+Historical implementation study. Current renderer, entry and behavior must be checked in index.html and REQUIREMENTS.md; the private renderer and historical motion/defaults below are not instructions or the current baseline. 2026-11-18 readout update uses 偏转速度 with °/h and preserves existing simulation calculations.
+
 User request: Raft #Astronomical-Exps:0e4e1d96. This is a homepage composition, not the full experiment workflow in REQUIREMENTS.md. No additional visible controls or explanatory text were requested.
 
 ## Entry and provenance

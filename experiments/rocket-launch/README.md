@@ -1,5 +1,7 @@
 # 火箭发射实验
 
+当前基线（2026-11-18）：气球反冲及慢镜头、推力/重力主图与会话记录本；高山大炮/垂直发射；现行内部模型、蓝图连续装配及三箭同步升空对照。记录仅在本次页面保留，刷新清空；不承诺持久化。历史 Δv 模型与旧页签说明不作为当前页面操作。详见 [发射反馈](docs/LAUNCH_FEEDBACK_20261118.md) 与 [相对高度对照](docs/QUALITATIVE_FLIGHT_20261118.md)。
+
 认识到组装采用垂直数字 Glitch 消隐/重建，方案来源、性能边界与验证见 [Glitch 转场](docs/GLITCH_TRANSITION_20261117.md)。
 
 组装散件统一比例与水平排列见 [统一比例修订](docs/ASSEMBLY_UNIFORM_SCALE_20261117.md)，现行入口版本 `assembly-uniform-20261117`。
@@ -10,14 +12,14 @@
 
 2026-11-17 已确认内部模型现统一用于结构认识与组装两阶段，资源版本、模型散列与实际流程验证见 [接入记录](docs/APPROVED_INTERIOR_INTEGRATION_20261117.md)。
 
-当前可运行开发版（2026-11-16 核对），默认从 [index.html](index.html) 进入。
+当前可运行开发版（2026-11-18 核对），默认从 [index.html](index.html) 进入。
 
 三章教学：气球反冲与推力载荷；同页速度/轨道对照及连续视频转场；源比例长征七号同页认识部件与五模块组装、自动分离，以及三火箭同屏分级对照。模型、轨道与箭头强度均保留教学示意边界。
 
 从仓库根运行 `npm run dev -- --experiment rocket-launch`。本实验已接入根浏览器入口 smoke，尚未接入通用 `npm run export` 与贡献者协作登记；不能将入口通过视为整页或白板验收。
 
 - [需求与确认记录](REQUIREMENTS.md)
-- [交互约定](docs/INTERACTION_CONTRACT_20261112.md)、[推力箭头](docs/FORCE_ARROWS_20261113.md)、[分级模型](docs/DV_DOT_INTEGRATION_20261113.md)
+- [交互约定](docs/INTERACTION_CONTRACT_20261112.md)、[推力箭头](docs/FORCE_ARROWS_20261113.md)、[现行分级对照](docs/QUALITATIVE_FLIGHT_20261118.md)、[历史 Dot 模型接入](docs/DV_DOT_INTEGRATION_20261113.md)
 - [当前课程、模型及转场验证](docs/PR_DELIVERY_20261116.md)
 - [当前工程状态](../../docs/CURRENT_STATUS.md)
 - [历史整合验证与限制（2026-11-13）](../../docs/INTEGRATION_20261113.md)
@@ -69,3 +71,9 @@
 2026-11-18：记录刷新清空、失败即时Toaster；成功升空镜头拉远/箭头跟随/高度网格；速度两子页与固定100000米山高，见[发射反馈及升空修订](docs/LAUNCH_FEEDBACK_20261118.md)。
 
 2026-11-18：为什么分级改为三箭同时升空的相对高度比较，自动分离、共用镜头和标尺；只留气球同款重播图标，推力与载荷复用升空相机，原理收进灯泡按钮。见[同步升空定性比较](docs/QUALITATIVE_FLIGHT_20261118.md)。
+
+## 当前专项检查入口
+
+以 `TEST_ORIGIN` 指定当前仓库根静态服务，避免命中旧工作树。模型用 `test-approved-interior.cjs`，装配用 `test-recognize-assemble.cjs`，语义/边界用 `test-current-control-contract.cjs`，主力图用 `test-launch-force-diagram.cjs`，记录/刷新用 `test-course-refinements.cjs` 与 `test-launch-feedback.cjs`，三箭用 `test-qualitative-flight.cjs`。
+
+`legacy-test-kiu-model.cjs` 与 `legacy-test-control-contract.cjs` 保留旧外观模型、旧九步/持久化流程的历史断言，不属于当前默认页验收清单；各日期文档的旧测试名按其原版本解读。
