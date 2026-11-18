@@ -9,10 +9,10 @@
  const completionFeedback=document.createElement('div');
  completionFeedback.className='assembly-complete-feedback';
  completionFeedback.setAttribute('role','status');completionFeedback.setAttribute('aria-live','polite');
- completionFeedback.innerHTML='<span class="assembly-complete-feedback__check" aria-hidden="true">✓</span><span><strong>组装完成</strong><small>正在进入 360° 立体观察…</small></span>';
+ completionFeedback.innerHTML='<span class="assembly-complete-feedback__check" aria-hidden="true">✓</span><span><strong>组装完成</strong><small>观察光线经主镜、副镜进入目镜</small></span>';
  stage.append(completionFeedback);
  let panel,dispose,resetVersion,leaving;
- let autoDelay=0,previousAssemblyDone=false;
+ let autoDelay=0,previousAssemblyDone=false,completionToken=0;
  const AUTO_VIEW_DELAY_MS=500,AUTO_INSPECTION_TURN_MS=12000;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let introFrame=0,introToken=0;const introCleanups=new Set();
@@ -74,9 +74,10 @@
   inspectionTarget.hidden=!eligible(N.course.get());
  }
  function setCompletionFeedback(visible){stage.classList.toggle('is-assembly-completing',visible);}
- function cancelAutoInspection(){clearTimeout(autoDelay);autoDelay=0;setCompletionFeedback(false);}
+ function cancelAutoInspection(){++completionToken;clearTimeout(autoDelay);autoDelay=0;N.assemblyOptics?.cancel();setCompletionFeedback(false);}
  function open({autoInspect=false,turnMs=AUTO_INSPECTION_TURN_MS}={}){
   if(panel||!eligible(N.course.get()))return false;leaving?.remove();leaving=null;inspectionTarget.hidden=true;setCompletionFeedback(false);
+  cancelAutoInspection();
   stage.dispatchEvent(new CustomEvent('newton-rotation-open',{detail:{autoInspect,at:performance.now()}}));
   for(const element of stage.children)if(element.id!=='course-progress'&&!element.inert){blocked.add(element);element.inert=true;}
   panel=template.content.firstElementChild.cloneNode(true);stage.append(panel);stage.classList.add('newton-rotation-active');resetVersion=N.course.resetVersion;
@@ -105,12 +106,18 @@
   const done=eligible(s);
   if(done&&!previousAssemblyDone&&!panel){
    cancelAutoInspection();inspectionTarget.hidden=true;setCompletionFeedback(true);
+   completionFeedback.querySelector('small').textContent='观察光线经主镜、副镜进入目镜';
    N.assemblyFeedback?.play();
-   autoDelay=setTimeout(()=>{
-    autoDelay=0;
-    if(!eligible(N.course.get()))return;
-    open({autoInspect:true,turnMs:AUTO_INSPECTION_TURN_MS});
-   },reduced.matches?0:AUTO_VIEW_DELAY_MS);
+   const token=completionToken;autoDelay=-1;
+   Promise.resolve(N.assemblyOptics?.play()??true).then(finished=>{
+    if(token!==completionToken||!finished||!eligible(N.course.get()))return;
+    completionFeedback.querySelector('small').textContent='正在进入 360° 立体观察…';
+    autoDelay=setTimeout(()=>{
+     autoDelay=0;
+     if(token!==completionToken||!eligible(N.course.get()))return;
+     open({autoInspect:true,turnMs:AUTO_INSPECTION_TURN_MS});
+    },reduced.matches?500:AUTO_VIEW_DELAY_MS);
+   }).catch(error=>{cancelAutoInspection();inspectionTarget.hidden=false;console.error('Assembly optical preview failed',error);});
   }else if(!done)cancelAutoInspection();
   previousAssemblyDone=done;
   inspectionTarget.hidden=!done||Boolean(autoDelay)||Boolean(panel);

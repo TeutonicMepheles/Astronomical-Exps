@@ -134,14 +134,17 @@ N.mountRotationViewer=function(root,onReady){
  const parts=dock.querySelector('.real-viewer-parts');for(const [key,label] of Object.entries(partNames)){const b=document.createElement('button');b.type='button';b.dataset.realPart=key;b.textContent=label;b.setAttribute('aria-pressed','false');parts.append(b);}
  const action=k=>dock.querySelector('[data-real-action="'+k+'"]'),status=dock.querySelector('.real-viewer-status');
   let disposed=false,frame=0,last=0,section=false,rays=false,bloomOn=true,auto=false,selected=null,intro=1;
-  let autoTurn=null,lastInspectionCompleted=false;
+  let autoTurn=null,lastInspectionCompleted=false,manualTurn=null;
+ const turnStep=Math.PI/12,turnDuration=.45;
  const renderer=new T.WebGLRenderer({alpha:true,antialias:true,premultipliedAlpha:false,preserveDrawingBuffer:true,powerPreference:'high-performance'});
  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));renderer.setClearColor(0,0);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
  const canvas=renderer.domElement;canvas.style.cssText='display:block;width:100%;height:100%;touch-action:none;pointer-events:auto';canvas.setAttribute('aria-label','真实网格望远镜。水平拖动绕垂直轴旋转，固定桌面视角。部件按钮用于高亮。');canvas.tabIndex=0;host.append(canvas);
  const scene=new T.Scene(),model=new T.Group();model.name='Newton_Step2_R2';scene.add(model);
  const camera=new T.PerspectiveCamera(24,1,.1,100),target=new T.Vector3(0,3.45,0),initial=new T.Vector3(-7.2,6.2,19.6).sub(target),baseDistance=initial.length(),initialYaw=Math.atan2(initial.x,initial.z),initialPitch=Math.asin(initial.y/baseDistance);
  let yaw=initialYaw,distance=baseDistance;const pitch=initialPitch;
- scene.add(new T.HemisphereLight(0xe8e4f1,0x514331,1.35));const key=new T.DirectionalLight(0xffefd7,2.4);key.position.set(-5,10,12);scene.add(key);const fill=new T.DirectionalLight(0xa5aec0,.45);fill.position.set(7,6,-5);scene.add(fill);
+ // Keep both directional lights on the tube's central plane (z=0), so the
+ // mirrored inner walls receive the same lighting when viewed from the mouth.
+ scene.add(new T.HemisphereLight(0xe8e4f1,0x514331,1.35));const key=new T.DirectionalLight(0xffefd7,2.4);key.position.set(-5,10,0);scene.add(key);const fill=new T.DirectionalLight(0xa5aec0,.45);fill.position.set(7,6,0);scene.add(fill);
  const surfaceStyle={newtonGrain:{value:1},newtonLighting:{value:1},newtonFloor:{value:0},newtonKey:{value:key.position.clone().normalize()}};
  const meshes=[],textures=[],texturePromises=[],materialTemplates={},resources=[];
  function bytes(s,C){return new C(Uint8Array.from(atob(s),v=>v.charCodeAt(0)).buffer);}
@@ -175,22 +178,39 @@ N.mountRotationViewer=function(root,onReady){
   action('auto').setAttribute('aria-pressed','false');action('auto').textContent='自动环视';last=0;
   turnButtons.forEach(button=>button.disabled=false);if(done)queueMicrotask(done);
  }
- function render(time=performance.now()){frame=0;if(disposed)return;const elapsed=last?Math.max(0,(time-last)/1000):0;last=time;if(auto){const step=elapsed*(autoTurn?.speed||.22);yaw+=step;if(autoTurn){autoTurn.travelled+=step;if(autoTurn.travelled+1e-9>=Math.PI*2)finishAutoTurn();}}pose();if(rays&&bloomOn)bloom.render(scene,camera);else{renderer.setRenderTarget(null);renderer.render(scene,camera);}renderCount++;hotspots?.update();if(textureReady&&!firstReady){firstReady=true;onReady?.();}if(auto)schedule();}
+ function render(time=performance.now()){
+  frame=0;if(disposed)return;const elapsed=last?Math.max(0,(time-last)/1000):0;last=time;
+  if(auto){const step=elapsed*(autoTurn?.speed||.22);yaw+=step;if(autoTurn){autoTurn.travelled+=step;if(autoTurn.travelled+1e-9>=Math.PI*2)finishAutoTurn();}}
+  if(manualTurn){
+   // A stalled frame must not consume the entire visible turn in one jump.
+   manualTurn.elapsed+=Math.min(elapsed,.05);const p=Math.min(1,manualTurn.elapsed/manualTurn.duration),ease=p*p*(3-2*p);
+   yaw=manualTurn.from+(manualTurn.target-manualTurn.from)*ease;
+   if(p===1){yaw=manualTurn.target;manualTurn=null;}
+  }
+  pose();if(rays&&bloomOn)bloom.render(scene,camera);else{renderer.setRenderTarget(null);renderer.render(scene,camera);}renderCount++;hotspots?.update();if(textureReady&&!firstReady){firstReady=true;onReady?.();}if(auto||manualTurn)schedule();
+ }
  function schedule(){if(!disposed&&!frame&&!document.hidden)frame=requestAnimationFrame(render);}
  function updateStatus(){status.textContent=(section?'剖面':'外观')+' · '+meshes.length+' 个独立网格 · 拖动环视'+(rays?' · '+optical.report.accepted+' 条几何光路 · 教学示意':'')+(selected?' · '+partNames[selected]:'');}
  function setSection(value){section=Boolean(value);for(const m of meshes)m.visible=m.userData.sectionOnly?section:m.userData.sectionHide?!section:true;action('section').setAttribute('aria-pressed',String(section));action('section').textContent=section?'返回外观':'查看剖面';updateStatus();schedule();}
  function setRays(value){rays=Boolean(value);optical.group.visible=rays;action('rays').setAttribute('aria-pressed',String(rays));action('rays').textContent=rays?'隐藏光路':'显示光路';updateStatus();schedule();}
  function setBloom(value){bloomOn=Boolean(value);action('bloom').setAttribute('aria-pressed',String(bloomOn));schedule();}
  function selectPart(part){selected=part;for(const m of meshes){m.material.emissive.setHex(m.userData.part===part?0xc39545:0);m.material.emissiveIntensity=.26;}for(const b of parts.children)b.setAttribute('aria-pressed',String(b.dataset.realPart===part));updateStatus();schedule();}
- function setAuto(value){if(!value&&autoTurn)return;auto=Boolean(value);action('auto').setAttribute('aria-pressed',String(auto));action('auto').textContent=auto?'停止环视':'自动环视';last=0;schedule();}
+ function setAuto(value){if(!value&&autoTurn)return;manualTurn=null;auto=Boolean(value);action('auto').setAttribute('aria-pressed',String(auto));action('auto').textContent=auto?'停止环视':'自动环视';last=0;schedule();}
  function startInspection({durationMs=12000,onComplete}={}){
   if(disposed)return false;
+  manualTurn=null;
   if(durationMs<=0){lastInspectionCompleted=true;autoTurn=null;auto=false;queueMicrotask(()=>onComplete?.());return true;}
   turnButtons.forEach(button=>button.disabled=true);lastInspectionCompleted=false;autoTurn={speed:Math.PI*2/(durationMs/1000),travelled:0,onComplete};auto=true;
   action('auto').setAttribute('aria-pressed','true');action('auto').textContent='停止环视';last=0;schedule();return true;
  }
  // One tap is one horizontal step; retain the current pitch and camera distance.
- function turn(direction){if(autoTurn||root.classList.contains('is-introducing'))return;setAuto(false);yaw+=direction*Math.PI/12;schedule();}
+ function turn(direction){
+  if(disposed||autoTurn||root.classList.contains('is-introducing'))return;
+  const target=(manualTurn?.target??yaw)+direction*turnStep;setAuto(false);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)yaw=target;
+  else if(Math.abs(target-yaw)>1e-10)manualTurn={from:yaw,target,elapsed:0,duration:turnDuration*Math.abs(target-yaw)/turnStep};
+  schedule();
+ }
  for(const button of turnButtons)button.onclick=()=>turn(button.dataset.rotationTurn==='left'?1:-1);
  function reset(){yaw=initialYaw;distance=baseDistance;setAuto(false);schedule();}
  action('section').onclick=()=>setSection(!section);action('rays').onclick=()=>setRays(!rays);action('bloom').onclick=()=>setBloom(!bloomOn);action('auto').onclick=()=>setAuto(!auto);action('reset').onclick=reset;
@@ -202,7 +222,7 @@ N.mountRotationViewer=function(root,onReady){
  function end(e){if(!drag)return;const old=drag;touches.delete(e.pointerId);if(!touches.size){drag=null;if(e.type==='pointerup'&&!old.moved)selectPart(pick(e.clientX,e.clientY)?.object.userData.part||null);}else{old.moved=true;const p=[...touches.values()][0];old.x=p[0];old.y=p[1];old.pinch=null;}}
  for(const type of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(type,end,{signal});
  // Fixed tabletop framing: wheel/pinch never change the viewpoint distance.
- canvas.addEventListener('keydown',e=>{if(autoTurn)return;let used=true;if(e.key==='ArrowLeft')yaw+=.1;else if(e.key==='ArrowRight')yaw-=.1;else if(e.key==='Home')reset();else used=false;if(used){e.preventDefault();schedule();}},{signal});
+ canvas.addEventListener('keydown',e=>{if(autoTurn)return;let used=true;if(e.key==='ArrowLeft')turn(1);else if(e.key==='ArrowRight')turn(-1);else if(e.key==='Home')reset();else used=false;if(used){e.preventDefault();schedule();}},{signal});
   function resize(){const w=host.clientWidth||1000,h=host.clientHeight||550;renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=T.MathUtils.radToDeg(2*Math.atan(Math.max(8,10.8/(w/h))/(2*baseDistance)));camera.updateProjectionMatrix();const size=renderer.getDrawingBufferSize(new T.Vector2());contactShadow.material.uniforms.viewportSize.value.copy(size);bloom.resize(size.x,size.y);schedule();}
  const observer=new ResizeObserver(resize);observer.observe(host);document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;last=0;}else schedule();},{signal});
  const api={renderer,scene,model,camera,meshes,setSurfaceStyle(options={}){
@@ -213,9 +233,9 @@ N.mountRotationViewer=function(root,onReady){
     },opticalReport:optical.report,setSection,setRays,setBloom,selectPart,reset,startInspection,pick,renderNow(){cancelAnimationFrame(frame);frame=0;render();},setIntroProgress(t){
     // Camera-based R2 pull-back: use the SAME mesh, never zoom a raster frame.
     const u=T.MathUtils.clamp(Number(t)||0,0,1),ease=u*u*(3-2*u);
-    intro=1; yaw=initialYaw+(1-ease)*.025;
+    manualTurn=null;intro=1; yaw=initialYaw+(1-ease)*.025;
     distance=baseDistance*(.54+.46*ease);schedule();
-   },setView(y){if(Number.isFinite(y))yaw=y;distance=baseDistance;schedule();},getState(){const gl=renderer.getContext(),ext=gl.getExtension('WEBGL_debug_renderer_info');return {surfaceStyle:{grain:surfaceStyle.newtonGrain.value,lighting:surfaceStyle.newtonLighting.value,contactShadow:contactShadow.visible,floor,shadowY:contactShadow.position.y},section,rays,bloom:bloomOn,bloomType:bloom.type,selected,yaw,pitch,distance,auto,inspectionProgress:autoTurn?autoTurn.travelled/(Math.PI*2):lastInspectionCompleted?1:0,meshCount:meshes.length,visibleMeshes:meshes.filter(m=>m.visible).length,triangleCount:meshes.reduce((n,m)=>n+(m.geometry.index?m.geometry.index.count:m.geometry.attributes.position.count)/3,0),acceptedRays:optical.report.accepted,renderCount,disposed,renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),rendererInfo:{memory:{...renderer.info.memory},render:{...renderer.info.render},programs:renderer.info.programs.length},canvasAlpha:(renderer.getContext().getContextAttributes()?.alpha??true),clearAlpha:renderer.getClearAlpha(),materialOpacity:[...new Set(meshes.map(m=>m.material.opacity))],depthTest:meshes.every(m=>m.material.depthTest)&&optical.group.children.every(m=>m.material.depthTest),depthWrite:meshes.every(m=>m.material.depthWrite),bloomTargets:bloom.targets.length};}};
+   },setView(y){manualTurn=null;if(Number.isFinite(y))yaw=y;distance=baseDistance;schedule();},getState(){const gl=renderer.getContext(),ext=gl.getExtension('WEBGL_debug_renderer_info');return {surfaceStyle:{grain:surfaceStyle.newtonGrain.value,lighting:surfaceStyle.newtonLighting.value,contactShadow:contactShadow.visible,floor,shadowY:contactShadow.position.y},section,rays,bloom:bloomOn,bloomType:bloom.type,selected,yaw,pitch,distance,auto,turning:Boolean(manualTurn),inspectionProgress:autoTurn?autoTurn.travelled/(Math.PI*2):lastInspectionCompleted?1:0,meshCount:meshes.length,visibleMeshes:meshes.filter(m=>m.visible).length,triangleCount:meshes.reduce((n,m)=>n+(m.geometry.index?m.geometry.index.count:m.geometry.attributes.position.count)/3,0),acceptedRays:optical.report.accepted,renderCount,disposed,renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),rendererInfo:{memory:{...renderer.info.memory},render:{...renderer.info.render},programs:renderer.info.programs.length},canvasAlpha:(renderer.getContext().getContextAttributes()?.alpha??true),clearAlpha:renderer.getClearAlpha(),materialOpacity:[...new Set(meshes.map(m=>m.material.opacity))],depthTest:meshes.every(m=>m.material.depthTest)&&optical.group.children.every(m=>m.material.depthTest),depthWrite:meshes.every(m=>m.material.depthWrite),bloomTargets:bloom.targets.length};}};
  root.realViewer=api;N.step2Viewer=api;
   hotspots=N.createStep2Hotspots?.({THREE:T,root,host,canvas,api,meshes,dock});
  updateStatus();resize();Promise.all(texturePromises).then(()=>{if(disposed)return;textureReady=true;schedule();});

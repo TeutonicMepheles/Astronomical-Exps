@@ -14,19 +14,12 @@ window.Newton = window.Newton || {};
 
   N.store = {
     get: () => ({ ...state }),
-    // Defocus from the existing fixed reference assembly: primary image plane
-    // must meet the eyepiece front focal plane. Pixel gain/tolerance are visual.
-    focusBlur(value=state){
-      const reference=N.sectionOptics?.model||{referenceFocal:800,referenceEyepiece:25};
-      const primary=this.telescopeState(value).focal;
-      const mismatch=reference.referenceFocal+reference.referenceEyepiece-primary-value.eyepiece;
-      return Math.min(16,Math.max(0,Math.abs(mismatch)-2)*.12);
+    // Relative illustration brightness only, not measured surface photometry.
+    observationBrightness(value=state){
+      const response=(value.aperture||130)/130;
+      return 2*response/(1+response);
     },
-    // Teaching acceptance band, not physical focal-plane accuracy.
-    // Hysteresis keeps the discovery tip stable during small knob movements.
-    focusAcceptable(value=state,wasFocused=false){
-      return this.focusBlur(value)<=(wasFocused?3:2.25);
-    },
+    brightnessAcceptable(value=state){const b=this.observationBrightness(value);return b>=.85&&b<=1.2;},
     // Distinct lesson tasks informed by observing practice, NOT exclusive
     // real-world requirements. Sources and rationale: docs/OBSERVING_SETUP.md.
     observationSetup(value=state){
@@ -34,8 +27,9 @@ window.Newton = window.Newton || {};
       if(!profile)return {suitable:false,hint:''};
       const metrics=this.metrics(value),within=metrics.magnification>=profile.min-1e-9&&metrics.magnification<=profile.max+1e-9;
       const apertureOK=metrics.magnification<=2*(value.aperture||130);
-      return {...profile,suitable:within&&apertureOK,
-        hint:!within?`倍率调至 ${profile.min}–${profile.max}×`:!apertureOK?'增大主镜口径，保留细节':''};
+      const brightness=this.observationBrightness(value),brightnessOK=this.brightnessAcceptable(value);
+      return {...profile,sizeOK:within,apertureOK,brightness,brightnessOK,suitable:within&&apertureOK&&brightnessOK,
+        hint:!within?`倍率调至 ${profile.min}–${profile.max}×`:!apertureOK?'增大主镜口径，保留细节':!brightnessOK?(brightness<.85?'增大主镜口径，让画面更明亮':'减小主镜口径，避免画面过亮'):''};
     },
     // The readout/eyepiece image uses 400–1600; preserve the original model
     // response at the same slider position: 400 -> 540 and 1600 -> 800.
