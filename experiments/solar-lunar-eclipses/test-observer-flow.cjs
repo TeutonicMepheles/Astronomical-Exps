@@ -11,8 +11,8 @@ const out=path.resolve(__dirname,'../../artifacts/eclipse-observer-flow-20261117
  assert.deepEqual(await p.locator('#eventTypes button').allTextContents(),['全食事件','环食事件']);assert.equal(await p.locator('[data-event=partial]').count(),0);assert.equal(await p.locator('#alignNodes,#missNodes,#nodeTools').count(),0);
  for(const kind of ['total','annular']){
   await p.locator(`[data-event=${kind}]`).click();await p.waitForTimeout(100);
-  assert.deepEqual(await p.locator('#observerCandidates button').allTextContents(),['观察点 A','观察点 B','观察点 C']);
-  assert.equal(await p.locator('#observationCameras').isVisible(),false);
+  assert.deepEqual(await p.locator('#observerCandidates button').allTextContents(),['A','B','C']);
+  assert.equal(await p.locator('#observationCameras').isVisible(),true);
   assert.equal(await p.locator('#observer').isVisible(),false);assert(await p.locator('#continuousPlay').isDisabled());
   const initial=await read(),fit=JSON.parse(initial.observerCameraFit),phases=[];
   assert(fit.margin>.1);await choose(0);
@@ -34,7 +34,7 @@ const out=path.resolve(__dirname,'../../artifacts/eclipse-observer-flow-20261117
   await seek(Math.PI);
   for(let i=0;i<3;i++){
    await choose(i);const d=await read();assert.equal(d.referenceStatus,i===0?kind:i===1?'partial':'none');
-   assert.equal(await p.locator('#eventOutcome').innerText(),i===0?(kind==='total'?'日全食':'日环食'):i===1?'日偏食':'无日食');
+   assert.equal(await p.locator('#eventOutcome').innerText(),i===0?(kind==='total'?'日全食':'日环食'):i===1?'日偏食':'无日食');assert.equal(await p.locator('#observationSummary').isVisible(),false);assert.equal(await p.locator('#stageRail').isVisible(),false);
    assert.equal(JSON.parse(d.contacts).length,i===2?0:5);await p.screenshot({path:path.join(out,`${kind}-${i}-same-time.png`)});
   }
   for(const [width,height] of [[1920,1080],[1366,768],[1280,1024]]){
@@ -46,7 +46,7 @@ const out=path.resolve(__dirname,'../../artifacts/eclipse-observer-flow-20261117
   await p.setViewportSize({width:1920,height:1080});
   results.push({kind,fit,phases});
  }
- await p.locator('[data-event=lunar]').click();assert.equal(await p.locator('#observerCandidates').isVisible(),false);assert(await p.locator('#observationCameras').isVisible());
+ await p.locator('[data-category=lunar]').click();assert.equal(await p.locator('#observerCandidates').isVisible(),false);assert(await p.locator('#observationCameras').isVisible());
  for(const id of ['observationOblique','observationSide','observationTop']){await p.locator('#'+id).click();await p.waitForTimeout(50);}
  assert.deepEqual(errors,[]);fs.writeFileSync(path.join(out,'results.json'),JSON.stringify({pass:true,results},null,2));console.log('PASS two event choices, neutral A/B/C; 66 phases all three front-facing, separated, Moon-clear, clickable; same-time geometry invariants; synchronized total/annular/partial/none results and stages; 3 viewport layouts; lunar camera isolation.');
 }finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});
