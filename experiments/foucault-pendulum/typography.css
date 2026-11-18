@@ -7,7 +7,7 @@ button,input,select,textarea { font-family:var(--font-ui); }
 #stage {font-family:var(--font-ui)}
 .city text,.city .name,.city .coord,.latitude-overlay .lat-label {font-family:var(--font-ui)}
 .city .name {font-size:var(--type-body);font-weight:500}
-.city .coord,.latitude-overlay .lat-label {font-size:var(--type-help);font-weight:300}
+.city .coord,.latitude-overlay .lat-label {font-size:15px;font-weight:400}
 #paramButton .parameter-button-label,.time-speed-label {font-size:var(--type-body);font-weight:400}
 #timeSpeedVal {font-size:var(--type-number);font-weight:500}
 .fp-parameter-dialog h2 {font-size:var(--type-title);font-weight:500}
@@ -23,7 +23,7 @@ button,input,select,textarea { font-family:var(--font-ui); }
 .fp-dimension-label {font-family:var(--font-ui);font-weight:500}
 
 .location-heading b {font-size:var(--type-data-label);font-weight:500}
-.location-coordinates {font-size:var(--type-help);font-weight:300}
+.location-coordinates {font-size:16px;font-weight:400}
 .precession-readout dt {font-size:var(--type-data-label);font-weight:500}
 .precession-readout output {font-size:var(--type-number);font-weight:500}
 .precession-readout .metric-unit,.speed-label {font-size:var(--type-body);font-weight:400}
