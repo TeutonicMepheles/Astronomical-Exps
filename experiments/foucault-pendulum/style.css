@@ -171,21 +171,23 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .location-coordinates strong { color:#ffdc78; }
 .location-coordinates span { color:#edf5ff;font-weight:600; }
 .precession-readout {
-  position:absolute;left:655px;top:235px;width:225px;margin:0;z-index:19;
-  display:grid;gap:24px;padding-left:18px;border-left:1px solid #b9d9ff66;
+  position:absolute;left:940px;top:235px;width:max-content;margin:0;z-index:19;
+  display:grid;gap:18px;padding:18px 22px;border:0;
+  background:radial-gradient(ellipse at center,rgba(4,17,37,.48) 0%,rgba(4,17,37,.26) 48%,rgba(4,17,37,0) 74%);
   color:#edf5ff;pointer-events:none;text-shadow:0 2px 12px #041125e6;
   transition:opacity .6s ease-in-out;
 }
+.precession-readout .metric { display:flex;align-items:baseline;gap:12px;white-space:nowrap; }
 .precession-readout dt { color:#d2e3f4;font-size:18px;font-weight:600;letter-spacing:.02em; }
-.precession-readout dd { display:flex;align-items:center;gap:8px;margin:5px 0 0;font-variant-numeric:tabular-nums; }
+.precession-readout dd { position:relative;display:flex;align-items:center;gap:8px;margin:0;font-variant-numeric:tabular-nums; }
 .metric-value-group { display:inline-flex;align-items:baseline;gap:7px; }
 .precession-readout output { font-size:36px;font-weight:650;line-height:1.1; }
 .precession-readout .metric-unit { color:#fff;font-size:20px;font-weight:600;line-height:1.1; }
 .period-value .metric-unit { align-self:flex-end;margin-bottom:0; }
-.rate-value .metric-unit { align-self:flex-start;margin-top:0; }
+.rate-value .metric-unit { align-self:baseline;margin-top:0; }
 .precession-readout small:empty { display:none; }
 .metric-delta {
-  display:grid;place-items:center;flex:none;width:30px;height:32px;border-radius:50%;
+  position:absolute;right:100%;margin-right:4px;display:grid;place-items:center;flex:none;width:30px;height:32px;border-radius:50%;
   background:#8cc8ff18;font-size:29px;font-weight:900;line-height:1;opacity:0;
 }
 .metric-value.is-changing { animation:metric-card-refresh .56s ease-out; }
@@ -320,7 +322,7 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 :is(#backgroundControls,#hallScreenControls,#standShaderControls) output { text-align:right;font-variant-numeric:tabular-nums; }
 
 
-#swingReadout { left:auto;right:48px;width:175px;top:235px; }
+#swingReadout { left:auto;right:32px;width:max-content;top:235px; }
 
 #paramButton .parameter-button-label { position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:7px;white-space:nowrap;color:#d4e2f8;font:500 15px/1.4 var(--font-ui);letter-spacing:.06em;text-shadow:0 2px 6px #041125; }
 
