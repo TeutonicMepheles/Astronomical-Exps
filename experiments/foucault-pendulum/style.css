@@ -171,7 +171,7 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .location-coordinates strong { color:#ffdc78; }
 .location-coordinates span { color:#edf5ff;font-weight:600; }
 .precession-readout {
-  position:absolute;left:655px;top:235px;width:max-content;margin:0;z-index:19;
+  position:absolute;left:940px;top:235px;width:max-content;margin:0;z-index:19;
   display:grid;gap:18px;padding:18px 22px;border:0;
   background:radial-gradient(ellipse at center,rgba(4,17,37,.48) 0%,rgba(4,17,37,.26) 48%,rgba(4,17,37,0) 74%);
   color:#edf5ff;pointer-events:none;text-shadow:0 2px 12px #041125e6;
