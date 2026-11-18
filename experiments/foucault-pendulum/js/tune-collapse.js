@@ -1,6 +1,7 @@
 const COLLAPSED_SPACE = '56px';
 
 export function mountTuneCollapse(panel, { spaceVar, storageKey, label }) {
+  if (!document.documentElement.classList.contains('developer-mode')) return;
   const button = panel.querySelector('.tune-collapse');
   if (!button) return;
   const root = document.documentElement;

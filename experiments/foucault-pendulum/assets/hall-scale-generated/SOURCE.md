@@ -1,0 +1,1 @@
+LibTV CLI Seedream 5.5 local retouch node d5ceb734-7398-4593-bf8e-d8d52a556259; source crop (900,940,2816,1420). Original hall preserved outside annular mask. Generated cleaned texture aligned to original crop; deterministic projective ticks every 5 degrees and unique labels every 30 degrees. Visual calibration only, not a measurement instrument.

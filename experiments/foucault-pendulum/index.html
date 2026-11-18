@@ -13,7 +13,7 @@
 </head>
 <body>
   <main id="stage" aria-label="傅科摆实验首页">
-    <img class="hall hall-background" src="assets/stage1-hall-displays.png" alt="" draggable="false">
+    <img class="hall hall-background" src="assets/stage1-hall-scale-corrected.png" alt="" draggable="false">
     <svg class="hall hall-displays" viewBox="0 0 2048 1152" aria-hidden="true">
       <defs>
         <path id="hallScreenLeftEdge" d="M486 260Q754 303 1023 313V546L486 554Z"/>
@@ -156,6 +156,7 @@
       </div>
     </div>
     <dl id="precessionReadout" class="precession-readout" aria-label="偏转数据" aria-live="polite" aria-busy="false">
+      <div class="metric latitude-metric"><dt>纬度</dt><dd class="metric-value"><span class="metric-value-group"><output id="observationLatitude">31.23</output><small id="observationHemisphere" class="metric-unit">°N</small></span></dd></div>
       <div class="metric period-metric">
         <dt>偏转周期</dt>
         <dd class="metric-value period-value">
@@ -174,19 +175,8 @@
     <dl id="swingReadout" class="precession-readout" aria-label="单摆周期" aria-live="polite">
       <div class="metric"><dt>单摆周期</dt><dd class="metric-value"><span class="metric-delta" aria-hidden="true"></span><span class="metric-value-group"><output id="hallSwingPeriod">16.42</output><small class="metric-unit">s</small></span></dd></div>
     </dl>
-    <div class="stage1-hud" aria-label="第一阶段读数与演示速度">
-      <div class="time-speed" role="group" aria-label="演示速度">
-        <svg class="speed-icon" viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M6.5 22.5a10.5 10.5 0 1 1 19 0M16 17.5l5.1-5.1"/>
-          <circle cx="16" cy="17.5" r="1.7" fill="currentColor" stroke="none"/>
-          <path d="M12.5 5h7M16 5v3"/>
-        </svg>
-        <div class="speed-reading">
-          <span class="speed-label">演示速度</span>
-          <output id="timeSpeedVal" aria-live="polite">1×</output>
-        </div>
-        <button id="speedDown" type="button" aria-label="降低演示速度"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 2 12l9 7ZM22 5l-9 7 9 7Z"/></svg></button>
-        <button id="speedUp" type="button" aria-label="提高演示速度"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 5 9 7-9 7Zm11 0 9 7-9 7Z"/></svg></button>
+    <div class="stage1-hud" aria-label="第一阶段显示控制">
+      <div class="time-speed" role="group" aria-label="显示控制">
         <button id="planeToggle" type="button" aria-label="摆平面" aria-pressed="false" aria-controls="swingSurface swingArc">
           <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
             <path d="M3 16l7-9h11l-7 9zM12 3v18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
@@ -223,10 +213,9 @@
       </button>
     </div>
     <div id="miniPendulumBody" class="tune-body">
-    <p>调地点标签里的小摆。速度 1 与大厅单摆的往返节奏相同，改动会留在这台浏览器里。</p>
+    <p>调整地点标签里的小摆外形。</p>
     <fieldset>
       <legend>摆动</legend>
-      <label>速度<input data-mini="speed" type="range" min="0" max="8" step="0.05" value="3.15"><output>3.15</output></label>
       <label>摆幅<input data-mini="amplitude" type="range" min="0" max="34" step="1" value="20"><output>20</output></label>
     </fieldset>
     <fieldset>

@@ -30,3 +30,6 @@ button,input,select,textarea { font-family:var(--font-ui); }
 .stage-next {font-size:var(--type-action);font-weight:600;min-height:62px}
 
 .fp-reference-caption {font-family:var(--font-ui);font-size:var(--type-body);font-weight:400;fill:#d2e5fa}
+
+.fp-parameter-settings small {font-size:var(--type-body);font-weight:400;color:#d5e5f5;}
+.fp-gravity {font-size:var(--type-help);font-weight:300;color:#d5e5f5;}
