@@ -7,7 +7,7 @@ const {chromium} = require('playwright');
  try {
   const page = await browser.newPage({viewport:{width:1600,height:900}}), errors=[], samples=[];
   page.on('pageerror', e=>errors.push(e.message));
-  await page.goto(process.env.ECLIPSE_URL || 'http://127.0.0.1:12892/experiments/solar-lunar-eclipses/?event=lunar');
+  await page.goto(process.env.ECLIPSE_URL || ((process.env.TEST_ORIGIN||'http://127.0.0.1:12892')+'/experiments/solar-lunar-eclipses/?event=lunar'));
   await page.locator('[data-event=lunar]').click();
   await page.waitForFunction(()=>document.querySelector('#railPct').getAttribute('aria-label')==='当前阶段：初亏前');
   assert.equal(await page.locator('#railPct').innerText(),'','no visible pre-contact label');

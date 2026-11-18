@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const out=path.resolve(__dirname,'../../artifacts/eclipse-observer-flow-20261117');fs.mkdirSync(out,{recursive:true});
 (async()=>{const browser=await chromium.launch();try{
  const p=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),errors=[],results=[];p.on('pageerror',e=>errors.push(e.message));
- await p.goto('http://127.0.0.1:9951/experiments/solar-lunar-eclipses/');await p.evaluate(()=>document.fonts.ready);
+ await p.goto(((process.env.TEST_ORIGIN||'http://127.0.0.1:9951')+'/experiments/solar-lunar-eclipses/'));await p.evaluate(()=>document.fonts.ready);
  const read=()=>p.locator('#scene').evaluate(e=>({...e.dataset}));
  const seek=async phi=>{await p.locator('#moon').evaluate((e,v)=>{e.value=v*180/Math.PI;e.dispatchEvent(new Event('input',{bubbles:true}));},phi);await p.waitForFunction(phi=>Math.abs(+document.querySelector('#scene').dataset.phi-phi)<.002,phi);await p.waitForTimeout(25);};
  const choose=async i=>{await p.locator('#observerCandidates button').nth(i).click();await p.waitForFunction(i=>document.querySelectorAll('#observerCandidates button')[i].getAttribute('aria-pressed')==='true',i);};

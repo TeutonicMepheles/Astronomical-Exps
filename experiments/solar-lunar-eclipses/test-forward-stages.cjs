@@ -1,6 +1,6 @@
 const{chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs');
 const out=__dirname+'/docs/forward-stages-20261116';fs.mkdirSync(out,{recursive:true});
-(async()=>{const b=await chromium.launch({channel:'chrome'});try{const p=await b.newPage({viewport:{width:1600,height:900}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto((process.env.ECLIPSE_URL||'http://127.0.0.1:8876/experiments/solar-lunar-eclipses/'));await p.waitForTimeout(300);
+(async()=>{const b=await chromium.launch({channel:'chrome'});try{const p=await b.newPage({viewport:{width:1600,height:900}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto((process.env.ECLIPSE_URL||((process.env.TEST_ORIGIN||'http://127.0.0.1:8876')+'/experiments/solar-lunar-eclipses/')));await p.waitForTimeout(300);
  const read=()=>p.locator('#scene').evaluate(e=>({...e.dataset}));
  const cases=[];assert.equal(await p.locator('#previousPhase').count(),0);assert.equal(await p.locator('.progress').isVisible(),false);
  for(const kind of ['total','partial','annular','lunar']){
