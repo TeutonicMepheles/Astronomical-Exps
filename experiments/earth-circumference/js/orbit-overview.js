@@ -58,6 +58,10 @@ export function mountOrbitOverview(scene) {
     </div>
 
   `;
+  const currentDate=document.createElement('output');
+  currentDate.className='orbit-current-date';
+  currentDate.textContent=`当前日期：${scene.observationDate}`;
+  section.append(currentDate);
   scene.stage.append(section);
 
   const linkLayer = document.createElementNS(NS, 'svg');
