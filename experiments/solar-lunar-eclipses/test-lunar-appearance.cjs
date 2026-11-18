@@ -18,7 +18,7 @@ const {chromium} = require('playwright');
   assert.match(await page.locator('#phaseName').innerText(),/初亏前/);
   assert(await page.locator('#observer').evaluate(e=>e.scrollWidth<=e.clientWidth),'initial caption fits card');
   if(process.env.ECLIPSE_CAPTURE_DIR){fs.mkdirSync(process.env.ECLIPSE_CAPTURE_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.ECLIPSE_CAPTURE_DIR,'initial-full.png')});}
-  
+
   for(let i=0;i<5;i++) {
    await page.locator('#railList .rail-node').nth(i).click();
    await page.waitForFunction(()=>document.querySelector('#continuousPlay').getAttribute('aria-pressed')==='false');
