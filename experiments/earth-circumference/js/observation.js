@@ -1,18 +1,18 @@
 import { mountShadowMeasurement } from './shadow-measurement.js';
 export function mountObservation(scene){
  const panel=document.createElement('section');panel.className='observation-panel';panel.hidden=true;
- panel.innerHTML=`<h2 class="observation-heading">观测点影长测量</h2>
- <div class="observation-viewport style-soft"><svg class="site-scene" viewBox="0 0 660 400" role="group" aria-label="实景影长测量">
+ panel.innerHTML=`<h2 class="observation-heading">观测杆与阳光夹角</h2>
+ <div class="observation-viewport style-soft"><svg class="site-scene" viewBox="0 0 660 400" role="group" aria-label="正午杆与阳光夹角">
  <defs><clipPath id="site-light-clip"><rect x="0" y="0" width="660" height="400"/></clipPath></defs>
  <image id="site-background" href="./assets/scene-dry.png" width="660" height="400" preserveAspectRatio="xMidYMax slice"/>
  <g id="site-solar-rays" clip-path="url(#site-light-clip)" aria-hidden="true">${Array.from({length:19},()=>'<path class="site-solar-ray"/>').join('')}</g>
- <path id="site-shadow" stroke="#282b36" stroke-width="12" stroke-linecap="butt" opacity=".85"/>
+ <g id="site-geometry"><path id="site-shadow" stroke="#282b36" stroke-width="12" stroke-linecap="butt" opacity=".85"/>
  <image id="site-pole" href="./assets/scene-pole.png" preserveAspectRatio="none"/>
  <g class="measurement-explanation"><path id="site-ray" stroke="#fff4c8" stroke-width="3" stroke-dasharray="8 4" fill="none"/>
  <circle id="site-sun" r="19" fill="#fff1b7"/>
  <path id="altitude-arc" stroke="#fff4ca" stroke-width="3" fill="none"/>
  <text id="altitude-label" class="local-label"/><text id="shadow-result" class="local-label"/></g><text id="rod-label" class="local-label">100 cm</text>
- <circle cx="330" cy="355" r="4" fill="#fff4cb"/></svg><div class="subsolar-zero-note" hidden>太阳直射点：正午影长为0</div>
+ <circle cx="330" cy="355" r="4" fill="#fff4cb"/></g></svg><div class="subsolar-zero-note" hidden>太阳直射点：正午影长为0</div>
  <div class="measure-entry-hint" role="note"><span>点击右上角尺子</span><b>开始测量影长</b></div>
  <div class="site-measurement-results" role="status" aria-live="polite" hidden>
   <div><span>影长 s</span><strong data-result-shadow>—</strong></div>
@@ -45,7 +45,7 @@ export function mountObservation(scene){
   measurement.clearSelected();
   update();
  }
- let selected='selected',openingAnimation=null;
+ let selected='selected',openingAnimation=null,revealKey='',revealAnimations=[],framingKey='';
  function paintEvidence(){
   const saved=measurement.snapshot().selected;
   const evidence=saved.saved?{rod:scene.calibration.rod,shadow:saved.value,altitude:Math.atan2(scene.calibration.rod,saved.value)*180/Math.PI}:null;
@@ -109,44 +109,53 @@ export function mountObservation(scene){
  const pole=q('#site-pole'),w=h*71/794;pole.setAttribute('x',330-w/2);pole.setAttribute('y',top);pole.setAttribute('width',w);pole.setAttribute('height',h);
  q('#rod-label').textContent=`${rod.toFixed(0)} cm`;
  q('#site-shadow').setAttribute('stroke-width',Math.max(2,w*.72));
- q('#rod-label').setAttribute('x','348');q('#rod-label').setAttribute('y',(355+top)/2);
+ q('#rod-label').setAttribute('x','265');q('#rod-label').setAttribute('y',(355+top)/2);
  q('#site-shadow').style.visibility=day?'visible':'hidden';
  q('#site-shadow').setAttribute('d',day?`M330 355H${tip}`:'');
  q('#site-ray').setAttribute('pathLength','1');
  q('#site-ray').setAttribute('d',measured?`M${sx} ${sy}L${measuredTip} 355`:'');
  q('#site-sun').setAttribute('cx',sx);q('#site-sun').setAttribute('cy',sy);
- const start=direction>0?-Math.PI:0,end=Math.atan2(-h,-direction*measuredShadow);
- let span=end-start;if(span>Math.PI)span-=2*Math.PI;if(span< -Math.PI)span+=2*Math.PI;
+ const start=Math.PI/2,end=Math.atan2(h,direction*measuredShadow);
  const r=Math.max(22,Math.min(48,h*.45));
- const path=measured?Array.from({length:25},(_,i)=>{const t=start+span*i/24;return `${i?'L':'M'}${measuredTip+Math.cos(t)*r} ${355+Math.sin(t)*r}`;}).join(' '):'';
+ const path=measured?Array.from({length:25},(_,i)=>{const t=start+(end-start)*i/24;return `${i?'L':'M'}${330+Math.cos(t)*r} ${top+Math.sin(t)*r}`;}).join(' '):'';
  q('#altitude-arc').setAttribute('pathLength','1');
  q('#altitude-arc').setAttribute('d',path);
- const altitudeX=measuredTip+Math.cos(start+span*.5)*(r+26);
- const altitudeY=355+Math.sin(start+span*.5)*(r+26);
- q('#altitude-label').setAttribute('x',altitudeX);q('#altitude-label').setAttribute('y',altitudeY);q('#altitude-label').textContent=measured?`${shownAltitude.toFixed(1)}°`:'';
+ const altitudeX=330+Math.cos((start+end)/2)*(r+55)+20;
+ const altitudeY=top+Math.sin((start+end)/2)*(r+35);
+ q('#altitude-label').setAttribute('x',altitudeX);q('#altitude-label').setAttribute('y',altitudeY);q('#altitude-label').textContent=measured?`θ ${delta.toFixed(1)}°`:'';
+ const nextReveal=[lat,a.subLat,rod,selected].join(',');
+ if(measured&&nextReveal!==revealKey){
+  revealKey=nextReveal;revealAnimations.forEach(animation=>animation.cancel());revealAnimations=[];
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+   revealAnimations.push(q('#altitude-arc').animate([{strokeDashoffset:1},{strokeDashoffset:0}],{duration:600}));
+   revealAnimations.push(q('#altitude-label').animate([{opacity:.2},{opacity:1}],{duration:600}));
+  }
+ }
+
  const shadowLabelX=(330+measuredTip)/2,shadowLabelY=372;
  q('#shadow-result').setAttribute('x',shadowLabelX);q('#shadow-result').setAttribute('y',shadowLabelY);q('#shadow-result').textContent=measured?`${saved.value.toFixed(1)} cm`:'';
- if(measured){
-  const xs=[330-w/2,330+w/2,tip,measuredTip,altitudeX,shadowLabelX,348];
-  const ys=[top,355,altitudeY,shadowLabelY,sy];
-  const minX=Math.min(...xs)-40,maxX=Math.max(...xs)+40,minY=Math.min(...ys)-28,maxY=Math.max(...ys)+22;
-  const zoom=Math.min(2.15,660/Math.max(1,maxX-minX),400/Math.max(1,maxY-minY));
-  let tx=330-((minX+maxX)/2)*zoom,ty=200-((minY+maxY)/2)*zoom;
-  const left=minX*zoom+tx,right=maxX*zoom+tx,topEdge=minY*zoom+ty,bottom=maxY*zoom+ty;
-  if(left<12)tx+=12-left;
-  if(right>648)tx-=right-648;
-  if(topEdge<12)ty+=12-topEdge;
-  if(bottom>388)ty-=bottom-388;
-  art.style.transform=`translate(${tx/660*100}%,${ty/400*100}%) scale(${zoom})`;
- }else if(panel.classList.contains('is-shadow-measuring')&&day){
-  const zoom=Math.min(8,480/Math.max(1,s));
-  const tx=330-(330+tip)/2*zoom,ty=345-355*zoom;
-  panel.dataset.measureZoom=String(zoom);
-  art.style.transform=`translate(${tx/660*100}%,${ty/400*100}%) scale(${zoom})`;
- }else {art.style.transform='none';panel.dataset.measureZoom='1';}
+ const geometry=q('#site-geometry');
+ art.style.transform='none';
+ const nextFraming=[lat,a.subLat,rod,selected,measured].join(',');
+ if(nextFraming!==framingKey){
+  framingKey=nextFraming;
+  geometry.removeAttribute('transform');
+  if(measured){
+   // Frame the actual artwork and text, while the backdrop and parallel rays
+   // remain fixed to the viewport. Never scale a finite background image.
+   const bounds=geometry.getBBox();
+   const margin=24;
+   const zoom=Math.min(2.15,(660-2*margin)/Math.max(1,bounds.width),(400-2*margin)/Math.max(1,bounds.height));
+   const tx=330-(bounds.x+bounds.width/2)*zoom;
+   const ty=200-(bounds.y+bounds.height/2)*zoom;
+   geometry.setAttribute('transform',`translate(${tx} ${ty}) scale(${zoom})`);
+  }
+ }
+ q('.measure-entry-hint').hidden=day;
+ q('.measure-entry-hint').textContent=day?'':'太阳在地平线以下，请返回选择有正午日照的位置';
  q('.site-scene').dataset.altitude=alt;q('.site-scene').dataset.shadowTip=tip;q('.site-scene').dataset.pxPerCm=pxPerCm;
  paintEvidence();
- measurement.setContext({site:selected,key:[a.selLat,a.selLon,a.subLat,scene.phase,scene.observationDate,rod].join(','),pxPerCm,direction,canMeasure:day,reason:'太阳在地平线以下，暂无日照杆影'});
+ measurement.setContext({site:selected,key:[a.selLat,a.selLon,a.subLat,scene.phase,scene.observationDate,rod].join(','),pxPerCm,direction,shadow:rod*Math.tan(Math.abs(a.selLat-a.subLat)*Math.PI/180),canMeasure:Math.abs(a.selLat-a.subLat)<90,reason:'太阳在地平线以下，暂无日照杆影'});
  }
  q('[data-rod-range]').addEventListener('input',event=>setRodLength(event.target.value));
  q('[data-rod-decrease]').addEventListener('click',()=>setRodLength(scene.calibration.rod-10));
@@ -178,5 +187,6 @@ export function mountObservation(scene){
   event.stopPropagation();
   window.dispatchEvent(new CustomEvent('open-observation',{detail:{site:'selected',origin:event.currentTarget.getBoundingClientRect().toJSON()}}));
  });
+ document.fonts.ready.then(()=>{framingKey='';update();});
  window.addEventListener('measurement-change',update);window.addEventListener('globe-frame',update);window.addEventListener('globe-mode-change',update);update();
 }

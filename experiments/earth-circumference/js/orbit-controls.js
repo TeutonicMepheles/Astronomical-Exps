@@ -9,7 +9,7 @@ export function mountOrbitControls(scene, current) {
   toolbar.className='orbit-transport';toolbar.setAttribute('role','group');toolbar.setAttribute('aria-label','时间轴前进与暂停控制');
   toolbar.innerHTML=`<button type="button" data-orbit-play aria-label="前进一小步">${playIcon}</button><button type="button" data-orbit-fast aria-label="前进一大步">${fastIcon}</button><button type="button" data-orbit-pause aria-label="暂停公转">${pauseIcon}</button>`;
   scene.stage.append(toolbar);
-  let playing=!matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let playing=false;
   let speed=1;
   const buttons={play:toolbar.querySelector('[data-orbit-play]'),fast:toolbar.querySelector('[data-orbit-fast]'),pause:toolbar.querySelector('[data-orbit-pause]')};
   function syncState(){

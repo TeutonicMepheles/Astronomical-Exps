@@ -195,14 +195,15 @@ import { mountStageProgress } from './stage-progress.js';
 mountStageProgress(scene);
 import { mountOrbitOverview } from './orbit-overview.js';
 mountOrbitOverview(scene);
-import { mountObservationDateControl } from './observation-date-control.js';
-mountObservationDateControl(scene);
+// Date is fixed to today.
 import { mountViewMode } from './view-mode.js';
 mountViewMode(scene.stage);
-import { mountNoonAlignmentHint } from './noon-alignment-hint.js';
-mountNoonAlignmentHint(scene);
+// Longitude selection places the meridian at noon.
 import { mountNoonArrivalAnimation } from './noon-arrival-animation.js';
 mountNoonArrivalAnimation(scene);
 
 import { mountObservationTips } from './observation-tips.js';
 mountObservationTips(scene);
+
+import { mountMeridianSelection } from './meridian-selection.js';
+mountMeridianSelection(scene);

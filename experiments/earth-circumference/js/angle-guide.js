@@ -15,7 +15,7 @@ export function mountAngleGuide(scene) {
   const centerButton = document.createElement('button');
   centerButton.type = 'button';
   centerButton.className = 'calculation-center-button';
-  centerButton.setAttribute('aria-label', '球心：重播杆影角与球心角推导');
+  centerButton.setAttribute('aria-label', '球心：重播圆心连线与圆心角');
   centerButton.hidden = true;
   centerButton.addEventListener('click', () => window.dispatchEvent(new Event('request-angle')));
   scene.stage.append(host, centerButton);
@@ -23,7 +23,7 @@ export function mountAngleGuide(scene) {
   const paths = [...host.querySelectorAll('.angle-radius')];
   const arc = host.querySelector('.angle-arc');
   const value = host.querySelector('output');
-  let progress = 0;
+  let progress = 0, arcProgress = 0;
   let angleFrame = 0;
   const solarPaths = Array.from({ length: 5 }, () => {
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -38,7 +38,7 @@ export function mountAngleGuide(scene) {
   function reset() {
     cancelAnimationFrame(angleFrame);
     host.dataset.anglePhase = '';
-    progress = 0;
+    progress = 0;arcProgress=0;
     host.classList.remove('is-drawing', 'is-revealed');
     value.textContent = '';
     paths.forEach((path) => path.setAttribute('d', ''));
@@ -160,12 +160,12 @@ export function mountAngleGuide(scene) {
       const y = p.y + (c.y - p.y) * progress;
       paths[i].setAttribute('d', `M${p.x} ${p.y}L${x} ${y}`);
     });
-    arc.setAttribute('d', progress===1 ? geometry.arc.map((p, i) => `${i ? 'L' : 'M'}${p.x} ${p.y}`).join(' ') : '');
+    arc.setAttribute('d', arcProgress>0 ? geometry.arc.slice(0,Math.max(2,Math.ceil(geometry.arc.length*arcProgress))).map((p, i) => `${i ? 'L' : 'M'}${p.x} ${p.y}`).join(' ') : '');
     value.style.left = `${geometry.label.x}px`;
     value.style.top = `${geometry.label.y}px`;
     const saved = scene.measurements?.snapshot?.().selected;
     const theta = saved?.saved ? Math.atan(saved.value / (scene.calibration?.rod || 1)) * 180 / Math.PI : null;
-    value.textContent = progress === 1 && theta != null ? `球心角 ${theta.toFixed(1)}°` : '';
+    value.textContent = arcProgress === 1 && theta != null ? `球心角 ${theta.toFixed(1)}°` : '';
   }
   window.addEventListener('show-angle', () => {
     if (!scene.calculating) return;
@@ -174,14 +174,15 @@ export function mountAngleGuide(scene) {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const start = performance.now();
     function frame(now) {
-      const elapsed = reduced ? 2600 : (now - start) / 1.7;
-      progress = Math.min(1, elapsed / 650);
-      const phase = elapsed < 650 ? 'lines' : elapsed < 1550 ? 'rod' : elapsed < 2500 ? 'center' : 'done';
+      const elapsed = reduced ? 1800 : now - start;
+      progress = Math.min(1, elapsed / 900);
+      arcProgress=Math.max(0,Math.min(1,(elapsed-900)/600));
+      const phase = elapsed < 900 ? 'lines' : elapsed < 1800 ? 'center' : 'done';
       if (host.dataset.anglePhase !== phase) {
         host.dataset.anglePhase = phase;
         window.dispatchEvent(new CustomEvent('angle-progress', { detail: { phase } }));
       }
-      host.classList.toggle('is-revealed', elapsed >= 1550);
+      host.classList.toggle('is-revealed', elapsed >= 900);
       paint();
       if (phase !== 'done') angleFrame = requestAnimationFrame(frame);
     }

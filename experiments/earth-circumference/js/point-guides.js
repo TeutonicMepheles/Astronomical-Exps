@@ -21,7 +21,7 @@ export function mountPointGuides(scene) {
     const showPrime=!scene.stage.classList.contains('has-selection')&&!scene.measuring;
     prime.style.display=showPrime?'':'none';
     if(showPrime){
-      const primePoints=primeSamples.map(lat=>scene.projectLatLon(lat,0));
+      const primePoints=primeSamples.map(lat=>scene.projectLatLon(lat,scene.selectedMeridian));
       for(const [selector,front] of [['.prime-back',false],['.prime-front',true]]){
         let d='',connected=false;
         for(const p of primePoints){
@@ -40,6 +40,7 @@ export function mountPointGuides(scene) {
       const labelY=Math.max(104,targetY-72);
       prime.querySelector('.prime-leader').setAttribute('d',`M${labelX} ${labelY+14}V${Math.max(labelY+28,targetY-20)}L${targetX} ${targetY}`);
       const title=prime.querySelector('.prime-caption');
+      title.textContent=`所选经线 ${Math.abs(scene.selectedMeridian)}°${scene.selectedMeridian<0?'W':'E'}`;
       title.setAttribute('x',labelX);
       title.setAttribute('y',labelY);
       title.setAttribute('text-anchor','middle');

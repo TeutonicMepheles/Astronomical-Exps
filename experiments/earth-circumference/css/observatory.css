@@ -157,7 +157,7 @@ body { position:relative;overflow:clip; }
 .stage.is-measuring:not(.is-calculating) .orbit-overview { display:block!important;left:1070px;top:102px; }
 .stage.is-measuring:not(.is-calculating) .orbit-diagram { transform:scale(.78); }
 .stage.is-measuring:not(.is-calculating) .axis-layer { display:block!important;visibility:visible; }
-.stage.is-measuring:not(.is-calculating) .sun-arrows { clip-path:inset(100px 1160px 150px 0); }
+.stage.is-measuring:not(.is-calculating) .sun-arrows { clip-path:none; }
 .stage.is-measuring:not(.is-calculating) .point-guides text { font-size:13px; }
 .stage.is-measuring:not(.is-calculating) .orbit-overview,
 .stage.is-measuring:not(.is-calculating) .orbit-diagram { transition-duration:.9s; }
@@ -592,7 +592,14 @@ body .experiment-operation-tip,
 .sun-scale-note { position:relative;left:50%;width:max-content;transform:translateX(-50%);text-align:center; }
 
 /* Focus the existing connection animation without adding a render loop. */
-.stage.is-connecting-distance :is(.angle-guide,.point-guides,.axis-layer,.sun-arrows,.calculation-center-button) { visibility:hidden!important; }
+/* Keep contextual geometry present but strongly subdue it behind the distance arc. */
+.distance-focus-shade{position:absolute;inset:0;z-index:10;pointer-events:none;background:#020610;opacity:0;transition:opacity .2s ease-out}
+.stage.is-distance-focus .distance-focus-shade{opacity:.84}
+.stage.is-distance-focus .geo-marker{z-index:12}
+.calculation-panel{transition:filter .2s ease-out}
+.stage.is-distance-focus .calculation-panel{filter:brightness(.32)}
+.stage.is-distance-focus .calculation-distance-path{stroke:#fff1c5;stroke-width:6;filter:drop-shadow(0 0 5px #ffe5a5aa)}
+@media(prefers-reduced-motion:reduce){.distance-focus-shade,.calculation-panel{transition:none}}
 .calculation-distance-label { fill:#ffe4ac;font:600 20px var(--font-ui);paint-order:stroke;stroke:#102331;stroke-width:6px;stroke-linejoin:round; }
 .calculation-distance-label[hidden] { display:none; }
 
@@ -605,3 +612,10 @@ body .experiment-operation-tip,
 .observation-viewport .site-scene { background:transparent;box-shadow:none;border-radius:0; }
 
 .observation-panel.is-shadow-measuring #rod-label { visibility:hidden; }
+
+@media(prefers-reduced-motion:reduce){.stage.is-calculating .calculation-center-halo{animation:none}.angle-arc,.angle-value{transition:none}}
+
+.stage:not(.is-measuring) .point-guides .prime-meridian .prime-front{stroke-dasharray:none;stroke-width:3;opacity:1}
+
+.orbit-current-date{position:absolute;left:286px;top:550px;transform:translateX(-50%);white-space:nowrap;color:#e4edef;font-family:var(--font-ui);font-size:var(--type-body);font-weight:400}
+.stage:not(.is-measuring)[data-view-mode="orbit"] .orbit-current-date{top:620px}
