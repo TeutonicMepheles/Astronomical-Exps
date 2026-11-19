@@ -5,13 +5,13 @@ const gl=cv.getContext('webgl2',{alpha:false,antialias:false,preserveDrawingBuff
 if(!gl||!gl.getExtension('EXT_color_buffer_float'))throw Error('需要支持浮点帧缓冲的 WebGL2');
 // Float composition has no low-bit color target; keep fixed pixels deterministic across light changes.
 gl.disable(gl.DITHER);
-const labels={'public-pair':'公共建筑亮度','residential':'住宅窗灯','public':'公共建筑','commercial-windows':'商业窗灯','commercial-screens':'商业屏幕','billboard':'广告牌','stadium':'体育场','distant':'远景窗灯亮度'};
+const labels={'public-pair':'公共建筑亮度','residential':'住宅窗灯','public':'公共建筑','commercial-windows':'商业窗灯','commercial-screens':'商业屏幕','billboard':'广告牌','stadium':'体育场','distant':'远景城市照明'};
 // These two window channels now belong exclusively to the fixed master.
 const rasterChannels=Object.keys(labels).filter(k=>k!=='residential'&&k!=='public');
 const names={road:'路灯',path:'步道灯',wall:'住宅墙灯',parking:'停车场地灯'};
 const shades={open:'无遮挡',cap:'顶罩',half:'半遮光',full:'全遮光',off:'熄灯'};
 const profiles={open:{mode:0,spill:1,ground:.60,width:1.8,beam:.24},cap:{mode:1,spill:.75,ground:.66,width:1.6,beam:.32},half:{mode:2,spill:.32,ground:.76,width:1.25,beam:.45},full:{mode:3,spill:.015,ground:.85,width:.68,beam:.65},off:{mode:3,spill:0,ground:0,width:.68,beam:0}};
-const state={gains:Object.fromEntries(Object.keys(labels).map(k=>[k,2])),groups:Object.fromEntries(Object.keys(names).map(k=>[k,{shade:'open',useTiled:false,gain:2,spread:1,halo:.85}])),media:{time:0,paused:false},traffic:{gain:1,glare:.65,speed:1,paused:false,beam:'high'},stadium:{overnight:true},park:{gain:1},pair:{warmth:.5,shade:'open'},view:'scene',time:0};
+const state={gains:Object.fromEntries(Object.keys(labels).map(k=>[k,2])),groups:Object.fromEntries(Object.keys(names).map(k=>[k,{shade:'open',useTiled:false,gain:2,spread:1,halo:.85}])),distantSearchlights:true,media:{time:0,paused:false},traffic:{gain:1,glare:.65,speed:1,paused:false,beam:'high'},stadium:{overnight:true},park:{gain:1},pair:{warmth:.5,shade:'open'},view:'scene',time:0};
 // Editable visual demonstration gains; not photometric calibration.
 const haloDefaults=Object.freeze({total:1.5,stadium:.88,commercial:.48,billboard:.40,road:.80});
 const haloStorage='city-night-halo-v1';
@@ -22,9 +22,10 @@ state.groups.path=state.groups.road;state.groups.road.useTiled=false;
 const views={scene:[0,0,W,H],road:[1100,780,620,348],path:[500,940,700,393],wall:[170,780,630,354],parking:[1450,1000,800,449]};
 let ready=false,dirty=true,pending=0,last=0,frames=0,staticDraws=0,uploads=0,dead=false;
 const timings=[];
-function range(id,label,min,max,value,step=1){return `<label>${label}<output id="o-${id}">${Math.round(value*100)}%</output><input id="${id}" aria-label="${label}" type="range" min="${min}" max="${max}" step="${step}" value="${value}"></label>`}
+function buildingPercent(value){return Math.round(value*100)+'%'}
+function range(id,label,min,max,value,step=1){return `<label>${label}<output id="o-${id}">${buildingPercent(value)}</output><input id="${id}" aria-label="${label}" type="range" min="${min}" max="${max}" step="${step}" value="${value}"></label>`}
 $('fixtures').innerHTML=Object.entries(names).map(([k,n])=>`<section><div class="section-title"><b>${n}</b>${k==='parking'?'':`<select id="shade-${k}" aria-label="${n}灯罩">${Object.entries(shades).map(([v,l])=>`<option value="${v}" ${state.groups[k].shade===v?'selected':''}>${l}</option>`).join('')}</select>`}</div>${range(k+'-gain',n+'亮度',0,2,state.groups[k].gain,.01)}<div class="twins">${range(k+'-spread','范围',.45,1.8,1,.01)}${range(k+'-halo','光晕',0,1.5,.85,.01)}</div></section>`).join('');
-$('buildings').innerHTML=Object.entries(labels).map(([k,n])=>range('gain-'+k,n,0,2,state.gains[k],.01)).join('');
+$('buildings').innerHTML=Object.entries(labels).map(([k,n])=>k==='distant'?'<label>远景城市照明<select id="gain-distant"><option value="0">关灯</option><option value="1">仅必要照明</option><option value="2" selected>全亮</option></select></label>':range('gain-'+k,n,0,2,state.gains[k],.01)).join('');
 function syncRoadControls(){for(const id of ['road','path']){for(const key of ['gain','spread','halo']){$(id+'-'+key).value=state.groups.road[key];$('o-'+id+'-'+key).value=Math.round(state.groups.road[key]*100)+'%'}$('shade-'+id).value=state.groups.road.shade}}
 syncRoadControls();
 function changed(){dirty=true;request()}
@@ -32,12 +33,12 @@ for(const k of Object.keys(names)){
  if(k!=='parking')$('shade-'+k).onchange=e=>{state.groups[k].shade=e.target.value;state.groups[k].useTiled=false;if(k==='road'||k==='path')syncRoadControls();changed()};
  for(const p of ['gain','spread','halo'])$(k+'-'+p).oninput=e=>{state.groups[k][p]=+e.target.value;$('o-'+k+'-'+p).value=Math.round(+e.target.value*100)+'%';if(k==='road'||k==='path')syncRoadControls();changed()};
 }
-function setBuildingGain(id,value){const linked=id==='residential'||id==='public'?['residential','public']:[id];for(const k of linked){state.gains[k]=value;$('gain-'+k).value=value;$('o-gain-'+k).value=Math.round(value*100)+'%'}changed()}
+function setBuildingGain(id,value){const linked=id==='residential'||id==='public'?['residential','public']:[id];for(const k of linked){state.gains[k]=value;$('gain-'+k).value=state.gains[k];if(k!=='distant')$('o-gain-'+k).value=buildingPercent(value)}if(id==='distant')syncDistantSearchlights();changed()}
 for(const k of Object.keys(labels))$('gain-'+k).oninput=e=>setBuildingGain(k,+e.target.value);
 $('beam').onchange=e=>{state.traffic.beam=e.target.checked?'high':'low';changed()};
 $('view').onchange=e=>{state.view=e.target.value;request()};
 for(const id of ['fixtures','buildings'])$('tab-'+id).onclick=()=>{for(const n of ['fixtures','buildings']){$(n).hidden=n!==id;$('tab-'+n).setAttribute('aria-pressed',String(n===id))}};
-function all(value){for(const k in state.gains){state.gains[k]=value;$('gain-'+k).value=value;$('o-gain-'+k).value=value*100+'%'}for(const k in state.groups){state.groups[k].gain=value;$(k+'-gain').value=value;$('o-'+k+'-gain').value=value*100+'%'}state.traffic.gain=value;changed()}
+function all(value){for(const k in state.gains){state.gains[k]=value;$('gain-'+k).value=state.gains[k];if(k!=='distant')$('o-gain-'+k).value=buildingPercent(value)}for(const k in state.groups){state.groups[k].gain=value;$(k+'-gain').value=value;$('o-'+k+'-gain').value=value*100+'%'}state.traffic.gain=value;syncDistantSearchlights();changed()}
 
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');reducedMotion.addEventListener('change',()=>{last=0;request()});
 const linear=`vec3 lin(vec3 c){return mix(c/12.92,pow((c+.055)/1.055,vec3(2.4)),step(vec3(.04045),c));}vec3 enc(vec3 c){c=max(c,vec3(0));return mix(c*12.92,1.055*pow(c,vec3(1./2.4))-.055,step(vec3(.0031308),c));}`;
@@ -49,14 +50,39 @@ function program(body,vertexSource=vert){function sh(type,s){const v=gl.createSh
 const screenMasks=window.CITY_SCREENS.map((screen,i)=>`vec2 screenUV${i}(vec2 at){vec3 q=mat3(${screen.inverseH.map(n=>Number(n).toExponential(12)).join(',')})*vec3(at,1.);return q.xy/q.z;}`).join('');
 const screenInside=`float insideScreen(vec2 q){vec2 px=max(fwidth(q),vec2(.00001));vec2 d=min(q,1.-q)/px;return smoothstep(-3.5,-2.5,min(d.x,d.y));}`;
 const screenChannelMask=channel=>window.CITY_SCREENS.map((screen,i)=>screen.channel===channel?`*(1.-insideScreen(screenUV${i}(world)))`:'').join('');
-const staticP=program(`${screenMasks}${screenInside}uniform sampler2D base;uniform sampler2D cleanSky;uniform float skyPollution;${rasterChannels.map((k,i)=>`uniform sampler2D l${i};uniform float g${i};`).join('')}uniform vec3 pairTint;void main(){vec4 sky=texture(cleanSky,uv);vec3 c=mix(lin(texture(base,uv).rgb),lin(sky.rgb),sky.a);c+=sky.a*skyPollution*vec3(.055,.035,.018)*(.4+.6*uv.y);${rasterChannels.map((k,i)=>`c+=lin(texture(l${i},uv).rgb)*g${i}${k==='public-pair'?'*pairTint':''}${screenChannelMask(k)};`).join('')}frag=vec4(c,1);}`);
+const staticP=program(`${screenMasks}${screenInside}uniform sampler2D base;uniform sampler2D cleanSky;uniform sampler2D distantBase;uniform float skyPollution;${rasterChannels.map((k,i)=>`uniform sampler2D l${i};uniform float g${i};`).join('')}uniform vec3 pairTint;void main(){vec4 sky=texture(cleanSky,uv);vec3 c=mix(lin(texture(base,uv).rgb),lin(sky.rgb),sky.a);vec4 city=texture(distantBase,uv);c=mix(c,lin(city.rgb),city.a);c+=(1.-smoothstep(.155,.245,uv.y))*skyPollution*vec3(.055,.035,.018)*(.4+.6*uv.y);${rasterChannels.map((k,i)=>`c+=lin(texture(l${i},uv).rgb)*g${i}${k==='public-pair'?'*pairTint':''}${screenChannelMask(k)};`).join('')}frag=vec4(c,1);}`);
 const starP=program(`in float starAlpha;in float starLum;in vec2 starTint;void main(){if(starAlpha<=.02)discard;float r=length(gl_PointCoord-.5)*2.;float a=(1.-smoothstep(.05,1.,r))*starAlpha;frag=vec4(vec3(starTint.x,starTint.y,1.)*a*starLum*.8,0.);}`,`#version 300 es
-precision highp float;layout(location=0)in vec4 star;layout(location=1)in vec2 tint;uniform vec4 camera;uniform float limit;out vec2 uv;out vec2 world;out float starAlpha;out float starLum;out vec2 starTint;void main(){world=star.xy;uv=vec2(0);starAlpha=clamp((limit-star.z)/.008,0.,1.);starTint=tint;starLum=.2+.8*pow(1.-star.z,4.);gl_PointSize=star.w*(.55+.45*(1.-star.z));gl_Position=vec4((star.x-camera.x)/camera.z*2.-1.,1.-(star.y-camera.y)/camera.w*2.,0,1);}`);
+precision highp float;layout(location=0)in vec4 star;layout(location=1)in vec2 tint;uniform vec4 camera;uniform float limit;uniform float starTime;uniform float twinkleGain;out vec2 uv;out vec2 world;out float starAlpha;out float starLum;out vec2 starTint;void main(){world=star.xy;uv=vec2(0);starAlpha=clamp((limit-star.z)/.008,0.,1.);starTint=tint;float phase=star.z*721.3+star.x*.037;float speed=.8+fract(star.z*173.7)*2.3;float flicker=.68+.23*sin(starTime*speed+phase)+.09*sin(starTime*speed*1.71+phase*.73);float twinkle=mix(1.,flicker*1.35,twinkleGain);starLum=(.2+.8*pow(1.-star.z,4.))*twinkle;gl_PointSize=star.w*(.72+.28*(1.-star.z))*mix(1.,twinkle,.26);gl_Position=vec4((star.x-camera.x)/camera.z*2.-1.,1.-(star.y-camera.y)/camera.w*2.,0,1);}`);
 let skyVertices=new Float32Array(0),skyVAO=null,skyBuffer=null,skyReadout={pollution:1,bortle:9,visibleStars:0,limit:.01};
-function prepareSky(im){const c=document.createElement('canvas');c.width=W;c.height=H;c.getContext('2d').drawImage(im,0,0);skyVertices=CitySkyModel.catalogue(c.getContext('2d').getImageData(0,0,W,H).data,W,H);skyVAO=gl.createVertexArray();skyBuffer=gl.createBuffer();gl.bindVertexArray(skyVAO);gl.bindBuffer(gl.ARRAY_BUFFER,skyBuffer);gl.bufferData(gl.ARRAY_BUFFER,skyVertices,gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,4,gl.FLOAT,false,24,0);gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,2,gl.FLOAT,false,24,16);gl.bindVertexArray(null);}
+// C skyline, traced across the mountain crests and the tower roofs that break them.
+const starHorizon=[
+ [0,151],[58,147],[102,143],[127,143],[165,149],[205,154],[248,158],
+ [290,153],[335,150],[362,151],[375,151],[378,148],[387,148],[391,154],
+ [400,154],[402,148],[416,148],[420,156],[438,156],[442,154],[450,154],
+ [456,158],[477,161],[505,164],[526,165],[552,164],[581,161],[583,155],
+ [594,155],[596,159],[608,158],[611,145],[627,145],[629,158],[644,158],
+ [646,146],[660,146],[663,158],[675,158],[678,154],[689,154],[692,157],
+ [697,157],[699,153],[713,153],[715,158],[726,158],[729,149],[741,149],
+ [744,158],[760,158],[764,160],[798,155],[818,154],[856,158],[902,152],
+ [940,151],[982,154],[1024,159]
+];
+function prepareSky(){
+ const mask=new Uint8Array(W*H*4);
+ let segment=0;
+ for(let x=0;x<W;x++){
+  const sourceX=x*1024/W;
+  while(sourceX>starHorizon[segment+1][0])segment++;
+  const [left,top]=starHorizon[segment], [right,bottom]=starHorizon[segment+1];
+  const lastSkyY=Math.floor((top+(bottom-top)*(sourceX-left)/(right-left)-2)*H/576);
+  for(let y=0;y<=lastSkyY;y++)mask[(y*W+x)*4+3]=255;
+ }
+ skyVertices=CitySkyModel.catalogue(mask,W,H,440);skyVAO=gl.createVertexArray();skyBuffer=gl.createBuffer();gl.bindVertexArray(skyVAO);gl.bindBuffer(gl.ARRAY_BUFFER,skyBuffer);gl.bufferData(gl.ARRAY_BUFFER,skyVertices,gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,4,gl.FLOAT,false,24,0);gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,2,gl.FLOAT,false,24,16);gl.bindVertexArray(null);}
 // Local readout feedback; only update on changed values, with no extra clock or layout reads.
 function setSkyMetric(id,next){const output=$(id),previous=output.dataset.value; if(previous===String(next))return;output.dataset.value=String(next);output.textContent=next.toLocaleString('zh-CN');const metric=output.parentElement,arrow=metric.querySelector('.sky-metric-delta');const direction=previous===undefined?0:Math.sign(next-Number(previous));metric.classList.toggle('is-up',direction>0);metric.classList.toggle('is-down',direction<0);arrow.textContent=direction>0?'↑':direction<0?'↓':'';}
-function drawSkyStars(){const model=CitySkyModel.evaluate(state),camera=renderView;let visibleStars=0;for(let i=0;i<skyVertices.length;i+=6)if((model.limit-skyVertices[i+2])/.008>.02&&skyVertices[i]>=camera[0]&&skyVertices[i]<camera[0]+camera[2]&&skyVertices[i+1]>=camera[1]&&skyVertices[i+1]<camera[1]+camera[3])visibleStars++;skyReadout={...model,visibleStars,catalogueSize:skyVertices.length/6};setSkyMetric('bortle-value',model.bortle);setSkyMetric('star-count',visibleStars);use(starP);f(starP,'limit',model.limit);gl.bindVertexArray(skyVAO);gl.blendFunc(gl.ONE,gl.ONE);gl.drawArrays(gl.POINTS,0,Math.min(6000,Math.ceil(model.limit*6000)));gl.bindVertexArray(null);}
+let starTime=0;
+function starsPlaying(){return state.view==='scene'&&!state.media.paused&&!reducedMotion.matches;}
+function updateSkyReadout(){const model=CitySkyModel.evaluate(state),camera=renderView;let visibleStars=0;for(let i=0;i<skyVertices.length;i+=6)if((model.limit-skyVertices[i+2])/.008>.02&&skyVertices[i]>=camera[0]&&skyVertices[i]<camera[0]+camera[2]&&skyVertices[i+1]>=camera[1]&&skyVertices[i+1]<camera[1]+camera[3])visibleStars++;skyReadout={...model,visibleStars,catalogueSize:skyVertices.length/6};setSkyMetric('bortle-value',model.bortle);setSkyMetric('star-count',visibleStars);}
+function drawSkyStars(){use(starP);f(starP,'limit',skyReadout.limit);f(starP,'starTime',starTime);f(starP,'twinkleGain',starsPlaying()?1:0);gl.bindVertexArray(skyVAO);gl.blendFunc(gl.ONE,gl.ONE);gl.drawArrays(gl.POINTS,0,Math.min(6000,Math.ceil(skyReadout.limit*6000)));gl.bindVertexArray(null);}
 
 const residentFixedP=program(window.RESIDENT_FIXED.fragment);
 const finalP=program(`uniform sampler2D image;uniform vec4 view;void main(){vec2 p=(view.xy+uv*view.zw)/vec2(${W},${H});frag=vec4(clamp(enc(texture(image,vec2(p.x,1.-p.y)).rgb),0.,1.),1);}`);
@@ -98,11 +124,57 @@ function effectiveScreenBloom(channelGain=2){return screenBloomGain*Math.pow(.8/
 function drawScreens(){if(state.view!=='scene')return;use(screenP);for(const screen of window.CITY_SCREENS){const gain=state.gains[screen.channel];if(gain<=0)continue;const time=((state.media.time+screen.offset)%5+5)%5,position=time*20,a=sequenceFrame(Math.floor(position)),b=sequenceFrame(Math.min(99,Math.floor(position)+1)),first=sequenceFrame(0);bind(screenP,'atlasA',textures['screen-'+screen.source+'-'+a.page]);bind(screenP,'atlasB',textures['screen-'+screen.source+'-'+b.page],1);bind(screenP,'loopAtlas',textures['screen-'+screen.source+'-0'],2);v(screenP,'cropA',a.crop);v(screenP,'cropB',b.crop);v(screenP,'loopCrop',first.crop);gl.uniformMatrix3fv(loc(screenP,'inverseH'),false,screen.inverseH);f(screenP,'blendFrame',position%1);const fade=Math.max(0,(time-4.6)/.4);f(screenP,'loopBlend',fade*fade*(3-2*fade));f(screenP,'fxTime',state.media.time+screen.offset);f(screenP,'glitch',reducedMotion.matches?0:screenGlitchGain);f(screenP,'gain',gain*screenEmissionGain);f(screenP,'bloomPass',0);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);quad(screenP,[screen.rect[0]-2,screen.rect[1]-2,screen.rect[2]+4,screen.rect[3]+4]);const radius=Math.max(1.1,Math.min(3.2,screen.rect[2]*.018)),padding=Math.ceil(radius*5+2);f(screenP,'bloomRadius',radius);f(screenP,'bloomGain',effectiveScreenBloom(gain));f(screenP,'bloomPass',1);gl.blendFunc(gl.ONE,gl.ONE);quad(screenP,[screen.rect[0]-padding,screen.rect[1]-padding,screen.rect[2]+padding*2,screen.rect[3]+padding*2])}}
 const shadowP=program(`uniform sampler2D receivers;uniform float opacity;uniform float groundOnly;void main(){vec2 p=uv*2.-1.;float a=exp(-4.*dot(p,p))*(1.-smoothstep(.65,1.,length(p)))*opacity*mix(1.,texture(receivers,world/vec2(${W},${H})).r,groundOnly);frag=vec4(0.,0.,0.,a);}`);
 const neighborhoodP=program(`uniform sampler2D openLight;uniform sampler2D fullLight;uniform float shield;uniform float gain;uniform vec3 tint;void main(){vec3 c=mix(lin(texture(openLight,uv).rgb),lin(texture(fullLight,uv).rgb),shield);frag=vec4(c*gain*tint,0);}`);
-const cityHaloP=program(`uniform vec4 sources;uniform float total;uniform sampler2D fixedBase;uniform sampler2D fixedReceivers;uniform vec4 fixedRect;float haze(vec2 center,vec2 radius){return pow(max(0.,1.-length((world/vec2(${W},${H})-center)/radius)),1.5);}void main(){float a=haze(vec2(.31,.43),vec2(.32,.30))*sources.x*.12;float b=haze(vec2(.73,.50),vec2(.26,.27))*sources.y*.10;float c=haze(vec2(.63,.61),vec2(.20,.25))*sources.z*.09;float d=(haze(vec2(.50,.55),vec2(.11,.41))*.07+haze(vec2(.50,.84),vec2(.45,.13))*.045)*sources.w;float canopy=haze(vec2(.50,.40),vec2(.58,.31))*dot(sources,vec4(.25))*.035;vec2 localUV=(world-fixedRect.xy)/fixedRect.zw;float inLocal=step(0.,localUV.x)*step(0.,localUV.y)*step(localUV.x,1.)*step(localUV.y,1.);float visibleHalo=1.;if(inLocal>.5)visibleHalo-=texture(fixedReceivers,localUV).a*texture(fixedBase,localUV).a*.995;frag=vec4(visibleHalo*total*(lin(vec3(.96,.78,.52))*a+lin(vec3(.77,.71,.88))*b+lin(vec3(.63,.79,.93))*c+lin(vec3(.93,.82,.64))*d+lin(vec3(.84,.70,.57))*canopy),0.);}`);
+// Two emitters in the city center. Each pair fans out from the same point.
+const distantSearchlightOrigins=[
+ [438,162,-.59,90],[438,162,-.21,58],
+ [573,172,.40,76],[573,172,.91,62]
+];
+const distantSearchlightSweeps=new Map([[3,[.12,17,.35]]]);
+let distantSearchlightTime=0;
+function distantSearchlightsEnabled(){return state.distantSearchlights&&state.gains.distant!==1}
+function syncDistantSearchlights(){
+ const control=$('distant-searchlights');
+ control.disabled=state.gains.distant===1;
+ control.checked=distantSearchlightsEnabled();
+}
+function searchlightsPlaying(){
+ return distantSearchlightsEnabled()&&!state.media.paused&&!reducedMotion.matches&&state.view==='scene';
+}
+const distantSearchlightP=program(`
+ uniform vec4 beam;
+ void main(){
+  vec2 p=world/vec2(${W},${H})*vec2(1024.,576.);
+  float t=(beam.y-p.y)/beam.w;
+  float distance=abs(p.x-(beam.x+beam.z*beam.w*t));
+  float halfWidth=mix(1.,beam.w*.19,clamp(t,0.,1.));
+  float core=exp(-3.5*pow(distance/halfWidth,2.));
+  float fade=smoothstep(0.,.045,t)*(1.-smoothstep(.17,1.,t))*exp(-2.3*max(0.,t));
+  frag=vec4(lin(vec3(.72,.82,1.))*core*fade*.34,0.);
+ }
+`);
+function drawDistantSearchlights(moving){
+ if(!distantSearchlightsEnabled())return;
+ use(distantSearchlightP);gl.blendFunc(gl.ONE,gl.ONE);
+ for(const [index,beam] of distantSearchlightOrigins.entries()){
+  const sweep=distantSearchlightSweeps.get(index);
+  if(Boolean(sweep)!==moving)continue;
+  const [x,y,restSlope,height]=beam;
+  let slope=restSlope;
+  if(sweep&&searchlightsPlaying()){
+   const [amplitude,period,phase]=sweep;
+   slope+=amplitude*Math.sin(2*Math.PI*distantSearchlightTime/period+phase);
+  }
+  const margin=height*.30,tip=x+slope*height;
+  const left=Math.min(x,tip)-margin,right=Math.max(x,tip)+margin;
+  v(distantSearchlightP,'beam',[x,y,slope,height]);
+  quad(distantSearchlightP,[left*W/1024,(y-height)*H/576,(right-left)*W/1024,height*H/576]);
+ }
+}
+const cityHaloP=program(`uniform vec4 sources;uniform float total;uniform sampler2D fixedBase;uniform sampler2D fixedReceivers;uniform vec4 fixedRect;float haze(vec2 center,vec2 radius){return pow(max(0.,1.-length((world/vec2(${W},${H})-center)/radius)),1.5);}void main(){float a=haze(vec2(.31,.43),vec2(.32,.30))*sources.x*.12;float b=haze(vec2(.73,.50),vec2(.26,.27))*sources.y*.10;float c=haze(vec2(.63,.61),vec2(.20,.25))*sources.z*.09;float d=(haze(vec2(.50,.55),vec2(.11,.41))*.07+haze(vec2(.50,.84),vec2(.45,.13))*.045)*sources.w;float canopy=haze(vec2(.50,.40),vec2(.58,.31))*dot(sources,vec4(.25))*.035;vec2 localUV=(world-fixedRect.xy)/fixedRect.zw;float inLocal=step(0.,localUV.x)*step(0.,localUV.y)*step(localUV.x,1.)*step(localUV.y,1.);float visibleHalo=1.;if(inLocal>.5)visibleHalo-=texture(fixedReceivers,localUV).a*texture(fixedBase,localUV).a*.995;visibleHalo*=smoothstep(.32,.44,world.y/float(${H}));frag=vec4(visibleHalo*total*(lin(vec3(.96,.78,.52))*a+lin(vec3(.77,.71,.88))*b+lin(vec3(.63,.79,.93))*c+lin(vec3(.93,.82,.64))*d+lin(vec3(.84,.70,.57))*canopy),0.);}`);
 function stadiumGain(){return state.stadium.overnight?state.gains.stadium:0}
 function haloSources(){return [state.halo.stadium*stadiumGain(),state.halo.commercial*(state.gains['commercial-screens']*.8+state.gains['commercial-windows']*.2),state.halo.billboard*state.gains.billboard,state.halo.road*state.groups.road.gain*(profiles[state.groups.road.shade].spill/.32)];}
 function renderCityHalo(){if(state.halo.total<=0)return;use(cityHaloP);v(cityHaloP,'sources',haloSources());f(cityHaloP,'total',state.halo.total);bind(cityHaloP,'fixedBase',textures['resident-fixed-base']);bind(cityHaloP,'fixedReceivers',textures['resident-fixed-receivers'],1);v(cityHaloP,'fixedRect',window.RESIDENT_FIXED.rect);gl.blendFunc(gl.ONE,gl.ONE);quad(cityHaloP,[0,0,W,H]);}
-const textures={},textureList=[],buffers=[],vehicleBuffers=[],depthBuffers=[],programs=[screenP,starP,staticP,finalP,spriteP,carP,lightP,additiveP,shadowP,neighborhoodP,cityHaloP,residentFixedP];
+const textures={},textureList=[],buffers=[],vehicleBuffers=[],depthBuffers=[],programs=[distantSearchlightP,screenP,starP,staticP,finalP,spriteP,carP,lightP,additiveP,shadowP,neighborhoodP,cityHaloP,residentFixedP];
 let renderView=[0,0,W,H],cachedView='';function use(p){gl.useProgram(p);v(p,'camera',renderView)}function loc(p,n){return p.u[n]??(p.u[n]=gl.getUniformLocation(p,n))}function f(p,n,v){gl.uniform1f(loc(p,n),v)}function v(p,n,x){if(x.length===4)gl.uniform4fv(loc(p,n),x);else if(x.length===3)gl.uniform3fv(loc(p,n),x);else gl.uniform2fv(loc(p,n),x)}
 function bind(p,n,t,unit=0){gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);gl.uniform1i(loc(p,n),unit)}function quad(p,r){v(p,'rect',r);gl.drawArrays(gl.TRIANGLES,0,6)}
 function texture(image){const t=gl.createTexture();textureList.push(t);gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);uploads++;return t}
@@ -174,7 +246,7 @@ function renderBuildingWalls(){
   f(neighborhoodP,'shield',shield[shade]);f(neighborhoodP,'gain',gain);v(neighborhoodP,'tint',tint);gl.blendFunc(gl.ONE,gl.ONE);quad(neighborhoodP,meta[family+'-wall-open'].sceneRect);
  }
 }
-function rebuild(){gl.bindFramebuffer(gl.FRAMEBUFFER,cached.fb);gl.disable(gl.BLEND);use(staticP);v(staticP,'pairTint',pairTint());bind(staticP,'base',textures.base);bind(staticP,'cleanSky',textures['sky-clean'],rasterChannels.length+1);f(staticP,'skyPollution',CitySkyModel.evaluate(state).pollution);rasterChannels.forEach((k,i)=>{bind(staticP,'l'+i,textures[k],i+1);f(staticP,'g'+i,(k==='stadium'?stadiumGain()*1.35:state.gains[k]))});quad(staticP,[0,0,W,H]);gl.enable(gl.BLEND);renderResidentFixed();renderPark();renderBuildingWalls();renderLamps();renderAmbient();renderCityHalo();drawSkyStars();dirty=false;staticDraws++}
+function rebuild(){gl.bindFramebuffer(gl.FRAMEBUFFER,cached.fb);gl.disable(gl.BLEND);use(staticP);v(staticP,'pairTint',pairTint());bind(staticP,'base',textures.base);bind(staticP,'cleanSky',textures['sky-clean'],rasterChannels.length+1);bind(staticP,'distantBase',textures['distant-base'],rasterChannels.length+2);f(staticP,'skyPollution',CitySkyModel.evaluate(state).starPollution);rasterChannels.forEach((k,i)=>{bind(staticP,'l'+i,textures[k==='distant'&&state.gains.distant===1?'distant-essential':k],i+1);f(staticP,'g'+i,(k==='stadium'?stadiumGain()*1.35:k==='distant'?Number(state.gains.distant>0):state.gains[k]))});quad(staticP,[0,0,W,H]);gl.enable(gl.BLEND);drawDistantSearchlights(false);renderResidentFixed();renderPark();renderBuildingWalls();renderLamps();renderAmbient();renderCityHalo();updateSkyReadout();dirty=false;staticDraws++}
 const vehicleGeometry=new Map();
 const trafficLayers={body:true,ground:true,shadows:true,lamps:true};
 function prepareVehicles(manifest){for(const mesh of manifest.vehicleMeshes){const data=new Float32Array(mesh.vertices),vao=gl.createVertexArray(),buffer=gl.createBuffer();vehicleBuffers.push({vao,buffer});gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);for(const [index,size,offset] of [[0,3,0],[1,2,12],[2,3,20]]){gl.enableVertexAttribArray(index);gl.vertexAttribPointer(index,size,gl.FLOAT,false,32,offset)}vehicleGeometry.set(mesh.id,{vao,count:data.length/8});}gl.bindVertexArray(null);}
@@ -187,11 +259,11 @@ for(const c of cars){const box=c.footBounds;if(trafficLayers.shadows){contactSha
 if(trafficLayers.lamps)for(const c of cars){for(const lamp of carLights(c)){const {x,y,front,visibility}=lamp,g=a.gain*c.opacity*visibility,color=front?[1,.87,.68]:[1,.055,.014];light(x,y,3.5*c.s,1.7*c.s,color,g*.9,2);const lens=g*a.glare*(front?(high?3.2:1.4):.05)*Math.pow(Math.min(1,c.s),.75);light(x,y,(high?125:85)*c.s,(high?125:85)*c.s,[.78,.88,1],lens*.72,4,0,0,[high?3:2,0]);light(x,y,38*c.s,38*c.s,color,lens*.06,1);light(x,y,9*c.s,9*c.s,color,lens*.22,1);if(front&&high)light(x+(W*.5-x)*.18,y+(H*.5-y)*.18,12*c.s,12*c.s,[.4,.6,1],lens*.025,1)}}return cars;}
 
 function request(){if(!pending&&!dead&&!document.hidden)pending=requestAnimationFrame(tick)}
-function tick(now){pending=0;if(!ready||dead||document.hidden)return;let start=performance.now();const dt=last?Math.max(0,Math.min(.07,(now-last)/1000)):0;if(!state.traffic.paused)state.time+=dt*state.traffic.speed;if(screensPlaying())state.media.time+=dt;last=now;gl.viewport(0,0,W,H);renderView=views[state.view];if(cachedView!==state.view){dirty=true;cachedView=state.view}if(dirty)rebuild();gl.disable(gl.BLEND);gl.bindFramebuffer(gl.READ_FRAMEBUFFER,cached.fb);gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,frame.fb);gl.blitFramebuffer(0,0,W,H,0,0,W,H,gl.COLOR_BUFFER_BIT,gl.NEAREST);gl.bindFramebuffer(gl.FRAMEBUFFER,frame.fb);gl.enable(gl.BLEND);drawScreens();drawTraffic();gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.disable(gl.BLEND);renderView=[0,0,W,H];use(finalP);bind(finalP,'image',frame.t);v(finalP,'view',[0,0,W,H]);quad(finalP,[0,0,W,H]);frames++;timings.push(performance.now()-start);if(timings.length>600)timings.shift();if(!state.traffic.paused&&state.traffic.speed>0||screensPlaying())request()}
+function tick(now){pending=0;if(!ready||dead||document.hidden)return;let start=performance.now();const dt=last?Math.max(0,Math.min(.07,(now-last)/1000)):0;if(!state.traffic.paused)state.time+=dt*state.traffic.speed;if(screensPlaying())state.media.time+=dt;if(searchlightsPlaying())distantSearchlightTime+=dt;if(starsPlaying())starTime+=dt;last=now;gl.viewport(0,0,W,H);renderView=views[state.view];if(cachedView!==state.view){dirty=true;cachedView=state.view}if(dirty)rebuild();gl.disable(gl.BLEND);gl.bindFramebuffer(gl.READ_FRAMEBUFFER,cached.fb);gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,frame.fb);gl.blitFramebuffer(0,0,W,H,0,0,W,H,gl.COLOR_BUFFER_BIT,gl.NEAREST);gl.bindFramebuffer(gl.FRAMEBUFFER,frame.fb);gl.enable(gl.BLEND);drawDistantSearchlights(true);drawSkyStars();drawScreens();drawTraffic();gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.disable(gl.BLEND);renderView=[0,0,W,H];use(finalP);bind(finalP,'image',frame.t);v(finalP,'view',[0,0,W,H]);quad(finalP,[0,0,W,H]);frames++;timings.push(performance.now()-start);if(timings.length>600)timings.shift();if(!state.traffic.paused&&state.traffic.speed>0||screensPlaying()||searchlightsPlaying()||starsPlaying())request()}
 document.addEventListener('visibilitychange',()=>{last=0;if(document.hidden){cancelAnimationFrame(pending);pending=0}else request()});
 window.addEventListener('pagehide',()=>{dead=true;cancelAnimationFrame(pending);textureList.forEach(t=>gl.deleteTexture(t));buffers.forEach(b=>gl.deleteFramebuffer(b));programs.forEach(p=>gl.deleteProgram(p));vehicleBuffers.forEach(({vao,buffer})=>{gl.deleteVertexArray(vao);gl.deleteBuffer(buffer)});depthBuffers.forEach(b=>gl.deleteRenderbuffer(b));gl.deleteBuffer(skyBuffer);gl.deleteVertexArray(skyVAO);});
 window.scenePreview={sky:()=>({...skyReadout}),stars:()=>Array.from({length:skyVertices.length/6},(_,i)=>Array.from(skyVertices.slice(i*6,i*6+6))),setTrafficOptions:options=>{for(const k of ['gain','glare','speed','paused'])if(k in options)state.traffic[k]=options[k];last=0;request()},setTrafficLayers:layers=>{Object.assign(trafficLayers,{body:true,ground:true,shadows:true,lamps:true},layers);request()},state:()=>JSON.parse(JSON.stringify(state)),camera:()=>views[state.view].slice(),poses:()=>poses(),lampPoints:()=>poses().map(c=>({id:c.id,points:carLampPoints(c)})),screenEffects:()=>({emission:screenEmissionGain,bloom:screenBloomGain,effectiveBloom:effectiveScreenBloom(),glitch:screenGlitchGain}),setScreenGlitch:gain=>{if(Number.isFinite(gain)){screenGlitchGain=Math.max(0,Math.min(1,gain));request()}},setScreenEmission:gain=>{if(Number.isFinite(gain)){screenEmissionGain=Math.max(0,Math.min(2,gain));request()}},setScreenBloom:gain=>{if(Number.isFinite(gain)){screenBloomGain=Math.max(0,Math.min(1,gain));request()}},setMediaOptions:options=>{if("paused" in options)state.media.paused=!!options.paused;last=0;request()},screens:()=>JSON.parse(JSON.stringify(window.CITY_SCREENS)),setMediaTime:t=>{if(Number.isFinite(t)){state.media.time=t;state.media.paused=true;request()}},setTime:t=>{state.time=t;last=0;request()},stats:()=>({screenTextureBytes:14*2032*1152*4,liveScreenTextures:Object.entries(textures).filter(([name,t])=>name.startsWith("screen-")&&gl.isTexture(t)).length,frames,staticDraws,uploads,canvas:[W,H],errors:gl.getError(),frameCpuMs:timings.slice(),skyBufferBytes:skyVertices.byteLength,liveSkyBuffer:!!skyBuffer&&gl.isBuffer(skyBuffer),fixtureCount:lamps.filter(l=>l.x<2000).length+2+window.SCENE_LIGHT_LAYOUT.wholeFixtures.length+window.SCENE_LIGHT_LAYOUT.parkBollards.length,parkCount:window.SCENE_LIGHT_LAYOUT.parkBollards.length,parkingCount:parking.length,textureCount:textureList.length,vehicleBufferCount:vehicleBuffers.length,vehicleVertexBytes:[...vehicleGeometry.values()].reduce((n,m)=>n+m.count*32,0),vehicleDepthBytes:W*H*2,liveVehicleBuffers:vehicleBuffers.filter(({buffer})=>gl.isBuffer(buffer)).length,liveVehicleDepth:depthBuffers.filter(b=>gl.isRenderbuffer(b)).length}),fixtures:()=>window.SCENE_LIGHT_LAYOUT.wholeFixtures.map(l=>{const m=meta['whole-road-'+(state.groups[l.group].useTiled?l.defaultShade:state.groups[l.group].shade)],[x,y,w,h]=l.rect;return {id:l.id,group:l.group,rect:l.rect.slice(),sourceScale:l.sourceScale,foot:[x+w*.5,y+h*1900/2048],emitter:[x+(l.flip?2048-m.emitterFrame[0]:m.emitterFrame[0])*w/2048,y+m.emitterFrame[1]*h/2048]}}),layout:()=>JSON.parse(JSON.stringify(window.SCENE_LIGHT_LAYOUT)),pixel:(x,y)=>{const p=new Uint8Array(4);gl.readPixels(x,H-1-y,1,1,gl.RGBA,gl.UNSIGNED_BYTE,p);return Array.from(p)}};
-async function load(){const manifest=await getManifest();prepareVehicles(manifest);for(const r of manifest.runtime){let im=new Image();im.src=window.EMBEDDED?.[r.name]||(r.path+'?v='+r.sha256.slice(0,16));await im.decode();if(r.name==='sky-clean')prepareSky(im);if(r.uploadCrop){const b=await createImageBitmap(im,...r.uploadCrop,{premultiplyAlpha:'none',colorSpaceConversion:'none'});textures[r.name]=texture(b);b.close()}else textures[r.name]=texture(im);meta[r.name]=r;}cached=target();frame=target();const depth=gl.createRenderbuffer();depthBuffers.push(depth);gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,W,H);gl.bindFramebuffer(gl.FRAMEBUFFER,frame.fb);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,depth);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('车辆深度缓冲不完整');ready=true;tick(performance.now());$('loading').hidden=true;document.body.dataset.ready='true'}
+async function load(){const manifest=await getManifest();prepareVehicles(manifest);for(const r of manifest.runtime){let im=new Image();im.src=window.EMBEDDED?.[r.name]||(r.path+'?v='+r.sha256.slice(0,16));await im.decode();if(r.uploadCrop){const b=await createImageBitmap(im,...r.uploadCrop,{premultiplyAlpha:'none',colorSpaceConversion:'none'});textures[r.name]=texture(b);b.close()}else textures[r.name]=texture(im);meta[r.name]=r;}prepareSky();cached=target();frame=target();const depth=gl.createRenderbuffer();depthBuffers.push(depth);gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,W,H);gl.bindFramebuffer(gl.FRAMEBUFFER,frame.fb);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,depth);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('车辆深度缓冲不完整');ready=true;tick(performance.now());$('loading').hidden=true;document.body.dataset.ready='true'}
 async function getManifest(){return window.BUNDLE||fetch('runtime-manifest.json',{cache:'no-store'}).then(r=>r.json())}
 load().catch(e=>{$('loading').textContent=e.message;console.error(e)});
 
@@ -232,6 +304,12 @@ const controls={};for(const id of [...Object.keys(names),...Object.keys(labels),
 for(const id of ['road','wall','parking'])document.querySelector('.legacy-controls').append(controls[id].querySelector('.twins'));
 for(const [id,channels] of Object.entries(objectChannels)){const group=document.createElement('section');group.className='object-controls';for(const channel of channels)group.append(controls[channel]);controls[id]=group}
 
+const distantControls=document.createElement('section');
+distantControls.append(controls.distant);
+distantControls.insertAdjacentHTML('beforeend','<label class="beam-toggle"><span>集束光柱</span><input id="distant-searchlights" type="checkbox" role="switch" aria-label="集束光柱" checked><span class="beam-track" aria-hidden="true"></span></label>');
+controls.distant=distantControls;
+document.querySelector('.legacy-controls').append(distantControls);
+$('distant-searchlights').onchange=e=>{state.distantSearchlights=e.target.checked;changed();markComplete()};
 const stadiumControls=document.createElement('section');stadiumControls.append(controls.stadium);stadiumControls.insertAdjacentHTML('beforeend','<label class="beam-toggle"><span>使用时打开</span><input id="stadium-schedule" type="checkbox" role="switch" aria-label="通宵打开" checked><span class="beam-track" aria-hidden="true"></span><span>通宵打开</span></label>');controls.stadium=stadiumControls;document.querySelector('.legacy-controls').append(stadiumControls);$('stadium-schedule').onchange=e=>{state.stadium.overnight=e.target.checked;changed();markComplete('stadium')};
 const parkControls=document.createElement('section');parkControls.innerHTML=range('park-gain','公园亮度',0,1,state.park.gain,.01);document.querySelector('.legacy-controls').append(parkControls);controls.park=parkControls;$('park-gain').oninput=e=>{state.park.gain=+e.target.value;$('o-park-gain').value=Math.round(+e.target.value*100)+'%';changed()};
 const pairControls=document.createElement('section');pairControls.append(controls['public-pair']);pairControls.insertAdjacentHTML('beforeend',range('pair-warmth','冷暖',0,1,.5,.01));controls['public-pair']=pairControls;document.querySelector('.legacy-controls').append(pairControls);$('pair-warmth').oninput=e=>{state.pair.warmth=+e.target.value;$('o-pair-warmth').value=Math.round(+e.target.value*100)+'%';changed()};
@@ -250,6 +328,7 @@ function reduced(id){
  case 'public-pair':return state.gains['public-pair']<2||state.pair.shade!=='open';
  case 'commercial-windows':return state.gains['commercial-windows']<2||state.gains['commercial-screens']<2;
  case 'stadium':return !state.stadium.overnight||state.gains.stadium<2;
+ case 'distant':return state.gains.distant<2||!state.distantSearchlights;
  case 'traffic':return state.traffic.beam==='low';
  default:return state.gains[id]<2;
  }
@@ -258,7 +337,15 @@ function markComplete(){let updated=false;for(const item of items){const id=item
 body.addEventListener('input',e=>{if(e.target.matches('input[type=range]'))markComplete()});
 body.addEventListener('change',markComplete);
 function frameDetail(){const box=items.find(i=>i[0]===selected)[6],fraction=panel.offsetWidth/layout.clientWidth,margin=.02,gap=.035,available=1-fraction-margin*2-gap,dock=box[0]+box[2]/2>=W/2?'left':'right',width=Math.min(W,Math.max(box[2]/available,box[3]/.96*W/H)),height=width*H/W,target=dock==='left'?margin+fraction+gap+available/2:margin+available/2;const camera=[Math.max(0,Math.min(W-width,box[0]+box[2]/2-target*width)),Math.max(0,Math.min(H-height,box[1]+box[3]/2-height/2)),width,height];if(!views.detail||camera.some((v,i)=>Math.abs(v-views.detail[i])>.01)){views.detail=camera;dirty=true;request()}panel.dataset.dock=dock;return dock;}
-function positionPanel(){if(panel.hidden||!selected)return;const r=layout.getBoundingClientRect();panel.dataset.detail=String(zoom);if(zoom){const dock=frameDetail();panel.style.left=(dock==='left'?r.width*.015:r.width*.985-panel.offsetWidth)+'px';panel.style.top=Math.max(r.width*.015,(r.height-panel.offsetHeight)/2)+'px';return}const item=items.find(i=>i[0]===selected),gap=r.width*.025,edge=r.width*.015,bw=r.width*.028;
+function positionPanel(){if(panel.hidden||!selected)return;const r=layout.getBoundingClientRect();panel.dataset.detail=String(zoom);
+ if(selected==='distant'){
+  const inset=r.width*.015;
+  panel.dataset.side='bottom';
+  panel.style.left=inset+'px';
+  panel.style.top=(r.height-panel.offsetHeight-inset)+'px';
+  return;
+ }
+ if(zoom){const dock=frameDetail();panel.style.left=(dock==='left'?r.width*.015:r.width*.985-panel.offsetWidth)+'px';panel.style.top=Math.max(r.width*.015,(r.height-panel.offsetHeight)/2)+'px';return}const item=items.find(i=>i[0]===selected),gap=r.width*.025,edge=r.width*.015,bw=r.width*.028;
  const x=r.width*item[4]/100,y=r.height*item[5]/100-bw/2,pw=panel.offsetWidth,ph=panel.offsetHeight;
  // Reserve the object's complete scene bounds, rather than only its marker.
  const bounds=selected==='residential'||selected==='public'?[1930,920,730,500]:item[6],objectLeft=bounds[0]/W*r.width,objectRight=(bounds[0]+bounds[2])/W*r.width;
