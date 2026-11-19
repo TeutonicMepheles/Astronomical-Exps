@@ -36,10 +36,13 @@ projected = cv2.warpAffine(full.max(axis=2), matrix, (2736, 1536))
 allowed = cv2.dilate(np.uint8(projected > 0), np.ones((3, 3), np.uint8)) > 0
 before = np.asarray(Image.open(OUT / 'window-response-0.png').convert('RGB'))
 after = np.asarray(Image.open(OUT / 'window-response-2.png').convert('RGB'))
-# Global sky response is now an authorized output of every light; ground/window isolation stays exact.
-sky = np.asarray(Image.open(ROOT / 'assets/sky-clean.png'))[:, :, 3] > 0
-allowed = allowed | sky
+# C sky glow ends at 0.245 scene height. The catalogue extends to y=440
+# with a maximum point radius below 3 px, including the rasterized edge.
+sky = np.arange(before.shape[0])[:, None] < 443
 changed = np.any(before != after, axis=2)
+assert np.any(changed & sky), 'Window lighting should affect the C sky'
+assert np.any(changed & allowed), 'Window lighting should affect its projected footprint'
+allowed = allowed | sky
 assert not np.any(changed & ~allowed), 'Light escaped window/frame response footprint'
 report = dict(passed=True, immutableAssetsExact=True, zeroImageBorders=True,
               coreShadowUnchanged=True, groundUnchanged=True,

@@ -10,7 +10,7 @@
 
 ## 文件与子目录索引
 
-asset-lock.json 保存当前四张住宅资产的完整哈希；verify-assets.py 验证边界、影区及光量范围；verify-window-response.cjs 生成实际浏览器窗灯截图；verify-fixed-integration.cjs 检查 84 个灯光组合。
+asset-lock.json 保存当前四张住宅资产的完整哈希；verify-assets.py 验证边界、影区及光量范围；verify-window-response.cjs 固定车流和媒体时间，用 Chrome 的 SwiftShader 读取 WebGL 帧缓冲，避免硬件渲染的单像素舍入差异干扰逐像素比较；verify-fixed-integration.cjs 检查 84 个灯光组合。
 
 residential-reference.json：人物、侧墙、地面和屋顶固定坐标及四种灯罩的目标像素。
 
