@@ -96,7 +96,7 @@
     },
     {
       "name": "distant",
-      "path": "assets/distant-reset/window-light.png",
+      "path": "assets/distant-city-c/C-city-light-additive.png",
       "crop": [
         0,
         0,
@@ -107,7 +107,37 @@
         2736,
         1536
       ],
-      "sha256": "e1b12b064a3908e99d2a9f1cbee1f3d5923a01c998eee8f29733815610826e2c"
+      "sha256": "b25c37ca58fdc5e78d1c61ec18f12d624fc300799a9266d75e913b8bc6d0202a"
+    },
+    {
+      "name": "distant-essential",
+      "path": "assets/distant-city-c/C-city-essential-additive.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "ed9fa436b28b627723cf25b73156eb79451c6fca160387e5808a45989972bdbb"
+    },
+    {
+      "name": "distant-base",
+      "path": "assets/distant-city-c/C-city-off-layer.png",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "sourceSize": [
+        2736,
+        1536
+      ],
+      "sha256": "bb62e0b1bf0c065b56dd67c9c8fd9e7a60955c9a355fcc00715dba0e0c08e531"
     },
     {
       "name": "receivers",

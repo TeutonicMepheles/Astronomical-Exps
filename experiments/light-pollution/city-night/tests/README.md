@@ -48,3 +48,5 @@ residential-reference.json：人物、侧墙、地面和屋顶固定坐标及四
 Bloom独立专项：导出--screen-review后运行 `node experiments/light-pollution/city-night/tests/verify-screen-bloom.cjs`。线上/断网离线分别核对Bloom增量、带色亮部、跨帧变化、熄屏为零、屏幕外18场景像素邻域之外零变化。现行播放专项的保护区域按最大卷积核支持半径扩展至18px，不放宽其他区域；未恢复旧硬边。
 
 Glitch与Bloom联动：导出独立测试离线包后运行 verify-screen-glitch.cjs；真实画面差异、减少动态禁用Glitch、光强提高时有效Bloom下降，在线/断网离线检查。
+
+C 方案远景：运行 node experiments/light-pollution/city-night/tests/verify-distant-windows.cjs。通过实验根入口及断网离线包分别比较全亮和关灯，检查三个城市光样点、三个探照灯区域样点和前景／商场保护样点，重复切换并核对纹理上传数和 WebGL 错误。可用 CITY_URL 和 CITY_OUT 指定当前工作区入口与独立输出目录。
