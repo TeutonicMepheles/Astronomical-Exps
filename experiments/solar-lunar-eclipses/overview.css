@@ -223,9 +223,6 @@ input[type=range]::-moz-range-track{height:4px;background:#647183}input[type=ran
 
 #observationCameras .camera-view-icon{display:block;width:40px;height:40px;object-fit:contain;pointer-events:none}
 
-/* Match the circular top-view symbol to the wider orbit silhouettes. */
-#observationTop .camera-view-icon{width:40px;height:40px}
-
 /* Observation controls: keep the scene and ground window unobstructed. */
 #observerCandidates{inset:auto;left:560px;bottom:38px;top:auto;display:flex;align-items:center;gap:14px;width:auto;height:52px;pointer-events:auto}
 #observerCandidates::before{content:"选择观察点：";font-size:var(--type-body);color:#e8edf6}
@@ -249,3 +246,4 @@ input[type=range]::-moz-range-track{height:4px;background:#647183}input[type=ran
 #stage[data-eclipse-category=lunar] .observer-site-tag{display:none}
 #observer .observer-caption{justify-content:flex-end;color:#243951}
 #observer .observer-caption output{color:#243951}
+#solarPhotoLabel{margin-right:auto}
