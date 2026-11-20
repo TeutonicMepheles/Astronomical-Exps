@@ -53,13 +53,7 @@ const bobRenderer=createBobRenderer(bob);
 const joint=document.querySelector('#bobJoint');
 const swingPlane=document.querySelector('#swingPlane');
 const swingSurface=document.querySelector('#swingSurface');
-const swingArc=document.querySelector('#swingArc'),swingArcLine=document.querySelector('#swingArcLine'),swingArcGlow=document.querySelector('#swingArcGlow');
-const planeToggle=document.querySelector('#planeToggle');
-planeToggle.addEventListener('click',()=>{
-  const show=planeToggle.getAttribute('aria-pressed')!=='true';
-  planeToggle.setAttribute('aria-pressed',String(show));
-  swingSurface.toggleAttribute('hidden',!show);swingArc.toggleAttribute('hidden',!show);wake();
-});
+const swingArcLine=document.querySelector('#swingArcLine'),swingArcGlow=document.querySelector('#swingArcGlow');
 let paramMode=false;
 const markers=createCityMarkers(document.querySelector('#cityMarkers'));
 let selectedCity=null;
@@ -99,9 +93,9 @@ periodInput.addEventListener('change',()=>{
 const readout=document.querySelector('#stage1Readout');
 const locationName=document.querySelector('#locationName');
 const locationLat=document.querySelector('#locationLat');
-const locationLon=document.querySelector('#locationLon');
 const locationSwing=document.querySelector('#locationPendulumSwing');
 const swingPeriodMetric=createPeriodMetric(document.querySelector('#swingReadout .metric-value'),document.querySelector('#hallSwingPeriod'));
+const hallReadouts=document.querySelector('#hallReadouts');
 const precessionReadout=document.querySelector('#precessionReadout');
 const precessionPeriod=document.querySelector('#precessionPeriod');
 const precessionPeriodUnit=document.querySelector('#precessionPeriodUnit');
@@ -189,13 +183,10 @@ function updateReadout(animatePrecession=false){
   swingPeriodMetric.set(pendulumConfig.periodOverride??2*Math.PI*Math.sqrt(pendulumConfig.length/9.81),true);
   periodInput.placeholder=(2*Math.PI*Math.sqrt(pendulumConfig.length/9.81)).toFixed(2);
   const city=CITIES.find(c=>c.id===selectedCity);
-  document.querySelector('#swingReadout').style.visibility=city?'visible':'hidden';
-  precessionReadout.hidden=!city;
-  precessionReadout.style.visibility=city?'visible':'hidden';
+  hallReadouts.hidden=!city;
   if(!city){
     locationName.textContent='';
     locationLat.textContent='';
-    locationLon.textContent='';
     readout.style.visibility='hidden';
     return;
   }
@@ -204,7 +195,6 @@ function updateReadout(animatePrecession=false){
   const latitude = `${Math.abs(city.lat).toFixed(2)}°${city.lat >= 0 ? 'N' : 'S'}`;
   locationName.textContent=city.name;
   locationLat.textContent=latitude;
-  locationLon.textContent=`${Math.abs(city.lon).toFixed(2)}°${city.lon >= 0 ? 'E' : 'W'}`;
 }
 markers.onClick(id=>{
   if(paramMode)return;
@@ -308,6 +298,9 @@ function drawGlobe(){
 // Accumulated phases and immutable historical positions survive rate changes.
 const history=createMotion(pendulumConfig);
 const STAGE_ONE_REACH=320,GROUND_DEPTH=.26;
+const arcDistances=Array.from({length:65},(_,i)=>STAGE_ONE_REACH*(i/32-1));
+const arcRises=new Float64Array(arcDistances.length);
+let arcRadius;
 function ground(p){return {x:PX+p.x*STAGE_ONE_REACH,y:PY+p.z*STAGE_ONE_REACH*GROUND_DEPTH};}
 // Zoom anchor: scale the pendulum (suspension/cable/bob/ground/trail) about the
 // ground point so "zoom out" (param mode) keeps the floor fixed and shrinks upward.
@@ -316,7 +309,6 @@ const TRAIL_CANVAS_CENTER={x:1040,y:680};
 const layoutKey='foucault-stage-one-center-v1';
 let PX=DEFAULT_CENTER.x,PY=DEFAULT_CENTER.y;
 const gizmo=document.querySelector('#pendulumGizmo');
-const stageOneHud=document.querySelector('.stage1-hud');
 const swingGlow=document.querySelector('#swingGlow');
 const footprint=document.querySelector('#perspectiveFootprint');
 
@@ -325,7 +317,6 @@ footprint.setAttribute('ry',STAGE_ONE_REACH*GROUND_DEPTH);
 function positionPendulum(x,y){
   PX=Math.max(350,Math.min(1250,x));
   PY=Math.max(240,Math.min(805,y));
-  stageOneHud.style.left=PX+'px';
   gizmo.style.left=PX+'px';gizmo.style.top=PY+'px';
   footprint.setAttribute('cx',PX);footprint.setAttribute('cy',PY);
   const dx=PX-TRAIL_CANVAS_CENTER.x,dy=PY-TRAIL_CANVAS_CENTER.y;
@@ -429,15 +420,19 @@ function drawPendulum(config=pendulumConfig){
   swingSurface.setAttribute('points',planeCorners.map(v=>v.map(n=>n.toFixed(2)).join(',')).join(' '));
   // Fixed-size path in the current swing plane; use exactly the bob's projection.
   // No accumulating history or additional animation clock.
-  if(!swingArc.hasAttribute('hidden')){
-    let arc='';
-    for(let i=0;i<=64;i++){
-      const distance=STAGE_ONE_REACH*(i/32-1);
-      const rise=distance**2/(swingRadius+Math.sqrt(swingRadius**2-distance**2));
-      arc+=`${i?'L':'M'}${(PX+distance*sc).toFixed(2)} ${(stageOneBobY-rise+distance*ss*GROUND_DEPTH).toFixed(2)}`;
+  if(arcRadius!==swingRadius){
+    arcRadius=swingRadius;
+    for(let i=0;i<arcDistances.length;i++){
+      const distance=arcDistances[i];
+      arcRises[i]=distance**2/(swingRadius+Math.sqrt(swingRadius**2-distance**2));
     }
-    swingArcLine.setAttribute('d',arc);swingArcGlow.setAttribute('d',arc);
   }
+  let arc='';
+  for(let i=0;i<arcDistances.length;i++){
+    const distance=arcDistances[i];
+    arc+=`${i?'L':'M'}${(PX+distance*sc).toFixed(2)} ${(stageOneBobY-arcRises[i]+distance*ss*GROUND_DEPTH).toFixed(2)}`;
+  }
+  swingArcLine.setAttribute('d',arc);swingArcGlow.setAttribute('d',arc);
   swingPlane.setAttribute('x1',(PX-sc*420*zoom).toFixed(2));swingPlane.setAttribute('y1',(PY-ss*420*.26*zoom).toFixed(2));
   swingPlane.setAttribute('x2',(PX+sc*420*zoom).toFixed(2));swingPlane.setAttribute('y2',(PY+ss*420*.26*zoom).toFixed(2));
 }

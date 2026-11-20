@@ -6,10 +6,10 @@
 const NS = 'http://www.w3.org/2000/svg';
 
 export const CITIES = [
-  { id: 'shanghai', name: '上海', lat: 31.23, lon: 121.47, coord: '31.2°N 121.5°E' },
-  { id: 'paris', name: '巴黎', lat: 48.86, lon: 2.35, coord: '48.9°N 2.4°E' },
-  { id: 'singapore', name: '新加坡', lat: 1.35, lon: 103.82, coord: '1.3°N 103.8°E' },
-  { id: 'sydney', name: '悉尼', lat: -33.87, lon: 151.21, coord: '33.9°S 151.2°E' },
+  { id: 'shanghai', name: '上海', lat: 31.23, lon: 121.47, coord: '31.2°N' },
+  { id: 'paris', name: '巴黎', lat: 48.86, lon: 2.35, coord: '48.9°N' },
+  { id: 'singapore', name: '新加坡', lat: 1.35, lon: 103.82, coord: '1.3°N' },
+  { id: 'sydney', name: '悉尼', lat: -33.87, lon: 151.21, coord: '33.9°S' },
   { id: 'south', name: '南极', lat: -90, lon: 0, coord: '90.0°S' },
   { id: 'north', name: '北极', lat: 90, lon: 0, coord: '90.0°N' },
 ];

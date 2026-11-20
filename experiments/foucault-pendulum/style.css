@@ -149,7 +149,7 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 #debugPanel input[type=color]{width:68px;height:36px;border:0;background:none;padding:0}
 #debugButton,#debugPanel button{border:1px solid #647897;border-radius:8px;background:#1c2c46;color:#edf2fa;font:16px var(--font-ui);cursor:pointer;padding:10px 16px}
 #debugPanel button{margin-top:12px;min-height:44px;width:100%}
-/* Stage-1 readout + time-speed control. */
+/* Stage 1 readouts. */
 #stage1Readout {
   position:absolute;left:680px;top:135px;visibility:hidden;width:280px;padding:15px 17px;z-index:20;
   border:1px solid #d5e6ff80;border-radius:15px;
@@ -169,14 +169,14 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .location-heading b { display:block;font-size:26px;line-height:1.12; }
 .location-coordinates { display:block;margin-top:4px;font-size:18px;font-weight:700;line-height:1.25;font-variant-numeric:tabular-nums; }
 .location-coordinates strong { color:#ffdc78; }
-.location-coordinates span { color:#edf5ff;font-weight:600; }
-.precession-readout {
-  position:absolute;left:940px;top:235px;width:max-content;margin:0;z-index:19;
-  display:grid;gap:18px;padding:18px 22px;border:0;
-  background:radial-gradient(ellipse at center,rgba(4,17,37,.48) 0%,rgba(4,17,37,.26) 48%,rgba(4,17,37,0) 74%);
-  color:#edf5ff;pointer-events:none;text-shadow:0 2px 12px #041125e6;
-  transition:opacity .6s ease-in-out;
+.hall-readouts {
+  position:absolute;left:1063.2114706973296px;bottom:48px;transform:translateX(-50%);z-index:19;
+  display:flex;align-items:center;gap:26px;width:max-content;
+  padding:18px;border:1px solid #91b9df55;border-radius:14px;background:rgba(5,17,39,.9);
+  color:#edf5ff;pointer-events:none;text-shadow:0 2px 12px #041125e6;transition:opacity .6s ease-in-out;
 }
+.hall-readouts[hidden] { display:none; }
+.precession-readout { display:flex;align-items:center;gap:26px;margin:0; }
 .precession-readout .metric { display:flex;align-items:baseline;gap:12px;white-space:nowrap; }
 .precession-readout dt { color:#d2e3f4;font-size:18px;font-weight:600;letter-spacing:.02em; }
 .precession-readout dd { position:relative;display:flex;align-items:center;gap:8px;margin:0;font-variant-numeric:tabular-nums; }
@@ -187,7 +187,7 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .rate-value .metric-unit { align-self:baseline;margin-top:0; }
 .precession-readout small:empty { display:none; }
 .metric-delta {
-  position:absolute;right:100%;margin-right:4px;display:grid;place-items:center;flex:none;width:30px;height:32px;border-radius:50%;
+  display:grid;place-items:center;order:1;flex:none;width:30px;height:32px;border-radius:50%;
   background:#8cc8ff18;font-size:29px;font-weight:900;line-height:1;opacity:0;
 }
 .metric-value.is-changing { animation:metric-card-refresh .56s ease-out; }
@@ -200,16 +200,6 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 @keyframes metric-arrow-up { from{opacity:0;transform:translateY(9px)}35%{opacity:1}to{opacity:1;transform:none} }
 @keyframes metric-arrow-down { from{opacity:0;transform:translateY(-9px)}35%{opacity:1}to{opacity:1;transform:none} }
 @media(prefers-reduced-motion:reduce){.metric-value,.metric-value output,.metric-delta{animation:none!important}}
-.stage1-hud { position:absolute;left:1063.2114706973296px;bottom:48px;z-index:20;display:flex;align-items:stretch;gap:15px;transform:translateX(-50%);transition:opacity .6s ease-in-out; }
-.time-speed { position:relative;order:2;display:flex;align-items:center;gap:8px;padding:12px 16px;border:1px solid #adcdee35;border-radius:18px;background:#102643e8;color:#edf5ff; }
-.speed-icon { flex:none;width:54px;height:54px;padding:13px;border-radius:50%;background:#1e426c;box-shadow:inset 0 0 0 8px #28517c80;fill:none;stroke:#d6efff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round; }
-.speed-reading { display:flex;flex-direction:column;min-width:68px; }
-.speed-label { font-size:17px;font-weight:600;line-height:22px; }
-.time-speed button { display:grid;place-items:center;min-width:44px;min-height:44px;border:1px solid #adcdee60;border-radius:50%;background:#1e426c;box-shadow:inset 0 0 0 7px #28517c80;color:#d6efff;cursor:pointer; }
-.time-speed button svg { width:21px;height:21px;fill:currentColor; }
-.time-speed button:disabled { opacity:.35;cursor:default; }
-.time-speed button:focus-visible { outline:2px solid #ffe5ad;outline-offset:3px; }
-#timeSpeedVal { display:block;font-size:26px;font-weight:650;line-height:1.35;color:#7cdef3;font-variant-numeric:tabular-nums; }
 /* Top progress control (extracted from EXP-04). */
 .astro-stage-progress { position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:30;padding:12px 28px;border-radius:40px;background:#0b1c38e8;box-shadow:0 3px 16px #040a1a50;color:#8799bd; }
 .astro-stage-progress ol { display:flex;gap:46px;align-items:center;list-style:none;margin:0;padding:0; }
@@ -240,21 +230,14 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 #stage.param-mode .parameter-background { opacity:1; }
 #stage.param-mode #trails,#stage.param-mode #swingPlane,#stage.param-mode #swingSurface,
 #stage.param-mode .scene-bloom,#stage.param-mode #stage1Readout,
-#stage.param-mode .precession-readout,#stage.param-mode .stage1-hud { opacity:0;pointer-events:none; }
-#trails,#swingPlane,#swingSurface,#stage1Readout,.stage1-hud { transition:opacity .6s ease-in-out; }
+#stage.param-mode .hall-readouts { opacity:0;pointer-events:none; }
+#trails,#swingPlane,#swingSurface,#swingArc,#stage1Readout,.hall-readouts { transition:opacity .6s ease-in-out; }
 #stage.param-mode .scale-lines { transition-delay:.25s; }
-#swingSurface[hidden],#swingArc[hidden] { display:none; }
 #stage.param-mode #swingArc { opacity:0; }
-#planeToggle {
-  width:44px;height:44px;display:grid;place-items:center;padding:0;
-  border:1px solid #adcdee60;border-radius:50%;background:#1e426c;color:#edf2fa;cursor:pointer;
-}
-#planeToggle[aria-pressed="true"] { background:#395c7b;border-color:#c1e4ff; }
-#planeToggle:focus-visible { outline:2px solid #ffe5ad;outline-offset:3px; }
 #stage.param-mode #paramButton { background:#2a3d5f; }
 @media(prefers-reduced-motion:reduce){
   .hall,.scene-bloom,.parameter-background,.meridian-base,.meridian-stem,.ring-contact-ao,.ball-base-ao,.earth-shadow,#globe,#cityMarkers,
-  .scale-lines,#trails,#swingPlane,#swingSurface,#stage1Readout,.precession-readout,.stage1-hud { transition:none!important; }
+  .scale-lines,#trails,#swingPlane,#swingSurface,#swingArc,#stage1Readout,.hall-readouts { transition:none!important; }
 }
 @media(prefers-reduced-motion:reduce){.stage-control{transition:none}}
 
@@ -322,8 +305,6 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 :is(#backgroundControls,#hallScreenControls,#standShaderControls) output { text-align:right;font-variant-numeric:tabular-nums; }
 
 
-#swingReadout { left:auto;right:32px;width:max-content;top:235px; }
-
 #paramButton .parameter-button-label { position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:7px;white-space:nowrap;color:#d4e2f8;font:500 15px/1.4 var(--font-ui);letter-spacing:.06em;text-shadow:0 2px 6px #041125; }
 
 /* Pointer selection keeps the circular city marker; keyboard focus uses it too. */
@@ -331,6 +312,4 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 #cityMarkers .city:focus-visible .ring { stroke:#fff1b5;stroke-width:3;opacity:1; }
 .city-hint-anchor { position:absolute;width:1px;height:1px;pointer-events:none; }
 
-/* Readable data over the animated hall screens. */
-.precession-readout {background:rgba(5,17,39,.9);padding:18px;border:1px solid #91b9df55;border-radius:14px;gap:16px;}
 .precession-readout .metric {border-radius:7px;}
