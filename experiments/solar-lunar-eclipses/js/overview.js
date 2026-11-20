@@ -187,8 +187,8 @@ function drawObservationScene(cameraName=state.observationCamera,panel={x:365,y:
  }else{
   const halfWidth=Math.max(Math.abs(bounds.left),Math.abs(bounds.right)),halfHeight=Math.max(Math.abs(bounds.top),Math.abs(bounds.bottom));bounds.left=-halfWidth;bounds.right=halfWidth;bounds.top=-halfHeight;bounds.bottom=halfHeight;
  }
- const frame=focusBodies&&!paired?{x:state.mode==='solar'&&cameraName==='level'?356:420,y:245,width:980,height:500}:panel;
- const targetScale=cameraName==='solar'?220:cameraName==='oblique'?148*state.zoom:Math.min(frame.width/(bounds.right-bounds.left),frame.height/(bounds.bottom-bounds.top)),targetCenter=cameraName==='solar'?{x:940,y:342}:cameraName==='oblique'?{x:state.mode==='solar'?900:570,y:435}:{x:frame.x+frame.width/2-(bounds.left+bounds.right)*targetScale/2,y:frame.y+frame.height/2-(bounds.top+bounds.bottom)*targetScale/2};
+ const frame=focusBodies&&!paired?{x:state.mode==='lunar'?455:cameraName==='level'?475:420,y:245,width:state.mode==='lunar'?940:880,height:500}:panel;
+ const targetScale=cameraName==='solar'?220:cameraName==='oblique'?(state.mode==='solar'?120:148)*state.zoom:Math.min(frame.width/(bounds.right-bounds.left),frame.height/(bounds.bottom-bounds.top)),targetCenter=cameraName==='solar'?{x:940,y:342}:cameraName==='oblique'?(state.mode==='solar'?{x:990,y:421}:{x:638,y:409}):{x:frame.x+frame.width/2-(bounds.left+bounds.right)*targetScale/2,y:frame.y+frame.height/2-(bounds.top+bounds.bottom)*targetScale/2};
  const scale=state.cameraTransition?state.cameraTransition.fromScale+(targetScale-state.cameraTransition.fromScale)*blend:targetScale,offset=state.cameraTransition?{x:state.cameraTransition.fromCenter.x+(targetCenter.x-state.cameraTransition.fromCenter.x)*blend,y:state.cameraTransition.fromCenter.y+(targetCenter.y-state.cameraTransition.fromCenter.y)*blend}:targetCenter;
  const project=p=>{const q=rawProject(p);return {x:offset.x+q.x*scale,y:offset.y+q.y*scale,depth:q.depth*scale};};
  const E=project(M.EARTH),P=project(mp),er=scale,sourceScreen=state.mode==='solar'?P:E,receiverScreen=state.mode==='solar'?E:P,receiverRadius=state.mode==='solar'?1:moonRadius;
@@ -233,7 +233,7 @@ function drawObservationScene(cameraName=state.observationCamera,panel={x:365,y:
   };
   // Keep complete label bounds inside the projected shadow and outside both bodies.
   // Select another cone section rather than shifting text away from its geometry.
-  const clear=p=>p.x>100&&p.x<1450&&p.y>190&&p.y<750&&!bodies.some(body=>{
+  const clear=p=>p.x>100&&p.x<1450&&p.y>190&&p.y<750&&($('observer').hidden||p.x>510||p.y<365)&&!bodies.some(body=>{
    const dx=Math.max(Math.abs(p.x-body.x)-32,0),dy=Math.max(Math.abs(p.y-body.y)-13,0);
    return dx*dx+dy*dy<(body.r+4)**2;
   });
