@@ -52,6 +52,18 @@
     var R=Math.min(this.w,this.h)*.44,side=R/.47;ctx.drawImage(options.texture,this.w/2-side/2,this.h/2-side/2,side,side);options.shadow(ctx,{width:this.w,height:this.h,dpr:this.dpr});
   };
 
+  SkyWindow.prototype.renderSolarPhoto = function (frame) {
+    this.setup();
+    var ctx = this.ctx;
+    var side = Math.min(this.w, this.h);
+    ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, this.w, this.h);
+    ctx.drawImage(frame.image, frame.column * frame.size, frame.row * frame.size, frame.size, frame.size,
+      (this.w - side) / 2, (this.h - side) / 2, side, side);
+    this.canvas.dataset.solarPhotoFrame = String(frame.index);
+  };
+
   SkyWindow.prototype.renderReference = function (sky) {
     this.setup();var ctx=this.ctx;ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.clearRect(0,0,this.w,this.h);this.drawSolar(ctx,sky);
   };

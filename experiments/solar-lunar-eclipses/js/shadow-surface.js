@@ -12,7 +12,7 @@ export function createShadowSurface(){
  const vs=compile(gl.VERTEX_SHADER,'attribute vec2 position;void main(){gl_Position=vec4(position,0.,1.);}');
  const fs=compile(gl.FRAGMENT_SHADER,`${derivatives?'#extension GL_OES_standard_derivatives : enable\n':''}
  precision highp float;
- uniform float diagnosticMode;uniform sampler2D sweepMap;uniform float sweepEnabled;uniform vec3 groundAxis,groundE2,groundE3;uniform vec2 viewport,flags,slopes,intercepts;uniform float dpr,sourceRadius,sunRadius,lunar,lunarAppearance;
+ uniform float diagnosticMode;uniform sampler2D sweepMap;uniform vec2 sweepSize;uniform float sweepEnabled;uniform vec3 groundAxis,groundE2,groundE3;uniform vec2 viewport,flags,slopes,intercepts;uniform float dpr,sourceRadius,sunRadius,lunar,lunarAppearance;
  uniform vec4 sphere;uniform vec3 sourceCam,sourceModel,sun,axis;uniform mat3 inverseMap,forwardMap;
  const float PI=3.141592653589793;
  float widthOf(float value){return ${derivatives?'max(fwidth(value),.000001)':'max(sourceRadius/max(sphere.w,1.),.000001)'};}
@@ -34,6 +34,8 @@ export function createShadowSurface(){
  }
  void main(){
   vec2 pixel=vec2(gl_FragCoord.x/dpr,viewport.y-gl_FragCoord.y/dpr),q=(pixel-sphere.xy)/sphere.w;float rr=1.-dot(q,q);if(rr<0.)discard;
+  // Feather the overlay inside the sphere so it cannot redraw the globe's antialiased limb.
+  float limbCoverage=smoothstep(0.,1.5,(1.-length(q))*sphere.w);
   vec3 normal=vec3(q,sqrt(rr)),cameraPoint=vec3(pixel,sphere.z+normal.z*sphere.w),p=sourceModel+inverseMap*(cameraPoint-sourceCam),relative=p-sourceModel;
   float t=dot(relative,axis);if(t<=0.)discard;
   vec3 radial=relative-axis*t;float rho=length(radial),ru=intercepts.x+slopes.x*t,rp=intercepts.y+slopes.y*t;
@@ -50,11 +52,33 @@ export function createShadowSurface(){
    vec3 indirect=mix(vec3(.65,.28,.12),vec3(.14,.028,.018),smoothstep(0.,1.,depth));
    float blocked=1.-visible;
    vec3 transmission=vec3(pow(visible,.72))+indirect*pow(blocked,3.)*smoothstep(-.08,.12,(ru-rho)/sourceRadius);
-   gl_FragColor=vec4(mix(vec3(1.),clamp(transmission,0.,1.),flags.x*incoming),1.);
+   gl_FragColor=vec4(mix(vec3(1.),clamp(transmission,0.,1.),flags.x*incoming)*limbCoverage,limbCoverage);
    return;
   }
   float shade=(1.-visible)*(lunar>.5?.82:.96)*flags.x*incoming;
-  vec4 coverage=vec4(0.);if(sweepEnabled>.5){vec3 unitPoint=normalize(p);vec2 uv=vec2(atan(dot(unitPoint,groundE3),dot(unitPoint,groundE2))/(2.*PI)+.5,asin(clamp(dot(unitPoint,groundAxis),-1.,1.))/PI+.5);vec2 field=texture2D(sweepMap,uv).rg;if(diagnosticMode>1.5){gl_FragColor=vec4(field.g>.5?1.:field.r>.5?.5:0.,0.,0.,1.);return;}float hatch=step(.57,fract((uv.x+uv.y)*100.));coverage=field.g>.5?vec4(vec3(.96,.57,.22)*(.38+.18*hatch),.38+.18*hatch):field.r>.5?vec4(vec3(.16,.74,.77)*.30,.30):vec4(0.);}
+  vec4 coverage=vec4(0.);
+  if(sweepEnabled>.5){
+   vec3 unitPoint=normalize(p);
+   vec2 uv=vec2(atan(dot(unitPoint,groundE3),dot(unitPoint,groundE2))/(2.*PI)+.5,asin(clamp(dot(unitPoint,groundAxis),-1.,1.))/PI+.5);
+   if(diagnosticMode>1.5){
+    vec2 cell=(floor(vec2(fract(uv.x),clamp(uv.y,0.,1.-.000001))*sweepSize)+.5)/sweepSize;
+    vec2 field=texture2D(sweepMap,cell).rg;
+    gl_FragColor=vec4(field.g>.5?1.:field.r>.5?.5:0.,0.,0.,1.);return;
+   }
+   float halfTexel=.5/sweepSize.x;
+   vec2 field=texture2D(sweepMap,uv).rg;
+   if(uv.x<halfTexel||uv.x>1.-halfTexel){
+    vec2 west=texture2D(sweepMap,vec2(1.-halfTexel,uv.y)).rg;
+    vec2 east=texture2D(sweepMap,vec2(halfTexel,uv.y)).rg;
+    field=mix(west,east,fract(uv.x+halfTexel)*sweepSize.x);
+   }
+   vec2 area=smoothstep(vec2(.12),vec2(.88),field);
+   float stripe=(uv.x+uv.y)*100.;
+   float stripeAA=${derivatives?'clamp(fwidth(stripe)*PI,.04,.85)':'0.10'};
+   float hatch=smoothstep(-stripeAA,stripeAA,cos(2.*PI*(stripe-.785))-.218);
+   float orange=area.g*(.38+.18*hatch),cyan=(area.r-area.g)*.30;
+   coverage=vec4(vec3(.96,.57,.22)*orange+vec3(.16,.74,.77)*cyan,orange+cyan);
+  }
   vec4 result=vec4((lunar>.5?mix(vec3(.015,.023,.035),vec3(.37,.16,.10),1.-smoothstep(-widthOf(rho-ru),0.,rho-ru)):vec3(.012,.023,.047))*shade,shade);
   if(lunar>.5&&lunarAppearance<.5){
    float penumbraOnly=smoothstep(-widthOf(rho-ru),widthOf(rho-ru),rho-ru);
@@ -73,12 +97,12 @@ export function createShadowSurface(){
     result=boundary(result,rho-max(ru,0.),vec3(1.,.79,.40),ru>0.&&dot(normal,umbraRay)<0.?1.:0.);
    }
   }
-  gl_FragColor=result;
+  gl_FragColor=result*limbCoverage;
  }`);
  const program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));
- const buffer=gl.createBuffer(),attribute=gl.getAttribLocation(program,'position'),uniform=Object.fromEntries(['diagnosticMode','sweepMap','sweepEnabled','groundAxis','groundE2','groundE3','viewport','flags','slopes','intercepts','dpr','sourceRadius','sunRadius','lunar','lunarAppearance','sphere','sourceCam','sourceModel','sun','axis','inverseMap','forwardMap'].map(name=>[name,gl.getUniformLocation(program,name)]));
+ const buffer=gl.createBuffer(),attribute=gl.getAttribLocation(program,'position'),uniform=Object.fromEntries(['diagnosticMode','sweepMap','sweepSize','sweepEnabled','groundAxis','groundE2','groundE3','viewport','flags','slopes','intercepts','dpr','sourceRadius','sunRadius','lunar','lunarAppearance','sphere','sourceCam','sourceModel','sun','axis','inverseMap','forwardMap'].map(name=>[name,gl.getUniformLocation(program,name)]));
  const sweepTexture=gl.createTexture();let sweepSource=null;
- gl.bindTexture(gl.TEXTURE_2D,sweepTexture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array(4));
+ gl.bindTexture(gl.TEXTURE_2D,sweepTexture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array(4));
  return {draw(ctx,{layout,center,radius,model,mode,width=1600,height=900,dpr=1,shade=true,edges=true,sweep,basis,lunarAppearance=false}){
   if(disposed)throw new Error('Shadow surface is disposed');draws++;
   const W=1600*dpr,H=900*dpr;if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
@@ -89,7 +113,7 @@ export function createShadowSurface(){
   gl.uniform2f(uniform.viewport,width,height);gl.uniform2f(uniform.flags,shade?1:0,edges?1:0);gl.uniform2f(uniform.slopes,layout.cone.umbraRadiusAt(1)-r,layout.cone.penumbraRadiusAt(1)-rp);gl.uniform2f(uniform.intercepts,r,rp);gl.uniform1f(uniform.dpr,dpr);gl.uniform1f(uniform.sourceRadius,layout.cone.sourceRadius||r);gl.uniform1f(uniform.sunRadius,model.SUN_R);gl.uniform1f(uniform.lunar,mode==='lunar'?1:0);gl.uniform1f(uniform.lunarAppearance,mode==='lunar'&&lunarAppearance?1:0);gl.uniform4f(uniform.sphere,center.x,center.y,center.depth,radius);
   gl.uniform3f(uniform.sourceCam,layout.sourceScreen.x,layout.sourceScreen.y,layout.sourceScreen.depth);gl.uniform3f(uniform.sourceModel,...xyz(layout.origin));gl.uniform3f(uniform.sun,...xyz(model.SUN));gl.uniform3f(uniform.axis,...xyz(layout.cone.axis));gl.uniformMatrix3fv(uniform.inverseMap,false,new Float32Array(layout.cameraToModel));gl.uniformMatrix3fv(uniform.forwardMap,false,new Float32Array(layout.modelToCamera));
   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,sweepTexture);gl.uniform1i(uniform.sweepMap,0);gl.uniform1f(uniform.sweepEnabled,sweep&&basis?1:0);
-  if(sweep&&basis){if(sweepSource!==sweep){gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,sweep.width,sweep.height,0,gl.RGBA,gl.UNSIGNED_BYTE,sweep.pixels);sweepSource=sweep;sweepUploads++;}gl.uniform3fv(uniform.groundAxis,basis.axis);gl.uniform3fv(uniform.groundE2,basis.e2);gl.uniform3fv(uniform.groundE3,basis.e3);}
+  if(sweep&&basis){gl.uniform2f(uniform.sweepSize,sweep.width,sweep.height);if(sweepSource!==sweep){gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,sweep.width,sweep.height,0,gl.RGBA,gl.UNSIGNED_BYTE,sweep.pixels);sweepSource=sweep;sweepUploads++;}gl.uniform3fv(uniform.groundAxis,basis.axis);gl.uniform3fv(uniform.groundE2,basis.e2);gl.uniform3fv(uniform.groundE3,basis.e3);}
   gl.uniform1f(uniform.diagnosticMode,0);gl.drawArrays(gl.TRIANGLES,0,6);ctx.save();if(mode==='lunar'&&lunarAppearance)ctx.globalCompositeOperation='multiply';ctx.drawImage(canvas,0,H-height*dpr,width*dpr,height*dpr,0,0,width,height);ctx.restore();
  },sampleProjected(points,dpr=1,diagnostic=1){
   gl.uniform1f(uniform.diagnosticMode,diagnostic);gl.drawArrays(gl.TRIANGLES,0,6);const results=points.map(p=>{const pixel=new Uint8Array(4);gl.readPixels(Math.floor(p.x*dpr),canvas.height-1-Math.floor(p.y*dpr),1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixel);return {category:Math.round(pixel[0]/255*(diagnostic===2?2:3)),visibility:pixel[1]/255,alpha:pixel[3]};});gl.uniform1f(uniform.diagnosticMode,0);return results;

@@ -4,62 +4,32 @@
     {
       "source": "observationSolar",
       "target": "observationOblique",
-      "blend": 0.08339660987172008
+      "blend": 0.08339660984187558
     },
     {
       "source": "observationSolar",
       "target": "observationSide",
-      "blend": 0.08146587369248558
-    },
-    {
-      "source": "observationSolar",
-      "target": "observationTop",
-      "blend": 0.08152785800583112
+      "blend": 0.08320893324562693
     },
     {
       "source": "observationOblique",
       "target": "observationSolar",
-      "blend": 0.07961560452999542
+      "blend": 0.0833966098418757
     },
     {
       "source": "observationOblique",
       "target": "observationSide",
-      "blend": 0.08140390922565248
-    },
-    {
-      "source": "observationOblique",
-      "target": "observationTop",
-      "blend": 0.10489297901093243
+      "blend": 0.0833966098418757
     },
     {
       "source": "observationSide",
       "target": "observationSolar",
-      "blend": 0.0819623047762386
+      "blend": 0.08383521265373602
     },
     {
       "source": "observationSide",
       "target": "observationOblique",
-      "blend": 0.0806001815163629
-    },
-    {
-      "source": "observationSide",
-      "target": "observationTop",
-      "blend": 0.08090890934818556
-    },
-    {
-      "source": "observationTop",
-      "target": "observationSolar",
-      "blend": 0.08352182639208912
-    },
-    {
-      "source": "observationTop",
-      "target": "observationOblique",
-      "blend": 0.08396070535582335
-    },
-    {
-      "source": "observationTop",
-      "target": "observationSide",
-      "blend": 0.08377249608970196
+      "blend": 0.08208661103084969
     }
   ],
   "errors": []

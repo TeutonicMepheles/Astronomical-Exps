@@ -12,12 +12,7 @@ export function observationCamera(M, observationVector, name, transition, option
   // The virtual eye lies between Sun and Moon, above the lunar foreground.
   const elevation=(options.solarElevation??20)*Math.PI/180,shoulder=(options.solarShoulder??20)*Math.PI/180;
   front=options.solarFront||M.unit(teaching({x:-Math.cos(elevation)*Math.cos(shoulder),y:-Math.cos(elevation)*Math.sin(shoulder),z:Math.sin(elevation)}));
-  right=M.unit(cross(normal,front));up=M.unit(cross(front,right));
-  if(options.solarMoonDirection){
-   const q=options.solarMoonDirection,angle=Math.atan2(dot(q,up),dot(q,right))+165*Math.PI/180,co=Math.cos(angle),si=Math.sin(angle),r=right,u=up;
-   right={x:r.x*co+u.x*si,y:r.y*co+u.y*si,z:r.z*co+u.z*si};
-   up={x:-r.x*si+u.x*co,y:-r.y*si+u.y*co,z:-r.z*si+u.z*co};
-  }
+  right=M.unit(cross(options.solarUp||normal,front));up=M.unit(cross(front,right));
  }
  if(transition&&transition.progress<1){
   const from=transition.fromRows?null:observationCamera(M,observationVector,transition.from,null,options);

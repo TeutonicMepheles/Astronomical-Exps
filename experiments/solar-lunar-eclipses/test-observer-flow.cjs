@@ -9,16 +9,28 @@ const out=path.resolve(__dirname,'../../artifacts/eclipse-observer-flow-20261117
  const choose=async i=>{await p.locator('#observerCandidates button').nth(i).click();await p.waitForFunction(i=>document.querySelectorAll('#observerCandidates button')[i].getAttribute('aria-pressed')==='true',i);};
  const invariant=['phi','earthSpin','simDay','earthAxis','moonAxis','earthCenter','moonCenter','cameraFront','cameraEye','shadowAxis','shadowSource'];
  assert.deepEqual(await p.locator('#eventTypes button').allTextContents(),['全食事件','环食事件']);assert.equal(await p.locator('[data-event=partial]').count(),0);assert.equal(await p.locator('#alignNodes,#missNodes,#nodeTools').count(),0);
+ let solarEarthRadius;
  for(const kind of ['total','annular']){
   await p.locator(`[data-event=${kind}]`).click();await p.waitForTimeout(100);
   assert.deepEqual(await p.locator('#observerCandidates button').allTextContents(),['A','B','C']);
   assert.equal(await p.locator('#observationCameras').isVisible(),true);
   assert.equal(await p.locator('#observer').isVisible(),false);assert(await p.locator('#continuousPlay').isDisabled());
   const initial=await read(),fit=JSON.parse(initial.observerCameraFit),phases=[];
+  solarEarthRadius??=initial.earthRadius;
+  assert.equal(initial.earthRadius,solarEarthRadius,'both solar events use the same Earth scale');
   assert(fit.margin>.1);await choose(0);
   for(let k=0;k<=32;k++){
    await seek(fit.window.start+(fit.window.end-fit.window.start)*k/32);
    const d=await read(),points=JSON.parse(d.observerCandidates),earth=JSON.parse(d.earthCenter),moon=JSON.parse(d.moonCenter),radius=+d.earthRadius;
+   const [axisX,axisY,axisDepth]=JSON.parse(d.earthAxis);
+   const north=[axisX,axisY,axisDepth],moonVector=[(moon.x-earth.x)/radius,(earth.y-moon.y)/radius,(moon.depth-earth.depth)/radius];
+   const dot=(a,b)=>a.reduce((sum,value,i)=>sum+value*b[i],0);
+   assert(Math.abs(axisX)<1e-10&&axisY>0,kind+' north axis projects straight up');
+   assert(axisDepth>=-Math.sin(Math.PI/18),kind+' view avoids a south-polar angle');
+   assert(moonVector[2]>0&&moonVector[2]+Number(d.moonRadius)/radius<8,kind+' eye is behind the foreground Moon');
+   assert(8*axisDepth>dot(north,moonVector)&&moon.y>earth.y,kind+' eye is above the Moon');
+   assert(JSON.parse(d.cameraSun)[2]>0,kind+' camera faces the sunlit receiving side of Earth');
+   assert(moon.y+Number(d.moonRadius)<810,kind+' Moon clears the lower controls');
    assert.equal(points.length,3,`${kind}/${k}: all sites on front`);
    for(const point of points){assert(point.front>.1);assert(Math.hypot(point.x-earth.x,point.y-earth.y)<radius-2);assert(Math.hypot(point.x-moon.x,point.y-moon.y)>+d.moonRadius+22);}
    for(let i=0;i<3;i++)for(let j=i+1;j<3;j++)assert(Math.hypot(points[i].x-points[j].x,points[i].y-points[j].y)>36.7,'44px touch areas do not overlap');
@@ -47,6 +59,6 @@ const out=path.resolve(__dirname,'../../artifacts/eclipse-observer-flow-20261117
   results.push({kind,fit,phases});
  }
  await p.locator('[data-category=lunar]').click();assert.equal(await p.locator('#observerCandidates').isVisible(),false);assert(await p.locator('#observationCameras').isVisible());
- for(const id of ['observationOblique','observationSide','observationTop']){await p.locator('#'+id).click();await p.waitForTimeout(50);}
+ for(const id of ['observationOblique','observationSide']){await p.locator('#'+id).click();await p.waitForTimeout(50);}
  assert.deepEqual(errors,[]);fs.writeFileSync(path.join(out,'results.json'),JSON.stringify({pass:true,results},null,2));console.log('PASS two event choices, neutral A/B/C; 66 phases all three front-facing, separated, Moon-clear, clickable; same-time geometry invariants; synchronized total/annular/partial/none results and stages; 3 viewport layouts; lunar camera isolation.');
 }finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

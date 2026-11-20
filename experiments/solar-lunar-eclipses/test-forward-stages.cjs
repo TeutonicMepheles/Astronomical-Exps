@@ -13,7 +13,7 @@ const out=__dirname+'/docs/forward-stages-20261116';fs.mkdirSync(out,{recursive:
   const phases=[];
   for(let i=1;i<5;i++){
    assert.equal(await p.locator('#railList .rail-node:enabled').count(),1);assert(await p.locator('#railList .rail-node').nth(i-1).isDisabled());await p.locator('#railList .rail-node').nth(i).click();
-   if(i===2)await p.locator('#observationTop').click();
+   if(i===2)await p.locator('#observationSide').click();
    await p.waitForFunction(phi=>Number(document.querySelector('#scene').dataset.phi)===phi&&document.querySelector('#continuousPlay').getAttribute('aria-pressed')==='false',contacts[i].phi);assert.equal(await p.locator('#phaseName').innerText(),contacts[i].name);phases.push({phase:contacts[i],sky:JSON.parse((await read()).observerSky)});
    if(i===2){const d=await read();if(kind==='lunar')assert.equal(JSON.parse(d.lunarGeometry).status,'total');else assert.equal(d.referenceStatus,kind);const sections=JSON.parse(d.shadowSections).sections;assert.equal(sections.includes('antumbra'),kind==='annular');await p.screenshot({path:out+'/'+kind+'-maximum.png'});}
   }

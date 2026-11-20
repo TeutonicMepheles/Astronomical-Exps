@@ -1,12 +1,19 @@
 // Fit one fixed camera to every candidate over the whole event, never to the selected site.
-export function fitObserverCamera(points,moons=[],moonRadius=0) {
+export function fitObserverCamera(points,moons,moonRadius,north) {
  const dot=(a,b)=>a.x*b.x+a.y*b.y+a.z*b.z;
  const unit=p=>{const n=Math.hypot(p.x,p.y,p.z);return {x:p.x/n,y:p.y/n,z:p.z/n};};
  const score=p=>{
   let margin=Infinity;
+  const latitude=dot(p,north),eyeHeight=8*latitude;
+  // Keep the receiving face close to equatorial, even for the southern annular track.
+  if(latitude < -Math.sin(Math.PI/18))return -Infinity;
   for(const q of points)margin=Math.min(margin,dot(p,q));
   // The foreground Moon must not cover the receiving globe or its selectable sites.
-  for(const q of moons){const depth=dot(p,q);if(depth>0)margin=Math.min(margin,(Math.sqrt(Math.max(0,dot(q,q)-depth*depth))-1-moonRadius-.08)*.5);}
+  for(const q of moons){
+   const depth=dot(p,q);
+   if(depth<=0||depth+moonRadius>=8||eyeHeight<=dot(q,north))return -Infinity;
+   if(dot(q,q)-depth*depth<(1+moonRadius+.01)**2)return -Infinity;
+  }
   return margin;
  };
  let front=unit(points.reduce((a,p)=>({x:a.x+p.x,y:a.y+p.y,z:a.z+p.z}),{x:0,y:0,z:0})),margin=score(front);
