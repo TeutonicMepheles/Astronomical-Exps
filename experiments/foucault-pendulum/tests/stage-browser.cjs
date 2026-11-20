@@ -3,7 +3,7 @@ const{chromium}=require('playwright');const assert=require('node:assert/strict')
 const p=await b.newPage({viewport:{width:1600,height:900},reducedMotion:'no-preference'}),errors=[];p.on('pageerror',e=>errors.push(e.message));
 await p.clock.install({time:new Date('2026-11-05T08:00:00Z')});await p.clock.pauseAt(new Date('2026-11-05T08:00:00Z'));await p.goto('http://127.0.0.1:8378/experiments/foucault-pendulum/');await showDeveloperControls(p);await p.clock.runFor(3200);
 const pose=()=>p.evaluate(()=>({bob:document.querySelector('#bob').style.transform,cable:document.querySelector('#cable').getAttribute('d'),shadow:[document.querySelector('#shadow').getAttribute('cx'),document.querySelector('#shadow').getAttribute('cy')]}));
-await p.locator('#planeToggle').click({force:true});assert.equal(await p.locator('#planeToggle').getAttribute('aria-pressed'),'true');await p.clock.runFor(160);assert.ok((await p.locator('#swingSurface').getAttribute('points')).split(' ').length===4);
+assert.equal(await p.locator('#planeToggle').count(),0);assert.equal(await p.locator('#swingSurface').isVisible(),true);assert.ok((await p.locator('#swingSurface').getAttribute('points')).split(' ').length===4);
 await p.screenshot({path:root+'/tests/stage1-plane.png'});
 const initial=await pose();await p.locator('#paramButton').click({force:true});assert.deepEqual(await pose(),initial,'instant camera jump');
 await p.clock.runFor(208);const middle=await pose();assert.notEqual(middle.bob,initial.bob);
@@ -15,5 +15,5 @@ await p.screenshot({path:root+'/tests/stage2-centered.png'});
 await p.locator('#paramButton').click({force:true});assert.deepEqual(await pose(),settled,'return instant jump');await p.clock.runFor(608);const returned=await pose();assert.deepEqual(returned,initial,'return must restore saved motion pose');await p.clock.runFor(320);assert.notDeepEqual(await pose(),returned,'motion must resume');
 // Reverse a transition before it completes, then repeat navigation.
 for(let i=0;i<3;i++){await p.locator('#paramButton').click({force:true});await p.clock.runFor(192);await p.locator('#paramButton').click({force:true});await p.clock.runFor(640);}
-assert.deepEqual(errors,[]);const report={planeToggle:true,transitionMidpoint:middle.bob,stationaryStage2:true,bounds,restoredPose:true,resumed:true,rapidReversal:true,errors};fs.writeFileSync(root+'/tests/stage-browser-results.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
+assert.deepEqual(errors,[]);const report={planeVisibleByDefault:true,transitionMidpoint:middle.bob,stationaryStage2:true,bounds,restoredPose:true,resumed:true,rapidReversal:true,errors};fs.writeFileSync(root+'/tests/stage-browser-results.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1});

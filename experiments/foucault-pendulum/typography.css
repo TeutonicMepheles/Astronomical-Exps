@@ -8,8 +8,7 @@ button,input,select,textarea { font-family:var(--font-ui); }
 .city text,.city .name,.city .coord,.latitude-overlay .lat-label {font-family:var(--font-ui)}
 .city .name {font-size:var(--type-body);font-weight:500}
 .city .coord,.latitude-overlay .lat-label {font-size:15px;font-weight:400}
-#paramButton .parameter-button-label,.time-speed-label {font-size:var(--type-body);font-weight:400}
-#timeSpeedVal {font-size:var(--type-number);font-weight:500}
+#paramButton .parameter-button-label {font-size:var(--type-body);font-weight:400}
 .fp-parameter-dialog h2 {font-size:var(--type-title);font-weight:500}
 .fp-parameter-settings legend,.fp-period>div {font-size:var(--type-data-label);font-weight:500}
 .fp-options button {font-size:var(--type-number);font-weight:500}
@@ -26,7 +25,7 @@ button,input,select,textarea { font-family:var(--font-ui); }
 .location-coordinates {font-size:16px;font-weight:400}
 .precession-readout dt {font-size:var(--type-data-label);font-weight:500}
 .precession-readout output {font-size:var(--type-number);font-weight:500}
-.precession-readout .metric-unit,.speed-label {font-size:var(--type-body);font-weight:400}
+.precession-readout .metric-unit {font-size:var(--type-body);font-weight:400}
 .stage-next {font-size:var(--type-action);font-weight:600;min-height:62px}
 
 .fp-reference-caption {font-family:var(--font-ui);font-size:var(--type-body);font-weight:400;fill:#d2e5fa}

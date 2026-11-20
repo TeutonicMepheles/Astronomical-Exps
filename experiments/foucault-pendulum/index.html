@@ -105,8 +105,8 @@
           </feMerge>
         </filter>
       </defs>
-      <polygon id="swingSurface" fill="#a8d9ff" fill-opacity=".15" stroke="#b7d3ee" stroke-opacity=".5" stroke-width="1.4" hidden/>
-      <g id="swingArc" fill="none" stroke="#fff2ad" stroke-linecap="round" stroke-linejoin="round" pointer-events="none" hidden><path id="swingArcGlow" stroke-width="9" opacity=".16"/><path id="swingArcLine" stroke-width="2.4" opacity=".95"/></g>
+      <polygon id="swingSurface" fill="#a8d9ff" fill-opacity=".15" stroke="#b7d3ee" stroke-opacity=".5" stroke-width="1.4"/>
+      <g id="swingArc" fill="none" stroke="#fff2ad" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"><path id="swingArcGlow" stroke-width="9" opacity=".16"/><path id="swingArcLine" stroke-width="2.4" opacity=".95"/></g>
       <ellipse id="shadow" cx="1040" cy="680" rx="37" ry="10" fill="#49647a" opacity=".24"/>
       <line id="swingPlane" x1="620" y1="680" x2="1460" y2="680" stroke="#b7d3ee" stroke-width="2" stroke-dasharray="8 7" stroke-linecap="round" opacity=".85" filter="url(#swingGlow)"/>
       <g class="pendulum-cable">
@@ -151,38 +151,31 @@
         </svg>
         <div>
           <b id="locationName"></b>
-          <span class="location-coordinates"><strong id="locationLat"></strong> <span id="locationLon"></span></span>
+          <span class="location-coordinates"><strong id="locationLat"></strong></span>
         </div>
       </div>
     </div>
-    <dl id="precessionReadout" class="precession-readout" aria-label="偏转数据" aria-live="polite" aria-busy="false">
-      <div class="metric latitude-metric"><dt>纬度</dt><dd class="metric-value"><span class="metric-value-group"><output id="observationLatitude">31.23</output><small id="observationHemisphere" class="metric-unit">°N</small></span></dd></div>
-      <div class="metric period-metric">
-        <dt>偏转周期</dt>
-        <dd class="metric-value period-value">
-          <span class="metric-delta" aria-hidden="true"></span>
-          <span class="metric-value-group"><output id="precessionPeriod">46.3</output><small id="precessionPeriodUnit" class="metric-unit unit-h">h</small></span>
-        </dd>
-      </div>
-      <div class="metric rate-metric">
-        <dt>偏转速度</dt>
-        <dd class="metric-value rate-value">
-          <span class="metric-delta" aria-hidden="true"></span>
-          <span class="metric-value-group"><output id="precessionRate">7.78</output><small class="metric-unit unit-degree">°/h</small></span>
-        </dd>
-      </div>
-    </dl>
-    <dl id="swingReadout" class="precession-readout" aria-label="单摆周期" aria-live="polite">
-      <div class="metric"><dt>单摆周期</dt><dd class="metric-value"><span class="metric-delta" aria-hidden="true"></span><span class="metric-value-group"><output id="hallSwingPeriod">16.42</output><small class="metric-unit">s</small></span></dd></div>
-    </dl>
-    <div class="stage1-hud" aria-label="第一阶段显示控制">
-      <div class="time-speed" role="group" aria-label="显示控制">
-        <button id="planeToggle" type="button" aria-label="摆平面" aria-pressed="false" aria-controls="swingSurface swingArc">
-          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-            <path d="M3 16l7-9h11l-7 9zM12 3v18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
+    <div id="hallReadouts" class="hall-readouts" hidden>
+      <dl id="precessionReadout" class="precession-readout" aria-label="偏转数据" aria-live="polite" aria-busy="false">
+        <div class="metric latitude-metric"><dt>纬度</dt><dd class="metric-value"><span class="metric-value-group"><output id="observationLatitude">31.23</output><small id="observationHemisphere" class="metric-unit">°N</small></span></dd></div>
+        <div class="metric period-metric">
+          <dt>偏转周期</dt>
+          <dd class="metric-value period-value">
+            <span class="metric-delta" aria-hidden="true"></span>
+            <span class="metric-value-group"><output id="precessionPeriod">46.3</output><small id="precessionPeriodUnit" class="metric-unit unit-h">h</small></span>
+          </dd>
+        </div>
+        <div class="metric rate-metric">
+          <dt>偏转速度</dt>
+          <dd class="metric-value rate-value">
+            <span class="metric-delta" aria-hidden="true"></span>
+            <span class="metric-value-group"><output id="precessionRate">7.78</output><small class="metric-unit unit-degree">°/h</small></span>
+          </dd>
+        </div>
+      </dl>
+      <dl id="swingReadout" class="precession-readout" aria-label="单摆周期" aria-live="polite">
+        <div class="metric"><dt>单摆周期</dt><dd class="metric-value"><span class="metric-delta" aria-hidden="true"></span><span class="metric-value-group"><output id="hallSwingPeriod">16.42</output><small class="metric-unit">s</small></span></dd></div>
+      </dl>
     </div>
     <button id="debugButton" class="stage-control" aria-expanded="false" aria-controls="debugPanel" tabindex="-1" aria-hidden="true">编辑</button>
     <section id="debugPanel" aria-label="编辑面板" hidden>
