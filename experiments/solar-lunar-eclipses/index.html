@@ -2,7 +2,7 @@
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>日月食原理演示</title><link rel="icon" href="data:,">
-<link rel="stylesheet" href="../../shared/typography/typography.css"><link rel="stylesheet" href="overview.css?v=ground-realism-20261118"><link rel="stylesheet" href="components/eclipse-timeline.css">
+<link rel="stylesheet" href="../../shared/typography/typography.css"><link rel="stylesheet" href="overview.css?v=ground-window-20261120"><link rel="stylesheet" href="components/eclipse-timeline.css">
 <link rel="stylesheet" href="typography.css?v=observer-controls-20261117-12">
 </head><body><main id="stage" data-view="overview" aria-label="日月食原理演示">
 <canvas id="scene" role="img" aria-label="日地月公转示意：蓝灰色黄道面与金色倾斜月球轨道相交；天体大小和距离经过教学调整"></canvas>
@@ -20,7 +20,7 @@
 <nav id="eventTypes" aria-label="日食事件"><button data-event="total">全食事件</button><button data-event="annular">环食事件</button></nav>
 <div id="observerCandidates" role="group" aria-label="地球受影面候选观测点"></div>
 <button id="sweepToggle" type="button" aria-label="隐藏全程扫掠色带" title="隐藏全程扫掠色带" aria-pressed="true" aria-controls="scene sweepLegend"><span>显示月影扫掠区域</span><span class="sweep-switch" aria-hidden="true"></span></button>
-<div id="observationCameras" role="group" aria-label="观察视角"><button id="observationSolar" aria-label="日食观察" title="日食观察" aria-pressed="false" aria-controls="scene"><img class="camera-view-icon" src="assets/selected-icons/camera-solar.svg?v=sun-earth-moon-20261118" width="40" height="40" alt="" aria-hidden="true"></button><button id="observationOblique" aria-label="侧视" title="侧视" aria-pressed="true" aria-controls="scene"><img class="camera-view-icon" src="assets/selected-icons/camera-oblique.svg?v=sun-earth-moon-20261118" width="40" height="40" alt="" aria-hidden="true"></button><button id="observationSide" aria-label="正视" title="正视" aria-pressed="false" aria-controls="scene"><img class="camera-view-icon" src="assets/selected-icons/camera-front.svg?v=sun-earth-moon-20261118" width="40" height="40" alt="" aria-hidden="true"></button><button id="observationTop" aria-label="俯视" title="俯视" aria-pressed="false" aria-controls="scene"><img class="camera-view-icon" src="assets/selected-icons/camera-top.svg?v=sun-earth-moon-20261118" width="40" height="40" alt="" aria-hidden="true"></button></div>
+<div id="observationCameras" role="group" aria-label="观察视角"><button id="observationSolar" aria-label="日食观察" title="日食观察" aria-pressed="false" aria-controls="scene"><img class="camera-view-icon" src="assets/selected-icons/camera-solar.svg?v=sun-earth-moon-20261118" width="40" height="40" alt="" aria-hidden="true"></button><button id="observationOblique" aria-label="侧视" title="侧视" aria-pressed="true" aria-controls="scene"><img class="camera-view-icon" src="assets/selected-icons/camera-oblique.svg?v=sun-earth-moon-20261118" width="40" height="40" alt="" aria-hidden="true"></button><button id="observationSide" aria-label="正视" title="正视" aria-pressed="false" aria-controls="scene"><img class="camera-view-icon" src="assets/selected-icons/camera-front.svg?v=sun-earth-moon-20261118" width="40" height="40" alt="" aria-hidden="true"></button></div>
 <div id="observationTools" hidden>
 <div class="observation-transport" role="group" aria-label="食相播放控制"><button id="continuousPlay" aria-label="播放" title="播放"><svg viewBox="0 0 32 32" aria-hidden="true"><path class="transport-play" d="M11 6l15 10-15 10Z" fill="currentColor" stroke="none"/><path class="transport-pause" d="M11 7v18M22 7v18" stroke-width="4"/></svg></button><button id="restartEvent" aria-label="重播" title="重播"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 11a11 11 0 1 1-1 11M7 4v8h8"/></svg></button></div>
 <details id="observationOptions"><summary>观测调节</summary><div class="observation-options-body">
@@ -32,7 +32,7 @@
 <output id="observationGeometry"></output><output id="observerCoordinates" aria-label="观察点 A 固定模型经纬度"></output>
 </div></details></div>
 <aside id="eventTip" hidden aria-live="polite"><span id="eventText"></span><button id="enter">进入地月观测 →</button></aside>
-<section id="observer" hidden aria-label="观察点 A 地面视角"><h2 class="observer-title"><span>地面视角</span><span id="observerLabel" class="observer-site-tag">观察点 A</span></h2><canvas id="sky" role="img" aria-label="观察点 A 看到的日月食"></canvas><div class="observer-caption"><output id="phaseName"></output></div></section>
+<section id="observer" hidden aria-label="观察点 A 地面视角"><h2 class="observer-title"><span>地面视角</span><span id="observerLabel" class="observer-site-tag">观察点 A</span></h2><canvas id="sky" role="img" aria-label="观察点 A 看到的日月食"></canvas><div class="observer-caption"><span id="solarPhotoLabel" hidden>实拍示意</span><output id="phaseName"></output></div></section>
     <div id="observerPrompt" hidden>选择观测点</div>
     <nav class="rail" id="stageRail" hidden aria-label="食相阶段">
       <svg class="rail-cv" viewBox="0 0 1600 900" aria-hidden="true">
@@ -61,4 +61,4 @@
 <div id="dateRow" class="progress-row"><label for="date">日期 <output id="dateValue"></output></label><input id="date" type="range" min="0" max="364" step="1" value="0" aria-description="统一加速时间轴：现实2秒对应模拟1天；日期调节同步地月运动，非真实食象预报"></div>
 <div class="progress-row"><label for="moon">月球公转 <output id="moonValue"></output></label><input id="moon" type="range" min="0" max="360" step="0.1" value="135" aria-label="月球公转进度"><button id="play" aria-label="暂停地月运动" aria-pressed="true">Ⅱ</button></div>
 </section><p id="status" class="sr-only" aria-live="polite"></p>
-</main><script src="vendor/three.min.js"></script><script src="../../shared/components/optical-beam.js"></script><script src="js/eclipse-model.js"></script><script src="js/sky-window.js?v=solar-texture-20261118"></script><script src="js/stage-rail.js?v=selected-icons-20261117"></script><script type="module" src="js/overview.js?v=observer-controls-20261117-12"></script></body></html>
+</main><script src="vendor/three.min.js"></script><script src="../../shared/components/optical-beam.js"></script><script src="js/eclipse-model.js"></script><script src="js/sky-window.js?v=partial-photo-20261120"></script><script src="js/stage-rail.js?v=lunar-icons-20261120"></script><script type="module" src="js/overview.js?v=observer-clearance-20261120"></script></body></html>

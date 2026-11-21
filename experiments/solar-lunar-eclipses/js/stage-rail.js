@@ -121,7 +121,7 @@
         if (stages[i].showIcon) {
           var icon = document.createElement('img');
           icon.className = 'rail-node-icon';
-          icon.src = 'assets/selected-icons/lunar-stage-' + i + '.png';
+          icon.src = 'assets/selected-icons/lunar-stage-' + i + '.png?v=lunar-icons-20261120';
           icon.alt = '';
           icon.width = 44;
           icon.height = 44;

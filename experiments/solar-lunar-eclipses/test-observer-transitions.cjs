@@ -12,7 +12,7 @@ const out=__dirname+'/docs/observer-transitions-20261116';fs.mkdirSync(out,{recu
  }
  await pick(1);await pick(2);assert.equal((await read()).observerTransition,'true');await done();assert.equal(await p.locator('#observerLabel').textContent(),'观察点 C');
  const final=await read();await pick(2);assert.equal((await read()).observerTransition,'false');assert.equal((await read()).phi,final.phi);
- await pick(0);await p.locator('#observationTop').click();await p.waitForTimeout(100);assert.equal((await read()).observerTransition,'true');await done();await p.waitForFunction(()=>document.querySelector('#scene').dataset.cameraTransition==='false');
+ await pick(0);await p.locator('#observationSide').click();await p.waitForTimeout(100);assert.equal((await read()).observerTransition,'true');await done();await p.waitForFunction(()=>document.querySelector('#scene').dataset.cameraTransition==='false');
  await pick(1);await p.locator('[data-event=lunar]').click();await p.waitForTimeout(100);assert.equal((await read()).observerTransition,'false');assert.equal(await p.locator('#observerCandidates').isVisible(),false);
  await p.emulateMedia({reducedMotion:'reduce'});await p.locator('[data-event=total]').click();await pick(0);assert.equal((await read()).observerTransition,'false');await pick(2);assert.equal((await read()).observerTransition,'false');
  await p.emulateMedia({reducedMotion:'no-preference'});await pick(1);await p.waitForTimeout(160);await p.screenshot({path:out+'/continuous-midpoint.png'});await done();await p.screenshot({path:out+'/continuous-final.png'});

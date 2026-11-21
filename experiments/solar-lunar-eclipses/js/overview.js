@@ -1,20 +1,21 @@
-import {fitObserverCamera} from './observer-camera-fit.mjs';
+import {solarPhotoFrame} from './solar-photo-sequence.mjs?v=partial-photo-20261120';
+import {fitObserverCamera} from './observer-camera-fit.mjs?v=solar-scale-20261120';
 import {buildSolarSweep} from './solar-sweep.mjs?v=solar-antumbra-20261117-7';
 import {localSolarStages} from './local-solar-stages.mjs';
 import {createObserverTransition} from './observer-transition.mjs';
-import {observationCamera} from './observation-camera.mjs?v=observer-flow-20261117-11';
+import {observationCamera} from './observation-camera.mjs?v=solar-north-up-20261120';
 import {mountEclipseTimeline} from '../components/eclipse-timeline.js';
 import {drawEclipseStarfield} from '../components/eclipse-starfield.js';
 import {lunarGeometry,lunarScene,lunarContacts,lunarLocalView,selectLunarGroundPoint} from './lunar-scene.mjs';
-import {drawSunRays,disposeSunRays} from './sun-rays.mjs';
+import {drawSunEdgeGlow,drawSunRays,disposeSunRays} from './sun-rays.mjs?v=solar-bloom-ellipse';
 import {groundCoordinates,groundPoint,observationTime,observerSky,SPIN_PER_PHASE,SYNODIC_DAYS} from './observer-frame.mjs';
 import {referenceScene} from './reference-scene.mjs?v=solar-antumbra-20261117-7';
-import {createShadowSurface} from './shadow-surface.js?v=solar-antumbra-20261117-7';
+import {createShadowSurface} from './shadow-surface.js?v=smooth-sweep-20261120';
 import {createShadowLayout,shadowAxisVector} from './shadow-layout.mjs';
 import {createShadowVolume} from './shadow-volume.js';
 import {bodyBases,advanceSeasonal,calendarDay,dayAtOrbitAngle} from './body-orientation.mjs';
 import {visibleAt, visibleSegments} from './overview-depth.mjs';
-import {createGlobeShaderRenderer} from '../../../shared/components/globe-shader-renderer/index.js';
+import {createEclipseGlobeRenderer} from '../components/eclipse-globe/renderer.js?v=day-night-20261120';
 import {TAU,wrap,upcoming,eventContacts,ORBIT_RATES} from './overview-state.mjs';
 const M=window.EclipseModel,$=id=>document.getElementById(id),stage=$('stage'),canvas=$('scene'),c=canvas.getContext('2d');
 M.setTeachingInclination(10);
@@ -51,7 +52,7 @@ function inverse(v){const h=v[1]*se-v[2]*ce;return {x:v[0]*co+h*si,y:-v[0]*si+h*
 const textures={textureUrl:'assets/earth/earth-eq-redraw-1152x576.png',grainUrl:'assets/earth/grain-ref-512.png',grainBrushUrl:'assets/earth/grain-brush-512.png',reliefUrl:'assets/earth/land-relief-1024x512.png'};
 function planet(size,moon){
  const cv=document.createElement('canvas');cv.width=cv.height=size;
- const renderer=createGlobeShaderRenderer({...textures,textureUrl:moon?'assets/moon-eq-1024.png':textures.textureUrl,grid:{latitude:false,longitude:false,alpha:0},lighting:{highlightColor:[1,.94,.83],highlightStrength:1,highlightRange:1,highlightGrain:0,rimColor:[.25,.4,.6],rimStrength:.3,ambientColor:[1,1,1],ambientStrength:.13},material:{paperGrain:.035,contactAO:0}});
+ const renderer=createEclipseGlobeRenderer({...textures,textureUrl:moon?'assets/moon-eq-1024.png':textures.textureUrl,grid:{latitude:false,longitude:false,alpha:0},lighting:{highlightColor:moon?[1,.96,.89]:[1,.92,.77],highlightStrength:1,highlightRange:1,highlightGrain:0,rimColor:[.25,.4,.6],rimStrength:.25,ambientColor:[.82,.89,1],ambientStrength:moon?.105:.15},material:{paperGrain:.035,contactAO:0}});
  const ready=renderer.init(cv);if(ready){renderer.resize(size,size);renderer.grainMode=1;}
  let key='';return {renderer,canvas:cv,ready,draw(x,y,r,basis,sun){
   const next=JSON.stringify([basis,sun]);
@@ -81,7 +82,7 @@ function eventAngle(){const center=state.mode==='solar'?Math.PI:0;return center+
 function syncObservation(){
  $('referenceCase').value=state.referenceCase;if(state.observerAnchor)$('observerCoordinates').textContent='观察点 '+['A','B','C'][state.observerChoice]+' · 纬度 '+(state.observerAnchor.latitude/M.DEG).toFixed(1)+'° · 经度 '+(state.observerAnchor.longitude/M.DEG).toFixed(1)+'°（固定）';
  const visible=state.view==='observe';$('surfaceZoom').hidden=true;$('shadowLegend').hidden=!visible||state.surfaceDetail;$('surfaceDetail').hidden=true;$('surfaceZoom').setAttribute('aria-pressed',String(state.surfaceDetail));$('observationTools').hidden=!visible;$('observer').hidden=!visible||(state.mode==='solar'&&!state.observerSelected);$('stageRail').hidden=!visible||state.mode==='solar';$('observerCandidates').hidden=state.mode==='lunar';
- $('observationCameras').hidden=!visible;$('observationSolar').hidden=state.mode!=='solar';for(const [id,name] of [['observationSolar','solar'],['observationOblique','oblique'],['observationSide','level'],['observationTop','overhead']])$(id).setAttribute('aria-pressed',String(state.observationCamera===name));stage.dataset.observationCamera=state.observationCamera;
+ $('observationCameras').hidden=!visible;$('observationSolar').hidden=state.mode!=='solar';for(const [id,name] of [['observationSolar','solar'],['observationOblique','oblique'],['observationSide','level']])$(id).setAttribute('aria-pressed',String(state.observationCamera===name));stage.dataset.observationCamera=state.observationCamera;
  $('observerLabel').textContent=state.mode==='lunar'?'地面观测':'观察点 '+['A','B','C'][state.observerChoice];
  const playbackEnd=contacts.at(-1)?.phi??(state.mode==='solar'&&state.observerSelected?state.solarWindow?.end:undefined);$('continuousPlay').disabled=observerTransition.active||playbackEnd===undefined||(!state.playing&&eventAngle()>=playbackEnd-1e-7);$('restartEvent').disabled=state.mode==='solar'&&!state.observerSelected;$('continuousPlay').setAttribute('aria-label',state.playing?'暂停':'播放');$('continuousPlay').title=state.playing?'暂停':'播放';$('continuousPlay').setAttribute('aria-pressed',String(state.playing));
 
@@ -140,17 +141,20 @@ function depthLine(points,color,width,dash,bodies){
  c.beginPath();let lastPoint=null;for(const [a,b] of visibleSegments(points,bodies)){if(!lastPoint||Math.hypot(a.x-lastPoint.x,a.y-lastPoint.y)>.001)c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);lastPoint=b;}
  c.strokeStyle=color;c.lineWidth=width;c.setLineDash(dash);c.stroke();c.setLineDash([]);
 }
-function drawAxis(center,r,axis,color,bodies){
+function drawAxis(center,r,axis,color,bodies,extent=1.55){
  const at=t=>({x:center.x+axis[0]*r*t,y:center.y-axis[1]*r*t,depth:center.depth+axis[2]*r*t});
- depthLine([at(-1.55),at(1.55)],color,2.2,[],bodies);
- const end=at(1.55);if(visibleAt(end,bodies)){c.beginPath();c.arc(end.x,end.y,2.5,0,TAU);c.fillStyle=color;c.fill();}
+ depthLine([at(-extent),at(extent)],color,2.2,[],bodies);
+ const end=at(extent);if(visibleAt(end,bodies)){c.beginPath();c.arc(end.x,end.y,2.5,0,TAU);c.fillStyle=color;c.fill();}
 }
 function moveOverview(days){const next=advanceSeasonal({...state,year},days);year=next.year;state.phi=next.phi;state.earthSpin=next.earthSpin;state.simDay=next.simDay;state.day=calendarDay(state.simDay).index;M.setNodeAngle(-year);}
-function solarCameraOptions(){return state.solarCameraFit?{solarFront:state.solarCameraFit.front,solarMoonDirection:state.solarCameraFit.moonDirection}:state.referenceCase==='annular'?{solarElevation:-12,solarShoulder:35}:{};}
+function solarCameraOptions(){
+ const [x,y,z]=bodyBases({...state,year,view:'observe'},observationVector).earth.axis;
+ return {solarFront:state.solarCameraFit?.front,solarUp:{x,y,z}};
+}
 function drawObservationScene(cameraName=state.observationCamera,panel={x:365,y:205,width:900,height:510},paired=false){
  const d=Math.min(devicePixelRatio||1,2);const width=Math.round(1600*d),height=Math.round(900*d);if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}c.setTransform(d,0,0,d,0,0);if(!paired)c.drawImage(bg,0,0);
  const blend=state.cameraTransition?state.cameraBlend:1,targetLimb=['level','overhead'].includes(cameraName)?1:0,targetOrbit=cameraName==='oblique'?1:0,targetReference=['level','overhead'].includes(cameraName)?1:0,limbOpacity=state.cameraTransition?state.cameraTransition.fromLimb+(targetLimb-state.cameraTransition.fromLimb)*blend:targetLimb,orbitOpacity=state.cameraTransition?state.cameraTransition.fromOrbit+(targetOrbit-state.cameraTransition.fromOrbit)*blend:targetOrbit,referenceOpacity=state.cameraTransition?state.cameraTransition.fromReference+(targetReference-state.cameraTransition.fromReference)*blend:targetReference;
- if(!paired&&limbOpacity>0){c.save();c.globalAlpha=limbOpacity;const glow=c.createLinearGradient(0,0,140,0);glow.addColorStop(0,'#ffd27e40');glow.addColorStop(.35,'#e9ad461c');glow.addColorStop(1,'#e9ad4600');c.fillStyle=glow;c.fillRect(0,0,140,900);c.restore();}
+ if(!paired&&state.mode==='solar'&&limbOpacity>0)drawSunEdgeGlow(c,1600,900,[1,0],limbOpacity);
  const camera=observationCamera(M,observationVector,cameraName,state.cameraTransition?{from:state.cameraTransition.from,fromRows:state.cameraTransition.fromRows,progress:state.cameraBlend}:null,solarCameraOptions()),vector=camera.vector;
  const reference=referenceAt(state.phi),lunar=state.mode==='lunar'?lunarAt(state.phi):null;
  const canonical=p=>{const q=observationVector(M.displayPoint(p,0));return {x:q[0],y:q[1],z:q[2]};};
@@ -183,8 +187,8 @@ function drawObservationScene(cameraName=state.observationCamera,panel={x:365,y:
  }else{
   const halfWidth=Math.max(Math.abs(bounds.left),Math.abs(bounds.right)),halfHeight=Math.max(Math.abs(bounds.top),Math.abs(bounds.bottom));bounds.left=-halfWidth;bounds.right=halfWidth;bounds.top=-halfHeight;bounds.bottom=halfHeight;
  }
- const frame=focusBodies&&!paired?{x:420,y:245,width:980,height:500}:panel;
- const targetScale=cameraName==='solar'?(state.referenceCase==='annular'?220:180):cameraName==='oblique'?148*state.zoom:Math.min(frame.width/(bounds.right-bounds.left),frame.height/(bounds.bottom-bounds.top)),targetCenter=cameraName==='solar'?{x:state.referenceCase==='annular'?1020:900,y:state.referenceCase==='annular'?494:430}:cameraName==='oblique'?{x:state.mode==='solar'?900:570,y:435}:{x:frame.x+frame.width/2-(bounds.left+bounds.right)*targetScale/2,y:frame.y+frame.height/2-(bounds.top+bounds.bottom)*targetScale/2};
+ const frame=focusBodies&&!paired?{x:state.mode==='lunar'?455:cameraName==='level'?475:420,y:245,width:state.mode==='lunar'?940:880,height:500}:panel;
+ const targetScale=cameraName==='solar'?220:cameraName==='oblique'?(state.mode==='solar'?120:148)*state.zoom:Math.min(frame.width/(bounds.right-bounds.left),frame.height/(bounds.bottom-bounds.top)),targetCenter=cameraName==='solar'?{x:940,y:342}:cameraName==='oblique'?(state.mode==='solar'?{x:990,y:421}:{x:638,y:409}):{x:frame.x+frame.width/2-(bounds.left+bounds.right)*targetScale/2,y:frame.y+frame.height/2-(bounds.top+bounds.bottom)*targetScale/2};
  const scale=state.cameraTransition?state.cameraTransition.fromScale+(targetScale-state.cameraTransition.fromScale)*blend:targetScale,offset=state.cameraTransition?{x:state.cameraTransition.fromCenter.x+(targetCenter.x-state.cameraTransition.fromCenter.x)*blend,y:state.cameraTransition.fromCenter.y+(targetCenter.y-state.cameraTransition.fromCenter.y)*blend}:targetCenter;
  const project=p=>{const q=rawProject(p);return {x:offset.x+q.x*scale,y:offset.y+q.y*scale,depth:q.depth*scale};};
  const E=project(M.EARTH),P=project(mp),er=scale,sourceScreen=state.mode==='solar'?P:E,receiverScreen=state.mode==='solar'?E:P,receiverRadius=state.mode==='solar'?1:moonRadius;
@@ -192,7 +196,11 @@ function drawObservationScene(cameraName=state.observationCamera,panel={x:365,y:
  const active=lunar?lunar.active:M.dot(origin,M.unit(M.mul(model.SUN,-1)))<0;
  shadowFrame={origin,cone,length,layoutInput,layout,model,active,project,projectGenerator:layout.projectGenerator,normalForGenerator:layout.normalForGenerator,vector,dpr:d,sourceBody:{...sourceScreen,r:er*(state.mode==='solar'?moonRadius:1)},receiver:{center:receiver,radius:receiverRadius},clipReceiver:{...receiverScreen,r:er*receiverRadius},bodies:[{...E,r:er},{...P,r:er*moonRadius}],showAntumbra:state.mode==='solar'&&state.referenceCase==='annular'};
  const light=vector(M.unit(M.mul(model.SUN,-1))),lightDirection=[light[0],-light[1],light[2]];
- drawSunRays(c,1600,900,lightDirection);
+ const solarTarget=state.mode==='lunar'||cameraName==='solar'?1:0;
+ const solarLight=state.cameraTransition?state.cameraTransition.fromSolarLight+(solarTarget-state.cameraTransition.fromSolarLight)*blend:solarTarget;
+ if(solarLight>0)drawSunEdgeGlow(c,1600,900,lightDirection,solarLight);
+ const rayOpacity=drawSunRays(c,1600,900,lightDirection,{edgeFade:solarLight});
+ canvas.dataset.solarEdgeLight=String(solarLight);
  const eclipticCircle=orbitOpacity>0||cameraName==='oblique'?Array.from({length:193},(_,i)=>project(canonical(M.eclipticAt(i*TAU/192)))):[],eclipticLine=[{x:-950+Math.sqrt(1115**2-(E.y-450)**2),y:E.y,depth:0},E];
  const paths=[{points:cameraName==='oblique'?eclipticCircle:eclipticLine,color:'#8db0c5a8',fill:'#739fbd18',dash:[7,7]},{points:Array.from({length:193},(_,i)=>project(canonical(M.moonAt(i*TAU/192)))),color:'#e6c590',fill:'#e6b87520',dash:[]}];
  if(orbitOpacity>0){c.save();c.globalAlpha=orbitOpacity;line(eclipticCircle,paths[0].color,2,paths[0].dash,paths[0].fill);line(paths[1].points,paths[1].color,2,paths[1].dash,paths[1].fill);c.restore();}
@@ -211,7 +219,7 @@ function drawObservationScene(cameraName=state.observationCamera,panel={x:365,y:
  if(referenceOpacity>0){c.save();c.globalAlpha=referenceOpacity;depthLine(eclipticLine,'#8db0c5a8',2,[],bodies);c.restore();}
  const nodes=(cameraName==='solar'?[]:[-year,Math.PI-year]).map(phi=>project(canonical(M.moonAt(phi))));depthLine(nodes,'#a0c9cc99',1.5,[4,7],bodies);
  for(const p of nodes)if(visibleAt(p,bodies)){c.beginPath();c.arc(p.x,p.y,4,0,TAU);c.fillStyle='#b4d9da';c.fill();}
- drawAxis(E,er,earthBasis.axis,'#c7e3ed',bodies);drawAxis(P,er*moonRadius,lunarBasis.axis,'#f1d5a6',bodies);
+ drawAxis(E,er,earthBasis.axis,'#c7e3ed',bodies,cameraName==='solar'?1.18:1.55);drawAxis(P,er*moonRadius,lunarBasis.axis,'#f1d5a6',bodies);
  if(active&&!state.surfaceDetail){
   const field=state.mode==='lunar'?{layout:earthLayout,cone:earthCone,origin:M.EARTH,length:earthLength}:shadowFrame;
   const start=field.layout.project(field.origin),one=field.layout.project(M.add(field.origin,field.cone.axis));
@@ -225,7 +233,7 @@ function drawObservationScene(cameraName=state.observationCamera,panel={x:365,y:
   };
   // Keep complete label bounds inside the projected shadow and outside both bodies.
   // Select another cone section rather than shifting text away from its geometry.
-  const clear=p=>p.x>100&&p.x<1450&&p.y>190&&p.y<750&&!bodies.some(body=>{
+  const clear=p=>p.x>100&&p.x<1450&&p.y>190&&p.y<750&&($('observer').hidden||p.x>510||p.y<365)&&!bodies.some(body=>{
    const dx=Math.max(Math.abs(p.x-body.x)-32,0),dy=Math.max(Math.abs(p.y-body.y)-13,0);
    return dx*dx+dy*dy<(body.r+4)**2;
   });
@@ -261,7 +269,7 @@ function drawObservationScene(cameraName=state.observationCamera,panel={x:365,y:
  canvas.dataset.cameraBounds=JSON.stringify({panel,bounds,scale,offset});canvas.dataset.orbitPlanes=JSON.stringify(paths.map(p=>p.points));canvas.dataset.eclipticBasis=JSON.stringify([{x:1,y:0,z:0},{x:0,y:1,z:0},{x:0,y:0,z:1}].map(p=>vector(camera.teaching(p))));
  canvas.dataset.earthCenter=JSON.stringify(E);canvas.dataset.moonCenter=JSON.stringify(P);canvas.dataset.earthRadius=String(er);canvas.dataset.moonRadius=String(er*moonRadius);canvas.dataset.earthAxis=JSON.stringify(earthBasis.axis);canvas.dataset.moonAxis=JSON.stringify(lunarBasis.axis);
  canvas.dataset.sunlightDirection=JSON.stringify(lightDirection);canvas.dataset.shadowAxis=JSON.stringify([0,5,10,15,20].map(t=>layout.project(M.add(origin,M.mul(cone.axis,t)))));canvas.dataset.shadowSource=JSON.stringify(sourceScreen);canvas.dataset.shadowSections=JSON.stringify(shadowVolume.getStats());canvas.dataset.shadowGeometry='smooth-affine-cones';canvas.dataset.shadowResolution='analytic';canvas.dataset.antumbraExposed=String(shadowFrame.showAntumbra&&length>cone.umbraLength);
- canvas.dataset.sunLimb=JSON.stringify({center:{x:-950,y:450},radius:1115});canvas.dataset.sunlightComponent='SharedComponents.OpticalBeam';canvas.dataset.sunlightOpacity='.10';canvas.dataset.referenceCase=state.referenceCase;canvas.dataset.referenceStatus=reference?.status||'';canvas.dataset.referenceSky=reference?JSON.stringify(reference.sky):'';canvas.dataset.lunarGeometry=lunar?JSON.stringify({moon:lunar.moon,sun:lunar.model.SUN,sunRadius:lunar.model.SUN_R,sourceRadius:lunar.cone.sourceRadius,outerGap:lunar.gap(state.phi,false),innerGap:lunar.gap(state.phi,true),status:lunar.status(state.phi)}):'';
+ canvas.dataset.sunLimb=JSON.stringify({center:{x:-950,y:450},radius:1115});canvas.dataset.sunlightComponent='SharedComponents.OpticalBeam';canvas.dataset.sunlightOpacity=String(rayOpacity??0);canvas.dataset.referenceCase=state.referenceCase;canvas.dataset.referenceStatus=reference?.status||'';canvas.dataset.referenceSky=reference?JSON.stringify(reference.sky):'';canvas.dataset.lunarGeometry=lunar?JSON.stringify({moon:lunar.moon,sun:lunar.model.SUN,sunRadius:lunar.model.SUN_R,sourceRadius:lunar.cone.sourceRadius,outerGap:lunar.gap(state.phi,false),innerGap:lunar.gap(state.phi,true),status:lunar.status(state.phi)}):'';
  for(const key of ['phi','earthSpin','simDay'])canvas.dataset[key]=String(state[key]);canvas.dataset.year=String(year);drawSurfaceDetail(d);canvas.dataset.surfaceRenderer=JSON.stringify(shadowSurface.getStats());dirty=false;
 }
 
@@ -427,7 +435,7 @@ const timeAxes=[mountEclipseTimeline({input:$('date'),output:$('dateValue'),star
 function sync(){
  const overview=state.view==='overview';syncDivider();$('overviewCameras').hidden=!overview;$('splitViewLabels').hidden=!overview||!state.splitOverview;
  $('splitCameraToggle').setAttribute('aria-pressed',String(state.splitOverview));$('splitCameraToggle').setAttribute('aria-label',state.splitOverview?'返回原视角':'并排查看平视与垂直黄道面');$('splitCameraToggle').title=state.splitOverview?'返回原视角':'双视角对照';stage.dataset.camera=overview&&state.splitOverview?'split':state.camera;
- canvas.setAttribute('aria-label',!overview?('完整地月场景：'+({solar:'日食观察',oblique:'侧视',level:'正视',overhead:'俯视'})[state.observationCamera]+'，地球与月球影锥、左侧黄色羽化高光及同步地面观测'):state.splitOverview?'同步双视角：左栏平视黄道面，右栏垂直黄道面':'日地月公转与日月食示意');
+ canvas.setAttribute('aria-label',!overview?('完整地月场景：'+({solar:'日食观察',oblique:'侧视',level:'正视'})[state.observationCamera]+'，地球与月球影锥、左侧黄色羽化高光及同步地面观测'):state.splitOverview?'同步双视角：左栏平视黄道面，右栏垂直黄道面':'日地月公转与日月食示意');
  syncObservation();
  const date=calendarDay(state.simDay);$('dateValue').textContent=date.label;$('date').max=date.length-1;$('date').value=date.index;
  const progress=wrap(state.phi+(state.view==='overview'?year:0));
@@ -500,12 +508,15 @@ function buildCandidates(){
  if(!stages.length)throw new Error('日食候选基准点未覆盖食象');
  const span=stages.at(-1).phi-stages[0].phi;state.solarWindow={start:stages[0].phi-span*.06,end:stages.at(-1).phi+span*.06};
  const before=skyAt(first,center-.01).M,after=skyAt(first,center+.01).M,velocity=M.sub(after,before),normal=M.unit({x:base.y*velocity.z-base.z*velocity.y,y:base.z*velocity.x-base.x*velocity.z,z:base.x*velocity.y-base.y*velocity.x});
- let partial=null,none=null,best=Infinity,noneScore=-Infinity;const noneCandidates=[],solarFront=observationCamera(M,observationVector,'solar',null,solarCameraOptions()).front;
+ let partial=null,none=null,best=Infinity,noneScore=-Infinity;const noneCandidates=[],northView=observationCamera(M,observationVector,'solar').front;
+ const annular=state.referenceCase==='annular',solarFront=annular?observationCamera(M,observationVector,'solar',null,{solarElevation:5,solarShoulder:35}).front:northView;
+ // Prefer an unobscured control site well inside the north-facing view.
+ const controlScore=(p,gap,separation)=>gap+separation*.05+(annular?2*M.dot(p,northView):0);
  for(let i=1;i<=64;i++)for(const sign of [-1,1]){
   const angle=i*1.35/64,p=M.add(M.mul(base,Math.cos(angle)),M.mul(normal,sign*Math.sin(angle))),anchor=groundCoordinates(p,basis),atCenter=skyAt(anchor,center);if(p.z<.12||atCenter.altitude<.1)continue;
   let minimum=1,gap=Infinity,minAltitude=1,minFront=1;for(let k=0;k<=80;k++){const q=skyAt(anchor,state.solarWindow.start+(state.solarWindow.end-state.solarWindow.start)*k/80);minimum=Math.min(minimum,q.visibility);minAltitude=Math.min(minAltitude,q.altitude);minFront=Math.min(minFront,M.dot(q.P,solarFront));gap=Math.min(gap,q.sep-q.sunR-q.moonR);}
   if(M.dot(p,solarFront)>.3&&angle>.24&&minimum>.15&&minimum<.9&&Math.abs(minimum-.65)<best){partial=anchor;best=Math.abs(minimum-.65);}
-  const separation=Math.acos(M.clamp(M.dot(base,p),-1,1));if(gap>.025&&minAltitude>.05&&minFront>.15&&separation>.6)noneCandidates.push({anchor,p,score:gap+separation*.05});
+  const separation=Math.acos(M.clamp(M.dot(base,p),-1,1));if(gap>.025&&minAltitude>.05&&minFront>.15&&separation>.6)noneCandidates.push({anchor,p,score:controlScore(p,gap,separation)});
  }
  if(partial){const partialPoint=groundPoint(partial,basis);for(const candidate of noneCandidates)if(Math.acos(M.clamp(M.dot(partialPoint,candidate.p),-1,1))>.5&&candidate.score>noneScore){none=candidate.anchor;noneScore=candidate.score;}}
  if(!none&&partial){
@@ -517,7 +528,7 @@ function buildCandidates(){
    const centerSky=skyAt(anchor,center);if(centerSky.altitude<=.1||M.dot(p,solarFront)<=.2)continue;
    let gap=Infinity,minAltitude=1,minFront=1;
    for(let k=0;k<=80;k++){const q=skyAt(anchor,state.solarWindow.start+(state.solarWindow.end-state.solarWindow.start)*k/80);gap=Math.min(gap,q.sep-q.sunR-q.moonR);minAltitude=Math.min(minAltitude,q.altitude);minFront=Math.min(minFront,M.dot(q.P,solarFront));if(gap<=.025||minAltitude<=.05||minFront<=.15)break;}
-   const score=gap+separation*.05;if(gap>.025&&minAltitude>.05&&minFront>.15&&score>noneScore){none=anchor;noneScore=score;}
+   const score=controlScore(p,gap,separation);if(gap>.025&&minAltitude>.05&&minFront>.15&&score>noneScore){none=anchor;noneScore=score;}
   }
  }
  canvas.dataset.candidateSearch=JSON.stringify({partial:!!partial,none:!!none,crossTrackNone:noneCandidates.length});
@@ -540,13 +551,14 @@ function buildCandidates(){
 
 function rebuildObserverCamera(){
  if(state.mode!=='solar'||state.referenceCase==='free'||!state.candidateAnchors.length||!state.solarWindow)return;
- const fitPoints=[],fitMoons=[];
+ const fitPoints=[],fitMoons=[],phasePadding=Number($('moon').step)*M.DEG/2;
+ const start=state.solarWindow.start-phasePadding,end=state.solarWindow.end+phasePadding;
  for(let k=0;k<=128;k++){
-  const phi=state.solarWindow.start+(state.solarWindow.end-state.solarWindow.start)*k/128,b=bodyBases({...state,year,...observationTime(state.observerEpoch,phi),view:'observe'},observationVector).earth;
+  const phi=start+(end-start)*k/128,b=bodyBases({...state,year,...observationTime(state.observerEpoch,phi),view:'observe'},observationVector).earth;
   for(const anchor of state.candidateAnchors)fitPoints.push(groundPoint(anchor,b));
   const q=observationVector(M.displayPoint(M.moonAt(phi),0));fitMoons.push({x:q[0],y:q[1],z:q[2]});
  }
- state.solarCameraFit={...fitObserverCamera(fitPoints,fitMoons,referenceAt(Math.PI,true).model.MOON_R),moonDirection:fitMoons[64]};
+ state.solarCameraFit=fitObserverCamera(fitPoints,fitMoons,referenceAt(Math.PI,true).model.MOON_R,solarCameraOptions().solarUp);
  if(state.solarCameraFit.margin<.1)throw new Error('观察点无法在固定受影面视角下同时可见');
  canvas.dataset.observerCameraFit=JSON.stringify({...state.solarCameraFit,window:state.solarWindow,samples:129});
 }
@@ -555,13 +567,20 @@ function syncGroundObserver(reference,lunar,E,er,earthBasis,lunarBasis,sun,light
   const observer=observerAt(state.phi),v=state.observerSpace==='camera'?cameraVector(observer):viewVector(observer),q={x:E.x+v[0]*er,y:E.y-v[1]*er,depth:E.depth+v[2]*er};
   if(state.mode==='solar'&&state.observerSelected){const back=q.depth<E.depth;c.save();c.strokeStyle='#ffe2a3';c.lineWidth=3;c.setLineDash(back?[5,4]:[]);c.beginPath();c.arc(q.x,q.y,12,0,TAU);c.stroke();c.setLineDash([]);const label='观察点 '+['A','B','C'][state.observerChoice]+(back?'（背面投影）':''),x=q.x+22,y=q.y-22;c.font='500 20px '+font;const w=c.measureText(label).width;c.fillStyle='#060a13ee';c.fillRect(x-8,y-23,w+16,34);c.fillStyle='#ffe2a3';c.fillText(label,x,y);c.restore();canvas.dataset.selectedMarker=JSON.stringify({...q,visible:true,back,label});}else canvas.dataset.selectedMarker='';
   const observed=skyForObserver(state.phi,reference);canvas.dataset.observerGround=JSON.stringify(state.observerAnchor);canvas.dataset.observerPosition=JSON.stringify(observer);canvas.dataset.observerScreen=JSON.stringify(q);canvas.dataset.observerSky=JSON.stringify(observed);
-  const key=[state.mode,state.phi,year,state.earthSpin,state.referenceCase,state.observerChoice,state.observerAnchor?.latitude,state.observerAnchor?.longitude,devicePixelRatio].join('|');if(key!==skyKey){skyKey=key;
+  const key=[state.mode,state.phi,year,state.earthSpin,state.referenceCase,state.observerSelected,state.observerChoice,observerTransition.active,state.observerAnchor?.latitude,state.observerAnchor?.longitude,devicePixelRatio].join('|');if(key!==skyKey){skyKey=key;
+   delete sky.canvas.dataset.solarPhotoFrame;
    let localSun=[0,0,1]; // The solar sky camera looks directly at the common Sun.
    if(lunar){
     sky.setup();const local=lunarLocalView(M,{scene:lunar,observer:observed.P,width:sky.w,height:sky.h}),basis={axis:local.vector({x:lunarBasis.axis[0],y:lunarBasis.axis[1],z:lunarBasis.axis[2]}),e2:local.vector({x:lunarBasis.e2[0],y:lunarBasis.e2[1],z:lunarBasis.e2[2]}),e3:local.vector({x:lunarBasis.e3[0],y:lunarBasis.e3[1],z:lunarBasis.e3[2]})};
     localSun=local.sun;moonFront.draw(-1000,-1000,1,basis,localSun);
     sky.renderLunarScene({visible:observed.moonAltitude>0,texture:moonFront.canvas,shadow:(ctx,target)=>shadowSurface.draw(ctx,{layout:local.layout,center:local.center,radius:local.radius,model:lunar.model,mode:'lunar',...target,shade:true,edges:false,lunarAppearance:true})});
-   }else{sky.phaseKey='';sky.renderObserved(state,observed);}
+   }else{
+    const photo=state.observerSelected&&!observerTransition.active&&
+      solarPhotoFrame(state.referenceCase,eventAngle(),contacts,observed,()=>{if(!disposed){skyKey='';request();}});
+    if(photo)sky.renderSolarPhoto(photo);
+    else{sky.phaseKey='';sky.renderObserved(state,observed);}
+   }
+   $('solarPhotoLabel').hidden=!sky.canvas.hasAttribute('data-solar-photo-frame');
    canvas.dataset.localSunDirection=JSON.stringify(localSun);canvas.dataset.lightFrame=JSON.stringify({sun:lunar?.model.SUN||reference?.model.SUN||M.SUN,sunRadius:lunar?.model.SUN_R||reference?.model.SUN_R||M.SUN_R,modelSpace:lunar?'camera':state.observerSpace,background:lightDirection,globeSun:sun,observerSun:observed.sunDirection,space:state.observerSpace});
   }
 }
@@ -574,11 +593,11 @@ $('solarCategory').onclick=()=>{if(state.mode!=='solar')enterEvent(selectedSolar
 function changeObservationCamera(name){
  skyKey='';
  if((name==='solar'&&state.mode!=='solar')||state.observationCamera===name)return;
- const from=state.observationCamera,current=observationCamera(M,observationVector,from,state.cameraTransition?{from:state.cameraTransition.from,fromRows:state.cameraTransition.fromRows,progress:state.cameraBlend}:null,solarCameraOptions()),fromRows=[current.right,current.up,current.front],fromScale=Number(canvas.dataset.earthRadius)||148,fromCenter=canvas.dataset.earthCenter?JSON.parse(canvas.dataset.earthCenter):{x:900,y:435},fromLimb=Number(canvas.dataset.sunLimbOpacity)||0,fromOrbit=canvas.dataset.orbitGuideOpacity===undefined?(from==='oblique'?1:0):Number(canvas.dataset.orbitGuideOpacity),fromReference=Number(canvas.dataset.referenceLineOpacity)||0;
- state.observationCamera=name;state.observationSplit=false;state.cameraBlend=motion.matches?1:0;state.cameraTransition=motion.matches?null:{from,fromRows,fromScale,fromCenter,fromLimb,fromOrbit,fromReference,started:performance.now()};last=0;request();
+ const from=state.observationCamera,current=observationCamera(M,observationVector,from,state.cameraTransition?{from:state.cameraTransition.from,fromRows:state.cameraTransition.fromRows,progress:state.cameraBlend}:null,solarCameraOptions()),fromRows=[current.right,current.up,current.front],fromScale=Number(canvas.dataset.earthRadius)||148,fromCenter=canvas.dataset.earthCenter?JSON.parse(canvas.dataset.earthCenter):{x:900,y:435},fromLimb=Number(canvas.dataset.sunLimbOpacity)||0,fromSolarLight=Number(canvas.dataset.solarEdgeLight)||0,fromOrbit=canvas.dataset.orbitGuideOpacity===undefined?(from==='oblique'?1:0):Number(canvas.dataset.orbitGuideOpacity),fromReference=Number(canvas.dataset.referenceLineOpacity)||0;
+ state.observationCamera=name;state.observationSplit=false;state.cameraBlend=motion.matches?1:0;state.cameraTransition=motion.matches?null:{from,fromRows,fromScale,fromCenter,fromLimb,fromSolarLight,fromOrbit,fromReference,started:performance.now()};last=0;request();
 }
 function startSolarCamera(){changeObservationCamera('solar');}
-for(const [id,name] of [['observationSolar','solar'],['observationOblique','oblique'],['observationSide','level'],['observationTop','overhead']])$(id).onclick=()=>changeObservationCamera(name);
+for(const [id,name] of [['observationSolar','solar'],['observationOblique','oblique'],['observationSide','level']])$(id).onclick=()=>changeObservationCamera(name);
 M.setNodeAngle(0);const initialEvent=new URLSearchParams(location.search).get('event');if(['total','annular'].includes(initialEvent))selectedSolarEvent=initialEvent;enterEvent(['total','annular','lunar'].includes(initialEvent)?initialEvent:'total');fit();
 
 // A paused scene also needs one redraw after the local font replaces its fallback.
