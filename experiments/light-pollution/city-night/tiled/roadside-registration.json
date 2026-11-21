@@ -1,5 +1,5 @@
 {
-  "reference": "User annotated road-edge image, 2026-11-16; registered against current fixed base, 82 feature inliers. Visual placement only. Middle cross street: latest annotated image registered with 219 feature inliers; separate north/south curb constraints. West middle street corrected independently using latest user annotation, 334 feature inliers; path-34 moved from diagonal corner to south sidewalk.",
+  "reference": "User annotated road-edge image, 2026-11-16; registered against current fixed base, 82 feature inliers. Visual placement only. Middle cross street: latest annotated image registered with 219 feature inliers; separate north/south curb constraints. West middle street corrected independently using latest user annotation, 334 feature inliers; path-34 moved from diagonal corner to south sidewalk. 2026-11-21 the placed street lights are the default: removed lamps are gone, and feet that left a curb are stored directly.",
   "routes": {
     "west": {
       "xPerY": -0.2782248384422223,
@@ -88,44 +88,28 @@
   },
   "frontRoadY": 1309.419476913334,
   "assignments": {
-    "road-1": "west",
     "road-3": "west",
     "road-5": "west",
     "road-7": "west",
-    "road-16": "west",
     "road-18": "west",
-    "road-20": "west",
     "road-22": "west",
-    "road-24": "west",
-    "road-2": "east",
     "road-4": "east",
     "road-6": "east",
     "road-8": "east",
-    "road-17": "east",
     "road-19": "east",
-    "road-21": "east",
     "road-23": "east",
-    "road-25": "east",
-    "road-11": "front",
     "road-12": "front",
     "road-14": "front",
     "road-15": "front",
-    "path-31": "front",
-    "path-32": "front",
-    "path-45": "front",
     "path-35": "westMiddleNorth",
     "path-36": "westMiddleNorth",
-    "path-38": "westMiddleNorth",
-    "path-39": "middleNorth",
     "path-40": "middleNorth",
     "path-43": "middleSouth",
-    "path-44": "middleSouth",
     "path-34": "westMiddleSouth",
     "path-37": "westMiddleSouth"
   },
   "reviewedCurvedOrSideRoutes": {
     "road-9": "southwest intersection sidewalk island",
-    "road-10": "southeast intersection sidewalk island",
-    "road-13": "west diagonal side street sidewalk"
+    "road-10": "southeast intersection sidewalk island"
   }
 }
