@@ -15,7 +15,7 @@ const screenshotPrefix = entry === 'index2.html' ? 'guided-index2' : 'guided';
     await page.goto(process.env.BASE_URL ? process.env.BASE_URL + '/experiments/meteor-impact/' + entry : pathToFileURL(path.resolve(__dirname, '..', entry)).href);
     if (entry === 'index2.html') {
       assert.equal(await page.locator('script[src="components/meteor-3d/meteor-3d-preview.js"]').count(), 1);
-      assert.equal(await page.locator('link[href="style2.css"]').count(), 1);
+      assert.equal(await page.locator('link[rel="stylesheet"]').evaluateAll(links => links.filter(link => new URL(link.href).pathname.endsWith('/style2.css')).length), 1);
     }
     await page.waitForFunction(() => meteorExperiment.state().ready);
     assert.equal(await page.locator('#wholeView, #cutView, #overview, [data-mode], #factorSelect, .inline-settings select').count(), 0);
