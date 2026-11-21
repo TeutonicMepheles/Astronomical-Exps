@@ -74,26 +74,26 @@
       for (let i = 0; i < size * size; i++) {
         const shade = 238 + Math.floor(random() * 12);
         pixels.data[i * 4] = shade;
-        pixels.data[i * 4 + 1] = shade;
-        pixels.data[i * 4 + 2] = shade;
+        pixels.data[i * 4 + 1] = shade - 3;
+        pixels.data[i * 4 + 2] = shade - 9;
         pixels.data[i * 4 + 3] = 255;
       }
       lunar.putImageData(pixels, 0, 0);
-      for (let i = 0; i < 260; i++) {
+      for (let i = 0; i < 280; i++) {
         const x = random() * size;
         const y = random() * size;
         const rx = 18 + random() * 100;
         const ry = 9 + random() * 50;
-        lunar.fillStyle = i % 3 === 0 ? 'rgba(139,139,139,.025)' : 'rgba(250,250,250,.045)';
+        lunar.fillStyle = i % 3 === 0 ? 'rgba(139,118,95,.025)' : 'rgba(255,251,237,.045)';
         lunar.beginPath();
         lunar.ellipse(x, y, rx, ry, random() * Math.PI, 0, Math.PI * 2);
         lunar.fill();
       }
-      for (let i = 0; i < 10500; i++) {
+      for (let i = 0; i < 13000; i++) {
         const x = random() * size;
         const y = random() * size;
         const radius = .7 + random() * 3.2;
-        lunar.fillStyle = i % 4 === 0 ? 'rgba(250,250,250,.2)' : 'rgba(126,126,126,.13)';
+        lunar.fillStyle = i % 4 === 0 ? 'rgba(255,255,246,.20)' : 'rgba(126,107,89,.13)';
         const rotation = random() * Math.PI * 2;
         lunar.beginPath();
         for (let j = 0; j < 5; j++) {
@@ -104,24 +104,31 @@
         }
         lunar.closePath(); lunar.fill();
       }
-      lunar.fillStyle = 'rgba(121,121,121,.16)';
-      for (let i = 0; i < 48000; i++) {
+      lunar.fillStyle = 'rgba(121,106,90,.16)';
+      for (let i = 0; i < 55000; i++) {
         lunar.fillRect(random() * size, random() * size, .5 + random() * 1.5, .5 + random() * 1.2);
       }
-      // Shallow pits from the supplied lunar material, retaining neutral gray.
+      // Match the current EXP-02 surface recipe; provenance and UV scale in SOURCE.md.
       for (let i = 0; i < 90; i++) {
         const x = 30 + random() * (size - 60), y = 30 + random() * (size - 60);
         const radius = i < 14 ? 12 + random() * 13 : 2 + random() * 8;
-        lunar.fillStyle = 'rgba(125,125,125,.12)';
+        lunar.fillStyle = 'rgba(125,109,93,.12)';
         lunar.beginPath(); lunar.ellipse(x + 1, y + 1, radius, radius * .72, random() * Math.PI, 0, Math.PI * 2); lunar.fill();
-        lunar.strokeStyle = 'rgba(250,250,250,.46)'; lunar.lineWidth = 1 + random() * 2;
+        lunar.strokeStyle = 'rgba(255,251,239,.46)'; lunar.lineWidth = 1 + random() * 2;
         lunar.beginPath(); lunar.arc(x, y, radius, Math.PI * .78, Math.PI * 1.8); lunar.stroke();
       }
       this.lunarTexture = new T.CanvasTexture(lunarCanvas);
       this.lunarTexture.colorSpace = T.SRGBColorSpace;
       this.lunarTexture.anisotropy = 4;
-      this.lunarTexture.wrapS = this.lunarTexture.wrapT = T.RepeatWrapping;
-      this.lunarTexture.repeat.set(3.2, 3.2);
+      // One texture across the central 64-unit patch; mirror its outer apron,
+      // as EXP-02 does, rather than stretching border pixels over the wide terrain.
+      this.lunarTexture.wrapS = this.lunarTexture.wrapT = T.MirroredRepeatWrapping;
+      this.lunarTexture.repeat.set(5, 5);
+      this.lunarTexture.offset.set(-2, -2);
+
+      // Preserve the old Earth texture stream independently of the lunar recipe.
+      // Original LCG seed after 1024² + 260*5 + 10500*9 + 48000*4 + 90*5 draws.
+      seed = 0x905fa793;
 
       const soilCanvas = document.createElement('canvas');
       soilCanvas.width = soilCanvas.height = size;
@@ -198,7 +205,9 @@
       sun.shadow.bias = -.0005;
       sun.shadow.normalBias = .25;
       this.scene.add(sun);
-      this.scene.add(new T.HemisphereLight(0xb9c8dc, 0x49433d, .65));
+      this.sun = sun;
+      this.hemisphere = new T.HemisphereLight(0xb9c8dc, 0x49433d, .65);
+      this.scene.add(this.hemisphere);
     }
 
     _buildTerrain() {
@@ -662,7 +671,15 @@
       this.params.scene = scene;
       this.material.map = scene === 'earth' ? this.soilTexture : this.lunarTexture;
       this.material.bumpMap = this.material.map;
-      this.material.bumpScale = scene === 'earth' ? .018 : .009;
+      this.material.bumpScale = scene === 'earth' ? .018 : .006;
+      // Match EXP-02's lunar material illumination; keep the Earth preset intact.
+      const moon = scene === 'moon';
+      this.renderer.toneMappingExposure = moon ? 1.08 : .82;
+      this.sun.color.setHex(moon ? 0xfff4e4 : 0xfff1e5);
+      this.sun.intensity = moon ? 3.2 : 1.35;
+      this.hemisphere.color.setHex(moon ? 0xf9f1e7 : 0xb9c8dc);
+      this.hemisphere.groundColor.setHex(moon ? 0x77716f : 0x49433d);
+      this.hemisphere.intensity = moon ? .72 : .65;
       this.material.needsUpdate = true;
       if (changed || this.terrainImpacted) this._rebuildTerrain(false, false);
     }
