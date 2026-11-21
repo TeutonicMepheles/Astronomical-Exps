@@ -5,16 +5,16 @@
 
 /* Scoped finite SVG strokes; no new animation loop or WebGL redraw. */
 .meteor-annotations{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:hidden}
-.side-0 .meteor-annotations{--annotation-color:var(--one)}
-.side-1 .meteor-annotations{--annotation-color:var(--two)}
-.meteor-annotations .rc-trace{fill:none;stroke:var(--annotation-color);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:meteor-callout-draw .6s cubic-bezier(.4,.05,.25,1) var(--delay,0ms) forwards}
-.meteor-annotations .rc-extension{stroke-width:1.4;opacity:.65}
+.side-0 .meteor-annotations{--annotation-color:var(--one);--reference-color:#0785ad}
+.side-1 .meteor-annotations{--annotation-color:var(--two);--reference-color:#256b29}
+.meteor-annotations .rc-trace{fill:none;stroke:var(--reference-color);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:meteor-callout-draw .6s cubic-bezier(.4,.05,.25,1) var(--delay,0ms) forwards}
+.meteor-annotations .rc-extension{stroke-width:2.4;opacity:.85}
 .meteor-annotations .rc-label{opacity:0;animation:meteor-callout-label .2s ease-out calc(var(--delay,0ms) + .5s) forwards}
 .meteor-annotations .rc-label rect{fill:#101f2df2;stroke:var(--annotation-color);stroke-width:1}
 .meteor-annotations text{fill:var(--annotation-color);font:500 22px var(--font-ui)}
 .meteor-annotations .rc-baseline{stroke:#b9bdc2;stroke-width:1.2;stroke-dasharray:8 7;opacity:.6;fill:none}
 .meteor-annotations .rc-baseline-label{fill:#b9bdc2;font-size:17px}
-.meteor-annotations .rc-pin{fill:var(--annotation-color)}
+.meteor-annotations .rc-pin{fill:var(--reference-color)}
 @keyframes meteor-callout-draw{to{stroke-dashoffset:0}}
 @keyframes meteor-callout-label{to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.meteor-annotations .rc-trace{animation:none;stroke-dashoffset:0}.meteor-annotations .rc-label{animation:none;opacity:1}}
@@ -56,11 +56,28 @@ select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}select:dis
 #records[open]{display:flex;flex-direction:column;gap:10px}
 #records>header{margin:0;flex:none}#records .record-note{margin:0;font-size:14px}
 #recordBody{min-height:0;flex:1;display:flex;flex-direction:column;gap:10px}
-#recordBody h3{margin:0;font-size:18px}#recordBody table{flex:none}#recordBody th,#recordBody td{padding:8px 10px}
+#recordBody h3{margin:0;font-size:18px}
 #records .record-gallery{flex:1;min-height:0;gap:24px}
-#records .record-gallery figure{margin:0;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:28px minmax(0,1fr);gap:0}
-#records .record-gallery figcaption{grid-column:1/-1;margin:0;font-size:18px}
 #records .record-gallery img{width:100%;height:100%;min-height:0;object-fit:contain}
+#records .record-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px}
+#records .record-card{--card-color:var(--one);min-width:0;min-height:0;display:flex;flex-direction:column;border:1px solid var(--card-color);border-radius:16px;overflow:hidden;background:#0c1822}
+#records .record-card.side-1{--card-color:var(--two)}
+#records .record-card>header{display:flex;align-items:center;gap:12px;padding:14px 18px 10px}
+#records .record-card h4{font-size:22px;margin:0}
+#records .record-card>header>strong{margin-left:auto;color:var(--card-color);font-size:20px}
+#records .record-conditions{display:flex;gap:8px;padding:0 18px 14px}
+#records .record-conditions span{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:15px;color:var(--muted)}
+#records .record-conditions b{font-size:18px;color:var(--ink);font-weight:500}
+#records .record-conditions .record-variable{border-color:var(--card-color);background:#203341}
+#records .record-variable b{color:var(--card-color)}
+#records .record-scene{position:relative;flex:1;min-height:0;overflow:hidden;background:#111c24}
+#records .record-scene img{position:absolute;inset:0;display:block;object-fit:cover}
+#records .record-card>footer{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:14px 18px;border-top:1px solid var(--line)}
+#records .record-card>footer span{display:flex;align-items:center;justify-content:center;gap:12px;font-size:16px;color:var(--muted)}
+#records .record-card>footer b{font-size:22px;color:var(--card-color);font-weight:500}
+/* Saved records are static: opening or paging never starts annotation animations. */
+#records .meteor-annotations .rc-trace{animation:none;stroke-dashoffset:0}
+#records .meteor-annotations .rc-label{animation:none;opacity:1}
 #records>footer{margin:0;flex:none}
 #records{position:fixed;left:50%;top:50%;margin:0;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center}
 
@@ -69,5 +86,40 @@ select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}select:dis
 .header-notes{display:grid;gap:7px;flex:1;font-size:14px;line-height:1.4;color:var(--muted)}.header-notes strong{font-weight:500;color:var(--ink)}
 .viewbar .launch-area{display:flex;align-items:center;gap:8px;margin:0 0 0 auto}.viewbar .launch{min-width:170px;min-height:44px;padding:0 15px;font-size:20px;gap:18px}.viewbar #status{font-size:12px;max-width:140px;min-height:0}.viewbar #status:empty{display:none}.viewbar #cancel{font-size:14px;padding:0 9px}
 
-/* User-supplied local background, fixed to the teaching stage. */
-#lab{background:linear-gradient(rgba(5,12,26,.18),rgba(5,12,26,.18)),url('assets/earth-space-background.png') center/cover no-repeat}.topbar h1,.header-notes,.viewbar #pairTitle,.factor-picker{ text-shadow:0 1px 4px #050a10 }
+/* Edge-to-edge paired observation; controls float above the two scenes. */
+#lab{display:block;padding:0;overflow:hidden;background:#101c28}
+#lab>.topbar{position:absolute;inset:0 0 auto;height:88px;padding:0 28px;z-index:5;background:linear-gradient(#0a1521ee,#0a1521b3)}
+.workspace{position:absolute;inset:0;display:block}
+.workspace>.viewbar{position:absolute;top:88px;left:0;right:0;height:58px;padding:0 28px;z-index:5;background:linear-gradient(#0a1521b3,#0a152100)}
+.viewports{position:absolute;inset:0;gap:0}
+.viewport,.viewport.side-1{border:0;border-radius:0;background:#101c28}
+.viewport>header{top:154px;left:24px;right:24px;background:#0b1723de}
+.viewports::after{content:"";position:absolute;top:0;bottom:0;left:calc(50% - 48px);width:96px;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,#d8d6d0b3 50%,transparent)}
+.topbar h1,.header-notes,.viewbar #pairTitle,.factor-picker{text-shadow:0 1px 4px #050a10}
+.viewport .outcomes{left:24px;right:24px;bottom:22px;background:#0a1521de}
+
+/* Shared guided layout; index2 retains its independent scene and blend styling. */
+.guided-course #courseProgress{display:flex;align-items:center;gap:22px;margin:0;padding:8px 14px;list-style:none;background:#0b1723de;border-radius:10px}
+.guided-course #courseProgress li{display:flex;align-items:center;gap:8px;font-size:17px;color:#a5b2bd;white-space:nowrap}
+.guided-course #courseProgress b{display:grid;place-items:center;width:30px;height:30px;border:1px solid #667c8b;border-radius:50%;font-size:16px}
+.guided-course #courseProgress [aria-current=step]{color:var(--gold)}
+.guided-course #courseProgress [aria-current=step] b{background:var(--gold);border-color:var(--gold);color:#17222a}
+.guided-course #courseProgress .done:not([aria-current]) b{border-color:var(--two);color:var(--two)}
+.guided-course .course-instruction{position:absolute;z-index:4;top:146px;left:28px;display:flex;align-items:center;gap:18px;max-width:1544px;min-height:26px;padding:2px 10px;border-radius:6px;background:#0b1723de}
+.guided-course #pairTitle{font-size:18px;white-space:nowrap}
+.guided-course #courseHint{font-size:15px;color:#e5e9ec}
+.guided-course #status{margin-left:auto;font-size:14px;min-height:0;color:var(--gold)}
+.guided-course .viewport>header{top:176px;right:auto;max-width:calc(100% - 48px);padding:4px 12px;gap:12px}
+.guided-course .inline-settings{align-items:center;gap:20px}
+.guided-course .inline-settings>strong{font-size:18px;white-space:nowrap}
+.guided-course .course-options{display:flex;gap:6px}
+.guided-course .course-options button{min-height:44px;min-width:68px;padding:0 18px;font-size:19px}
+.guided-course .side-0 .course-options button:hover,.guided-course .side-0 .course-options button[aria-pressed=true]{border-color:var(--one);color:var(--one);background:#203e50}
+.guided-course .side-1 .course-options button:hover,.guided-course .side-1 .course-options button[aria-pressed=true]{border-color:var(--two);color:var(--two);background:#2b4037}
+.guided-course .viewbar #nextStep{border-color:var(--gold);color:var(--gold)}
+
+/* Shared starfield for both entry pages; keep the header sky visible. */
+#lab{background:#0b1931 url("assets/starfield-small-earth.png") center -100px/cover no-repeat}
+.viewport,.viewport.side-1{background:transparent}
+#lab>.topbar{background:transparent}
+.workspace>.viewbar{background:transparent}
