@@ -23,9 +23,10 @@
    root.setAttribute('aria-label','地表基线、坑宽'+outcome.scale+'、坑深'+outcome.depth);
   } else {
    const ejecta=point(data.ejecta),shape=point(data.shape);
-   content += path(`M ${ejecta.x} ${ejecta.y} L 570 175 H 640`,0);
+   const ejectaLabelY = height >= 850 ? 250 : 150;
+   content += path(`M ${ejecta.x} ${ejecta.y} L 570 ${ejectaLabelY+25} H 640`,0);
    content += `<circle class="rc-pin" cx="${ejecta.x}" cy="${ejecta.y}" r="4"/>`;
-   content += label(675,150,'溅射 · '+outcome.ejecta,0);
+   content += label(675,ejectaLabelY,'溅射 · '+outcome.ejecta,0);
    content += path(`M ${shape.x} ${shape.y} L 600 520 H 640`,1);
    content += `<circle class="rc-pin" cx="${shape.x}" cy="${shape.y}" r="4"/>`;
    content += label(675,545,'坑形 · '+outcome.shape,1);
