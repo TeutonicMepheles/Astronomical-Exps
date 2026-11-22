@@ -63,6 +63,8 @@ npm run export -- light-pollution
 
 结果为 `dist/<实验目录>/index.html`，可离线打开；`dist/` 不提交到仓库。
 
+维护者可运行 `npm run export:eight -- <输出目录>` 一次生成八个普通教学模式的独立 HTML 和校验清单。省略目录时写入 `dist/eight-pages-20261118/`。八页可分别在断网浏览器中打开。
+
 ## 检查
 
 ```sh
