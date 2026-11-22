@@ -12,11 +12,12 @@
 
 ## 入库文件
 
-本实验只收录一张：
+本实验收录以下本地贴图：
 
 | 文件 | 尺寸 | sha256 | 说明 |
 |---|---|---|---|
 | `moon-eq-1024.png` | 1024×512 | `1aa348f4f849783fcc58a7cd93bfb670f6199f42bc4cb998659c2558c7e8e66f` | 2:1 等距圆柱反照率，由下面的 1920 档 Lanczos 缩小而来 |
+| `moon-lola-height-1024.jpg` | 1024×512 | `6d93f887e7d8bedfe35ab89ba785e5e3ca12381bd092a5e6abe2c707dda8bb98` | [CGI Moon Kit 的 8 位 LOLA 高程图](https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_3_8bit.jpg)，原文件字节，用于地面视角的月面明暗细节 |
 
 素材方交付的其余档位（1920/512/正射圆盘/尺寸阶梯预览）没有入库，需要时按 `make_moon_assets.py` 重跑。
 
