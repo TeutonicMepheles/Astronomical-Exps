@@ -3,8 +3,9 @@
 export const defaults={latitude:39.9,length:67,mass:28,speedMode:'earth',speed:3600};
 export function stageOnePeriod(config){return config.periodOverride??2*Math.PI*Math.sqrt(config.length/9.81);}
 // Presentation clock only; physical period/readouts remain unchanged.
+export const demonstrationSpeed=8;
 export function demonstrationRates(config){
-  const swingRate=4*2*Math.PI/stageOnePeriod(config);
+  const swingRate=demonstrationSpeed*2*Math.PI/stageOnePeriod(config);
   const rotationRate=swingRate*(5/1080)*Math.sin(config.latitude*Math.PI/180)/Math.sin(31.23*Math.PI/180);
   return {swingRate,rotationRate};
 }

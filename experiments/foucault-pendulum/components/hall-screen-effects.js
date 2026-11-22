@@ -1,7 +1,9 @@
 /*
- * Bloom and glitch adapted from EXP-05 features/billboard/renderer.js at e262302.
+ * Bloom adapted from EXP-05 features/billboard/renderer.js at e262302.
  * EXP-01 uses static illustrations, with no atlas, LED mask or runtime EXP-05 dependency.
  */
+const switchDuration = 280;
+
 const vertexSource = `
   attribute vec2 position;
   varying vec2 uv;
@@ -14,9 +16,9 @@ const vertexSource = `
 const fragmentSource = `
   precision highp float;
   uniform sampler2D artwork;
-  uniform float tick;
-  uniform float glitch;
   uniform float brightness;
+  uniform float switchStrength;
+  uniform float switchFrame;
   uniform float bloom;
   varying vec2 uv;
 
@@ -24,20 +26,20 @@ const fragmentSource = `
     return texture2D(artwork, clamp(at, 0., 1.)).rgb;
   }
 
-  float noise(float x) {
-    return fract(sin(x * 127.1 + 311.7) * 43758.5453);
-  }
-
   void main() {
-    float band = floor(uv.y * 24.);
-    float burst = step(.70 - glitch * .25, noise(tick));
-    float shift = (noise(band + tick * 31.) - .5) * .09 * glitch * burst;
-    vec2 q = uv + vec2(shift, 0.);
-    float split = .008 * glitch * (.25 + burst);
-    vec3 color = sampleFrame(q);
-    color.r = sampleFrame(q + vec2(split, 0.)).r;
-    color.b = sampleFrame(q - vec2(split, 0.)).b;
-
+    vec2 q = uv;
+    vec3 color;
+    if (switchStrength > 0.) {
+      float band = floor(uv.y * 24.);
+      float noise = fract(sin(band * 127.1 + switchFrame * 311.7) * 43758.5453);
+      q.x += (noise - .5) * .065 * switchStrength;
+      float split = .007 * switchStrength;
+      color = sampleFrame(q);
+      color.r = sampleFrame(q + vec2(split, 0.)).r;
+      color.b = sampleFrame(q - vec2(split, 0.)).b;
+    } else {
+      color = sampleFrame(q);
+    }
     vec3 glow = vec3(0.);
     for (int x = -1; x <= 1; x++) {
       for (int y = -1; y <= 1; y++) {
@@ -81,16 +83,16 @@ function createScreenRenderer(canvas, image) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-  const tickUniform = gl.getUniformLocation(program, 'tick');
-  const glitchUniform = gl.getUniformLocation(program, 'glitch');
   const brightnessUniform = gl.getUniformLocation(program, 'brightness');
   const bloomUniform = gl.getUniformLocation(program, 'bloom');
+  const strengthUniform = gl.getUniformLocation(program, 'switchStrength');
+  const frameUniform = gl.getUniformLocation(program, 'switchFrame');
   gl.viewport(0, 0, canvas.width, canvas.height);
 
   return {
-    draw(tick, glitch, brightness, bloom) {
-      gl.uniform1f(tickUniform, tick);
-      gl.uniform1f(glitchUniform, glitch);
+    draw(brightness, bloom, strength, frame) {
+      gl.uniform1f(strengthUniform, strength);
+      gl.uniform1f(frameUniform, frame);
       gl.uniform1f(brightnessUniform, brightness);
       gl.uniform1f(bloomUniform, bloom);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -108,7 +110,6 @@ export function mountHallScreens(layer, controls, wake, options = {}) {
   const fields = [
     ['brightness', '亮度', .5, 2, 2],
     ['bloom', 'Bloom', 0, 2, 2],
-    ['glitch', 'Glitch', 0, 1, .08],
   ];
   const settings = {};
   const storageKey = 'foucault-hall-screen-v1';
@@ -167,14 +168,14 @@ export function mountHallScreens(layer, controls, wake, options = {}) {
   };
   for (const source of new Set(Object.values(cityImages))) loadImage(source);
 
-  const screens = Array.from(layer.querySelectorAll('.hall-screen-fx'), (canvas, index) => {
+  const screens = Array.from(layer.querySelectorAll('.hall-screen-fx'), canvas => {
     const image = new Image();
     const svgImage = canvas.closest('g').querySelector('image');
-    const screen = { canvas, draw: null, tick: null, svgImage, currentImage: null, cityId: svgImage.dataset.city || '' };
+    const screen = { canvas, draw: null, revision: -1, svgImage, currentImage: null, cityId: svgImage.dataset.city || '' };
     canvas.dataset.city = screen.cityId;
     const initialize = () => {
       screen.draw = createScreenRenderer(canvas, screen.currentImage || image);
-      screen.tick = null;
+      screen.revision = -1;
       wake();
     };
     canvas.addEventListener('webglcontextlost', event => {
@@ -184,74 +185,51 @@ export function mountHallScreens(layer, controls, wake, options = {}) {
     });
     canvas.addEventListener('webglcontextrestored', initialize);
     image.addEventListener('load', () => {
-      screen.currentImage = image;
+      screen.currentImage ??= image;
       initialize();
     }, { once: true });
     image.src = svgImage.href.baseVal;
-    return { screen, offset: index * 71 };
+    return screen;
   });
 
-  const cityScreen = screens[cityScreenIndex]?.screen;
-  let cityTransition = null;
-  function switchCityImage(state) {
-    if (!cityScreen?.draw) return false;
-    cityScreen.draw.setImage(state.image);
-    cityScreen.currentImage = state.image;
-    cityScreen.cityId = cityTransition.targetCity;
-    cityScreen.canvas.dataset.city = cityTransition.targetCity;
-    cityScreen.svgImage.setAttribute('href', cityImages[cityTransition.targetCity]);
-    cityScreen.tick = null;
-    return true;
-  }
+  const cityScreen = screens[cityScreenIndex];
+  let pendingCity = null;
+  let switchStarted = null;
   function selectCity(cityId) {
-    const source = cityImages[cityId];
-    if (!source || !cityScreen || cityScreen.cityId === cityId && !cityTransition) return false;
-    cityTransition = {
-      start: performance.now(),
-      targetCity: cityId,
-      source,
-      switched: false,
-      instant: matchMedia('(prefers-reduced-motion: reduce)').matches,
-    };
-    cityScreen.canvas.dataset.cityTarget = cityId;
-    cityScreen.canvas.dataset.transitionActive = 'true';
+    if (!cityImages[cityId] || !cityScreen) return false;
+    pendingCity = cityScreen.cityId === cityId ? null : cityId;
     wake();
     return true;
   }
 
   function draw(now, reducedMotion) {
-    let transitionGlitch = 0;
-    if (cityTransition) {
-      const elapsed = now - cityTransition.start;
-      if ((cityTransition.instant || elapsed >= 280) && !cityTransition.switched) {
-        const imageState = imageCache.get(cityTransition.source);
-        if (imageState?.loaded) cityTransition.switched = switchCityImage(imageState);
+    const imageState = pendingCity ? imageCache.get(cityImages[pendingCity]) : null;
+    if (imageState?.loaded) {
+      cityScreen.draw?.setImage(imageState.image);
+      cityScreen.currentImage = imageState.image;
+      cityScreen.cityId = pendingCity;
+      cityScreen.canvas.dataset.city = pendingCity;
+      cityScreen.svgImage.setAttribute('href', cityImages[pendingCity]);
+      cityScreen.revision = -1;
+      if (!reducedMotion && cityScreen.draw) {
+        switchStarted = now;
+        cityScreen.canvas.dataset.switching = 'true';
       }
-      if (!reducedMotion && !cityTransition.switched) {
-        transitionGlitch = .95;
-      }
-      if (!reducedMotion && cityTransition.switched) {
-        const fade = Math.max(0, Math.min(1, (elapsed - 280) / 620));
-        transitionGlitch = .95 * (1 - fade * fade * (3 - 2 * fade));
-      }
-      if (cityTransition.switched && (cityTransition.instant || elapsed >= 900)) {
-        cityTransition = null;
-        delete cityScreen.canvas.dataset.cityTarget;
-        delete cityScreen.canvas.dataset.transitionActive;
-      }
+      pendingCity = null;
     }
-    const tick = reducedMotion ? -1 : Math.floor(now * .012);
-    const glitch = reducedMotion ? 0 : Math.max(settings.glitch, transitionGlitch);
-    const drawTick = glitch ? tick : -1;
-    if (cityScreen) {
-      cityScreen.canvas.dataset.glitchBoost = transitionGlitch.toFixed(2);
-      cityScreen.canvas.dataset.glitch = glitch.toFixed(2);
+    const elapsed = switchStarted === null ? 0 : now - switchStarted;
+    if (switchStarted !== null && (reducedMotion || elapsed >= switchDuration)) {
+      switchStarted = null;
+      delete cityScreen.canvas.dataset.switching;
+      cityScreen.revision = -1;
     }
-    for (const { screen, offset } of screens) {
-      if (!screen.draw || screen.tick === drawTick && screen.revision === revision) continue;
-      const tone=screen===cityScreen?cityImageTone[screen.cityId]:null;
-      screen.draw.draw(drawTick + offset, glitch, settings.brightness*(tone?.brightness??1), settings.bloom*(tone?.bloom??1));
-      screen.tick = drawTick;
+    for (const screen of screens) {
+      const switching = screen === cityScreen && switchStarted !== null;
+      if (!screen.draw || (!switching && screen.revision === revision)) continue;
+      const tone = screen === cityScreen ? cityImageTone[screen.cityId] : null;
+      const strength = switching ? 1 - elapsed / switchDuration : 0;
+      screen.draw.draw(settings.brightness * (tone?.brightness ?? 1), settings.bloom * (tone?.bloom ?? 1),
+        strength, Math.floor(elapsed / 35));
       screen.revision = revision;
     }
   }
