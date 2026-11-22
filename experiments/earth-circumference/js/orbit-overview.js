@@ -22,8 +22,8 @@ function earthMarkup(className = '') {
       <path class="orbit-section-join"/>
       <path class="section-front" d="M.5 29 A28.5 ${28.5 * Math.sin(ORBIT_PITCH_DEG * Math.PI / 180)} 0 0 0 57.5 29"/>
     </svg>
-    <svg class="orbit-prime" viewBox="0 0 58 58" role="img" aria-label="0°经线，蓝色虚线，背面为点线">
-      <path class="prime-back"/><path class="prime-front"/><path class="prime-label-leader"/><text class="orbit-prime-label">0°经线</text>
+    <svg class="orbit-prime" viewBox="0 0 58 58" role="img" aria-label="所选经线，背面为点线">
+      <path class="prime-back"/><path class="prime-front"/><text class="orbit-prime-label" x="29" y="68" text-anchor="middle">所选经线</text>
     </svg>
     <svg class="orbit-noon" viewBox="0 0 58 58" role="img" aria-label="正午位置经线，背面为虚线"><path class="noon-back"/><path class="noon-front"/></svg>
     <i class="orbit-axis" aria-hidden="true"></i>
@@ -43,11 +43,6 @@ export function mountOrbitOverview(scene) {
       <svg class="orbit-path" viewBox="0 0 572 500" aria-hidden="true">
         <ellipse class="orbit-plane" cx="${ORBIT.cx}" cy="${ORBIT.cy}" rx="${ORBIT.rx}" ry="${ORBIT.ry}"/>
 
-        <g class="orbit-camera" role="button" tabindex="0" aria-label="进入地球模式，显示放大的地球">
-          <path class="camera-sight"/>
-          <g class="camera-icon"><circle class="camera-hit" r="22"/><rect x="-8" y="-6" width="16" height="12" rx="2"/><path d="M8 -3L14 -7V7L8 3Z"/></g>
-          <text>特写机位</text>
-        </g>
       </svg>
       <span class="orbit-sun" style="left:${ORBIT.cx}px;top:${ORBIT.cy}px">
         <i aria-hidden="true"></i><b>太阳<small class="sun-scale-note">（缩小显示527倍）</small></b>
@@ -64,21 +59,8 @@ export function mountOrbitOverview(scene) {
   section.append(currentDate);
   scene.stage.append(section);
 
-  const linkLayer = document.createElementNS(NS, 'svg');
-  linkLayer.setAttribute('viewBox', '0 0 1600 900');
-  linkLayer.classList.add('zoom-link-layer');
-  linkLayer.setAttribute('aria-hidden', 'true');
-  linkLayer.innerHTML = '<defs><linearGradient id="overview-cone-shade" x1="1" x2="0"><stop stop-color="#030d20" stop-opacity=".12"/><stop offset="1" stop-color="#030d20" stop-opacity=".94"/></linearGradient></defs><path class="zoom-link-fill"/><path class="zoom-link-edge zoom-link-top" pathLength="1"/><path class="zoom-link-edge zoom-link-bottom" pathLength="1"/>';
-  scene.stage.append(linkLayer);
-
-  const hint = document.createElement('p');
-  hint.className = 'overview-hint';
-  hint.textContent = '';
-  scene.stage.append(hint);
-
   const current = section.querySelector('#orbitCurrent');
   const surface = current.querySelector('.orbit-earth-surface');
-  const diagram = section.querySelector('.orbit-diagram');
   const timeline = scene.stage.querySelector('#timeline');
   const miniRenderer = createGlobeShaderRenderer({
     textureUrl:'assets/earth-eq-redraw-1152x576.png',
@@ -108,29 +90,17 @@ export function mountOrbitOverview(scene) {
   window.addEventListener('orbit-texture-ready',requestMiniFrame);
   let disposed=false;
   let motionFrame=0;
-  let transitionFrame=0;
   let motionResumeTimer=0;
   window.addEventListener('pagehide',event=>{
     if(event.persisted)return;
     disposed=true;
     cancelAnimationFrame(motionFrame);
-    cancelAnimationFrame(transitionFrame);
     clearTimeout(motionResumeTimer);
     window.removeEventListener('orbit-texture-ready',requestMiniFrame);
     window.removeEventListener('resize',resizeSurface);
     for(const name of ['globe-frame','globe-mode-change','view-mode-change'])window.removeEventListener(name,paint);
+    window.removeEventListener('view-mode-change',deferRevolution);
     miniRenderer.dispose();
-  });
-  const cameraGroup=section.querySelector('.orbit-camera');
-  const enterEarthMode=()=>{
-    if(scene.measuring)return;
-    window.dispatchEvent(new CustomEvent('view-mode-request',{detail:{mode:'earth'}}));
-  };
-  cameraGroup.addEventListener('click',enterEarthMode);
-  cameraGroup.addEventListener('keydown',event=>{
-    if(event.key!=='Enter'&&event.key!==' ')return;
-    event.preventDefault();
-    enterEarthMode();
   });
   const closeupPlane=document.createElementNS(NS,'svg');
   closeupPlane.setAttribute('viewBox','0 0 1600 900');
@@ -183,7 +153,6 @@ export function mountOrbitOverview(scene) {
   const noonBack=current.querySelector('.noon-back');
   const primeFront=current.querySelector('.prime-front');
   const primeBack=current.querySelector('.prime-back');
-  const primeLabelLeader=current.querySelector('.prime-label-leader');
   const primeLabel=current.querySelector('.orbit-prime-label');
   function paintMeridian(points, backPath, frontPath) {
     const paths=['',''];
@@ -206,7 +175,7 @@ export function mountOrbitOverview(scene) {
     backPath.setAttribute('d',paths[0]);
     frontPath.setAttribute('d',paths[1]);
   }
-  function syncSurface(point) {
+  function syncSurface() {
     const model=scene.solarModel;
     const frame=orbitFrame(model.year,model.day,scene.basis(),scene.sun);
     const nextSurfaceKey=JSON.stringify([frame.basis,frame.sun,surfacePixels]);
@@ -222,23 +191,15 @@ export function mountOrbitOverview(scene) {
       noonKey=key;
       paintMeridian(noonMeridian(frame.basis.axis,frame.sun),noonBack,noonFront);
     }
-    const nextPrimeKey=JSON.stringify(frame.basis);
+    const longitude=scene.selectedMeridian;
+    current.classList.toggle('meridian-confirmed',!scene.pickingMeridian&&!scene.meridianAligning);
+    const nextPrimeKey=JSON.stringify([frame.basis,longitude]);
     if(nextPrimeKey!==primeKey){
       primeKey=nextPrimeKey;
-      const points=geographicMeridian(frame.basis,0);
+      const points=geographicMeridian(frame.basis,longitude);
+      primeLabel.textContent=longitude===0?'0°':Math.abs(longitude)+'°'+(longitude<0?'W':'E');
       paintMeridian(points,primeBack,primeFront);
-      const labelCandidates=points.slice(30,151);
-      const frontCandidates=labelCandidates.filter(point=>point[2]>=0);
-      const labelPoint=(frontCandidates.length?frontCandidates:labelCandidates)
-        .reduce((best,point)=>Math.abs(point[0])>Math.abs(best[0])?point:best,labelCandidates[90]);
-      const x=29+labelPoint[0]*29;
-      const y=29-labelPoint[1]*29;
-      primeLabel.setAttribute('x',x+(labelPoint[0]>=0?4:-4));
-      primeLabel.setAttribute('y',y-4);
-      primeLabel.setAttribute('text-anchor',labelPoint[0]>=0?'start':'end');
-      primeLabel.style.display='';
-      primeLabel.classList.toggle('is-back',labelPoint[2]<0);
-      primeLabelLeader.setAttribute('d',`M${x} ${y}L${x+(labelPoint[0]>=0?3:-3)} ${y-2.5}`);
+
     }
     const axis=frame.basis.axis;
     const axisLength=Math.hypot(axis[0],axis[1]);
@@ -251,20 +212,8 @@ export function mountOrbitOverview(scene) {
     // Fade only the segment inside the projected globe silhouette.
     const outside=Math.max(0,(1-1/(1.45*axisLength))/2)*100;
     axisEl.style.setProperty('--axis-outside',`${outside}%`);
-    const standOff=globeSize*1.42/Math.max(.15,Math.hypot(frame.camera[0],frame.camera[1]));
-    const eye={x:point.x+frame.camera[0]*standOff,y:point.y-frame.camera[1]*standOff};
-    const bearing=Math.atan2(point.y-eye.y,point.x-eye.x)*180/Math.PI;
-    cameraGroup.querySelector('.camera-icon').setAttribute('transform',`translate(${eye.x} ${eye.y}) rotate(${bearing})`);
-    cameraGroup.querySelector('.camera-sight').setAttribute('d',`M${eye.x} ${eye.y} L${point.x} ${point.y}`);
-    const label=cameraGroup.querySelector('text');
-    label.setAttribute('x',eye.x);label.setAttribute('y',eye.y-16);
     current.dataset.sun=frame.sun.join(',');
-    current.dataset.camera=frame.camera.join(',');
-    return eye;
   }
-  const fill = linkLayer.querySelector('.zoom-link-fill');
-  const topEdge = linkLayer.querySelector('.zoom-link-top');
-  const bottomEdge = linkLayer.querySelector('.zoom-link-bottom');
   function pointForAngle(angle) {
     return {
       x: ORBIT.cx + ORBIT.rx * Math.cos(angle),
@@ -306,61 +255,15 @@ export function mountOrbitOverview(scene) {
     section.style.setProperty('--orbit-progress', String(angle / (Math.PI * 2)));
     section.dataset.day = String(model.day);
 
-    const cam = scene.camera();
-    syncSurface(currentPoint);
-    // The hidden close-up cone needs no layout reads during orbit playback.
-    if(scene.stage.dataset.viewMode==='orbit' && performance.now()>=transitionUntil)return;
-
-    // Use the camera's rendered transform so the cone starts at its visible
-    // centre even while the orbit diagram is scaled or transitioning.
-    const cameraIcon = cameraGroup.querySelector('.camera-icon');
-    const cameraTransform = cameraIcon.getScreenCTM();
-    if(!cameraTransform)return;
-    const cameraScreen = new DOMPoint(0, 0).matrixTransform(cameraTransform);
-    const stageRect = scene.stage.getBoundingClientRect();
-    const stageScale = stageRect.width / 1600;
-    const tailX = (cameraScreen.x - stageRect.x) / stageScale;
-    const tailY = (cameraScreen.y - stageRect.y) / stageScale;
-    // Tangents meet the actual circular silhouette, not an estimated rectangle.
-    // Fill continues beneath the opaque globe so no vertical end cap is exposed.
-    function tangentFrom(point, upper) {
-      const dx = point.x - cam.centre.x, dy = point.y - cam.centre.y;
-      const d2 = dx * dx + dy * dy, r = cam.radius;
-      const along = r * r / d2;
-      const across = r * Math.sqrt(Math.max(0, d2 - r * r)) / d2;
-      const candidates = [-1, 1].map(sign => ({
-        x: cam.centre.x + along * dx - sign * across * dy,
-        y: cam.centre.y + along * dy + sign * across * dx,
-      }));
-      return candidates.sort((a,b)=>a.y-b.y)[upper ? 0 : 1];
-    }
-    const startTop = {x:tailX,y:tailY};
-    const startBottom = {x:tailX,y:tailY};
-    const top = tangentFrom(startTop, true);
-    const bottom = tangentFrom(startBottom, false);
-    fill.setAttribute('d', `M${startTop.x} ${startTop.y} L${top.x} ${top.y} L${cam.centre.x} ${cam.centre.y} L${bottom.x} ${bottom.y} L${startBottom.x} ${startBottom.y} Z`);
-    topEdge.setAttribute('d', `M${startTop.x} ${startTop.y} L${top.x} ${top.y}`);
-    bottomEdge.setAttribute('d', `M${startBottom.x} ${startBottom.y} L${bottom.x} ${bottom.y}`);
+    syncSurface();
   }
 
   for (const name of ['globe-frame', 'globe-mode-change', 'view-mode-change']) window.addEventListener(name, paint);
-  diagram.addEventListener('transitionend', (event) => {
-    if (event.propertyName === 'transform') paint();
-  });
-
   let transitionUntil = 0;
-  window.addEventListener('view-mode-change', () => {
-    if(disposed)return;
+  function deferRevolution(){
     transitionUntil = performance.now() + 600;
-    cancelAnimationFrame(transitionFrame);
-    function updateTransition(now) {
-      if(disposed)return;
-      paint();
-      if (now < transitionUntil) transitionFrame = requestAnimationFrame(updateTransition);
-    }
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) transitionFrame = requestAnimationFrame(updateTransition);
-  });
-
+  }
+  window.addEventListener('view-mode-change',deferRevolution);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let motionLast = 0;
   let motionCredit = 0;

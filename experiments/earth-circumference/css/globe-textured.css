@@ -670,26 +670,6 @@ html, body {
 .seasons .season { position:absolute;transform:translateX(-50%); }
 
 /* ---------- 第一阶段：公转总览 + 地球放大图 ---------- */
-.zoom-link-layer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  overflow: visible;
-}
-.zoom-link-fill {
-  fill: rgba(131, 174, 231, .025);
-  stroke: none;
-}
-.zoom-link-edge {
-  fill: none;
-  stroke: rgba(150, 190, 235, .26);
-  stroke-width: 1;
-  stroke-dasharray: 4 7;
-}
-
 .orbit-overview {
   position: absolute;
   left: 22px;
@@ -879,17 +859,7 @@ html, body {
   font-size: 11px;
   line-height: 1.5;
 }
-.overview-hint {
-  position: absolute;
-  left: 614px;
-  bottom: 35px;
-  margin: 0;
-  transform: translateX(-50%);
-  color: #849abd;
-  font-size: 12px;
-  z-index: 5;
-  white-space: nowrap;
-}
+
 
 /* The concise first-stage board keeps the orbit visible, while months stay
  * attached to the left-side revolution rather than stretching across the page. */
@@ -933,9 +903,7 @@ html, body {
 }
 
 .stage.is-measuring .orbit-overview,
-.stage.is-measuring .overview-readout,
-.stage.is-measuring .overview-hint,
-.stage.is-measuring .zoom-link-layer {
+.stage.is-measuring .overview-readout {
   display: none !important;
 }
 
@@ -954,14 +922,12 @@ html, body {
 .stage:not(.is-measuring) .point-guides [data-guide=site] path:first-child { display:none; }
 .stage:not(.is-measuring) .point-guides g path:nth-child(2) { opacity:.35;stroke-width:1; }
 .orbit-globe::after { background:linear-gradient(var(--sun-angle,90deg),rgba(1,7,20,.88),rgba(1,7,20,.45) 45%,rgba(255,222,151,.14) 85%); }
-.overview-hint { display:none; }
+
 
 /* Quiet close-up backdrop: static gradients, below every scientific overlay. */
 .stage::after { content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
   background:radial-gradient(ellipse 700px 620px at 430px 425px,#030c1ef5 0%,#030c1ee8 48%,#030c1eaa 70%,transparent 100%); }
 .stage.is-measuring::after { display:none; }
-.zoom-link-fill { fill:url(#overview-cone-shade); }
-.zoom-link-edge { stroke:rgba(150,190,235,.32);stroke-dasharray:none; }
 .overview-readout { left:40px;top:152px;width:278px;padding:12px 16px;background:#071429b8;backdrop-filter:none; }
 .overview-readout-title { margin-bottom:6px; }
 .point-reading { grid-template-columns:9px 80px 1fr;padding:5px 0; }
@@ -991,12 +957,6 @@ html, body {
 .orbit-current .orbit-globe { filter:none; }
 .orbit-current .orbit-globe::after { background:none; }
 
-.orbit-camera .camera-sight { fill:none;stroke:#a5cfff;stroke-width:1;stroke-dasharray:3 4;opacity:.8; }
-.orbit-camera .camera-icon { fill:#10213b;stroke:#b9daff;stroke-width:1.3;pointer-events:none; }
-.orbit-camera .camera-hit { fill:transparent;stroke:none;pointer-events:all;cursor:pointer; }
-.orbit-camera:hover .camera-hit,
-.orbit-camera:focus-visible .camera-hit { stroke:#fff1c5;stroke-width:1.5;stroke-opacity:.8; }
-.orbit-camera text { fill:#c4dfff;font-size:12px;text-anchor:middle; }
 
 .orbit-sun i { position:absolute;left:50%;top:50%;transform:translate(-50%,-50%); }
 
@@ -1008,8 +968,7 @@ html, body {
 .sun-arrows,
 .axis-layer,
 .geo-marker,
-.point-guides,
-.zoom-link-layer {
+.point-guides {
   transition: opacity .18s ease;
 }
 .orbit-overview {
@@ -1044,10 +1003,6 @@ html, body {
 .stage:not(.is-measuring)[data-view-mode="orbit"] .geo-marker {
   pointer-events: none;
 }
-.stage:not(.is-measuring)[data-view-mode="orbit"] .zoom-link-layer {
-  opacity: 0;
-  visibility: hidden;
-}
 .stage:not(.is-measuring)[data-view-mode="earth"] .orbit-overview {
   left: 1000px;
 }
@@ -1061,21 +1016,6 @@ html, body {
 .stage:not(.is-measuring)[data-view-mode="earth"] .point-guides {
   animation: earth-main-reveal .52s .3s both;
 }
-.stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-edge {
-  stroke-dasharray: 1;
-  animation: camera-link-draw .5s .52s both;
-}
-.stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-fill {
-  animation: camera-link-fill .45s .74s both;
-}
-@keyframes camera-link-draw {
-  from { opacity: .15; stroke-dashoffset: 1; }
-  to { opacity: 1; stroke-dashoffset: 0; }
-}
-@keyframes camera-link-fill {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 @keyframes earth-main-reveal {
   from { opacity: 0; visibility: visible; }
   to { opacity: 1; visibility: visible; }
@@ -1088,9 +1028,7 @@ html, body {
   .stage:not(.is-measuring)[data-view-mode="earth"] .sun-arrows,
   .stage:not(.is-measuring)[data-view-mode="earth"] .axis-layer,
   .stage:not(.is-measuring)[data-view-mode="earth"] .geo-marker,
-  .stage:not(.is-measuring)[data-view-mode="earth"] .point-guides,
-  .stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-edge,
-  .stage:not(.is-measuring)[data-view-mode="earth"] .zoom-link-fill {
+  .stage:not(.is-measuring)[data-view-mode="earth"] .point-guides {
     animation: none;
   }
 }
@@ -1164,7 +1102,9 @@ html, body {
 .stage .prime-back{stroke:#8fd9ff;stroke-width:2;stroke-dasharray:5 7;opacity:.25}
 .stage[data-meridian-state="pending"] .prime-meridian{animation:meridian-preview-pulse 1.4s ease-in-out infinite}
 @keyframes meridian-preview-pulse{0%,100%{opacity:.25}50%{opacity:.7}}
-.meridian-selection [data-longitude]{min-width:85px;text-align:center;font-variant-numeric:tabular-nums}
+.meridian-selection [data-longitude]{width:88px;min-height:48px;text-align:center;font-variant-numeric:tabular-nums}
+.meridian-selection input[aria-invalid="true"]{border-color:#ffbaab}
+#longitude-error{position:absolute;left:0;bottom:calc(100% + 8px);padding:8px 12px;border-radius:8px;background:#15243d;color:#ffddd5;white-space:nowrap}
 .meridian-selection button[hidden]{display:none}
 @media(prefers-reduced-motion:reduce){.stage[data-meridian-state="pending"] .prime-meridian{animation:none;opacity:.55}}
 .stage .calculation-distance-tip{translate:0 0!important;left:64px!important;max-width:670px}

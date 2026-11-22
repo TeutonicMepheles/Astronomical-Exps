@@ -4,7 +4,7 @@ export function mountCalculation(scene){
  panel.innerHTML=`<h2>计算地球周长</h2>
  <div class="calculation-inputs"><span>杆长 L <b data-rod-value>—</b></span><span>影长 s <b data-shadow-value>—</b></span></div>
  <ol class="calculation-steps">
- <li data-step="angle"><button type="button" data-angle><span class="calculation-step-title"><i>1</i> 正午夹角 θ</span><span class="angle-equation"><span>θ = <span data-altitude-value hidden>α</span></span><strong>—</strong></span><span class="central-equation">球心角 θ <b data-central-value>—</b></span></button></li>
+ <li data-step="angle"><button type="button" data-angle><span class="calculation-step-title"><i>1</i> 正午夹角 θ</span><span class="angle-equation"><span>θ =</span><strong>—</strong></span><span class="central-equation">球心角 θ <b data-central-value>—</b></span></button></li>
  <li data-step="distance"><button type="button" id="meridian-distance"><span class="calculation-step-title"><i>2</i> 沿经线测量距离</span><span class="distance-equation">同经线距离 d <strong>点击测距</strong></span></button></li>
  <li data-step="formula"><button type="button" data-calculate><span class="calculation-step-title"><i>3</i> 计算地球周长</span><span class="circumference-formula"><var>C</var> ≈ <span class="math-fraction"><span>360°</span><span><var>θ</var></span></span> · <var>d</var></span></button><div class="calculation-substitution" aria-live="polite"></div><output class="calculation-result" aria-live="polite"></output></li>
  </ol><p class="formula-tip" role="status"></p>
@@ -35,8 +35,8 @@ export function mountCalculation(scene){
   const arc=scene.measureArc(),record=scene.measurements.snapshot();
   const nextPlace=JSON.stringify([scene.observationDate,arc.selLat,arc.selLon,arc.subLat]);
   const nextMeasure=JSON.stringify([record.selected,scene.calibration.rod]);
-  if(nextPlace!==placeKey){placeKey=nextPlace;clearDistance();cancelAngle();mark('angle',false);q('[data-central-value]').textContent='—';q('[data-altitude-value]').textContent='α';}
-  if(nextMeasure!==measureKey){measureKey=nextMeasure;clearResult();cancelAngle();mark('angle',false);q('[data-central-value]').textContent='—';q('[data-altitude-value]').textContent='α';}
+  if(nextPlace!==placeKey){placeKey=nextPlace;clearDistance();cancelAngle();mark('angle',false);q('[data-central-value]').textContent='—';}
+  if(nextMeasure!==measureKey){measureKey=nextMeasure;clearResult();cancelAngle();mark('angle',false);q('[data-central-value]').textContent='—';}
   const theta=thetaOf(record.selected);
   q('[data-angle] strong').textContent=theta===null?'—':`${theta.toFixed(2)}°`;
   q('[data-angle]').disabled=theta===null||!scene.stage.classList.contains('rods-ready');

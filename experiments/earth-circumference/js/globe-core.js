@@ -54,7 +54,8 @@ export const SUN = (() => {
 export function sunForOrbitDate(year, day) {
   const {axis, e2} = basisVectors(FIXED_AXIS_SCREEN_TILT, 0);
   const delta = declination(year, day) * Math.PI / 180;
-  const azimuth = 35 * Math.PI / 180;
+  // Keep the noon meridian near the visible limb with a usable front-facing strip.
+  const azimuth = 24 * Math.PI / 180;
   return axis.map((v, i) => v * Math.sin(delta)
     + (e2[i] * Math.cos(azimuth) + (i === 2 ? Math.sin(azimuth) : 0)) * Math.cos(delta));
 }
