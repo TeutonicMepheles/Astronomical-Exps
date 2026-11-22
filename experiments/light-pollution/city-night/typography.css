@@ -28,16 +28,7 @@ aside .detail-button {font-size:var(--type-action);font-weight:600;min-height:3.
 .layout::before {content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#06102080,transparent 28%),radial-gradient(ellipse 42% 34% at 0 0,#06102066,transparent 100%),radial-gradient(ellipse 32% 52% at 100% 0,#06102080,transparent 100%)}
 .masthead {left:3.3%;top:5%;margin:0;color:#dbe8ff;line-height:1.2;letter-spacing:calc(1 * var(--type-unit));text-shadow:0 2px 12px #04112599}
 .masthead::before {content:"";display:block;width:3.6875cqw;height:.1875cqw;margin-bottom:.75cqw;background:#648fcf}
-.sky-readout {right:3%;top:5%;display:grid;gap:1.5cqw;margin:0;padding:0 0 0 1.125cqw;border:0;border-left:1px solid #b9d9ff66;border-radius:0;background:none;backdrop-filter:none;color:#edf5ff;text-shadow:0 2px 12px #041125e6}
-.sky-readout>div {min-width:0}
-.sky-readout dt {font-size:var(--type-data-label);font-weight:500;letter-spacing:.02em;color:#d2e3f4;line-height:1.2}
-.sky-readout output {color:#fff;font-size:var(--type-number);font-weight:500;line-height:1.1}
 
-.sky-readout {position:absolute;z-index:2;pointer-events:none;gap:1.5cqw}
-.sky-readout dd {display:flex;align-items:center;gap:.5cqw;margin:.3125cqw 0 0;font-variant-numeric:tabular-nums}
-.sky-readout .sky-metric-delta {display:grid;place-items:center;flex:none;width:1.875cqw;height:2cqw;border-radius:50%;background:#8cc8ff18;font-size:1.8125cqw;font-weight:900;line-height:1;opacity:0}
-.sky-readout .is-up .sky-metric-delta {opacity:1;color:#ffd36a;background:#ffd36a20;box-shadow:0 0 .875cqw #ffd36a38}
-.sky-readout .is-down .sky-metric-delta {opacity:1;color:#7ddcff;background:#7ddcff20;box-shadow:0 0 .875cqw #7ddcff38}
 
 /* Road brightness is five clickable demonstration steps. The legacy range stays for the existing gain pipeline. */
 .has-lamp-levels{position:relative}
