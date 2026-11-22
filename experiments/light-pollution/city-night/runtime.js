@@ -77,11 +77,9 @@ function prepareSky(){
   for(let y=0;y<=lastSkyY;y++)mask[(y*W+x)*4+3]=255;
  }
  skyVertices=CitySkyModel.catalogue(mask,W,H,440);skyVAO=gl.createVertexArray();skyBuffer=gl.createBuffer();gl.bindVertexArray(skyVAO);gl.bindBuffer(gl.ARRAY_BUFFER,skyBuffer);gl.bufferData(gl.ARRAY_BUFFER,skyVertices,gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,4,gl.FLOAT,false,24,0);gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,2,gl.FLOAT,false,24,16);gl.bindVertexArray(null);}
-// Local readout feedback; only update on changed values, with no extra clock or layout reads.
-function setSkyMetric(id,next){const output=$(id),previous=output.dataset.value; if(previous===String(next))return;output.dataset.value=String(next);output.textContent=next.toLocaleString('zh-CN');const metric=output.parentElement,arrow=metric.querySelector('.sky-metric-delta');const direction=previous===undefined?0:Math.sign(next-Number(previous));metric.classList.toggle('is-up',direction>0);metric.classList.toggle('is-down',direction<0);arrow.textContent=direction>0?'↑':direction<0?'↓':'';}
 let starTime=0;
 function starsPlaying(){return state.view==='scene'&&!state.media.paused&&!reducedMotion.matches;}
-function updateSkyReadout(){const model=CitySkyModel.evaluate(state),camera=renderView;let visibleStars=0;for(let i=0;i<skyVertices.length;i+=6)if((model.limit-skyVertices[i+2])/.008>.02&&skyVertices[i]>=camera[0]&&skyVertices[i]<camera[0]+camera[2]&&skyVertices[i+1]>=camera[1]&&skyVertices[i+1]<camera[1]+camera[3])visibleStars++;skyReadout={...model,visibleStars,catalogueSize:skyVertices.length/6};setSkyMetric('bortle-value',model.bortle);setSkyMetric('star-count',visibleStars);}
+function updateSkyReadout(){const model=CitySkyModel.evaluate(state),camera=renderView;let visibleStars=0;for(let i=0;i<skyVertices.length;i+=6)if((model.limit-skyVertices[i+2])/.008>.02&&skyVertices[i]>=camera[0]&&skyVertices[i]<camera[0]+camera[2]&&skyVertices[i+1]>=camera[1]&&skyVertices[i+1]<camera[1]+camera[3])visibleStars++;skyReadout={...model,visibleStars,catalogueSize:skyVertices.length/6};}
 function drawSkyStars(){use(starP);f(starP,'limit',skyReadout.limit);f(starP,'starTime',starTime);f(starP,'twinkleGain',starsPlaying()?1:0);gl.bindVertexArray(skyVAO);gl.blendFunc(gl.ONE,gl.ONE);gl.drawArrays(gl.POINTS,0,Math.min(6000,Math.ceil(skyReadout.limit*6000)));gl.bindVertexArray(null);}
 
 const residentFixedP=program(window.RESIDENT_FIXED.fragment);
