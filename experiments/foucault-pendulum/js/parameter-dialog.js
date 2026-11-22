@@ -1,3 +1,4 @@
+import {demonstrationSpeed} from './pendulum-model.js';
 import {createPeriodMetric} from './period-metric.js';
 import {LENGTH_TIERS,MASS_TIERS} from './scale-reference.js';
 
@@ -70,7 +71,6 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
   const set=(selector,attrs)=>{const node=find(selector);for(const [key,val] of Object.entries(attrs))node.setAttribute(key,val);};
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const transfer=find('.fp-transfer'),blueprint=find('.fp-blueprint>svg');
-  const demoSpeed=4;
   let fieldTime=0,fieldOpacity=0,closing=null,transferPose=null;
   let draft,shown,resizeAnimation=null,opening=null,targetFrame=null,phase=0,returnFocus=null,inertStates=[];
   const smooth=t=>t*t*(3-2*t),mix=(a,b,t)=>a+(b-a)*t;
@@ -255,6 +255,6 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
       if(t===1){resizeAnimation=null;dialog.dataset.resizing='false';}
     }
     if(opening){opening.time+=dt;drawOpening();}
-    else{const visualLength=28+(shown.span-300)*72/150;phase+=dt*demoSpeed*Math.sqrt(9.81/visualLength);draw();}
+    else{const visualLength=28+(shown.span-300)*72/150;phase+=dt*demonstrationSpeed*Math.sqrt(9.81/visualLength);draw();}
   }};
 }

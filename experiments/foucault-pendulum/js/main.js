@@ -52,6 +52,7 @@ const ready=renderer.init(globe);
 const bobRenderer=createBobRenderer(bob);
 const joint=document.querySelector('#bobJoint');
 const swingPlane=document.querySelector('#swingPlane');
+const trailColor=swingPlane.getAttribute('stroke');
 const swingSurface=document.querySelector('#swingSurface');
 const swingArcLine=document.querySelector('#swingArcLine'),swingArcGlow=document.querySelector('#swingArcGlow');
 let paramMode=false;
@@ -229,8 +230,15 @@ function resize(){
   stage.style.transform=`translate(-50%,-50%) scale(${scale})`;
   const dpr=Math.min(devicePixelRatio||1,2);
   size=Math.round(550*scale*dpr);globe.width=globe.height=size;renderer.resize(size,size);
-  trail.width=Math.round(920*scale*dpr);trail.height=Math.round(270*scale*dpr);
-  ctx.setTransform(trail.width/920,0,0,trail.height/270,0,0);
+  const trailWidth=Math.round(920*scale*dpr),trailHeight=Math.round(270*scale*dpr);
+  if(trail.width!==trailWidth||trail.height!==trailHeight){
+    const previous=document.createElement('canvas');
+    previous.width=trail.width;previous.height=trail.height;
+    if(trail.width&&trail.height)previous.getContext('2d').drawImage(trail,0,0);
+    trail.width=trailWidth;trail.height=trailHeight;
+    ctx.setTransform(trail.width/920,0,0,trail.height/270,0,0);
+    if(trailWidth&&trailHeight&&previous.width&&previous.height)ctx.drawImage(previous,0,0,920,270);
+  }
   dirty=true;drawTrails();
 }
 function updateCityFocus(now){
@@ -369,17 +377,28 @@ function applyBackgroundFilter(){
 }
 applyBackgroundFilter();
 const sz=(x,y)=>[x,y];
+let lastTrailTime=-Infinity;
 function drawTrails(){
-  ctx.clearRect(0,0,920,270);ctx.lineCap='round';ctx.lineJoin='round';
   const points=history.points;
-  for(let i=1;i<points.length;i++){
-    const a=ground(points[i-1]),b=ground(points[i]);
-    const [ax,ay]=sz(a.x,a.y),[bx,by]=sz(b.x,b.y);
-    ctx.beginPath();ctx.moveTo(ax-580-PX+TRAIL_CANVAS_CENTER.x,ay-545-PY+TRAIL_CANVAS_CENTER.y);
-    ctx.lineTo(bx-580-PX+TRAIL_CANVAS_CENTER.x,by-545-PY+TRAIL_CANVAS_CENTER.y);
-    ctx.lineWidth=13*zoom;ctx.strokeStyle=`rgba(255,255,255,${.05+.26*i/points.length})`;ctx.stroke();
-    ctx.lineWidth=2.4*zoom;ctx.strokeStyle=`rgba(255,255,255,${.22+.78*i/points.length})`;ctx.stroke();
+  if(!points.length){
+    ctx.clearRect(0,0,920,270);
+    lastTrailTime=-Infinity;
+    return;
   }
+  // Accumulate into the fixed-size canvas and stroke only newly sampled segments.
+  let first=points.length;
+  while(first>0&&points[first-1].time>lastTrailTime)first--;
+  if(first===points.length)return;
+  const start=Math.max(0,first-1);
+  ctx.beginPath();
+  ctx.moveTo(TRAIL_CANVAS_CENTER.x-580+points[start].x*STAGE_ONE_REACH,
+    TRAIL_CANVAS_CENTER.y-545+points[start].z*STAGE_ONE_REACH*GROUND_DEPTH);
+  for(let i=start+1;i<points.length;i++){
+    ctx.lineTo(TRAIL_CANVAS_CENTER.x-580+points[i].x*STAGE_ONE_REACH,
+      TRAIL_CANVAS_CENTER.y-545+points[i].z*STAGE_ONE_REACH*GROUND_DEPTH);
+  }
+  ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=1.5;ctx.strokeStyle=trailColor;ctx.stroke();
+  lastTrailTime=points.at(-1).time;
 }
 let scenePendulumPose=null;
 function drawPendulum(config=pendulumConfig){

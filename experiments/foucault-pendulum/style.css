@@ -116,7 +116,7 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .latitude-overlay { pointer-events:none; }
 .latitude-overlay .lat-label { fill:#e6eef7; font:600 11px/1 var(--font-ui); paint-order:stroke; stroke:#0d1c2e; stroke-width:3px; stroke-linejoin:round; }
 .latitude-ring { fill:none; stroke:#ffc400; stroke-width:3; stroke-linecap:round; filter:url(#cityGlow); }
-#trails { position:absolute;left:580px;top:545px;width:920px;height:270px;pointer-events:none; }
+#trails { position:absolute;left:580px;top:545px;width:920px;height:270px;pointer-events:none;filter:drop-shadow(0 0 0.8px #b7d3ee59); }
 #bob{position:absolute;left:0;top:0;width:70px;height:70px;pointer-events:none}
 #paramButton { position:absolute;right:48px;top:50%;transform:translateY(-50%);width:88px;height:88px;z-index:20;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:radial-gradient(circle,#597ee324 55%,transparent 72%);color:#e7f5ff;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 0 8px #7397f34d); }
 #paramButton .parameter-badge { display:block;width:100%;height:100%;pointer-events:none; }

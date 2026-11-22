@@ -7,9 +7,9 @@ const root = path.resolve(__dirname, '..');
 const url = process.env.FOUCAULT_URL || 'http://127.0.0.1:8795/experiments/foucault-pendulum/';
 
 (async () => {
-  const browser = await chromium.launch({ channel: 'chrome', headless: false });
+  const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] });
   try {
-    const page = await browser.newPage({ viewport: { width: 1600, height: 900 }, reducedMotion: 'no-preference' });
+    const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, reducedMotion: 'no-preference' });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(url);
@@ -17,50 +17,38 @@ const url = process.env.FOUCAULT_URL || 'http://127.0.0.1:8795/experiments/fouca
     const screen = page.locator('.hall-screen-fx').nth(1);
     const image = page.locator('.hall-displays > g').nth(1).locator('image');
 
-    const initialState = await screen.evaluate(canvas => ({
-      city: canvas.dataset.city,
-      target: canvas.dataset.cityTarget,
-      transition: canvas.dataset.transitionActive,
-    }));
-    assert.deepEqual(initialState, { city: '', target: undefined, transition: undefined });
+    await page.waitForFunction(() => document.querySelectorAll('.hall-screen-fx[data-drawn]').length === 2);
+    assert.equal(await screen.getAttribute('data-city'), '');
+    assert.equal(await page.getByText('Glitch', { exact: true }).count(), 0);
 
-    await page.locator('.city[data-id="paris"]').click({ force: true });
-    await page.waitForTimeout(60);
-    const peak = await screen.evaluate(canvas => ({
-      city: canvas.dataset.city,
-      target: canvas.dataset.cityTarget,
-      transition: canvas.dataset.transitionActive,
-      glitchBoost: Number(canvas.dataset.glitchBoost),
-    }));
-    assert.equal(peak.city, '');
-    assert.equal(peak.target, 'paris');
-    assert.equal(peak.transition, 'true');
-    assert.ok(peak.glitchBoost >= .9);
-
-    await page.waitForTimeout(300);
-    const switched = await screen.evaluate(canvas => ({
-      city: canvas.dataset.city,
-      target: canvas.dataset.cityTarget,
-      glitchBoost: Number(canvas.dataset.glitchBoost),
-    }));
-    assert.equal(switched.city, 'paris');
-    assert.equal(switched.target, 'paris');
-    assert.ok(switched.glitchBoost > 0);
+    const choose = city => page.locator(`.city[data-id="${city}"]`).dispatchEvent('click');
+    const waitForCity = city => page.waitForFunction(
+      city => document.querySelectorAll('.hall-screen-fx')[1].dataset.city === city, city);
+    await choose('paris');
+    await page.waitForFunction(() => {
+      const canvas = document.querySelectorAll('.hall-screen-fx')[1];
+      return canvas.dataset.city === 'paris' && canvas.dataset.switching === 'true';
+    });
+    assert.equal(await page.locator('.hall-screen-fx').first().getAttribute('data-switching'), null);
+    await page.locator('.hall-screen-fx[data-switching]').waitFor({ state: 'detached' });
     assert.match(await image.getAttribute('href'), /hall-screen-paris\.webp$/);
+    const clips = [
+      {x: 825, y: 320, width: 60, height: 30},
+      {x: 1180, y: 322, width: 60, height: 30},
+    ];
+    const captureScreens = async () => {
+      const captures = [];
+      for (const clip of clips) captures.push(await page.screenshot({clip}));
+      return captures;
+    };
+    const before = await captureScreens();
+    await page.waitForTimeout(500);
+    const after = await captureScreens();
+    for (let i = 0; i < clips.length; i++) assert(after[i].equals(before[i]), 'screen artwork must remain steady');
     await page.screenshot({ path: path.join(root, 'tests/city-screen-paris.png') });
 
-    await page.waitForTimeout(650);
-    const settled = await screen.evaluate(canvas => ({
-      city: canvas.dataset.city,
-      target: canvas.dataset.cityTarget,
-      transition: canvas.dataset.transitionActive,
-      glitchBoost: Number(canvas.dataset.glitchBoost),
-    }));
-    assert.deepEqual(settled, { city: 'paris', target: undefined, transition: undefined, glitchBoost: 0 });
-
-    await page.locator('.city[data-id="shanghai"]').dispatchEvent('click');
-    await page.waitForTimeout(330);
-    assert.equal(await screen.evaluate(canvas => canvas.dataset.city), 'shanghai');
+    await choose('shanghai');
+    await waitForCity('shanghai');
     assert.match(await image.getAttribute('href'), /hall-screen-shanghai\.webp$/);
     assert.deepEqual(errors, []);
 
@@ -69,26 +57,19 @@ const url = process.env.FOUCAULT_URL || 'http://127.0.0.1:8795/experiments/fouca
     for(const city of addedCities){
       const response=await page.request.get(url+`assets/hall-screen-${city}.webp`);
       assert.equal(response.ok(),true,city+' asset exists');
-      await page.locator(`.city[data-id="${city}"]`).dispatchEvent('click');
-      await page.waitForFunction(city=>{
-        const c=document.querySelectorAll('.hall-screen-fx')[1];
-        return c.dataset.cityTarget===city&&Number(c.dataset.glitchBoost)>.5;
-      },city);
-      await page.waitForFunction(city=>{
-        const c=document.querySelectorAll('.hall-screen-fx')[1];
-        return c.dataset.city===city&&!c.dataset.transitionActive;
-      },city);
+      await choose(city);
+      await waitForCity(city);
       assert.equal(await image.getAttribute('href'),`assets/hall-screen-${city}.webp`);
       assert.equal(await page.locator('.hall-displays > g').nth(0).locator('image').getAttribute('href'),leftImage);
       await page.screenshot({path:path.join(root,`tests/city-screen-${city}.png`)});
     }
-    // New selections supersede the previous transition, including pre-swap input.
+    // The latest selection wins when cities are changed rapidly.
     for(const city of ['north','sydney','singapore','south','north']){
       await page.locator(`.city[data-id="${city}"]`).dispatchEvent('click');
       await page.waitForTimeout(70);
     }
     await page.waitForFunction(()=>{
-      const c=document.querySelectorAll('.hall-screen-fx')[1];return c.dataset.city==='north'&&!c.dataset.transitionActive;
+      const c=document.querySelectorAll('.hall-screen-fx')[1];return c.dataset.city==='north';
     });
     assert.equal(await image.getAttribute('href'),'assets/hall-screen-north.webp');
     const performanceSample=await page.evaluate(()=>new Promise(resolve=>{
@@ -102,18 +83,16 @@ const url = process.env.FOUCAULT_URL || 'http://127.0.0.1:8795/experiments/fouca
       }}requestAnimationFrame(frame);
     }));
 
-    const reducedPage = await browser.newPage({ viewport: { width: 1600, height: 900 }, reducedMotion: 'reduce' });
+    const reducedPage = await browser.newPage({ viewport: { width: 1920, height: 1080 }, reducedMotion: 'reduce' });
     await reducedPage.goto(url);
     await reducedPage.waitForFunction(() => document.querySelectorAll('.hall-screen-fx').length === 2);
-    const reducedScreen = reducedPage.locator('.hall-screen-fx').nth(1);
     await reducedPage.locator('.city[data-id="paris"]').dispatchEvent('click');
     await reducedPage.waitForFunction(() => document.querySelectorAll('.hall-screen-fx')[1].dataset.city === 'paris');
-    assert.equal(await reducedScreen.evaluate(canvas => Number(canvas.dataset.glitchBoost)), 0);
+    assert.equal(await reducedPage.locator('.hall-screen-fx').nth(1).getAttribute('data-switching'), null);
 
     for(const city of addedCities){
       await reducedPage.locator(`.city[data-id="${city}"]`).dispatchEvent('click');
       await reducedPage.waitForFunction(city=>document.querySelectorAll('.hall-screen-fx')[1].dataset.city===city,city);
-      assert.equal(await reducedScreen.evaluate(canvas=>Number(canvas.dataset.glitchBoost)),0);
     }
     assert.deepEqual(errors,[]);
     const assetResponse = await page.request.get(url + 'assets/hall-screen-paris.webp');
@@ -121,16 +100,15 @@ const url = process.env.FOUCAULT_URL || 'http://127.0.0.1:8795/experiments/fouca
     const report = {
       browser: browser.version(),
       url,
-      effect: 'right city screen raises Glitch before swapping the city image',
+      effect: 'right screen briefly shifts during swaps; both screens settle to static bloom',
       addedCities,
       rapidSelectionVerified:true,
       performanceSample,
       parisSwapVerified: true,
       shanghaiRestoreVerified: true,
-      reducedMotion: 'switches immediately without Glitch animation',
+      reducedMotion: 'same static artwork and city swaps',
       errors,
     };
-    fs.writeFileSync(path.join(root, 'tests/city-screen-browser-results.json'), JSON.stringify(report, null, 2));
     console.log(JSON.stringify(report));
   } finally {
     await browser.close();
