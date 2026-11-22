@@ -66,7 +66,8 @@
       // incident rays to accommodate the selected focal's downstream apertures.
       // A full annular pupil, sampled uniformly around the tube rather than on a
       // single meridional plane. Keep the 530 mm reference independent of sliders.
-      const rayCount=4*Math.max(2,Math.min(8,Math.round(3*apertureScale*apertureScale)));
+      // Eight representative paths keep the optical sequence legible at every aperture.
+      const rayCount=8;
       const angles=Array.from({length:rayCount},(_,i)=>(i+.5)*Math.PI*2/rayCount);
       const cacheKey=state.mode+'/'+rayCount;
       let pupil=pupilCache.get(cacheKey);
