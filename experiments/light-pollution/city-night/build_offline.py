@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 import sys
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 
@@ -35,7 +36,10 @@ def build(target, review=False):
     script += (ROOT / ('runtime-screen-review.js' if review else 'runtime.js')).read_text(encoding='utf-8')
     html = (ROOT / ('preview-screen-sequences.html' if review else 'index.html')).read_text(encoding='utf-8')
     def stylesheet(match):
-        path = (ROOT / match[1]).resolve()
+        href = urlsplit(match[1])
+        if href.scheme or href.netloc:
+            raise ValueError('Stylesheet must be local: ' + match[1])
+        path = (ROOT / href.path).resolve()
         if not path.is_relative_to(ROOT.parents[2]):
             raise ValueError('Stylesheet outside project: ' + str(path))
         css = path.read_text(encoding='utf-8')

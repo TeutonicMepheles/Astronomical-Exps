@@ -6,10 +6,20 @@
  const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x)};
  function project(c,[x,y,z]){const [a,b,d,e]=c.groundBasis;return [c.x+c.worldScale*(a*x+b*z),c.y+c.worldScale*(d*x+e*z+c.heightY*y)]}
  function bounds(points){return [Math.min(...points.map(p=>p[0])),Math.min(...points.map(p=>p[1])),Math.max(...points.map(p=>p[0])),Math.max(...points.map(p=>p[1]))]}
- function laneAt(c,y){if(c.horizontal)return c.right?[1385,1440]:[1320,1385];const d=y-558;return c.incoming?[1372-.052*d,1386+.21*d]:[1354-.30*d,1372-.052*d]}
+ const defaultPaths=()=>({
+  southbound:{far:[1305.0676980407557,860],near:[1182.0378894266073,1477.1481723237598]},
+  northbound:{far:[1404.2382054809889,878.5372062663189],near:[1447.072,1480]}
+ });
+ const paths=defaultPaths();
+ function copyPaths(source){return {southbound:{far:source.southbound.far.slice(),near:source.southbound.near.slice()},northbound:{far:source.northbound.far.slice(),near:source.northbound.near.slice()}}}
+ function slopeOf(line){return (line.near[0]-line.far[0])/((line.near[1]-line.far[1])||1)}
+ function lineX(line,y){return line.far[0]+slopeOf(line)*(y-line.far[1])}
+ function usableLine(line){return line&&[line.far,line.near].every(p=>Array.isArray(p)&&p.length===2&&p.every(Number.isFinite))&&Math.hypot(line.near[0]-line.far[0],line.near[1]-line.far[1])>=40}
+ function laneAt(c,y){if(c.horizontal)return c.right?[1385,1440]:[1320,1385];const line=c.incoming?paths.southbound:paths.northbound,x=lineX(line,y),half=24+.16*Math.abs(y-558);return [x-half,x+half]}
  function view(c,atlas){
   const vehicle=atlas.variants[c.typeIndex],focal=1400,dx=1368-c.x,near=Math.hypot(focal,dx),pitch=Math.atan2(Math.max(0,c.y-558),near);
-  const yaw=c.horizontal?Math.atan2(c.right?-focal:focal,c.right?dx:-dx):(c.incoming?Math.atan(-.076*Math.sin(pitch)):Math.PI+Math.atan(.18*Math.sin(pitch)));
+  const laneSlope=c.horizontal?0:c.laneSlope;
+  const yaw=c.horizontal?Math.atan2(c.right?-focal:focal,c.right?dx:-dx):(c.incoming?Math.atan(-laneSlope*Math.sin(pitch)):Math.PI+Math.atan(-laneSlope*Math.sin(pitch)));
   const sa=Math.sin(yaw),ca=Math.cos(yaw),se=Math.sin(pitch),ce=Math.cos(pitch),roadShear=c.horizontal?se*ca/sa:0;
   const groundBasis=[ca,-sa,se*sa+roadShear*ca,se*ca-roadShear*sa],heightY=-ce;
   const baseSize=c.horizontal?.72:1.18*c.s,worldScale=atlas.scale*baseSize;
@@ -27,10 +37,11 @@
  function poses(time,atlas){
   const t=((time+9)%cycle+cycle)%cycle,cars=[];
   // Horizontal batches clear by t=28; vertical batches run t=36..66.
+  // Vertical traffic keeps right: approaching cars use the viewer's left lane. Horizontal lanes stay as calibrated.
   // Vehicles outside their reservation remain beyond the entry, invisible.
   for(let lane=0;lane<2;lane++)for(let i=0;i<4;i++){
-   const incoming=lane===0,u=(t-36-i*5)/15,active=u>=0&&u<=1,p=Math.max(0,Math.min(1,u)),phase=incoming?p:1-p,depth=25*Math.pow(54,phase),s=depth/960;
-   cars.push(view({id:`v${lane}-${i}`,typeIndex:lane===0?[0,1,0,2][i]:[1,0,2,0][i],x:incoming?1377+depth*.076:1368-depth*.18,y:558+depth,s,incoming,horizontal:false,lane:incoming?'southbound':'northbound',phase,opacity:active?smooth(p/.07)*smooth((1-p)/.07):0},atlas));
+   const incoming=lane===0,u=(t-36-i*5)/15,active=u>=0&&u<=1,p=Math.max(0,Math.min(1,u)),phase=incoming?p:1-p,depth=25*Math.pow(54,phase),s=depth/960,y=558+depth,line=incoming?paths.southbound:paths.northbound;
+   cars.push(view({id:`v${lane}-${i}`,typeIndex:lane===0?[0,1,0,2][i]:[1,0,2,0][i],x:lineX(line,y),y,s,incoming,horizontal:false,lane:incoming?'southbound':'northbound',laneSlope:slopeOf(line),phase,opacity:active?smooth(p/.07)*smooth((1-p)/.07):0},atlas));
   }
   for(let lane=0;lane<2;lane++)for(let i=0;i<3;i++){
    const right=lane===0,u=(t-i*5)/18,active=u>=0&&u<=1,p=Math.max(0,Math.min(1,u)),phase=right?p:1-p;
@@ -38,5 +49,6 @@
   }
   return cars.sort((a,b)=>a.y-b.y);
  }
- window.CITY_TRAFFIC=Object.freeze({poses,project,laneAt,cycle,clearance});
+ function setPaths(next){for(const id of ['southbound','northbound'])if(usableLine(next?.[id]))paths[id]={far:next[id].far.slice(),near:next[id].near.slice()}}
+ window.CITY_TRAFFIC=Object.freeze({poses,project,laneAt,cycle,clearance,paths:()=>copyPaths(paths),defaults:()=>defaultPaths(),setPaths,resetPaths:()=>setPaths(defaultPaths())});
 })();

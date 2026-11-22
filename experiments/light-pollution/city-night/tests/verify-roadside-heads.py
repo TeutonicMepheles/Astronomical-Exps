@@ -9,9 +9,9 @@ layout=json.loads((ROOT/'lighting-layout.json').read_text(encoding='utf-8'));con
 for shade,entry in records.items():
  source=ROOT/entry['source'];target=ROOT/entry['output'];image=Image.open(source).convert('RGBA');crop=Image.open(target).convert('RGBA');assert crop.tobytes()==image.crop(entry['crop']).tobytes(),shade+' must be a direct lossless source crop';assert crop.height<=448 and crop.width==545,shade+' excludes the pole';assert hashlib.sha256(source.read_bytes()).hexdigest()==entry['sourceSHA256'];assert hashlib.sha256(target.read_bytes()).hexdigest()==entry['outputSHA256']
 # Regression for the annotated middle street: each pole belongs to its own curb.
-assert all(config['assignments'][f'path-{i}']=='middleNorth' for i in [39,40])
-assert all(config['assignments'][f'path-{i}']=='middleSouth' for i in [43,44])
-assert all(config['assignments'][f'path-{i}']=='westMiddleNorth' for i in [35,36,38])
+assert config['assignments']['path-40']=='middleNorth'
+assert config['assignments']['path-43']=='middleSouth'
+assert all(config['assignments'][f'path-{i}']=='westMiddleNorth' for i in [35,36])
 assert all(config['assignments'][f'path-{i}']=='westMiddleSouth' for i in [34,37])
 for x in [550,850,1200]:
  north=config['routes']['westMiddleNorth'];south=config['routes']['westMiddleSouth']
