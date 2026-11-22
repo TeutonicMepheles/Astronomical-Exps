@@ -28,7 +28,7 @@
     ['title','主标题','.introduction h1'],['description','阶段说明','.introduction .description'],
     ['finish-mirrors','进入组装按钮','#finish-mirrors',['mirrors']],['assembly-next','进入观测按钮','.assembly-next',['assembly']],['assembly-reset','重新组装按钮','.assembly-reset',['assembly']],
     ['observation-open','目镜观测按钮','.observation-open',['observation']],['observation-reset','重置参数按钮','.observation-reset',['observation']],
-    ['observation-details-toggle','对照实验入口','.observation-detail-toggle',['observation']],['target-saturn','土星按钮','[data-observation-target="saturn"]',['observation']],['target-moon','月球按钮','[data-observation-target="moon"]',['observation']],['target-jupiter','木星按钮','[data-observation-target="jupiter"]',['observation']],['target-pleiades','昴星团按钮','[data-observation-target="pleiades"]',['observation']]
+    ['observation-details-toggle','对照实验入口','.observation-detail-toggle',['observation']],['target-saturn','土星按钮','[data-observation-target="saturn"]',['observation']],['target-moon','月球按钮','[data-observation-target="moon"]',['observation']],['target-jupiter','木星按钮','[data-observation-target="jupiter"]',['observation']],['target-nebula','星云按钮','[data-observation-target="nebula"]',['observation']]
   ];
   const textTargets = textDefinitions.map(([id,label,selector,stages]) => {
     const element = $(selector); return {id,label,element,stages:stages || D.stages,original:element?.innerHTML};

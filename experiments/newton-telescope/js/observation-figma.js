@@ -20,7 +20,7 @@
     </div>
     <div class="observation-sliders" aria-label="望远镜参数" hidden></div>
     <div class="observation-targets" role="group" aria-label="观测目标">
-      <button type="button" data-observation-target="saturn" aria-label="待观测热区"></button><button type="button" data-observation-target="moon" aria-label="待观测热区"></button><button type="button" data-observation-target="jupiter" aria-label="待观测热区"></button><button type="button" data-observation-target="pleiades" aria-label="待观测热区"></button>
+      <button type="button" data-observation-target="saturn" aria-label="待观测热区"></button><button type="button" data-observation-target="moon" aria-label="待观测热区"></button><button type="button" data-observation-target="jupiter" aria-label="待观测热区"></button><button type="button" data-observation-target="nebula" aria-label="待观测热区"></button>
     </div>
     <button type="button" class="observation-close" hidden aria-label="退出观测">退出观测 <span aria-hidden="true">×</span></button>
     <section id="observation-details" class="observation-details" hidden inert aria-hidden="true"></section>
@@ -62,6 +62,7 @@
     const rotary=new N.ParameterKnob({id,input,output,label,host:sliders});
     return {id,input,wrap:rotary.wrap,rotary};
   });
+  const power=document.createElement('div');power.className='newton-power-readout';power.innerHTML='<span>放大倍率 = 主镜焦距 ÷ 目镜焦距</span><output></output>';sliders.append(power);
   const details=$('#observation-details');details.hidden=true;
   details.append($('#progress-page-observation'),$('#observation-task'));
   // Retain the legacy binding for the other module, but expose no pause control.
@@ -94,7 +95,7 @@
     star.addEventListener('animationend',()=>button.classList.remove('is-completing'));
   }
   function clearCompletionStars(){targetButtons.forEach(button=>button.classList.remove('is-completing'));}
-  let active=false,lastStage='',lastReset=N.course.resetVersion,lastAimEnabled=false;
+  let active=false,lastStage='',lastReset=N.course.resetVersion,lastAimEnabled=false,nebulaTaskStarted=false;
   const recording=N.observationRecording=new N.ObservationRecording(stage,inputs[1],renderAimGuide);
   function renderAimGuide(){
     const value=N.app.preview.aim,course=N.course.get();
@@ -147,7 +148,7 @@
     feedback.inert=!active;
     $('.observation-instrument').setAttribute('aria-expanded',String(active));
     close.hidden=!active;
-    updateAim();
+    optical(N.store.get());
     // Canvas changes size with the composition; update using the preview's frozen-state API.
     requestAnimationFrame(()=>N.app.preview.draw(N.app.preview.state));
   }
@@ -162,11 +163,20 @@
   });
   targetButtons.forEach(button=>button.addEventListener('click',()=>{
     recording.leave();
-    aim.select(button.dataset.observationTarget);
-    N.store.set({target:button.dataset.observationTarget,mode:'parallel'});
+    const target=button.dataset.observationTarget,patch={target,mode:'parallel'};
+    if(target==='nebula'&&!nebulaTaskStarted){
+      if(!N.course.get().records.some(record=>record.target==='nebula'&&record.image))patch.aperture=80;
+      nebulaTaskStarted=true;
+    }
+    aim.select(target);
+    N.store.set(patch);
     model?.aimAtTarget();
   }));
   function optical(s){
+    const nebula=s.target==='nebula'&&active;
+    sliders.dataset.task=nebula?'aperture':'magnification';
+    power.hidden=false;power.querySelector('output').textContent=`${s.focal} ÷ ${s.eyepiece} = ${Number(N.store.metrics(s).magnification.toFixed(1))}×`;
+    inputs.forEach(({id,wrap,rotary})=>{wrap.hidden=false;rotary.setDisabled(nebula&&id!=='aperture');});
     inputs.forEach(({id,input,wrap,rotary})=>{
       const value=s[id],fraction=(value-Number(input.min))/(Number(input.max)-Number(input.min));
       rotary.update();
@@ -176,6 +186,7 @@
     updateAim(s);
   }
   function course(s){
+    if(lastReset!==N.course.resetVersion)nebulaTaskStarted=false;
     const observing=s.stage==='observation';
     if(!observing||lastReset!==N.course.resetVersion)inputs.forEach(({rotary})=>rotary.cancel(lastReset===N.course.resetVersion));
     if(lastStage===s.stage&&lastReset===N.course.resetVersion){

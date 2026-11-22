@@ -2,7 +2,7 @@
 (function(N){
   'use strict';const $=s=>document.querySelector(s),all=s=>document.querySelectorAll(s);
   const mirrors={plane:{title:'平面镜',summary:'改变传播方向',description:'平面镜折转光路，不使平行光自动会聚。牛顿望远镜的副镜利用这一作用，把会聚光导向目镜。',formula:'无有限焦点 · 不提供放大',hint:'沿箭头观察：光线经 45° 平面镜反射后转向。'},concave:{title:'凹面镜',summary:'平行光会聚到实焦点',description:'凹面主镜收集远方天体的光并形成像。缩短焦距，焦点靠近镜面；增大焦距，焦点远离镜面。',formula:'抛物面：轴上平行光汇聚于实焦点',hint:'调节焦距，比较焦点位置。实线是光线的实际传播路径。'},convex:{title:'凸面镜',summary:'反射光发散 · 镜后虚焦点',description:'凸面镜将光线向外发散。反向延长线交于镜后虚焦点，因此不作为牛顿望远镜的主镜。',formula:'抛物面：反射光反向延长线交于虚焦点',hint:'虚线是反向延长线，光子不会沿虚线传播。'}};
-  const names={saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'};
+  const names={saturn:'土星',moon:'月球',jupiter:'木星',nebula:'星云'};
   const stageNames={mirrors:'认识镜片',assembly:'组装望远镜',observation:'参数观测'};
   let lastStage='';
   const heading=new N.ExperimentHeading($('.introduction'));
@@ -36,13 +36,13 @@
     syncOptics(optical);renderRecords(s);
   }
   function syncOptics(s){
-    $('#aperture').value=s.aperture;$('#aperture-value').textContent=s.aperture+' mm';$('#target').value=s.target;$('#aperture').style.setProperty('--fill',((s.aperture-80)/170*100)+'%');
+    $('#aperture').value=s.aperture;$('#aperture-value').replaceChildren(document.createTextNode(String(s.aperture)+' '),Object.assign(document.createElement('span'),{textContent:'mm'}));$('#target').value=s.target;$('#aperture').style.setProperty('--fill',((s.aperture-80)/170*100)+'%');
     all('[data-eyepiece]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.eyepiece)===s.eyepiece)));
     const metrics=N.store.metrics(s);$('#optical-metrics').innerHTML=[['倍率',metrics.magnification.toFixed(1)+'×'],['估算视场',metrics.field.toFixed(2)+'°'],['焦比','f/'+metrics.focalRatio.toFixed(1)],['出瞳',metrics.exitPupil.toFixed(1)+' mm'],['集光能力',metrics.lightGathering]].map(([label,value])=>`<span>${label} <strong>${typeof value==='number'?value.toFixed(0)+'×':value}</strong></span>`).join('');
     if(N.course.get().stage==='observation')renderRecords(N.course.get());
   }
   function renderRecords(s){
-    $('#observation-records').textContent=s.records.length?s.records.map(r=>`${r.eyepiece} mm → ${r.magnification.toFixed(1)}× / ${r.field.toFixed(2)}°`).join('　 |　 ')+(s.complete?'　✓ 四个天体观测完成':''):'任务：完成土星、月球、木星和昴星团的观测。';
+    $('#observation-records').textContent=s.records.length?s.records.map(r=>`${r.eyepiece} mm → ${r.magnification.toFixed(1)}× / ${r.field.toFixed(2)}°`).join('　 |　 ')+(s.complete?'　✓ 四个天体观测完成':''):'任务：完成土星、月球、木星和星云的观测。';
   }
   all('[data-mirror]').forEach(b=>{b.draggable=true;b.querySelector('img').draggable=false;b.addEventListener('click',()=>N.course.selectMirror(b.dataset.mirror));b.addEventListener('dragstart',e=>{N.course.selectMirror(b.dataset.mirror);e.dataTransfer.setData('text/plain',b.dataset.mirror);e.dataTransfer.effectAllowed='copy';});});
   $('#mirror-drop-slot').addEventListener('dragover',e=>{e.preventDefault();e.currentTarget.classList.add('is-target');});

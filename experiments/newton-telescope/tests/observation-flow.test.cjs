@@ -17,13 +17,13 @@ class Element{
   querySelectorAll(selector){return selector==='[data-observation-target]'?targets:[];}
   remove(){this.removed=true;}
 }
-const selectors=['.observation-art','.observation-saturn-layer','.observatory','.observation-instrument','.observation-view-reset','.observation-sliders','#start',
+const selectors=['output','.observation-art','.observation-saturn-layer','.observatory','.observation-instrument','.observation-view-reset','.observation-sliders','#start',
  '#observation-details','#progress-page-observation','#observation-task','#target','#observation-feedback','.preview-card',
  '.observation-close','.observation-targets','.observation-detail-toggle','.observation-detail-close','#viewport','#observation-task .observation-task__tools>label','#observation-orbit-help','.observation-saturn-marker','.planet-viewport'];
 const nodes=new Map(selectors.map(s=>[s,new Element(s)]));
 nodes.get('#target').parentElement=new Element('target parent');
 function node(s){assert(nodes.has(s),'Unexpected presentation selector: '+s);return nodes.get(s);}
-const targets=['saturn','moon','jupiter','pleiades'].map(target=>{const e=new Element(target);e.dataset.observationTarget=target;return e;});
+const targets=['saturn','moon','jupiter','nebula'].map(target=>{const e=new Element(target);e.dataset.observationTarget=target;return e;});
 for(const id of ['focal','eyepiece','aperture']){
   const input=new Element(id);input.min=id==='focal'?540:id==='aperture'?80:5;input.max=id==='focal'?800:id==='aperture'?250:50;
   nodes.set('#'+id,input);nodes.set('#'+id+'-value',new Element('output'));
@@ -45,7 +45,7 @@ class Model{
   finish(){this.transition=null;this.container.dispatchEvent({type:'viewtransitionchange'});}
 }
 const N={ObservationBackdrop:class{setActive(value){this.active=value;}},ParameterKnob:class{constructor({input,output,host}){this.wrap=new Element();this.wrap.append(input,output);host.append(this.wrap);}update(){}cancel(){}setGoal(){}},ObservationModel:Model,ObservationClickHint:class{setPhase(){}setObservationTargets(){}update(){}},app:{preview:{state:{},aim:null,draw(){},setAim(value){this.aim=value;this.state={...storeState};},subscribeDraw(){}}},
- store:{focusBlur:()=>16,focusAcceptable:()=>false,get:()=>({...storeState}),metrics:s=>({field:60*s.eyepiece/s.focal}),set(patch){storeState={...storeState,...patch};storeSubscribers.forEach(fn=>fn({...storeState}));},subscribe(fn){storeSubscribers.push(fn);}},
+ store:{focusBlur:()=>16,focusAcceptable:()=>false,get:()=>({...storeState}),metrics:s=>({field:60*s.eyepiece/s.focal,magnification:s.focal/s.eyepiece}),set(patch){storeState={...storeState,...patch};storeSubscribers.forEach(fn=>fn({...storeState}));},subscribe(fn){storeSubscribers.push(fn);}},
  course:{resetVersion:0,observationEyepieces:[25,10,5],observeTarget(){},get:()=>({records:[],observedTargets:[],complete:false,...courseState}),subscribe(fn){courseSubscribers.push(fn);}}};
 const context={window:{Newton:N},document,requestAnimationFrame:fn=>fn(),setTimeout:()=>1,clearTimeout(){}};vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../js/observation-recording.js'),'utf8'),context);

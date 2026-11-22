@@ -10,6 +10,8 @@
    this.discoveryTitle=this.discovery.querySelector('span');this.saveButton=this.discovery.querySelector('button');
    this.saveButton.addEventListener('click',()=>this.captureObserved());
    this.preview.canvas.closest('.preview-card').append(this.discovery);
+   this.credit=document.createElement('p');this.credit.className='observation-photo-credit';this.credit.hidden=true;
+   this.credit.innerHTML='<a href="https://www.asod.info/?p=1605" target="_blank" rel="noopener noreferrer">目视素描：Frank McCabe · ASOD</a><br>10英寸 f/5.7 多布森 · 21 mm目镜 · 69× · 口径变化示意';
    this.button=document.createElement('button');this.button.type='button';
    this.button.className='observation-record-book-button';
    this.button.innerHTML='<i aria-hidden="true"></i>实验记录 <b>0/4</b>';
@@ -72,6 +74,7 @@
       const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;data.append(dt,dd);
      }
      card.append(data);
+     if(id==='nebula'){const credit=this.credit.cloneNode(true);credit.hidden=false;credit.className='observation-record-credit';card.append(credit);}
     }
     return card;
    });

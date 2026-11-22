@@ -5,7 +5,7 @@
     saturn:{name:'土星',x:1055.84,y:562.42},
     moon:{name:'月球',x:1150,y:530},
     jupiter:{name:'木星',x:930,y:570},
-    pleiades:{name:'昴星团',x:1120,y:545}
+    nebula:{name:'猎户座星云 M42',x:1120,y:545}
   };
   N.ObservationAim=class{
     constructor(){this.reset();}
@@ -24,7 +24,8 @@
         this.acquired=false;
         return this.current={...base,selected:true,available:false,acquired:false,inField:false,x:0,y:0,distance:0};
       }
-      const radius=N.store.metrics(state).field*Math.PI/360;
+      const field=state.target==='nebula'?60/32:N.store.metrics(state).field;
+      const radius=field*Math.PI/360;
       const x=pointing.horizontalError/radius,y=-pointing.verticalError/radius,distance=Math.hypot(x,y),facing=pointing.facing;
       if(facing&&distance<=1)this.acquired=true;
       if(!facing||distance>1.35)this.acquired=false;

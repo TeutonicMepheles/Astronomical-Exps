@@ -18,15 +18,16 @@
    input.addEventListener('input',()=>this.update());this.bind();this.update();
   }
   quantize(value){return Math.max(this.min,Math.min(this.max,this.min+Math.round((value-this.min)/this.step)*this.step));}
-  write(value){const next=this.quantize(value);if(next===Number(this.input.value))return;this.input.value=next;this.input.dispatchEvent(new Event('input',{bubbles:true}));this.update();}
-  update(){const value=Number(this.input.value);this.wrap.style.setProperty('--knob-angle',(-135+(value-this.min)/(this.max-this.min)*270)+'deg');this.input.setAttribute('aria-valuetext',value+' 毫米');this.minus.disabled=value<=this.min;this.plus.disabled=value>=this.max;}
+  write(value){if(this.input.disabled)return;const next=this.quantize(value);if(next===Number(this.input.value))return;this.input.value=next;this.input.dispatchEvent(new Event('input',{bubbles:true}));this.update();}
+  update(){const value=Number(this.input.value);this.wrap.style.setProperty('--knob-angle',(-135+(value-this.min)/(this.max-this.min)*270)+'deg');this.input.setAttribute('aria-valuetext',value+' 毫米');this.minus.disabled=this.input.disabled||value<=this.min;this.plus.disabled=this.input.disabled||value>=this.max;}
+  setDisabled(disabled){if(this.input.disabled===disabled)return;this.cancel(false);this.input.disabled=disabled;this.wrap.classList.toggle('is-disabled',disabled);this.wrap.setAttribute('aria-disabled',String(disabled));this.update();}
   setGoal(value){if(this.goal===value)return;this.goal=value;this.update();}
   bind(){
    const dial=this.dial;let drag,frame=0,pending;
    const flush=()=>{cancelAnimationFrame(frame);frame=0;if(pending!==undefined){const value=pending;pending=undefined;this.write(value);}};
    const end=(event,cancel=false)=>{if(!drag||event.pointerId!==drag.id)return;const old=drag;drag=null;if(cancel){pending=undefined;cancelAnimationFrame(frame);frame=0;if(cancel===true)this.write(old.value);}else flush();this.wrap.classList.remove('is-dragging');if(dial.hasPointerCapture(old.id))dial.releasePointerCapture(old.id);};
    dial.addEventListener('pointerdown',event=>{
-    if(!event.isPrimary||event.button!==0||drag)return;
+    if(this.input.disabled||!event.isPrimary||event.button!==0||drag)return;
     event.preventDefault();this.input.focus({preventScroll:true});
     const rect=dial.getBoundingClientRect(),cx=rect.x+rect.width/2,cy=rect.y+rect.height/2;
     drag={id:event.pointerId,x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,

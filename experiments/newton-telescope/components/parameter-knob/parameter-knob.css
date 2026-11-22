@@ -14,7 +14,7 @@
 .newton-knob-readout{margin-top:14px;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:2px;}
 .newton-knob-readout button{width:44px;height:44px;padding:0;border:1px solid #9bb1ca88;border-radius:50%;background:#203752e8;color:#f5dfb1;font-size:29px;line-height:1;touch-action:manipulation;}
 .newton-knob-readout button:disabled{opacity:.35;}
-.newton-knob-readout output{font:700 20px/25px var(--font-ui);color:#f9e0aa;white-space:normal;}
+.newton-knob-readout output{display:block;min-width:0;height:43px;font:700 20px/25px var(--font-ui);color:#f9e0aa;white-space:nowrap;}
 .newton-knob-readout output span{display:block;font-size:14px;line-height:18px;font-weight:500;color:#c6d6e9;}
 .newton-knob-readout button:focus-visible{outline:3px solid #bce5f1;outline-offset:2px;}
 .observation-is-open .observation-detail-toggle{left:48px;top:840px;width:456px;font-size:21px;}
@@ -22,3 +22,12 @@
 .newton-knob-origin{position:absolute;left:calc(50% - 7px);top:-7px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:11px solid #f5d99c;z-index:2;pointer-events:none;}
 .newton-knob-position-dot{position:absolute;left:calc(50% - 6px);top:-5px;width:12px;height:12px;border-radius:50%;background:#f8ca72;border:2px solid #fff1cf;box-shadow:0 1px 3px #10213c88;}
 .newton-knob-readout{margin-top:8px;}
+
+.observation-scene .observation-sliders{height:320px;flex-wrap:wrap;align-content:flex-start;row-gap:10px}
+.newton-power-readout{width:456px;display:grid;gap:3px;text-align:center;padding:6px 12px;border:1px solid #b9cee14d;border-radius:12px;background:#102540dd;color:#e5ecf5}
+.newton-power-readout>span{font:400 20px/27px var(--font-ui)}
+.newton-power-readout>output{font:500 30px/34px var(--font-ui);color:#ffe3a2;font-variant-numeric:tabular-nums}
+
+.observatory[data-stage=observation] .preview-badge{display:none}
+
+.newton-parameter-knob.is-disabled{filter:grayscale(1);opacity:.4;pointer-events:none}

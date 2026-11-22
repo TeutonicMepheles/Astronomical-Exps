@@ -27,17 +27,17 @@ assert.equal(element('preview-field').textContent,before.field);assert.equal(ele
 assert.equal(element('.preview-paused').hidden,false);
 preview.update({...N.store.get(),live:false,target:'moon',focal:400,eyepiece:50},true);
 assert.equal(element('preview-target').textContent,'月球');assert.equal(element('preview-field').textContent,'7.50°');
-draw({aperture:80});const dim=Number(canvas['data-brightness']);
-draw({aperture:250});const bright=Number(canvas['data-brightness']);assert(bright>dim);
-preview.update({...N.store.get(),aperture:80,live:false});assert.equal(Number(canvas['data-brightness']),bright);
-preview.update({...N.store.get(),aperture:80,live:false},true);assert.equal(Number(canvas['data-brightness']),dim);
-for(const target of ['saturn','moon','jupiter','pleiades'])for(const mode of ['parallel','point'])for(const focal of [400,1600]){
+preview.update({...N.store.get(),target:'nebula',aperture:80});const dim=Number(canvas['data-brightness']);
+preview.update({...N.store.get(),target:'nebula',aperture:250});const bright=Number(canvas['data-brightness']);assert(bright>dim);
+preview.update({...N.store.get(),target:'nebula',aperture:80,live:false});assert.equal(Number(canvas['data-brightness']),bright);
+preview.update({...N.store.get(),target:'nebula',aperture:80,live:false},true);assert.equal(Number(canvas['data-brightness']),dim);
+for(const target of ['saturn','moon','jupiter','nebula'])for(const mode of ['parallel','point'])for(const focal of [400,1600]){
   preview.update({...N.store.get(),target,mode,focal});
   assert.match(canvas['aria-label'],/估算视场/);
-  assert.equal(element('preview-target').textContent,mode==='point'?'点光源':{saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'}[target]);
+  assert.equal(element('preview-target').textContent,mode==='point'?'点光源':{saturn:'土星',moon:'月球',jupiter:'木星',nebula:'星云'}[target]);
 }
 console.log('PASS preview scaling at 8–320x, shared scene spacing, four targets, two sources and frozen readouts.');
-for(const target of ['jupiter','saturn','moon','pleiades']){
+for(const target of ['jupiter','saturn','moon','nebula']){
  let center;
  for(const aperture of [80,100,130,250,100]){
   translations.length=0;preview.update({...N.store.get(),live:true,mode:'parallel',target,angle:34,focal:1300,eyepiece:25,aperture});
@@ -64,7 +64,7 @@ console.log('PASS persistent star field before selection and during off-field se
 
 // Every target stays sharp throughout focal and aperture adjustments.
 preview.pendingAim={enabled:true,selected:true,acquired:true,x:0,y:0};
-for(const target of ['saturn','moon','jupiter','pleiades'])
+for(const target of ['saturn','moon','jupiter','nebula'])
  for(const focal of [400,800,1600])for(const eyepiece of [5,25,50])for(const aperture of [80,130,250]){
   preview.pendingAim.target=target;
   preview.update({...N.store.get(),target,focal,eyepiece,aperture,live:true});

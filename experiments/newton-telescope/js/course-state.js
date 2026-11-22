@@ -23,7 +23,7 @@
     refresh(){emit();},
     isStageOneComplete(courseState=state){return stageOneComplete(courseState);},
     canEnter(stage,{manual=false}={}){return ['mirrors','assembly','observation'].includes(stage)&&(manual||N.developer?.enabled||stage==='mirrors'||stage==='assembly'&&stageOneComplete(state)||stage==='observation'&&state.assemblyDone);},
-    enter(stage,options){if(!this.canEnter(stage,options))return false;patch({stage,selected:null,mirrorSelection:null,message:stage==='mirrors'?'将桌面五类镜片依次放入光路，观察反射、会聚与发散。':stage==='assembly'?'选择零件，再点击安装位。':'依次观测土星、月球、木星和昴星团。'});return true;},
+    enter(stage,options){if(!this.canEnter(stage,options))return false;patch({stage,selected:null,mirrorSelection:null,message:stage==='mirrors'?'将桌面五类镜片依次放入光路，观察反射、会聚与发散。':stage==='assembly'?'选择零件，再点击安装位。':'依次观测土星、月球、木星和星云。'});return true;},
     selectMirror(mirror){if(state.stage!=='mirrors'||state.mirrorMounted&&!state.lens&&state.mirror===mirror||!['plane','concave','convex'].includes(mirror))return;patch({mirrorSelection:mirror,message:'已选择镜片。拖到夹具上安装。'});},
     clearMirrorSelection(){if(state.stage==='mirrors')patch({mirrorSelection:null});},
     mountLens(type){
@@ -73,7 +73,7 @@
     },
     recordDrawing({optical,image,aim}={}){
       if(state.stage!=='observation'||!optical?.live||optical.mode!=='parallel')return false;
-      if(!['saturn','moon','jupiter','pleiades'].includes(optical.target)||state.records.some(r=>r.target===optical.target&&r.image))return false;
+      if(!['saturn','moon','jupiter','nebula'].includes(optical.target)||state.records.some(r=>r.target===optical.target&&r.image))return false;
       if(!N.store.observationSetup(optical).suitable||!aim?.aligned||aim.target!==optical.target)return false;
       if(typeof image!=='string'||!image.startsWith('data:image/png;base64,'))return false;
       const metrics=N.store.metrics(optical);

@@ -13,7 +13,7 @@
 .observation-saturn-marker::after{content:attr(data-name);position:absolute;left:50%;top:27px;transform:translateX(-50%);padding:1px 3px;border-radius:2px;background:#102545d9;font-size:6px;line-height:1.4;white-space:nowrap}
 .observation-saturn-marker[data-target=moon]::before{width:18px;height:18px;border-radius:50%;clip-path:none;background:radial-gradient(circle at 35% 33%,#9da7b7 0 12%,transparent 14%),radial-gradient(circle at 65% 60%,#9aa4b5 0 17%,transparent 19%),radial-gradient(circle at 30% 73%,#b2bac7 0 9%,transparent 11%),radial-gradient(circle at 32% 28%,#fff9e6,#d8dfec 68%,#8899b1);box-shadow:0 0 6px #e6edff80}
 .observation-saturn-marker[data-target=jupiter]::before{width:11px;height:11px;clip-path:none;border-radius:50%;background:repeating-linear-gradient(8deg,#e6c09b 0 2px,#a87e71 2px 3px);box-shadow:0 0 5px #ffe3bf99}
-.observation-saturn-marker[data-target=pleiades]::before{width:3px;height:3px;clip-path:none;border-radius:50%;background:#edf5ff;box-shadow:-5px -3px 2px #c7dcff,5px -4px 2px #c7dcff,-4px 4px 2px #c7dcff,4px 5px 2px #c7dcff,0 -7px 2px #c7dcff,7px 1px 2px #c7dcff}
+.observation-saturn-marker[data-target=nebula]::before{width:3px;height:3px;clip-path:none;border-radius:50%;background:#edf5ff;box-shadow:-5px -3px 2px #c7dcff,5px -4px 2px #c7dcff,-4px 4px 2px #c7dcff,4px 5px 2px #c7dcff,0 -7px 2px #c7dcff,7px 1px 2px #c7dcff}
 .observation-saturn-marker[data-acquired=true]{border-color:#b7efda;box-shadow:0 0 8px #83dbb866;color:#ceffe9}
 .observation-instrument{position:absolute;left:439px;top:246px;width:722px;height:541px;border:0;padding:0;background:none;pointer-events:auto;touch-action:none;user-select:none;cursor:pointer}
 .observation-instrument canvas{position:absolute;display:block;pointer-events:none}
@@ -224,3 +224,8 @@
 @keyframes newton-observation-complete{0%,100%{opacity:.48;transform:scale(1)}50%{opacity:1;transform:scale(1.333)}}
 @media(prefers-reduced-motion:reduce){.observation-targets button.is-completing .observation-completion-star{animation-name:newton-observation-complete-still;animation-duration:.6s}@keyframes newton-observation-complete-still{0%,90%{opacity:1}100%{opacity:.48}}}
 .observation-aim-hint{font-size:20px}
+
+.observation-photo-credit{position:absolute;top:660px;left:0;width:100%;margin:0;text-align:center;color:#bccbe0;font:400 11.667px/16px var(--font-ui);pointer-events:auto}
+.observation-photo-credit[hidden]{display:none!important}
+.observation-photo-credit a,.observation-record-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.observation-record-credit{margin:8px 0 0;font:400 11.667px/16px var(--font-ui);color:#526174}

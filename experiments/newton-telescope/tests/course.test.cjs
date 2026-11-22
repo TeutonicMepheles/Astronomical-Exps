@@ -40,16 +40,16 @@ c.selectPart('secondary');assert.equal(c.install('secondary'),true);assert.equal
 c.enter('mirrors');c.enter('observation');assert.equal(c.get().installed.length,2);
 const image='data:image/png;base64,AA==';
 const record=(aim={target:N.store.get().target,aligned:true})=>c.recordDrawing({optical:N.store.get(),image,aim});
-N.store.set({target:'saturn',focal:1600,eyepiece:9,aperture:250});assert.equal(record(),false,'clear aligned high-power image cannot bypass excessive brightness');N.store.set({aperture:130});
+N.store.set({target:'saturn',focal:1600,eyepiece:9,aperture:250});assert.equal(N.store.observationSetup().suitable,true,'planet task does not require brightness adjustment');N.store.set({aperture:130});
 N.store.set({live:false});assert.equal(record(),false);
 N.store.set({live:true,target:'saturn',focal:1600,eyepiece:25});assert.equal(record(),false,'clear 64x cannot record the high-power Saturn task');
 N.store.set({live:true,eyepiece:38});assert.equal(record(),false,'unobserved target cannot be recorded');
-for(const [i,target] of ['saturn','moon','jupiter','pleiades'].entries()){
+for(const [i,target] of ['saturn','moon','jupiter','nebula'].entries()){
  N.store.set({target,eyepiece:38-i*3,focal:600+i*100,aperture:100+i*20});
  assert.equal(c.observeTarget(target),false,'alignment cannot complete a target without a record');
- N.store.set({focal:800,eyepiece:25});assert.equal(record(),false,'out-of-range size cannot be recorded');
+ N.store.set({focal:800,eyepiece:25,aperture:80});assert.equal(record(),false,'wrong planet size or dim nebula cannot be recorded');
  N.store.set({focal:1600,eyepiece:25});assert.equal(record({target,aligned:false,focused:true}),false,'off-axis capture blocked');
- N.store.set(({saturn:{focal:800,eyepiece:5},moon:{focal:1500,eyepiece:35},jupiter:{focal:1600,eyepiece:13},pleiades:{focal:1450,eyepiece:50}})[target]);
+ N.store.set(({saturn:{focal:800,eyepiece:5},moon:{focal:1500,eyepiece:35},jupiter:{focal:1600,eyepiece:13},nebula:{focal:1450,eyepiece:50,aperture:250}})[target]);
  assert.equal(record(),true,'clear aligned capture at target-appropriate power counts once');
  assert.equal(record(),false,'same target cannot count twice');
  assert.equal(c.get().records.length,i+1);assert.equal(c.get().complete,i===3);

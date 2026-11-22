@@ -49,13 +49,13 @@ N.store.set({target:'moon'});preview.update(N.store.get());preview.setAim(null);
 N.store.set({target:'saturn'});
 N.store.set({live:true});draw(1,0);assert.equal(ellipses.length,0,'No Saturn after turning away');
 preview.setAim(null,{force:true});preview.update({...defaultState,target:'saturn'});assert(ellipses.length>20,'Original stages retain their Saturn illustration');
-for(const target of ['moon','jupiter','pleiades']){
+for(const target of ['moon','jupiter','nebula']){
  const state={...defaultState,target},finder=new N.ObservationAim();finder.select(target);
  preview.setAim(finder.update({active:true,state,pointing:{horizontalError:1,verticalError:0,facing:true}}));ellipses.length=arcs.length=0;preview.update(state);
  assert.equal(canvas['data-aim-phase'],'finding');assert.equal(ellipses.length,0);assert.equal(arcs.length,69,'Only background stars before acquiring '+target);
  preview.setAim(finder.update({active:true,state,pointing:{horizontalError:0,verticalError:0,facing:true}}));ellipses.length=arcs.length=0;preview.update(state);
- assert.equal(canvas['data-aim-phase'],'observing');assert(canvas['aria-label'].includes('待观测目标'),'Blurred target identity is withheld');
- assert(target==='jupiter'?ellipses.length>=16:arcs.length>69,'Acquired target renders its own illustration');
+ assert.equal(canvas['data-aim-phase'],'observing');assert(canvas['aria-label'].includes(target==='nebula'?'星云':'待观测目标'),'Identity follows the independent task criteria');
+ assert(target==='jupiter'?ellipses.length>=16:target==='nebula'?arcs.length===69:arcs.length>69,'Raster nebula uses the art module; planets retain procedural fallback');
 }
 const progress=new N.ObservationAim(),order=Object.keys(N.observationTargets),saved=[];
 N.course={get:()=>({observedTargets:saved})};
