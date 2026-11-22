@@ -14,7 +14,7 @@
 
 当前可运行开发版（2026-11-18 核对），默认从 [index.html](index.html) 进入。
 
-三章教学：气球反冲与推力载荷；同页速度/轨道对照及连续视频转场；源比例长征七号同页认识部件与五模块组装、自动分离，以及三火箭同屏分级对照。模型、轨道与箭头强度均保留教学示意边界。
+三章教学依次为气球反作用力、速度与轨道、结构与组装。第三章按推力与载荷、三箭分级对比、自动分级分离、认识与组装火箭的顺序进行。三箭对比的最终高度使用现有相对高度示意格，实验记录包含总重力箭头。详见 [11 月 18 日会议调整](REQUIREMENTS.md#2026-11-18-甲方会议最终调整)。
 
 从仓库根运行 `npm run dev -- --experiment rocket-launch`。本实验已接入根浏览器入口 smoke，尚未接入通用 `npm run export` 与贡献者协作登记；不能将入口通过视为整页或白板验收。
 
@@ -74,6 +74,6 @@
 
 ## 当前专项检查入口
 
-以 `TEST_ORIGIN` 指定当前仓库根静态服务，避免命中旧工作树。模型用 `test-approved-interior.cjs`，装配用 `test-recognize-assemble.cjs`，语义/边界用 `test-current-control-contract.cjs`，主力图用 `test-launch-force-diagram.cjs`，记录/刷新用 `test-course-refinements.cjs` 与 `test-launch-feedback.cjs`，三箭用 `test-qualitative-flight.cjs`。
+以 `TEST_ORIGIN` 指定当前仓库根静态服务，避免命中旧工作树。模型用 `test-approved-interior.cjs`，装配用 `test-recognize-assemble.cjs`，语义/边界用 `test-current-control-contract.cjs`，主力图用 `test-launch-force-diagram.cjs`，记录/刷新用 `test-course-refinements.cjs` 与 `test-launch-feedback.cjs`，三箭用 `test-qualitative-flight.cjs`，11 月 18 日会议改动的完整流程用 `test-meeting-review.cjs`。
 
 `legacy-test-kiu-model.cjs` 与 `legacy-test-control-contract.cjs` 保留旧外观模型、旧九步/持久化流程的历史断言，不属于当前默认页验收清单；各日期文档的旧测试名按其原版本解读。

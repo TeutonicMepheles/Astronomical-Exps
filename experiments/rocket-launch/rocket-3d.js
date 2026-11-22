@@ -1,10 +1,9 @@
 import {ascentView} from './ascent-presentation.js';
-import {comparisonFlight} from './comparison-flight.js';
 import {addRocketHardware} from './rocket-hardware.js?v=flight-refinement-20261117';
 import {createRocketExhaust} from './rocket-exhaust.js?v=flight-refinement-20261117';
 import {RocketAssemblyParts} from './rocket-assembly-parts.js?v=assembly-uniform-20261117';
 import * as T from './vendor/three/three.module.js';
-import {StagingRig} from './staging-rig.js?v=course-refinements-20261118';
+import {StagingRig} from './staging-rig.js?v=altitude-result-focus';
 import {LaunchSupport} from './launch-support.js';
 import {RocketAssemblyGuide} from './rocket-assembly-guide.js?v=assembly-uniform-20261117';
 import {RocketSelectionOutline} from './rocket-selection-outline.js?v=assembly-uniform-20261117';
@@ -202,7 +201,7 @@ export class Rocket3D {
   finally{this.stagingLoading=null;}
  }
  showComparisonError(){this.status.hidden=false;this.status.textContent='分级对照模型加载失败：'+this.stagingError.message;const b=document.createElement('button');b.textContent='重试';b.onclick=()=>{this.stagingError=null;this.loadComparison();};this.status.append(b);}
- setComparison(lesson){this.comparisonLesson=lesson;if(this.ready&&this.mode==='comparison'){this.stagingRig?.setState(lesson);const {view}=comparisonFlight(lesson);this.camera.zoom=view.zoom;this.camera.position.set(750,view.centerY,1000);this.camera.lookAt(750,view.centerY,0);this.camera.updateProjectionMatrix();this.invalidateFrame();}}
+ setComparison(lesson){this.comparisonLesson=lesson;if(this.ready&&this.mode==='comparison'){this.stagingRig?.setState(lesson);this.invalidateFrame();}}
  setAscent(progress){if(!this.ready)return;if(this.mode==='launch'){progress=Math.max(0,Math.min(1,progress));const view=ascentView(progress);this.layout.position.y=view.rise;this.camera.zoom=view.zoom;this.camera.updateProjectionMatrix();this.launchSupport.update(progress);}else this.layout.position.y=Math.min(10,progress*20);this.invalidateFrame();}
  beginLaunch(){this.assemblyParts?.setVisible(false);if(this.reference)this.reference.visible=false;this.blueprint?.setVisible(false);this.launchTime=0;}
  update(dt,{animate=false,effectTime=0,flames=false,upper=false}={}){

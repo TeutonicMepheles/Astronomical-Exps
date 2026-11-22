@@ -10,7 +10,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
   await p.route('**/*.glb*',async route=>{const response=await route.fetch(),body=await response.body();modelHashes.push(crypto.createHash('sha256').update(body).digest('hex'));await route.fulfill({response,body});});
   p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});p.on('response',r=>{if(new URL(r.url()).pathname.endsWith('.glb'))responses.push(r);});
   await p.goto(((process.env.TEST_ORIGIN||'http://127.0.0.1:9041')+'/experiments/rocket-launch/?v=approved-interior-20261117'));
-  await p.getByRole('button',{name:'结构与组装'}).click();await p.waitForFunction(()=>RocketChapter3.adapter.ready&&RocketChapter3.adapter.blueprint.images.assembly);
+  await p.getByRole('button',{name:'结构与组装'}).click();await p.locator('#steps').getByRole('button',{name:'认识与组装火箭',exact:true}).click();await p.waitForFunction(()=>RocketChapter3.adapter.ready&&RocketChapter3.adapter.blueprint.images.assembly);
   await p.evaluate(()=>{const a=RocketChapter3.adapter;window.approvedIntegrationSource=a.model;window.approvedIntegrationNodes=Object.fromEntries(['Stage1LOXTank','Stage1FuelTank','Stage2LOXTank','Stage2FuelTank','Payload'].map(n=>[n,a.nodes[n]]));});
   await p.getByRole('button',{name:'蓝图：一级液氧贮箱',exact:true}).click();
   assert(await p.evaluate(()=>RocketChapter3.adapter.xraySaved.size>0));await p.screenshot({path:path.join(out,'recognition.png')});
