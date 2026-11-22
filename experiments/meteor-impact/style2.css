@@ -1,0 +1,7 @@
+/* Isolated index2 preview: gentle limb with the original soft central blend. */
+#lab{background:#0b1931 url("assets/starfield-small-earth.png") center -100px/cover no-repeat}
+.viewport,.viewport.side-1{background:transparent}
+/* Blend the ground only; a pale overlay across the sky creates a bright central bump. */
+.viewports::after{mask-image:linear-gradient(transparent 27%,#000 42%)}
+
+/* Lift the small Earth into the visible sky above the lunar horizon. */

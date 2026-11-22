@@ -21,3 +21,6 @@ button {font-size:var(--type-body);font-weight:400;min-height:52px}
 .lunar-manual p,.lunar-manual legend,.lunar-manual label {font-size:var(--type-body);line-height:var(--type-leading)}
 .lunar-manual input,.lunar-manual select,.lunar-manual .manual-results output {font-size:var(--type-number);font-weight:500}
 .lunar-manual small {font-size:var(--type-help);font-weight:300}
+
+/* The grouped measurement panel sizes with its results to keep the scene visible. */
+.lunar-measure-panel .result {height:auto;width:auto}
