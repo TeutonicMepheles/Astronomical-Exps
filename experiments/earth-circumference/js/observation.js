@@ -13,18 +13,53 @@ export function mountObservation(scene){
  <path id="altitude-arc" stroke="#fff4ca" stroke-width="3" fill="none"/>
  <text id="altitude-label" class="local-label"/><text id="shadow-result" class="local-label"/></g><text id="rod-label" class="local-label">100 cm</text>
  <circle cx="330" cy="355" r="4" fill="#fff4cb"/></g></svg><div class="subsolar-zero-note" hidden>太阳直射点：正午影长为0</div>
- <div class="measure-entry-hint" role="note"><span>点击右上角尺子</span><b>开始测量影长</b></div>
- <div class="site-measurement-results" role="status" aria-live="polite" hidden>
-  <div><span>影长 s</span><strong data-result-shadow>—</strong></div>
-  <div><span>太阳高度角 α</span><strong data-result-altitude>—</strong></div>
- </div></div>
+ <div class="measure-entry-hint" role="note"><span>点击右上角尺子</span><b>开始测量影长</b></div></div>
  <div class="observation-footer"><div class="rod-length-control"><span>杆长 L</span><button type="button" data-rod-decrease aria-label="缩短杆长">−</button><input type="range" min="10" max="100" step="10" value="100" data-rod-range aria-label="杆长，10 到 100 厘米"><output data-rod-value>100 cm</output><button type="button" data-rod-increase aria-label="增长杆长">＋</button></div></div>`;
  const pin=document.createElementNS('http://www.w3.org/2000/svg','svg');
  pin.setAttribute('viewBox','0 0 1600 900');pin.setAttribute('aria-hidden','true');pin.classList.add('observation-pin');
  pin.innerHTML='<path/>';
- const localEvidence=document.createElement('aside');localEvidence.className='calculation-local-evidence';localEvidence.hidden=true;localEvidence.setAttribute('aria-label','观测点地面测量结果');
- localEvidence.innerHTML='<span>地面测量结果</span><div><small>杆长 L</small><strong data-evidence-rod>—</strong></div><div><small>影长 s</small><strong data-evidence-shadow>—</strong></div><div><small>太阳高度角 α</small><strong data-evidence-altitude>—</strong></div>';
- scene.stage.append(pin,panel,localEvidence);const q=s=>panel.querySelector(s);
+ const globeRod=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ globeRod.classList.add('observation-globe-rod');
+ globeRod.setAttribute('viewBox','0 0 1600 900');
+ globeRod.setAttribute('aria-hidden','true');
+ globeRod.innerHTML='<path class="observation-rod-shadow"/><path class="observation-rod-ray"/><path class="observation-rod-stem"/><path class="observation-rod-angle"/>';
+ const [globeShadow,globeRay,globeStem,globeAngle]=globeRod.children;
+ scene.stage.append(pin,globeRod,panel);
+ const q=s=>panel.querySelector(s);
+ function paintGlobeRod(visible,arc,latitude,theta){
+  globeRod.style.display=visible?'':'none';
+  if(!visible)return 1;
+  const cam=scene.camera();
+  const point=scene.projectLatLon(latitude,arc.selLon);
+  const [nx,ny]=point.normal;
+  const sun=scene.sun;
+  const cosine=point.normal.reduce((sum,component,i)=>sum+component*sun[i],0);
+  // Project the tangent component pointing away from the sun.
+  const dx=nx*cosine-sun[0],dy=ny*cosine-sun[1];
+  const direction=Math.sign(dx)||1;
+  const baseX=cam.centre.x+nx*cam.radius,baseY=cam.centre.y-ny*cam.radius;
+  const height=scene.calibration.rod*.58;
+  const shadowScale=cosine>0?Math.min(height/cosine,120):0;
+  globeRod.style.visibility=point.visible?'visible':'hidden';
+  const tipX=baseX+nx*height,tipY=baseY-ny*height;
+  globeStem.setAttribute('d','M'+baseX+' '+baseY+'L'+tipX+' '+tipY);
+  globeShadow.setAttribute('d',shadowScale?
+   'M'+baseX+' '+baseY+'l'+(dx*shadowScale)+' '+(-dy*shadowScale):'');
+  const sunLength=Math.hypot(sun[0],sun[1]);
+  const hasRay=theta<90&&cosine>0&&sunLength>1e-6;
+  const rayX=-sun[0]/sunLength,rayY=sun[1]/sunLength;
+  const rayLength=Math.max(34,height*1.15);
+  globeRay.setAttribute('d',hasRay?
+   'M'+(tipX-rayX*rayLength)+' '+(tipY-rayY*rayLength)+'L'+(tipX+rayX*rayLength*.76)+' '+(tipY+rayY*rayLength*.76):'');
+  const rodLength=Math.hypot(nx,ny);
+  const sweep=Math.atan2(-nx*rayY-ny*rayX,-nx*rayX+ny*rayY);
+  const radius=Math.min(22,height*rodLength*.65);
+  const hasAngle=hasRay&&theta>=.05&&Math.abs(sweep)>=.035&&radius>=4;
+  globeAngle.setAttribute('d',hasAngle?
+   'M'+(tipX-nx/rodLength*radius)+' '+(tipY+ny/rodLength*radius)+
+   'A'+radius+' '+radius+' 0 0 '+Number(sweep>0)+' '+(tipX+rayX*radius)+' '+(tipY+rayY*radius):'');
+  return direction;
+ }
  const solarRayPaths=[...panel.querySelectorAll('.site-solar-ray')];
  function updatePin(){
   const target=selected==='selected'?scene.measureArc().sel:scene.camera().subsolar;
@@ -46,20 +81,6 @@ export function mountObservation(scene){
   update();
  }
  let selected='selected',openingAnimation=null,revealKey='',revealAnimations=[],framingKey='';
- function paintEvidence(){
-  const saved=measurement.snapshot().selected;
-  const evidence=saved.saved?{rod:scene.calibration.rod,shadow:saved.value,altitude:Math.atan2(scene.calibration.rod,saved.value)*180/Math.PI}:null;
-  const sceneResults=q('.site-measurement-results');
-  sceneResults.hidden=true;
-  if(evidence){
-   q('[data-result-shadow]').textContent=`${evidence.shadow.toFixed(1)} cm`;
-   q('[data-result-altitude]').textContent=`${evidence.altitude.toFixed(1)}°`;
-   localEvidence.querySelector('[data-evidence-rod]').textContent=`${evidence.rod.toFixed(0)} cm`;
-   localEvidence.querySelector('[data-evidence-shadow]').textContent=`${evidence.shadow.toFixed(1)} cm`;
-   localEvidence.querySelector('[data-evidence-altitude]').textContent=`${evidence.altitude.toFixed(1)}°`;
-  }
-  localEvidence.hidden=true;
- }
  function paintSolarRays(altitude,direction,day){
   const group=q('#site-solar-rays');
   group.style.display=day?'':'none';
@@ -81,7 +102,7 @@ export function mountObservation(scene){
  function update(){
  const visible=scene.measuring&&!scene.calculating;
  panel.hidden=false;panel.inert=!visible;panel.setAttribute('aria-hidden',String(!visible));
- paintEvidence();
+ if(!visible||selected!=='selected')paintGlobeRod(false);
  if(!visible){measurement.suspend();return;}
  updatePin();
  panel.dataset.site=selected;
@@ -90,7 +111,7 @@ export function mountObservation(scene){
  const a=scene.measureArc(),lat=selected==='selected'?a.selLat:a.subLat;
  const delta=Math.abs(lat-a.subLat),alt=90-delta,day=alt>0;
  const ratio=day?Math.tan(delta*Math.PI/180):0;
- const direction=lat>=a.subLat?1:-1;
+ const direction=selected==='selected'?paintGlobeRod(true,a,lat,delta):1;
  const rod=scene.calibration.rod;
  const pxPerCm=1.5;
  const h=rod*pxPerCm,s=h*ratio,tip=330+direction*s,top=355-h;
@@ -154,7 +175,7 @@ export function mountObservation(scene){
  q('.measure-entry-hint').hidden=day;
  q('.measure-entry-hint').textContent=day?'':'太阳在地平线以下，请返回选择有正午日照的位置';
  q('.site-scene').dataset.altitude=alt;q('.site-scene').dataset.shadowTip=tip;q('.site-scene').dataset.pxPerCm=pxPerCm;
- paintEvidence();
+ if(!visible||selected!=='selected')paintGlobeRod(false);
  measurement.setContext({site:selected,key:[a.selLat,a.selLon,a.subLat,scene.phase,scene.observationDate,rod].join(','),pxPerCm,direction,shadow:rod*Math.tan(Math.abs(a.selLat-a.subLat)*Math.PI/180),canMeasure:Math.abs(a.selLat-a.subLat)<90,reason:'太阳在地平线以下，暂无日照杆影'});
  }
  q('[data-rod-range]').addEventListener('input',event=>setRodLength(event.target.value));

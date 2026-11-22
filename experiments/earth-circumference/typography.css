@@ -15,4 +15,4 @@ button,input,select,textarea { font-family:var(--font-ui); }
 
 .observation-orbit-date span,.local-time-card>span,.calculation-step-title {font-size:var(--type-body);font-weight:400}
 .observation-orbit-date output,.local-time-card output {font-size:var(--type-number);font-weight:500}
-.local-time-hint,.local-time-tag,.calculation-local-evidence small {font-size:var(--type-help);font-weight:300}
+.local-time-hint,.local-time-tag {font-size:var(--type-help);font-weight:300}

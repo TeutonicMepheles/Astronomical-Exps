@@ -8,7 +8,7 @@ export function mountAngleGuide(scene) {
     <path class="angle-radius angle-radius-sun"/><path class="angle-radius angle-radius-site"/>
     <path class="angle-arc"/><g class="calculation-rods">
       <g class="solar-field"></g>
-      <g data-rod="site"><path class="calculation-rod"/><path class="calculation-shadow"/><path class="calculation-ray"/><path class="calculation-right"/><path class="calculation-altitude"/><path class="calculation-zenith"/><text class="rod-length"/><text class="shadow-length"/><text class="altitude-label"/><text class="zenith-label"/></g>
+      <g data-rod="site"><path class="calculation-rod"/><path class="calculation-shadow"/><path class="calculation-ray"/><path class="calculation-right"/><path class="calculation-zenith"/><text class="rod-length"/><text class="shadow-length"/><text class="zenith-label"/></g>
     </g>
   </svg>
   <output class="angle-value" aria-live="polite"></output>`;
@@ -70,22 +70,6 @@ export function mountAngleGuide(scene) {
       group.querySelector('.calculation-ray').setAttribute('d', reach > 2 ? `M${tip.x - rayDx / rayLen * 28} ${tip.y - rayDy / rayLen * 28}L${end.x} ${end.y}` : '');
       group.querySelector('.rod-length').textContent = '';
       group.querySelector('.shadow-length').textContent = '';
-      const radius = 36;
-      const start = Math.atan2(base.y - end.y, base.x - end.x);
-      const endAngle = Math.atan2(tip.y - end.y, tip.x - end.x);
-      let sweep = endAngle - start;
-      if (sweep > Math.PI) sweep -= 2 * Math.PI;
-      if (sweep < -Math.PI) sweep += 2 * Math.PI;
-      const arcPath = reach > 2 ? Array.from({ length: 19 }, (_, i) => {
-        const t = start + sweep * i / 18;
-        return `${i ? 'L' : 'M'}${end.x + Math.cos(t) * radius} ${end.y + Math.sin(t) * radius}`;
-      }).join(' ') : '';
-      group.querySelector('.calculation-altitude').setAttribute('d', arcPath);
-      const altitudeLabel = group.querySelector('.altitude-label');
-      const mid = start + sweep / 2;
-      altitudeLabel.setAttribute('x', end.x + Math.cos(mid) * (radius + 22));
-      altitudeLabel.setAttribute('y', end.y + Math.sin(mid) * (radius + 22));
-      altitudeLabel.textContent = reach > 2 ? `α ${altitude.toFixed(1)}°` : '';
       const zenith = 90 - altitude;
       const z0 = Math.atan2(base.y - tip.y, base.x - tip.x);
       const z1 = Math.atan2(end.y - tip.y, end.x - tip.x);
