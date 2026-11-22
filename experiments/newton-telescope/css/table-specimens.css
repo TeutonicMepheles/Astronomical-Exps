@@ -44,3 +44,17 @@
 .newton-focus-name{font-size:22px;line-height:1.3;font-weight:700;}
 .newton-focus-value{font-size:17px;line-height:1.4;font-weight:500;}
 .newton-focus-control button:focus-visible{outline:3px solid #a4d8ef;outline-offset:4px;}
+
+/* Stage ownership also hides explicitly visible descendants of the legacy viewport. */
+.observatory:not([data-stage=mirrors]) #focus-marker,
+#focus-marker.newton-focus-control[hidden],.newton-focus-dot[hidden]{display:none!important}
+.newton-focus-dot>span{position:absolute;left:0;right:0;top:8px;font-size:27px;line-height:30px;color:#fff0c2}
+.newton-focus-dot::after{display:none}
+.newton-focus-dot::before{content:'';position:absolute;inset:-8px;border:2px solid #ffe3a1;border-radius:50%;pointer-events:none;opacity:.55}
+.newton-focus-drag-label{position:absolute;left:0;top:40px;transform:translateX(-50%);white-space:nowrap;padding:3px 10px;border-radius:12px;background:#102841df;color:#ffe3a1;font:500 20px/26px var(--font-ui);pointer-events:none}
+.newton-focus-control:has(.newton-focus-dot[hidden]) .newton-focus-drag-label{display:none}
+.newton-focus-control[data-dragging] .newton-focus-dot::before{animation:none;opacity:1}
+@media(prefers-reduced-motion:no-preference){
+ .observatory[data-stage=mirrors] .newton-focus-control:not([hidden]):not([data-dragging]) .newton-focus-dot::before{animation:newton-focus-breathe 1.8s ease-in-out infinite}
+}
+@keyframes newton-focus-breathe{0%,100%{transform:scale(.94);opacity:.35}50%{transform:scale(1.16);opacity:.85}}

@@ -32,7 +32,7 @@
       const optics=N.optics.calculate(state),scale=(60/32)/optics.field;
       // Compress the collecting-area response so highlights remain readable.
       // This brightness cue is illustrative, not calibrated surface photometry.
-      const brightness=N.store.observationBrightness(state);
+      const brightness=N.store.observationBrightness(state)/(state.target==='nebula'?N.store.observationBrightness({...state,aperture:250}):1);
       ctx.save();ctx.filter=`brightness(${brightness})`;
       // Keep the full default Saturn visible in the circular observation viewport.
       // The original wide viewport retains its existing image scale.
@@ -51,7 +51,7 @@
           if(star.radius>1){ctx.fillStyle='rgba(150,184,230,.10)';ctx.beginPath();ctx.arc(x,y,r*2.5,0,Math.PI*2);ctx.fill();}
         }
       }else [[.16,.35,1],[.81,.61,.8],[.75,.17,.5],[.26,.79,.7],[.93,.29,.5],[.1,.84,.4]].forEach(([x,y,r])=>{ctx.fillStyle='#cddfff99';ctx.beginPath();ctx.arc(cx+(x-.51)*w*scale,cy+(y-.52)*h*scale,r,0,Math.PI*2);ctx.fill();});
-      this.canvas.setAttribute('data-target-art',guided&&N.observationArt?.ready?'libtv-transparent-v2':'procedural');
+      this.canvas.setAttribute('data-target-art',guided&&N.observationArt?.ready?(state.target==='nebula'?'visual-orion-mccabe-20090215':'libtv-transparent-v2'):'procedural');
       if(!guided||aim.acquired){
       if(guided){
         // Apply brightness once to the completed object. Reuse one bounded canvas.
@@ -62,7 +62,7 @@
       ctx.save();ctx.translate(cx,cy);ctx.rotate(guided&&N.observationArt?.ready?0:-.37);ctx.filter=guided?'none':`brightness(${brightness})`;
       if(!guided){const halo=ctx.createRadialGradient(0,0,r*.3,0,0,r*1.9);halo.addColorStop(0,'#d3b59318');halo.addColorStop(1,'#d3b59300');ctx.fillStyle=halo;ctx.fillRect(-r*2,-r*2,r*4,r*4);}
       if(guided&&N.observationArt?.ready){
-        N.observationArt.draw(ctx,state.target,r,w,h,scale);
+        N.observationArt.draw(ctx,state.target,r,w,h,scale,state.aperture);
       }else if(state.mode==='point'){
         const glow=ctx.createRadialGradient(0,0,0,0,0,r*.6);glow.addColorStop(0,'#fff9e8');glow.addColorStop(.08,'#ffe6b4');glow.addColorStop(.3,'#a7c5f17a');glow.addColorStop(1,'#6786b000');ctx.fillStyle=glow;ctx.fillRect(-r,-r,r*2,r*2);
         for(let i=1;i<4;i++){ctx.beginPath();ctx.ellipse(0,0,r*.12*i,r*.12*i,0,0,Math.PI*2);ctx.strokeStyle=`rgba(188,209,255,${.13/i})`;ctx.lineWidth=1;ctx.stroke();}
@@ -70,8 +70,8 @@
         if(state.target==='moon'){
           ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.fillStyle='#c8cbd0';ctx.fill();
           [[-.3,-.25,.17],[.4,.1,.13],[-.1,.4,.2],[.15,-.5,.09]].forEach(([x,y,a])=>{ctx.beginPath();ctx.arc(x*r,y*r,a*r,0,Math.PI*2);ctx.fillStyle='#7e8793';ctx.fill();});
-        }else if(state.target==='pleiades'){
-          [[-.72,-.08],[-.46,.36],[-.28,-.34],[-.08,.1],[.13,-.15],[.29,.42],[.51,.07],[.66,-.38],[-.11,.59],[.39,-.61],[-.76,.54],[.02,-.04],[.16,.035],[-.15,-.075],[.35,.16],[-.34,.05]].forEach(([x,y],i)=>{ctx.beginPath();ctx.arc(x*w*.55*scale,y*h*.75*scale,i<8?2:1.2,0,Math.PI*2);ctx.fillStyle=i<8?'#e1ecff':`rgba(196,218,255,${Math.min(1,state.aperture/220)})`;ctx.shadowBlur=8;ctx.shadowColor='#b8d5ff';ctx.fill();ctx.shadowBlur=0;});
+        }else if(state.target==='nebula'){
+          N.observationArt?.draw(ctx,'nebula',r,w,h,scale,state.aperture);
         }else{
         if(state.target!=='jupiter')this.rings(ctx,r,false);
         ctx.save();ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.clip();
@@ -88,7 +88,7 @@
       const vignette=ctx.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,w*.61);vignette.addColorStop(0,'#050b1e00');vignette.addColorStop(1,'#050b1e66');ctx.fillStyle=vignette;ctx.fillRect(0,0,w,h);
       document.getElementById('magnification').textContent=`${Number(optics.magnification.toFixed(1))}×`;
       const identified=!guided||(aim?.aligned&&N.store.observationSetup(state).suitable);
-      const target=state.mode==='point'?'点光源':!identified?'待观测目标':({saturn:'土星',moon:'月球',jupiter:'木星',pleiades:'昴星团'}[state.target]);
+      const target=state.mode==='point'?'点光源':!identified?'待观测目标':({saturn:'土星',moon:'月球',jupiter:'木星',nebula:'星云'}[state.target]);
       document.getElementById('preview-target').textContent=target;
       document.getElementById('preview-field').textContent=`${optics.field.toFixed(2)}°`;
       this.canvas.setAttribute('data-aperture',String(state.aperture||130));

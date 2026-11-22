@@ -16,7 +16,7 @@
   document.querySelectorAll('[data-lens]').forEach(button=>on(button,'click',()=>course.mountLens(button.dataset.lens)));
   document.querySelectorAll('[data-observe]').forEach(button=>on(button,'click',()=>course.mountMirror(button.dataset.observe)));
   document.querySelectorAll('[data-install]').forEach(button=>on(button,'click',()=>course.install(button.dataset.install,button.dataset.install)));
-  document.querySelectorAll('[data-record]').forEach(button=>on(button,'click',()=>{const target=button.dataset.record,pairs={saturn:[1600,9],moon:[1500,35],jupiter:[1600,13],pleiades:[1450,50]},[focal,eyepiece]=pairs[target];Newton.store.set({target,focal,eyepiece});const canvas=document.createElement('canvas');canvas.width=canvas.height=1;course.recordDrawing({optical:Newton.store.get(),image:canvas.toDataURL(),aim:{target,aligned:true,focused:true}});}));
+  document.querySelectorAll('[data-record]').forEach(button=>on(button,'click',()=>{const target=button.dataset.record,pairs={saturn:[1600,9],moon:[1500,35],jupiter:[1600,13],nebula:[800,25]},[focal,eyepiece]=pairs[target];Newton.store.set({target,focal,eyepiece,aperture:130});const canvas=document.createElement('canvas');canvas.width=canvas.height=1;course.recordDrawing({optical:Newton.store.get(),image:canvas.toDataURL(),aim:{target,aligned:true,focused:true}});}));
   on($('progress-next'),'click',()=>course.enter(stages[stages.indexOf(course.get().stage)+1]));
   on($('progress-reset'),'click',()=>course.resetStage());on($('progress-restart'),'click',()=>course.restart());
   on(window,'pagehide',()=>{unsubscribe();view.destroy();abort.abort();});

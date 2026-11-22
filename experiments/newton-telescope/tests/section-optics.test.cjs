@@ -74,7 +74,7 @@ const baseline=optics.calculate({focal:530,aperture:130,eyepiece:25,mode:'parall
 assert(baseline.rays.every(r=>r.secondaryValid),'The complete reference ring must reach the finite secondary at 530 mm');
 for(const aperture of [80,130,250]){
   const ring=optics.calculate({focal:530,aperture,eyepiece:25,mode:'parallel'}),count=ring.rayCount;
-  assert(count>=8,'Even the smallest aperture must show a full ring');
+  assert.equal(count,8,'Each aperture shows eight representative paths');
   for(let i=0;i<count;i++){
     const p=ring.rays[i].points[1],opposite=ring.rays[(i+count/2)%count].points[1];
     near(Math.hypot(p[1],p[2]),ring.pupilRadius);near(p[1]+opposite[1],0);near(p[2]+opposite[2],0);
@@ -87,7 +87,7 @@ for(const aperture of [80,130,250]){
   }
 }
 const counts=[80,130,250].map(aperture=>optics.calculate({focal:800,aperture,eyepiece:25,mode:'parallel'}).rayCount);
-assert(counts[0]<counts[1]&&counts[1]<counts[2]);
+assert.deepEqual(counts,[8,8,8],'Increasing aperture must not crowd the view with more paths');
 for(const focal of [540,690,800])for(const aperture of [80,110,250])for(const mode of ['parallel','point']){
   const reference=optics.calculate({focal,aperture,eyepiece:25,mode});
   for(const eyepiece of [5,17,25,50]){

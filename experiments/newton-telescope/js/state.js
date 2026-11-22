@@ -6,7 +6,7 @@ window.Newton = window.Newton || {};
   let state = { ...defaults };
   const subscribers = new Set();
   const observationProfiles={
-        pleiades:{task:'星团全景',min:20,max:30,displayReference:25},
+        nebula:{task:'星云亮度与细节',apertureOnly:true,displayReference:32},
         moon:{task:'月面全景',min:40,max:75,displayReference:60},
         jupiter:{task:'木星云带',min:100,max:150,displayReference:120},
         saturn:{task:'土星环',min:160,max:200,displayReference:180}
@@ -16,20 +16,21 @@ window.Newton = window.Newton || {};
     get: () => ({ ...state }),
     // Relative illustration brightness only, not measured surface photometry.
     observationBrightness(value=state){
+      if(value.target!=='nebula')return 1;
       const response=(value.aperture||130)/130;
       return 2*response/(1+response);
     },
-    brightnessAcceptable(value=state){const b=this.observationBrightness(value);return b>=.85&&b<=1.2;},
+    brightnessAcceptable(value=state){return this.observationBrightness(value)>=.85;},
     // Distinct lesson tasks informed by observing practice, NOT exclusive
     // real-world requirements. Sources and rationale: docs/OBSERVING_SETUP.md.
     observationSetup(value=state){
       const profile=observationProfiles[value.target];
       if(!profile)return {suitable:false,hint:''};
       const metrics=this.metrics(value),within=metrics.magnification>=profile.min-1e-9&&metrics.magnification<=profile.max+1e-9;
-      const apertureOK=metrics.magnification<=2*(value.aperture||130);
       const brightness=this.observationBrightness(value),brightnessOK=this.brightnessAcceptable(value);
-      return {...profile,sizeOK:within,apertureOK,brightness,brightnessOK,suitable:within&&apertureOK&&brightnessOK,
-        hint:!within?`倍率调至 ${profile.min}–${profile.max}×`:!apertureOK?'增大主镜口径，保留细节':!brightnessOK?(brightness<.85?'增大主镜口径，让画面更明亮':'减小主镜口径，避免画面过亮'):''};
+      const sizeOK=profile.apertureOnly||within;
+      return {...profile,sizeOK,apertureOK:true,brightness,brightnessOK,suitable:sizeOK&&brightnessOK,
+        hint:!brightnessOK?'增大主镜口径，观察星云亮度与细节':!sizeOK?`倍率调至 ${profile.min}–${profile.max}×`:''};
     },
     // The readout/eyepiece image uses 400–1600; preserve the original model
     // response at the same slider position: 400 -> 540 and 1600 -> 800.

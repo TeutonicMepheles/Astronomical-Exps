@@ -5,7 +5,7 @@
  const goals={
   mirrors:{number:1,title:'光学组件认识',body:'了解常用五种镜片的光学特性。'},
   assembly:{number:2,title:'望远镜组装',body:'完成古典牛顿望远镜的组装。'},
-  observation:{number:3,title:'观测天体',body:'使用现代牛顿望远镜完成四个真实天体的观测。'}
+  observation:{number:3,title:'观测天体',body:'调节焦距观察三个天体，调节口径观察星云。'}
  };
  const clip=new URL("clip.png", document.currentScript.src).href;
  const dialog=document.createElement('dialog');dialog.className='newton-objective';
