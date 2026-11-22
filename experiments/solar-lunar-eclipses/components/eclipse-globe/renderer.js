@@ -20,6 +20,7 @@ uniform sampler2D u_tex;
 uniform sampler2D u_grain;
 uniform sampler2D u_grainBrush;
 uniform sampler2D u_relief;
+uniform float     u_lunarTerrain;
 uniform float     u_hasTex;
 uniform float     u_debug;
 uniform float     u_observation;
@@ -180,12 +181,29 @@ void main() {
   float paper = hash21(gl_FragCoord.xy) - 0.5;
   albedo += paper * u_paperGrain;
 
-  // A channel is land coverage; the relief must not modulate ocean pixels.
-  vec4 relief = sampleEquirectangular(u_relief, uv);
-  albedo *= 1.0 + (relief.r - 0.5) * 0.55 * relief.a;
+  vec3 lightingNormal = normalize(n);
+  if (u_lunarTerrain > 0.5) {
+    // LOLA elevation is north-up, with longitude increasing to the right.
+    float du = 1.0 / 1024.0;
+    vec2 dv = vec2(0.0, 1.0 / 512.0);
+    float eastSlope = sampleEquirectangular(u_relief, vec2(fract(uv.x + du), uv.y)).r
+                    - sampleEquirectangular(u_relief, vec2(fract(uv.x - du), uv.y)).r;
+    float southSlope = sampleEquirectangular(u_relief, uv + dv).r
+                     - sampleEquirectangular(u_relief, uv - dv).r;
+    vec3 horizontal = cos(lon) * u_e2 + sin(lon) * u_e3;
+    vec3 east = -sin(lon) * u_e2 + cos(lon) * u_e3;
+    vec3 north = cosLat * u_axis - sin(lat) * horizontal;
+    float terrainStrength = 3.0 * smoothstep(0.06, 0.22, cosLat);
+    lightingNormal = normalize(lightingNormal + terrainStrength
+      * (southSlope * north - eastSlope * east / max(cosLat, 0.22)));
+  } else if (u_lunarTerrain > -0.5) {
+    // A channel is land coverage; the relief must not modulate ocean pixels.
+    vec4 relief = sampleEquirectangular(u_relief, uv);
+    albedo *= 1.0 + (relief.r - 0.5) * 0.55 * relief.a;
+  }
 
   // ---- Directional sun lighting ----
-  float ndl = dot(normalize(n), u_sun);
+  float ndl = dot(lightingNormal, u_sun);
   float day = smoothstep(-0.055, 0.055, ndl);
   float diffuse = max(ndl, 0.0);
   vec3 nightLight = u_ambientColor * u_ambientStrength;
@@ -526,7 +544,7 @@ export function createEclipseGlobeRenderer(options = {}) {
         for (const name of [
           'u_res', 'u_center', 'u_radius', 'u_axis', 'u_e2', 'u_e3',
           'u_sun', 'u_tex', 'u_hasTex', 'u_debug', 'u_grain', 'u_grainMode',
-          'u_grainBrush', 'u_relief', 'u_observation', 'u_gridOnly',
+          'u_grainBrush', 'u_relief', 'u_lunarTerrain', 'u_observation', 'u_gridOnly',
           'u_step', 'u_showLatitude', 'u_showLongitude', 'u_dashedLatitude',
           'u_dashLen', 'u_dashGap', 'u_gridAlpha', 'u_gridOverlay',
           'u_paperGrain', 'u_contactAO', 'u_gridColor',
@@ -670,6 +688,7 @@ export function createEclipseGlobeRenderer(options = {}) {
         gl.bindTexture(gl.TEXTURE_2D, grainBrushTexture);
         gl.uniform1i(uniforms.u_grainBrush, 2);
       }
+      gl.uniform1f(uniforms.u_lunarTerrain, options.lunarTerrain ? (reliefTexture ? 1 : -1) : 0);
       if (reliefTexture) {
         gl.activeTexture(gl.TEXTURE3);
         gl.bindTexture(gl.TEXTURE_2D, reliefTexture);

@@ -50,9 +50,9 @@ function skyForObserver(phi,reference){if(state.mode==='lunar'){const g=lunarGeo
 
 function inverse(v){const h=v[1]*se-v[2]*ce;return {x:v[0]*co+h*si,y:-v[0]*si+h*co,z:v[1]*ce+v[2]*se};}
 const textures={textureUrl:'assets/earth/earth-eq-redraw-1152x576.png',grainUrl:'assets/earth/grain-ref-512.png',grainBrushUrl:'assets/earth/grain-brush-512.png',reliefUrl:'assets/earth/land-relief-1024x512.png'};
-function planet(size,moon){
+function planet(size,moon,lunarTerrain=false){
  const cv=document.createElement('canvas');cv.width=cv.height=size;
- const renderer=createEclipseGlobeRenderer({...textures,textureUrl:moon?'assets/moon-eq-1024.png':textures.textureUrl,grid:{latitude:false,longitude:false,alpha:0},lighting:{highlightColor:moon?[1,.96,.89]:[1,.92,.77],highlightStrength:1,highlightRange:1,highlightGrain:0,rimColor:[.25,.4,.6],rimStrength:.25,ambientColor:[.82,.89,1],ambientStrength:moon?.105:.15},material:{paperGrain:.035,contactAO:0}});
+ const renderer=createEclipseGlobeRenderer({...textures,textureUrl:moon?'assets/moon-eq-1024.png':textures.textureUrl,lunarTerrain,reliefUrl:lunarTerrain?'assets/moon-lola-height-1024.jpg':textures.reliefUrl,grid:{latitude:false,longitude:false,alpha:0},lighting:{highlightColor:moon?[1,.96,.89]:[1,.92,.77],highlightStrength:1,highlightRange:1,highlightGrain:0,rimColor:[.25,.4,.6],rimStrength:.25,ambientColor:[.82,.89,1],ambientStrength:moon?.105:.15},material:{paperGrain:.035,contactAO:0}});
  const ready=renderer.init(cv);if(ready){renderer.resize(size,size);renderer.grainMode=1;}
  let key='';return {renderer,canvas:cv,ready,draw(x,y,r,basis,sun){
   const next=JSON.stringify([basis,sun]);
@@ -61,7 +61,7 @@ function planet(size,moon){
  },invalidate(){key='';},dispose(){renderer.dispose();}};
 }
 const earth=planet(512,false),moon=planet(192,true);
-const moonFront=planet(192,true);
+const moonFront=planet(384,true,true);
 function refreshMoonFront(){moonFront.invalidate();moonFront.draw(-1000,-1000,1,{axis:[0,1,0],e2:[-1,0,0],e3:[0,0,1]},[0,0,1]);}
 refreshMoonFront();
 const sky=new window.EclipseSky($('sky'),{materials:{fill:.47,moonFront}});

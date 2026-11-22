@@ -33,10 +33,12 @@ export function createShadowSurface(){
   return over(base,color,max(core*.98,halo)*enabled);
  }
  void main(){
-  vec2 pixel=vec2(gl_FragCoord.x/dpr,viewport.y-gl_FragCoord.y/dpr),q=(pixel-sphere.xy)/sphere.w;float rr=1.-dot(q,q);if(rr<0.)discard;
-  // Feather the overlay inside the sphere so it cannot redraw the globe's antialiased limb.
-  float limbCoverage=smoothstep(0.,1.5,(1.-length(q))*sphere.w);
-  vec3 normal=vec3(q,sqrt(rr)),cameraPoint=vec3(pixel,sphere.z+normal.z*sphere.w),p=sourceModel+inverseMap*(cameraPoint-sourceCam),relative=p-sourceModel;
+  vec2 pixel=vec2(gl_FragCoord.x/dpr,viewport.y-gl_FragCoord.y/dpr),q=(pixel-sphere.xy)/sphere.w;
+  float radiusRatio=length(q);
+  float outsideLimb=(radiusRatio-1.)*sphere.w;
+  if(lunarAppearance>.5 ? outsideLimb>1.5 : radiusRatio>1.)discard;
+  vec3 normal=vec3(q/max(1.,radiusRatio),sqrt(max(0.,1.-dot(q,q))));
+  vec3 cameraPoint=vec3(pixel,sphere.z+normal.z*sphere.w),p=sourceModel+inverseMap*(cameraPoint-sourceCam),relative=p-sourceModel;
   float t=dot(relative,axis);if(t<=0.)discard;
   vec3 radial=relative-axis*t;float rho=length(radial),ru=intercepts.x+slopes.x*t,rp=intercepts.y+slopes.y*t;
   vec3 radialUnit=radial/max(rho,.0000001),umbraRay=forwardMap*(axis+radialUnit*slopes.x),penumbraRay=forwardMap*(axis+radialUnit*slopes.y);
@@ -48,11 +50,20 @@ export function createShadowSurface(){
   // approximation of atmospheric light, not measured photometry or a forecast.
   // Multiplication preserves maria/crater texture instead of painting over it.
   if(lunarAppearance>.5){
-   float depth=clamp((ru-rho)/max(sourceRadius*.85,.000001),0.,1.);
-   vec3 indirect=mix(vec3(.65,.28,.12),vec3(.14,.028,.018),smoothstep(0.,1.,depth));
+   float umbraDepth=(ru-rho)/sourceRadius;
+   float airPath=mix(.65,1.38,smoothstep(0.,.85,umbraDepth));
+   float rimGlow=exp(-abs(umbraDepth)/.42);
+   // Display-space attenuation inspired by Solaris. The geometry above still
+   // sets the eclipse contacts and the physical fraction of visible sunlight.
+   vec3 extinction=vec3(.52,2.22,3.04);
+   vec3 refracted=.43*exp(-extinction*airPath)*mix(.80,1.65,rimGlow);
    float blocked=1.-visible;
-   vec3 transmission=vec3(pow(visible,.72))+indirect*pow(blocked,3.)*smoothstep(-.08,.12,(ru-rho)/sourceRadius);
-   gl_FragColor=vec4(mix(vec3(1.),clamp(transmission,0.,1.),flags.x*incoming)*limbCoverage,limbCoverage);
+   float shadowLight=blocked*blocked*blocked*smoothstep(-.08,.12,umbraDepth);
+   vec3 transmission=vec3(pow(visible,.72))+refracted*shadowLight;
+   // The painted sphere already accounts for illumination direction. Attenuate
+   // its ambient rim too, with full coverage over the antialiased lunar limb.
+   float coverage=1.-smoothstep(.5,1.5,outsideLimb);
+   gl_FragColor=vec4(mix(vec3(1.),clamp(transmission,0.,1.),flags.x)*coverage,coverage);
    return;
   }
   float shade=(1.-visible)*(lunar>.5?.82:.96)*flags.x*incoming;
@@ -97,6 +108,8 @@ export function createShadowSurface(){
     result=boundary(result,rho-max(ru,0.),vec3(1.,.79,.40),ru>0.&&dot(normal,umbraRay)<0.?1.:0.);
    }
   }
+  // Fade the teaching contours inside the sphere for antialiasing.
+  float limbCoverage=smoothstep(0.,1.5,-outsideLimb);
   gl_FragColor=result*limbCoverage;
  }`);
  const program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));
