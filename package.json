@@ -7,9 +7,14 @@
     "check": "python tools/check.py",
     "test": "python tools/test.py",
     "test:browser": "node tools/smoke.cjs",
-    "export": "python tools/export.py"
+    "export": "python tools/export.py",
+    "export:eight": "node tools/export-eight.cjs"
   },
   "devDependencies": {
+    "acorn": "8.19.0",
+    "acorn-walk": "8.3.5",
+    "esbuild": "0.28.2",
+    "magic-string": "1.4.5",
     "playwright": "1.64.0"
   }
 }
