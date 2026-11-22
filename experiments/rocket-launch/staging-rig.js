@@ -1,4 +1,4 @@
-import {comparisonFlight} from './comparison-flight.js';
+import {comparisonFlight,comparisonFrame,comparisonRange} from './comparison-flight.js?v=altitude-result-focus';
 import * as T from './vendor/three/three.module.js';
 import {createRocketExhaust} from './rocket-exhaust.js?v=flight-refinement-20261117';
 
@@ -25,10 +25,28 @@ export class StagingRig{
   const clone=(name)=>{const o=nodes[name].clone(true);const trim=root=>{for(const c of [...root.children]){if(c.userData.scan||c.name==='EngineExhaust')c.removeFromParent();else trim(c);}};trim(o);o.traverse(c=>{c.visible=true;});return o;};
   for(let index=0;index<3;index++){
    const root=new T.Group();root.name='CurrentScheme'+index;root.position.set(260+index*470,95,0);this.root.add(root);const stages=[];
-   const arrangements=index===0?[{modules:['Stage2'],y:0}]:index===1?[{modules:['Stage1','Stage2'],y:0}]:[{modules:['Stage1'],y:0},{modules:['Stage2'],y:y2},{modules:['Stage2'],y:payloadY}];
+   const arrangements=index===0?[{modules:['Stage2'],y:0}]:index===1?[{modules:['Stage1'],y:0}]:[{modules:['Stage1'],y:0},{modules:['Stage2'],y:y2},{modules:['Stage2'],y:payloadY}];
    for(const [order,arrangement]of arrangements.entries()){
     const group=new T.Group();group.name='Scheme'+index+'Stage'+order;group.userData.stagingPart={plan:index,stage:order+1};group.position.y=arrangement.y;root.add(group);const tanks=[],shells=[],exhausts=[];
-    for(const name of arrangement.modules){const module=clone(name);group.add(module);module.position.y=index===1?manifest.modules[name].assembledGLTF.translation[1]:0;
+    for(const name of arrangement.modules){const module=clone(name);module.position.y=0;
+     if(index===1){
+      module.getObjectByName('Interstage')?.removeFromParent();
+      module.updateWorldMatrix(true,true);
+      const bodyTop=new T.Box3().setFromObject(module.getObjectByName('Stage1Shell')).max.y;
+      const fairing=clone('Fairing');
+      fairing.position.y=manifest.modules.Fairing.assembledGLTF.translation[1];
+      const fairingBase=new T.Box3().setFromObject(fairing).min.y;
+      const largeBodyScale=fairingBase/bodyTop;
+      module.scale.y*=largeBodyScale;
+      // The long tank bay spans the original two bays. Leave the engines and
+      // nozzle anchors at their original size and position inside the base.
+      for(const child of module.children){
+       if(!child.name.startsWith('Stage1Engine'))continue;
+       child.position.y/=largeBodyScale;
+       child.scale.y/=largeBodyScale;
+      }
+     }
+     group.add(module);
      module.updateWorldMatrix(true,true);
      module.traverse(mesh=>{if(!mesh.isMesh)return;if(/Shell$|^Interstage$/.test(mesh.name)){eachMaterial(mesh,m=>ghostMaterial(m,this.materials,.11));shells.push(mesh);}});
      for(const tankName of[name+'LOXTank',name+'FuelTank']){
@@ -38,20 +56,26 @@ export class StagingRig{
       for(const mesh of meshes){const liquid=new T.Mesh(mesh.geometry,mesh.material),relative=inv.clone().multiply(mesh.matrixWorld);relative.decompose(liquid.position,liquid.quaternion,liquid.scale);eachMaterial(liquid,m=>liquidMaterial(m,relative,bounds,fill,color,this.materials));fluid.add(liquid);eachMaterial(mesh,m=>ghostMaterial(m,this.materials,.10));}
       const radius=Math.min(bounds.max.x-bounds.min.x,bounds.max.z-bounds.min.z)*.475,geo=new T.CircleGeometry(radius,48);geo.rotateX(-Math.PI/2);const mat=new T.MeshStandardMaterial({color,emissive:color,emissiveIntensity:.25,roughness:.28,metalness:.1,side:T.DoubleSide});this.materials.add(mat);this.geometries.add(geo);const surface=new T.Mesh(geo,mat);surface.position.set((bounds.min.x+bounds.max.x)/2,bounds.max.y,(bounds.min.z+bounds.max.z)/2);tank.add(surface);tanks.push({name:tankName,fill,bounds,fluid,surface});
      }
-     if(index===1&&name==='Stage2')for(let i=1;i<=4;i++){const engine=module.getObjectByName('Stage2Engine0'+i);if(engine)engine.visible=false;}
-     const enginePrefix=(index===1?'Stage1':name)+'Engine';module.traverse(anchor=>{if(anchor.name.startsWith(enginePrefix)&&anchor.name.endsWith('Flame')){const effect=createRocketExhaust();effect.group.scale.setScalar(.35);anchor.add(effect.group);this.exhausts.push(effect);exhausts.push(effect);}});
+     const enginePrefix=name+'Engine';module.traverse(anchor=>{if(anchor.name.startsWith(enginePrefix)&&anchor.name.endsWith('Flame')){const effect=createRocketExhaust();effect.group.scale.setScalar(.35);anchor.add(effect.group);this.exhausts.push(effect);exhausts.push(effect);}});
     }
     stages.push({group,tanks,shells,exhausts,baseY:arrangement.y});
    }
    const topShift=index===0?-y2:index===2?upperSpan:0;
    for(const name of ['Payload','Fairing']){const part=clone(name);part.position.y=manifest.modules[name].assembledGLTF.translation[1]+topShift;part.traverse(o=>{if(o.isMesh&&name==='Fairing')eachMaterial(o,m=>ghostMaterial(m,this.materials,.10));});root.add(part);}
-   root.rotation.y=-.4;root.updateWorldMatrix(true,true);const bounds=new T.Box3().setFromObject(root),height=bounds.max.y-bounds.min.y;const scale=[270,350,390][index]/height;root.scale.setScalar(scale);this.actors.push({root,stages,height,baseOffset:-(bounds.min.y-95)*scale});
+   root.rotation.y=-.4;root.updateWorldMatrix(true,true);const bounds=new T.Box3().setFromObject(root),height=bounds.max.y-bounds.min.y;const scale=[270,350,390][index]/height;root.scale.setScalar(scale);this.actors.push({root,stages,height,displayScale:scale,baseOffset:-(bounds.min.y-95)*scale});
   }
  }
  reset(){for(const a of this.actors)for(const s of a.stages){s.group.position.set(0,s.baseY,0);s.group.rotation.set(0,0,0);s.group.visible=true;for(const t of s.tanks){t.fill.value=1;t.fluid.visible=true;t.surface.visible=true;t.surface.position.y=t.bounds.max.y;}for(const e of s.exhausts)e.reset();}}
  setState(lesson){
   const samples=lesson.samples(),triple=lesson.lessons?.[2]||lesson,flight=comparisonFlight(lesson);
-  this.actors.forEach((a,index)=>{a.root.position.x=750+(260+index*470-750)/flight.view.zoom;a.root.position.y=95+a.baseOffset+flight.heights[index]*2.7;a.root.visible=lesson.activeIndex===undefined||lesson.activeIndex===index;const state=lesson.lessons?.[index]||lesson,sample=samples[index];a.stages.forEach((s,i)=>{
+  const launched=lesson.running||lesson.progress>0||lesson.complete;
+  const range=comparisonRange(flight.heights,lesson.complete);
+  this.actors.forEach((a,index)=>{
+   const frame=comparisonFrame(index,flight.heights[index],launched,range);
+   const ratio=launched?Math.min(1,144/(a.height*a.displayScale)):1;
+   a.root.scale.setScalar(a.displayScale*ratio);
+   a.root.position.set(frame.modelX,650-frame.modelBase+a.baseOffset*ratio,0);
+   a.root.visible=lesson.activeIndex===undefined||lesson.activeIndex===index;const state=lesson.lessons?.[index]||lesson,sample=samples[index];a.stages.forEach((s,i)=>{
    const fraction=Math.max(0,sample.remaining[i]/(index===1?300:100)),eject=index===2?(i<sample.detached?1:triple.phase==='eject'&&triple.ejectStage===i+1?triple.ejectProgress:0):0;
    s.group.position.set(-eject*5,s.baseY-eject*13,0);s.group.rotation.z=eject*.12;s.group.visible=eject<1;
    for(const tank of s.tanks){tank.fill.value=fraction;tank.fluid.visible=fraction>1e-6;tank.surface.visible=fraction>1e-6;tank.surface.position.y=T.MathUtils.lerp(tank.bounds.min.y,tank.bounds.max.y,fraction);}

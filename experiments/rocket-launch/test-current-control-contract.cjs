@@ -6,7 +6,7 @@ const assert=require('node:assert/strict');
   const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto((process.env.TEST_ORIGIN||'http://127.0.0.1:9041')+'/experiments/rocket-launch/');
   await page.waitForFunction(()=>Boolean(window.RocketChapter3));await page.evaluate(()=>document.fonts.ready);
-  const destinations=[['推力与起飞','气球反作用力'],['推力与起飞','推力与载荷'],['速度与轨道','高山大炮'],['速度与轨道','垂直发射'],['结构与组装','认识与组装火箭'],['结构与组装','分级分离'],['结构与组装','为什么要分级']];
+  const destinations=[['推力与起飞','气球反作用力'],['结构与组装','推力与载荷'],['速度与轨道','高山大炮'],['速度与轨道','垂直发射'],['结构与组装','认识与组装火箭'],['结构与组装','分级分离'],['结构与组装','为什么要分级']];
   for(const [width,height]of [[1920,1080],[1600,900],[1024,768]]){
    await page.setViewportSize({width,height});
    for(const [chapter,step]of destinations){

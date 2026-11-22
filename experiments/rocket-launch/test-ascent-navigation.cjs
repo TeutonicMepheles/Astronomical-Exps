@@ -1,2 +1,80 @@
-const{chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
-(async()=>{const out=path.join(__dirname,'docs/review/launch-ascent-20261118');fs.mkdirSync(out,{recursive:true});const b=await chromium.launch({channel:'chrome'});try{const p=await b.newPage({viewport:{width:1920,height:1080}});await p.goto(((process.env.TEST_ORIGIN||'http://127.0.0.1:9041')+'/experiments/rocket-launch/?v=launch-ascent-20261118'));await p.getByRole('button',{name:'推力与载荷',exact:true}).click();await p.waitForFunction(()=>RocketChapter3.adapter.ready);const f=p.locator('#controls fieldset');await f.nth(0).getByRole('button',{name:'高',exact:true}).click();await p.locator('#launch-fire').click();for(const [name,delay]of [['start',200],['middle',2200],['end',3000]]){await p.waitForTimeout(delay);const state=await p.evaluate(async()=>{const T=await import('./vendor/three/three.module.js'),a=RocketChapter3.adapter;a.scene.updateMatrixWorld(true);const box=new T.Box3().setFromObject(a.model),ys=[];for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])ys.push(new T.Vector3(x,y,z).project(a.camera).y);return{top:Math.max(...ys),bottom:Math.min(...ys),zoom:a.camera.zoom,y:a.layout.position.y,opacity:Number(document.querySelector('#app').style.getPropertyValue('--launch-ground-opacity'))};});assert(state.top<1&&state.bottom>-1,'whole rocket stays inside camera');if(name==='end'){assert(state.zoom<.7);assert(state.y>9);assert.equal(state.opacity,0);}await p.screenshot({path:path.join(out,name+'.png')});}await p.locator('#chapters').getByRole('button',{name:'速度与轨道'}).click();assert.equal(await p.getByRole('button',{name:'高山大炮',exact:true}).count(),1);assert.equal(await p.getByRole('button',{name:'垂直发射',exact:true}).count(),1);assert.equal(await p.locator('.cannon-height-options,.cannon-mode-controls').count(),0);assert.equal(await p.evaluate(()=>RocketModel.scene.state.height),100000);await p.getByRole('button',{name:'垂直发射',exact:true}).click();assert.equal(await p.evaluate(()=>RocketModel.scene.state.mode),'vertical');await p.screenshot({path:path.join(out,'vertical.png')});await p.getByRole('button',{name:'高山大炮',exact:true}).click();assert.equal(await p.evaluate(()=>RocketModel.scene.state.mode),'horizontal');assert.equal(await p.evaluate(()=>RocketModel.scene.state.height),100000);await p.screenshot({path:path.join(out,'cannon.png')});console.log('PASS full rocket at start/mid/end, camera pullback, ground fade, two sidebar pages, fixed 100000m and no mode/height controls');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+const assert = require('node:assert/strict');
+const {chromium} = require('playwright');
+
+(async () => {
+ const browser = await chromium.launch();
+ try {
+  const page = await browser.newPage({viewport:{width:1920,height:1080}});
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const origin = process.env.TEST_ORIGIN || 'http://127.0.0.1:9041';
+  await page.goto(origin + '/experiments/rocket-launch/');
+  await page.locator('#chapters > button').filter({hasText:'结构与组装'}).click();
+  const fire = page.locator('#launch-fire');
+    const ruler = page.getByRole('group',{name:'高度记录',exact:true});
+  const records = ruler.locator('button');
+  const detail = page.locator('#launch-altitude-detail');
+  const ground = () => page.locator('#scene').evaluate(canvas => {
+   const ctx=canvas.getContext('2d');
+   return [...ctx.getImageData(610,688,40,4).data];
+  });
+  assert.equal(await ruler.isVisible(),false);
+  assert((await ground()).every(value => value === 0),'ruler is absent before the first launch');
+  await fire.click();
+  await page.waitForFunction(() => document.querySelector('#app').dataset.launchFlight === 'true');
+  const originPixels = await ground();
+  assert(originPixels.some(Boolean),'the zero baseline is visible during the first launch');
+  assert.equal(await records.count(),0);
+  await page.waitForFunction(() => {
+   const canvas=document.querySelector('#scene'), ctx=canvas.getContext('2d');
+   const [r,g,b] = ctx.getImageData(780,640,1,1).data;
+   return g>180 && b>180 && r<185;
+  });
+  assert.deepEqual(await ground(),originPixels,'zero baseline stays fixed while the marker rises');
+  await page.waitForFunction(() => RocketChapter3.records[0]?.status === 'complete');
+  assert.deepEqual(await ground(),originPixels);
+  const silhouette = await page.locator('#scene').evaluate(canvas => {
+   const ctx = canvas.getContext('2d');
+   const row = y => {
+    const pixels = ctx.getImageData(767,y,26,1).data;
+    let width = 0;
+    for (let i=0;i<pixels.length;i+=4) {
+     if (pixels[i]===153 && pixels[i+1]===226 && pixels[i+2]===227 && pixels[i+3]>200) width++;
+    }
+    return width;
+   };
+   return {nose:row(365),boosters:Math.max(row(402),row(408),row(413))};
+  });
+  assert(silhouette.nose>0 && silhouette.boosters>silhouette.nose+5,'small marker has a nose and a wider booster silhouette');
+  assert.deepEqual(await records.allTextContents(),['1']);
+  assert.equal(await detail.isVisible(),false);
+  await records.first().press('Enter');
+  assert.equal(await detail.textContent(),'70 示意格');
+  assert(await detail.isVisible());
+  await records.first().press('Escape');
+  assert.equal(await detail.isVisible(),false);
+
+  await page.locator('#controls fieldset').first().getByRole('button',{name:'低',exact:true}).click();
+  await fire.click();
+  await page.waitForFunction(() => RocketChapter3.records[1]?.status === 'complete');
+  assert.deepEqual(await records.allTextContents(),['1','2']);
+  await records.last().click();
+  assert.match(await detail.textContent(),/未起飞 · 0 示意格/);
+  for (const [width,height] of [[1920,1080],[1024,768]]) {
+   await page.setViewportSize({width,height});
+   for (const marker of await records.all()) await marker.click({trial:true});
+  }
+
+  await page.getByRole('button',{name:'速度与轨道'}).click();
+  assert.equal(await ruler.count(),0);
+  await page.locator('#chapters > button').filter({hasText:'结构与组装'}).click();
+  assert.deepEqual(await records.allTextContents(),['1','2']);
+  await page.reload();
+  await page.locator('#chapters > button').filter({hasText:'结构与组装'}).click();
+  assert.equal(await ruler.isVisible(),false);
+  assert.deepEqual(errors,[]);
+  console.log('PASS hidden until launch, fixed zero, live ascent, successful/failed records, accessible numbering and repeat visits');
+ } finally {
+  await browser.close();
+ }
+})().catch(error => {console.error(error);process.exitCode=1;});

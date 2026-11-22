@@ -644,12 +644,19 @@ header{height:106px;flex:none;align-items:flex-start}
 /* Force diagram overlays the subdued rocket; choices remain click-only. */
 #app[data-step="2"] .rocket-3d{left:33%;right:29%;opacity:.32;filter:grayscale(.65)}
 
-#app[data-step="2"] .rocket-record-button{left:458px;right:auto;top:400px;bottom:auto}
+#app[data-step="2"] .rocket-record-button{right:70px;bottom:146px}
 
 .rocket-launch-toast{position:absolute;z-index:20;left:50%;top:104px;transform:translateX(-50%);padding:14px 24px;border:1px solid #d8b07499;border-radius:8px;background:#142b40f5;color:var(--ink);font-size:var(--type-body);pointer-events:none}
 .rocket-launch-toast[hidden]{display:none}
 
-#app[data-step="2"]::before{opacity:var(--launch-ground-opacity,.2)}
+#app[data-step="2"] .rocket-3d{transform-origin:50% 88%;transition:opacity .25s ease-out,transform .25s ease-out}
+#app[data-step="2"][data-launch-flight="true"] .rocket-3d{opacity:0;transform:scale(.25)}
+.launch-altitude-records{position:absolute;inset:0;pointer-events:none}
+.launch-altitude-records[hidden],#launch-altitude-detail[hidden]{display:none}
+.launch-altitude-records button{position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;min-width:0;padding:0;border-radius:50%;border:1px solid #64829a;background:#21394e;color:#eef1f4;font-size:var(--type-body);font-variant-numeric:tabular-nums}
+.launch-altitude-records button[aria-expanded="true"]{border-color:#99e2e3;color:#99e2e3}
+#launch-altitude-detail{position:absolute;transform:translateY(-50%);padding:8px 13px;border:1px solid #64829a;border-radius:7px;background:#172e44;color:#eef1f4;font-size:var(--type-body);white-space:nowrap}
+@media(prefers-reduced-motion:reduce){#app[data-step="2"] .rocket-3d{transition:none}}
 
 /* Click-to-reveal explanations; comparison leaves the stage to the three flights. */
 .rocket-insight{position:absolute;top:95px;right:44px;z-index:8}
@@ -661,8 +668,9 @@ header{height:106px;flex:none;align-items:flex-start}
 .rocket-insight-panel p{margin:0 0 18px;font-size:var(--type-body);line-height:1.6;color:var(--ink)}
 .rocket-insight-panel button{display:block;margin-left:auto}
 #app[data-step="9"] #feedback{display:none}
-#app[data-step="9"] aside{justify-content:center}
+#app[data-step="9"] aside{justify-content:flex-end}
 #app[data-step="9"] #controls{margin:0;order:0;justify-content:center}
+#app[data-step="9"] #controls .rocket-comparison-play{display:grid;place-items:center;width:58px;height:58px;padding:0;border:1px solid #b3c6d8;border-radius:50%;background:#14283ceb;color:#eef3f6;font-size:23px}
 #app[data-step="9"] .rocket-webgl{pointer-events:none}
 
 .rocket-insight-panel{position:absolute;right:0;top:64px;width:440px;padding:20px;border:1px solid var(--warm-dim);border-radius:12px;background:#10253bf7;color:var(--ink);box-shadow:0 12px 32px #0005}
