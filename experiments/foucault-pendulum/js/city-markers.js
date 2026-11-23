@@ -75,15 +75,14 @@ export function createCityMarkers(svg) {
   const items = CITIES.map((c) => {
     const g = el('g', { class: 'city', 'data-id': c.id, role:'button', tabindex:0, 'aria-label':c.name });
     const hit = el('circle', { class: 'hit', r: 24 });
-    const ring = el('circle', { class: 'ring', r: 14 });
     const dot = el('circle', { class: 'dot', r: 4.5 });
     const name = el('text', { class: 'name' });
     name.textContent = c.name;
     const coord = el('text', { class: 'coord' });
     coord.textContent = c.coord;
-    g.append(hit, ring, dot, name, coord);
+    g.append(hit, dot, name, coord);
     svg.append(g);
-    return { c, g, dot, ring, name, coord,
+    return { c, g, dot, name, coord,
       nameW: name.getComputedTextLength(), coordW: coord.getComputedTextLength() };
   });
 

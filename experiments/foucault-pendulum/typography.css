@@ -21,8 +21,8 @@ button,input,select,textarea { font-family:var(--font-ui); }
 .fp-demo-speed button {font-size:var(--type-body);font-weight:400}
 .fp-dimension-label {font-family:var(--font-ui);font-weight:500}
 
-.location-heading b {font-size:var(--type-data-label);font-weight:500}
-.location-coordinates {font-size:16px;font-weight:400}
+.location-heading b {font-size:var(--type-body);font-weight:500}
+.location-coordinates {font-size:var(--type-body);font-weight:400}
 .precession-readout dt {font-size:var(--type-data-label);font-weight:500}
 .precession-readout output {font-size:var(--type-number);font-weight:500}
 .precession-readout .metric-unit {font-size:var(--type-body);font-weight:400}

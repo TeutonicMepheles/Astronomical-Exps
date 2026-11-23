@@ -9,10 +9,10 @@ import {mountDebug} from './debug-panel.js';
 import {lighting,grid,pedestal,defaultPedestal,background} from './lighting.js';
 import {createMotion} from './pendulum-model.js';
 import { createTexturedRenderer } from './globe-renderer.js';
+import { mountGlobeObservatory } from './globe-observatory.js';
 import { createCityMarkers, CITIES } from './city-markers.js';
 import { mountProgress } from './progress.js';
 import { mountGlobeTurnPanel } from './globe-turn-panel.js';
-import { mountMiniPendulumPanel, advanceMiniPendulum, miniPendulumDegrees } from './mini-pendulum-panel.js';
 
 const developerMode=new URLSearchParams(location.search).get('dev')==='1';
 document.documentElement.classList.toggle('developer-mode',developerMode);
@@ -49,6 +49,7 @@ const renderer=createTexturedRenderer({
 let spin=0, cityFocus=null;
 let dirty=true, size=550, scale=1, elapsed=0, last=0, frame=0, zoom=1;
 const ready=renderer.init(globe);
+const globeObservatory=mountGlobeObservatory(document.querySelector('#globeObservatory'));
 const bobRenderer=createBobRenderer(bob);
 const joint=document.querySelector('#bobJoint');
 const swingPlane=document.querySelector('#swingPlane');
@@ -94,7 +95,6 @@ periodInput.addEventListener('change',()=>{
 const readout=document.querySelector('#stage1Readout');
 const locationName=document.querySelector('#locationName');
 const locationLat=document.querySelector('#locationLat');
-const locationSwing=document.querySelector('#locationPendulumSwing');
 const swingPeriodMetric=createPeriodMetric(document.querySelector('#swingReadout .metric-value'),document.querySelector('#hallSwingPeriod'));
 const hallReadouts=document.querySelector('#hallReadouts');
 const precessionReadout=document.querySelector('#precessionReadout');
@@ -201,7 +201,7 @@ markers.onClick(id=>{
   if(paramMode)return;
   if(id!==selectedCity){
     // Keep the accumulated swing phase and plane angle; discard only old traces.
-    selectedCity=id;syncCityHint();progress.update();updateReadout(true);history.clearTrail();drawTrails();hallScreens.selectCity(id);
+    selectedCity=id;dirty=true;syncCityHint();progress.update();updateReadout(true);history.clearTrail();drawTrails();hallScreens.selectCity(id);
   }
   const city=CITIES.find(c=>c.id===id);
   if(Math.abs(city.lat)===90){cityFocus=null;dirty=true;wake();}
@@ -225,11 +225,12 @@ const hallScreens=mountHallScreens(stage.querySelector('.hall-displays'),documen
 const drawHallScreens=hallScreens.draw;
 function resize(){
   const style=getComputedStyle(document.documentElement);
-  const panelSpace=(Number.parseFloat(style.getPropertyValue('--turn-panel-space'))||0)+(Number.parseFloat(style.getPropertyValue('--mini-panel-space'))||0);
+  const panelSpace=(Number.parseFloat(style.getPropertyValue('--turn-panel-space'))||0);
   scale=Math.min(Math.max(0,innerWidth-panelSpace)/1600,innerHeight/900);
   stage.style.transform=`translate(-50%,-50%) scale(${scale})`;
   const dpr=Math.min(devicePixelRatio||1,2);
   size=Math.round(550*scale*dpr);globe.width=globe.height=size;renderer.resize(size,size);
+  globeObservatory.resize(scale*dpr);
   const trailWidth=Math.round(920*scale*dpr),trailHeight=Math.round(270*scale*dpr);
   if(trail.width!==trailWidth||trail.height!==trailHeight){
     const previous=document.createElement('canvas');
@@ -290,16 +291,16 @@ function focusGlobePoint(clientX,clientY){
 function drawGlobe(){
   const basis=globeBasis();
   renderer.draw({sizePx:size,pxPerLogical:size/550*250/202,zoom:1,focus:{x:781,y:324},basis,sun:[.64,.48,.6],dashLen:grid.dashLen*Math.PI/180,dashGap:grid.dashGap*Math.PI/180});
+  globeObservatory.setView(CITIES.find(city=>city.id===selectedCity),basis);
   const selected=markers.update(basis, selectedCity);
   syncCityHint();
   if(!selected){readout.style.visibility='hidden';dirty=false;return;}
   const {x,y,front}=selected;
-  // Keep the coordinate card close to the selected point and open toward the
-  // right. Clamp only enough to keep it inside the 1600x900 stage.
-  const readoutHeight=88;
-  readout.style.left = Math.min(1600-280-18,x+20)+'px';
-  readout.style.top = Math.max(70,Math.min(900-readoutHeight-30,y-readoutHeight/2))+'px';
-  readout.dataset.side = 'right';
+  // Place the card on the side opposite the outward projection of the arch.
+  const cardOnLeft=x>370;
+  readout.style.left=(x+(cardOnLeft?-44:44))+'px';
+  readout.style.top=y+'px';
+  readout.dataset.side=cardOnLeft?'left':'right';
   readout.style.visibility = front&&!drag?.moved ? 'visible' : 'hidden';
   dirty=false;
 }
@@ -425,7 +426,6 @@ function drawPendulum(config=pendulumConfig){
   const jx=bx-vx/len*off, jy=by-vy/len*off;
   const d=`M${sx.toFixed(2)} ${sy.toFixed(2)}L${jx.toFixed(3)} ${jy.toFixed(3)}`;
   cable.setAttribute('d',d);cableBack.setAttribute('d',d);
-  locationSwing.setAttribute('transform',`rotate(${miniPendulumDegrees(reduced.matches).toFixed(2)} 24 6)`);
   bob.style.transformOrigin='0 0';
   bob.style.transform=`translate(${(bx-BOB_SIZE/2*bobScale).toFixed(2)}px,${(by-BOB_SIZE/2*bobScale).toFixed(2)}px) scale(${bobScale})`;
   joint.setAttribute('cx',jx);joint.setAttribute('cy',jy);
@@ -459,10 +459,7 @@ function tick(now){
   frame=0;if(document.hidden)return;
   if(last){
     const dt=Math.min((now-last)/1000,.5);
-    if(!reduced.matches){
-      const period=pendulumConfig.periodOverride??2*Math.PI*Math.sqrt(pendulumConfig.length/9.81);
-      advanceMiniPendulum(dt,period);
-    }
+    if(!reduced.matches&&!paramMode&&!stage.classList.contains('no-background'))globeObservatory.advance(dt);
     if(selectedCity&&!reduced.matches&&!paramMode){elapsed+=dt;history.advance(dt);}
     if(paramMode)parameterDialog.advance(dt);
   }
@@ -473,7 +470,10 @@ function tick(now){
   }
   updateCityFocus(now);updatePrecession(now);swingPeriodMetric.tick(now);
   if(dirty&&ready)drawGlobe();
-  if(!paramMode)drawPendulum();
+  if(!paramMode){
+    drawPendulum();
+    if(!stage.classList.contains('no-background'))globeObservatory.draw();
+  }
   if(!reduced.matches||paramMode||precessionTransition||swingPeriodMetric.active){if(!paramMode)drawTrails();frame=requestAnimationFrame(tick);}
 }
 function wake(){if(!frame&&!document.hidden){last=0;frame=requestAnimationFrame(tick);}}
@@ -507,7 +507,6 @@ addEventListener('globe-texture-ready',()=>{dirty=true;wake();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;last=0;}else wake();});
 reduced.addEventListener('change',wake);
 if(developerMode)mountGlobeTurnPanel();
-mountMiniPendulumPanel();
 resize();wake();
 // Apply the pedestal (meridian ring) placement + contact-shadow strength from
 // the edit-panel params to the DOM.
@@ -553,7 +552,7 @@ const parameterDialog=mountParameterDialog(stage,{
   onApply:({length,mass})=>{
     pendulumConfig.length=length;pendulumConfig.mass=mass;
     pendulumConfig.periodOverride=null;periodInput.value='';
-    history.clearTrail();updateReadout();parametersApplied=true;
+    history.clearTrail();globeObservatory.clearTrail();updateReadout();parametersApplied=true;
   },
   onOpenChange:open=>{
     paramMode=open;syncCityHint();paramButton.setAttribute('aria-expanded',String(open));
