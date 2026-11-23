@@ -654,8 +654,15 @@
 
     _startForAngle(angle) {
       const T = this.THREE;
-      const point = angle === '90' ? new T.Vector3(0, 13, -5) : angle === '45' ? new T.Vector3(-18, 12, -9) : new T.Vector3(-26, 9, -7);
       const end = this._groundPoint();
+      const point = end.clone();
+      if (Number(angle) === 90) {
+        point.y += 13;
+      } else {
+        const horizontalOffset = Number(angle) === 45 ? new T.Vector3(-18, 0, -4) : new T.Vector3(-26, 0, -2);
+        point.add(horizontalOffset);
+        point.y += horizontalOffset.length() * Math.tan(T.MathUtils.degToRad(Number(angle)));
+      }
       const direction = point.clone().sub(end);
       this.camera.updateMatrixWorld(true);
       const frustum = new T.Frustum().setFromProjectionMatrix(new T.Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse));

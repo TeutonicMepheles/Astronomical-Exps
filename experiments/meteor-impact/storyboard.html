@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>陨石坑撞击 · 分镜预览</title>
+  <link rel="stylesheet" href="../../shared/typography/typography.css">
+  <link rel="stylesheet" href="storyboard.css">
+</head>
+<body>
+  <main id="story" data-stage="intro">
+    <div id="stars" aria-hidden="true"></div>
+    <header id="story-header" hidden>
+      <h1>陨石坑撞击实验</h1>
+      <ol aria-label="任务阶段">
+        <li data-step="factors"><b>1</b>选择研究因素</li>
+        <li data-step="settings"><b>2</b>设置对比参数</li>
+        <li data-step="observe"><b>3</b>观察与记录</li>
+      </ol>
+    </header>
+    <div id="hero"><canvas id="first" aria-hidden="true"></canvas></div>
+    <button id="start" disabled><span>点击陨石以开始实验</span></button>
+    <section id="controls" aria-labelledby="task" hidden>
+      <h2 id="task" tabindex="-1"></h2>
+      <p id="instruction" role="status"></p>
+      <div id="factors"></div>
+      <div id="settings" hidden>
+        <h3 id="factor"></h3>
+        <div id="options" aria-label="对比参数" role="group"></div>
+        <div id="assign">
+          <button id="back" aria-label="返回研究因素">←</button>
+          <button data-side="0">实验 1</button>
+          <button data-side="1">实验 2</button>
+        </div>
+      </div>
+    </section>
+    <button id="fire" hidden disabled>发射 <span aria-hidden="true">↗</span></button>
+    <div id="space-split" aria-hidden="true" hidden>
+      <div class="space-rock" id="space-left"></div>
+      <div class="space-rock" id="space-right"></div>
+    </div>
+    <section id="split" aria-label="撞击对照" hidden>
+      <article id="left"><h2></h2><p class="phase"></p></article>
+      <article id="right"><h2></h2><canvas id="second" aria-hidden="true"></canvas><p class="phase"></p></article>
+    </section>
+    <footer id="observations" hidden>
+      <p id="observation" role="status" tabindex="-1"></p>
+      <button id="retry">调整参数</button>
+      <button id="another">更换因素</button>
+    </footer>
+    <p id="error" role="status"></p>
+  </main>
+  <script src="vendor/three.local.js"></script>
+  <script src="components/meteor-3d/meteor-3d.js"></script>
+  <script src="storyboard.js"></script>
+</body>
+</html>

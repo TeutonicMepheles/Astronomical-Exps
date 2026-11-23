@@ -16,11 +16,14 @@
   const sizeDepth = { small: 2.1, medium: 3.0, large: 4.0 };
   const speedFactor = { low: .84, medium: 1, high: 1.2 };
   const speedSpread = { low: .72, medium: 1, high: 1.3 };
+  // The flat mesh is identical in both environments and copied on application.
+  let flatTerrain;
 
   class MeteorScene3D {
     constructor(canvas, appearance = {}) {
       if (!window.THREE) throw new Error('Three.js 未加载');
       this.canvas = canvas;
+      this.fixedViewport = appearance.viewport;
       this.THREE = window.THREE;
       const initial = appearance.initialRotation || [.2, .4, -.3];
       this.initialMeteorRotation = new this.THREE.Quaternion().setFromEuler(new this.THREE.Euler(...initial));
@@ -45,6 +48,7 @@
       this.renderer.localClippingEnabled = true;
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = this.THREE.PCFSoftShadowMap;
+      this.renderer.shadowMap.autoUpdate = false;
       this.sceneMode = 'moon';
       this.params = { size: 'medium', speed: 'medium', angle: '90', scene: 'moon' };
       this.terrainImpacted = false;
@@ -222,6 +226,26 @@
         bumpScale: .006,
         side: T.DoubleSide
       });
+      this.impactMaterialRegion = { value: new T.Vector4() };
+      this.material.onBeforeCompile = shader => {
+        shader.uniforms.impactMaterialRegion = this.impactMaterialRegion;
+        shader.vertexShader = 'varying vec2 vCraterTerrain;\n' + shader.vertexShader.replace(
+          '#include <begin_vertex>', '#include <begin_vertex>\nvCraterTerrain = position.xy;');
+        shader.fragmentShader = 'varying vec2 vCraterTerrain;\nuniform vec4 impactMaterialRegion;\n'
+          + shader.fragmentShader.replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
+            float wallDistance = length(vCraterTerrain * impactMaterialRegion.xy);
+            float wallMaterial = 1.0 - smoothstep(impactMaterialRegion.z, impactMaterialRegion.w, wallDistance);
+            #ifdef USE_ROUGHNESSMAP
+              roughnessFactor = mix(roughness, roughnessFactor, wallMaterial);
+            #endif`).replace('#include <normal_fragment_maps>', `
+            #ifdef USE_NORMALMAP_TANGENTSPACE
+              vec3 groundNormal = normal;
+            #endif
+            #include <normal_fragment_maps>
+            #ifdef USE_NORMALMAP_TANGENTSPACE
+              normal = normalize(mix(groundNormal, normal, wallMaterial));
+            #endif`);
+      };
       // The teaching camera stays fixed. A much larger plane prevents the terrain
       // boundary from entering frame and making the surface look like a square world.
       this.geometry = new T.PlaneGeometry(320, 320, 384, 384);
@@ -252,12 +276,15 @@
     }
 
     _crater(x, y, radius, depth, seed, complex, rough) {
+      const distance = Math.hypot(x, y);
+      // The normalized radius cannot exceed 1 + .14 * .5 + .025.
+      if (distance > radius * 3.6 * 1.095) return 0;
       const angle = Math.atan2(y, x);
       const cs = Math.cos(angle);
       const sn = Math.sin(angle);
       const warp = this._fbm(cs * 2.3 + seed, sn * 2.3 + seed);
       const rr = radius * (1 + .14 * warp + .025 * Math.sin(angle * 7 + seed));
-      const u = Math.hypot(x, y) / rr;
+      const u = distance / rr;
       if (u > 3.6) return 0;
       const radial = this._fbm(cs * 5 + seed, sn * 5 + seed);
       const rimVariation = clamp(.85 + radial * 1.8, .3, 1.35);
@@ -274,7 +301,75 @@
       return bowl + rim + apron + shelves + gullies + slump + relief * (1 - smooth(1.5, 3.6, u)) + floor + peak;
     }
 
+    _earthCraterProfile(x, y, visual, loose, groundHeight) {
+      const nx = x / visual.radius;
+      const ny = y / visual.radius;
+      const bearing = Math.atan2(ny, nx);
+      const distance = Math.hypot(nx, ny);
+      const side = Math.sin(bearing);
+      // Keep the measured centre-section diameter while breaking up the rest of the rim.
+      const irregularity = loose
+        ? .09 * Math.sin(3 * bearing + .7) + .045 * Math.cos(5 * bearing - .5)
+        : .10 * Math.cos(4 * bearing + .42) + .055 * Math.sin(7 * bearing - .6);
+      const rimDistance = distance / (1 + Math.abs(side) * irregularity);
+      const rimBand = Math.exp(-(((rimDistance - 1) / (loose ? .43 : .10)) ** 2));
+      const rimHeight = loose
+        ? .29 + .025 * Math.sin(3 * bearing + .9)
+        : .08 + .018 * Math.sin(6 * bearing + .8);
+
+      // Short fissures cross the rim at uneven intervals and merge back into the terrain.
+      const fractureSignal = Math.sin((loose ? 9 : 13) * bearing + 1.2 * Math.sin(3 * bearing) + 2.5 * (rimDistance - 1));
+      const fissure = smooth(.77, .98, fractureSignal) * smooth(.74, .92, rimDistance)
+        * (1 - smooth(1.05, loose ? 1.36 : 1.27, rimDistance));
+      const grain = this._fbm(nx * 7 + 29, ny * 7);
+      let profile;
+      let detail;
+      if (loose) {
+        // A rounded entrance rolls quickly into a steep, offset shaft.
+        const floorShift = .16 * (1 - smooth(.3, .97, rimDistance));
+        const shaftDistance = Math.hypot(nx - floorShift, ny) / (1 + Math.abs(side) * irregularity);
+        profile = 1 - smooth(.12, 1, shaftDistance) ** 3.4;
+        const clod = Math.max(0, grain + .08) * smooth(.76, .94, rimDistance) * (1 - smooth(1.02, 1.27, rimDistance));
+        detail = visual.radius * (.09 * clod + rimBand * rimHeight * smooth(.36, .85, rimDistance) - .022 * fissure);
+      } else {
+        profile = .38 * (1 - smooth(.24, .91, rimDistance))
+          + .62 * (1 - smooth(.57, 1, rimDistance));
+        const apron = .035 * smooth(.97, 1.12, rimDistance) * (1 - smooth(1.25, 1.72, rimDistance));
+        // Shallow cuts in the actual mesh converge toward the basin. Widths are
+        // limited by the terrain sampling so the narrower cuts stay continuous.
+        const count = 44;
+        const pitch = (bearing + Math.PI + .04 * Math.sin(5 * bearing)) * count / (2 * Math.PI);
+        const nearest = Math.round(pitch);
+        const channel = (nearest + count) % count;
+        const offset = Math.abs(pitch - nearest);
+        const width = .27 + .17 * hash(channel, 7.3);
+        const start = .20 + .19 * hash(channel, 2.7);
+        const fade = smooth(start, start + .24, rimDistance) * (1 - smooth(.94, 1.02, rimDistance));
+        const cut = (.012 + .013 * hash(channel, 4.9)) * (1 - smooth(0, width, offset)) * fade;
+        detail = visual.radius * (rimBand * rimHeight + apron - .038 * fissure - cut);
+      }
+      return {
+        height: -visual.depth * profile + detail + groundHeight * smooth(1.05, loose ? 1.46 : 1.78, rimDistance),
+        distance: rimDistance,
+        fissure,
+        grain,
+        shade: loose ? .69 * smooth(.04, .55, profile) : 0
+      };
+    }
+
     _visualParams(params) {
+      if (params.estimate) {
+        const { diameter, depth, ejecta } = params.estimate;
+        const { metersPerUnit } = params;
+        const radius = diameter / (2 * metersPerUnit);
+        const ejectaRadius = ejecta / metersPerUnit;
+        return {
+          radius, depth: depth / metersPerUnit, ejectaRadius, metersPerUnit,
+          round: params.angle === '90' ? 1 : params.angle === '45' ? 1.08 : 1.65,
+          ejectaAmount: params.ground === 'loose' ? .25 : 1.4,
+          spread: Math.max(.1, ejectaRadius / radius - 1.3), seed: 29
+        };
+      }
       // Presentation dimensions only; no physical units or calibrated prediction.
       const atmosphere = params.scene === 'earth' ? .78 : 1;
       const loose = params.ground === 'loose';
@@ -301,7 +396,7 @@
     }
 
     _terrainKey(impacted, params = { ...this.params, scene: this.sceneMode }) {
-      return JSON.stringify(impacted ? [params.scene, params.size, params.speed, params.angle, params.ground || 'compact'] : [params.scene, 'flat']);
+      return JSON.stringify(impacted ? [params.scene, params.size, params.speed, params.angle, params.ground || 'compact', params.estimate, params.metersPerUnit] : [params.scene, 'flat']);
     }
 
     *_terrainSteps(impacted, params = { ...this.params, scene: this.sceneMode }) {
@@ -309,10 +404,11 @@
       this.terrainCache ||= new Map();
       const key = this._terrainKey(impacted, params);
       if (this.terrainCache.has(key)) return this.terrainCache.get(key);
+      if (!impacted && flatTerrain) return flatTerrain;
       // Work in separate CPU arrays. The visible mesh remains intact until ready.
       const geometry = new T.BufferGeometry();
       geometry.setIndex(this.geometry.index);
-      const position = new T.BufferAttribute(this.geometry.attributes.position.array.slice(), 3);
+      const position = new T.BufferAttribute((flatTerrain?.position || this.geometry.attributes.position.array).slice(), 3);
       const colors = new T.BufferAttribute(new Float32Array(position.count * 3), 3);
       geometry.setAttribute('position', position); geometry.setAttribute('color', colors);
       const visual = this._visualParams(params);
@@ -322,7 +418,8 @@
       const wallColor = new T.Color(0x727578);
       const rimColor = new T.Color(0xb4b7ba);
       const color = new T.Color();
-      const backgroundCraters = impacted ? Array.from({ length: 4 }, (_, i) => {
+      const scaled = impacted && Boolean(visual.metersPerUnit);
+      const backgroundCraters = impacted && !scaled ? Array.from({ length: 4 }, (_, i) => {
         const angle = hash(i + visual.seed, 1.7) * Math.PI * 2;
         const distance = visual.radius + 9 + hash(i + visual.seed, 9.3) * 18;
         return {
@@ -331,25 +428,82 @@
           radius: 1.4 + Math.pow(hash(i + visual.seed, 7.7), 2) * 3.4
         };
       }) : [];
+      const flat = impacted && flatTerrain;
+      // Reuse the terrain mesh resolution, concentrating samples around small craters.
+      const core = visual.radius * 1.32;
+      const coreSamples = params.scene === 'earth' && params.ground === 'compact' ? 21 : 16;
+      const sampleScale = (x, y) => {
+        if (Math.abs(x) >= 25 || Math.abs(y) >= 25) return 1;
+        const distance = Math.hypot(x, y);
+        if (distance >= 25 || distance === 0) return 1;
+        const coreSlope = core / coreSamples;
+        if (distance <= coreSamples) return coreSlope;
+        const span = 25 - coreSamples;
+        const t = (distance - coreSamples) / span;
+        // Match the inner and outer grid slopes so the transition has no hard ring.
+        const blend = t * t * (3 - 2 * t);
+        const innerTangent = t * (1 - t) ** 2 * coreSlope;
+        const outerTangent = -t * t * (1 - t);
+        const offset = core + (25 - core) * blend + span * (innerTangent + outerTangent);
+        return offset / distance;
+      };
+      const ejectaLimit = scaled ? visual.ejectaRadius / visual.radius : 1.3 + visual.spread;
+      const ejectaStart = scaled ? 1.15 : 1.3;
+      const reliefRadius = Math.max(
+        visual.radius * visual.round * Math.max(3.6 * 1.095, 1.3 + visual.spread),
+        ...backgroundCraters.map(crater => Math.hypot(crater.x, crater.y) + crater.radius * 3.6 * 1.095)
+      );
+      if (flat) {
+        position.array.set(flat.position);
+        colors.array.set(flat.color);
+      }
 
       for (let i = 0; i < position.count; i++) {
-        const x = position.getX(i);
-        const y = position.getY(i);
+        const originalX = position.getX(i);
+        const originalY = position.getY(i);
+        const localScale = scaled ? sampleScale(originalX, originalY) : 1;
+        const x = originalX * localScale;
+        const y = originalY * localScale;
+        if (localScale !== 1) { position.setX(i, x); position.setY(i, y); }
+        if (flat && x === originalX && y === originalY && (Math.abs(x) > reliefRadius || Math.abs(y) > reliefRadius)) {
+          if (i % 128 === 127) yield;
+          continue;
+        }
         let height = .43 * this._fbm(x * .16 + visual.seed, y * .16) + .11 * this._fbm(x * .85, y * .85);
+        const craterX = scaled ? x : x / visual.round;
+        const craterY = scaled ? y * visual.round : y;
+        let craterDistance = impacted ? Math.hypot(craterX, craterY) / visual.radius : 0;
+        const ejectaDistance = scaled ? Math.hypot(x, y) / visual.radius : craterDistance;
+        let profile;
         if (impacted) {
-          height += this._crater(x / visual.round, y, visual.radius, visual.depth, visual.seed, false, .82);
-          const distance = Math.hypot(x / visual.round, y) / visual.radius;
+          if (scaled && params.scene === 'earth' && craterDistance < 1.85) {
+            profile = this._earthCraterProfile(craterX, craterY, visual, params.ground === 'loose', height);
+            height = profile.height;
+            craterDistance = profile.distance;
+          } else if (scaled) {
+            const bowl = -visual.depth * Math.max(0, 1 - craterDistance ** 2) ** 1.65;
+            const rimOffset = (craterDistance - 1) / .16;
+            const rim = visual.radius * .04 * Math.exp(-(rimOffset ** 2)) * smooth(.65, 1, craterDistance);
+            height = height * smooth(1, 1.5, craterDistance) + bowl + rim;
+          } else {
+            height += this._crater(craterX, craterY, visual.radius, visual.depth, visual.seed, false, .82);
+          }
           const bearing = Math.atan2(y, x);
-          const ray = this._ejectaStructure(x, y, bearing, visual, params.scene);
-          height += .12 * visual.ejectaAmount * ray * smooth(1.1, 1.3, distance) * (1 - smooth(1.3, 1.3 + visual.spread, distance));
+          if (ejectaDistance > 1.1 && ejectaDistance < ejectaLimit) {
+            const ray = this._ejectaStructure(x, y, bearing, visual, params.scene);
+            height += .12 * visual.ejectaAmount * ray * smooth(1.1, ejectaStart, ejectaDistance) * (1 - smooth(ejectaStart, ejectaLimit, ejectaDistance));
+          }
           for (const background of backgroundCraters) {
             height += this._crater(x - background.x, y - background.y, background.radius, background.radius * .23, visual.seed, false, .45);
           }
         }
         position.setZ(i, height);
-        const angle = Math.atan2(y, x / visual.round);
-        const rr = visual.radius * (1 + .14 * this._fbm(Math.cos(angle) * 2.3 + visual.seed, Math.sin(angle) * 2.3 + visual.seed) + .025 * Math.sin(angle * 7 + visual.seed));
-        const d = impacted ? (Math.hypot(x / visual.round, y) / rr - 1) * 100 : 100;
+        const angle = impacted ? Math.atan2(craterY, craterX) : 0;
+        let d = 100;
+        if (impacted) {
+          const rr = visual.radius * (1 + .14 * this._fbm(Math.cos(angle) * 2.3 + visual.seed, Math.sin(angle) * 2.3 + visual.seed) + .025 * Math.sin(angle * 7 + visual.seed));
+          d = ((scaled ? craterDistance : Math.hypot(craterX, craterY) / rr) - 1) * 100;
+        }
         const floorTint = 1 - smooth(-68, -38, d);
         const wallTint = smooth(-78, -48, d) * (1 - smooth(-7, 5, d));
         const outerTint = smooth(9, 25, d) * (1 - smooth(40, 62, d));
@@ -357,11 +511,17 @@
         color.copy(fieldColor).lerp(floorColor, floorTint).lerp(outerColor, outerTint * .48)
           .lerp(wallColor, wallTint).lerp(rimColor, rimTint);
         color.multiplyScalar(.96 + .06 * this._noise(x * .075 + 12, y * .075 - 7));
+        if (profile) {
+          const roughness = params.ground === 'loose' ? .58 : .26;
+          color.multiplyScalar(1 + profile.grain * roughness - profile.fissure * .19 - profile.shade);
+        }
         if (impacted) {
-          const radial = Math.hypot(x / visual.round, y) / visual.radius;
-          const rays = this._ejectaStructure(x, y, angle, visual, params.scene);
-          const ejecta = rays * smooth(1.1, 1.3, radial) * (1 - smooth(1.3, 1.3 + visual.spread, radial));
-          color.lerp(rimColor, Math.min(1, ejecta * .65 * visual.ejectaAmount));
+          const radial = ejectaDistance;
+          if (radial > 1.1 && radial < ejectaLimit) {
+            const rays = this._ejectaStructure(x, y, angle, visual, params.scene);
+            const ejecta = rays * smooth(1.1, ejectaStart, radial) * (1 - smooth(ejectaStart, ejectaLimit, radial));
+            color.lerp(rimColor, Math.min(1, ejecta * .65 * visual.ejectaAmount));
+          }
         }
         colors.setXYZ(i, color.r, color.g, color.b);
         if (i % 128 === 127) yield;
@@ -369,11 +529,11 @@
       geometry.computeVertexNormals();
       const data = Object.fromEntries(['position','color','normal'].map(name => [name, geometry.attributes[name].array]));
       geometry.dispose();
-      this.terrainCache.set(key, data);
-      if (this.terrainCache.size > 4) {
-        // Keep both flat scenes ready for every reset and environment switch.
-        const oldestImpact = [...this.terrainCache.keys()].find(item => !item.endsWith('"flat"]'));
-        this.terrainCache.delete(oldestImpact);
+      if (!impacted) {
+        flatTerrain = data;
+      } else {
+        this.terrainCache.set(key, data);
+        if (this.terrainCache.size > 2) this.terrainCache.delete(this.terrainCache.keys().next().value);
       }
       return data;
     }
@@ -386,13 +546,43 @@
         this.geometry.attributes[name].array.set(result.value[name]);
         this.geometry.attributes[name].needsUpdate = true;
       }
+      const position = this.geometry.attributes.position;
+      const uv = this.geometry.attributes.uv;
+      // Project the ground texture from world-space coordinates after grid redistribution.
+      for (let i = 0; i < position.count; i++) {
+        uv.setXY(i, position.getX(i) / this.geometry.parameters.width + .5,
+          position.getY(i) / this.geometry.parameters.height + .5);
+      }
+      uv.needsUpdate = true;
+      const earthImpact = impacted && this.params.estimate && this.sceneMode === 'earth';
+      const loose = this.params.ground === 'loose';
+      const normals = earthImpact ? (loose ? this.mudNormal : this.rockNormal) || null : null;
+      const roughnessMap = normals && loose ? this.mudRoughness : null;
+      if (normals) {
+        const visual = this._visualParams(this.params);
+        this.impactMaterialRegion.value.set(1 / visual.radius, visual.round / visual.radius,
+          loose ? 1.15 : .85, loose ? 1.65 : 1.08);
+        this.material.normalScale.setScalar(loose ? .88 : 1.05);
+      }
+      if (this.material.normalMap !== normals || this.material.roughnessMap !== roughnessMap) {
+        this.material.normalMap = normals;
+        this.material.roughnessMap = roughnessMap;
+        this.material.needsUpdate = true;
+      }
       this.terrainImpacted = impacted;
+      // The denser crater mesh needs a larger depth offset to avoid self-shadow speckling.
+      this.sun.shadow.bias = impacted && this.params.estimate ? -.0024 : -.0005;
       this.geometry.computeBoundingSphere();
+      this.renderer.shadowMap.needsUpdate = true;
       if (render) this._render();
     }
 
     _prepareImpact(token) {
       return this._prepareTerrain(true, { ...this.params, scene: this.sceneMode }, token);
+    }
+
+    prepareImpact(params) {
+      return this._prepareTerrain(true, params, this.preparationToken);
     }
 
     async _prepareTerrain(impacted, params, token) {
@@ -626,12 +816,27 @@
       this.scene.add(this.targetRing);
     }
 
-    _startForAngle(angle) {
+    _startForAngle(angle, inFrame = false) {
       const T = this.THREE;
-      const point = angle === '90' ? new T.Vector3(0, 13, -5) : angle === '45' ? new T.Vector3(-18, 12, -9) : new T.Vector3(-26, 9, -7);
       const end = this._groundPoint();
-      const direction = point.clone().sub(end);
+      const point = end.clone();
+      if (Number(angle) === 90) {
+        point.y += 13;
+      } else {
+        const horizontalOffset = Number(angle) === 45 ? new T.Vector3(-18, 0, -4) : new T.Vector3(-26, 0, -2);
+        point.add(horizontalOffset);
+        point.y += horizontalOffset.length() * Math.tan(T.MathUtils.degToRad(Number(angle)));
+      }
       this.camera.updateMatrixWorld(true);
+      if (inFrame) {
+        const projected = point.clone().project(this.camera);
+        for (let i = 0; i < 20 && (Math.abs(projected.x) > .75 || Math.abs(projected.y) > .7); i++) {
+          point.lerp(end, .1);
+          projected.copy(point).project(this.camera);
+        }
+        return point;
+      }
+      const direction = point.clone().sub(end);
       const frustum = new T.Frustum().setFromProjectionMatrix(new T.Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse));
       // Use the largest size for every grade so size comparisons share one path.
       const bounds = new T.Sphere(point, sizeScale.large * 1.3);
@@ -648,13 +853,13 @@
     }
 
     _render() {
-      if (!this.renderer || !this.canvas.clientWidth || !this.canvas.clientHeight) return;
+      if (!this.renderer || (!this.fixedViewport && (!this.canvas.clientWidth || !this.canvas.clientHeight))) return;
       this.renderer.render(this.scene, this.camera);
     }
 
     resize() {
-      const width = this.canvas.clientWidth || 1150;
-      const height = this.canvas.clientHeight || 740;
+      const width = this.fixedViewport?.[0] || this.canvas.clientWidth || 1150;
+      const height = this.fixedViewport?.[1] || this.canvas.clientHeight || 740;
       const ratio = Math.min(devicePixelRatio || 1, 1.75);
       if (this.renderer.domElement.width === Math.floor(width * ratio) && this.renderer.domElement.height === Math.floor(height * ratio)) return;
       this.renderer.setPixelRatio(ratio);
@@ -680,13 +885,35 @@
       this.hemisphere.color.setHex(moon ? 0xf9f1e7 : 0xb9c8dc);
       this.hemisphere.groundColor.setHex(moon ? 0x77716f : 0x49433d);
       this.hemisphere.intensity = moon ? .72 : .65;
-      this.material.needsUpdate = true;
+      if (changed) this.material.needsUpdate = true;
       if (changed || this.terrainImpacted) this._rebuildTerrain(false, false);
     }
 
     _setMeteorRotation(elapsed) {
       this.meteorSpinDelta.setFromAxisAngle(this.meteorSpinAxis, this.meteorSpinSpeed * elapsed);
       this.meteor.quaternion.copy(this.initialMeteorRotation).premultiply(this.meteorSpinDelta);
+    }
+
+    async loadMeteor() {
+      await this._loadMeteor();
+    }
+
+    drawFloatingMeteor(elapsed) {
+      const T = this.THREE;
+      if (!this.floatingScene) {
+        this.floatingScene = new T.Scene();
+        this.floatingCamera = new T.OrthographicCamera(-1.5, 1.5, 1.5, -1.5, .1, 20);
+        this.floatingCamera.position.z = 5;
+        this.floatingRock = new T.Mesh(this.meteorGeometry, this.meteorMaterial);
+        this.meteorGeometry.computeBoundingSphere();
+        this.floatingRock.scale.setScalar(1 / this.meteorGeometry.boundingSphere.radius);
+        const light = new T.DirectionalLight(0xffe4ce, 2.8);
+        light.position.set(-3, 4, 3);
+        this.floatingScene.add(light, new T.HemisphereLight(0xbad8ff, 0x5a3829, 1.45), this.floatingRock);
+      }
+      this.floatingRock.rotation.set(.35, .45 + elapsed * .34, -.25);
+      this.floatingRock.position.y = Math.sin(elapsed * .65) * .08;
+      this.renderer.render(this.floatingScene, this.floatingCamera);
     }
 
     preview(params) {
@@ -714,6 +941,7 @@
       this.guide.computeLineDistances();
       this.guide.visible = true;
       this.targetRing.visible = true;
+      this.renderer.shadowMap.needsUpdate = true;
       this._render();
     }
 
@@ -725,7 +953,7 @@
       this.previewSuppressed = true;
       this.guide.visible = false;
       this.targetRing.visible = false;
-      const start = this._startForAngle(params.angle);
+      const start = this._startForAngle(params.angle, options.inFrame);
       const end = this._groundPoint();
       this.onPhase = callbacks.onPhase || null;
       this.onComplete = callbacks.onComplete || null;
@@ -789,6 +1017,7 @@
       const contactEnd = fallEnd + .31;
       const duration = this.motion.duration;
       if (elapsed < fallEnd) {
+        this.renderer.shadowMap.needsUpdate = true;
         this._setPhase('fall');
         const progress = clamp(elapsed / fallEnd, 0, 1);
         this.meteor.visible = true;
@@ -823,6 +1052,7 @@
           sprite.scale.set(meteorSize * (smoke ? 1.7 : 1.15 + index * .025), meteorSize * (smoke ? 2.7 : 2.5 + (index % 4) * .15), 1);
         });
       } else {
+        if (this.meteor.visible) this.renderer.shadowMap.needsUpdate = true;
         this.meteor.visible = false;
         this.entryGlow.visible = false;
         this.trails.forEach(sprite => { sprite.visible = false; });
@@ -891,18 +1121,19 @@
           item.scale.setScalar((.15 + (index % 4) * .055) * (1 - smooth(.82, 1, local)));
           item.rotation.set(local * data.rotation * 5, local * data.rotation * 3, data.angle);
         });
-        if (dustProgress > .32 && !this.terrainImpacted && this.terrainCache.has(this._terrainKey(true))) this._rebuildTerrain(true);
+        if (dustProgress > .32 && !this.terrainImpacted && this.terrainCache.has(this._terrainKey(true))) this._rebuildTerrain(true, false);
       }
-      this._render();
       if (elapsed >= duration && this.terrainCache.has(this._terrainKey(true))) this._finishMotion();
+      else this._render();
     }
 
     _finishMotion() {
       if (!this.motion) return;
       cancelAnimationFrame(this.animationFrame);
       this.animationFrame = 0;
-      if (!this.terrainImpacted) this._rebuildTerrain(true);
+      if (!this.terrainImpacted) this._rebuildTerrain(true, false);
       this._setPhase('result');
+      if (this.meteor.visible) this.renderer.shadowMap.needsUpdate = true;
       this.impactGroup.visible = false;
       this.guide.visible = false;
       this.targetRing.visible = false;
@@ -919,6 +1150,7 @@
       this.onPhase = null;
       this.onComplete = null;
       if (this.impactGroup) {
+        if (this.impactGroup.visible) this.renderer.shadowMap.needsUpdate = true;
         this.impactGroup.visible = false;
         this._resetEffects();
       }
@@ -942,6 +1174,10 @@
     }
 
     framingFor(combos) {
+      if (combos[0].metersPerUnit) {
+        const deepest = Math.max(...combos.map(combo => combo.estimate.depth / combo.metersPerUnit));
+        return { halfWidth: 23.5, centerY: -deepest / 2, baseY: -Math.max(9, deepest + 2), metersPerUnit: combos[0].metersPerUnit };
+      }
       const extent = Math.max(...combos.map(combo => { const visual = this._visualParams(combo); return visual.radius * visual.round; }));
       return { halfWidth: Math.ceil((extent * 1.18 + 3) * 2) / 2, centerY: -3 };
     }
@@ -977,6 +1213,49 @@
       }
     }
 
+    async warmStoryboard() {
+      const loader = new this.THREE.TextureLoader();
+      const textures = await Promise.all([
+        loader.loadAsync('assets/quarry_wall_02_nor_gl_1k.jpg'),
+        loader.loadAsync('assets/brown_mud_03_nor_gl_1k.jpg'),
+        loader.loadAsync('assets/brown_mud_03_rough_1k.jpg')
+      ]);
+      if (this.disposed) { textures.forEach(texture => texture.dispose()); return; }
+      [this.rockNormal, this.mudNormal, this.mudRoughness] = textures;
+      for (const texture of textures) {
+        texture.wrapS = texture.wrapT = this.THREE.RepeatWrapping;
+        texture.repeat.set(165, 165);
+        texture.anisotropy = 4;
+      }
+      // Pack rock striations more tightly across the grain than along it.
+      this.rockNormal.repeat.set(174, 232);
+      await this.warmCapture();
+      if (this.disposed) return;
+      const original = { ...this.params };
+      const start = this._startForAngle(original.angle, true);
+      const end = this._groundPoint();
+      try {
+        for (const scene of ['moon', 'earth']) {
+          this.setScene(scene);
+          this.impactGroup.visible = true;
+          this.motion = {
+            startPoint: start, endPoint: end, fallDuration: 1, duration: 3.58,
+            visual: this._visualParams({ ...original, scene })
+          };
+          this.meteor.scale.setScalar(sizeScale[original.size]);
+          this._updateMotion(.35);
+          this._updateMotion(1.24);
+          await new Promise(resolve => setTimeout(resolve, 0));
+          if (this.disposed) return;
+        }
+      } finally {
+        if (!this.disposed) {
+          this.cancel(false, false);
+          this.setScene(original.scene);
+        }
+      }
+    }
+
     async captureResult(cutaway = false, warmOnly = false, framing = { halfWidth: 14, centerY: -3 }) {
       const started = performance.now();
       const width = this.renderer.domElement.width;
@@ -1004,13 +1283,14 @@
       const T = this.THREE;
       const overlay = new T.Group();
       const samples = this.sectionSamples();
+      const baseY = framing.baseY ?? -9;
       if (cutaway) {
         this.material.clippingPlanes = [new T.Plane(new T.Vector3(0, 0, -1), 0), new T.Plane(new T.Vector3(0, 0, 1), 20), new T.Plane(new T.Vector3(-1, 0, 0), 25.833333), new T.Plane(new T.Vector3(1, 0, 0), 25.833333)];
         // Close the clipped terrain with a real vertical face whose top vertices
         // are the very same centre-row vertices as the rendered surface.
         const vertices = [], indices = [];
         samples.forEach((point, i) => {
-          vertices.push(point.x, point.height, 0, point.x, -9, 0);
+          vertices.push(point.x, point.height, 0, point.x, baseY, 0);
           if (i < samples.length - 1) indices.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 1, i * 2 + 3, i * 2 + 2);
         });
         const geometry = new T.BufferGeometry();
@@ -1040,7 +1320,7 @@
           const sideVertices = [], sideIndices = [];
           for (let row = 168; row <= 192; row++) {
             const index = row * count + column;
-            sideVertices.push(position.getX(index), position.getZ(index), -position.getY(index), position.getX(index), -9, -position.getY(index));
+            sideVertices.push(position.getX(index), position.getZ(index), -position.getY(index), position.getX(index), baseY, -position.getY(index));
             const i = row - 168;
             if (row < 192) sideIndices.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 1, i * 2 + 3, i * 2 + 2);
           }
@@ -1067,25 +1347,27 @@
         const point = new T.Vector3(x, y, z).project(camera);
         return { x: (point.x + 1) / 2, y: (1 - point.y) / 2 };
       };
-      const rimX = visual.radius * visual.round;
+      const rimX = visual.metersPerUnit ? visual.radius : visual.radius * visual.round;
       const nearest = x => samples.reduce((best, point) => Math.abs(point.x - x) < Math.abs(best.x - x) ? point : best);
       const leftRim = nearest(-rimX), rightRim = nearest(rimX);
       const floor = samples.filter(point => Math.abs(point.x) <= rimX).reduce((best, point) => point.height < best.height ? point : best);
-      const extent = visual.radius * (1.3 + visual.spread);
+      const extent = visual.ejectaRadius ?? visual.radius * (1.3 + visual.spread);
+      const ejectaStretch = visual.metersPerUnit ? 1 : Math.sqrt(visual.round);
       this.annotationViews ||= {};
       this.annotationViews[cutaway ? 'cutaway' : 'whole'] = {
         viewportHeight: captureHeight,
         baseline: project(0, 0, 0),
         left: project(leftRim.x, leftRim.height, 0), right: project(rightRim.x, rightRim.height, 0),
         floor: project(floor.x, floor.height, 0),
-        ejecta: project(extent * Math.SQRT1_2 * Math.sqrt(visual.round), .28, -extent * Math.SQRT1_2),
+        ejecta: project(extent * Math.SQRT1_2 * ejectaStretch, .28, -extent * Math.SQRT1_2),
         shape: project(visual.radius * visual.round * Math.cos(Math.PI / 6), .15, visual.radius * .5),
+        widthMeters: framing.metersPerUnit ? framing.halfWidth * 2 * framing.metersPerUnit : null,
         framing: cutaway ? { ...this.lastCutCamera } : null
       };
       const points = [];
       for (let i = 0; i <= 160; i++) {
         const a = i / 160 * Math.PI * 2;
-        const x = Math.cos(a) * extent * Math.sqrt(visual.round);
+        const x = Math.cos(a) * extent * ejectaStretch;
         const z = Math.sin(a) * extent;
         if (!cutaway || z <= 0) points.push(new T.Vector3(x, .28, z));
       }
@@ -1141,6 +1423,9 @@
       this.dustVolumeGeometry.dispose();
       [...this.dust, ...this.plume].forEach(puff => puff.material.dispose());
       this.geometry.dispose();
+      this.rockNormal?.dispose();
+      this.mudNormal?.dispose();
+      this.mudRoughness?.dispose();
       this.material.dispose();
       this.meteorGeometry.dispose();
       this.meteorMaterial.map?.dispose();

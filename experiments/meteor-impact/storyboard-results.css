@@ -1,0 +1,68 @@
+
+#story-header { gap: 32px; }
+#story-header ol { margin-left: auto; gap: 24px; }
+#openRecords { white-space: nowrap; }
+#records {
+  --one: var(--blue); --two: var(--violet); --ink: #edf4fb; --muted: #bdcee0;
+  width: 1640px; height: 884px; max-width: none; max-height: none; padding: 24px;
+  color: var(--ink); background: #0e1d30; border: 1px solid var(--line); border-radius: 16px;
+  overflow: hidden;
+}
+#records::backdrop { background: #02070ccf; }
+#records > header, #records > footer, #records .segments { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+#records .number { display: grid; place-items: center; border-radius: 50%; width: 40px; height: 40px; background: var(--card-color); color: #10192c; }
+#records .record-note { color: var(--muted); }
+#records .record-gallery { display: grid; grid-template-columns: 1fr 1fr; }
+#pageNumber { min-width: 80px; display: inline-block; text-align: center; }
+#records button:disabled { opacity: .5; }
+#split { --one: var(--blue); --two: var(--violet); }
+#split h2, #split .phase { z-index: 3; }
+.observed-result { position: absolute; inset: 0; background: #111c24; }
+.observed-result img { width: 100%; height: 100%; display: block; object-fit: contain; }
+.observed-readouts { position: absolute; z-index: 3; inset: auto 52px 142px; display: flex; justify-content: space-evenly; gap: 8px; padding: 14px; background: #071324ed; border: 1px solid var(--line); border-radius: 12px; }
+.observed-readouts b { color: var(--side); }
+/* Scoped finite SVG strokes; no new animation loop or WebGL redraw. */
+.meteor-annotations{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:hidden}
+.side-0 .meteor-annotations{--annotation-color:var(--one);--reference-color:#0785ad}
+.side-1 .meteor-annotations{--annotation-color:var(--two);--reference-color:#7956b2}
+.meteor-annotations .rc-trace{fill:none;stroke:var(--reference-color);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:meteor-callout-draw .6s cubic-bezier(.4,.05,.25,1) var(--delay,0ms) forwards}
+.meteor-annotations .rc-extension{stroke-width:2.4;opacity:.85}
+.meteor-annotations .rc-label{opacity:0;animation:meteor-callout-label .2s ease-out calc(var(--delay,0ms) + .5s) forwards}
+.meteor-annotations .rc-label rect{fill:#101f2df2;stroke:var(--annotation-color);stroke-width:1}
+.meteor-annotations text{fill:var(--annotation-color);font:500 22px var(--font-ui)}
+.meteor-annotations .rc-baseline{stroke:#b9bdc2;stroke-width:1.2;stroke-dasharray:8 7;opacity:.6;fill:none}
+.meteor-annotations .rc-baseline-label{fill:#b9bdc2;font-size:17px}
+.meteor-annotations .rc-pin{fill:var(--reference-color)}
+.meteor-annotations .rc-scale{paint-order:stroke}
+.meteor-annotations .rc-scale path{stroke:#f1f6fc;stroke-width:3;fill:none}
+.meteor-annotations .rc-scale text{fill:#f1f6fc;stroke:#101f2d;stroke-width:4;font-size:18px}
+@keyframes meteor-callout-draw{to{stroke-dashoffset:0}}
+@keyframes meteor-callout-label{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.meteor-annotations .rc-trace{animation:none;stroke-dashoffset:0}.meteor-annotations .rc-label{animation:none;opacity:1}}
+#records[open]{display:flex;flex-direction:column;gap:10px}
+#records>header{margin:0;flex:none}#records .record-note{margin:0;font-size:14px}
+#recordBody{min-height:0;flex:1;display:flex;flex-direction:column;gap:10px}
+#recordBody h3{margin:0;font-size:18px}
+#records .record-gallery{flex:1;min-height:0;gap:24px}
+#records .record-gallery img{width:100%;height:100%;min-height:0;object-fit:contain}
+#records .record-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px}
+#records .record-card{--card-color:var(--one);min-width:0;min-height:0;display:flex;flex-direction:column;border:1px solid var(--card-color);border-radius:16px;overflow:hidden;background:#0c1822}
+#records .record-card.side-1{--card-color:var(--two)}
+#records .record-card>header{display:flex;align-items:center;gap:12px;padding:14px 18px 10px}
+#records .record-card h4{font-size:22px;margin:0}
+#records .record-card>header>strong{margin-left:auto;color:var(--card-color);font-size:20px}
+#records .record-conditions{display:flex;gap:8px;padding:0 18px 14px}
+#records .record-conditions span{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:15px;color:var(--muted)}
+#records .record-conditions b{font-size:18px;color:var(--ink);font-weight:500}
+#records .record-conditions .record-variable{border-color:var(--card-color);background:#203341}
+#records .record-variable b{color:var(--card-color)}
+#records .record-scene{position:relative;flex:1;min-height:0;overflow:hidden;background:#111c24}
+#records .record-scene img{position:absolute;inset:0;display:block;object-fit:cover}
+#records .record-card>footer{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:14px 18px;border-top:1px solid var(--line)}
+#records .record-card>footer span{display:flex;align-items:center;justify-content:center;gap:12px;font-size:16px;color:var(--muted)}
+#records .record-card>footer b{font-size:22px;color:var(--card-color);font-weight:500}
+/* Saved records are static: opening or paging never starts annotation animations. */
+#records .meteor-annotations .rc-trace{animation:none;stroke-dashoffset:0}
+#records .meteor-annotations .rc-label{animation:none;opacity:1}
+#records>footer{margin:0;flex:none}
+#records{position:fixed;left:50%;top:50%;margin:0;transform:translate(-50%,-50%) scale(var(--fit,1));transform-origin:center}

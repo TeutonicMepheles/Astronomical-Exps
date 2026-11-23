@@ -23,7 +23,7 @@
    root.setAttribute('aria-label','地表基线、坑宽'+outcome.scale+'、坑深'+outcome.depth);
   } else {
    const ejecta=point(data.ejecta),shape=point(data.shape);
-   const ejectaLabelY = height >= 850 ? 250 : 150;
+   const ejectaLabelY = data.widthMeters ? 285 : height >= 850 ? 250 : 150;
    content += path(`M ${ejecta.x} ${ejecta.y} L 570 ${ejectaLabelY+25} H 640`,0);
    content += `<circle class="rc-pin" cx="${ejecta.x}" cy="${ejecta.y}" r="4"/>`;
    content += label(675,ejectaLabelY,'溅射 · '+outcome.ejecta,0);
@@ -31,6 +31,15 @@
    content += `<circle class="rc-pin" cx="${shape.x}" cy="${shape.y}" r="4"/>`;
    content += label(675,545,'坑形 · '+outcome.shape,1);
    root.setAttribute('aria-label','溅射范围'+outcome.ejecta+'、坑形'+outcome.shape);
+  }
+  if (data.widthMeters) {
+   const maxLength = data.widthMeters / 4;
+   const power = 10 ** Math.floor(Math.log10(maxLength));
+   const length = (maxLength >= 5 * power ? 5 : maxLength >= 2 * power ? 2 : 1) * power;
+   const barWidth = 800 * length / data.widthMeters;
+   const y = .70 * height;
+   const scaleLabel = MeteorImpactResultModel.formatLength(length);
+   content += `<g class="rc-scale" role="img" aria-label="比例尺 ${scaleLabel}"><path d="M 42 ${y - 6} v 12 M 42 ${y} h ${barWidth} m 0 -6 v 12"/><text x="${42 + barWidth / 2}" y="${y - 12}" text-anchor="middle">${scaleLabel}</text></g>`;
   }
   root.innerHTML=content;
  }
