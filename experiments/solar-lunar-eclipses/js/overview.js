@@ -87,7 +87,11 @@ function syncObservation(){
  const playbackEnd=contacts.at(-1)?.phi??(state.mode==='solar'&&state.observerSelected?state.solarWindow?.end:undefined);$('continuousPlay').disabled=observerTransition.active||playbackEnd===undefined||(!state.playing&&eventAngle()>=playbackEnd-1e-7);$('restartEvent').disabled=state.mode==='solar'&&!state.observerSelected;$('continuousPlay').setAttribute('aria-label',state.playing?'暂停':'播放');$('continuousPlay').title=state.playing?'暂停':'播放';$('continuousPlay').setAttribute('aria-pressed',String(state.playing));
 
 document.querySelectorAll('[data-event]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.event===(state.mode==='lunar'?'lunar':state.referenceCase))));
- $('eventTypes').hidden=state.mode!=='solar';stage.dataset.eclipseCategory=state.mode;document.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.category===state.mode)));
+ const isSolar=state.mode==='solar';
+ $('solarCategory').setAttribute('aria-expanded',String(isSolar));
+ $('eventTypes').inert=!isSolar;
+ stage.dataset.eclipseCategory=state.mode;
+ document.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.category===state.mode)));
  if(!visible)return;
  const phi=eventAngle();let index=0;for(let i=0;i<contacts.length;i++)if(phi>=contacts[i].phi-1e-7)index=i;
  const outside=state.yearPlaying||!contacts.length||phi<contacts[0].phi-1e-7||phi>contacts.at(-1).phi+1e-7;
@@ -474,7 +478,7 @@ function rebuildContacts(){const reference=referenceAt(state.phi);contacts=state
 function setYear(angle,manual=true){year=angle;state.simDay=dayAtOrbitAngle(angle);state.day=calendarDay(state.simDay).index;M.setNodeAngle(-year);if(state.view==='observe'&&state.observerEpoch){state.observerEpoch={phi:state.phi,earthSpin:state.earthSpin,simDay:state.simDay};}if(manual){rebuildContacts();rebuildObserverCamera();}if(manual){state.playing=false;state.yearPlaying=false;request();}}
 function stepPhase(delta){if(delta<=0||state.playing)return;if(state.yearPlaying){rebuildContacts();state.yearPlaying=false;}const next=contacts.findIndex(n=>n.phi>eventAngle()+1e-7);if(next>=0)pickPhase(next);}
 
-$('restartEvent').onclick=()=>{if(state.yearPlaying)rebuildContacts();state.phaseTarget=null;state.phi=eventStart();state.phaseTarget=contacts[0]?.phi??state.solarWindow?.end??null;state.playing=state.mode==='lunar'||state.observerSelected;state.yearPlaying=false;last=0;request();};
+$('restartEvent').onclick=()=>{if(state.yearPlaying)rebuildContacts();state.phaseTarget=null;state.phi=eventStart();state.playing=false;state.yearPlaying=false;last=0;request();};
 $('referenceCase').onchange=e=>{state.referenceCase=e.target.value;if(state.referenceCase!=='free'){state.mode='solar';setYear(0);state.phi=Math.PI;state.playing=false;state.yearPlaying=false;$('viewTitle').textContent=({total:'日全食',annular:'日环食',partial:'日偏食'})[state.referenceCase]+' · 地月观测';}startObserver();rebuildContacts();$('observationOptions').open=false;request();};
 $('observationYear').oninput=e=>setYear(Number(e.target.value)*M.DEG);
 
@@ -496,7 +500,7 @@ window.addEventListener('pagehide',e=>{cancelAnimationFrame(raf);raf=0;last=0;if
 
 function enterEvent(kind){
  observerTransition.cancel();state.solarCameraFit=null;
- state.mode=kind==='lunar'?'lunar':'solar';state.referenceCase=kind==='lunar'?'free':kind;state.view='observe';stage.dataset.view='observe';state.playing=false;state.yearPlaying=false;state.surfaceDetail=false;state.zoom=1;state.earthSpin=.4;state.simDay=0;state.day=0;year=0;M.setNodeAngle(0);state.phi=state.mode==='lunar'?0:Math.PI;state.observerChoice=0;state.observerSelected=state.mode==='lunar';state.phaseTarget=null;
+ state.mode=kind==='lunar'?'lunar':'solar';state.referenceCase=kind==='lunar'?'free':kind;state.view='observe';stage.dataset.view='observe';state.playing=false;state.yearPlaying=false;state.surfaceDetail=false;state.zoom=1;state.earthSpin=.4;state.simDay=0;state.day=0;year=0;M.setNodeAngle(0);state.phi=state.mode==='lunar'?0:Math.PI;state.observerChoice=0;state.observerSelected=true;state.phaseTarget=null;
  startObserver();buildCandidates();rebuildContacts();state.phi=eventStart();skyKey='';if(state.mode==='solar'){state.observationCamera='solar';state.cameraTransition=null;state.cameraBlend=1;state.observationSplit=false;}else changeObservationCamera('oblique');
  $('back').hidden=true;$('dateRow').hidden=true;$('viewTitle').hidden=true;$('observationOptions').open=false;request();
 }
