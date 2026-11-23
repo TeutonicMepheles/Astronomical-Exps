@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>傅科摆地面评审</title>
+  <link rel="icon" href="data:,">
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; color: #e7efff; }
+    iframe { width: 100%; height: 100%; border: 0; }
+    iframe:not([hidden]) { display: block; }
+    p { margin: 1rem; font: 1rem system-ui; }
+  </style>
+</head>
+<body>
+  <iframe title="傅科摆地面候选实景" hidden></iframe>
+  <p role="status">正在加载傅科摆地面预览…</p>
+  <script type="module">
+    const variant = new URLSearchParams(location.search).get('variant') ?? 'a';
+    const frame = document.querySelector('iframe');
+    const status = document.querySelector('[role="status"]');
+    const original = 'assets/stage1-hall-silver-compass.webp';
+    const backgrounds = new Map([
+      ['a', original],
+      ['b', 'assets/floor-review-b.png'],
+      ['c', 'assets/floor-review-c.png'],
+    ]);
+
+    try {
+      const background = backgrounds.get(variant);
+      if (!background) throw new Error('找不到这个地面候选。');
+      const response = await fetch('index.html');
+      if (!response.ok) throw new Error('无法读取实验页面。');
+      const source = await response.text();
+      const image = new Image();
+      image.src = background;
+      await image.decode();
+      if (!source.includes(original)) throw new Error('实验背景已变更，需重新校准地面。');
+      document.title += ' · ' + variant.toUpperCase();
+      frame.srcdoc = source.replace(original, background);
+      frame.hidden = false;
+      status.hidden = true;
+    } catch (error) {
+      frame.remove();
+      status.textContent = error.message;
+    }
+  </script>
+</body>
+</html>

@@ -1,9 +1,11 @@
 import {demonstrationSpeed} from './pendulum-model.js';
 import {createPeriodMetric} from './period-metric.js';
 import {LENGTH_TIERS,MASS_TIERS} from './scale-reference.js';
+import {schoolFacade} from './school-facade.js';
 
 // Experiment-owned SVG schematic. Geometry is illustrative; time uses SI units.
 export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,onOpenChange}){
+  const insetBase=88,storeyHeight=72,studentMeters=1.6,studentHeight=storeyHeight*studentMeters/3;
   const overlay=document.createElement('div');
   overlay.className='fp-parameter-overlay';overlay.hidden=true;
   overlay.innerHTML=`<section id="parameterDialog" class="fp-parameter-dialog" role="dialog" aria-modal="true" aria-labelledby="parameterTitle">
@@ -16,20 +18,30 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
             <pattern id="fpHatch" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M-2 10 10-2M8 12 12 8" stroke="#dcecff" stroke-width="1.5"/></pattern>
             <radialGradient id="fpBob" cx="32%" cy="24%" r="75%"><stop stop-color="#fff"/><stop offset=".4" stop-color="#dce8fa"/><stop offset=".75" stop-color="#a6bbd9"/><stop offset="1" stop-color="#e0ecff"/></radialGradient>
             <marker id="fpArrow" markerWidth="9" markerHeight="9" refX="4" refY="4" orient="auto-start-reverse"><path d="M0 0 8 4 0 8Z" fill="#e3efff"/></marker>
-            <linearGradient id="fpFieldFadeX"><stop stop-color="black"/><stop offset=".18" stop-color="white"/><stop offset="1" stop-color="white"/></linearGradient>
-            <mask id="fpFieldMask" maskUnits="userSpaceOnUse" x="0" y="20" width="290" height="570"><rect x="0" y="20" width="290" height="570" fill="url(#fpFieldFadeX)"/></mask>
-            <clipPath id="fpFieldReveal"><rect data-field-reveal x="0" y="20" width="290" height="0"/></clipPath>
+            <clipPath id="fpFieldReveal"><rect data-field-reveal x="0" y="80" width="190" height="0"/></clipPath>
           </defs>
           <g class="fp-field-reference" opacity="1" aria-hidden="false">
-            <g mask="url(#fpFieldMask)" clip-path="url(#fpFieldReveal)">
+            <g clip-path="url(#fpFieldReveal)">
               <g data-field-art opacity="1"></g>
+              <text data-field-storeys class="fp-reference-caption" x="121" y="92"/>
             </g>
-            </g>
+
             <g class="fp-dimension" data-field-dimension>
               <path class="fp-dimension-line" data-field-measure pathLength="1"/>
               <path class="fp-dimension-ticks" data-field-ticks/>
               <path class="fp-dimension-guides" data-field-guides/>
-              <text class="fp-dimension-label" data-field-label x="320"/>
+              <text class="fp-dimension-label" data-field-label x="191"/>
+            </g>
+            <g data-field-scale role="img" aria-label="高度对比示意：学生约 ${studentMeters} 米，一层楼约 3 米">
+              <rect width="210" height="100" rx="6" fill="#142f50" stroke="#7390b0" stroke-width="1"/>
+              <path d="M8 88H202" stroke="#7c97b1"/>
+              <image data-scale-student x="21" y="${insetBase-studentHeight}" width="17" height="${studentHeight}" preserveAspectRatio="xMidYMax meet"/>
+              <image data-scale-storey x="40" y="${insetBase-storeyHeight}" width="153" height="${storeyHeight}" preserveAspectRatio="xMidYMax meet"/>
+              <path d="M16 ${insetBase-studentHeight}V88m-2.5 0h5m-5 -${studentHeight}h5M197 ${insetBase-storeyHeight}V88m-2.5 0h5m-5 -${storeyHeight}h5" fill="none" stroke="#bfd7ee" stroke-width=".9"/>
+              <g fill="#e4f1ff" text-anchor="middle" font-size="12">
+                <text transform="translate(12 ${insetBase-studentHeight/2}) rotate(-90)">${studentMeters} m</text>
+                <text transform="translate(207 ${insetBase-storeyHeight/2}) rotate(-90)">3 m</text>
+              </g>
             </g>
             <g data-caption-art><text data-field-caption class="fp-reference-caption" x="45" y="592"/></g>
           </g>
@@ -66,6 +78,8 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
   </svg>`;
   stage.append(overlay);
   const find=s=>overlay.querySelector(s),dialog=find('[role="dialog"]');
+  find('[data-scale-student]').setAttribute('href','assets/blueprint-student.webp');
+  find('[data-scale-storey]').setAttribute('href','assets/blueprint-school-storey.webp');
   const moving=find('[data-moving-pendulum]');
   const periodMetric=createPeriodMetric(find('.fp-period-value'),find('#swingPeriod'));
   const set=(selector,attrs)=>{const node=find(selector);for(const [key,val] of Object.entries(attrs))node.setAttribute(key,val);};
@@ -98,19 +112,21 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
   function renderFieldGeometry(){
     const span=shown.span,bottom=80+span,floors=Math.round(draft.length/3);
     const art=find('[data-field-art]');
+    const targetSpan=dimensions(draft).span;
     if(art.dataset.floors!==String(floors)){
       art.dataset.floors=String(floors);
-      art.innerHTML=`<path d="M804 0V${floors*30}" fill="none" stroke="white" stroke-width="2" vector-effect="non-scaling-stroke"/>`+Array.from({length:floors+1},(_,i)=>`<path d="M0 ${i*30}H804" fill="none" stroke="white" stroke-width="1.2" vector-effect="non-scaling-stroke"/>`).join('');
+      art.innerHTML=schoolFacade(floors,targetSpan);
+      find('[data-field-storeys]').textContent=`${floors} 层`;
     }
-    const buildingScale=span/(floors*30);
-    art.setAttribute('transform',`translate(${280-804*buildingScale} 80) scale(${buildingScale})`);
-    set('[data-field-measure]',{d:`M302 80V${bottom}`});
-    set('[data-field-ticks]',{d:`M295 73L309 87M295 ${bottom-7}L309 ${bottom+7}`});
-    set('[data-field-guides]',{d:`M280 80H613M280 ${bottom}H613`});
+    art.setAttribute('transform',`translate(-134 80) scale(.83 ${span/targetSpan})`);
+    set('[data-field-measure]',{d:`M173 80V${bottom}`});
+    set('[data-field-ticks]',{d:`M166 73L180 87M166 ${bottom-7}L180 ${bottom+7}`});
+    set('[data-field-guides]',{d:`M173 80H613M173 ${bottom}H613`});
     set('[data-field-label]',{y:80+span/2});
+    set('[data-field-scale]',{transform:`translate(100 ${bottom-insetBase})`});
     find('[data-field-label]').textContent=`L = ${draft.length} m`;
     const caption=find('[data-field-caption]');
-    const captionText=`${draft.length} m ≈ ${floors} 层教学楼（每层约 3 m）`;
+    const captionText='教学楼层高示意（每层约 3 m）';
     if(caption.textContent!==captionText){
       caption.textContent=captionText;
       for(const animation of find('[data-caption-art]').getAnimations())animation.cancel();
@@ -137,10 +153,10 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     if(draft[key]===value)return;
     draft[key]=value;
     if(key==='length')animateDimensions();
-    if(key==='length'){fieldTime=0;updateField(0,true);}
     const target=dimensions(draft);
     resizeAnimation=reduced.matches?null:{from:{...shown},to:target,time:0};
     if(!resizeAnimation){shown=target;renderGeometry();}
+    if(key==='length'){fieldTime=0;updateField(0,true);}
     dialog.dataset.resizing=String(!!resizeAnimation);renderControls();
   }
   // Read the blueprint projection only at entry/resize, never in the frame loop.
@@ -204,7 +220,9 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     if(!force&&fieldTime>=1.1)return;
     fieldTime=reduced.matches?1.1:Math.min(1.1,fieldTime+dt);
     const progress=smooth(fieldTime/1.1);
-    set('[data-field-reveal]',{height:570*progress});
+    const base=80+shown.span+5;
+    const height=(shown.span+10)*progress;
+    set('[data-field-reveal]',{y:base-height,height});
     find('.fp-field-reference').dataset.phase=progress===1?'blueprint':'transition';
   }
   function open(){
@@ -240,13 +258,12 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     if(!reduced.matches||overlay.hidden)return;
     animateDimensions();
     if(closing){finishClose();return;}
-    updateField(0,true);
     shown=dimensions(draft);resizeAnimation=null;dialog.dataset.resizing='false';renderGeometry();finishOpening();
+    updateField(0,true);
   });
   return {open,advance(dt){
     if(overlay.hidden)return;
     if(closing){closing.time+=dt;drawClosing();return;}
-    updateField(dt);
     periodMetric.tick(performance.now());
     if(resizeAnimation){
       const a=resizeAnimation;a.time+=dt;const t=Math.min(1,a.time/.55),e=smooth(t);
@@ -254,6 +271,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
       renderGeometry();
       if(t===1){resizeAnimation=null;dialog.dataset.resizing='false';}
     }
+    updateField(dt);
     if(opening){opening.time+=dt;drawOpening();}
     else{const visualLength=28+(shown.span-300)*72/150;phase+=dt*demonstrationSpeed*Math.sqrt(9.81/visualLength);draw();}
   }};

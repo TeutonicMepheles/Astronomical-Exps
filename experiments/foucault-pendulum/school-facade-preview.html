@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>单摆调节 · 教学楼白描对比</title>
+<link rel="stylesheet" href="../../shared/typography/typography.css">
+<style>
+  * { box-sizing:border-box }
+  body { margin:0;min-height:100dvh;display:grid;place-items:center;background:#080f1d;color:#edf5ff }
+  main { width:min(100vw,177.78vh);aspect-ratio:16/9;container-type:inline-size;background:radial-gradient(ellipse at 45% 0%,#233a56,#101e31 72%);padding:min(2.6vw,4.62vh) min(3vw,5.33vh) }
+  header { display:flex;align-items:baseline;justify-content:space-between;gap:1em;margin-bottom:1.2cqw }
+  h1 { margin:0;font-size:2.66cqw;font-weight:500 }
+  header p,footer { margin:0;color:#b7c9df;font-size:1.25cqw }
+  section { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.15cqw }
+  article { overflow:hidden;border:1px solid #526981;border-radius:.85cqw;background:#14263b }
+  h2 { display:flex;align-items:baseline;justify-content:space-between;gap:.5em;margin:0;padding:.7cqw 1.15cqw;border-bottom:1px solid #526981;font-size:1.95cqw;font-weight:500 }
+  svg { display:block;width:100%;height:35cqw;background-color:#12233a;background-image:linear-gradient(#8eb9e00d 1px,transparent 1px),linear-gradient(90deg,#8eb9e00d 1px,transparent 1px);background-size:1.1cqw 1.1cqw }
+  footer { margin-top:1cqw }
+</style>
+</head>
+<body>
+<main>
+  <header><h1>单摆调节 · 教学楼白描</h1><p>每层约 3 m</p></header>
+  <section aria-label="三档摆长的教学楼高度示意">
+    <article><h2>28 m</h2><svg viewBox="0 0 400 510" role="img" aria-label="九层教学楼示意" data-floors="9" data-span="300"></svg></article>
+    <article><h2>67 m</h2><svg viewBox="0 0 400 510" role="img" aria-label="二十二层教学楼示意" data-floors="22" data-span="381.25"></svg></article>
+    <article><h2>100 m</h2><svg viewBox="0 0 400 510" role="img" aria-label="三十三层教学楼示意" data-floors="33" data-span="450"></svg></article>
+  </section>
+  <footer>用教学楼的层高累加来比较摆长。</footer>
+</main>
+<script type="module">
+  import {schoolFacade} from './js/school-facade.js';
+
+  for (const svg of document.querySelectorAll('svg[data-floors]')) {
+    const floors = Number(svg.dataset.floors);
+    const span = Number(svg.dataset.span);
+    const top = 478 - span;
+    svg.innerHTML = `
+      <g transform="translate(0 ${top})">${schoolFacade(floors, span)}</g>
+      <path d="M303 ${top + 8}h9" stroke="#b7cde2"/>
+      <text x="318" y="${top + 8}" dominant-baseline="middle" fill="#b7cde2" font-size="13">${floors} 层</text>`;
+  }
+</script>
+</body>
+</html>
