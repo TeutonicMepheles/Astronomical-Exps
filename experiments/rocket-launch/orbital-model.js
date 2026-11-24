@@ -16,5 +16,16 @@ export function sampleConic(m,far=9){
  return{m,pts,duration:elapsed,closure:Math.hypot(pts[0].x-pts.at(-1).x,pts[0].y-pts.at(-1).y),endR:pts.at(-1).r};
 }
 export const pathOf=(v,far=MODEL.R_FAR,height=null)=>sampleConic(model(v,height),far);
+// Flat-ground teaching view: constant gravity and no air resistance.
+const GROUND_GRAVITY=9.81;
+export function groundPath(m,height){
+ const duration=Math.sqrt(2*height/GROUND_GRAVITY);
+ const pts=Array.from({length:121},(_,i)=>{
+  const fraction=i/120,time=fraction*duration;
+  return {x:m.vKm*time,y:0,r:1+(m.r0-1)*(1-fraction**2),time};
+ });
+ return {m,pts,duration};
+}
+export const projectGroundDistance=km=>1050*km/(7.9*Math.sqrt(2*100000/GROUND_GRAVITY));
 export function solarPath(v,far=3,height=null){const escape=height===null?MODEL.V_ESC:MODEL.KM_PER_UNIT*Math.sqrt(2/(1+height/6371000));if(v<escape)return null;const excess=Math.sqrt(v*v-escape**2),heliocentric=MODEL.EARTH_ORBIT_KM+excess,m=conic(heliocentric,1,MODEL.EARTH_ORBIT_KM,0);return{...sampleConic(m,far),excess,heliocentric};}
 export function positionAt(path,fraction){const target=Math.max(0,Math.min(1,fraction))*path.duration,pts=path.pts;let lo=0,hi=pts.length-1;while(lo+1<hi){const mid=(lo+hi)>>1;if(pts[mid].time<target)lo=mid;else hi=mid;}const a=pts[lo],b=pts[hi],u=(target-a.time)/(b.time-a.time||1);return{x:a.x+(b.x-a.x)*u,y:a.y+(b.y-a.y)*u,r:a.r+(b.r-a.r)*u,index:hi};}

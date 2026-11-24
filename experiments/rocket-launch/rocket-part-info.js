@@ -1,38 +1,41 @@
 import {Vector3} from './vendor/three/three.module.js';
-import {selectionContours} from './selection-contours.js?v=assembly-uniform-20261117';
-/** An app-coordinate note anchored to the selected figure, with hard exclusion areas. */
+import {selectionContours} from './selection-contours.js?v=tianzhou-solar';
+/** An app-coordinate note anchored to the selected figure, with a directional bubble. */
 export class RocketPartInfo {
- constructor(adapter){this.adapter=adapter;this.element=document.querySelector('#feedback');this.closeButton=document.createElement('button');this.closeButton.type='button';this.closeButton.className='rocket-info-close';this.closeButton.setAttribute('aria-label','关闭部件详情');this.closeButton.textContent='×';this.closeButton.onclick=event=>{event.stopPropagation();this.adapter.onDismissInspection?.();};const ns='http://www.w3.org/2000/svg';this.leader=document.createElementNS(ns,'svg');this.leader.classList.add('rocket-info-leader');this.leader.setAttribute('viewBox','0 0 1600 900');this.leader.setAttribute('aria-hidden','true');this.leader.setAttribute('hidden','');this.line=document.createElementNS(ns,'path');this.dot=document.createElementNS(ns,'circle');this.leader.append(this.line,this.dot);adapter.host.closest('#app').append(this.leader);}
- setAnchor(event,node){const a=this.adapter,app=a.host.closest('#app'),ar=app.getBoundingClientRect(),hr=a.host.getBoundingClientRect(),scale=ar.width/app.clientWidth,box=this.modelEnvelope(),middle=(hr.top-ar.top)/scale+(box.top+box.bottom)/2;let y;if(event?.clientY>0)y=(event.clientY-ar.top)/scale;else{const region=a.blueprint?.hitAreas?.find(r=>r.node===node);if(region){const p=a.blueprint.project(region.rect[0]+region.rect[2]/2,region.rect[1]+region.rect[3]/2);y=(hr.top-ar.top)/scale+p.y;}}this.anchor={node,blueprint:false,clickedY:y,preferredSide:y===undefined?'above':y>middle?'above':'below'};this.key=null;}
-
+ constructor(adapter){this.adapter=adapter;this.element=document.querySelector('#feedback');this.closeButton=document.createElement('button');this.closeButton.type='button';this.closeButton.className='rocket-info-close';this.closeButton.setAttribute('aria-label','关闭部件详情');this.closeButton.textContent='×';this.closeButton.onclick=event=>{event.stopPropagation();this.adapter.onDismissInspection?.();};}
+ setContent(title,body){
+  const heading=document.createElement('span'),description=document.createElement('span');
+  heading.className='rocket-info-title';heading.textContent=title;
+  description.className='rocket-info-copy';description.textContent=body;
+  this.element.replaceChildren(heading,description);
+ }
  modelBounds(n,names=[n]){const a=this.adapter,boxes=names.map(name=>{const entry=selectionContours.entries[name];if(!entry)return a.screenBounds(name);const p=a.displayNode(name).getWorldPosition(new Vector3()).project(a.camera),k=a.host.clientHeight/selectionContours.height*(selectionContours.span||23)/(a.camera.top-a.camera.bottom)*a.layout.scale.x/(selectionContours.layoutScale||.9)*a.displayNode(name).getWorldScale(new Vector3()).x/a.layout.scale.x,x=(p.x+1)*a.host.clientWidth/2,y=(1-p.y)*a.host.clientHeight/2;return{left:x+(entry.crop.x+12-entry.anchor.x)*k,right:x+(entry.crop.x+entry.crop.width-12-entry.anchor.x)*k,top:y+(entry.crop.y+12-entry.anchor.y)*k,bottom:y+(entry.crop.y+entry.crop.height-12-entry.anchor.y)*k};});return{left:Math.min(...boxes.map(b=>b.left)),right:Math.max(...boxes.map(b=>b.right)),top:Math.min(...boxes.map(b=>b.top)),bottom:Math.max(...boxes.map(b=>b.bottom))};}
- modelEnvelope(){const boxes=Object.keys(this.adapter.manifest.modules).map(n=>this.modelBounds(n));return{top:Math.min(...boxes.map(b=>b.top)),bottom:Math.max(...boxes.map(b=>b.bottom))};}
- clear(preserve=false){this.key=null;if(!preserve){this.anchor=null;this.placement=null;this.element.textContent='';}delete this.element.dataset.floating;this.element.style.removeProperty('width');this.element.style.removeProperty('left');this.element.style.removeProperty('top');this.leader.setAttribute('hidden','');}
+ clear(preserve=false){this.key=null;if(!preserve)this.element.textContent='';delete this.element.dataset.floating;delete this.element.dataset.tipSide;this.element.style.removeProperty('width');this.element.style.removeProperty('left');this.element.style.removeProperty('top');}
  update(){const a=this.adapter,n=a.selected;if(!['structure','assembly'].includes(a.mode)){this.closeButton.remove();this.clear(true);return;}if(!n||!this.element.textContent){this.clear();return;}const app=a.host.closest('#app'),ar=app.getBoundingClientRect(),hr=a.host.getBoundingClientRect(),scale=ar.width/app.clientWidth,ox=(hr.left-ar.left)/scale,oy=(hr.top-ar.top)/scale;
   if(this.closeButton.parentNode!==this.element)this.element.append(this.closeButton);
-  const roots=a.selectionRoots||[n],key=[n,this.element.textContent,this.anchor?.x,this.anchor?.y,this.anchor?.preferredSide,app.clientWidth,app.clientHeight,ox,oy,...a.camera.projectionMatrix.elements,...a.camera.matrixWorld.elements,...roots.flatMap(name=>a.displayNode(name).matrixWorld.elements)].join(':');if(this.key===key)return;this.key=key;
-  const softObstacles=[];this.element.dataset.floating='true';this.element.style.width='260px';const width=this.element.offsetWidth,height=this.element.offsetHeight,model=this.modelBounds(n,roots),obstacles=[{left:ox+model.left-6,top:oy+model.top-6,right:ox+model.right+6,bottom:oy+model.bottom+6}];  for(const element of document.querySelectorAll('.assembly-3d-slot,.assembly-context-return')){if(element.hidden)continue;const r=element.getBoundingClientRect();if(r.width&&r.height)obstacles.push({left:(r.left-ar.left)/scale-4,top:(r.top-ar.top)/scale-4,right:(r.right-ar.left)/scale+4,bottom:(r.bottom-ar.top)/scale+4});}
-  // Keep other blueprint controls reachable while a model-centred note is open.
-  for(const region of a.blueprint?.hitAreas||[]){if(region.node===n)continue;for(const rect of [region.rect,region.labelRect].filter(Boolean)){const[x,y,w,h]=rect,points=[[x,y],[x+w,y],[x,y+h],[x+w,y+h]].map(p=>a.blueprint.project(...p));obstacles.push({left:ox+Math.min(...points.map(p=>p.x))-4,right:ox+Math.max(...points.map(p=>p.x))+4,top:oy+Math.min(...points.map(p=>p.y))-4,bottom:oy+Math.max(...points.map(p=>p.y))+4});}}
-  const whole=this.modelEnvelope();let preferredSide=this.anchor?.node===n?this.anchor.preferredSide:'above';
-  if(a.mode==='assembly'){if(preferredSide==='above'&&obstacles[0].top-height-4<116)preferredSide='below';else if(preferredSide==='below'&&obstacles[0].bottom+height+4>app.clientHeight-110)preferredSide='above';}
-  const anchor={node:n,x:ox+(model.left+model.right)/2,y:oy+(model.top+model.bottom)/2,blueprint:false},control=obstacles[0],gap=4,candidates=[];
-  const add=(x,y)=>candidates.push({x:Math.max(310,Math.min(app.clientWidth-width-16,x)),y:Math.max(80,Math.min(app.clientHeight-height-110,y))});
-  add(anchor.x-width/2,oy+whole.top-height-12);add(anchor.x-width/2,oy+whole.bottom+12);
-  add(anchor.x-width/2,control.top-height-gap);add(anchor.x-width/2,control.bottom+gap);add(control.right+gap,anchor.y-height/2);add(control.left-width-gap,anchor.y-height/2);
-  const overlap=(p,r)=>Math.max(0,Math.min(p.x+width,r.right)-Math.max(p.x,r.left))*Math.max(0,Math.min(p.y+height,r.bottom)-Math.max(p.y,r.top));
-  for(let y=80;y+height<=app.clientHeight-110;y+=16){add(anchor.x-width/2,y);for(let x=310;x+width<=app.clientWidth-16;x+=32)add(x,y);}
-  for(const obstacle of obstacles){add(anchor.x-width/2,obstacle.top-height-gap);add(anchor.x-width/2,obstacle.bottom+gap);}
-  const requestedSide=preferredSide,sidePenalty=p=>preferredSide==='above'?(p.y+height<=control.top?0:1):(p.y>=control.bottom?0:1);
-  const scored=candidates.map(p=>({...p,overlap:obstacles.reduce((v,r)=>v+overlap(p,r),0),softOverlap:softObstacles.reduce((v,r)=>v+overlap(p,r),0),sidePenalty:sidePenalty(p),xDistance:Math.abs(p.x+width/2-anchor.x),distance:Math.hypot(Math.max(p.x-anchor.x,0,anchor.x-p.x-width),Math.max(p.y-anchor.y,0,anchor.y-p.y-height))}));
-  // If the requested side has no clear placement, keep the controls reachable and
-  // use the other side, as already done for the assembly viewport edges.
-  const centeredClear=scored.filter(p=>p.overlap===0&&p.xDistance<8);
-  if(centeredClear.length&&!centeredClear.some(p=>p.sidePenalty===0)||!scored.some(p=>p.overlap===0&&p.sidePenalty===0)&&scored.some(p=>p.overlap===0)){preferredSide=preferredSide==='above'?'below':'above';for(const p of scored)p.sidePenalty=sidePenalty(p);}
-  // First keep a clear above/below placement, then minimize lateral displacement.
-  scored.sort((p,q)=>p.overlap-q.overlap||p.sidePenalty-q.sidePenalty||p.xDistance-q.xDistance||p.distance-q.distance||p.softOverlap-q.softOverlap);const best=scored[0];
-  this.placement={...best,width,height,obstacles,softObstacles,node:n,anchor,preferredSide,requestedSide};Object.assign(this.element.style,{left:best.x+'px',top:best.y+'px'});
-  const tx=Math.max(best.x,Math.min(best.x+width,anchor.x)),ty=Math.max(best.y,Math.min(best.y+height,anchor.y)),mx=Math.max(ox+model.left,Math.min(ox+model.right,tx)),my=Math.max(oy+model.top,Math.min(oy+model.bottom,ty));this.line.setAttribute('d',`M${mx},${my} L${tx},${ty}`);this.dot.setAttribute('cx',mx);this.dot.setAttribute('cy',my);this.dot.setAttribute('r','3');this.leader.removeAttribute('hidden');
+  if(a.mode==='assembly'){
+   this.element.dataset.floating='assembly';
+   this.element.style.removeProperty('width');
+   this.element.style.removeProperty('left');
+   this.element.style.removeProperty('top');
+
+   return;
+  }
+  const region=a.blueprint?.hitAreas?.find(region=>region.node===n);
+  // Blueprint sheet coordinates put the complete rocket above the centreline
+  // and the internal parts below it, independently of where the model was tapped.
+  const preferredSide=region&&region.rect[1]+region.rect[3]/2<540?'below':'above';
+  const roots=a.selectionRoots||[n],key=[n,this.element.textContent,preferredSide,app.clientWidth,app.clientHeight,ox,oy,...a.camera.projectionMatrix.elements,...a.camera.matrixWorld.elements,...roots.flatMap(name=>a.displayNode(name).matrixWorld.elements)].join(':');if(this.key===key)return;this.key=key;
+  const model=this.modelBounds(n,roots);
+  const anchor={node:n,x:ox+(model.left+model.right)/2,y:oy+(model.top+model.bottom)/2,blueprint:false};
+  this.element.dataset.floating='true';
+  this.element.dataset.tipSide=preferredSide;
+  this.element.style.width=Math.min(330,2*(app.clientWidth-16-anchor.x),2*(anchor.x-310))+'px';
+  const width=this.element.offsetWidth,height=this.element.offsetHeight,x=anchor.x-width/2;
+  const edge=oy+(preferredSide==='above'?model.top:model.bottom);
+  const gap=7;
+  const y=preferredSide==='above'?edge-height-gap:edge+gap;
+  Object.assign(this.element.style,{left:x+'px',top:y+'px'});
  }
- destroy(){this.closeButton.onclick=null;this.closeButton.remove();this.leader.remove();this.clear();}
+ destroy(){this.closeButton.onclick=null;this.closeButton.remove();this.clear();}
 }
