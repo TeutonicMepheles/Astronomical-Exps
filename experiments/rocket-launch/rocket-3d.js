@@ -1,10 +1,8 @@
-import {ascentView} from './ascent-presentation.js';
 import {addRocketHardware} from './rocket-hardware.js?v=tianzhou-solar';
 import {createRocketExhaust} from './rocket-exhaust.js?v=flight-refinement-20261117';
 import {RocketAssemblyParts} from './rocket-assembly-parts.js?v=assembly-original-position';
 import * as T from './vendor/three/three.module.js';
 import {StagingRig} from './staging-rig.js?v=altitude-result-focus';
-import {LaunchSupport} from './launch-support.js';
 import {RocketAssemblyGuide} from './rocket-assembly-guide.js?v=tianzhou-solar';
 import {RocketSelectionOutline} from './rocket-selection-outline.js?v=tianzhou-solar';
 import {RocketBlueprint} from './rocket-blueprint.js?v=course-refinements-20261118';
@@ -78,7 +76,6 @@ export class Rocket3D {
      const scan=new T.Mesh(original.geometry,this.scanMaterial);scan.name='Scan_'+n;scan.userData.scan=true;scan.position.copy(original.position);scan.quaternion.copy(original.quaternion);scan.scale.copy(original.scale);scan.visible=false;scan.renderOrder=2;original.parent.add(scan);this.scanMeshes.set(n,scan);
     }
     for(const n of manifest.anchors.filter(n=>n.endsWith('Flame'))){const exhaust=createRocketExhaust();this.nodes[n].add(exhaust.group);this.effects.push({name:n,...exhaust});}
-    this.launchSupport=new LaunchSupport();this.scene.add(this.launchSupport.root);
     this.ready=true;this.failed=false;this.status.hidden=true;this.setScene(this.mode);this.onStatus?.(true);return this;
    }catch(e){this.fail(e);return this;}finally{this.loading=null;}
   })();return this.loading;
@@ -138,7 +135,7 @@ export class Rocket3D {
   for(const [n,t] of Object.entries(this.manifest.defaultTransformsGLTF)){apply(this.nodes[n],t);this.nodes[n].visible=true;}
   for(const name of STRUCTURE_NODES.slice(MODULES.length))for(const part of this.assemblyParts?.members(name)||[])this.nodes[part].visible=true;
   this.effects.forEach(e=>e.reset());this.layout.position.set(0,0,0);this.layout.rotation.set(0,0,0);this.layout.scale.setScalar(1);this.pivot.position.set(0,-26.55,0);this.launchTime=null;if(this.reference){this.reference.visible=false;for(const n of MODULES)this.reference.getObjectByName(n).visible=true;}
-  this.launchSupport?.reset();this.model.visible=true;if(this.stagingRig)this.stagingRig.root.visible=false;this.camera.position.set(0,0,100);this.camera.zoom=1;this.camera.far=400;this.camera.lookAt(0,0,0);this.resize();this.invalidateFrame();
+  this.ascentProgress=null;this.model.visible=true;if(this.stagingRig)this.stagingRig.root.visible=false;this.camera.position.set(0,0,100);this.camera.zoom=1;this.camera.far=400;this.camera.lookAt(0,0,0);this.resize();this.invalidateFrame();
  }
  setScene(mode){this.mode=mode;this.layer.hidden=!mode;if(!this.ready)return;this.renderer.toneMapping=T.NoToneMapping;this.status.hidden=true;this.blueprint?.setVisible(false);this.renderer.shadowMap.enabled=['structure','assembly'].includes(mode);if(this.paperShadow)this.paperShadow.visible=false;if(this.scanMaterial){
   // Show the inside of the far wall after the shader clips away the near wall.
@@ -157,7 +154,7 @@ export class Rocket3D {
    if(mode==='structure')for(const n of MODULES)this.setModule(n,true);
    const focus=this.paperY*.4;this.camera.position.set(0,focus+145,110);this.camera.lookAt(0,focus,0);
   }
-  if(['launch','separation'].includes(mode))this.layout.rotation.y=-.55;if(mode==='launch')this.launchSupport.update(0);if(mode==='comparison'){this.model.visible=false;if(this.stagingRig)this.stagingRig.root.visible=true;else if(this.stagingError)this.showComparisonError();else this.loadComparison();}this.resize();this.blueprint?.setVisible(mode==='structure'||mode==='assembly');this.assemblyParts?.setVisible(mode==='assembly');this.assemblyGuide?.update();}
+  if(['launch','separation'].includes(mode))this.layout.rotation.y=-.55;if(mode==='comparison'){this.model.visible=false;if(this.stagingRig)this.stagingRig.root.visible=true;else if(this.stagingError)this.showComparisonError();else this.loadComparison();}this.resize();this.blueprint?.setVisible(mode==='structure'||mode==='assembly');this.assemblyParts?.setVisible(mode==='assembly');this.assemblyGuide?.update();}
  resize(){if(!this.renderer)return;const w=this.layer.clientWidth,h=this.layer.clientHeight;if(!w||!h)return;this.renderer.setSize(w,h,false);const aspect=w/h;if(this.mode==='comparison'){this.camera.far=2000;const half=Math.max(325,750/aspect);this.camera.position.set(750,325,1000);this.camera.lookAt(750,325,0);this.camera.left=-half*aspect;this.camera.right=half*aspect;this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();this.invalidateFrame();return;}const half=['separation','launch'].includes(this.mode)?35:['structure','assembly'].includes(this.mode)?this.layer.clientHeight/464*11.5:32/aspect;this.camera.left=-half*aspect;this.camera.right=half*aspect;this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();this.blueprint?.draw();if(this.mode==='assembly'&&!this.assemblyMotion)for(const n of MODULES)if(!this.assemblyGuide?.installed.has(n))this.setModule(n,false);this.assemblyParts?.layout();this.invalidateFrame();}
  setXray(enabled){if(!this.manifest)return;
   if(enabled&&!this.xraySaved.size){for(const n of this.xrayMeshNames||[]){this.xraySaved.set(n,this.nodes[n].visible);this.nodes[n].visible=false;const scan=this.scanMeshes.get(n);if(scan)scan.visible=true;}}
@@ -302,7 +299,19 @@ export class Rocket3D {
  }
  showComparisonError(){this.status.hidden=false;this.status.textContent='分级对照模型加载失败：'+this.stagingError.message;const b=document.createElement('button');b.textContent='重试';b.onclick=()=>{this.stagingError=null;this.loadComparison();};this.status.append(b);}
  setComparison(lesson){this.comparisonLesson=lesson;if(this.ready&&this.mode==='comparison'){this.stagingRig?.setState(lesson);this.invalidateFrame();}}
- setAscent(progress){if(!this.ready)return;if(this.mode==='launch'){progress=Math.max(0,Math.min(1,progress));const view=ascentView(progress);this.layout.position.y=view.rise;this.camera.zoom=view.zoom;this.camera.updateProjectionMatrix();this.launchSupport.update(progress);}else this.layout.position.y=Math.min(10,progress*20);this.invalidateFrame();}
+ setAscent(progress,heightRatio=0){
+  if(this.mode!=='launch')return 0;
+  const reduced=this.reducedMotion.matches;
+  const reveal=reduced?Number(progress>0):T.MathUtils.smoothstep(progress,0,.16);
+  if(progress===this.ascentProgress&&heightRatio===this.ascentHeightRatio&&reduced===this.ascentReducedMotion)return reveal;
+  this.ascentProgress=progress;
+  this.ascentHeightRatio=heightRatio;
+  this.ascentReducedMotion=reduced;
+  this.layer.style.setProperty('--launch-pad-opacity',String(1-reveal));
+  const scan=reduced?Math.floor(heightRatio*2)/2:heightRatio;
+  this.layer.style.setProperty('--launch-sky-position',(100*(1-scan))+'%');
+  return reveal;
+ }
  beginLaunch(){this.assemblyParts?.setVisible(false);if(this.reference)this.reference.visible=false;this.blueprint?.setVisible(false);this.launchTime=0;}
  update(dt,{animate=false,effectTime=0,flames=false,upper=false,renderFrame=true}={}){
   if(!this.ready||!this.mode||document.hidden)return;
@@ -317,5 +326,5 @@ export class Rocket3D {
   if(this.dirty&&renderFrame){this.blueprint?.drawShadows();this.renderer.render(this.scene,this.mode==='separation'?this.separationCamera:this.camera);this.selectionOutline.update();this.assemblyGuide?.update();this.info.update();if(this.selected){const p=this.moduleCenter(this.selected);this.label.style.left=Math.max(100,Math.min(this.host.clientWidth-100,p.x))+'px';this.label.style.top=Math.max(16,Math.min(this.host.clientHeight-55,p.y-75))+'px';}this.dirty=false;}
  }
  disposeObject(root){const geometries=new Set(),materials=new Set(),textures=new Set();root.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m));});geometries.forEach(g=>g.dispose());materials.forEach(m=>{for(const value of Object.values(m))if(value?.isTexture)textures.add(value);m.dispose();});textures.forEach(t=>t.dispose());}
- destroy(){this.disposed=true;this.ready=false;this.mode=null;this.abort.abort();this.ro.disconnect();this.mixer?.stopAllAction();this.assemblyMotion=null;this.clearDissolve();this.clearSelection();this.stagingRig?.dispose();this.launchSupport?.dispose();this.launchSupport=null;this.effects.forEach(e=>{e.group.removeFromParent();e.dispose();});if(this.model)this.disposeObject(this.model);for(const mesh of this.retiredPayloadMeshes||[])this.disposeObject(mesh);this.retiredPayloadMeshes=[];this.referenceMaterial?.dispose();this.assemblyParts?.destroy();this.assemblyGuide?.destroy();this.selectionOutline?.destroy();this.info?.destroy();this.blueprint?.destroy();this.paperShadow?.geometry.dispose();this.paperShadow?.material.dispose();this.paperLight?.shadow.dispose();this.renderer?.dispose();this.renderer?.forceContextLoss();this.pivot?.clear();if(this.stagingRig)this.scene.remove(this.stagingRig.root);this.stagingRig=null;this.model=null;this.nodes={};this.scanMeshes.clear();this.reference=null;this.effects=[];this.clips={};this.active=null;this.mixer=null;this.layer.remove();}
+ destroy(){this.disposed=true;this.ready=false;this.mode=null;this.abort.abort();this.ro.disconnect();this.mixer?.stopAllAction();this.assemblyMotion=null;this.clearDissolve();this.clearSelection();this.stagingRig?.dispose();this.effects.forEach(e=>{e.group.removeFromParent();e.dispose();});if(this.model)this.disposeObject(this.model);for(const mesh of this.retiredPayloadMeshes||[])this.disposeObject(mesh);this.retiredPayloadMeshes=[];this.referenceMaterial?.dispose();this.assemblyParts?.destroy();this.assemblyGuide?.destroy();this.selectionOutline?.destroy();this.info?.destroy();this.blueprint?.destroy();this.paperShadow?.geometry.dispose();this.paperShadow?.material.dispose();this.paperLight?.shadow.dispose();this.renderer?.dispose();this.renderer?.forceContextLoss();this.pivot?.clear();if(this.stagingRig)this.scene.remove(this.stagingRig.root);this.stagingRig=null;this.model=null;this.nodes={};this.scanMeshes.clear();this.reference=null;this.effects=[];this.clips={};this.active=null;this.mixer=null;this.layer.remove();}
 }

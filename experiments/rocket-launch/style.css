@@ -630,6 +630,10 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 #app[data-step="2"] #parts #controls{position:absolute;inset:0;pointer-events:none;display:block}
 #app[data-step="2"] #controls>.control-cluster{position:static}
 #app[data-step="2"] #controls fieldset{position:absolute;display:flex;align-items:center;gap:12px;margin:0;min-width:0;pointer-events:auto;transform:translateY(-50%)}
+#app[data-step="2"] #controls fieldset{right:0}
+#app[data-step="2"] #controls fieldset:nth-child(1){top:32%}
+#app[data-step="2"] #controls fieldset:nth-child(2){top:66%}
+#app[data-step="2"] #controls fieldset:nth-child(3){top:76%}
 #app[data-step="2"] #controls legend{float:left;margin:0;padding:0;white-space:nowrap;color:var(--ink)}
 #app[data-step="2"] #controls [data-segmented-control] {
   display:flex;
@@ -663,21 +667,42 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 #app[data-step="2"] #feedback{font-size:18px}
 
 
-/* Force diagram overlays the subdued rocket; choices remain click-only. */
-#app[data-step="2"] .rocket-3d{left:33%;right:29%;opacity:.32;filter:grayscale(.65)}
+/* The fixed ground plate fades over the existing moving ascent background. */
+#app[data-step="2"] .rocket-3d {
+  left:49%;
+  right:21%;
+  overflow:hidden;
+  border:1px solid #87a9be44;
+  border-radius:12px;
+  background:#14263a url('assets/vertical-launch/ascent.webp') center var(--launch-sky-position,100%)/100% auto no-repeat;
+  background-image:linear-gradient(#0d1c2d7d,#0c1827a6),url('assets/vertical-launch/ascent.webp');
+}
+#app[data-step="2"] .rocket-3d::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 18% 2.4% at 50% 88%, #02070dcc, transparent),
+    url('assets/launch-pad/force-window-ground.webp') center 88%/cover no-repeat;
+  opacity:var(--launch-pad-opacity,1);
+  pointer-events:none;
+}
+#app[data-step="2"] .rocket-webgl{opacity:calc(.78 * var(--launch-pad-opacity,1));filter:saturate(.6)}
 
 
 .rocket-launch-toast{position:absolute;z-index:20;left:50%;top:104px;transform:translateX(-50%);padding:14px 24px;border:1px solid #d8b07499;border-radius:8px;background:#142b40f5;color:var(--ink);font-size:var(--type-body);pointer-events:none}
 .rocket-launch-toast[hidden]{display:none}
 
-#app[data-step="2"] .rocket-3d{transform-origin:50% 88%;transition:opacity .25s ease-out,transform .25s ease-out}
-#app[data-step="2"][data-launch-flight="true"] .rocket-3d{opacity:0;transform:scale(.25)}
-.launch-altitude-records{position:absolute;inset:0;pointer-events:none}
-.launch-altitude-records[hidden],#launch-altitude-detail[hidden]{display:none}
-.launch-altitude-records button{position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;min-width:0;padding:0;border-radius:50%;border:1px solid #64829a;background:#21394e;color:#eef1f4;font-size:var(--type-body);font-variant-numeric:tabular-nums}
-.launch-altitude-records button[aria-expanded="true"]{border-color:#99e2e3;color:#99e2e3}
-#launch-altitude-detail{position:absolute;transform:translateY(-50%);padding:8px 13px;border:1px solid #64829a;border-radius:7px;background:#172e44;color:#eef1f4;font-size:var(--type-body);white-space:nowrap}
-@media(prefers-reduced-motion:reduce){#app[data-step="2"] .rocket-3d{transition:none}}
+.launch-altitude-records{position:absolute;z-index:4;border:1px solid #87a9be44;border-radius:12px;box-sizing:border-box;pointer-events:auto;touch-action:none;user-select:none}
+.launch-altitude-records [hidden]{display:none}
+.launch-record-point{position:absolute;transform:translate(-50%,-50%);width:48px;height:48px;min-height:0;min-width:0;padding:0;border:0;border-radius:50%;background:transparent}
+.launch-record-point::before{content:'';position:absolute;inset:0;margin:auto;width:19px;height:19px;border:2px solid #142b40;border-radius:50%;background:#a9bdcb;box-sizing:border-box}
+.launch-record-point:is(:hover,[aria-pressed="true"])::before{background:#99e2e3;box-shadow:0 0 0 4px #99e2e399}
+#launch-altitude-detail{position:absolute;transform:translate(-50%,calc(-100% - 17px));padding:6px 10px;border:1px solid #99e2e388;border-radius:7px;background:#172e44;color:#eef1f4;font-size:var(--type-body);white-space:nowrap;pointer-events:none}
+#launch-altitude-detail[data-below]{transform:translate(-50%,17px)}
+.launch-altitude-pages{position:absolute;bottom:1%;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px}
+.launch-altitude-pages button{padding:0;width:44px;min-height:36px;line-height:1;font-size:24px}
+.launch-altitude-pages output{font-size:var(--type-body);color:#a9bdcb;white-space:nowrap}
 
 /* The comparison stage is reserved for the three flights. */
 #app[data-step="9"] #feedback{display:none}
@@ -784,9 +809,8 @@ footer #prompt{
   display:flex;align-items:center;justify-content:flex-end;
   gap:calc(16 * var(--type-unit));
 }
-#page-actions:empty,#page-actions .control-cluster:not(:has(button:not([hidden]))),
-#record-action:not(:has(button:not([hidden]))) {display:none}
-#page-actions button,#app > footer .rocket-record-button {
+#page-actions:empty,#page-actions .control-cluster:not(:has(button:not([hidden]))) {display:none}
+#page-actions button {
   flex:none;min-width:calc(128 * var(--type-unit));min-height:calc(64 * var(--type-unit));
   padding:0 16px;border-radius:calc(12 * var(--type-unit));font-size:var(--type-body);
 }
