@@ -29,11 +29,14 @@ async function verify(browser, url, disconnected) {
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       const scene = await page.locator('.layout').boundingBox();
       const panel = await page.getByRole('complementary', { name: '光源调节面板' }).boundingBox();
-      assert(panel.y >= scene.y + scene.height * .55, 'distant panel clears the city and sky');
+      const inset = scene.width * .015;
+      assert(Math.abs(panel.x - scene.x - inset) < 2, 'distant panel docks at the left inset');
+      assert(Math.abs(scene.y + scene.height - panel.y - panel.height - inset) < 2,
+        'distant panel docks at the bottom inset');
       assert(panel.y + panel.height <= scene.y + scene.height, 'distant panel fits the stage');
     }
     await page.setViewportSize({ width: 1920, height: 1080 });
-    const control = page.getByRole('combobox', { name: '远景城市照明' });
+    const level = name => page.getByRole('radio', { name, exact: true });
     const settle = () => page.evaluate(() => new Promise(resolve =>
       requestAnimationFrame(() => requestAnimationFrame(resolve))));
     const pixels = () => page.evaluate(points => points.map(point => scenePreview.pixel(...point)),
@@ -41,38 +44,29 @@ async function verify(browser, url, disconnected) {
     const stats = () => page.evaluate(() => scenePreview.stats());
     const prefix = disconnected ? 'offline' : 'http';
 
-    assert.equal(await control.inputValue(), '2');
+    assert(await level('极亮').isChecked());
     await settle();
     const initial = await stats();
     const firstOn = await pixels();
     const haloSample = () => page.evaluate(() => scenePreview.pixel(1370, 215).slice(0, 3));
     await page.screenshot({ path: path.join(output, prefix + '-full.png') });
 
-    const beams = page.getByRole('switch', { name: '集束光柱' });
+    assert.equal(await page.getByRole('switch', { name: '集束光柱' }).count(), 0);
     const presetSamples = () => page.evaluate(() =>
       [[1610,476],[1795,466],[2370,490],[1349,565],[1880,510],[1800,800]]
         .map(point => scenePreview.pixel(...point)));
     const allLights = await presetSamples();
-    await control.selectOption('1');
+    await level('必要照明').check();
     await settle();
-    assert.equal(await beams.isDisabled(), true);
-    assert.equal(await beams.isChecked(), false);
     const essential = await presetSamples();
     const essentialStars = await page.evaluate(() => scenePreview.sky().visibleStars);
     await page.screenshot({ path: path.join(output, prefix + '-essential.png') });
-    await control.selectOption('2');
-    await settle();
-    assert.equal(await beams.isChecked(), true);
-    assert.equal(await beams.isEnabled(), true);
-
-    await beams.uncheck();
+    await level('较亮').check();
     await settle();
     const cityOnly = await pixels();
     await page.screenshot({ path: path.join(output, prefix + '-city-only.png') });
     const fullHalo = await haloSample();
-    assert.equal(await control.inputValue(), '2');
-    await control.selectOption('0');
-    assert.equal(await beams.isChecked(), false);
+    await level('全暗').check();
     await settle();
     const off = await pixels();
     const noLights = await presetSamples();
@@ -99,30 +93,23 @@ async function verify(browser, url, disconnected) {
       }
     }
 
-    await beams.check();
-    await settle();
-    const beamsOnly = await pixels();
-    assert.equal(await control.inputValue(), '0');
     const energy = pixel => pixel.slice(0, 3).reduce((sum, channel) => sum + channel, 0);
     for (let i = lights.length; i < lights.length + searchlights.length; i++) {
       assert(energy(firstOn[i]) > energy(cityOnly[i]) + 20);
-      assert(energy(beamsOnly[i]) > energy(off[i]) + 20);
     }
-    await beams.uncheck();
-    for (let i = 0; i < 12; i++) await control.selectOption(i % 2 ? '0' : '2');
+    for (let i = 0; i < 12; i++) await level(i % 2 ? '全暗' : '极亮').check();
     await settle();
     assert.deepEqual(await pixels(), off);
-    await control.selectOption('2');
-    await beams.check();
+    await level('极亮').check();
     await settle();
     assert.deepEqual(await pixels(), firstOn);
     const end = await stats();
     assert.equal(end.uploads, initial.uploads);
     assert.equal(end.textureCount, initial.textureCount);
     await page.evaluate(() => lightingUI.select('commercial-windows'));
-    await page.locator('#gain-commercial-screens').fill('0');
+    await page.getByRole('group', { name: '商业屏幕', exact: true }).getByRole('radio', { name: '关闭', exact: true }).check();
     await page.evaluate(() => lightingUI.select('billboard'));
-    await page.locator('#gain-billboard').fill('0');
+    await level('关闭').check();
     await page.evaluate(() => {
       lightingUI.select('distant');
       scenePreview.setMediaOptions({ paused: false });
@@ -143,7 +130,7 @@ async function verify(browser, url, disconnected) {
     assert.notDeepEqual(await movingStripe(), stripeStart, 'selected beam sweeps');
     assert.equal(afterMotion.staticDraws, beforeMotion.staticDraws);
     assert.equal(afterMotion.uploads, beforeMotion.uploads);
-    await beams.uncheck();
+    await level('较亮').check();
     await settle();
     const starPixels = () => page.evaluate(() => scenePreview.stars().slice(0, 20)
       .map(([x,y]) => scenePreview.pixel(Math.floor(x), Math.floor(y))));
