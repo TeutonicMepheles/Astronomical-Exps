@@ -1,10 +1,170 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>陨石坑 · 对照实验</title><link rel="stylesheet" href="../../shared/typography/typography.css"><link rel="stylesheet" href="style.css?v=20261120-sky3"><link rel="stylesheet" href="typography.css"></head>
-<body><main id="lab" class="guided-course">
-<header class="topbar"><h1><span>EXP.03</span> 陨石坑撞击</h1><button id="openRecords">实验记录 <b id="recordCount">0</b></button></header>
-
-<section class="workspace"><header class="viewbar"><ol id="courseProgress" aria-label="实验步骤"></ol><div class="launch-area"><button id="previousStep">← 上一步</button><button id="launch" class="launch">同时发射 <span>↗ ↗</span></button><button id="cancel" hidden>取消</button><button id="nextStep">下一步 →</button></div></header><div class="course-instruction"><h2 id="pairTitle">大小对照</h2><span id="courseHint"></span><span id="status" role="status" aria-live="polite"></span></div><div class="viewports">
-<article class="viewport side-0"><header><b class="number">1</b><div id="inlineSettings0" class="inline-settings"></div></header><canvas id="scene0" aria-label="实验1三维撞击"></canvas><img id="result0" hidden alt="实验1三维结果"><svg id="annotations0" class="meteor-annotations" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid meet" role="img" hidden></svg><div class="phase" id="phase0"></div><div class="outcomes" id="outcome0" hidden></div></article>
-<article class="viewport side-1"><header><b class="number">2</b><div id="inlineSettings1" class="inline-settings"></div></header><canvas id="scene1" aria-label="实验2三维撞击"></canvas><img id="result1" hidden alt="实验2三维结果"><svg id="annotations1" class="meteor-annotations" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid meet" role="img" hidden></svg><div class="phase" id="phase1"></div><div class="outcomes" id="outcome1" hidden></div></article>
-</div></section><dialog id="records"><header><h2>课堂对照记录</h2><button id="closeRecords">关闭 ×</button></header><p class="record-note">完全理想条件下的单变量对照实验。溅射范围为定性示意，当前按坑口大小等比缩放。</p><div id="recordBody"></div><footer><button id="deleteLast">删除上一组</button><div><button id="previous">←</button><span id="pageNumber"></span><button id="next">→</button></div></footer></dialog>
-<script src="vendor/three.local.js"></script><script src="components/meteor-3d/meteor-3d.js"></script><script src="components/result-callouts/result-callouts.js"></script><script src="app.js"></script></main></body></html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>陨石坑撞击</title>
+  <link rel="stylesheet" href="../../shared/typography/typography.css">
+  <link rel="stylesheet" href="storyboard.css?v=2">
+  <link rel="stylesheet" href="storyboard-results.css?v=12">
+  <link rel="stylesheet" href="storyboard-course-hud.css?v=5">
+</head>
+<body>
+  <main id="story" class="comparison-layout" data-stage="intro" data-loading>
+    <div id="stars" aria-hidden="true"></div>
+    <svg class="condition-filter" width="0" height="0" aria-hidden="true">
+      <filter id="meteor-hot-rim" color-interpolation-filters="sRGB">
+        <feOffset in="SourceAlpha" dx="0" dy="10"/>
+        <feGaussianBlur stdDeviation="4"/>
+        <feComposite in="SourceAlpha" operator="out" result="leading-edge"/>
+        <feFlood flood-color="#ffffff" flood-opacity=".55"/>
+        <feComposite in2="leading-edge" operator="in" result="flame"/>
+        <feBlend in="flame" in2="SourceGraphic" mode="screen"/>
+      </filter>
+      <filter id="meteor-selection-outline" color-interpolation-filters="sRGB">
+        <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="expanded"/>
+        <feFlood flood-color="#71d2ff"/>
+        <feComposite in2="expanded" operator="in"/>
+        <feComposite in2="SourceAlpha" operator="out" result="outline"/>
+        <feMerge><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="meteor-right-outline" color-interpolation-filters="sRGB">
+        <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="expanded"/>
+        <feFlood flood-color="#c3a2ff"/>
+        <feComposite in2="expanded" operator="in"/>
+        <feComposite in2="SourceAlpha" operator="out" result="outline"/>
+        <feMerge><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </svg>
+    <header id="story-header" hidden>
+      <h1>陨石坑撞击实验</h1>
+      <ol class="story-stage-progress" aria-label="任务阶段">
+        <li data-step="factors"><b>1</b><span>选择研究因素</span></li>
+        <li data-step="settings"><b>2</b><span>设置对比参数</span></li>
+        <li data-step="observe"><b>3</b><span>观察与记录</span></li>
+      </ol>
+    </header>
+    <div id="hero"><canvas id="first" aria-hidden="true"></canvas></div>
+    <button id="start" disabled><span>正在准备实验…</span></button>
+    <section id="controls" aria-labelledby="task" hidden>
+      <h2 id="task" tabindex="-1"></h2>
+      <p id="instruction" role="status"></p>
+      <div id="factors"></div>
+      <div id="settings" hidden>
+        <h3 id="factor"></h3>
+        <div id="options" aria-label="对比参数" role="group"></div>
+        <div id="assign" class="side-assignment">
+          <button data-side="0">实验 1</button>
+          <button data-side="1">实验 2</button>
+        </div>
+      </div>
+    </section>
+    <div id="selection-toast" role="status" aria-atomic="true"></div>
+    <div id="launch-actions" role="group" aria-label="参数设置操作" hidden>
+      <button type="button" id="back" aria-label="返回研究因素">
+        <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 12H4m7-7-7 7 7 7"/>
+        </svg>
+      </button>
+      <button id="fire" hidden disabled><b>发射</b> <span aria-hidden="true">↗</span></button>
+    </div>
+    <section id="fixed-comparison" aria-label="实验对照" hidden>
+      <h2></h2>
+      <h2></h2>
+    </section>
+    <div id="space-split" hidden>
+      <div id="space-planets" aria-hidden="true" hidden>
+        <div><img src="assets/target-earth.webp" alt=""></div>
+        <div><img src="assets/target-moon.webp" alt=""></div>
+      </div>
+      <div id="space-ground" hidden>
+        <figure class="split-ground">
+          <figcaption>干石英砂剖面</figcaption>
+          <img src="assets/quartz-diagram-loose.webp" alt="">
+          <p>松散砂层 · 颗粒间隙较大</p>
+        </figure>
+        <figure class="split-ground">
+          <figcaption>干石英砂剖面</figcaption>
+          <img src="assets/quartz-diagram-dense.webp" alt="">
+          <p>密实砂层 · 颗粒间隙较小</p>
+        </figure>
+      </div>
+      <div class="space-flight">
+        <div class="space-rock" id="space-left" aria-hidden="true">
+          <canvas class="split-diagram" width="600" height="388" hidden></canvas>
+        </div>
+      </div>
+      <div class="space-flight">
+        <div class="space-rock" id="space-right" aria-hidden="true">
+          <canvas class="split-diagram" width="600" height="388" hidden></canvas>
+        </div>
+      </div>
+    </div>
+    <section id="split" aria-label="撞击对照" hidden>
+      <article id="left" class="side-0"><p class="phase"></p></article>
+      <article id="right" class="side-1"><canvas id="second" aria-hidden="true"></canvas><p class="phase"></p></article>
+    </section>
+    <div id="observation-panels" hidden>
+      <div class="observation-panel side-0">
+        <h2><span class="trial-number">1</span><span class="trial-value"></span></h2>
+        <dl class="observed-readouts" hidden></dl>
+      </div>
+      <div class="observation-panel side-1">
+        <h2><span class="trial-number">2</span><span class="trial-value"></span></h2>
+        <dl class="observed-readouts" hidden></dl>
+      </div>
+    </div>
+    <footer id="observations" hidden>
+      <div id="result-views" role="tablist" aria-label="撞击结果视角" hidden>
+        <button id="view-top" role="tab" data-view="top" aria-controls="split" aria-selected="false" tabindex="-1">俯视</button>
+        <button id="view-whole" role="tab" data-view="whole" aria-controls="split" aria-selected="true">默认</button>
+        <button id="view-cutaway" role="tab" data-view="cutaway" aria-controls="split" aria-selected="false" tabindex="-1">剖面</button>
+      </div>
+      <p id="comparison-factor"></p>
+      <div class="observation-actions" role="group" aria-label="观察与记录操作">
+        <button id="retry" type="button" aria-label="返回对比参数设置">
+          <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 12H4m7-7-7 7 7 7"/>
+          </svg>
+        </button>
+        <button id="openRecords" aria-haspopup="dialog"><span class="record-spine"><svg class="record-book-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h13v16H7a2 2 0 0 1 0-4h12M6 3.5a1 1 0 0 0-1 1v13M9 7.5h6M9 10.5h6"/></svg></span><span class="record-label">实验记录</span><b id="recordCount">0</b></button>
+      </div>
+      <p id="observation" class="observation-status" role="status" tabindex="-1"></p>
+    </footer>
+    <p id="result-view-status" role="status" hidden></p>
+    <p id="error" role="status"></p>
+    <dialog id="records" aria-labelledby="recordsTitle">
+      <header>
+        <h2 id="recordsTitle">实验记录</h2>
+        <button id="closeRecords" type="button" aria-label="关闭实验记录">
+          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="m6 6 12 12M18 6 6 18"/>
+          </svg>
+        </button>
+      </header>
+      <div id="recordBody"></div>
+      <footer>
+        <div id="record-controls">
+          <div id="record-views" class="segments" role="group" aria-label="记录对照视角">
+            <button data-view="top" aria-pressed="false">俯视</button>
+            <button data-view="whole" aria-pressed="true">3D 坑体</button>
+            <button data-view="cutaway" aria-pressed="false">立体剖面</button>
+          </div>
+          <h3 id="record-comparison"></h3>
+          <nav id="record-pagination" aria-label="实验记录分页" hidden>
+            <button id="previous" aria-label="上一组">←</button>
+            <div id="record-pages" role="group" aria-label="选择实验组"></div>
+            <button id="next" aria-label="下一组">→</button>
+          </nav>
+        </div>
+      </footer>
+    </dialog>
+  </main>
+  <script src="vendor/three.local.js"></script>
+  <script src="components/meteor-3d/meteor-3d.js?v=4"></script>
+  <script src="components/result-callouts/result-callouts.js?v=4"></script>
+  <script src="impact-result-model.js"></script>
+  <script src="storyboard-results.js?v=9"></script>
+  <script type="module" src="storyboard.js?v=7"></script>
+</body>
+</html>

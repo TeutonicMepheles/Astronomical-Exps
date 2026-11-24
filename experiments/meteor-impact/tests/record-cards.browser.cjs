@@ -2,8 +2,8 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const { chromium } = require('../../../node_modules/playwright');
-const entry = process.env.METEOR_ENTRY || 'index.html';
-assert(['index.html', 'index2.html'].includes(entry));
+const entry = process.env.METEOR_ENTRY || 'index2.html';
+assert.equal(entry, 'index2.html', 'Use storyboard.browser.cjs for the default entry.');
 const screenshotPrefix = entry === 'index2.html' ? 'guided-index2' : 'guided';
 
 (async () => {
@@ -72,12 +72,12 @@ const screenshotPrefix = entry === 'index2.html' ? 'guided-index2' : 'guided';
     assert.match(await page.locator('.record-card').first().innerText(), /地球/);
     assert.match(await page.locator('.record-card').last().innerText(), /月球/);
     await page.locator('#previous').click();
-    assert.deepEqual(await page.locator('.record-variable b').allTextContents(), ['小', '大']);
+    assert.deepEqual(await page.locator('.record-variable b').allTextContents(), ['20 m', '300 m']);
     for (const view of ['whole', 'cutaway']) {
       await page.locator('.record-toolbar button').nth(view === 'whole' ? 0 : 1).click();
       const expected = await page.evaluate(v => meteorExperiment.state().records[0].sides.map(side => side[v]), view);
       assert.deepEqual(await page.locator('.record-card img').evaluateAll(images => images.map(image => image.src)), expected);
-      assert.match(await page.locator('.record-card svg').first().getAttribute('aria-label'), view === 'whole' ? /溅射范围.*坑形/ : /坑宽.*坑深/);
+      assert.match(await page.locator('.record-card svg').first().getAttribute('aria-label'), view === 'whole' ? /溅射范围.*坑形/ : /坑径.*坑深/);
       await page.locator('.record-card img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       await page.screenshot({ path: path.resolve(__dirname, '../docs/' + screenshotPrefix + '-record-cards-' + view + '.png') });

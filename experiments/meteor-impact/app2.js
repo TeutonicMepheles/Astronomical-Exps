@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const $ = selector => document.querySelector(selector);
-  const options = { size: [['small','小'],['medium','中'],['large','大']], speed: [['low','低'],['medium','中'],['high','高']], angle: [['90','90°'],['45','45°'],['30','30°']], ground: [['loose','疏松地面'],['compact','紧致地面']] };
+  const options = { size: [['small','20 m'],['medium','50 m'],['large','300 m']], speed: [['low','10 km/s'],['medium','20 km/s'],['high','40 km/s']], angle: [['90','90°'],['45','45°'],['20','20°']], ground: [['loose','疏松地面'],['compact','紧致地面']] };
   const names = { size: '陨石大小', speed: '进入速度', angle: '入射角', ground: '地面疏松程度' };
   const label = (key, value) => options[key].find(item => item[0] === value)?.[1] || value;
   const worldName = world => world === 'earth' ? '地球' : '月球';

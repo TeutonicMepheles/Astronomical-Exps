@@ -5,3 +5,10 @@
 .viewports::after{mask-image:linear-gradient(transparent 27%,#000 42%)}
 
 /* Lift the small Earth into the visible sky above the lunar horizon. */
+
+/* Match the storyboard launch position in the 1600 × 900 stage. */
+.guided-course #launch {
+  position:absolute; right:44px; bottom:29px; z-index:4;
+  min-width:218px; min-height:65px; font-size:30px; font-weight:600; gap:14px;
+}
+.guided-course .viewport .outcomes { bottom:108px; }
