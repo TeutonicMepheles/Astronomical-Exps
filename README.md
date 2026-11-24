@@ -14,6 +14,8 @@
 
 ## 实验目录
 
+[UI 控件示例页](experiments/ui-controls-demo/index.html)提供可操作的控件试样和 SVG／静态颗粒对照。
+
 | 编号 | 实验 | 当前状态 | 页面入口 | 需求 |
 | --- | --- | --- | --- | --- |
 | EXP-01 | 傅科摆 | 可运行开发版；整页验收待完成 | [index.html](experiments/foucault-pendulum/index.html) | [阅读](experiments/foucault-pendulum/REQUIREMENTS.md) |
