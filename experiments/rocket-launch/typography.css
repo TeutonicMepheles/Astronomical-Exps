@@ -12,8 +12,7 @@ h2 {font-size:var(--type-data-label);font-weight:500}
 #app #next.rocket-next-action {font-size:var(--type-action);font-weight:600;min-width:270px}
 #previous {font-size:var(--type-body);font-weight:400}
 #feedback {font-size:var(--type-body);line-height:var(--type-leading);font-weight:400}
-#readout,#balloon-displacement,.pump-count {font-size:var(--type-number);font-weight:500;font-variant-numeric:tabular-nums}
-#pump-count {font-size:var(--type-body);font-weight:400}
+#readout {font-size:var(--type-number);font-weight:500;font-variant-numeric:tabular-nums}
 .dv-definition p {font-size:var(--type-body);line-height:var(--type-leading)}
 
 #app[data-step] #controls button,#app[data-step] #controls label,#app[data-step] .cannon-height-label {font-size:var(--type-body)}

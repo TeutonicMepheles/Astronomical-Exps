@@ -1,5 +1,5 @@
+import {loadRocketSilhouette, drawRocketSilhouette} from './rocket-silhouette.js';
 import {createCannonTransition,groundPlaybackEnd,TRANSITION_TIMING,usesGroundView} from './cannon-transition.js?v=cannon-projectile';
-import {drawLiftoffExhaust,HEIGHT as ROCKET_HEIGHT} from './cz7.js?v=liftoff-exhaust-20261123';
 import {CANNON_ART} from './assets/cannon-scene/geometry.js';
 import {MODEL,GEARS,model,pathOf,solarPath,positionAt,groundPath,projectGroundDistance} from './orbital-model.js';
 export {MODEL,model,pathOf,solarPath,positionAt} from './orbital-model.js';
@@ -16,6 +16,7 @@ const CLOSED_ORBIT_CENTER_X=(CLOSED_ORBIT_VIEW.left+CLOSED_ORBIT_VIEW.right)/2;
 const OBSERVATION_TIME=.85;
 const RING_SAMPLES=Array.from({length:121},(_,i)=>[Math.cos(tau*i/120),Math.sin(tau*i/120)]);
 const mix=(a,b,t)=>a+(b-a)*t;
+const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
 const orbitRing=(project,x=0,y=0,r=1)=>RING_SAMPLES.map(([u,v])=>project({x:x+r*u,y:y+r*v}));
 const EARTH_COMPARISONS=[4.5,7.89,7.9,11.2];
 const PULLBACK_EARTH_X=750;
@@ -42,11 +43,10 @@ function fitTrajectories(paths,project,center,radius,view,fill=false){
 function label(c,s,x,y,size=22,color=ink){c.fillStyle=color;c.font=`${size}px "Alibaba PuHuiTi 3",sans-serif`;c.fillText(s,x,y);}
 function line(c,pts,color=warm,width=2,dash=[]){if(!pts.length)return;c.save();c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.lineJoin='round';c.setLineDash(dash);c.beginPath();pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.stroke();c.restore();}
 function dot(c,x,y,r=4,color=ink){c.fillStyle=color;c.beginPath();c.arc(x,y,r,0,tau);c.fill();}
-function arrow(c,a,b,color=warm){line(c,[a,b],color,2);const ang=Math.atan2(b[1]-a[1],b[0]-a[0]);line(c,[[b[0]-10*Math.cos(ang-.4),b[1]-10*Math.sin(ang-.4)],b,[b[0]-10*Math.cos(ang+.4),b[1]-10*Math.sin(ang+.4)]],color,2);}
-function orbitVectors(c,point,tangent,center,scale=1){
- for(const [direction,length,color] of [[tangent,34,warm],[center,31,cool]]){
+function orbitVectors(c,arrows,point,tangent,center,scale=1){
+ for(const [id,direction,length,color] of [['velocity',tangent,34,warm],['gravity',center,31,cool]]){
   const dx=direction[0]-point[0],dy=direction[1]-point[1],m=Math.hypot(dx,dy);
-  if(m>0)arrow(c,point,[point[0]+dx/m*length*scale,point[1]+dy/m*length*scale],color);
+  if(m>0)arrows?.drawBetween(c,{id,from:point,to:[point[0]+dx/m*length*scale,point[1]+dy/m*length*scale],color});
  }
 }
 function forwardPoint(path,head){
@@ -59,24 +59,23 @@ function orbitLegend(c,x,y){
  label(c,'冷色 引力方向',x+290,y,18,cool);
 }
 const projected=(path,project)=>path.pts.map(project);
-function continuation(c,path,project,color=warm){const p=path.pts,tail=project(p[p.length-8]),end=project(p.at(-1)),a=Math.atan2(end[1]-tail[1],end[0]-tail[0]);arrow(c,[end[0]-18*Math.cos(a),end[1]-18*Math.sin(a)],end,color);}
+function continuation(c,arrows,path,project,color=warm){const p=path.pts,tail=project(p[p.length-8]),end=project(p.at(-1)),a=Math.atan2(end[1]-tail[1],end[0]-tail[0]);arrows?.drawBetween(c,{id:'trajectory-continuation',from:[end[0]-18*Math.cos(a),end[1]-18*Math.sin(a)],to:end,color});}
 export function createVelocityScene(hooks={}){
  if(!tianzhouFrames.complete&&hooks.onFrame)tianzhouFrames.addEventListener('load',hooks.onFrame,{once:true});
  const st={mode:'horizontal',height:100000,v:4.5,age:0,paused:true,started:false,compare:false,solar:0,replay:0,dragging:false,cam:{...GEO}},cache=new Map(),solarCache=new Map();let cannon=null,grain=null,globe=null,backdrop=null,lastState='',insetTime=0,moonMix=0,sunMix=0,earthFrame=null,solarFrame=null,observation=0,flightLead=0;
  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
- const directionRocket=new Image();
- directionRocket.onload=()=>hooks.onFrame?.();
- directionRocket.src='assets/cz7-kiu-20261116/cz7-assembled-render.png';
- const directionEarth=new Image();
- directionEarth.onload=()=>hooks.onFrame?.();
- directionEarth.src='assets/earth-blue-marble-globe-4096.webp';
- const direction={condition:'straight',completed:new Set(),flight:directionState(0,'straight')};
+ if(hooks.onFrame)loadRocketSilhouette(hooks.onFrame);
+ const launchSite=new Image();
+ launchSite.onload=()=>hooks.onFrame?.();
+ launchSite.src=new URL('./assets/vertical-launch/ascent.webp',import.meta.url).href;
+ const direction={};
  st.direction=direction;
+ resetDirection();
  function resetDirection(){
   st.age=0;st.replay=0;st.paused=true;st.started=false;
-  direction.flight=directionState(0,direction.condition);
+  for(const condition of DIRECTION_CONDITIONS)direction[condition]=directionState(0,condition);
  }
- const transition=createCannonTransition(()=>hooks.onFrame?.());
+ const transition=createCannonTransition(()=>hooks.onFrame?.(),hooks.arrows);
  const directEarth=()=>st.mode==='horizontal'&&st.v>=DIRECT_EARTH_SPEED;
  const insetTarget=()=>directEarth()?INSET_PULLBACK_TIME:0;
  const insetMoving=()=>insetTime!==insetTarget();
@@ -92,7 +91,7 @@ export function createVelocityScene(hooks={}){
  const escapeView=()=>st.v>=16.7?'solar':getPath(st.v).m.kind==='open'?'lunar':null;
  const getPath=(v,far=3)=>{const key=v+':'+far;if(!cache.has(key))cache.set(key,pathOf(v,far,st.height));return cache.get(key);};
  const getSolar=v=>{if(!solarCache.has(v))solarCache.set(v,solarPath(v,v===16.7?8:3,st.height));return solarCache.get(v);};
- const mk=()=>GEARS.find(g=>g.v===st.v)||{name:st.v<7.9?'水平发射':'轨道探索',result:model(st.v,st.height).kind==='impact'?'落回地面':model(st.v,st.height).kind==='closed'?'环绕地球':'逃离地球',note:'理想条件下的水平发射演示。'},duration=()=>st.mode==='vertical'?directionDuration(direction.condition):escapeView()==='lunar'?LUNAR_WIDE_SHOT+.9+LUNAR_ORBIT_TIME:escapeView()?7:(videoMode()?groundPlaybackEnd(reducedMotion.matches):8.85);
+ const mk=()=>GEARS.find(g=>g.v===st.v)||{name:st.v<7.9?'水平发射':'轨道探索',result:model(st.v,st.height).kind==='impact'?'落回地面':model(st.v,st.height).kind==='closed'?'环绕地球':'逃离地球',note:'理想条件下的水平发射演示。'},duration=()=>st.mode==='vertical'?Math.max(LANDING,ORBIT_END):escapeView()==='lunar'?LUNAR_WIDE_SHOT+.9+LUNAR_ORBIT_TIME:escapeView()?7:(videoMode()?groundPlaybackEnd(reducedMotion.matches):8.85);
  function setValue(v){
   const wasReady=st.age===0&&st.paused;
   transition.reset();
@@ -117,8 +116,7 @@ export function createVelocityScene(hooks={}){
   earthFrame={path,compare:st.compare,comparisons,...fit,moves:fit.scale!==1||fit.x!==0||fit.y!==0};
   return earthFrame;
  }
- function earth(c,x,y,r){if(globe)globe(c,x,y,r);else{dot(c,x,y,r,'#596d77');if(grain){c.save();c.beginPath();c.arc(x,y,r,0,tau);c.clip();c.globalAlpha=.2;c.fillStyle=grain;c.fillRect(x-r,y-r,r*2,r*2);c.restore();}}}
- const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
+ function earth(c,x,y,r){const muted=st.mode==='vertical';if(globe)globe(c,x,y,r,muted);else{dot(c,x,y,r,muted?'#3c4953':'#596d77');if(grain){c.save();c.beginPath();c.arc(x,y,r,0,tau);c.clip();c.globalAlpha=.2;c.fillStyle=grain;c.fillRect(x-r,y-r,r*2,r*2);c.restore();}}}
  function drawCannon(c,x,y,scale){
   if(!cannon?.naturalWidth)return;
   c.save();
@@ -370,21 +368,21 @@ export function createVelocityScene(hooks={}){
    const point=project(head),center=project({x:0,y:0,r:0});
    pts.push(point);
    line(visual,pts,ink,2.6);
-   if(framed&&path.m.kind==='open'&&progress>=1)continuation(visual,path,project,ink);
+   if(framed&&path.m.kind==='open'&&progress>=1)continuation(visual,hooks.arrows,path,project,ink);
    const landed=path.m.kind==='impact'&&progress>=1;
    const gravity=flat?1:1/head.r**2,centrifugal=flat?0:path.m.h**2/head.r**3;
    if(!landed){
     if(flat){
      const end=[point[0],point[1]+68];
-     arrow(visual,point,end,cool);
+     hooks.arrows?.drawBetween(visual,{id:'gravity',from:point,to:end,color:cool});
      label(visual,'重力',end[0]+12,end[1],16,cool);
-    }else if(frame)orbitVectors(visual,point,project(forwardPoint(path,head)),center,Math.max(1,cameraScale));
+    }else if(frame)orbitVectors(visual,hooks.arrows,point,project(forwardPoint(path,head)),center,Math.max(1,cameraScale));
     else{
      const inward=project({x:head.x*.999,y:head.y*.999,r:head.r*.999});
      const dx=inward[0]-point[0],dy=inward[1]-point[1],length=Math.hypot(dx,dy)||1;
-     for(const [amount,color,name] of [[68*gravity,cool,'引力'],[-Math.min(180,68*centrifugal),'#edb27b','离心惯性力']]){
+     for(const [id,amount,color,name] of [['gravity',68*gravity,cool,'引力'],['centrifugal',-Math.min(180,68*centrifugal),'#edb27b','离心惯性力']]){
       const end=[point[0]+dx/length*amount,point[1]+dy/length*amount];
-      arrow(visual,point,end,color);
+      hooks.arrows?.drawBetween(visual,{id,from:point,to:end,color});
       label(visual,name,end[0]+12,end[1],16,color);
      }
     }
@@ -468,7 +466,7 @@ export function createVelocityScene(hooks={}){
    :transfer(Math.PI*(1-transferProgress));
   if(captured){
    drawOrbit(angle,ink,2.6,[]);
-   orbitVectors(visual,point,[point[0]-Math.sin(angle),point[1]+Math.cos(angle)],center);
+   orbitVectors(visual,hooks.arrows,point,[point[0]-Math.sin(angle),point[1]+Math.cos(angle)],center);
   }
   dot(visual,...point,6,warm);
   label(c,'地月转移与绕月 · 任务示意',65,95,23,ink);
@@ -538,43 +536,69 @@ export function createVelocityScene(hooks={}){
    line(visual,projected(path,project),'#d8b07475',1.5,[3,7]);
    const point=project(head),heading=project(forwardPoint(path,head));
    line(visual,path.pts.slice(0,head.index).map(project).concat([point]),ink,2.4);
-   orbitVectors(visual,point,heading,[cx,cy]);
+   orbitVectors(visual,hooks.arrows,point,heading,[cx,cy]);
    dot(visual,...point,4,ink);
    orbitLegend(c,65,220);
-   if(progress>=1)continuation(visual,path,project);
+   if(progress>=1)continuation(visual,hooks.arrows,path,project);
    st.presentation={projectile:point,kind:'solar-escape',progress,landed:false};
   }
   visual.restore();
   c.restore();
  }
- return{get value(){return st.v;},state:st,setHeight(h){if(![1000,10000,100000].includes(h))return;st.height=h;cache.clear();solarCache.clear();setValue(st.v);},setMode(mode){transition.stop();st.mode=mode;observation=0;insetTime=insetTarget();resetDirection();},setDirection(condition){if(st.started&&st.age<duration()||!DIRECTION_CONDITIONS.includes(condition))return;direction.condition=condition;resetDirection();},adjustDirection:resetDirection,gears:GEARS.map(g=>g.v),setValue,name:()=>mk().name,note:()=>mk().note,cam:()=>({...GEO}),toPixel:(x,y)=>[GEO.cx+GEO.s*x,GEO.cy-GEO.s*y],
+ return{get value(){return st.v;},state:st,setHeight(h){if(![1000,10000,100000].includes(h))return;st.height=h;cache.clear();solarCache.clear();setValue(st.v);},setMode(mode){transition.stop();st.mode=mode;observation=0;insetTime=insetTarget();resetDirection();},gears:GEARS.map(g=>g.v),setValue,name:()=>mk().name,note:()=>mk().note,cam:()=>({...GEO}),toPixel:(x,y)=>[GEO.cx+GEO.s*x,GEO.cy-GEO.s*y],
   nudge(dir){const values=GEARS.map(g=>g.v);const next=dir<0?[...values].reverse().find(v=>v<st.v):values.find(v=>v>st.v);setValue(next??st.v);hooks.onChange?.();},down:()=>false,move(){},up(){},setBackdrop:context=>backdrop=context,setGrain:v=>grain=v,setGlobe:fn=>globe=fn,setCannon:im=>cannon=im,
   get duration(){return duration();},suspend(){st.paused=true;insetTime=insetTarget();transition.stop();},
   replay(){if(st.mode==='vertical')resetDirection();else transition.reset();st.presentation=null;st.age=0;st.replay=0;flightLead=directEarth()&&!reducedMotion.matches?OBSERVATION_TIME*(1-observation):0;st.paused=false;st.started=true;},togglePause(){st.paused=!st.paused;},toggleCompare(){st.compare=!st.compare;},needsFrame:()=>st.mode==='vertical'?st.started&&!st.paused:cloudMoving()||insetMoving()||previewMoving()||observationMoving()&&(!st.started||!st.paused)||!st.paused&&st.age<duration(),
-  draw(c,W,H,dt){
+  directionPullingBack(condition){return !reducedMotion.matches&&directionCamera(st.age,condition).pullingBack;},
+  beginDirectionFlight(){
+   st.age=LIFTOFF;
+   for(const condition of DIRECTION_CONDITIONS)direction[condition]=directionState(st.age,condition);
+  },
+  draw(c,W,H,dt,opening=null){
    const frameTime=Math.min(dt||.016,.05);
    if(st.mode==='vertical'){
-    if(st.started&&!st.paused){
+    if(st.started&&!st.paused&&!opening){
+     const previousAge=st.age;
      st.age+=frameTime;
-     if(direction.condition==='straight')st.age=Math.min(duration(),st.age);
-     const previous=direction.flight.phase;
-     direction.flight=directionState(st.age,direction.condition);
-     if(previous!==direction.flight.phase){
-      const phase=direction.flight.phase;
-      if(phase==='landed')st.paused=true;
-      if(phase==='landed'||phase==='orbited')direction.completed.add(direction.condition);
-      hooks.onChange?.();
+     let phaseChanged=false;
+     for(const condition of DIRECTION_CONDITIONS){
+      phaseChanged ||= directionCamera(previousAge,condition).pullingBack!==directionCamera(st.age,condition).pullingBack;
+      const flight=directionState(st.age,condition);
+      phaseChanged ||= flight.phase!==direction[condition].phase;
+      direction[condition]=flight;
      }
+     if(phaseChanged)hooks.onChange?.();
     }
-    const visual=backdrop||c;
-    const transform=visual.getTransform();
-    const horizon={
-     x:(visual.canvas.width*.492-transform.e)/transform.a,
-     y:(visual.canvas.height*.719-transform.f)/transform.d,
-     radius:visual.canvas.width*.9/transform.a
-    };
-    const closeup=reducedMotion.matches&&st.started?0:1-ease(st.age/LIFTOFF);
-    drawDirectionScene(visual,{time:st.age,direction,earth,earthImage:directionEarth,rocket:directionRocket,horizon,closeup});
+    const gap=24, panelWidth=(W-gap)/2;
+    for(const [index,condition] of DIRECTION_CONDITIONS.entries()){
+     c.save();
+     c.translate(index*(panelWidth+gap),0);
+     c.beginPath();
+     c.roundRect(0,0,panelWidth,H,16);
+     c.clip();
+     c.fillStyle='#09121e60';
+     c.fillRect(0,0,panelWidth,H);
+     if(opening&&launchSite.naturalWidth){
+      const {phase,local}=opening;
+      const ascent=.9*ease(opening.elapsed/1.2)+.1*ease((opening.elapsed-1.2)/2);
+      const opacity=1-directionEarthReveal(opening);
+      if(opacity>0){
+       const sourceHeight=launchSite.naturalWidth*H/panelWidth;
+       const scan=reducedMotion.matches?(phase==='ready'?0:phase==='ascent'&&local<.97?(local<.49?0:.5):1):ascent;
+       c.save();
+       c.globalAlpha=opacity;
+       c.drawImage(launchSite,0,(launchSite.naturalHeight-sourceHeight)*(1-scan),
+        launchSite.naturalWidth,sourceHeight,0,0,panelWidth,H);
+       c.restore();
+      }
+     }
+     c.translate(panelWidth/2,H/2);
+     c.scale(DIRECTION_PANEL_SCALE,DIRECTION_PANEL_SCALE);
+     c.translate(-DIRECTION_VIEW.x,-DIRECTION_VIEW.y);
+     if(opening)drawDirectionOpening(c,opening,reducedMotion.matches,earth,condition,hooks.arrows);
+     else drawDirectionScene(c,st.age,condition,direction[condition],earth,directionCamera(st.age,condition,reducedMotion.matches).wide,hooks.arrows);
+     c.restore();
+    }
     return;
    }
    if(cloudMoving())cloudTime=(cloudTime+frameTime)%(tau/.29);
@@ -598,7 +622,7 @@ export function createVelocityScene(hooks={}){
     insetTime=reducedMotion.matches||Math.abs(remaining)<=frameTime
      ? target
      : insetTime+Math.sign(remaining)*frameTime;
-   }else if(!previewMoving()&&!st.paused&&(!videoMode()||transition.ready())){st.age=Math.min(duration(),st.age+frameTime);if(st.age>=duration()){st.paused=true;hooks.onChange?.();}}st.replay=st.age/duration();const state=String(st.v)+' km/s';if(state!==lastState){lastState=state;hooks.onState?.(state);}const g=mk(),ready=st.age===0&&st.paused&&!st.started;
+   }else if(!previewMoving()&&!st.paused){st.age=Math.min(duration(),st.age+frameTime);if(st.age>=duration()){st.paused=true;hooks.onChange?.();}}st.replay=st.age/duration();const state=String(st.v)+' km/s';if(state!==lastState){lastState=state;hooks.onState?.(state);}const g=mk(),ready=st.age===0&&st.paused&&!st.started;
    if(!ready){
     const centered=directEarth()&&getPath(st.v).m.kind==='closed';
     c.save();
@@ -666,6 +690,19 @@ const coast=(()=>{
  return samples;
 })();
 const LANDING=INSERTION+(coast.length-1)*SAMPLE_STEP;
+const apexIndex=coast.findIndex(sample=>sample.vr<=0);
+const apexFraction=coast[apexIndex-1].vr/(coast[apexIndex-1].vr-coast[apexIndex].vr);
+const APEX=INSERTION+(apexIndex-1+apexFraction)*SAMPLE_STEP;
+const DIRECTION_PULLBACK_TIME=1.15;
+
+export function directionCamera(time,condition,reducedMotion=false){
+ const start=condition==='straight'?APEX:LIFTOFF;
+ const progress=(time-start)/DIRECTION_PULLBACK_TIME;
+ return {
+  wide:reducedMotion?Number(progress>=0):ease(progress),
+  pullingBack:!reducedMotion&&progress>=0&&progress<1
+ };
+}
 
 export const directionDuration=condition=>condition==='turn'?ORBIT_END:LANDING;
 
@@ -700,94 +737,218 @@ export function directionState(time,condition){
 }
 
 // Leave clearance for the solar panels at the top and bottom of the orbit.
+const DIRECTION_PANEL_SCALE=.7;
+// The 1248 × 560 canvas is displayed at 1.2× on the 1920 × 1080 design stage.
+const DIRECTION_LABEL_SIZE=20;
+const DIRECTION_ARROW_HEIGHT=26;
+const DIRECTION_ARROW_LENGTH_SCALE=1.2;
+const GRAVITY_COLOR='#c4b7e5';
 const DIRECTION_VIEW={x:755,y:327,r:220};
 const directionPoint=({x,y})=>[DIRECTION_VIEW.x+DIRECTION_VIEW.r*x,DIRECTION_VIEW.y+DIRECTION_VIEW.r*y];
 const launchPoint=directionPoint({x:0,y:-1});
 const apexY=DIRECTION_VIEW.y-DIRECTION_VIEW.r*Math.max(...coast.map(sample=>sample.r));
 const directionTrails={
- straight:[launchPoint,[launchPoint[0],apexY]],
  turn:Array.from({length:Math.ceil(ORBIT_END/SAMPLE_STEP)+1},(_,i)=>
   directionPoint(directionState(Math.min(ORBIT_END,i*SAMPLE_STEP),'turn')))
 };
 
-function drawDirectionScene(c,{time,direction,earth,earthImage,rocket,horizon,closeup}){
- const {condition,completed,flight}=direction,{x,y,r}=DIRECTION_VIEW;
- const other=condition==='turn'?'straight':'turn';
- const showComparison=time>0&&completed.has(other);
- const zoom=1+(horizon.radius/r-1)*closeup;
- const cameraX=x+(horizon.x-x)*closeup;
- const cameraHorizon=y-r+(horizon.y-(y-r))*closeup;
- c.save();
- c.translate(cameraX,cameraHorizon);
- c.scale(zoom,zoom);
- c.translate(-x,r-y);
- const nearOpacity=earthImage.naturalWidth?closeup:0;
- if(nearOpacity<1)earth(c,x,y,r);
- if(nearOpacity>0){
-  c.save();
-  c.globalAlpha*=nearOpacity;
-  c.drawImage(earthImage,x-r,y-r,2*r,2*r);
-  c.restore();
- }
- if(showComparison){
-  line(c,directionTrails[other],'#a8c4c6b0',2.5,[5,7]);
- }
- const [px,py]=directionPoint(flight);
- const releaseElapsed=condition==='turn'?time-LIFTOFF:-1;
- if(time>0){
-  const points=condition==='straight'
-   ?[launchPoint,[px,flight.phase==='fall'||flight.phase==='landed'?apexY:py]]
-   :flight.phase==='orbited'?directionTrails.turn
-    :[...directionTrails.turn.slice(0,1+Math.floor(time/SAMPLE_STEP)),[px,py]];
-  line(c,points,warm,3);
-  if(releaseElapsed>=0){
-   const turn=directionPoint(directionState(LIFTOFF,condition));
-   dot(c,...turn,4,cool);
-   if(releaseElapsed<1){
-    label(c,'释放卫星',turn[0]-120,turn[1]-12,22,cool);
-    c.save();
-    c.translate(...turn);
-    c.scale(1.55,1.55);
-    drawPayloadSeparation(c,rocket,releaseElapsed);
-    c.restore();
-   }
-  }
- }
- if(releaseElapsed>=0)drawDirectionAcceleration(c,px,py,flight);
- const attitude=flight.phase==='turn'?directionState(Math.min(INSERTION,time+.28),condition):flight;
- const tilt=releaseElapsed>=0?Math.atan2(attitude.vx,-attitude.vy):0;
- c.save();c.translate(px,py);
- const rocketScale=mix(1.55,1.85,closeup)/zoom;
- c.scale(rocketScale,rocketScale);
- c.translate(0,-17*(flight.phase==='landed'?1:closeup));
- c.globalAlpha*=1-closeup;
- if(flight.phase==='orbit'||flight.phase==='orbited')drawTianzhou(c,tilt,1);
- else if(releaseElapsed>=0)drawTurningPayload(c,tilt);
- else drawDirectionRocket(c,rocket,tilt,flight.powered,time);
- c.restore();
- c.restore();
- if(closeup>0)drawDirectionInset(c,rocket,tilt,flight.powered,closeup,time);
- if(showComparison)label(c,other==='straight'?'虚线 · 保持竖直':'虚线 · 升空中转向',1060,140,22,cool);
+function directionEarthReveal(opening){
+ // Keep the globe out of the separation shots. Reveal it as the payload is released.
+ return opening.index===3&&opening.phase==='animation'?ease(opening.local/1.8):0;
 }
 
-function drawDirectionAcceleration(c,x,y,flight){
- const radius=Math.hypot(flight.x,flight.y);
- const rx=flight.x/radius,ry=flight.y/radius;
- const draw=(dx,dy,length,name,color)=>{
-  const start=[x+dx*34,y+dy*34],end=[start[0]+dx*length,start[1]+dy*length];
-  c.shadowColor='#122037';
-  c.shadowBlur=5;
-  arrow(c,start,end,color);
-  c.textBaseline='middle';
-  c.textAlign=dx<-.3?'right':'left';
-  const offset=dx<-.3?-10:10;
-  label(c,name,end[0]+offset,end[1],20,color);
- };
+// Qualitative opening-shot vectors, without changing either flight trajectory.
+export function directionOpeningVelocity(elapsed,condition){
+ const progress=ease(elapsed/7.8);
+ const vertical=mix(154,76,progress);
+ const horizontal=condition==='turn'?132*progress:0;
+ return {vertical,horizontal,tilt:Math.atan2(horizontal,vertical)};
+}
+
+function drawDirectionVector(c,arrows,{id,angle,length,color,name,offset=0,maxLength=160,labelRight=false}){
+ const x=Math.cos(angle)*offset,y=Math.sin(angle)*offset;
+ const vector=arrows.draw(c,{id,x,y,angle,maxLength:maxLength*DIRECTION_ARROW_LENGTH_SCALE,
+  height:DIRECTION_ARROW_HEIGHT,strength:length/maxLength,color});
  c.save();
- // The two arrows are qualitative, with separate directions for horizontal
- // propulsion and gravity. Coasting in orbit only retains the gravity arrow.
- draw(-rx,-ry,49,'引力','#8dddf1');
- if(flight.phase==='turn')draw(-ry,rx,47,'推进加速度','#ffdb93');
+ c.globalAlpha*=Math.min(1,vector.opacity*1.5);
+ c.textBaseline='middle';
+ c.shadowColor='#091426';
+ c.shadowBlur=6;
+ const tipX=x+Math.cos(angle)*vector.tipLength;
+ const tipY=y+Math.sin(angle)*vector.tipLength;
+ const labelX=labelRight?tipX+26:tipX;
+ const labelY=labelRight?tipY:tipY+(Math.sin(angle)>.2?22:-22);
+ c.textAlign=labelRight?'left':'center';
+ label(c,name,labelX,labelY,DIRECTION_LABEL_SIZE,color);
+ c.restore();
+}
+
+function drawOpeningVelocityComponents(c,arrows,condition,{vertical,horizontal}){
+ const prefix='direction-'+condition;
+ drawDirectionVector(c,arrows,{id:prefix+'-vertical',angle:-Math.PI/2,length:vertical,
+  color:'#a8c4c6',name:'竖直速度'});
+ if(horizontal>0){
+  drawDirectionVector(c,arrows,{id:prefix+'-horizontal',angle:0,length:horizontal,
+   color:warm,name:'水平速度',labelRight:true});
+ }
+}
+
+function drawDirectionGravity(c,arrows,condition,angle,offset=0){
+ drawDirectionVector(c,arrows,{id:'direction-'+condition+'-gravity',angle,length:108,offset,
+  color:GRAVITY_COLOR,name:'引力'});
+}
+
+function drawDirectionOpening(c,opening,reducedMotion,earth,condition,arrows){
+ const {x,y,r}=DIRECTION_VIEW;
+ const base=455;
+ const payloadOffset=91,releaseRise=14;
+ const releaseY=directionPoint(directionState(LIFTOFF,'turn'))[1];
+ const tracking=ease(opening.elapsed/1.2);
+ const rise=.68*tracking+.32*ease((opening.elapsed-1.2)/6);
+ const foot=mix(base,releaseY+payloadOffset+releaseRise,rise);
+ const {phase,index}=opening;
+ const separating=phase==='animation';
+ const progress=separating?ease(opening.local/2):0;
+ const spread=separating?(reducedMotion?.65:progress):0;
+ // Keep both stages in frame at separation, then close in on the upper stage and payload.
+ const zoom=index===0?mix(1,1.3,tracking)
+  :index===1?mix(1.3,1.8,progress):1.8;
+ const payloadY=foot-payloadOffset-releaseRise*(index===3?progress:0);
+ const focus=index>=2?payloadY:foot-mix(50,payloadOffset,index===1?progress:0);
+ if(!reducedMotion){
+  c.translate(x,y);
+  c.scale(zoom,zoom);
+  c.translate(-x,-mix(y,focus,tracking));
+ }
+ const earthReveal=directionEarthReveal(opening);
+ if(earthReveal>0){
+  c.save();
+  c.globalAlpha=earthReveal;
+  earth(c,x,y,r);
+  c.restore();
+ }
+ const velocity=directionOpeningVelocity(opening.elapsed,condition);
+ const handoff=index===3&&separating?ease(opening.local/2):0;
+ c.save();
+ c.globalAlpha*=1-handoff;
+ c.translate(x,focus);
+ c.rotate(velocity.tilt);
+ c.translate(-x,-focus);
+ drawOpeningRocket(c,{x,foot,payloadY,index,separating,spread,condition});
+ c.restore();
+ if(arrows&&phase!=='ready'){
+  c.save();
+  c.translate(x,focus);
+  const scale=DIRECTION_PANEL_SCALE*(reducedMotion?1:zoom);
+  c.scale(1/scale,1/scale);
+  c.save();
+  c.globalAlpha*=1-handoff;
+  drawOpeningVelocityComponents(c,arrows,condition,velocity);
+  c.restore();
+  drawDirectionGravity(c,arrows,condition,Math.PI/2);
+  c.restore();
+ }
+}
+
+function drawOpeningRocket(c,{x,foot,payloadY,index,separating,spread,condition}){
+ const height=108,color='#a4dce3';
+ if(index>=3){
+  drawPayloadSilhouette(c,x,payloadY,0,condition==='turn'?spread:0);
+  return;
+ }
+ if(index===2){
+  drawPayloadSilhouette(c,x,payloadY,0,0);
+  c.save();
+  c.translate(x,foot+33*spread);
+  c.beginPath();
+  c.rect(-6,-76,12,17);
+  c.clip();
+  drawRocketSilhouette(c,0,0,height,color);
+  c.restore();
+  for(const side of [-1,1]){
+   c.save();
+   c.translate(x+side*51*spread,foot+20*spread);
+   c.rotate(side*.5*spread);
+   c.beginPath();
+   c.rect(side<0?-22:0,-height,22,32);
+   c.clip();
+   drawRocketSilhouette(c,0,0,height,color);
+   c.restore();
+  }
+  return;
+ }
+ if(!separating){
+  c.shadowColor='#102233';
+  c.shadowBlur=5;
+  drawRocketSilhouette(c,x,foot,height,color);
+  return;
+ }
+ // Use crops of the same length-scaled CZ-7 silhouette for the visible pieces.
+ const slices=index===0
+  ?[[-6,-108,12,108,0,0],[-13,-57,7,57,-52,32],[6,-57,7,57,52,32]]
+  :[[-6,-108,12,49,0,0],[-6,-59,12,59,0,95]];
+ for(const [left,top,width,tall,dx,dy] of slices){
+  c.save();
+  c.translate(x+dx*spread,foot+dy*spread);
+  c.beginPath();
+  c.rect(left,top,width,tall);
+  c.clip();
+  drawRocketSilhouette(c,0,0,height,color);
+  c.restore();
+ }
+}
+
+function drawDirectionScene(c,time,condition,flight,earth,wide,arrows){
+ const {x,y,r}=DIRECTION_VIEW;
+ const [px,py]=directionPoint(flight);
+ c.translate(x,y);
+ const zoom=mix(1.8,1,wide);
+ c.scale(zoom,zoom);
+ c.translate(-mix(px,x,wide),-mix(py,y,wide));
+ earth(c,x,y,r);
+ c.save();
+ c.globalAlpha*=ease((time-LIFTOFF)/.6);
+ const points=condition==='straight'
+  ?[launchPoint,[px,flight.phase==='fall'||flight.phase==='landed'?apexY:py]]
+  :flight.phase==='orbited'?directionTrails.turn
+   :[...directionTrails.turn.slice(0,1+Math.floor(time/SAMPLE_STEP)),[px,py]];
+ line(c,points,warm,3);
+ const release=directionPoint(directionState(LIFTOFF,condition));
+ dot(c,...release,4,cool);
+ const tilt=Math.atan2(flight.vx,-flight.vy);
+ const payloadY=flight.phase==='landed'?py-14:py;
+ drawPayloadSilhouette(c,px,payloadY,tilt,condition==='turn'?1:0);
+ c.restore();
+ if(arrows){
+  c.save();
+  c.translate(px,payloadY);
+  const scale=DIRECTION_PANEL_SCALE*zoom;
+  c.scale(1/scale,1/scale);
+  const gravityAngle=Math.atan2(y-payloadY,x-px);
+  drawDirectionGravity(c,arrows,condition,gravityAngle,23);
+  if(condition==='turn'&&flight.phase==='turn'&&wide===1){
+   drawDirectionVector(c,arrows,{id:'direction-turn-propulsion',angle:gravityAngle-Math.PI/2,
+    length:96,offset:22,color:'#ffdb93',name:'推进加速度'});
+  }
+  c.restore();
+ }
+}
+
+function drawPayloadSilhouette(c,x,y,tilt,wingSpread){
+ c.save();
+ c.translate(x,y);
+ c.rotate(tilt);
+ c.fillStyle='#a4dce3';
+ c.beginPath();
+ c.roundRect(-7,-15,14,30,4);
+ c.fill();
+ if(wingSpread>0){
+  const arm=7+6*wingSpread;
+  const panel=11*wingSpread;
+  c.fillRect(-arm,-2,2*arm,4);
+  c.fillRect(-arm-panel,-6,panel,12);
+  c.fillRect(arm,-6,panel,12);
+ }
  c.restore();
 }
 
@@ -802,84 +963,5 @@ export function drawTianzhou(c,tilt,progress){
   const tile=tianzhouFrames.naturalWidth/4;
   c.drawImage(tianzhouFrames,frame%4*tile,Math.floor(frame/4)*tile,tile,tile,-30,-30,60,60);
  }
- c.restore();
-}
-
-function drawTurningPayload(c,tilt){
- c.save();
- c.rotate(tilt);
- c.fillStyle='#e5c57b';
- c.strokeStyle='#fff0c6';
- c.beginPath();c.roundRect(-6,-10,12,20,4);c.fill();c.stroke();
- c.restore();
-}
-
-// The fairing and spent stage are presentation elements, timed by the flight clock.
-function drawPayloadSeparation(c,rocket,elapsed){
- const progress=1-(1-elapsed)**2;
- const opacity=1-Math.max(0,(elapsed-.5)*2);
- const width=rocket.naturalWidth?34*rocket.naturalWidth/rocket.naturalHeight:12;
- const half=width/2;
- const shellBottom=-5;
- const drawPiece=(left,top,right,bottom,x,y,rotation)=>{
-  c.save();
-  c.translate(x,y);
-  c.rotate(rotation);
-  c.globalAlpha*=opacity;
-  c.beginPath();
-  c.rect(left,top,right-left,bottom-top);
-  c.clip();
-  drawDirectionRocket(c,rocket,0,false);
-  c.restore();
- };
- // The body slips back while the two fairing halves peel away from the payload.
- drawPiece(-half,shellBottom,half,17,0,mix(0,35,progress),0);
- for(const side of [-1,1]){
-  drawPiece(side<0?-half:0,-17,side<0?0:half,shellBottom,
-   side*mix(2,31,progress),mix(11,24,progress),side*.8*progress);
- }
-}
-
-function drawDirectionRocket(c,rocket,tilt,powered,time){
- const height=34;
- c.rotate(tilt);
- if(powered){
-  c.save();
-  c.translate(0,-height/2);
-  c.scale(height/ROCKET_HEIGHT,height/ROCKET_HEIGHT);
-  drawLiftoffExhaust(c,time);
-  c.restore();
- }
- if(rocket.naturalWidth){
-  const width=height*rocket.naturalWidth/rocket.naturalHeight;
-  c.drawImage(rocket,-width/2,-height/2,width,height);
- }else{
-  c.fillStyle=ink;c.beginPath();c.moveTo(0,-16);c.lineTo(6,15);c.lineTo(-6,15);c.closePath();c.fill();
- }
-}
-
-function drawDirectionInset(c,rocket,tilt,powered,opacity,time){
- const {width,height}=c.canvas;
- const x=width*.54,y=height*.288,w=width*.306,h=height*.48;
- const pointerY=y+h*.87;
- c.save();
- c.resetTransform();
- c.globalAlpha*=opacity;
- c.lineWidth=width*.003;
- c.strokeStyle='#b9cdd8';
- c.fillStyle='#15344d';
- c.beginPath();
- c.roundRect(x,y,w,h,width*.008);
- c.fill();c.stroke();
- c.fillStyle=c.strokeStyle;
- c.beginPath();
- c.moveTo(x,pointerY-height*.012);
- c.lineTo(x-width*.011,pointerY);
- c.lineTo(x,pointerY+height*.012);
- c.fill();
- c.translate(x+w/2,y+h/2);
- const scale=h*.72/34;
- c.scale(scale,scale);
- drawDirectionRocket(c,rocket,tilt,powered,time);
  c.restore();
 }

@@ -122,13 +122,6 @@ dialog h2{margin-top:0}
 .pump-control:hover,.pump-control:focus-visible{background-color:transparent;border:0;transform:translateY(-2px)}
 .pump-control:active{transform:translateY(6px) scale(.985);filter:drop-shadow(0 6px 12px rgba(4,7,16,.5))}
 .pump-control:focus-visible{outline:1px solid rgba(216,176,116,.55);outline-offset:6px}
-.pump-hint{
-  position:absolute;right:9%;bottom:2%;width:150px;text-align:center;
-  font-size:15px;letter-spacing:.14em;color:var(--ink-dim);pointer-events:none;
-}
-.pump-hint::before{content:'';position:absolute;left:0;right:0;top:-10px;height:1px;background:rgba(232,224,204,.14)}
-
-
 /* ---- 第二章：速度配对（matching 紧凑排布） ---- */
 #controls.matching{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 #controls.matching button{font-size:15px;padding:8px;min-height:52px;letter-spacing:.04em}
@@ -385,19 +378,18 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="4"] #chapters{position:absolute}
 #app[data-step="4"] .stage{background:none}
 
-#app[data-step="4"] .rocket-flight-sky{visibility:hidden}
-
 #velocity-backdrop[hidden]{display:none}
 
 /* Balloon bench: generated environment, independently drawn apparatus and balloon. */
 #app[data-step="0"]{background:#131e31 url('assets/balloon-lab/background.webp') center/cover no-repeat}
 #app[data-step="0"]::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#091020e8,#09102088 17%,transparent 37%),linear-gradient(0deg,#091020e8,transparent 28%)}
+#app[data-step="0"][data-balloon-moving]::after{background-color:#07101c94}
+#app[data-step="0"][data-balloon-moving] .pump-control{opacity:.44}
 #app[data-step="0"] header,#app[data-step="0"] .workspace,#app[data-step="0"] footer{position:relative;z-index:2}
 #app[data-step="0"] #chapters{z-index:3}
 #app[data-step="0"] .stage{background:none}
 #app[data-step="0"] .rocket-flight-sky{visibility:hidden}
 #app[data-step="0"] .pump-control{width:125px;height:255px;left:2.5%;right:auto;bottom:17%}
-#app[data-step="0"] .pump-hint{left:2.5%;right:auto;bottom:12%;width:125px}
 
 /* Fixed hit area and pump cylinder; only the upper handle/piston moves. */
 #app[data-step="0"] .pump-control{background:none;overflow:hidden}
@@ -405,7 +397,6 @@ header{height:106px;flex:none;align-items:flex-start}
 .pump-upper,.pump-lower{position:absolute;inset:0;pointer-events:none;background:url('assets/balloon-lab/pump-modern.webp') center/contain no-repeat}
 .pump-upper{clip-path:inset(0 0 80% 0);transform:translateY(var(--pump-travel,0px))}
 .pump-lower{clip-path:inset(19% 0 0 0)}
-.pump-count{position:absolute;left:2.5%;right:auto;bottom:7%;width:125px;text-align:center;color:var(--ink);font-size:22px;pointer-events:none;font-variant-numeric:tabular-nums}
 .rocket-replay-icon,#controls .rocket-replay-icon,#app[data-step="4"] #controls .rocket-replay-icon{width:56px;min-width:56px;height:56px;min-height:56px;padding:14px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:#10172b55;color:var(--ink-dim)}
 .balloon-reset svg{width:26px;height:26px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
 #app[data-step="0"] #scene-controls .control-cluster{min-width:0}
@@ -422,15 +413,12 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="8"] .rocket-3d .rocket-webgl{pointer-events:none}
 #app[data-step="7"] #parts{z-index:3}
 #app[data-step="7"] .stage{overflow:hidden}
-.assembly-3d-board{position:absolute;right:80px;bottom:92px;z-index:7;pointer-events:none}
 .assembly-3d-piece,.assembly-3d-return{position:absolute;bottom:12px;width:18%;font-size:18px;touch-action:none;background:#10172bcc;pointer-events:auto}
 .assembly-3d-piece.selected{border-color:var(--warm);color:var(--warm)}
-.assembly-context-action{min-width:210px;min-height:52px;font-size:var(--type-body);background:#213e50;border:1px solid #d6b57e;color:#edcd97;pointer-events:auto;touch-action:manipulation}
 .assembly-install-target{position:absolute;z-index:4;min-width:0;min-height:0;padding:0;border:1px solid transparent;background:transparent;pointer-events:auto;touch-action:manipulation}
-.assembly-install-target.internal{border:1px dashed #a6d5e08c}
-.assembly-install-target:is(:hover,:focus-visible){border-color:#e8bf7e;background:#e8bf7e12;outline:none}
+.assembly-install-target.internal:not(.installed){border:1px dashed #a6d5e08c}
+.assembly-install-target:not(.installed):hover,.assembly-install-target:focus-visible{border-color:#e8bf7e;background:#e8bf7e12;outline:none}
 .assembly-install-target[hidden]{display:none}
-.assembly-3d-board button[hidden]{display:none}
 
 /* Generic staging comparison follows the CZ-7 lesson, with its own ideal data. */
 #app[data-step="9"] .workspace{display:block}
@@ -588,7 +576,6 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-rocket-phase="assemble"] #controls{display:block;position:absolute;right:16px;bottom:16px;width:auto;pointer-events:auto}
 #app[data-rocket-phase="assemble"] #controls>.control-cluster{display:block;position:static;border:0;background:none;padding:0}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback{top:auto;bottom:30px;pointer-events:none}
-#app[data-step="7"] #feedback[data-floating="assembly"]{position:fixed;inset:auto 365px 92px 510px;max-width:none;width:auto;min-height:52px;margin:0;padding:12px 54px 12px 16px;background:#0d2b40f2;border-left:2px solid #e8bf7e;pointer-events:auto}
 .rocket-blueprint-targets button.blueprint-label{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:5px 10px;clip-path:none!important;background:#10334ed9!important;border:1px solid #9fc7df55;border-radius:20px;font-size:var(--type-body);font-weight:400;line-height:var(--type-leading);white-space:nowrap;transform:translate(-50%,-50%);transition:background .1s,color .1s}
 .rocket-blueprint-targets button.blueprint-label::before{content:'';width:10px;height:10px;border:1.5px solid #a8d5e3;border-radius:50%;flex:none}
 .rocket-blueprint-targets button.blueprint-label:is(:hover,:focus-visible,[aria-pressed="true"]){background:#344d5beF!important;border-color:#e8bf7e;color:#f0cd8d}
@@ -596,6 +583,10 @@ header{height:106px;flex:none;align-items:flex-start}
 .rocket-blueprint-targets button.blueprint-label:active,.rocket-blueprint-targets button.blueprint-label[data-down="true"]{background:#756342!important;border-color:#ffe0a3;box-shadow:inset 0 0 0 2px #f0cd8d66}
 .blueprint-heading{position:absolute;transform:translateY(-50%);font-size:var(--type-data-label);font-weight:600;color:#bad7e3;pointer-events:none;white-space:nowrap}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) aside{z-index:6}
+#app[data-rocket-phase="assemble"] #feedback:not(:empty){
+ position:fixed;inset:auto 365px 92px 510px;width:auto;max-width:none;
+ border-left-color:#e8bf7e;color:#f0eadb;
+}
 /* Plain drawing annotations; the graphics alone carry interaction state. */
 .blueprint-note{position:absolute;transform:translate(-50%,-50%);font-size:var(--type-body);font-weight:400;line-height:var(--type-leading);white-space:nowrap;color:#d7e8ef;pointer-events:none}
 .rocket-blueprint-targets button.blueprint-graphic-target,.rocket-blueprint-targets button.blueprint-graphic-target:is(:hover,:focus-visible,[aria-pressed="true"],:active){padding:0;min-height:0;border:0;border-radius:0;background:transparent!important;box-shadow:none;outline:none;transform:none}
@@ -604,7 +595,7 @@ header{height:106px;flex:none;align-items:flex-start}
 }
 /* Larger model workbench; details attach to the selected 3D object. */
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .stage{left:-16px;right:-20px;top:-126px;bottom:-8px}
-#app #feedback:is([data-floating="true"],[data-floating="assembly"]){
+#app #feedback[data-floating="true"]{
  --rocket-tip-surface:#e5f4ed;--rocket-tip-edge:#84ab9d;
  padding:7px 13px 11px;background:var(--rocket-tip-surface);color:#1b3735;
  border:1px solid var(--rocket-tip-edge);border-radius:10px;box-shadow:0 3px 10px #071b303d;
@@ -636,11 +627,14 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="8"] > .workspace{z-index:2}
 
 /* Balloon playback controls stay below the pump, outside the clipped stage. */
+.balloon-reading{position:absolute;display:grid;gap:2px;color:var(--ink-dim);font-size:var(--type-body);pointer-events:none}
+.balloon-reading output{display:block;color:var(--ink);font-variant-numeric:tabular-nums}
+.balloon-reading-value{font-size:var(--type-number);font-weight:500}
+.balloon-reading-unit{color:var(--ink-dim);font-size:var(--type-body);font-weight:400}
+.balloon-operation-tip{font-size:var(--type-body)}
 #app[data-step="0"] .balloon-tools{position:absolute;z-index:4;margin:0;padding:0;border:0;display:flex;align-items:center;gap:14px;background:none;min-width:0}
 .rocket-replay-icon,#controls .rocket-replay-icon,#app[data-step="4"] #controls .rocket-replay-icon{flex:none;color:var(--ink);background:#10263a99}
 .rocket-replay-icon:is(:hover,:focus-visible),#controls .rocket-replay-icon:is(:hover,:focus-visible){background:#344859;border-color:#d8b074;color:#f3e3c4}
-#app[data-step="0"] .balloon-tools .balloon-slow{min-height:56px;min-width:156px;padding:8px 10px;font-size:var(--type-body);gap:12px;white-space:nowrap}
-#app[data-step="0"] .balloon-tools .balloon-slow:is(:hover,:focus-visible){background:#ffffff08;color:#f3e3c4}
 
 /* Place click choices beside their force arrows. */
 #app[data-step="2"] #parts #controls{position:absolute;inset:0;pointer-events:none;display:block}
@@ -700,22 +694,54 @@ header{height:106px;flex:none;align-items:flex-start}
  visibility:hidden;
 }
 
+#app[data-vertical-flight] .stage {
+  top: 16px;
+  bottom: auto;
+  height: 560px;
+}
+.direction-panels {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.direction-panels section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(#091426a8, transparent 17%);
+  border: 1px solid #a8c4c660;
+  border-radius: 16px;
+  padding: 18px 24px;
+}
+.direction-panels h3,
+.direction-panels p {
+  margin: 0;
+  text-align: center;
+  font-size: var(--type-body);
+}
+.direction-panels h3 {
+  color: var(--ink);
+  font-weight: 600;
+}
+.direction-panels p {
+  align-self: center;
+  padding: 4px 14px;
+  border-radius: 8px;
+  background: #091426e8;
+  color: var(--warm);
+}
+.direction-panels p:empty {
+  visibility: hidden;
+}
 #app[data-vertical-flight] aside {
   grid-template-columns: minmax(0, 1fr) auto;
-  height: 132px;
+  height: 88px;
   align-content: center;
-  row-gap: 4px;
-}
-#app[data-vertical-flight] #feedback {
-  display: block;
-  grid-column: 1;
-  grid-row: 1;
-  font-size: var(--type-data-label);
-  color: var(--ink);
 }
 #app[data-vertical-flight] #direction-conclusion {
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 1;
   margin: 0;
   font-size: var(--type-body);
   color: var(--ink-dim);
@@ -723,7 +749,7 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-vertical-flight] #controls {
   display: flex;
   grid-column: 2;
-  grid-row: 1 / 3;
+  grid-row: 1;
   gap: 20px;
   flex-wrap: nowrap;
 }
@@ -735,10 +761,6 @@ header{height:106px;flex:none;align-items:flex-start}
   min-width: 100px;
   font-size: var(--type-body);
   padding-inline: 14px;
-}
-#app[data-vertical-flight] #controls button[aria-pressed=true] {
-  border-color: var(--warm);
-  color: var(--warm);
 }
 #app[data-vertical-flight] #controls button[hidden] {
   display: none;
@@ -780,4 +802,13 @@ footer #prompt{
   color:var(--ink-dim);
   font-size:var(--type-body);
   line-height:var(--type-leading);
+}
+
+
+/* Render the common opening at one panel's size and composite it into both views. */
+#app[data-vertical-flight] .rocket-3d {
+  right: calc(50% + 12px);
+}
+#app[data-vertical-flight] .rocket-webgl {
+  visibility: hidden;
 }

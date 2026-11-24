@@ -38,9 +38,13 @@ export function videoAnchor(index,time){
  const rows=CAMERA_TRACKS[index];let hi=rows.findIndex(r=>r[0]>=time);if(hi<0)return rows.at(-1).slice(1);if(hi===0)return rows[0].slice(1);
  const a=rows[hi-1],b=rows[hi],u=(time-a[0])/(b[0]-a[0]);return a.slice(1).map((v,i)=>v+(b[i+1]-v)*u);
 }
-export function createCannonTransition(onReady=()=>{}){
+export function createCannonTransition(onReady=()=>{},arrows){
  const muzzleSequence=createMuzzleSequence(onReady);
- const images=['close','ground','curve','earth','earth-layer'].map(name=>{const im=new Image();im.onload=onReady;im.src=ROOT+name+'.png';return im;});
+ const images=['close.webp','ground.webp','curve.png','earth.png','earth-layer.png'].map(file=>{
+  const image=new Image();image.src=ROOT+file;
+  image.decode().then(onReady,()=>{});
+  return image;
+ });
  const clips=['fast-ground','prepared-earth'].map(name=>{
   const video=document.createElement('video');video.muted=true;video.playsInline=true;video.preload='auto';video.dataset.src=ROOT+name+'.mp4';
   video.addEventListener('loadeddata',onReady);video.addEventListener('seeked',onReady);video.addEventListener('error',onReady);return video;
@@ -48,7 +52,7 @@ export function createCannonTransition(onReady=()=>{}){
  const held=document.createElement('canvas');held.width=1600;held.height=900;const heldContext=held.getContext('2d');
  let heldReady=false,heldAnchor=videoAnchor(0,0);
  let current=-1,error=false,cachedPath=null,layout=null;
- const stop=()=>{clips.forEach(v=>v.pause());current=-1;};
+ const stop=()=>{if(current>=0)clips[current].pause();current=-1;};
  // Feather only the outer sky while the video is scaled into its final framing.
  const edgeMask=document.createElement('canvas');edgeMask.width=1600;edgeMask.height=900;const mc=edgeMask.getContext('2d');
  mc.fillStyle='white';mc.fillRect(0,0,1600,900);mc.globalCompositeOperation='destination-in';
@@ -58,24 +62,26 @@ export function createCannonTransition(onReady=()=>{}){
  function draw(c,st,path,reducedMotion=false,drawSpaceBackdrop){
   prepare();
   const low=path.m.kind==='impact',cameraEnd=low?TRANSITION_TIMING.groundEnd:TRANSITION_TIMING.earthEnd,videoIndex=low?0:1;
-  const video=clips[videoIndex];let age=st.age;
-  // One decoder and its media clock span the positioning/launch boundary.
-  // Seeking belongs to reset(), never to a rendering frame.
-  if(age>0&&(age<cameraEnd||current===videoIndex&&!video.ended&&video.currentTime<cameraEnd)){
+  const video=clips[videoIndex],age=st.age;
+  // Media supplies the backdrop only. A pending seek or a stalled decoder
+  // must not rewind or stop the scene clock.
+  if(age>0&&age<cameraEnd){
    if(current!==videoIndex){stop();current=videoIndex;}
-   if(video.readyState>=2){
-    if(st.paused)video.pause();else if(!video.ended&&video.paused)video.play().catch(()=>{error=true;onReady();});
-    if(!st.paused&&!video.seeking)age=st.age=Math.min(cameraEnd,Math.max(.000001,video.currentTime));
-   }
+   if(st.paused)video.pause();
+   else if(!error&&!video.error&&!video.seeking&&!video.ended&&video.paused)video.play().catch(reason=>{if(reason.name!=='AbortError'){error=true;onReady();}});
   }
   const positioning=age>0&&age<TRANSITION_TIMING.launchDelay,flightAge=Math.max(0,age-TRANSITION_TIMING.launchDelay);
   const nativeTime=age<TRANSITION_TIMING.launchDelay?age*4:6+flightAge*8,index=nativeTime<6?0:nativeTime<12?1:2;
   const moving=age>0&&age<cameraEnd,frame=age===0?0:age>=cameraEnd?(low?1:3):index;
   let source=images[frame],anchor=videoAnchor(0,0);
-  if(age===0&&images[0].naturalWidth){heldContext.drawImage(images[0],0,0,1600,900);heldReady=true;heldAnchor=anchor;}
   if(moving){
-   if(!video.seeking&&video.readyState>=2){heldContext.drawImage(video,0,0,1600,900);heldReady=true;const measuredTime=video.currentTime<1.5?video.currentTime*4:6+(video.currentTime-1.5)*8,measuredIndex=measuredTime<6?0:measuredTime<12?1:2;heldAnchor=videoAnchor(measuredIndex,measuredTime-[0,6,12][measuredIndex]);}
-   if(heldReady){source=held;anchor=heldAnchor;}else{source=images[index];anchor=videoAnchor(index,0);}
+   if(!video.seeking&&video.readyState>=2){
+    const measuredTime=video.currentTime<1.5?video.currentTime*4:6+(video.currentTime-1.5)*8,measuredIndex=measuredTime<6?0:measuredTime<12?1:2;
+    heldAnchor=videoAnchor(measuredIndex,measuredTime-[0,6,12][measuredIndex]);
+    if(!low){heldContext.drawImage(video,0,0,1600,900);heldReady=true;}
+    source=low?video:held;anchor=heldAnchor;
+   }else if(heldReady){source=held;anchor=heldAnchor;}
+   else{source=images[index];anchor=videoAnchor(index,0);}
   }else stop();
   c.save();c.setTransform(1,0,0,1,0,0);
   if(source===held||source?.naturalWidth||source?.readyState>=2)c.drawImage(source,0,0,1600,900);
@@ -116,13 +122,14 @@ export function createCannonTransition(onReady=()=>{}){
    const radial=[dx/length,dy/length],gravity=low?1:1/head.r**2,centrifugal=low?0:path.m.h**2/head.r**3;
    st.forces={gravity,centrifugal,head,center,frame:low?'flat':'rotating',circularSpeed:7.9/Math.sqrt(r0)};
    if(!(low&&progress===1)){
-    const forceArrow=(magnitude,sign,color,text)=>{
+    const forceArrow=(id,magnitude,sign,color,text)=>{
      const end=[xy[0]+sign*radial[0]*Math.min(180,68*magnitude),xy[1]+sign*radial[1]*Math.min(180,68*magnitude)];
-     const a=Math.atan2(end[1]-xy[1],end[0]-xy[0]);c.strokeStyle=color;c.lineWidth=2;c.beginPath();c.moveTo(...xy);c.lineTo(...end);c.moveTo(end[0]-9*Math.cos(a-.4),end[1]-9*Math.sin(a-.4));c.lineTo(...end);c.lineTo(end[0]-9*Math.cos(a+.4),end[1]-9*Math.sin(a+.4));c.stroke();c.fillStyle=color;c.font='16px "Alibaba PuHuiTi 3",sans-serif';c.textAlign='left';c.fillText(text,end[0]+12,end[1]);
+     arrows?.drawBetween(c,{id,from:xy,to:end,color});
+     c.fillStyle=color;c.font='16px "Alibaba PuHuiTi 3",sans-serif';c.textAlign='left';c.fillText(text,end[0]+12,end[1]);
     };
-    forceArrow(gravity,1,'#a8c4c6',low?'重力':'引力');
+    forceArrow('gravity',gravity,1,'#a8c4c6',low?'重力':'引力');
     if(!low){
-     forceArrow(centrifugal,-1,'#edb27b','离心惯性力');
+     forceArrow('centrifugal',centrifugal,-1,'#edb27b','离心惯性力');
      c.fillStyle='#a9b0bf';c.font='16px "Alibaba PuHuiTi 3",sans-serif';c.fillText('旋转参考系',28,865);
     }
    }
@@ -150,5 +157,5 @@ export function createCannonTransition(onReady=()=>{}){
   c.restore();
  }
 
- return{draw,prepare,stop,reset(){stop();for(const video of clips)if(video.readyState&&video.currentTime>.001)video.currentTime=0;},ready:()=>muzzleSequence.ready()&&images.every(im=>im.complete&&im.naturalWidth>0)&&clips.every(v=>v.readyState>=2),dispose(){stop();clips.forEach(v=>{v.removeAttribute('src');v.load();});}};
+ return{draw,prepare,stop,reset(){stop();heldReady=false;error=false;for(const video of clips)if(video.readyState&&video.currentTime>.001)video.currentTime=0;},dispose(){stop();clips.forEach(v=>{v.removeAttribute('src');v.load();});}};
 }

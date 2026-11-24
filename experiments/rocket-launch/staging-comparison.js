@@ -24,20 +24,6 @@ function drawHeightGrid(c,range){
  }
 }
 
-function drawFlightArrow(c,x,y,color){
- if(y>=COMPARISON_BOTTOM)return;
- const half=Math.min(16,Math.max(0,(COMPARISON_BOTTOM-y)*.6));
- c.fillStyle=color;
- if(!half)return;
- c.fillRect(x-3,y+half,6,Math.max(0,COMPARISON_BOTTOM-y-half));
- c.beginPath();
- c.moveTo(x,y);
- c.lineTo(x+half,y+half*1.55);
- c.lineTo(x-half,y+half*1.55);
- c.closePath();
- c.fill();
-}
-
 function drawResult(c,x,y,height,color){
  c.beginPath();
  c.roundRect(x-75,y-53,150,37,10);
@@ -56,7 +42,7 @@ function drawResult(c,x,y,height,color){
  c.fillText(Math.round(height)+' 示意格',x,y-28);
 }
 
-export function drawStagingComparison(c,lesson){
+export function drawStagingComparison(c,lesson,arrows){
  const {heights}=comparisonFlight(lesson);
  const launched=lesson.running||lesson.progress>0||lesson.complete;
  c.save();
@@ -74,7 +60,7 @@ export function drawStagingComparison(c,lesson){
    c.strokeStyle=plan.color;
    c.lineWidth=1.5;
    c.stroke();
-   drawFlightArrow(c,arrowX,arrowY,plan.color);
+   if(arrowY<COMPARISON_BOTTOM)arrows.drawBetween(c,{id:'staging-height-'+index,from:[arrowX,COMPARISON_BOTTOM],to:[arrowX,arrowY],color:plan.color,height:32});
    if(lesson.complete)drawResult(c,arrowX,arrowY,height,plan.color);
   }
   c.fillStyle=plan.color;
