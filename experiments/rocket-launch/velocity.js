@@ -1,6 +1,6 @@
 import {loadRocketSilhouette, drawRocketSilhouette} from './rocket-silhouette.js';
 import {createRocketStarfield} from './components/rocket-flight-sky/starfield.js';
-import {createCannonTransition,groundPlaybackEnd,TRANSITION_TIMING,usesGroundView} from './cannon-transition.js?v=cannon-projectile';
+import {createCannonTransition,drawMountainHeight,groundPlaybackEnd,TRANSITION_TIMING,usesGroundView} from './cannon-transition.js?v=cannon-projectile';
 import {CANNON_ART} from './assets/cannon-scene/geometry.js';
 import {MODEL,GEARS,model,pathOf,solarPath,positionAt,groundPath,projectGroundDistance} from './orbital-model.js';
 export {MODEL,model,pathOf,solarPath,positionAt} from './orbital-model.js';
@@ -12,7 +12,7 @@ const CANNON_INSET={x:130,y:105,size:222};
 const SPEED_AXIS={x:360,y:230,w:960,stroke:18};
 const EARTH_SHOT={x:208.5,y:495,r:145};
 const TRAJECTORY_VIEW={left:26,right:1390,top:104,bottom:637};
-const CLOSED_ORBIT_VIEW={left:20,right:1160,top:116,bottom:636};
+const CLOSED_ORBIT_VIEW={left:24,right:1266,top:78,bottom:698};
 const CLOSED_ORBIT_CENTER_X=(CLOSED_ORBIT_VIEW.left+CLOSED_ORBIT_VIEW.right)/2;
 const OBSERVATION_TIME=.85;
 const RING_SAMPLES=Array.from({length:121},(_,i)=>[Math.cos(tau*i/120),Math.sin(tau*i/120)]);
@@ -22,8 +22,8 @@ const orbitRing=(project,x=0,y=0,r=1)=>RING_SAMPLES.map(([u,v])=>project({x:x+r*
 const EARTH_COMPARISONS=[4.5,7.89,7.9,11.2];
 const PULLBACK_EARTH_X=750;
 const LUNAR_WIDE_SHOT=4,LUNAR_ORBIT_TIME=4;
-const MOON={x:970,y:430,r:56,orbitRadius:135};
-const TRANSFER_EARTH={x:270,y:362,r:100};
+const MOON={x:1075,y:446,r:66,orbitRadius:157};
+const TRANSFER_EARTH={x:202,y:382,r:120};
 const earthProject=p=>[EARTH_SHOT.x+p.x*EARTH_SHOT.r,EARTH_SHOT.y-p.y*EARTH_SHOT.r];
 function fitTrajectories(paths,project,center,radius,view,fill=false){
  let left=center[0]-radius,right=center[0]+radius,top=center[1]-radius,bottom=center[1]+radius;
@@ -44,20 +44,37 @@ function fitTrajectories(paths,project,center,radius,view,fill=false){
 function label(c,s,x,y,size=22,color=ink){c.fillStyle=color;c.font=`${size}px "Alibaba PuHuiTi 3",sans-serif`;c.fillText(s,x,y);}
 function line(c,pts,color=warm,width=2,dash=[]){if(!pts.length)return;c.save();c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.lineJoin='round';c.setLineDash(dash);c.beginPath();pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.stroke();c.restore();}
 function dot(c,x,y,r=4,color=ink){c.fillStyle=color;c.beginPath();c.arc(x,y,r,0,tau);c.fill();}
-function orbitVectors(c,arrows,point,tangent,center,scale=1){
- for(const [id,direction,length,color] of [['velocity',tangent,34,warm],['gravity',center,31,cool]]){
-  const dx=direction[0]-point[0],dy=direction[1]-point[1],m=Math.hypot(dx,dy);
-  if(m>0)arrows?.drawBetween(c,{id,from:point,to:[point[0]+dx/m*length*scale,point[1]+dy/m*length*scale],color});
+function orbitVectors(c,arrows,point,tangent,center){
+ const [x,y]=point;
+ for(const [id,direction,length,color,text] of [
+  ['velocity',tangent,128,warm,'速度方向'],
+  ['gravity',center,105,cool,'引力方向'],
+ ]){
+  const dx=direction[0]-x,dy=direction[1]-y,m=Math.hypot(dx,dy);
+  if(!m)continue;
+  const ux=dx/m,uy=dy/m;
+  const horizontalRoom=ux>0?(1450-x)/ux:ux<0?(22-x)/ux:Infinity;
+  const verticalRoom=uy>0?(695-y)/uy:uy<0?(58-y)/uy:Infinity;
+  const span=Math.min(length,Math.max(0,Math.min(horizontalRoom,verticalRoom)));
+  if(span<12)continue;
+  const end=[x+ux*span,y+uy*span];
+  arrows?.drawBetween(c,{id,from:point,to:end,color,height:29});
+  c.save();
+  c.font='24px "Alibaba PuHuiTi 3",sans-serif';
+  c.textAlign='center';
+  c.textBaseline='middle';
+  const half=c.measureText(text).width/2;
+  const tx=Math.max(24+half,Math.min(1460-half,end[0]+ux*(half+13)));
+  const ty=Math.max(58,Math.min(710,end[1]+(Math.abs(uy)>.35?Math.sign(uy)*23:-18)));
+  c.strokeStyle='#091221';c.lineWidth=4;c.lineJoin='round';
+  c.strokeText(text,tx,ty);
+  c.fillStyle=color;c.fillText(text,tx,ty);
+  c.restore();
  }
 }
 function forwardPoint(path,head){
  const a=path.pts[head.index-1],b=path.pts[head.index];
  return {x:head.x+b.x-a.x,y:head.y+b.y-a.y,r:head.r+b.r-a.r};
-}
-function orbitLegend(c,x,y){
- label(c,'虚线  预测轨迹',x,y,18,dim);
- label(c,'暖色 速度方向',x+145,y,18,warm);
- label(c,'冷色 引力方向',x+290,y,18,cool);
 }
 const projected=(path,project)=>path.pts.map(project);
 function continuation(c,arrows,path,project,color=warm){const p=path.pts,tail=project(p[p.length-8]),end=project(p.at(-1)),a=Math.atan2(end[1]-tail[1],end[0]-tail[0]);arrows?.drawBetween(c,{id:'trajectory-continuation',from:[end[0]-18*Math.cos(a),end[1]-18*Math.sin(a)],to:end,color});}
@@ -364,7 +381,6 @@ export function createVelocityScene(hooks={}){
     if(frame.moves)visual.globalAlpha*=framing;
     line(visual,path.pts.map(project),'#a9b0bf80',1.5,[4,7]);
     visual.restore();
-    orbitLegend(c,path.m.kind==='closed'?CLOSED_ORBIT_CENTER_X-206:65,91);
    }
    const head=positionAt(path,progress),pts=path.pts.slice(0,head.index).map(project);
    const point=project(head),center=project({x:0,y:0,r:0});
@@ -378,7 +394,7 @@ export function createVelocityScene(hooks={}){
      const end=[point[0],point[1]+68];
      hooks.arrows?.drawBetween(visual,{id:'gravity',from:point,to:end,color:cool});
      label(visual,'重力',end[0]+12,end[1],16,cool);
-    }else if(frame)orbitVectors(visual,hooks.arrows,point,project(forwardPoint(path,head)),center,Math.max(1,cameraScale));
+    }else if(frame)orbitVectors(visual,hooks.arrows,point,project(forwardPoint(path,head)),center);
     else{
      const inward=project({x:head.x*.999,y:head.y*.999,r:head.r*.999});
      const dx=inward[0]-point[0],dy=inward[1]-point[1],length=Math.hypot(dx,dy)||1;
@@ -391,6 +407,7 @@ export function createVelocityScene(hooks={}){
    }
    dot(visual,...point,6,warm);
    st.presentation={projectile:point,groundY,landed,kind:path.m.kind,progress};
+   if(flat)st.presentation.mountainHeightLabel=drawMountainHeight(visual,[muzzleX,muzzleY],groundY,st.height,z);
    st.forces={gravity,centrifugal,head,center,frame:flat?'flat':frame?'inertial':'rotating',circularSpeed:7.9/Math.sqrt(r0)};
   }
   visual.restore();
@@ -469,9 +486,11 @@ export function createVelocityScene(hooks={}){
   if(captured){
    drawOrbit(angle,ink,2.6,[]);
    orbitVectors(visual,hooks.arrows,point,[point[0]-Math.sin(angle),point[1]+Math.cos(angle)],center);
+  }else{
+   const ahead=transfer(Math.PI*(1-Math.min(1,transferProgress+.008)));
+   orbitVectors(visual,hooks.arrows,point,ahead,earthCenter);
   }
   dot(visual,...point,6,warm);
-  label(c,'地月转移与绕月 · 任务示意',65,95,23,ink);
   visual.restore();
   st.presentation={projectile:point,kind:captured?'lunar-orbit':'lunar-transfer',
    progress:captured?progress:transferProgress,landed:false};
@@ -489,8 +508,8 @@ export function createVelocityScene(hooks={}){
    const points=[...path.pts,...(bound?.pts??[])].map(raw);
    points.push([cx-1,cy-1],[cx+1,cy+1]);
    const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);
-   const scale=Math.min(122,(anchor[0]-42)/-Math.min(...xs),(1365-anchor[0])/Math.max(...xs),
-    (anchor[1]-128)/-Math.min(...ys),(628-anchor[1])/Math.max(...ys));
+   const scale=Math.min(164,(anchor[0]-24)/-Math.min(...xs),(1440-anchor[0])/Math.max(...xs),
+    (anchor[1]-78)/-Math.min(...ys),(690-anchor[1])/Math.max(...ys));
    solarFrame={compare:st.compare,scale};
   }
   const project=p=>{const [x,y]=raw(p);return [anchor[0]+x*solarFrame.scale,anchor[1]+y*solarFrame.scale];};
@@ -514,7 +533,7 @@ export function createVelocityScene(hooks={}){
   const [cx,cy]=project({x:0,y:0});
   const sunRadius=mix(145,Math.max(10,s*.27),camera);
   const head=positionAt(path,progress);
-  if(st.started){label(c,'以太阳为参照',65,145,26);label(c,'顺地球公转方向出发 · 轨迹示意',65,185,21,cool);}
+  if(st.started)label(c,'以太阳为参照',65,108,26);
   const visual=backdrop||c;
   visual.save();
   visual.globalAlpha=alpha;
@@ -540,7 +559,6 @@ export function createVelocityScene(hooks={}){
    line(visual,path.pts.slice(0,head.index).map(project).concat([point]),ink,2.4);
    orbitVectors(visual,hooks.arrows,point,heading,[cx,cy]);
    dot(visual,...point,4,ink);
-   orbitLegend(c,65,220);
    if(progress>=1)continuation(visual,hooks.arrows,path,project);
    st.presentation={projectile:point,kind:'solar-escape',progress,landed:false};
   }
@@ -658,7 +676,7 @@ export function createVelocityScene(hooks={}){
    }
    const anchorY=earthProject({x:0,y:getPath(st.v).m.r0})[1];
    const nearRadius=EARTH_SHOT.r*(1-.27*moon);
-   const solarRadius=sun>0?mix(64,solarProjection().radius*.16,camera):64;
+   const solarRadius=sun>0?mix(64,solarProjection().radius*.21,camera):64;
    const earthRadius=mix(nearRadius,solarRadius,sun);
    const globeCenter=storyboard(c,st.v,progress,1-sun,moon,sun,camera);
    if(sun>0){

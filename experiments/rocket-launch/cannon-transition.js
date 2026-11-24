@@ -38,6 +38,25 @@ export function videoAnchor(index,time){
  const rows=CAMERA_TRACKS[index];let hi=rows.findIndex(r=>r[0]>=time);if(hi<0)return rows.at(-1).slice(1);if(hi===0)return rows[0].slice(1);
  const a=rows[hi-1],b=rows[hi],u=(time-a[0])/(b[0]-a[0]);return a.slice(1).map((v,i)=>v+(b[i+1]-v)*u);
 }
+export function drawMountainHeight(c,[muzzleX,muzzleY],groundY,height,scale=1){
+ const x=muzzleX-140*scale,top=muzzleY+29*scale;
+ const text='山高 '+height/10000+' 万米';
+ c.save();
+ c.strokeStyle='#a8c4c6';
+ c.lineWidth=1.5;
+ c.beginPath();
+ c.moveTo(x-6,top);c.lineTo(x+6,top);
+ c.moveTo(x,top);c.lineTo(x,groundY);
+ c.moveTo(x-6,groundY);c.lineTo(x+6,groundY);
+ c.stroke();
+ c.fillStyle='#eee4ca';
+ c.font='22px "Alibaba PuHuiTi 3",sans-serif';
+ c.textAlign='right';
+ c.textBaseline='middle';
+ c.fillText(text,x-13,(top+groundY)/2);
+ c.restore();
+ return text;
+}
 export function createCannonTransition(onReady=()=>{},arrows){
  const muzzleSequence=createMuzzleSequence(onReady);
  const images=['close.webp','ground.webp','curve.png','earth.png','earth-layer.png'].map(file=>{
@@ -135,6 +154,7 @@ export function createCannonTransition(onReady=()=>{},arrows){
    }
    c.fillStyle='#e8bd77';c.beginPath();c.arc(...xy,6,0,Math.PI*2);c.fill();
    st.presentation={launched:true,projectile:xy,groundY:ty+scale*GROUND_Y,landed:low&&progress===1,kind:path.m.kind,progress};
+   if(low)st.presentation.mountainHeightLabel=drawMountainHeight(c,st.transition.muzzle,st.presentation.groundY,st.height,scale);
    st.presentation.effect=muzzleSequence.draw(c,flightAge,st.transition.muzzle,(low?78:52)*Math.abs(scale));
    if(low&&st.presentation.landed){
     const rangeProgress=age>=groundPlaybackEnd(reducedMotion)?1:smooth((age-rangeStartTime)/RANGE_DRAW_TIME);

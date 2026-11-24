@@ -3,6 +3,15 @@
 // procedural brush and rough pigment). The globe API renders spheres only; this
 // variant retains the imported mesh UV paint and Three.js lighting/selection.
 // Object-space noise is static: no additional clock, textures, render pass or RAF.
+import { RepeatWrapping, TextureLoader } from './vendor/three/three.module.js';
+
+export function loadTianzhouPaper(invalidate) {
+ const url=new URL('./assets/orbit-globe/grain-ref-512.png',import.meta.url);
+ const texture=new TextureLoader().load(url.href,invalidate);
+ texture.wrapS=texture.wrapT=RepeatWrapping;
+ return texture;
+}
+
 const pigmentGLSL = `
 varying vec3 vRocketPaper;
 float rocketHash(vec3 p) {
@@ -100,6 +109,35 @@ export function applyRocketPaint(material,padLighting) {
  material.customProgramCacheKey=()=>previousKey+(padLighting?'-rocket-pad-lit-v1':'-rocket-globe-pigment-v2');
  material.needsUpdate=true;
  return material;
+}
+
+// Sample the existing paper texture in three planes because the model has no UVs.
+export function applyTianzhouPaint(material,paperTexture){
+ if(material.userData.tianzhouPaint)return;
+ material.userData.tianzhouPaint=true;
+ material.roughness=.89;
+ material.metalness=0;
+ material.onBeforeCompile=shader=>{
+  shader.uniforms.tianzhouPaper={value:paperTexture};
+  shader.vertexShader='varying vec3 vRocketPaper; varying vec3 vPaintNormal;\n'+shader.vertexShader.replace(
+   '#include <begin_vertex>','#include <begin_vertex>\nvRocketPaper=position; vPaintNormal=normal;');
+  shader.fragmentShader=pigmentGLSL+'uniform sampler2D tianzhouPaper; varying vec3 vPaintNormal;\n'+shader.fragmentShader.replace(
+   '#include <color_fragment>',`#include <color_fragment>
+    vec3 weights=pow(abs(normalize(vPaintNormal)),vec3(4.));
+    weights/=weights.x+weights.y+weights.z;
+    vec3 tile=vRocketPaper*2.0;
+    float fiber=texture2D(tianzhouPaper,tile.yz).r*weights.x
+      +texture2D(tianzhouPaper,tile.zx).r*weights.y
+      +texture2D(tianzhouPaper,tile.xy).r*weights.z;
+    float strokes=rocketFBM(vec3(vRocketPaper.x+vRocketPaper.z*.46,vRocketPaper.y,vRocketPaper.z)*vec3(8.,27.,12.));
+    vec3 stippleUV=vRocketPaper*145.;
+    float stipple=(rocketNoise(stippleUV)-.5)*(1.-smoothstep(.7,2.5,length(fwidth(stippleUV))));
+    float pigment=(fiber-.5)*1.85+(strokes-.5)*.30+stipple*.26;
+    diffuseColor.rgb*=1.+pigment;
+   `);
+ };
+ material.customProgramCacheKey=()=> 'tianzhou-painted-paper-v1';
+ material.needsUpdate=true;
 }
 
 // Interior metals keep the imported PBR response; restrained grain never replaces lighting.

@@ -466,27 +466,26 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 #app[data-step="2"] .rocket-3d{left:45%;right:18%;pointer-events:none}
 #app[data-step="2"] .rocket-webgl{pointer-events:none}
 #app[data-step="2"] #scene{position:relative;z-index:3;pointer-events:none}
-#app[data-step="8"] .rocket-3d{
-  inset:44px 4% 38px 21%;
-  overflow:hidden;
-  border:1px solid #afc7de40;
-  border-radius:18px;
-  background:radial-gradient(ellipse at 42% 85%,#30456980,transparent 72%),linear-gradient(150deg,#0c1628d9,#09101ba6);
-}
 #app[data-step="8"] .rocket-3d[data-separation-pad]{
   background:#142039 url('assets/separation-pad/illustrated-ground.webp') center/cover no-repeat;
 }
-/* The launch-pad shots cover the presentation frame underneath the course controls. */
-#app[data-step="8"]:has(.rocket-3d[data-separation-pad]) .workspace{
-  position:static;
+/* Launch and flight share the full presentation frame. */
+#app[data-step="8"] .workspace{position:static}
+#app[data-step="8"] .stage{inset:0}
+.orbit-horizon{
+  position:absolute;inset:auto 0 0;width:100%;height:350px;
+  pointer-events:none;object-fit:fill;
 }
-#app[data-step="8"]:has(.rocket-3d[data-separation-pad]) .stage{
-  inset:0;
+.orbit-horizon[hidden]{display:none}
+.orbit-horizon-fallback{
+  background:radial-gradient(circle 2170px at 800px 2340px,
+    #122b48 91%,#284d73 98.6%,#5292c6 99.9%,transparent 100.1%);
 }
-#app[data-step="8"] .rocket-3d[data-separation-pad]{
-  inset:0;
-  border:0;
-  border-radius:0;
+#app[data-step="8"] .stage::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 66% 83%,#577c9f,transparent 75%),
+    linear-gradient(165deg,#192b49,#385f85 57%,#66869d);
+  opacity:var(--separation-atmosphere,1);
 }
 #app[data-step="8"] .rocket-3d[data-separation-pad]::after{
   content:"";
@@ -496,17 +495,12 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
   background:linear-gradient(90deg,#070e1bd9,transparent 34%),linear-gradient(0deg,#070e1bc9,transparent 22%);
 }
 #app[data-step="8"] .stage:has(.rocket-3d[data-separation-pad]) #parts{z-index:3}
-#app[data-step="8"] .stage:has(.rocket-3d[data-separation-pad]) #separation-stage{
-  inset:94px auto auto 44px;
-  text-align:left;
-  text-shadow:0 1px 8px #070e1b;
-}
-#app[data-step="8"] .rocket-3d[data-separation-pad] .separation-shot-label{
-  top:auto;
-  bottom:40px;
-  left:40px;
-  padding:0;
-  background:none;
+#app[data-step="8"] .rocket-3d[data-booster-viewport]::after{
+  content:"";position:absolute;inset:0 auto 0 0;
+  width:var(--booster-viewport);box-sizing:border-box;
+  border-right:1px solid #b0c9dc55;
+  background:linear-gradient(90deg,#09172a42,transparent 90%);
+  pointer-events:none;
 }
 .separation-views:not([hidden]){
   position:absolute;
@@ -516,14 +510,12 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
   grid-template-columns:1fr 1fr;
   pointer-events:none;
 }
-.separation-shot-label:not([hidden]){position:absolute;top:0;left:0;z-index:1;pointer-events:none}
-.separation-views span,.separation-shot-label{
+.separation-views span{
   padding:16px 20px;
   color:var(--ink);
   font-size:var(--type-body);
   background:linear-gradient(#080f1bb3,transparent 18%);
 }
-.separation-views span+span{border-left:1px solid #afc7de70}
 #app.launch-transition #parts,#app.launch-transition aside{visibility:hidden}
 #app.launch-transition .rocket-3d{transition:left 1.6s ease,right 1.6s ease;left:32%;right:28%}
 @media(prefers-reduced-motion:reduce){#app.launch-transition .rocket-3d{transition:none}}
@@ -819,10 +811,40 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
   }
 }
 
-#separation-stage{
-  position:absolute;top:4px;left:0;right:0;margin:0;
-  color:var(--ink);font-size:var(--type-data-label);font-weight:500;
-  line-height:1.25;text-align:center;pointer-events:none
+#app[data-step="8"] > :is(#chapters,#separation-progress){
+  transition:transform 280ms ease,visibility 0s;
+}
+#app[data-separation-started] > #chapters,
+#app[data-step="8"]:not([data-separation-started]) > #separation-progress{
+  transform:translateX(-300px);visibility:hidden;
+  transition-delay:0s,280ms;
+}
+#app[data-separation-started] > #separation-progress{transition-delay:120ms,0s}
+@media(prefers-reduced-motion:reduce){
+  #app[data-step="8"] > :is(#chapters,#separation-progress){transition:none}
+}
+#separation-progress{
+  position:absolute;z-index:3;left:44px;top:164px;width:232px;
+  color:var(--ink-dim);font-size:var(--type-body);
+}
+#separation-progress ol{list-style:none;margin:0;padding:0}
+#separation-progress li{
+  position:relative;display:flex;align-items:center;
+  min-height:52px;padding-left:28px;
+}
+#separation-progress li:not(:last-child)::after{
+  content:"";position:absolute;left:5px;top:50%;bottom:-50%;width:1px;background:var(--line);
+}
+#separation-progress li::before{
+  content:"";position:absolute;z-index:1;left:0;width:11px;height:11px;
+  border:1px solid currentColor;border-radius:50%;background:#142235;
+}
+#separation-progress li[data-complete]{color:var(--ink)}
+#separation-progress li[data-complete]::before,
+#separation-progress li[aria-current="step"]::before{background:currentColor}
+#separation-progress li[aria-current="step"]{color:var(--warm);font-weight:600}
+.separation-progress-status{
+  position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;
 }
 
 #rocket-part-tabs:not([hidden]){
@@ -873,12 +895,27 @@ footer #prompt{
 #page-actions button.primary {
   min-width:160px;font-size:var(--type-action);font-weight:600;
 }
-#page-actions :is(.rocket-replay-icon,.rocket-comparison-play) {
+#page-actions :is(.rocket-replay-icon,.rocket-comparison-play,#separation-pause) {
   display:grid;place-items:center;
   width:calc(64 * var(--type-unit));height:calc(64 * var(--type-unit));min-width:0;
   padding:0;font-size:var(--type-body);
 }
 
+
+#separation-pause::before {
+  content:"";
+  box-sizing:border-box;
+  width:calc(21 * var(--type-unit));
+  height:calc(25 * var(--type-unit));
+  border-inline:calc(7 * var(--type-unit)) solid currentColor;
+}
+#separation-pause[data-paused]::before {
+  width:0;
+  height:0;
+  border:0;
+  border-block:calc(12.5 * var(--type-unit)) solid transparent;
+  border-left:calc(20 * var(--type-unit)) solid currentColor;
+}
 
 /* The orbit fills the stage under the existing course navigation. */
 #app > .direction-orbit-intro { z-index: 3 }

@@ -1,12 +1,13 @@
 import {COMPARISON_WIDTH,COMPARISON_HEIGHT} from './comparison-flight.js?v=taller-comparison';
 import {drawRocketSilhouette} from './rocket-silhouette.js';
 import { mountOrbitScene } from './orbit-scene.js';
+import { createOrbitHorizon } from './orbit-globe.js';
 import {decorateReplayButton} from './replay-icon.js';
 import {LaunchAltitudeRuler,MAX_HEIGHT} from './launch-altitude-ruler.js?v=taller-comparison';
 import {LaunchForceDiagram,LAUNCH_PREVIEW_X} from './launch-force-diagram.js?v=launch-ascent-20261118';
 import {ThrustArrow} from './components/thrust-arrow/index.js?v=aligned-20261113';
 import {BALLOON_LAYOUT,balloonMotion} from './balloon-motion.js?v=balloon-controls-20261118';
-import {createControlGroup, markChoice, markSwitch} from './interaction-contract.js?v=controls-20261112-r2';
+import {createControlGroup, markChoice} from './interaction-contract.js?v=controls-20261112-r2';
 import {ascentOffset,smooth} from './flight-presentation.js';
 import {RocketFlightSky} from './components/rocket-flight-sky/index.js?v=fixed-nebula-20261124';
 import { PARTS, loadRocketAssets, drawRocket, STRUCTURE_PARTS } from './cz7.js?v=tip-pointer';
@@ -16,7 +17,7 @@ import {SeparationLesson} from './separation-state.js';
 import {AutoStagingComparison,sampleStaging,STAGING_PLANS} from './staging-model.js';
 import {mountStagingComparison,drawStagingComparison} from './staging-comparison.js?v=taller-comparison';
 import { createGlobeShaderRenderer } from '../../shared/components/globe-shader-renderer/index.js';
-import { createVelocityScene, drawTianzhou, DIRECTION_CONDITIONS, model, pathOf, solarPath, MODEL } from './velocity.js?v=cannon-projectile';
+import { createVelocityScene, DIRECTION_CONDITIONS, model, pathOf, solarPath, MODEL } from './velocity.js?v=cannon-projectile';
 const $=s=>document.querySelector(s), c=$('#scene'),ctx=c.getContext('2d');
 let dirty=true;
 const forceArrows=new ThrustArrow(()=>{dirty=true;});
@@ -83,14 +84,16 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)endPump(fal
 function advancePump(dt){pumpElapsed+=dt;const cycles=Math.floor(pumpElapsed/.7),phase=(pumpElapsed%.7)/.7,nextCount=Math.min(6,pumpStartCount+cycles+(phase>=.5?1:0));if(nextCount!==pumpCount){pumpCount=nextCount;}charge=Math.min(1,(pumpStartCount+cycles+Math.min(1,phase*2))/6);pumpTravel((1-Math.cos(phase*Math.PI*2))*16);}
 let launch=null;
 let comparisonDone=false;
-const separation=new SeparationLesson();
+const separation=new SeparationLesson({guided:true});
 const directionOpening=new SeparationLesson();
 let payloadTime=0;
+let orbitHorizon;
+let separationEffectTime=0;
 const deploymentDuration=2.4;
 const rocket3D=new Rocket3D(document.querySelector('.stage'),{invalidate:()=>{dirty=true;},onPadReady:syncSeparation,onPick(n,event){if(rocket3D.onAssemblyInspect){rocket3D.onAssemblyInspect(n,event);return;}const i=STRUCTURE_NODES.indexOf(n);if(i>=0)selectStructure(i);},onStagingPart(part){if(false&&step===9&&dvLesson.activeIndex===2&&part.plan===2&&part.stage===dvLesson.waitingStage){dvLesson.act();stagingUI?.sync();}},onStatus(ready){if(isVerticalFlight())return;if(ready&&(step===2||step>=6&&step<=8))render();else if(!ready&&(step===2||step>=6&&step<=8)){playing=false;separation.paused=true;dirty=true;syncSeparation();}}});
 addEventListener('pagehide',e=>{if(!e.persisted){disposeAssembly();rocket3D.destroy();forceArrows.destroy();}});
 const separationLabels=['助推器分离','一级与二级分离','整流罩分离','载荷释放'];
-const separationActions=['分离助推器','分离一级','抛离整流罩'];
+const separationProgressLabels=['点火与升空',...separationLabels,'卫星绕地'];
 const structureParts=STRUCTURE_PARTS;
 function selectStructure(i){selected=i;xray=step===6&&(i>=PARTS.length||STRUCTURE_NODES[i]==='Payload');if(step===6)rocket3D.setXray(xray);const node=STRUCTURE_NODES[i],label=structureParts[i].name; if(step===6)rocket3D.info.setContent(label,structureParts[i].role);else say('');rocket3D.select(node,label);dirty=true;}
 
@@ -99,12 +102,48 @@ rocket3D.onDismissInspection=dismissInspection;
 document.addEventListener('click',event=>{if(![6,7].includes(step)||!rocket3D.selected||$('#feedback').contains(event.target))return;if(step===7&&event.target===rocket3D.renderer?.domElement&&performance.now()<(rocket3D.assemblyClickBlockUntil||0))return;if(event.target.closest?.('[data-blueprint]'))return;if(event.target===rocket3D.renderer?.domElement&&(rocket3D.blueprint?.pick(event)||rocket3D.pick(event)))return;dismissInspection();},{signal:rocket3D.abort.signal});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&rocket3D.selected)dismissInspection();},{signal:rocket3D.abort.signal});
 
-function syncSeparation(){const action=$('#separate');if(!action)return;const started=separation.phase!=='ready',complete=separation.phase==='complete';$('#separation-start').hidden=started;$('#separation-start').disabled=!rocket3D.ready||!rocket3D.separationPad;action.hidden=true;action.textContent=separation.index<3?separationActions[separation.index]:complete?'分离完成':'释放载荷';action.disabled=separation.phase!=='waiting'||separation.paused;const pause=$('#separation-pause');pause.disabled=!started;pause.classList.toggle('primary',started);pause.textContent=separation.paused?'继续':'暂停';$('#separation-replay').hidden=!started;
- const stage = complete ? (payloadTime<deploymentDuration?'太阳翼展开（示意）':'天舟绕地（示意）') : separation.phase==='ready' ? '准备发射' : separation.phase==='ascent' ? '火箭升空' : separationLabels[separation.index];
- const heading = $('#separation-stage');
- if (heading.textContent!==stage) heading.textContent=stage;
+function syncSeparation(){
+ const start=$('#separation-start');
+ if(!start)return;
+ const started=separation.phase!=='ready',complete=separation.phase==='complete';
+ start.hidden=started;
+ start.disabled=!rocket3D.ready||!rocket3D.separationPad;
+ const pause=$('#separation-pause');
+ const held=separation.paused||separation.phase==='waiting';
+ pause.hidden=!started;
+ pause.toggleAttribute('data-paused',held);
+ pause.setAttribute('aria-label',held?'继续播放':'暂停');
+ $('#separation-replay').hidden=!started;
+ const progress=$('#separation-progress');
+ $('#app').toggleAttribute('data-separation-started',started);
+ $('#chapters').inert=started;
+ progress.inert=!started;
+ if(!started)return;
+ const current=complete ? separationProgressLabels.length-1 : ['ascent','chase'].includes(separation.phase)?0:separation.index+1;
+ for(const [index,item] of Array.from(progress.querySelectorAll('li')).entries()){
+  item.toggleAttribute('data-complete',index<current);
+  if(index===current)item.setAttribute('aria-current','step');
+  else item.removeAttribute('aria-current');
+ }
+ const status=progress.querySelector('[role="status"]');
+ if(status.textContent!==separationProgressLabels[current])status.textContent=separationProgressLabels[current];
 }
-function startSeparation(){if(!rocket3D.ready||!rocket3D.separationPad)return;rocket3D.setScene('separation');payloadTime=0;separation.start();time=0;playing=true;say('');syncSeparation();}
+function startSeparation(){if(!rocket3D.ready||!rocket3D.separationPad)return;orbitHorizon?.hide();rocket3D.setScene('separation');payloadTime=0;separationEffectTime=0;separation.start();time=0;playing=true;say('');syncSeparation();}
+function toggleSeparationPlayback(){
+ if(separation.phase==='waiting'){
+  if(!separation.trigger())return;
+  if(separation.index===3)orbitHorizon??=createOrbitHorizon($('.stage'),()=>{dirty=true;},rocket3D.abort.signal);
+  const clip=rocket3D.manifest.separationOrder[separation.index]??'ReleasePayload';
+  rocket3D.startSeparationVapor(separation.index,separationEffectTime);
+  rocket3D.play(clip);
+ }else{
+  separation.paused=!separation.paused;
+  rocket3D.pause(separation.paused);
+ }
+ playing=!separation.paused;
+ dirty=true;
+ syncSeparation();
+}
 const launchToast=document.createElement('div');launchToast.className='rocket-launch-toast';launchToast.setAttribute('role','status');launchToast.setAttribute('aria-live','polite');launchToast.hidden=true;$('#app').append(launchToast);let launchToastTimer;function notifyLaunch(message){clearTimeout(launchToastTimer);launchToast.textContent=message;launchToast.hidden=false;launchToastTimer=setTimeout(()=>{launchToast.hidden=true;},4000);}
 const LAUNCH_DURATION = 5;
 function finishLaunch(interrupted=false){if(!launch||launch.saved)return;launch.saved=true;const r=records.find(r=>r.id===launch.id);if(r){r.status=interrupted?'interrupted':'complete';r.height=interrupted?Math.round(launch.distance*smooth(Math.min(time/LAUNCH_DURATION,1))):launch.distance;}launchRuler?.sync(records);playing=false;if(!interrupted){say('');notifyLaunch(launch.distance>0?'发射完成，实验已记录':'发射失败：推力不足，火箭未起飞');$('#launch-fire').disabled=false;for(const b of document.querySelectorAll('#controls fieldset button'))b.disabled=false;}}
@@ -127,7 +166,11 @@ function field(label,value,change,parent){
  parent.append(group);
 }
 function renderNavigation(){
+ orbitHorizon?.hide();
  const steps=$('#steps'),chapters=$('#chapters'),pageStep=step===7?6:step,chapter=chapterSteps.findIndex(items=>items.includes(pageStep));
+ $('#separation-progress')?.remove();
+ $('#app').removeAttribute('data-separation-started');
+ chapters.inert=false;
  steps.remove();steps.replaceChildren();chapters.replaceChildren();
  ['推力与起飞','速度与轨道','结构与组装'].forEach((name,i)=>{
   const b=button(name,()=>go(chapterSteps[i][0]),chapters);
@@ -198,7 +241,7 @@ function mountBalloonControls(){
  disposeAssembly=()=>{observer.disconnect();balloonTip.destroy();balloonTip=null;reset.remove();app.removeAttribute('data-balloon-moving');};
 }
 
-function renderContent(){if(step!==2){if(launch&&!launch.saved)finishLaunch(true);clearTimeout(launchToastTimer);launchToast.hidden=true;}velScene.suspend();dvLesson.pause();stagingUI=null;launchDiagram=null;launchRuler=null;disposeAssembly();disposeAssembly=()=>{};directionOpening.reset();rocket3D.setScene(step===2?'launch':step===6?'structure':step===7?'assembly':step===8?'separation':step===9?'comparison':null);if((step===2||step>=6&&step<=9)&&!rocket3D.ready)rocket3D.load();launch=null;$('#controls').inert=false;$('#parts').inert=false;$('#controls').className='';document.querySelector('aside').insertBefore($('#controls'),$('#feedback'));$('#dock').replaceChildren();$('#dock').hidden=true;$('#app').dataset.step=step;$('#app').classList.remove('orbit-playing');$('#app').toggleAttribute('data-direction-arrival',step===2&&$('#app').hasAttribute('data-vertical-flight'));$('#app').toggleAttribute('data-vertical-flight',isVerticalFlight());velocityBackdrop.hidden=step!==4||isVerticalFlight();c.width=isVerticalFlight()?1248:step===9?COMPARISON_WIDTH:step>=6||step===2||step===3||step===4?1500:1100;c.height=isVerticalFlight()?560:(step===6||step===7)?480:step===9?COMPARISON_HEIGHT:step===2?800:650;playing=false;time=0;holding=false;$('#title').textContent=names[step];c.setAttribute('aria-label','实验动态演示');$('#controls').replaceChildren();$('#page-actions').replaceChildren();$('#controls').classList.toggle('matching',step===5);$('#parts').replaceChildren();$('#scene-controls').replaceChildren();renderNavigation();
+function renderContent(){if(step!==2){if(launch&&!launch.saved)finishLaunch(true);clearTimeout(launchToastTimer);launchToast.hidden=true;}velScene.suspend();dvLesson.pause();stagingUI=null;launchDiagram=null;launchRuler=null;disposeAssembly();disposeAssembly=()=>{};directionOpening.reset();rocket3D.setScene(step===2?'launch':step===6?'structure':step===7?'assembly':step===8?'separation':step===9?'comparison':null);if((step===2||step>=6&&step<=9)&&!rocket3D.ready)rocket3D.load();launch=null;$('#controls').inert=false;$('#parts').inert=false;$('#controls').className='';document.querySelector('aside').insertBefore($('#controls'),$('#feedback'));$('#dock').replaceChildren();$('#dock').hidden=true;$('#app').dataset.step=step;$('#app').classList.remove('orbit-playing');$('#app').toggleAttribute('data-direction-arrival',step===2&&$('#app').hasAttribute('data-vertical-flight'));$('#app').toggleAttribute('data-vertical-flight',isVerticalFlight());velocityBackdrop.hidden=step!==4||isVerticalFlight();c.width=isVerticalFlight()?1248:step===8?1600:step===9?COMPARISON_WIDTH:step>=6||step===2||step===3||step===4?1500:1100;c.height=isVerticalFlight()?560:(step===6||step===7)?480:step===8?900:step===9?COMPARISON_HEIGHT:step===2?800:650;playing=false;time=0;holding=false;$('#title').textContent=names[step];c.setAttribute('aria-label','实验动态演示');$('#controls').replaceChildren();$('#page-actions').replaceChildren();$('#controls').classList.toggle('matching',step===5);$('#parts').replaceChildren();$('#scene-controls').replaceChildren();renderNavigation();
  const next=$('#next');
  const target=step===0?'高山大炮':step===4&&!isVerticalFlight()?'垂直发射':names[visibleSteps[visibleSteps.indexOf(step)+1]];
  next.hidden=step===6||step===7;
@@ -223,7 +266,7 @@ else if(step===4){
  const choose=e=>{const r=axis.getBoundingClientRect();let value=.5+Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*16.2;for(const v of [1,7.9,11.2,16.7])if(Math.abs(value-v)<.13){value=v;break;}velScene.setValue(value);syncVelocityControls();};
  axis.onpointerdown=e=>{e.preventDefault();axis.setPointerCapture(e.pointerId);choose(e);};axis.onpointermove=e=>{if(axis.hasPointerCapture(e.pointerId))choose(e);};axis.onpointerup=e=>{if(axis.hasPointerCapture(e.pointerId))axis.releasePointerCapture(e.pointerId);};axis.oninput=()=>{velScene.setValue(Number(axis.value));syncVelocityControls();};axis.onkeydown=e=>e.stopPropagation();
  const place=()=>{const stage=document.querySelector('.stage'),w=stage.clientWidth,h=stage.clientHeight,k=Math.min(w/1500,h/650);Object.assign(axis.style,{left:((w-1500*k)/2+360*k)+'px',top:((h-650*k)/2+196*k)+'px',width:(960*k)+'px',height:(100*k)+'px'});for(const b of document.querySelectorAll('#velocity-preset-axis button')){const x=360+960*(Number(b.dataset.velocity)-.5)/16.2;Object.assign(b.style,{position:'absolute',left:((w-1500*k)/2+x*k)+'px',top:((h-650*k)/2+305*k)+'px'});}};const observer=new ResizeObserver(place);observer.observe(document.querySelector('.stage'));place();disposeAssembly=()=>observer.disconnect();
- const playback=cluster('轨迹播放',$('#page-actions'));const launchButton=button('开始',()=>{velScene.replay();syncVelocityControls();},playback);launchButton.id='velocity-fire';launchButton.className='primary';const pause=button('暂停',()=>{velScene.togglePause();syncVelocityControls();},playback);pause.id='velocity-pause';const adjust=button('调整初速度',()=>{velScene.setValue(velScene.value);syncVelocityControls();},playback);adjust.id='velocity-adjust';playback.append(adjust,pause,launchButton);const compare=button('对比轨迹',()=>{velScene.toggleCompare();syncVelocityControls();},cluster('轨迹显示',undefined,'toggle'));compare.id='velocity-compare';syncVelocityControls();}
+ const playback=cluster('轨迹播放',$('#page-actions'));const launchButton=button('开始',()=>{velScene.replay();syncVelocityControls();},playback);launchButton.id='velocity-fire';launchButton.className='primary';const pause=button('暂停',()=>{velScene.togglePause();syncVelocityControls();},playback);pause.id='velocity-pause';const adjust=button('调整初速度',()=>{velScene.setValue(velScene.value);syncVelocityControls();},playback);adjust.id='velocity-adjust';playback.append(adjust,pause,launchButton);syncVelocityControls();}
 
 if(step===6){rocket3D.setXray(xray);if(selected!==null)selectStructure(selected);}
 if(step===7){
@@ -238,11 +281,21 @@ if(step===7){
 }
 
 if(step===8){separation.reset();
- const heading=document.createElement('p');
- heading.id='separation-stage';
- heading.setAttribute('role','status');
- $('#parts').append(heading);
- const operation=cluster('分离操作',$('#page-actions'));const start=button('开始发射',startSeparation,operation);start.className='primary';start.id='separation-start';const action=button(separationActions[0],()=>{if(!separation.trigger())return;rocket3D.play(rocket3D.manifest.separationOrder[separation.index]);playing=true;say('');syncSeparation();},operation);action.id='separate';action.className='primary';const playback=cluster('飞行播放',$('#page-actions'));const pause=button('暂停',()=>{separation.paused=!separation.paused;rocket3D.pause(separation.paused);playing=separation.phase==='complete'?!separation.paused:separation.running;dirty=true;syncSeparation();},playback);pause.id='separation-pause';const replay=button('重播',startSeparation,cluster('重播飞行',$('#page-actions')));$('#page-actions').append(replay.parentElement,playback,operation);replay.id='separation-replay';replay.className='secondary';syncSeparation();}
+ const progress=document.createElement('section');
+ progress.id='separation-progress';
+ progress.setAttribute('aria-label','火箭发射进度');
+ const timeline=document.createElement('ol');
+ for(const label of separationProgressLabels){
+  const item=document.createElement('li');
+  item.textContent=label;
+  timeline.append(item);
+ }
+ const status=document.createElement('span');
+ status.className='separation-progress-status';
+ status.setAttribute('role','status');
+ progress.append(timeline,status);
+ $('#chapters').after(progress);
+ const operation=cluster('分离操作',$('#page-actions'));const start=button('开始发射',startSeparation,operation);start.className='primary';start.id='separation-start';const playback=cluster('飞行播放',$('#page-actions'));const pause=button('',toggleSeparationPlayback,playback);pause.id='separation-pause';pause.className='primary';const replay=button('重播',startSeparation,cluster('重播飞行',$('#page-actions')));$('#page-actions').append(replay.parentElement,playback,operation);replay.id='separation-replay';replay.className='secondary';syncSeparation();}
 if(step===9){c.setAttribute('aria-label','三枚火箭同步升空，纵轴为相对高度（示意格），横轴为火箭方案，模型小窗展示燃烧与分离');const mounted=mountStagingComparison({lesson:dvLesson,controls:$('#page-actions'),parts:$('#parts'),feedback:$('#feedback'),invalidate:()=>{dirty=true;},onRunning:running=>{playing=running;},isReady:()=>rocket3D.ready&&!!rocket3D.stagingRig});stagingUI=mounted;disposeAssembly=()=>mounted.destroy();}
 }
 
@@ -379,7 +432,7 @@ function syncVelocityControls(){
   tip.classList.toggle('is-revealed',revealed);
   tip.setAttribute('aria-label',revealed?`${speed} km/s，${velocityNodes.get(speed)}`:`选择 ${speed} km/s，结果待实验揭示`);
   tip.setAttribute('aria-pressed',String(speed===velScene.value));
- }const pause=$('#velocity-pause');if(pause){pause.disabled=!started||age>=velScene.duration;pause.classList.toggle('primary',viewing);pause.textContent=velScene.state.paused&&!pause.disabled?'继续':'暂停';}const fire=$('#velocity-fire');if(fire){if(velScene.state.age>0||!velScene.state.paused){decorateReplayButton(fire);fire.classList.remove('primary');}else{fire.className='primary';fire.textContent='开始';fire.removeAttribute('aria-label');fire.removeAttribute('title');}}const compare=$('#velocity-compare');if(compare){markSwitch(compare,velScene.state.compare);}
+ }const pause=$('#velocity-pause');if(pause){pause.disabled=!started||age>=velScene.duration;pause.classList.toggle('primary',viewing);pause.textContent=velScene.state.paused&&!pause.disabled?'继续':'暂停';}const fire=$('#velocity-fire');if(fire){if(velScene.state.age>0||!velScene.state.paused){decorateReplayButton(fire);fire.classList.remove('primary');}else{fire.className='primary';fire.textContent='开始';fire.removeAttribute('aria-label');fire.removeAttribute('title');}}
  if(viewing&&!hadFocus&&document.activeElement===fire)pause?.focus();
  if(!viewing&&hadFocus&&document.activeElement===pause)fire?.focus();
  dirty=true;
@@ -461,7 +514,7 @@ function distance(){return Math.round(Math.max(0,thrust*2-mass-load)*35);}
 function line(points,color='#c9d2e8',width=4){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke();}function text(t,x,y,size=24,color='#e2e6f2'){ctx.fillStyle=color;ctx.font=`${size}px "Alibaba PuHuiTi 3", sans-serif`;ctx.fillText(t,x,y);}function circle(x,y,r,color){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();}
 function rocket(x,y,scale=1){drawRocket(ctx,kit,{x,y:y-150*scale,height:300*scale,ignited:playing});}
 function earth(){if(globeOK){globe.draw({sizePx:400,pxPerLogical:1,basis:{axis:[0,1,0],e2:[1,0,0],e3:[0,0,1]},sun:[-1,0,1],center:{x:525,y:330},radius:140,focus:{x:525,y:330},zoom:1});ctx.drawImage(globeCanvas,325,130);return;}circle(525,330,140,'#5d7fa0');ctx.save();ctx.beginPath();ctx.arc(525,330,140,0,7);ctx.clip();ctx.fillStyle='#7f9184';ctx.beginPath();[[420,260],[480,220],[510,270],[560,280],[550,330],[500,350],[470,420],[445,340]].forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.fill();ctx.restore();}
-function draw(){forceArrows.beginFrame();ctx.clearRect(0,0,c.width,c.height);if(step===8||step===9)sky.draw(step===9?dvLesson.progress*1000:ascentOffset(step,time),step===8?140+time*22:dvLesson.running?60:0);else if(step===1||step===3||step===4||step===5)sky.draw();let t=Math.min(time/5,1);$('#readout').textContent='';if(step===9){stagingUI?.sync();drawStagingComparison(ctx,dvLesson);rocket3D.setComparison(dvLesson);rocket3D.update(0);return;}if(step===0){
+function draw(){forceArrows.beginFrame();if(step!==8)ctx.clearRect(0,0,c.width,c.height);if(step===8||step===9)sky.draw(step===9?dvLesson.progress*1000:ascentOffset(step,separation.elapsed),step===8?140+separation.elapsed*22:dvLesson.running?60:0);else if(step===1||step===3||step===4||step===5)sky.draw();let t=Math.min(time/5,1);$('#readout').textContent='';if(step===9){stagingUI?.sync();drawStagingComparison(ctx,dvLesson);rocket3D.setComparison(dvLesson);rocket3D.update(0);return;}if(step===0){
 if(holding)advancePump(lastDt);
 const motion=balloonMotion(charge,time),flightProgress=motion.progress,remaining=motion.remaining,x=motion.carriageX;
 const moving=playing&&charge>0,axisY=270,app=$('#app');
@@ -542,69 +595,48 @@ if(isVerticalFlight()){
  sky.draw();
  velScene.draw(ctx,c.width,c.height,lastDt,directionOpening.phase==='complete'?null:directionOpening);
 }
-else if(step===4){const appRect=$('#app').getBoundingClientRect(),stageRect=c.getBoundingClientRect(),appScale=appRect.width/1600,k=Math.min(stageRect.width/1500,stageRect.height/650)/appScale;backdropContext.clearRect(0,0,1600,900);backdropContext.save();backdropContext.translate((stageRect.left-appRect.left)/appScale+(stageRect.width/appScale-1500*k)/2,(stageRect.top-appRect.top)/appScale+(stageRect.height/appScale-650*k)/2);backdropContext.scale(k,k);velScene.setBackdrop(backdropContext);velScene.draw(ctx,1500,650,lastDt);backdropContext.restore();const caption=velScene.name()+'，'+velScene.value+' 千米每秒，'+velScene.note();if(c.getAttribute('aria-label')!==caption)c.setAttribute('aria-label',caption);}
+else if(step===4){const appRect=$('#app').getBoundingClientRect(),stageRect=c.getBoundingClientRect(),appScale=appRect.width/1600,k=Math.min(stageRect.width/1500,stageRect.height/650)/appScale;backdropContext.clearRect(0,0,1600,900);backdropContext.save();backdropContext.translate((stageRect.left-appRect.left)/appScale+(stageRect.width/appScale-1500*k)/2,(stageRect.top-appRect.top)/appScale+(stageRect.height/appScale-650*k)/2);backdropContext.scale(k,k);velScene.setBackdrop(backdropContext);velScene.draw(ctx,1500,650,lastDt);backdropContext.restore();const caption=[velScene.name(),velScene.value+' 千米每秒',velScene.note(),velScene.state.presentation?.mountainHeightLabel].filter(Boolean).join('，');if(c.getAttribute('aria-label')!==caption)c.setAttribute('aria-label',caption);}
 
 if(step===8){
- if(separation.phase==='complete'){
-  const x=790,y=329,r=184,orbit=246;
-  const age=Math.max(0,payloadTime-deploymentDuration);
-  const pullback=smooth(Math.min(1,age/1.35));
-  const angle=-Math.PI/2+age*.62;
-  const reducedMotion=rocket3D.reducedMotion.matches;
-  const blend=reducedMotion?1:pullback;
-  const a=reducedMotion?-Math.PI/2:angle;
-  ctx.save();
-  ctx.globalAlpha=blend;
-  if(globeOK)drawPreviewGlobe(ctx,x,y,r);
-  else circle(x,y,r,'#34567d');
-  ctx.beginPath();ctx.arc(x,y,orbit,0,Math.PI*2);
-  ctx.strokeStyle='#8097b9';ctx.lineWidth=2;ctx.stroke();
-  ctx.restore();
-  ctx.save();
-  ctx.translate(x+Math.cos(a)*orbit*blend,y+Math.sin(a)*orbit*blend);
-  const scale=5-3.9*blend;
-  ctx.scale(scale,scale);
-  drawTianzhou(ctx,(a+Math.PI/2)*blend,payloadTime/deploymentDuration);
-  ctx.restore();
+ const flightProgress=separation.phase==='complete'?4:separation.index+(['booster-drop','debris-exit'].includes(separation.phase)?1:separation.phase==='animation'?Math.min(1,separation.local/2):0);
+ $('#rocket-workspace').style.setProperty('--separation-atmosphere',String(1-smooth(flightProgress/4)));
+ const enteringOrbit=separation.index===3&&separation.phase==='debris-exit';
+ if(enteringOrbit||separation.phase==='complete'){
+  const orbitalTime=rocket3D.reducedMotion.matches?0:payloadTime;
+  orbitHorizon?.draw(enteringOrbit?smooth(Math.min(1,separation.local)):1,orbitalTime);
+  if(separation.phase==='complete'){
+   rocket3D.drawPayloadOrbit(Math.min(1,payloadTime/deploymentDuration),orbitalTime);
+  }
  }
- const x=72,bottom=550,interval=106,top=bottom-interval*separationLabels.length;
- const progress=separation.index+(separation.phase==='animation'?separation.local/2:0);
- line([[x,bottom],[x,top]],'#647087',3);
- line([[x,bottom],[x,bottom-interval*progress]],'#d8b074',4);
- separationLabels.forEach((label,i)=>{
-  const y=bottom-(i+1)*interval;
-  const active=i===separation.index&&['animation','payload-gap','waiting'].includes(separation.phase);
-  const color=i<separation.index?'#e8e0cc':active?'#d8b074':'#a9b0bf';
-  circle(x,y,6,color);
-  text(label,x+24,y+7,20,color);
- });
 }
-if(step>=6&&(step!==8||separation.phase!=='complete')){rocket3D.update(lastDt,{animate:playing&&step!==8,effectTime:time,flames:step===8&&separation.phase!=='ready'&&separation.phase!=='complete',upper:step===8&&separation.index>=2});}}
+if(step>=6&&(step!==8||separation.phase!=='complete')){rocket3D.update(lastDt,{animate:playing&&step!==8,effectTime:step===8?separationEffectTime:time,flames:step===8&&separation.phase!=='ready'&&separation.phase!=='complete',exhaustStage:step===8?separationExhaustStage():0});}}
 
 function colorTimeline(x,y,label,i,done,current){const color=done?'#e8e0cc':i===current?'#d8b074':'#647087';line([[x,y],[x+310,y]],color,done?3:1);circle(x,y,5,color);text(label,x,y+35,21,color);}
 
 
-function advanceSeparation(lesson,dt,effectTime){
+function separationExhaustStage(){
+ // A separation clip starts after the outgoing engines shut down.
+ const detaching=['animation','booster-drop','debris-exit'].includes(separation.phase);
+ return Math.min(3,separation.index+Number(detaching&&separation.index!==2));
+}
+
+function advanceSeparation(lesson,dt){
  // Finish the current clip before switching to the next stage.
- rocket3D.update(dt,{animate:lesson.running,effectTime,flames:true,upper:lesson.index>=2,renderFrame:false});
- let event=lesson.advance(dt);
- if(event==='wait'){
-  lesson.trigger();
-  rocket3D.play(rocket3D.manifest.separationOrder[lesson.index]);
-  event='automatic-separation';
- }
- if(event==='payload')rocket3D.play('ReleasePayload');
- rocket3D.followSeparation(lesson.index,lesson.local,lesson.phase);
+ rocket3D.update(dt,{animate:lesson.running,renderFrame:false});
+ const checkingExit=['ascent','booster-drop','debris-exit'].includes(lesson.phase);
+ const shotComplete=checkingExit&&rocket3D.followSeparation(lesson.index,lesson.local+dt,lesson.phase);
+ const event=lesson.advance(dt,shotComplete);
+ if(event!=='complete'&&(!checkingExit||event))rocket3D.followSeparation(lesson.index,lesson.local,lesson.phase);
  return event;
 }
 
-document.addEventListener('click',()=>{dirty=true;});document.addEventListener('change',()=>{dirty=true;});addEventListener('globe-texture-ready',()=>{dirty=true;});function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;lastDt=dt;if(!document.hidden&&orbitIntroScene&&!reducedOrbitMotion.matches)orbitIntroScene.advance(dt);if(!document.hidden&&(dirty||playing||holding||rocket3D.assemblyMotion||rocket3D.needsSelectionFrame||(step===4&&velScene.needsFrame()))){if(playing){time+=dt;if(step===0&&time>=4){time=4;playing=false;}if(step===2&&launch&&time>=LAUNCH_DURATION){time=LAUNCH_DURATION;finishLaunch();}if(step===9){dvLesson.advance(dt);time=dvLesson.progress*18;}
+document.addEventListener('click',()=>{dirty=true;});document.addEventListener('change',()=>{dirty=true;});addEventListener('globe-texture-ready',()=>{dirty=true;});function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;lastDt=dt;if(!document.hidden&&orbitIntroScene&&!reducedOrbitMotion.matches)orbitIntroScene.advance(dt);const liveSeparationEffects=step===8&&rocket3D.mode==='separation'&&separation.phase!=='ready'&&!rocket3D.reducedMotion.matches;
+if(!document.hidden&&(liveSeparationEffects||(step===8&&playing)))separationEffectTime+=dt;
+if(!document.hidden&&(dirty||playing||liveSeparationEffects||holding||rocket3D.assemblyMotion||rocket3D.needsSelectionFrame||(step===4&&velScene.needsFrame()))){if(playing){time+=dt;if(step===0&&time>=4){time=4;playing=false;}if(step===2&&launch&&time>=LAUNCH_DURATION){time=LAUNCH_DURATION;finishLaunch();}if(step===9){dvLesson.advance(dt);time=dvLesson.progress*18;}
 if(step===8&&separation.phase==='complete'){
- const wasDeploying=payloadTime<deploymentDuration;
  payloadTime+=dt;
- if(wasDeploying&&payloadTime>=deploymentDuration)syncSeparation();
 }else if(step===8){
-const event=advanceSeparation(separation,dt,time);if(event==='complete')rocket3D.setScene(null);playing=separation.running||event==='complete';if(event){dirty=true;syncSeparation();}}
+const event=advanceSeparation(separation,dt);if(event==='complete')separation.paused=true;playing=separation.running;if(event){dirty=true;syncSeparation();}}
 }if(!$('#app').hasAttribute('data-direction-intro'))draw();dirty=false;if(step!==8&&step!==9&&time>12)playing=false;}requestAnimationFrame(frame);}render();requestAnimationFrame(frame);
 
 window.RocketChapter3={adapter:rocket3D,separation,sky,get launchDiagram(){return launchDiagram;},get records(){return records;},get assembled(){return [...assembled];},get step(){return step;},get playing(){return playing;}};

@@ -1,3 +1,4 @@
+import {createSteamTexture} from './separation-vapor.js';
 import * as T from './vendor/three/three.module.js';
 import {GLTFLoader} from './vendor/three/loaders/GLTFLoader.js';
 import {applyRocketPaint} from './rocket-paint-material.js';
@@ -138,23 +139,7 @@ function addPadEffects(pad){
   pad.add(glow);
  }
 
- const steamCanvas=document.createElement('canvas');
- steamCanvas.width=steamCanvas.height=128;
- const steamContext=steamCanvas.getContext('2d');
- // Overlapping soft lobes give the expanding sheet a painted, turbulent edge.
- for(let i=0;i<13;i++){
-  const angle=i*2.39996;
-  const radius=9+Math.sqrt(i)*8;
-  const x=64+Math.cos(angle)*radius,y=64+Math.sin(angle)*radius;
-  const lobe=steamContext.createRadialGradient(x,y,0,x,y,27+(i%4)*3);
-  lobe.addColorStop(0,i<4?'#eee6d8bb':'#bac7df84');
-  lobe.addColorStop(.58,'#acb9cc47');
-  lobe.addColorStop(1,'#acb9cc00');
-  steamContext.fillStyle=lobe;
-  steamContext.fillRect(0,0,128,128);
- }
- const steam=new T.CanvasTexture(steamCanvas);
- steam.colorSpace=T.SRGBColorSpace;
+ const steam=createSteamTexture();
  // A ground-parallel warm flash joins the vertical jet to the radial steam.
  const air=new T.Group();
  air.name='LiftoffAir';
@@ -175,7 +160,7 @@ function addPadEffects(pad){
  pad.add(air);
 }
 
-export function updatePadAir(air,seconds,reduced,lift=0){
+export function updatePadAir(air,seconds,reduced,lift=0,effectTime=seconds){
  if(!air)return;
  air.visible=seconds>0;
  if(!air.visible)return;
@@ -200,13 +185,14 @@ export function updatePadAir(air,seconds,reduced,lift=0){
   const distance=2+spread*(foreground?93+ray%3*6:33+ring*8+(ray%3)*4);
   const size=10+spread*(foreground?44+ray%3*6:23+ring*4+ray%3*3);
   const height=size*(foreground?.66:.49+ring*.06);
-  const curl=reduced?0:Math.sin(age*3+ray)*spread*2.2;
+  const curl=reduced?0:Math.sin(effectTime*3+ray)*spread*2.2;
   particle.position.set(Math.cos(angle)*distance+curl,height*.52+.18,Math.sin(angle)*distance);
   particle.scale.set(size*1.35,height,1);
   particle.material.rotation=reduced?0:(ray%2===0?1:-1)*spread*.24;
   const grow=T.MathUtils.smoothstep(age,0,.24);
   const dissipate=1-.79*T.MathUtils.smoothstep(age,1.26,4.85);
   const persistence=foreground?1-.56*T.MathUtils.smoothstep(age,2.35,4.6):dissipate;
-  particle.material.opacity=grow*persistence*(ring===0?.98:.92);
+  const turbulence=reduced?1:.95+.05*Math.sin(effectTime*4+ray);
+  particle.material.opacity=grow*persistence*(ring===0?.98:.92)*turbulence;
  }
 }

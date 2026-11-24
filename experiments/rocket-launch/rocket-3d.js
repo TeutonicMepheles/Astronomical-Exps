@@ -1,3 +1,4 @@
+import {createSeparationVapor} from './separation-vapor.js';
 import {COMPARISON_WIDTH,COMPARISON_HEIGHT} from './comparison-flight.js?v=taller-comparison';
 import {addRocketHardware} from './rocket-hardware.js?v=tianzhou-solar';
 import {createRocketExhaust} from './rocket-exhaust.js?v=flight-refinement-20261117';
@@ -9,17 +10,14 @@ import {RocketSelectionOutline} from './rocket-selection-outline.js?v=tianzhou-s
 import {RocketBlueprint} from './rocket-blueprint.js?v=course-refinements-20261118';
 import {RocketPartInfo} from './rocket-part-info.js?v=tip-pointer';
 import {createScanMaterial} from './scan-material.js?v=assembly-uniform-20261117';
-import {applyRocketPaint} from './rocket-paint-material.js?v=assembly-uniform-20261117';
+import {applyRocketPaint,applyTianzhouPaint,loadTianzhouPaper} from './rocket-paint-material.js?v=assembly-uniform-20261117';
 import {applyRocketSelectionHatch} from './rocket-selection-hatch.js';
-import {SEPARATION_ASCENT_DURATION} from './separation-state.js';
+import {SEPARATION_ASCENT_DURATION,SEPARATION_CHASE_DURATION} from './separation-state.js';
 import {loadSeparationPad, updatePadAir} from './separation-pad.js';
 import {GLTFLoader} from './vendor/three/loaders/GLTFLoader.js';
 
 const tianzhouURL=new URL('./assets/tianzhou-solar/tianzhou-solar.glb',import.meta.url);
 const asset=new URL('./assets/cz7-kiu-20261116/',import.meta.url);
-const SEPARATION_SHOT_LABELS={
- pad:'发射台全景',ignition:'发射台全景',staging:'同框分离',fairing:'整流罩跟拍',payload:'载荷跟拍',
-};
 export const MODULES=['Stage1','Stage2','Boosters','Payload','Fairing'];
 export const STRUCTURE_NODES=['Stage1','Stage2','Boosters','Payload','Fairing','Stage1LOXTank','Stage1FuelTank','Stage1Engine01','Stage2LOXTank','Stage2FuelTank','Stage2Engine01'];
 const apply=(o,t)=>{o.position.fromArray(t.translation.map(v=>v===0?0:v));o.quaternion.fromArray(t.rotation);o.scale.fromArray(t.scale);};
@@ -36,7 +34,6 @@ export class Rocket3D {
   this.separationViews=document.createElement('div');this.separationViews.className='separation-views';this.separationViews.hidden=true;
   for(const label of ['一级跟拍','二级跟拍']){const view=document.createElement('span');view.textContent=label;this.separationViews.append(view);}
   this.layer.append(this.separationViews);
-  this.separationShotLabel=document.createElement('span');this.separationShotLabel.className='separation-shot-label';this.separationShotLabel.hidden=true;this.layer.append(this.separationShotLabel);
   this.label=document.createElement('div');this.label.className='rocket-3d-label';this.layer.append(this.label);this.label.hidden=true;this.selectionOutline=new RocketSelectionOutline(this);this.info=new RocketPartInfo(this);this.occlusionHighlights=[];this.pulseTime=0;this.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
   this.abort=new AbortController();const opts={signal:this.abort.signal};
   this.ro=new ResizeObserver(()=>this.resize());this.ro.observe(host);this.ro.observe(this.layer);
@@ -59,6 +56,8 @@ export class Rocket3D {
      this.firstStageCenter=new T.Vector3();
      this.payloadBounds=new T.Box3();
      this.separationBounds=new T.Box3();
+     this.padRocketBounds=new T.Box3();
+     this.padProjectionPoint=new T.Vector3();
      this.payloadCenter=new T.Vector3();
      this.fillLight=new T.HemisphereLight(0xeaf3ff,0x3b4159,2.1);this.scene.add(this.fillLight);const light=new T.DirectionalLight(0xfff4de,3);light.position.set(-15,30,65);this.scene.add(light);light.castShadow=true;light.shadow.mapSize.set(1024,1024);Object.assign(light.shadow.camera,{left:-55,right:55,top:55,bottom:-55,near:.1,far:350});light.shadow.bias=-.00015;light.shadow.normalBias=.02;this.paperLight=light;
      this.paperShadow=new T.Mesh(new T.PlaneGeometry(250,250),new T.ShadowMaterial({color:0x020c18,opacity:.32,depthWrite:false}));this.paperShadow.rotation.x=-Math.PI/2;this.paperShadow.receiveShadow=true;this.paperShadow.renderOrder=-9;this.paperShadow.visible=false;this.scene.add(this.paperShadow);
@@ -73,7 +72,7 @@ export class Rocket3D {
     this.manifest=manifest;this.model=gltf.scene;this.model.traverse(o=>{if(o.isMesh)o.castShadow=true;if(o.isMesh)for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(!m.userData.rocketPaint)applyRocketPaint(m,this.padLighting);});this.pivot.add(this.model);this.model.traverse(o=>{if(o.name)this.nodes[o.name]=o;});
     for(const n of Object.keys(manifest.defaultTransformsGLTF))if(!this.nodes[n])throw Error('缺少节点 '+n);
     this.hardware=addRocketHardware(this.nodes,this.model);
-    this.installTianzhou(tianzhou.scene);
+    this.installTianzhou(tianzhou.scene,tianzhou.animations[0]);
     this.clips=Object.fromEntries(gltf.animations.map(c=>[c.name,c]));this.mixer=new T.AnimationMixer(this.model);
     this.centers={};this.targetCenters={};
     this.reset();this.scene.updateMatrixWorld(true);const assetBounds=new T.Box3().setFromObject(this.model);this.assetSize=assetBounds.getSize(new T.Vector3()).toArray();this.rocketBase=assetBounds.min.y;
@@ -94,7 +93,7 @@ export class Rocket3D {
    }catch(e){this.fail(e);return this;}finally{this.loading=null;}
   })();return this.loading;
  }
- installTianzhou(model){
+ installTianzhou(model,solarClip){
   const payload=this.nodes.Payload;
   const oldParts=payload.children.filter(node=>node.name.startsWith('Payload'));
   payload.updateWorldMatrix(true,true);
@@ -131,15 +130,22 @@ export class Rocket3D {
   const radialScale=radius/foldedRadius;
   mounted.scale.set(radialScale,(original.max.y-original.min.y)/(bounds.max.y-bounds.min.y),radialScale);
   mounted.position.copy(original.getCenter(new T.Vector3())).sub(center.multiply(mounted.scale));
+  this.tianzhouPaper=loadTianzhouPaper(()=>this.invalidateFrame());
+  const animatedNodes=new Set(solarClip.tracks.map(track=>track.name.split(".")[0]));
   let meshIndex=0;
   model.traverse(node=>{
    if(!node.isMesh)return;
-   node.name='TianzhouMesh'+(++meshIndex);
+   if(!animatedNodes.has(node.name))node.name='TianzhouMesh'+(++meshIndex);
+   for(const material of [].concat(node.material))applyTianzhouPaint(material,this.tianzhouPaper);
    node.castShadow=true;
   });
   // Keep the authored transform targets addressable for the existing manifest.
   for(const part of oldParts)part.removeFromParent();
   payload.add(mounted);
+  this.solarMixer=new T.AnimationMixer(model);
+  this.solarAction=this.solarMixer.clipAction(solarClip).setLoop(T.LoopOnce,1);
+  this.solarAction.clampWhenFinished=true;
+  this.solarDuration=solarClip.duration;
   this.retiredPayloadMeshes=oldParts;
  }
  fail(e){this.ready=false;this.failed=true;this.status.hidden=false;this.status.replaceChildren(document.createTextNode('模型加载失败 / WebGL 不可用：'+e.message));const b=document.createElement('button');b.textContent='重试';b.onclick=()=>{if(this.renderer?.getContext().isContextLost())location.reload();else this.load({retry:true});};this.status.append(b);this.onStatus?.(false);}
@@ -148,10 +154,14 @@ export class Rocket3D {
   if(!this.model)return;this.clearDissolve();this.assemblyMotion=null;this.mixer.stopAllAction();this.mixer.timeScale=1;this.active=null;this.playbackFamily=null;this.clearSelection();this.setXray(false);
   for(const [n,t] of Object.entries(this.manifest.defaultTransformsGLTF)){apply(this.nodes[n],t);this.nodes[n].visible=true;}
   for(const name of STRUCTURE_NODES.slice(MODULES.length))for(const part of this.assemblyParts?.members(name)||[])this.nodes[part].visible=true;
+  this.restoreBoosters();
+  this.restoreSeparationDebris();
+  this.setSolarDeployment(0);
+  this.separationVapor?.clear();
   this.effects.forEach(e=>{e.reset();e.group.scale.setScalar(1);});this.layout.position.set(0,0,0);this.layout.rotation.set(0,0,0);this.layout.scale.setScalar(1);this.pivot.position.set(0,-26.55,0);this.launchTime=null;if(this.reference){this.reference.visible=false;for(const n of MODULES)this.reference.getObjectByName(n).visible=true;}
   this.ascentProgress=null;this.model.visible=true;if(this.stagingRig)this.stagingRig.root.visible=false;this.camera.position.set(0,0,100);this.camera.zoom=1;this.camera.far=400;this.camera.lookAt(0,0,0);this.resize();this.invalidateFrame();
  }
- setScene(mode){this.mode=mode;this.layer.hidden=!mode;if(mode!=='separation'){delete this.layer.dataset.separationShot;this.layer.removeAttribute('data-separation-pad');this.layer.style.removeProperty('transform');this.separationViews.hidden=true;this.separationShotLabel.hidden=true;this.syncSeparationPad();}if(!this.ready)return;this.renderer.toneMapping=T.NoToneMapping;this.status.hidden=true;this.blueprint?.setVisible(false);this.renderer.shadowMap.enabled=['structure','assembly'].includes(mode);if(this.paperShadow)this.paperShadow.visible=false;if(this.scanMaterial){
+ setScene(mode,{resetPose=true}={}){this.mode=mode;this.layer.hidden=!mode;if(mode!=='separation'){delete this.layer.dataset.separationShot;this.layer.removeAttribute('data-separation-pad');this.layer.style.removeProperty('transform');this.separationViews.hidden=true;this.syncSeparationPad();}if(!this.ready||!resetPose)return;this.renderer.toneMapping=T.NoToneMapping;this.status.hidden=true;this.blueprint?.setVisible(false);this.renderer.shadowMap.enabled=['structure','assembly'].includes(mode);if(this.paperShadow)this.paperShadow.visible=false;if(this.scanMaterial){
   // Show the inside of the far wall after the shader clips away the near wall.
   this.scanMaterial.side=mode==='assembly'?T.DoubleSide:T.FrontSide;
   this.scanMaterial.uniforms.strength.value=mode==='assembly'?.62:.28;
@@ -309,40 +319,46 @@ export class Rocket3D {
  followSeparation(index,local,phase){
   const reduced=this.reducedMotion.matches;
   if(phase==='ascent'){
-   const travel=T.MathUtils.clamp((local-.52)/(SEPARATION_ASCENT_DURATION-.52),0,1);
+   const travel=Math.max(0,(local-.52)/(SEPARATION_ASCENT_DURATION-.52));
    this.layout.position.y=125*Math.pow(travel,3.35);
+   this.layout.rotation.z=0;
    this.separationFraming=this.padFraming;
    this.setSeparationShot('ignition');
    this.padIgnitionTime=local;
-   updatePadAir(this.liftoffAir,local,reduced,this.layout.position.y);
-   if(!reduced){
-    const pulse=T.MathUtils.smoothstep(local,.02,.23)*(1-T.MathUtils.smoothstep(travel,.3,.93));
-    const dx=pulse*(2.4*Math.sin(local*42)+1.5*Math.sin(local*65+1));
-    const dy=pulse*(3.5*Math.sin(local*48+.2)+1.4*Math.sin(local*79));
-    this.layer.style.transform=`translate(${dx}px,${dy}px) scale(${1+.012*pulse})`;
-   }else this.layer.style.removeProperty('transform');
    this.frameSeparation(this.layer.clientWidth,this.layer.clientHeight);
-   return;
+   return this.hasClearedPadFrame();
   }
   updatePadAir(this.liftoffAir,0,reduced);
   const ready=phase==='ready';
+  const chasing=phase==='chase';
+  const dropping=phase==='booster-drop';
+  const exiting=phase==='debris-exit';
+  const boosterSplit=index===0&&phase==='animation'||dropping;
   const stageSplit=index===1&&phase==='animation';
-  const split=stageSplit&&local>=.75;
+  const split=(stageSplit&&local>=.75)||(index===1&&exiting);
   this.layout.position.y=ready?0:44;
+  const flightProgress=(index+(dropping||exiting?1:phase==='animation'?Math.min(1,local/2):0))/4;
+  let pitch=chasing
+   ?.18*T.MathUtils.smoothstep(local,.45,SEPARATION_CHASE_DURATION)
+   :T.MathUtils.lerp(.18,1.34,T.MathUtils.smoothstep(flightProgress,0,1));
+  if(index===3&&exiting)pitch=T.MathUtils.lerp(pitch,Math.PI/2,
+   T.MathUtils.smoothstep(local,0,1));
+  this.layout.rotation.z=ready?0:-pitch;
   this.scene.updateMatrixWorld(true);
 
   let target=this.separationBounds.setFromObject(this.nodes.Stage2);
   if(!split&&index<2)target.expandByObject(this.nodes.Stage1);
-  if(index===0)target.expandByObject(this.nodes.Boosters);
+  if(index===0&&!dropping&&!boosterSplit)target.expandByObject(this.nodes.Boosters);
   if(index<2)target.expandByObject(this.nodes.Fairing);
-  const release=index===3&&phase==='animation';
+  if(index===2&&phase==='waiting')target.expandByObject(this.nodes.Fairing);
+  const release=index===3&&(phase==='animation'||exiting);
   if(index>=2)target.expandByObject(this.nodes.Payload);
   const focus=target.getCenter(this.payloadCenter);
   let half=Math.max(11,(target.max.y-target.min.y)*.63);
   let angle=.55;
   let elevation=-.14;
   let fov=34;
-  let shot=index===2?'fairing':index>=3?'payload':'staging';
+  let shot=chasing?'chase':index===2?'fairing':index>=3?'payload':'staging';
   let minY=-Infinity;
   if(ready){
    shot='pad';angle=1.46;elevation=-.21;half*=1.18;focus.y-=5;minY=this.rocketBase+4;
@@ -351,20 +367,128 @@ export class Rocket3D {
    fov=25;
   }else if(release){
    target=this.payloadBounds.setFromObject(this.nodes.Payload);
-   const reveal=reduced?1:T.MathUtils.smoothstep(local,.15,1.6);
+   const reveal=reduced||exiting?1:T.MathUtils.smoothstep(local,.15,1.6);
    focus.lerp(target.getCenter(this.firstStageCenter),reveal);
    half=T.MathUtils.lerp(half,11,reveal);
-   angle=T.MathUtils.lerp(.55,.98,reveal);
+   angle=T.MathUtils.lerp(.55,.16,reveal);
+   elevation*=1-reveal;
+   focus.y-=3.8*reveal;
   }
-  this.separationFraming={x:focus.x,y:focus.y,z:focus.z,half,angle,elevation,fov,split,minY};
-  if(ready)this.padFraming=this.separationFraming;
-  if(split){
+  const powered=!ready&&!release;
+  this.separationFraming={x:focus.x,y:focus.y-(powered?half*.21:0),z:focus.z,
+   half:powered?half*1.28:half,angle,elevation,fov,split,minY};
+  this.boosterViewportAmount=boosterSplit
+   ?(dropping?1:(reduced?Number(local>=.45):T.MathUtils.smoothstep(local,.30,.85)))
+   :0;
+  if(dropping)this.dropBoosters(local,reduced);
+  if(ready){
+   this.padFraming=this.separationFraming;
+   this.padRocketBounds.setFromObject(this.model);
+   this.separationVapor??=createSeparationVapor(this.layout,this.nodes);
+  }
+  if(split&&!exiting){
    const stage=this.payloadBounds.setFromObject(this.nodes.Stage1);
    const center=stage.getCenter(this.firstStageCenter);
    this.firstStageFraming={x:center.x,y:center.y,z:center.z,half:Math.max(14,(stage.max.y-stage.min.y)*.72),angle:-.7,elevation:.16,fov:27};
   }
   this.setSeparationShot(split?'split':shot);
   this.frameSeparation(this.layer.clientWidth,this.layer.clientHeight);
+  if(dropping)return this.finishBoosterDrop(local,reduced);
+  const cleared=exiting&&this.moveSeparationDebris(index,local,split?this.firstStageCamera:this.separationCamera);
+  return cleared&&(index!==3||local>=1);
+ }
+ setSolarDeployment(progress){
+  if(!this.solarAction||this.solarProgress===progress)return;
+  this.solarProgress=progress;
+  this.solarAction.reset().play();
+  this.solarMixer.setTime(this.solarDuration*progress);
+  this.invalidateFrame();
+ }
+ drawPayloadOrbit(progress,age){
+  this.setSolarDeployment(progress);
+  const drift=1-Math.exp(-age*.52);
+  const framing=this.separationFraming;
+  if(age>0){
+   const offset=4.5*drift;
+   this.placeSeparationCamera(this.separationCamera,
+    {...framing,x:framing.x-offset*Math.cos(framing.angle),z:framing.z+offset*Math.sin(framing.angle)},
+    this.layer.clientWidth/this.layer.clientHeight);
+   this.dirty=true;
+  }
+  this.update(0);
+ }
+ moveSeparationDebris(index,local,camera){
+  this.separationDebris??=new Map();
+  if(!this.separationDebris.has(index)){
+   const names=[[],['Stage1'],['FairingLeft','FairingRight'],['Stage2']][index];
+   const parts=names.map(name=>{
+    const node=this.nodes[name];
+    const parent=node.parent;
+    this.scene.attach(node);
+    return {node,parent,start:node.position.clone(),bounds:new T.Box3()};
+   });
+   this.separationDebris.set(index,parts);
+  }
+  const parts=this.separationDebris.get(index);
+  const drift=18*local+34*local*local;
+  let cleared=true;
+  for(const [offset,part] of parts.entries()){
+   const {node,start,bounds}=part;
+   if(!node.parent)continue;
+   node.position.copy(start);
+   node.position.y-=drift;
+   if(parts.length>1)node.position.z+=(offset===0?-1:1)*drift*.28;
+   if(this.isBelowSeparationFrame(camera,bounds.setFromObject(node)))node.removeFromParent();
+   else cleared=false;
+  }
+  return cleared;
+ }
+ restoreSeparationDebris(){
+  if(!this.separationDebris)return;
+  for(const parts of this.separationDebris.values()){
+   for(const {node,parent} of parts)parent.add(node);
+  }
+  this.separationDebris.clear();
+ }
+ dropBoosters(local,reduced){
+  const boosters=this.nodes.Boosters;
+  if(!this.boosterFall){
+   this.boosterFall={parent:boosters.parent,bounds:new T.Box3(),collapseAt:null};
+   this.scene.attach(boosters);
+   this.boosterFall.startY=boosters.position.y;
+  }
+  const fall=this.boosterFall;
+  if(fall.collapseAt===null){
+   boosters.position.y=fall.startY-24*local-22*local*local;
+  }else{
+   this.boosterViewportAmount=reduced?0:1-T.MathUtils.smoothstep(local,fall.collapseAt,fall.collapseAt+.42);
+  }
+ }
+ finishBoosterDrop(local,reduced){
+  const fall=this.boosterFall;
+  if(fall.collapseAt!==null)return this.boosterViewportAmount===0;
+  const boosters=this.nodes.Boosters;
+  fall.bounds.setFromObject(boosters);
+  if(![this.separationCamera,this.firstStageCamera].every(camera=>this.isBelowSeparationFrame(camera,fall.bounds)))return false;
+  boosters.removeFromParent();
+  fall.collapseAt=local;
+  if(!reduced)return false;
+  this.boosterViewportAmount=0;
+  return true;
+ }
+ isBelowSeparationFrame(camera,{min,max}){
+  camera.updateMatrixWorld();
+  for(const x of [min.x,max.x])for(const y of [min.y,max.y])for(const z of [min.z,max.z]){
+   const point=this.padProjectionPoint.set(x,y,z).applyMatrix4(camera.matrixWorldInverse);
+   if(point.z<0&&point.applyMatrix4(camera.projectionMatrix).y>=-1.03)return false;
+  }
+  return true;
+ }
+ restoreBoosters(){
+  if(!this.boosterFall)return;
+  this.boosterFall.parent.add(this.nodes.Boosters);
+  this.boosterFall=null;
+  this.boosterViewportAmount=0;
  }
  setSeparationShot(shot){
   if(this.layer.dataset.separationShot===shot)return;
@@ -372,16 +496,34 @@ export class Rocket3D {
   if(shot!=='ignition')this.layer.style.removeProperty('transform');
   this.layer.toggleAttribute('data-separation-pad',shot==='pad'||shot==='ignition');
   this.separationViews.hidden=shot!=='split';
-  this.separationShotLabel.hidden=shot==='split';
-  this.separationShotLabel.textContent=SEPARATION_SHOT_LABELS[shot]||'';
   this.syncSeparationPad();
+ }
+ hasClearedPadFrame(){
+  const {min,max}=this.padRocketBounds;
+  const camera=this.separationCamera;
+  camera.updateMatrixWorld();
+  this.layout.updateMatrix();
+  for(const x of [min.x,max.x]){
+   for(const y of [min.y,max.y]){
+    for(const z of [min.z,max.z]){
+     if(this.padProjectionPoint.set(x,y,z).applyMatrix4(this.layout.matrix).project(camera).y<=1)return false;
+    }
+   }
+  }
+  return true;
  }
  frameSeparation(width,height){
   if(!this.separationFraming||!width||!height)return;
   const {split}=this.separationFraming;
-  this.firstStageViewport=split?Math.floor(width/2):0;
+  this.boosterFullViewport=Math.floor(width*.40);
+  this.boosterViewport=Math.round(this.boosterFullViewport*(this.boosterViewportAmount||0));
+  this.firstStageViewport=split?Math.floor(width/2):this.boosterViewport;
+  this.layer.style.setProperty('--booster-viewport',`${this.boosterViewport}px`);
+  this.layer.toggleAttribute('data-booster-viewport',this.boosterViewport>0);
   this.placeSeparationCamera(this.separationCamera,this.separationFraming,(width-this.firstStageViewport)/height);
   if(split)this.placeSeparationCamera(this.firstStageCamera,this.firstStageFraming,this.firstStageViewport/height);
+  if(this.boosterViewport)this.placeSeparationCamera(this.firstStageCamera,
+   {x:0,y:14,z:0,half:29,angle:-1.18,elevation:-.92,fov:37},this.boosterFullViewport/height);
   this.invalidateFrame();
  }
  placeSeparationCamera(camera,{x,y,z,half,angle,elevation,fov,minY=-Infinity},aspect){
@@ -404,13 +546,17 @@ export class Rocket3D {
   const boosters=this.nodes.Boosters;
   renderer.setScissorTest(true);
   try {
-   firstStage.visible=false;
-   boosters.visible=false;
+   if(!this.boosterViewport){
+    firstStage.visible=false;
+    boosters.visible=false;
+   }
    renderer.setViewport(side,0,main,height);
    renderer.setScissor(side,0,main,height);
    renderer.render(this.scene,this.separationCamera);
-   modules.forEach((module,index)=>{module.visible=module===firstStage&&visibility[index];});
-   renderer.setViewport(0,0,side,height);
+   const observedPart=this.boosterViewport?boosters:firstStage;
+   modules.forEach((module,index)=>{module.visible=module===observedPart&&visibility[index];});
+   const sideWidth=this.boosterViewport?this.boosterFullViewport:side;
+   renderer.setViewport(side-sideWidth,0,sideWidth,height);
    renderer.setScissor(0,0,side,height);
    renderer.render(this.scene,this.firstStageCamera);
   } finally {
@@ -443,7 +589,26 @@ export class Rocket3D {
   return reveal;
  }
  beginLaunch(){this.assemblyParts?.setVisible(false);if(this.reference)this.reference.visible=false;this.blueprint?.setVisible(false);this.launchTime=0;}
- update(dt,{animate=false,effectTime=0,flames=false,upper=false,renderFrame=true}={}){
+ startSeparationVapor(index,effectTime){
+  this.separationVapor?.start(index,effectTime);
+ }
+ updateSeparationEffects(effectTime,padIgnition){
+  const reduced=this.reducedMotion.matches;
+  this.separationVapor?.update(effectTime,reduced);
+  if(padIgnition)updatePadAir(this.liftoffAir,this.padIgnitionTime,reduced,this.layout.position.y,effectTime);
+  if(reduced){
+   this.layer.style.removeProperty('transform');
+   return;
+  }
+  const ignition=padIgnition?T.MathUtils.smoothstep(this.padIgnitionTime,.02,.23):1;
+  const groundShock=padIgnition?1-T.MathUtils.smoothstep(this.layout.position.y,8,75):0;
+  const strength=ignition*(.48+2.4*groundShock);
+  const dx=strength*(Math.sin(effectTime*34)+.36*Math.sin(effectTime*57));
+  const dy=strength*(Math.sin(effectTime*43+.2)+.4*Math.sin(effectTime*71));
+  this.layer.style.transform=`translate(${dx}px,${dy}px) scale(${1+.012*ignition*groundShock})`;
+  this.dirty=true;
+ }
+ update(dt,{animate=false,effectTime=0,flames=false,exhaustStage=0,renderFrame=true}={}){
   if(!this.ready||!this.mode||document.hidden)return;
   if(this.assemblyMotion){const m=this.assemblyMotion;m.elapsed+=dt;const t=Math.max(0,Math.min(1,m.elapsed/m.duration));m.amount.value=m.direction==='out'?t:1-t;m.tick.value=this.reducedMotion.matches?0:Math.floor(Math.max(0,m.elapsed)*12);this.dirty=true;if(t===1){this.assemblyMotion=null;if(m.direction==='out'){this.model.visible=false;}this.clearDissolve();m.onComplete?.();}}
   this.updateSelection(dt);
@@ -452,18 +617,21 @@ export class Rocket3D {
     this.scene.updateMatrixWorld(true);this.launchBox??=new T.Box3();this.launchBox.setFromObject(this.model);const box=this.launchBox;
     const fit=Math.max(half,Math.abs(box.min.y)*1.06,Math.abs(box.max.y)*1.06,Math.abs(box.min.x)/aspect*1.06,Math.abs(box.max.x)/aspect*1.06);
     this.camera.left=-fit*aspect;this.camera.right=fit*aspect;this.camera.top=fit;this.camera.bottom=-fit;this.camera.updateProjectionMatrix(); }this.dirty=true;}
+  if(!renderFrame)return;
   const padIgnition=this.mode==='separation'&&this.layer.dataset.separationShot==='ignition';
+  if(this.mode==='separation'&&flames)this.updateSeparationEffects(effectTime,padIgnition);
   const spool=padIgnition?T.MathUtils.smoothstep(this.padIgnitionTime,.01,.31):0;
   this.effects.forEach(e=>{
-   const show=flames&&(upper?e.name.startsWith('Stage2'):!e.name.startsWith('Stage2'));
+   const engineStage=e.name.startsWith('Stage2')?2:e.name.startsWith('Stage1')?1:0;
+   const show=flames&&(engineStage===exhaustStage||(exhaustStage===0&&engineStage===1));
    if(show!==e.group.visible)this.dirty=true;
    e.group.visible=show;
-   const width=padIgnition?1.16+spool*.90:1;
-   e.group.scale.set(width,padIgnition?1.15+spool*3.10:1,width);
-   if(show){e.update(this.reducedMotion.matches?0:effectTime,padIgnition?spool:null,padIgnition&&this.separationPad?this.separationPad.position.y+1.8:0);if(animate)this.dirty=true;}
+   const width=padIgnition?1+spool*.48:1;
+   e.group.scale.set(width,padIgnition?.48+spool*.64:1,width);
+   if(show){e.update(this.reducedMotion.matches?0:effectTime,padIgnition?spool:null,padIgnition&&this.separationPad?this.separationPad.position.y+1.8:0,this.mode==='separation'&&!padIgnition);if(animate)this.dirty=true;}
   });
-  if(this.dirty&&renderFrame){this.blueprint?.drawShadows();if(this.mode==='separation')this.renderSeparation();else this.renderer.render(this.scene,this.camera);this.selectionOutline.update();this.assemblyGuide?.update();this.info.update();if(this.selected){const p=this.moduleCenter(this.selected);this.label.style.left=Math.max(100,Math.min(this.host.clientWidth-100,p.x))+'px';this.label.style.top=Math.max(16,Math.min(this.host.clientHeight-55,p.y-75))+'px';}this.dirty=false;}
+  if(this.dirty){this.blueprint?.drawShadows();if(this.mode==='separation')this.renderSeparation();else this.renderer.render(this.scene,this.camera);this.selectionOutline.update();this.assemblyGuide?.update();this.info.update();if(this.selected){const p=this.moduleCenter(this.selected);this.label.style.left=Math.max(100,Math.min(this.host.clientWidth-100,p.x))+'px';this.label.style.top=Math.max(16,Math.min(this.host.clientHeight-55,p.y-75))+'px';}this.dirty=false;}
  }
  disposeObject(root){const geometries=new Set(),materials=new Set(),textures=new Set();root.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m));});geometries.forEach(g=>g.dispose());materials.forEach(m=>{for(const value of Object.values(m))if(value?.isTexture)textures.add(value);m.dispose();});textures.forEach(t=>t.dispose());}
- destroy(){this.disposed=true;this.ready=false;this.mode=null;this.abort.abort();this.ro.disconnect();this.mixer?.stopAllAction();this.assemblyMotion=null;this.clearDissolve();this.clearSelection();this.stagingRig?.dispose();this.effects.forEach(e=>{e.group.removeFromParent();e.dispose();});if(this.separationPad){this.scene.remove(this.separationPad);this.disposeObject(this.separationPad);this.separationPad=null;}if(this.model)this.disposeObject(this.model);for(const mesh of this.retiredPayloadMeshes||[])this.disposeObject(mesh);this.retiredPayloadMeshes=[];this.referenceMaterial?.dispose();this.assemblyParts?.destroy();this.assemblyGuide?.destroy();this.selectionOutline?.destroy();this.info?.destroy();this.blueprint?.destroy();this.paperShadow?.geometry.dispose();this.paperShadow?.material.dispose();this.paperLight?.shadow.dispose();this.renderer?.dispose();this.renderer?.forceContextLoss();this.pivot?.clear();if(this.stagingRig)this.scene.remove(this.stagingRig.root);this.stagingRig=null;this.model=null;this.nodes={};this.scanMeshes.clear();this.reference=null;this.effects=[];this.clips={};this.active=null;this.mixer=null;this.layer.remove();}
+ destroy(){this.disposed=true;this.ready=false;this.mode=null;this.abort.abort();this.ro.disconnect();this.mixer?.stopAllAction();this.assemblyMotion=null;this.clearDissolve();this.clearSelection();this.stagingRig?.dispose();this.separationVapor?.dispose();this.effects.forEach(e=>{e.group.removeFromParent();e.dispose();});if(this.separationPad){this.scene.remove(this.separationPad);this.disposeObject(this.separationPad);this.separationPad=null;}this.restoreBoosters();this.restoreSeparationDebris();this.solarMixer?.stopAllAction();this.tianzhouPaper?.dispose();if(this.model)this.disposeObject(this.model);for(const mesh of this.retiredPayloadMeshes||[])this.disposeObject(mesh);this.retiredPayloadMeshes=[];this.referenceMaterial?.dispose();this.assemblyParts?.destroy();this.assemblyGuide?.destroy();this.selectionOutline?.destroy();this.info?.destroy();this.blueprint?.destroy();this.paperShadow?.geometry.dispose();this.paperShadow?.material.dispose();this.paperLight?.shadow.dispose();this.renderer?.dispose();this.renderer?.forceContextLoss();this.pivot?.clear();if(this.stagingRig)this.scene.remove(this.stagingRig.root);this.stagingRig=null;this.model=null;this.nodes={};this.scanMeshes.clear();this.reference=null;this.effects=[];this.clips={};this.active=null;this.mixer=null;this.layer.remove();}
 }

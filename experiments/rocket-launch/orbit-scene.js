@@ -1,7 +1,7 @@
 import * as THREE from './vendor/three/three.module.js';
 import { GLTFLoader } from './vendor/three/loaders/GLTFLoader.js';
 
-import { createGlobeShaderRenderer } from '../../shared/components/globe-shader-renderer/index.js';
+import { createOrbitGlobe } from './orbit-globe.js';
 import { applyRocketPaint } from './rocket-paint-material.js';
 
 const aspect = 16 / 9;
@@ -55,26 +55,7 @@ export async function mountOrbitScene(host, signal) {
   sun.position.set(...sunDirection);
   scene.add(sun);
 
-  const globe = createGlobeShaderRenderer({
-    textureUrl: 'assets/orbit-globe/earth-eq-redraw-1152x576.png',
-    grainUrl: 'assets/orbit-globe/grain-ref-512.png',
-    reliefUrl: 'assets/land-relief-1024x512.png',
-    nightUrl: 'assets/orbit-globe/earth-night.webp',
-    textureReadyEvent: globeReadyEvent,
-    grid: { latitude: false, longitude: false, alpha: 0 },
-    lighting: {
-      highlightColor: [1, .91, .74],
-      highlightStrength: 1,
-      highlightRange: 1,
-      highlightGrain: 0,
-      highlightGrainScale: 3,
-      rimColor: [.18, .34, .63],
-      rimStrength: .55,
-      ambientColor: [1, 1, 1],
-      ambientStrength: .18,
-    },
-    material: { paperGrain: .075, contactAO: 0 },
-  });
+  const globe = createOrbitGlobe(globeReadyEvent);
   signal.addEventListener('abort', () => {
     renderer.dispose();
     renderer.forceContextLoss();
