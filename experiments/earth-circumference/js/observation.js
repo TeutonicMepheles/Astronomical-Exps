@@ -102,8 +102,13 @@ export function mountObservation(scene){
  function update(){
  const visible=scene.measuring&&!scene.calculating;
  panel.hidden=false;panel.inert=!visible;panel.setAttribute('aria-hidden',String(!visible));
- if(!visible||selected!=='selected')paintGlobeRod(false);
- if(!visible){measurement.suspend();return;}
+ if(!visible){
+  if(scene.observationPreviewReady){
+   const arc=scene.measureArc();
+   paintGlobeRod(true,arc,arc.selLat,Math.abs(arc.selLat-arc.subLat));
+  }else paintGlobeRod(false);
+  measurement.suspend();return;
+ }
  updatePin();
  panel.dataset.site=selected;
  q('.subsolar-zero-note').hidden=selected!=='subsolar';
@@ -209,5 +214,5 @@ export function mountObservation(scene){
   window.dispatchEvent(new CustomEvent('open-observation',{detail:{site:'selected',origin:event.currentTarget.getBoundingClientRect().toJSON()}}));
  });
  document.fonts.ready.then(()=>{framingKey='';update();});
- window.addEventListener('measurement-change',update);window.addEventListener('globe-frame',update);window.addEventListener('globe-mode-change',update);update();
+ window.addEventListener('measurement-change',update);window.addEventListener('globe-frame',update);window.addEventListener('globe-mode-change',update);window.addEventListener('view-mode-change',update);update();
 }

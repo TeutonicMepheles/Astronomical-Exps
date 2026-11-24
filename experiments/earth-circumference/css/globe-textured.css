@@ -648,8 +648,9 @@ html, body {
 .current .step-number { background:#b2d8f5;color:#153254;box-shadow:0 0 0 2px #d3ebff44; }
 .current .step-number:after { content:'';position:absolute;left:4px;top:46px;width:32px;height:5px;border-bottom:2px solid #b2d8f5;border-radius:50%; }
 .astro-stage-progress .complete .step-number { box-shadow:inset 0 0 0 2px #8fc9bb; }
-.step-check { display:none;color:#b5dbc9;font-size:16px;margin-left:-6px; }.complete .step-check { display:block; }
-.stage-next { position:absolute;right:45px;bottom:28px;z-index:35;min-width:158px;min-height:58px;padding:12px 25px;color:#fff0c9;background:#28446b;border:1px solid #c4d8ef;border-radius:14px 12px 15px 11px;font:22px/1.3 inherit;cursor:pointer;box-shadow:0 3px 10px #07122680;animation:stage-next-in .45s ease-out; }
+.astro-stage-progress .step-done .step-number { font-weight:700;color:#b5dbc9; }
+.astro-stage-progress li[role="button"]:not([aria-disabled="true"]) { cursor:pointer; }
+.stage-next {padding:12px 25px;color:#fff0c9;background:#28446b;border:1px solid #c4d8ef;border-radius:14px 12px 15px 11px;font:22px/1.3 inherit;cursor:pointer;box-shadow:0 3px 10px #07122680;animation:stage-next-in .45s ease-out; }
 .stage-next[hidden] { display:none; }.stage-next:hover,.stage-next:focus-visible { background:#385c89;outline:2px solid #ffe5ad;outline-offset:3px; }
 @keyframes stage-next-in { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
 @media(prefers-reduced-motion:reduce){.stage-next{animation:none}}
@@ -657,7 +658,7 @@ html, body {
 .stage-next { font-family:inherit;font-size:22px;line-height:1.3; }
 .stage > .panel { display:none; }
 @media(prefers-reduced-motion:reduce){.brush-flow{display:none;}}
-.stage-back { position:absolute;left:45px;bottom:28px;z-index:35;width:64px;height:58px;display:grid;place-items:center;padding:0;background:#192f50;color:#e2efff;border:1px solid #a8c9e8;border-radius:14px 12px 15px 11px;box-shadow:0 3px 10px #07122680;font:34px/1 system-ui;cursor:pointer; }
+.stage-back {background:#192f50;color:#e2efff;border:1px solid #a8c9e8;border-radius:14px 12px 15px 11px;box-shadow:0 3px 10px #07122680;font:34px/1 system-ui;cursor:pointer; }
 .stage-back[hidden] { display:none; }.stage-back:hover,.stage-back:focus-visible { background:#385c89;outline:2px solid #ffe5ad;outline-offset:3px; }
 .observation-footer:empty { display:none; }
 .calculation-outline { position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;opacity:0; }
@@ -1088,10 +1089,26 @@ html, body {
 
 /* Fixed-date noon-meridian workflow, 2026-11-17. */
 #timeline,#timelineStepper,.orbit-transport,.observation-orbit-date-control,.axis-switch,.time-card,.date-card{display:none!important}
-.meridian-selection{position:absolute;left:70px;bottom:60px;z-index:30;display:flex;align-items:center;gap:18px;padding:18px 24px;background:#15243ded;border:1px solid #647b99;border-radius:16px;color:#eef4ff;font-size:20px}
+.meridian-selection{position:absolute;left:70px;bottom:60px;z-index:30;padding:18px 24px;background:#bcbbea;border:solid #827bac;border-width:0 2px 2px 0;border-radius:16px;color:#222445;font-size:14px;isolation:isolate}
 .meridian-selection[hidden]{display:none}
-.meridian-selection input{width:100px;padding:10px;color:inherit;background:#243956;border:1px solid #91a6c2;border-radius:8px;font:inherit}
-.meridian-selection button{padding:12px 18px;border:1px solid #a9c7e6;border-radius:10px;background:#304f73;color:inherit;font:inherit;cursor:pointer}
+.meridian-selection button{position:relative;isolation:isolate;min-height:44px;padding:8px 14px;border:solid #9a91b7;border-width:0 2px 2px 0;border-radius:25px;background:#e0def1;color:inherit;font:inherit;cursor:pointer}
+.meridian-selection :is(button:focus-visible,.meridian-stepper-field:focus-within){outline:2px solid #6252a2;outline-offset:2px}
+.meridian-stepper{display:flex;align-items:center;gap:6px}
+.meridian-stepper button:not([hidden]){
+  display:grid;place-items:center;inline-size:44px;block-size:44px;padding:0;
+  border-width:0 2px 2px 0;border-radius:50%;font-variant-numeric:tabular-nums;
+}
+.meridian-stepper button:is([data-apply-meridian],[data-pick-meridian]){background:#bde6d7;color:#173e39;border-color:#5c9a88}
+.meridian-stepper button[data-apply-meridian]{margin-inline-start:4px}
+.meridian-stepper-field{
+  position:relative;isolation:isolate;display:inline-flex;align-items:center;min-height:44px;padding:0 9px;
+  border:solid #827bac;border-width:0 2px 2px 0;border-radius:8px;background:#eeebf9;
+  font-variant-numeric:tabular-nums;
+}
+.meridian-stepper-field input{width:5ch;min-height:40px;padding:0;border:0;background:transparent;color:inherit;font:inherit;text-align:right;outline:none}
+.meridian-grain-defs{position:absolute;width:0;height:0;overflow:hidden}
+.meridian-grain{position:absolute;inset:0;width:100%;height:100%;border-radius:inherit;overflow:hidden;z-index:-1;pointer-events:none;opacity:.1}
+@media(forced-colors:active){.meridian-grain{display:none}}
 .meridian-selection p{margin:0;font-size:18px}
 
 
@@ -1102,8 +1119,7 @@ html, body {
 .stage .prime-back{stroke:#8fd9ff;stroke-width:2;stroke-dasharray:5 7;opacity:.25}
 .stage[data-meridian-state="pending"] .prime-meridian{animation:meridian-preview-pulse 1.4s ease-in-out infinite}
 @keyframes meridian-preview-pulse{0%,100%{opacity:.25}50%{opacity:.7}}
-.meridian-selection [data-longitude]{width:88px;min-height:48px;text-align:center;font-variant-numeric:tabular-nums}
-.meridian-selection input[aria-invalid="true"]{border-color:#ffbaab}
+.meridian-stepper-field:has(input[aria-invalid="true"]){border-color:#ffbaab}
 #longitude-error{position:absolute;left:0;bottom:calc(100% + 8px);padding:8px 12px;border-radius:8px;background:#15243d;color:#ffddd5;white-space:nowrap}
 .meridian-selection button[hidden]{display:none}
 @media(prefers-reduced-motion:reduce){.stage[data-meridian-state="pending"] .prime-meridian{animation:none;opacity:.55}}

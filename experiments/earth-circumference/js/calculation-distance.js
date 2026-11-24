@@ -53,7 +53,7 @@ export function mountCalculationDistance(scene, host, { onStart, onDone }) {
     if(!scene.calculating||!['pickStart','pickEnd','committing'].includes(host.dataset.phase))return;
     if(event.type==='keydown'&&!['Enter',' '].includes(event.key))return;
     // Capture only during the fixed-pair interaction; ignore all background clicks.
-    if(event.target.closest('.calculation-panel,.calculation-center-button,.stage-back'))return;
+    if(event.target.closest('.calculation-panel,.calculation-center-button,.stage-back,.astro-stage-progress'))return;
     event.preventDefault();event.stopPropagation();
     if(host.dataset.phase==='pickStart'&&selected.contains(event.target))phase('pickEnd');
     else if(host.dataset.phase==='pickEnd'&&reference.contains(event.target))connect();

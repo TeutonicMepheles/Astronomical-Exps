@@ -54,8 +54,8 @@ export const SUN = (() => {
 export function sunForOrbitDate(year, day) {
   const {axis, e2} = basisVectors(FIXED_AXIS_SCREEN_TILT, 0);
   const delta = declination(year, day) * Math.PI / 180;
-  // Keep the noon meridian near the visible limb with a usable front-facing strip.
-  const azimuth = 24 * Math.PI / 180;
+  // Keep the noon meridian just inside the right limb so it stays selectable.
+  const azimuth = 7 * Math.PI / 180;
   return axis.map((v, i) => v * Math.sin(delta)
     + (e2[i] * Math.cos(azimuth) + (i === 2 ? Math.sin(azimuth) : 0)) * Math.cos(delta));
 }
@@ -503,7 +503,7 @@ export function createScene(sceneRenderer) {
       state.selectedMeridian=Math.round(clickedLongitude);
       picker.dataset.latlon=`0,${state.selectedMeridian}`;
       paintPicker();updateUI();dirty=true;
-      window.dispatchEvent(new Event('meridian-selection-change'));
+      window.dispatchEvent(new CustomEvent('meridian-selection-change',{detail:{fromGlobe:true}}));
       return;
     }
     const lon = state.selectedMeridian ?? 0;
@@ -511,7 +511,6 @@ export function createScene(sceneRenderer) {
     if (!stage.classList.contains('has-selection')) selectedAxis='time';
     stage.classList.add('has-selection');
     stage.classList.remove('aligning-point');
-    camAnim = null;
     picker.querySelector('.geo-ring')?.animate([{scale:'1'},{scale:'1.5'},{scale:'1'}],{duration:400});
     state.spin=noonSpinValue(lon);
     paintPicker(); updateUI();
@@ -642,6 +641,30 @@ export function createScene(sceneRenderer) {
     return true;
   }
 
+  function uprightRodRoll(spin=state.spin) {
+    const [lat,lon]=picker.dataset.latlon.split(',').map(Number);
+    const {normal}=projectLatLon(lat,lon,basisVectors(state.tilt,spin));
+    const target=Math.atan2(normal[0],normal[1]);
+    const delta=target-(state.roll||0);
+    return (state.roll||0)+Math.atan2(Math.sin(delta),Math.cos(delta));
+  }
+
+  function resetSelectionCamera() {
+    camAnim=null;
+    state.zoom=overviewZoom;
+    state.focus={...overviewFocus};
+    state.observation=0;
+    state.roll=0;
+  }
+
+  const rodCameraZoom=1.9;
+  const rodCamera={
+    zoom:rodCameraZoom,
+    fx:GLOBE_CENTER.x+(GLOBE_CENTER.x-430)/rodCameraZoom,
+    fy:GLOBE_CENTER.y+(GLOBE_CENTER.y-690)/rodCameraZoom,
+    observation:1,
+  };
+
   function enterMeasure() {
     if(!stage.classList.contains('has-selection')||stage.classList.contains('aligning-point')||state.measuring)return;
     state.measuring = true;
@@ -651,11 +674,7 @@ export function createScene(sceneRenderer) {
     alignToSelected();
     const spinAligned = state.spin;
     state.spin = spinBefore;            // 先还原，让运镜把朝向一起过渡过去
-    // Leave a stable central observation area between the two context views.
-    const targetZoom=.94;
-    const targetFocus={x:GLOBE_CENTER.x+(GLOBE_CENTER.x-240)/targetZoom,
-      y:GLOBE_CENTER.y+(GLOBE_CENTER.y-440)/targetZoom};
-    animateCamera({zoom:targetZoom,fx:targetFocus.x,fy:targetFocus.y,spin:spinAligned,observation:1},900);
+    animateCamera({...rodCamera,spin:spinAligned,roll:uprightRodRoll(spinAligned)},900);
     updateUI();
     dirty = true;
   }
@@ -663,7 +682,7 @@ export function createScene(sceneRenderer) {
     state.measuring = false;
     stage.classList.remove('is-measuring');
     window.dispatchEvent(new Event('globe-mode-change'));
-    animateCamera({ zoom: overviewZoom, fx: overviewFocus.x, fy: overviewFocus.y, observation: 0 },900);
+    animateCamera({ zoom: overviewZoom, fx: overviewFocus.x, fy: overviewFocus.y, observation: 0, roll: 0 },900);
     updateUI();
     dirty = true;
   }
@@ -731,9 +750,14 @@ export function createScene(sceneRenderer) {
     refresh() { updateUI(); dirty = true; },
     get pickingMeridian(){return Boolean(state.pickingMeridian);},
     get meridianAligning(){return Boolean(state.meridianAligning);},
+    get observationPreviewReady(){
+      return stage.dataset.viewMode==='earth'&&!state.measuring&&stage.classList.contains('has-selection')&&
+        !stage.classList.contains('aligning-point')&&!stage.classList.contains('awaiting-noon');
+    },
     beginMeridianSelection(){
       if(state.measuring)return;
-      camAnim=null;state.meridianAligning=false;state.pickingMeridian=true;
+      resetSelectionCamera();
+      state.meridianAligning=false;state.pickingMeridian=true;
       state.selectedMeridian=0;
       state.spin=screenToLatLon(0,0,basisVectors(state.tilt,0)).lon;
       picker.dataset.latlon='0,0';
@@ -745,6 +769,7 @@ export function createScene(sceneRenderer) {
     get selectedMeridian(){return state.selectedMeridian??0;},
     previewMeridian(value){
       if(state.measuring||state.meridianAligning)return;
+      if(!state.pickingMeridian)resetSelectionCamera();
       state.pickingMeridian=true;
       state.selectedMeridian=Math.max(-180,Math.min(180,Math.round(Number(value)||0)));
       picker.dataset.latlon=`0,${state.selectedMeridian}`;
@@ -769,18 +794,22 @@ export function createScene(sceneRenderer) {
       paintPicker();updateUI();dirty=true;
       window.dispatchEvent(new Event('meridian-selection-change'));
     },
+    restoreConfirmedMeridian(){
+      state.pickingMeridian=false;
+      state.spin=noonSpinValue(state.selectedMeridian);
+      stage.dataset.meridianState='confirmed';
+      updateUI();dirty=true;
+    },
     enterMeasure,
     exitMeasure,
     get calculating() { return Boolean(state.calculating); },
     enterCalculation() {
       if (!state.measuring || state.calculating) return;
-      state.observationCamera = { zoom:state.zoom, fx:state.focus.x, fy:state.focus.y, observation:1,roll:state.roll||0,gridOnly:0 };
+      state.observationCamera = { ...rodCamera,roll:uprightRodRoll(),gridOnly:0 };
       state.calculating = true;
       stage.classList.add('is-calculating');
       stage.classList.remove('rods-ready');
-      const siteNormal = projectLatLon(...picker.dataset.latlon.split(',').map(Number), basisVectors(state.tilt, state.spin)).normal;
-      animateCamera({zoom:1.9,fx:GLOBE_CENTER.x+(GLOBE_CENTER.x-430)/1.9,
-        fy:GLOBE_CENTER.y+(GLOBE_CENTER.y-690)/1.9,observation:1,gridOnly:1,roll:Math.atan2(siteNormal[0], siteNormal[1])},2000,()=>{
+      animateCamera({...state.observationCamera,gridOnly:1},2000,()=>{
         stage.classList.add('rods-ready');
         window.dispatchEvent(new Event('rods-ready'));
       });

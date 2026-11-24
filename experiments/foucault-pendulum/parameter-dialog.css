@@ -61,3 +61,6 @@
 .fp-chalk-caption { font-family:'FP Chalk',cursive;font-size:26px;font-weight:400;letter-spacing:1px;fill:#d2e5fa; }
 
 .fp-caption-accessible { opacity:0;pointer-events:none;font-size:1px; }
+
+.fp-observation-note { margin:0 auto 0 24px;color:#ffe0a3;font-size:17px; }
+.fp-observation-note[hidden] { display:none; }
