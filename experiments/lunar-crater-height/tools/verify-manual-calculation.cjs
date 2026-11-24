@@ -1,73 +1,138 @@
-const {chromium}=require('../../../node_modules/playwright');
-const assert=require('node:assert/strict'),path=require('node:path'),os=require('node:os');
-const {pathToFileURL}=require('node:url');
-(async()=>{
-  const browser=await chromium.launch();
-  try{
-    const page=await browser.newPage({viewport:{width:1600,height:900}}),errors=[];
-    page.on('pageerror',e=>errors.push(e.message));
+const {chromium} = require('playwright');
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const {pathToFileURL} = require('node:url');
+const os = require('node:os');
+
+(async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await browser.newPage({viewport:{width:1600,height:900}, reducedMotion:'reduce'});
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
     await page.goto(pathToFileURL(path.join(__dirname,'..','index.html')).href);
-    await page.waitForSelector('#angle');
+    await page.locator('h1').waitFor();
+    assert.equal(await page.title(),'环形山高度测量实验');
+    assert.equal(await page.locator('h1').textContent(),'环形山高度测量实验');
+    assert.equal(await page.locator('[data-step=measure] .step-name').textContent(),'标定测量点');
+    const history = page.getByRole('button',{name:'打开实验记录'});
+    assert(await history.isHidden());
     await page.locator('#angle').press('ArrowRight');
     await page.locator('#angle').press('ArrowLeft');
-      assert(await page.locator('#rimPanel').isHidden());
-      await page.locator('#confirmLight').click();
-      await page.waitForSelector('#rimRadius');
-      assert(await page.locator('#lightPanel').isHidden());
-    assert.equal(await page.locator('#manualCalculation').isVisible(),false);
+    await page.locator('#confirmLight').click();
+    assert(await history.isHidden());
     await page.locator('#start').click();
-    await page.locator('[data-rim-candidate][data-side=right]').first().click();
-    const automatic=await page.locator('#sunOverlay [data-measure-label=length]').textContent();
-    await page.locator('#manualCalculation').click();
-    assert.equal(await page.locator('#manualLength').evaluate(el=>el===document.activeElement),true);
-    assert.equal(await page.locator('#manualScale').inputValue(),'');
-    await page.locator('#manualLength').fill('2.5');
-    assert.equal(await page.locator('#manualActualLength').textContent(),'—','No invented calibration');
-    // Test fixture only, not a museum calibration: 2.5 cm × 4 km/cm = 10 km.
-    await page.locator('#manualScale').fill('4');await page.locator('#manualAngle').fill('45');
-    assert.equal(await page.locator('#manualActualLength').textContent(),'10 km');
-    assert.equal(await page.locator('#manualHeight').textContent(),'10 km');
-    await page.locator('#manualAngle').fill('35');
-    assert(Math.abs(parseFloat(await page.locator('#manualHeight').textContent())-10*Math.tan(35*Math.PI/180))<.00001);
-    await page.locator('#manualAngleBasis').selectOption('normal');
-    assert.equal(await page.locator('#manualAngle').inputValue(),'55');
-    assert(Math.abs(parseFloat(await page.locator('#manualHeight').textContent())-10*Math.tan(35*Math.PI/180))<.00001);
-    for(const [id,value] of [['manualLength','0'],['manualLength','-1'],['manualLength',''],['manualScale','-2'],['manualScale','0'],['manualAngle','56'],['manualAngle','19']]){
-      const field=page.locator('#'+id),old=await field.inputValue();await field.fill(value);
-      assert.equal(await page.locator('#manualHeight').textContent(),'—',`${id}=${value} invalidates old result`);
-      await field.fill(old);
-    }
-    assert.equal(await page.locator('#sunOverlay [data-measure-label=length]').textContent(),automatic);
-    assert.equal(await page.locator('[data-measure-label=height]').count(),0,'Manual output never overwrites model units');
-    await page.screenshot({path:path.join(os.tmpdir(),'lunar-manual-calculation.png')});
-    await page.keyboard.press('Escape');
-    assert.equal(await page.locator('#lunarManualDialog').evaluate(el=>el.open),false);
-    assert.equal(await page.locator('#manualCalculation').evaluate(el=>el===document.activeElement),true);
-    for(let i=0;i<5;i++){await page.locator('#manualCalculation').click();await page.locator('#manualClose').click();}
-    await page.locator('#previousStep').click();await page.locator('#previousStep').click();await page.locator('#start').click();await page.locator('[data-rim-candidate][data-side=right]').first().click();
-    await page.locator('#manualCalculation').click();
-    assert.equal(await page.locator('#manualLength').inputValue(),'','Reselection clears old hand measurement');
-    assert.equal(await page.locator('#manualScale').inputValue(),'4','Session scale remains available');
-    assert.equal(await page.locator('#manualAngle').inputValue(),'35');
-    await page.setViewportSize({width:1200,height:900});
-    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-    const box=await page.locator('#lunarManualDialog').boundingBox();assert(box.x>=0&&box.y>=112.5&&box.x+box.width<=1200&&box.y+box.height<=787.5,'Dialog fits the scaled stage');
-    assert.equal(await page.locator('#lunarManualDialog').evaluate(el=>el.scrollHeight<=el.clientHeight),true);
-    await page.locator('#manualLength').fill('2.5');
-    // Input updates only small DOM readouts; no background SVG/renderer work.
-    const perf=await page.evaluate(()=>{
-      let mutations=0;const observer=new MutationObserver(rs=>mutations+=rs.length);
-      for(const id of ['sunOverlay','lunarBoundaryPicker'])observer.observe(document.getElementById(id),{subtree:true,attributes:true,childList:true});
-      const input=document.getElementById('manualLength'),start=performance.now();
-      for(let i=0;i<100;i++){input.value=String(2+i/100);input.dispatchEvent(new Event('input'));}
-      const elapsed=performance.now()-start;
-      return new Promise(resolve=>setTimeout(()=>{observer.disconnect();resolve({elapsed,mutations})},200));
+    const trigger = page.getByRole('button',{name:'手动测量',exact:true});
+    assert.equal(await trigger.count(),0);
+    assert(await history.isVisible());
+    await history.click();
+    assert(await page.getByText('暂无记录。',{exact:false}).isVisible());
+    await page.getByRole('button',{name:'关闭高度计算器'}).click();
+    const candidates = page.locator('[data-rim-candidate][data-side=right]');
+    await candidates.first().click();
+    assert(await history.isVisible());
+    const controlPositions = () => Promise.all(
+      ['#manualHistory','#previousStep','#manualCalculation','#height'].map(id => page.locator(id).boundingBox()));
+    const beforeEntry = await controlPositions();
+    await trigger.click();
+    const entry = page.locator('#manualEntry');
+    assert.deepEqual(await controlPositions(),beforeEntry,'Opening the input keeps the buttons fixed');
+    const entryBox = await entry.boundingBox();
+    assert.equal(entryBox.y+entryBox.height,beforeEntry[0].y+beforeEntry[0].height);
+    assert(entryBox.x>beforeEntry[0].x+beforeEntry[0].width);
+    const length = page.locator('#manualLength');
+    const confirm = page.getByRole('button',{name:'确认影长'});
+    await length.fill('-1');
+    assert(await confirm.isDisabled());
+    await length.fill('2.5');
+    await page.getByRole('button',{name:'取消测量'}).click();
+    assert(await entry.isHidden());
+    assert.deepEqual(await controlPositions(),beforeEntry);
+    const dialog = page.getByRole('dialog',{name:'高度计算器'});
+    assert(await dialog.isHidden());
+    const cards = page.locator('.manual-record');
+    const add = async value => {
+      await trigger.click();
+      await length.fill(value);
+      await confirm.click();
+      await dialog.waitFor();
+    };
+    const close = () => page.getByRole('button',{name:'关闭高度计算器'}).click();
+    const format = value => value.toLocaleString('zh-CN',{maximumSignificantDigits:6});
+    const calibratedShadow = '水平影长 12.5 km';
+    const relativeShadow = '水平影长 2.5 cm（相对）';
+    await add('2.5');
+    assert.equal(await cards.count(),1);
+    assert((await cards.first().textContent()).includes(relativeShadow));
+    assert((await cards.first().textContent()).includes('Δh ' + format(2.5*Math.tan(35*Math.PI/180)) + ' cm（相对）'));
+    assert((await cards.first().textContent()).includes('太阳高度角 35°'));
+    const scale = page.locator('#manualScaleLength');
+    const assertScaleWidth = async () => {
+      const widths = await page.locator('[data-model-scale], #manualScaleBar path').evaluateAll(
+        paths => paths.map(path => path.getBoundingClientRect().width));
+      assert.equal(widths.length,2);
+      assert(widths[0]>0 && Math.abs(widths[0]-widths[1])<0.1,'Both rulers have the same on-screen length');
+    };
+    await assertScaleWidth();
+    await scale.fill('4');
+    assert((await cards.first().textContent()).includes(calibratedShadow));
+    assert((await cards.first().textContent()).includes('Δh ' + format(12.5*Math.tan(35*Math.PI/180)) + ' km'));
+    await scale.fill('0');
+    assert.equal(await scale.getAttribute('aria-invalid'),'true');
+    assert((await cards.first().textContent()).includes(relativeShadow));
+    await scale.fill('4');
+    const image = cards.first().locator('img');
+    await image.evaluate(element => element.decode());
+    const colors = await image.evaluate(element => {
+      const canvas=document.createElement('canvas');
+      canvas.width=element.naturalWidth;
+      canvas.height=element.naturalHeight;
+      const ctx=canvas.getContext('2d');
+      ctx.drawImage(element,0,0);
+      const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+      return new Set(pixels.filter((_,index)=>index%4===0)).size;
     });
-    assert.equal(perf.mutations,0);console.log('Manual input performance:',perf);
-    await page.locator('#manualClose').click();await page.emulateMedia({reducedMotion:'reduce'});
-    await page.locator('#height').click();await page.waitForFunction(()=>document.querySelector('.view.side').dataset.measurePhase==='done');
-    assert(await page.locator('#manualCalculation').isVisible(),'Manual option remains available after automatic calculation');
+    assert(colors>100,'The captured section includes rendered terrain');
+    await close();
+    await page.locator('#previousStep').click();
+    assert.equal(await trigger.count(),0);
+    await candidates.nth(1).click();
+    for (const value of ['3','4','5']) {
+      await add(value);
+      await close();
+    }
+    await history.click();
+    assert.match(await cards.first().textContent(),/实验 4/);
+    await page.getByRole('button',{name:'上一页记录'}).click();
+    assert.equal(await cards.count(),3);
+    const footer = await page.locator('.manual-footer').boundingBox();
+    const pages = await page.locator('.manual-pages').boundingBox();
+    assert(pages.y >= footer.y && pages.y + pages.height <= footer.y + footer.height);
+    const preview = cards.first().locator('img');
+    assert.equal(await preview.evaluate(img => getComputedStyle(img).objectFit),'contain');
+    assert((await preview.boundingBox()).height >= 390);
+    assert((await cards.first().textContent()).includes(calibratedShadow));
+    await page.setViewportSize({width:1200,height:900});
+    await assertScaleWidth();
+    await page.screenshot({path:path.join(os.tmpdir(),'lunar-manual-history.png')});
+    const box = await dialog.boundingBox();
+    const scaleBox = await scale.boundingBox();
+    assert(scaleBox.x + scaleBox.width <= box.x + box.width);
+    await scale.fill('');
+    assert((await cards.first().textContent()).includes(relativeShadow));
+    assert(box.x>=0 && box.x+box.width<=1200 && box.y>=112 && box.y+box.height<=788);
+    await page.keyboard.press('Escape');
+    assert(await dialog.isHidden());
+    await page.getByRole('button',{name:'自动测高'}).click();
+    await page.waitForFunction(()=>document.querySelector('.view.side').dataset.measurePhase==='done');
+    assert(await trigger.isVisible());
+    await page.locator('#previousStep').click();
+    assert(await history.isVisible());
+    await page.locator('#previousStep').click();
+    assert(await history.isHidden());
     assert.deepEqual(errors,[]);
-    console.log('PASS manual conversion, angle definitions, validation, no uncalibrated answers, reset, focus/escape, repeated open/close, scaled offline layout and automatic flow.');
-  }finally{await browser.close();}
-})().catch(e=>{console.error(e);process.exitCode=1;});
+    console.log('PASS manual gate, cancel, empty history, real section pixels, physical scale calibration, history pagination, scaled modal and automatic result.');
+  } finally {
+    await browser.close();
+  }
+})().catch(error=>{console.error(error);process.exitCode=1;});
