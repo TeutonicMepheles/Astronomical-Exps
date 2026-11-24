@@ -7,7 +7,7 @@ export function mountProgress(container, stages, {getCurrent, getCompleted, onSe
   const progress=document.createElement('nav');
   progress.className='astro-stage-progress';
   progress.setAttribute('aria-label','实验进度');
-  progress.innerHTML='<ol>'+stages.map((name,i)=>`<li><span class="step-number">${i+1}</span><span>${name}</span><span class="step-check" aria-hidden="true">✓</span></li>`).join('')+'</ol>';
+  progress.innerHTML='<ol>'+stages.map((name,i)=>`<li><span class="step-number">${i+1}</span><span>${name}</span></li>`).join('')+'</ol>';
   const lis=[...progress.querySelectorAll('li')];
   const next=onNext?document.createElement('button'):null;
   const back=onBack?document.createElement('button'):null;
@@ -20,7 +20,10 @@ export function mountProgress(container, stages, {getCurrent, getCompleted, onSe
     lis.forEach((el,i)=>{
       el.classList.toggle('current',current===i);
       el.classList.toggle('complete',!!completed[i]);
-      if(onSelect){el.classList.toggle('clickable',true);el.setAttribute('role','button');el.setAttribute('tabindex','0');el.setAttribute('aria-label',`${i+1}. ${stages[i]}${current===i?'，当前阶段':''}`);}
+      const done=Boolean(completed[i])&&current!==i;
+      el.classList.toggle('step-done',done);
+      el.querySelector('.step-number').textContent=done?'✓':String(i+1);
+      if(onSelect){el.classList.toggle('clickable',true);el.setAttribute('role','button');el.setAttribute('tabindex','0');el.setAttribute('aria-label',`${i+1}. ${stages[i]}${current===i?'，当前阶段':done?'，已完成':''}`);}
       if(current===i)el.setAttribute('aria-current','step');else el.removeAttribute('aria-current');
     });
     if(next){next.hidden=current===stages.length-1;next.dataset.stage=String(current);if(current<stages.length-1)next.setAttribute('aria-label',`下一步：${stages[current+1]}`);}
@@ -36,5 +39,5 @@ export function mountProgress(container, stages, {getCurrent, getCompleted, onSe
   if(back)back.addEventListener('click',()=>{onBack();update();});
   for(const ev of events)window.addEventListener(ev,update);
   update();
-  return {update};
+  return {update,element:progress};
 }

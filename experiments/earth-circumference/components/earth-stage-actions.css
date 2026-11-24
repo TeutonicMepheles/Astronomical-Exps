@@ -1,0 +1,28 @@
+/* Adapted from stash 86d2cfbe shared/components/experiment-actions.css.
+   Kept local because the shared stylesheet is absent from main. */
+.earth-stage-actions {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 14px;
+}
+.earth-stage-actions[hidden],
+.earth-stage-actions > [hidden] {
+  display: none !important;
+}
+.earth-stage-actions > button {
+  box-sizing: border-box;
+  min-block-size: var(--earth-action-height);
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.earth-stage-actions > .stage-next {
+  min-inline-size: var(--earth-action-primary-width);
+}
+.earth-stage-actions > .stage-back {
+  display: grid;
+  place-items: center;
+  inline-size: var(--earth-action-height);
+  min-inline-size: 0;
+  padding: 0;
+}

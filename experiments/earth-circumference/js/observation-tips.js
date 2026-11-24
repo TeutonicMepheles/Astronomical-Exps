@@ -8,9 +8,9 @@ export function mountObservationTips(scene){
  scene.stage.append(button);
  const reference=scene.stage.querySelector('.geo-subsolar');
  function update(){
-  const ready=scene.stage.dataset.viewMode==='earth'&&!scene.measuring&&scene.stage.classList.contains('has-selection')&&!scene.stage.classList.contains('aligning-point')&&!scene.stage.classList.contains('awaiting-noon');
+  if(!scene.observationPreviewReady){button.hidden=true;return;}
   const geometry=scene.measureArc(),point=geometry.sel;
-  button.hidden=!ready||point.visible===false;if(button.hidden)return;
+  button.hidden=point.visible===false;if(button.hidden)return;
   // Put the thumbnail opposite the reference label when both anchors are close.
   // Use projected geometry only: no per-frame DOM measurement / forced layout.
   const nearby=Math.abs(point.y-geometry.sub.y)<104&&Math.abs(point.x-geometry.sub.x)<210;
@@ -20,7 +20,7 @@ export function mountObservationTips(scene){
   const h=100*Math.min(1.75,270/Math.max(100*ratio,1)),w=h*71/794;
   const pole=button.querySelector('.thumbnail-pole');
   for(const [name,value] of Object.entries({x:330-w/2,y:355-h,width:w,height:h}))pole.setAttribute(name,value);
-  const shadow=button.querySelector('.thumbnail-shadow');shadow.setAttribute('d',`M330 355H${330+Math.sign(delta)*h*ratio}`);shadow.style.visibility=Math.abs(delta)<90?'visible':'hidden';
+  const shadow=button.querySelector('.thumbnail-shadow');shadow.setAttribute('d',`M330 355H${330-Math.sign(delta)*h*ratio}`);shadow.style.visibility=Math.abs(delta)<90?'visible':'hidden';
  }
  for(const event of ['globe-frame','globe-mode-change','view-mode-change'])window.addEventListener(event,update);
  update();

@@ -211,7 +211,8 @@ html,body { width:100%;height:100%;margin:0;overflow:hidden;background:#000;user
 .current .step-number { background:#b2d8f5;color:#153254;box-shadow:0 0 0 2px #d3ebff44; }
 .current .step-number:after { content:'';position:absolute;left:4px;top:46px;width:32px;height:5px;border-bottom:2px solid #b2d8f5;border-radius:50%; }
 .astro-stage-progress .complete .step-number { box-shadow:inset 0 0 0 2px #8fc9bb; }
-.step-check { display:none;color:#b5dbc9;font-size:16px;margin-left:-6px; }.complete .step-check { display:block; }
+.astro-stage-progress .step-done .step-number { font-weight:700;color:#b5dbc9; }
+.astro-stage-progress li[role="button"]:not([aria-disabled="true"]) { cursor:pointer; }
 .stage-next { position:absolute;right:45px;bottom:28px;z-index:35;min-width:158px;min-height:58px;padding:12px 25px;color:#fff0c9;background:#28446b;border:1px solid #c4d8ef;border-radius:14px 12px 15px 11px;font-family:inherit;font-size:22px;line-height:1.3;cursor:pointer;box-shadow:0 3px 10px #07122680;animation:stage-next-in .45s ease-out; }
 .stage-next[hidden] { display:none; }.stage-next:hover,.stage-next:focus-visible { background:#385c89;outline:2px solid #ffe5ad;outline-offset:3px; }
 @keyframes stage-next-in { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }

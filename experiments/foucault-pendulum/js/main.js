@@ -544,9 +544,11 @@ let parametersApplied=false;
 const progress=mountProgress(stage,['选择观察地点','调整单摆参数'],{
   getCurrent:()=>paramMode?1:0,
   getCompleted:()=>[!!selectedCity,parametersApplied],
-  onSelect:i=>{if(i===1)parameterDialog.open();},
+  onSelect:i=>{if(i===1)parameterDialog.open();else parameterDialog.close();},
 });
 const parameterDialog=mountParameterDialog(stage,{
+  progressElement:progress.element,
+  hasObservation:()=>Boolean(selectedCity),
   getParameters:()=>pendulumConfig,
   getScenePose:parameters=>{drawPendulum(parameters?{...pendulumConfig,...parameters}:pendulumConfig);return {...scenePendulumPose};},
   onApply:({length,mass})=>{

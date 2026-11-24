@@ -4,12 +4,15 @@ import {LENGTH_TIERS,MASS_TIERS} from './scale-reference.js';
 import {schoolFacade} from './school-facade.js';
 
 // Experiment-owned SVG schematic. Geometry is illustrative; time uses SI units.
-export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,onOpenChange}){
+export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,onOpenChange,progressElement,hasObservation}){
   const insetBase=88,storeyHeight=72,studentMeters=1.6,studentHeight=storeyHeight*studentMeters/3;
   const overlay=document.createElement('div');
   overlay.className='fp-parameter-overlay';overlay.hidden=true;
-  overlay.innerHTML=`<section id="parameterDialog" class="fp-parameter-dialog" role="dialog" aria-modal="true" aria-labelledby="parameterTitle">
-    <header><h2 id="parameterTitle">调整单摆参数</h2><button class="fp-close" type="button" aria-label="关闭参数弹窗">×</button></header>
+  overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
+  overlay.setAttribute('aria-labelledby','parameterTitle');
+  overlay.innerHTML=`<section id="parameterDialog" class="fp-parameter-dialog">
+    <header><h2 id="parameterTitle">调整单摆参数</h2><p class="fp-observation-note" role="status" hidden>请先完成前置操作</p><button class="fp-close" type="button" aria-label="关闭参数弹窗">×</button></header>
     <div class="fp-parameter-body">
       <div class="fp-blueprint">
         <svg viewBox="0 0 940 630" role="img" aria-label="单摆蓝图：静止位置、摆动范围及持续摆动的淡色单摆">
@@ -77,7 +80,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     <ellipse data-transfer-bob fill="url(#fpTransferBob)" stroke="#eef6ff" stroke-width="1.5"/>
   </svg>`;
   stage.append(overlay);
-  const find=s=>overlay.querySelector(s),dialog=find('[role="dialog"]');
+  const find=s=>overlay.querySelector(s),dialog=find('#parameterDialog');
   find('[data-scale-student]').setAttribute('href','assets/blueprint-student.webp');
   find('[data-scale-storey]').setAttribute('href','assets/blueprint-school-storey.webp');
   const moving=find('[data-moving-pendulum]');
@@ -191,6 +194,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     closing=null;finishOpening();resizeAnimation=null;overlay.hidden=true;stage.classList.remove('fp-parameter-open');
     dialog.dataset.exiting='false';
     for(const button of overlay.querySelectorAll('button'))button.disabled=false;
+    if(progressElement){stage.append(progressElement);progressElement.inert=false;}
     for(const [node,inert] of inertStates)node.inert=inert;
     inertStates=[];onOpenChange(false);
     if(returnFocus?.isConnected&&!returnFocus.closest('[aria-hidden="true"]'))returnFocus.focus({preventScroll:true});
@@ -232,6 +236,8 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     returnFocus=document.activeElement;
     inertStates=[...stage.children].filter(node=>node!==overlay).map(node=>[node,node.inert]);
     for(const [node] of inertStates)node.inert=true;
+    if(progressElement){overlay.append(progressElement);progressElement.inert=false;}
+    find('.fp-observation-note').hidden=hasObservation?.()!==false;
     overlay.hidden=false;periodMetric.reset(2*Math.PI*Math.sqrt(length/9.81));renderGeometry();renderControls();measureTarget();
     dialog.dataset.resizing='false';
     if(!reduced.matches){
@@ -249,7 +255,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
   overlay.addEventListener('keydown',event=>{
     if(event.key==='Escape'){event.preventDefault();event.stopPropagation();close();}
     if(event.key==='Tab'){
-      const buttons=[...overlay.querySelectorAll('button')],first=buttons[0],last=buttons.at(-1);
+      const buttons=[...overlay.querySelectorAll('button,[role=button][tabindex]')],first=buttons[0],last=buttons.at(-1);
       if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
       else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
     }
@@ -261,7 +267,7 @@ export function mountParameterDialog(stage,{getParameters,getScenePose,onApply,o
     shown=dimensions(draft);resizeAnimation=null;dialog.dataset.resizing='false';renderGeometry();finishOpening();
     updateField(0,true);
   });
-  return {open,advance(dt){
+  return {open,close,advance(dt){
     if(overlay.hidden)return;
     if(closing){closing.time+=dt;drawClosing();return;}
     periodMetric.tick(performance.now());
