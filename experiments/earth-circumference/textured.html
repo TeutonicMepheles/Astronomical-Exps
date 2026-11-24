@@ -17,34 +17,16 @@
 
   <header class="experiment-heading"><h1>地球周长实验</h1></header>
 
-  <!-- 星空：一次性生成，纯矢量 -->
-  <svg class="starfield" id="starfield" viewBox="0 0 1600 900" aria-hidden="true"></svg>
+  <div class="orbit-viewport" aria-hidden="true">
+    <svg class="orbit-starfield" id="starfield" viewBox="0 0 1600 900"></svg>
+  </div>
 
   <!-- 中央地球：纹理 + 晨昏线 + 大气边缘 -->
   <canvas id="globe" aria-label="可旋转的地球，拖动改变自转角度" role="img"></canvas>
 
   <div class="earth-pick-hint"><span aria-hidden="true">◎</span>点按地球，选择观测点</div>
 
-  <!-- 太阳平行光线（方向固定） -->
-  <svg class="sun-arrows" viewBox="0 0 1600 900" aria-hidden="true">
-    <defs>
-      <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5"
-              markerWidth="3.1" markerHeight="3.1" orient="auto-start-reverse">
-        <path d="M10 0 L0 5 L10 10 z" fill="#E8703A"></path>
-      </marker>
-      <linearGradient id="rayA" x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#F7B48A" stop-opacity=".18"></stop>
-        <stop offset="1" stop-color="#E8703A" stop-opacity=".95"></stop>
-      </linearGradient>
-    </defs>
-    <g class="sun-beams">
-      <image id="beam0" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-      <image id="beam1" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-      <image id="beam2" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-      <image id="beam3" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-      <image id="beam4" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-    </g>
-  </svg>
+  <canvas class="sun-arrows" id="earth-sunlight" aria-hidden="true"></canvas>
 
   <!-- 地轴与朝向手柄 -->
   <svg class="axis-layer" viewBox="0 0 1600 900" aria-hidden="true">
@@ -146,6 +128,8 @@
 
 </div>
 <script src="../../shared/components/operation-tip.js"></script>
+<script src="vendor/three.min.js"></script>
+<script src="../../shared/components/optical-beam.js"></script>
 <script type="module" src="js/globe-textured.js"></script>
 
 </body>

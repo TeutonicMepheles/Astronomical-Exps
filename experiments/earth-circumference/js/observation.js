@@ -1,4 +1,7 @@
 import { mountShadowMeasurement } from './shadow-measurement.js';
+// Local scene coordinates. Keep framing anchored to the ground contact line.
+const GROUND_Y = 355;
+
 export function mountObservation(scene){
  const panel=document.createElement('section');panel.className='observation-panel';panel.hidden=true;
  panel.innerHTML=`<h2 class="observation-heading">观测杆与阳光夹角</h2>
@@ -12,7 +15,7 @@ export function mountObservation(scene){
  <circle id="site-sun" r="19" fill="#fff1b7"/>
  <path id="altitude-arc" stroke="#fff4ca" stroke-width="3" fill="none"/>
  <text id="altitude-label" class="local-label"/><text id="shadow-result" class="local-label"/></g><text id="rod-label" class="local-label">100 cm</text>
- <circle cx="330" cy="355" r="4" fill="#fff4cb"/></g></svg><div class="subsolar-zero-note" hidden>太阳直射点：正午影长为0</div>
+ <circle cx="330" cy="${GROUND_Y}" r="4" fill="#fff4cb"/></g></svg><div class="subsolar-zero-note" hidden>太阳直射点：正午影长为0</div>
  <div class="measure-entry-hint" role="note"><span>点击右上角尺子</span><b>开始测量影长</b></div></div>
  <div class="observation-footer"><div class="rod-length-control"><span>杆长 L</span><button type="button" data-rod-decrease aria-label="缩短杆长">−</button><input type="range" min="10" max="100" step="10" value="100" data-rod-range aria-label="杆长，10 到 100 厘米"><output data-rod-value>100 cm</output><button type="button" data-rod-increase aria-label="增长杆长">＋</button></div></div>`;
  const pin=document.createElementNS('http://www.w3.org/2000/svg','svg');
@@ -103,10 +106,7 @@ export function mountObservation(scene){
  const visible=scene.measuring&&!scene.calculating;
  panel.hidden=false;panel.inert=!visible;panel.setAttribute('aria-hidden',String(!visible));
  if(!visible){
-  if(scene.observationPreviewReady){
-   const arc=scene.measureArc();
-   paintGlobeRod(true,arc,arc.selLat,Math.abs(arc.selLat-arc.subLat));
-  }else paintGlobeRod(false);
+  paintGlobeRod(false);
   measurement.suspend();return;
  }
  updatePin();
@@ -119,7 +119,7 @@ export function mountObservation(scene){
  const direction=selected==='selected'?paintGlobeRod(true,a,lat,delta):1;
  const rod=scene.calibration.rod;
  const pxPerCm=1.5;
- const h=rod*pxPerCm,s=h*ratio,tip=330+direction*s,top=355-h;
+ const h=rod*pxPerCm,s=h*ratio,tip=330+direction*s,top=GROUND_Y-h;
  const saved=measurement.snapshot().selected;
  const measured=selected==='selected'&&saved.saved&&day;
  const measuredShadow=measured?saved.value*pxPerCm:s;
@@ -135,11 +135,11 @@ export function mountObservation(scene){
  const pole=q('#site-pole'),w=h*71/794;pole.setAttribute('x',330-w/2);pole.setAttribute('y',top);pole.setAttribute('width',w);pole.setAttribute('height',h);
  q('#rod-label').textContent=`${rod.toFixed(0)} cm`;
  q('#site-shadow').setAttribute('stroke-width',Math.max(2,w*.72));
- q('#rod-label').setAttribute('x','265');q('#rod-label').setAttribute('y',(355+top)/2);
+ q('#rod-label').setAttribute('x','265');q('#rod-label').setAttribute('y',(GROUND_Y+top)/2);
  q('#site-shadow').style.visibility=day?'visible':'hidden';
- q('#site-shadow').setAttribute('d',day?`M330 355H${tip}`:'');
+ q('#site-shadow').setAttribute('d',day?`M330 ${GROUND_Y}H${tip}`:'');
  q('#site-ray').setAttribute('pathLength','1');
- q('#site-ray').setAttribute('d',measured?`M${sx} ${sy}L${measuredTip} 355`:'');
+ q('#site-ray').setAttribute('d',measured?`M${sx} ${sy}L${measuredTip} ${GROUND_Y}`:'');
  q('#site-sun').setAttribute('cx',sx);q('#site-sun').setAttribute('cy',sy);
  const start=Math.PI/2,end=Math.atan2(h,direction*measuredShadow);
  const r=Math.max(22,Math.min(48,h*.45));
@@ -167,13 +167,13 @@ export function mountObservation(scene){
   framingKey=nextFraming;
   geometry.removeAttribute('transform');
   if(measured){
-   // Frame the actual artwork and text, while the backdrop and parallel rays
-   // remain fixed to the viewport. Never scale a finite background image.
+   // Fit both directions around the ground contact line while the backdrop stays fixed.
    const bounds=geometry.getBBox();
-   const margin=24;
-   const zoom=Math.min(2.15,(660-2*margin)/Math.max(1,bounds.width),(400-2*margin)/Math.max(1,bounds.height));
+   const zoom=Math.min(2.15,612/Math.max(1,bounds.width),
+    (GROUND_Y-24)/Math.max(1,GROUND_Y-bounds.y),
+    (400-12-GROUND_Y)/Math.max(1,bounds.y+bounds.height-GROUND_Y));
    const tx=330-(bounds.x+bounds.width/2)*zoom;
-   const ty=200-(bounds.y+bounds.height/2)*zoom;
+   const ty=GROUND_Y*(1-zoom);
    geometry.setAttribute('transform',`translate(${tx} ${ty}) scale(${zoom})`);
   }
  }

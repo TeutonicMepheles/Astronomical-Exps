@@ -1,3 +1,5 @@
+import { GLOBE_CENTER } from './globe-core.js';
+
 // Direct input and touch buttons share the same longitude preview.
 export function mountMeridianSelection(scene){
  const control=document.createElement('section');control.className='meridian-selection';
@@ -23,21 +25,16 @@ export function mountMeridianSelection(scene){
      <path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
    </button>
-   <button type="button" data-pick-meridian aria-label="重选经线" hidden>
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-     <path d="M4 11a8 8 0 1 1 2.3 6.7M4 5v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-   </button>
   </div>
   <p id="longitude-error" role="status" hidden></p>`;
  for(const surface of [control,...control.querySelectorAll('button,.meridian-stepper-field')]){
   surface.insertAdjacentHTML('afterbegin','<svg class="meridian-grain" aria-hidden="true" focusable="false"><rect width="100%" height="100%" filter="url(#meridian-grain)"/></svg>');
  }
+ control.style.left=GLOBE_CENTER.x+"px";
  scene.stage.append(control);
  const input=control.querySelector('[data-longitude]');
  const error=control.querySelector('#longitude-error');
  const confirm=control.querySelector('[data-apply-meridian]');
- const reselect=control.querySelector('[data-pick-meridian]');
  let editing=false;
  let confirmedLongitude=null;
  input.addEventListener('focus',()=>input.select());
@@ -71,10 +68,6 @@ export function mountMeridianSelection(scene){
  });
  for(const button of control.querySelectorAll('[data-longitude-step]'))button.addEventListener('click',()=>scene.previewMeridian(scene.selectedMeridian+Number(button.dataset.longitudeStep)));
  confirm.addEventListener('click',()=>scene.setMeridian(scene.selectedMeridian));
- reselect.addEventListener('click',()=>{
-  confirmedLongitude=null;
-  scene.beginMeridianSelection();
- });
  function update(event){
   control.hidden=scene.measuring;
   const longitude=scene.selectedMeridian;
@@ -87,8 +80,6 @@ export function mountMeridianSelection(scene){
   if(scene.pickingMeridian&&longitude===confirmedLongitude)scene.restoreConfirmedMeridian();
   if(scene.stage.dataset.meridianState==='confirmed')confirmedLongitude=longitude;
   confirm.disabled=scene.meridianAligning||longitude===confirmedLongitude;
-  reselect.hidden=confirmedLongitude===null;
-  reselect.disabled=scene.meridianAligning;
   if(event?.detail?.fromGlobe){
    input.focus({preventScroll:true});
    input.select();

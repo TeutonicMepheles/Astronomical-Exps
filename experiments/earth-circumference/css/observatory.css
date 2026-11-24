@@ -34,7 +34,6 @@ body { position:relative;overflow:clip; }
 .orbit-sun i { width:24px;height:24px;background:radial-gradient(circle at 38% 34%,#fff1c5,#e6be73 65%,#b98743);box-shadow:0 0 22px #e5bf6a25; }
 .orbit-sun b { font-size:8px;top:20px;color:#cbbd9e; }
 .stage[data-view-mode="earth"] .orbit-sun b { font-size:15px; }
-.stage:not(.is-measuring) .sun-arrows { clip-path:inset(0 0 148px); }
 .stage:not(.is-measuring) .timeline,
 .stage:not(.is-measuring)[data-view-mode="orbit"] .timeline { left:580px;top:773px;width:440px;height:88px;z-index:20; }
 .stage:not(.is-measuring) .timeline::before { content:"";position:absolute;left:-432px;right:-432px;top:-21px;height:1px;background:#52637155;pointer-events:none; }
@@ -76,7 +75,6 @@ body { position:relative;overflow:clip; }
   .stage *, .stage *::before { animation:none!important;transition:none!important; }
 }
 
-/* Same orange as the solid core of assets/shaft-single.png. */
 .stage { --noon-ink:#fda36e; --prime-meridian-ink:#9fd8ff; --plane-ink:#ead49b; }
 .orbit-prime { position:absolute;inset:0;width:100%;height:100%;z-index:5;overflow:visible;pointer-events:none; }
 .orbit-prime path { fill:none;stroke:var(--prime-meridian-ink);stroke-width:1.8;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 4;opacity:.9; }
@@ -144,14 +142,8 @@ body { position:relative;overflow:clip; }
 .observation-tip:hover,.observation-tip:focus-visible { background:#35515b;border-color:#f4dfb6;outline:2px solid #f4dfb6;outline-offset:3px; }
 .observation-panel { left:890px;top:124px;width:640px;z-index:20;opacity:0;visibility:hidden;transform:translateY(32px) scale(.94);transform-origin:50% 60%;transition:opacity .45s,transform .7s cubic-bezier(.4,0,.2,1),visibility .7s;pointer-events:none; }
 .stage.is-measuring:not(.is-calculating) .observation-panel { opacity:1;visibility:visible;transform:none;pointer-events:auto;transition-delay:.15s; }
-.stage.is-measuring:not(.is-calculating) .orbit-overview { display:block!important;left:860px;top:390px; }
-.stage.is-measuring:not(.is-calculating) .orbit-diagram { transform:scale(.48); }
-.stage.is-measuring:not(.is-calculating) .orbit-current-date { top:435px; }
 .stage.is-measuring:not(.is-calculating) .axis-layer { display:block!important;visibility:visible; }
-.stage.is-measuring:not(.is-calculating) .sun-arrows { clip-path:none; }
 .stage.is-measuring:not(.is-calculating) .point-guides text { font-size:13px; }
-.stage.is-measuring:not(.is-calculating) .orbit-overview,
-.stage.is-measuring:not(.is-calculating) .orbit-diagram { transition-duration:.9s; }
 .stage.is-measuring:not(.is-calculating) .line-style-controls { display:none; }
 .stage.is-calculating .observation-panel { display:none; }
 @media(prefers-reduced-motion:reduce){.stage .observation-panel { transition:none; }}
@@ -188,7 +180,7 @@ body { position:relative;overflow:clip; }
 .shadow-measure-host { position:absolute;inset:0; }
 .shadow-measure-host[hidden] { display:none; }
 .simple-calculation { top:130px;padding:28px; }
-.stage.is-calculating .sun-beams { visibility:hidden; }
+.stage.is-calculating .sun-arrows { visibility:hidden; }
 .simple-calculation h2 { margin:0 0 24px; }
 .simple-calculation .calculation-evidence { display:flex;gap:16px;margin-bottom:24px; }
 .simple-calculation .calculation-evidence button { flex:1;display:grid;gap:10px;text-align:left;margin:0;padding:16px;background:#203b47;border:1px solid #4b6571; }
@@ -581,3 +573,34 @@ body .experiment-operation-tip,
 
 .step-entry-note { position:absolute;right:0;top:100%;width:max-content;max-width:470px;padding:10px 14px;border:1px solid #64778c;border-radius:8px;background:#17283c;color:#f9e4ba;font-size:17px;z-index:1; }
 .step-entry-note[hidden] { display:none; }
+
+
+/* The star map stays at stage size as the orbit window reveals more of it. */
+.orbit-viewport {
+  --orbit-inset: 255px 44px 125px 1020px;
+  --orbit-corner: 16px;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 77% 56%, #192b46, #0b1529 58%, #070e1a);
+  clip-path: inset(var(--orbit-inset) round var(--orbit-corner));
+  transition: clip-path .55s cubic-bezier(.4,0,.2,1), opacity .55s ease;
+}
+.orbit-starfield { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .7; }
+.orbit-viewport::after {
+  content: "";
+  position: absolute;
+  inset: var(--orbit-inset);
+  border-radius: var(--orbit-corner);
+  box-shadow: inset 0 0 0 2px #bdc9e27a;
+  transition: inset .55s cubic-bezier(.4,0,.2,1), border-radius .55s ease, opacity .55s ease;
+}
+.stage[data-view-mode="orbit"] .orbit-viewport {
+  --orbit-inset: 0px 0px 0px 0px;
+  --orbit-corner: 0px;
+}
+.stage[data-view-mode="orbit"] .orbit-viewport::after,
+.stage.is-measuring .orbit-viewport { opacity: 0; }
+.stage:not(.is-measuring)[data-view-mode="orbit"] .meridian-selection { display: none; }
+.stage:not(.is-measuring)[data-view-mode="earth"] .orbit-overview .orbit-prime { display: none; }
