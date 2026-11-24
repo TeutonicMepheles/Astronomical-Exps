@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>月面环形山 · 影长测量演示</title>
+<title>环形山高度测量实验</title>
 <link rel="stylesheet" href="../../shared/typography/typography.css">
 <link rel="stylesheet" href="./src/manual-calculation.css">
 <style>
@@ -78,8 +78,6 @@ main::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;b
 .lunar-rim-panel h2{font-size:18px;font-weight:500;color:#eddab4;margin:0 0 4px}
 .lunar-rim-panel .step-guide p{max-width:none;margin:4px 0}
 .lunar-rim-controls{display:flex;align-items:center;gap:16px;margin-top:8px}
-#manualCalculation{position:absolute;left:44px;bottom:44px;z-index:8;display:grid;justify-items:center;gap:5px;min-width:64px;min-height:64px;padding:7px 8px;border-radius:12px;background:#142b38f2;border:1px solid #74909d;color:#fff0c9;font-size:14px}
-#manualCalculation:hover,#manualCalculation:focus-visible{background:#254251}
 @media(prefers-reduced-motion:reduce){button{transition:none}}
 </style>
 <link rel="stylesheet" href="typography.css">
@@ -87,21 +85,39 @@ main::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;b
 <link rel="stylesheet" href="components/stepped-slider.css">
 </head>
 <body><main>
-<header><div class="heading"><h1>月面环形山 · 影长测量</h1><small>三维地形与几何测量演示 · 数值为模型单位</small></div><ol class="measurement-steps" aria-label="测量进度"><li data-step="light" class="active" aria-current="step"><b>1</b><span class="step-name">选择光照</span></li><li data-step="start"><b>2</b><span class="step-name">框出轮廓</span></li><li data-step="measure"><b>3</b><span class="step-name">选择山峰 A</span></li><li data-step="height"><b>4</b><span class="step-name">计算高度差</span></li></ol><div class="lunar-solar-altitude">太阳高度角 <span id="solarAltitudeReadout">35°</span></div></header>
-<div class="views"><section class="view top"><section class="lunar-panel" id="lightPanel" aria-label="光照设置"><div class="lunar-stepped-slider"><div class="lunar-stepped-stepper"><button type="button" data-nudge="-5" data-speed="coarse" aria-label="太阳高度角减少 5 度">−5°</button><button type="button" data-nudge="-1" aria-label="太阳高度角减少 1 度">−1°</button></div><label class="lunar-stepped-bar"><span>太阳高度角</span><output id="angleValue" for="angle" aria-hidden="true">35°</output><input id="angle" type="range" min="35" max="70" step="1" value="35"></label><div class="lunar-stepped-stepper"><button type="button" data-nudge="1" aria-label="太阳高度角增加 1 度">+1°</button><button type="button" data-nudge="5" data-speed="coarse" aria-label="太阳高度角增加 5 度">+5°</button></div></div></section><section class="lunar-panel lunar-rim-panel" id="rimPanel" aria-label="轮廓与选点" hidden><div class="lunar-rim-controls"><div class="lunar-stepped-slider"><div class="lunar-stepped-stepper"><button type="button" data-nudge="-5" aria-label="辅助圆大小减少 5">−5</button></div><label class="lunar-stepped-bar"><span>辅助圆大小</span><output id="rimRadiusValue" for="rimRadius" aria-hidden="true">110</output><input id="rimRadius" type="range" min="70" max="140" step="5" value="110"></label><div class="lunar-stepped-stepper"><button type="button" data-nudge="5" aria-label="辅助圆大小增加 5">+5</button></div></div></div></section><button id="manualCalculation" type="button" aria-haspopup="dialog" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M8 7h8m-8 5h1m3 0h1m3 0h.1M8 16h1m3 0h1m3 0h.1"/></svg><span>手动计算</span></button><canvas id="top" aria-label="月面俯视图"></canvas></section><section class="view side"><div class="lunar-stage-actions" role="group" aria-label="测量阶段操作"><button id="previousStep" type="button" aria-label="上一步" hidden><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 12H5m6-6-6 6 6 6"/></svg></button><button id="start" class="primary lunar-primary-action" type="button" hidden><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg><span>确认轮廓</span></button><button id="confirmLight" class="primary lunar-primary-action" type="button" aria-label="前往测量" hidden><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg><span>前往测量</span></button><button id="height" class="primary lunar-primary-action" type="button" hidden disabled>计算高度</button></div><canvas id="section" aria-label="环形山剖面图"></canvas></section></div>
+<header><div class="heading"><h1>环形山高度测量实验</h1><small>三维地形与几何测量演示</small></div><ol class="measurement-steps" aria-label="测量进度"><li data-step="light" class="active" aria-current="step"><b>1</b><span class="step-name">选择光照</span></li><li data-step="start"><b>2</b><span class="step-name">框出轮廓</span></li><li data-step="measure"><b>3</b><span class="step-name">标定测量点</span></li><li data-step="height"><b>4</b><span class="step-name">计算高度差</span></li></ol><div class="lunar-solar-altitude">太阳高度角 <span id="solarAltitudeReadout">35°</span></div></header>
+<div class="views"><section class="view top"><section class="lunar-panel" id="lightPanel" aria-label="光照设置"><div class="lunar-stepped-slider"><div class="lunar-stepped-stepper"><button type="button" data-nudge="-5" data-speed="coarse" aria-label="太阳高度角减少 5 度">−5°</button><button type="button" data-nudge="-1" aria-label="太阳高度角减少 1 度">−1°</button></div><label class="lunar-stepped-bar"><span>太阳高度角</span><output id="angleValue" for="angle" aria-hidden="true">35°</output><input id="angle" type="range" min="35" max="70" step="1" value="35"></label><div class="lunar-stepped-stepper"><button type="button" data-nudge="1" aria-label="太阳高度角增加 1 度">+1°</button><button type="button" data-nudge="5" data-speed="coarse" aria-label="太阳高度角增加 5 度">+5°</button></div></div></section><section class="lunar-panel lunar-rim-panel" id="rimPanel" aria-label="轮廓与选点" hidden><div class="lunar-rim-controls"><div class="lunar-stepped-slider"><div class="lunar-stepped-stepper"><button type="button" data-nudge="-5" aria-label="辅助圆大小减少 5">−5</button></div><label class="lunar-stepped-bar"><span>辅助圆大小</span><output id="rimRadiusValue" for="rimRadius" aria-hidden="true">110</output><input id="rimRadius" type="range" min="70" max="140" step="5" value="110"></label><div class="lunar-stepped-stepper"><button type="button" data-nudge="5" aria-label="辅助圆大小增加 5">+5</button></div></div></div></section><div class="lunar-manual-tools">
+<button id="manualHistory" type="button" aria-haspopup="dialog" aria-label="打开实验记录" title="实验记录" hidden><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M8 7h8m-8 5h1m3 0h1m3 0h.1M8 16h1m3 0h1m3 0h.1"/></svg></button>
+<form id="manualEntry" hidden>
+<label for="manualLength">水平影长</label>
+<input id="manualLength" type="number" inputmode="decimal" min="0" step="any" required>
+<span>cm</span>
+<button id="manualConfirm" type="submit" aria-label="确认影长" disabled>✓</button>
+<button id="manualCancel" type="button" aria-label="取消测量">×</button>
+</form></div><canvas id="top" aria-label="月面俯视图"></canvas></section><section class="view side"><div class="lunar-stage-actions" role="group" aria-label="测量阶段操作"><button id="previousStep" type="button" aria-label="上一步" hidden><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 12H5m6-6-6 6 6 6"/></svg></button><button id="start" class="primary lunar-primary-action" type="button" hidden><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg><span>确认轮廓</span></button><button id="confirmLight" class="primary lunar-primary-action" type="button" aria-label="前往测量" hidden><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg><span>前往测量</span></button><button id="manualCalculation" class="lunar-primary-action" type="button" aria-controls="manualEntry" aria-expanded="false" hidden>手动测量</button><button id="height" class="primary lunar-primary-action" type="button" hidden disabled>自动测高</button></div><canvas id="section" aria-label="环形山剖面图"></canvas></section></div>
 <section class="lunar-closeup" id="lunarCloseup" aria-label="影长测量局部放大" hidden><header>影长测量 · 局部放大<span id="closeupScale"></span></header><div class="lunar-closeup-viewport"><canvas id="closeupCanvas" aria-hidden="true"></canvas><svg id="closeupOverlay" role="img" aria-label="选取的 A、B 两点及水平影长"></svg></div><footer id="closeupCaption">当前选点的剖面细节</footer></section>
 
 
-<dialog id="lunarManualDialog" class="lunar-manual" aria-labelledby="manualTitle" aria-describedby="manualIntro">
-  <div class="manual-heading"><h2 id="manualTitle">手动计算高度差</h2><button id="manualClose" type="button" aria-label="关闭手动计算">关闭 ×</button></div>
-  <p id="manualIntro">用直尺量取水平影长，输入读数与太阳角度，按本次比例换算月面长度。</p>
-  <div class="manual-fields">
-    <label for="manualLength">手量水平影长（cm）<input id="manualLength" type="number" inputmode="decimal" min="0" step="any" placeholder="输入你的测量值" aria-describedby="manualLengthHint"><small id="manualLengthHint">量水平距离，不量倾斜的 A—B 连线。</small></label>
-    <div><label for="manualAngle">太阳角度（°）</label><div class="manual-angle-fields"><select id="manualAngleBasis" aria-label="角度基准"><option value="horizontal">高度角 α</option><option value="normal">入射角（法线）</option></select><input id="manualAngle" type="number" inputmode="decimal" min="35" max="70" step="any" aria-describedby="manualAngleHint"></div><small id="manualAngleHint">相对水平面，35°～70°。</small></div>
-  </div>
-  <fieldset><legend>尺度比例 · 由老师按天文馆数据设置</legend><label class="manual-scale-row" for="manualScale">手量 1 cm 对应月面 <input id="manualScale" type="number" inputmode="decimal" min="0" step="any" placeholder="待设置" aria-describedby="manualScaleHint"> km</label><p id="manualScaleHint">天文馆 Excel 数据待补充。比例须对应测量画面；缩放或更换设备后重新核对。</p></fieldset>
-  <div class="manual-results" aria-live="polite" aria-atomic="true"><div>月面实际水平影长 L<output id="manualActualLength" for="manualLength manualScale">—</output></div><div>估算高度差 Δh<output id="manualHeight" for="manualLength manualScale manualAngle manualAngleBasis">—</output></div></div>
-  <p id="manualFormula">L = 手量影长 × 比例；Δh = L × tan(α)</p>
-  <p id="manualMessage" role="status"></p>
+<dialog id="lunarManualDialog" class="lunar-manual" aria-labelledby="manualTitle">
+  <header class="manual-heading">
+    <h2 id="manualTitle">高度计算器</h2>
+    <button id="manualClose" type="button" aria-label="关闭高度计算器">×</button>
+  </header>
+  <p id="manualEmpty">暂无记录。选中测量点并确认手动测量后，结果会显示在这里。</p>
+  <div id="manualRecords" class="manual-records" aria-label="手动测量记录"></div>
+  <footer class="manual-footer">
+    <p id="manualFormula">L = 手量影长 × 比例尺；Δh = L × tan(α)</p>
+    <nav class="manual-pages" aria-label="记录翻页" hidden>
+      <button id="manualPreviousPage" type="button" aria-label="上一页记录">←</button>
+      <output id="manualPage"></output>
+      <button id="manualNextPage" type="button" aria-label="下一页记录">→</button>
+    </nav>
+    <label class="manual-scale-length" for="manualScaleLength">
+      <svg id="manualScaleBar" height="16" fill="none" stroke="#f2d59a" stroke-width="2.5" aria-hidden="true"><path/></svg>
+      <span><span id="manualScaleKm"></span> km 标尺实测长度</span>
+      <input id="manualScaleLength" type="number" inputmode="decimal" min="0" step="any" placeholder="输入">
+      <span>cm</span>
+    </label>
+  </footer>
 </dialog>
-</main><script src="./assets/three.reference.local.js"></script><script src="./assets/reference-terrain.js"></script><script src="./src/reference-terrain.js"></script><script src="./src/rim-measurement.js?v=dc1a3b640842"></script><script src="../../shared/components/operation-tip.js"></script><script src="./src/crater-3d.js?v=9bf112b05ef5"></script><script src="./src/scale-config.js"></script><script src="./src/manual-calculation.js"></script></body></html>
+</main><script src="./assets/three.reference.local.js"></script><script src="./assets/reference-terrain.js"></script><script src="./src/reference-terrain.js"></script><script src="./src/rim-measurement.js?v=dc1a3b640842"></script><script src="../../shared/components/operation-tip.js"></script><script src="./src/crater-3d.js?v=153477f2d9df"></script><script src="./src/manual-calculation.js?v=6f48e7b5db9b"></script></body></html>

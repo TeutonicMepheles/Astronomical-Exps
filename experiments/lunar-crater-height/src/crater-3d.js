@@ -42,6 +42,7 @@
   const initialSolarAngle = 35;
   const referenceRimRadius = 110;
   const tychoReferenceDiameterKm = 85;
+  const kilometresPerModelUnit = tychoReferenceDiameterKm/(2*referenceRimRadius);
   const view = { lightConfirmed: false, measuring: false, cut: 0, angle: initialSolarAngle, outlined: false, radius: referenceRimRadius, points: [], length: null, height: null };
   const clampSolarAngle = angle => Math.max(35,Math.min(70,Math.round(angle)));
   sideCamera.position.set(0, -7, 255);
@@ -354,12 +355,13 @@
     }
     $('start').hidden=!view.lightConfirmed||view.outlined;
     $('previousStep').hidden=!view.lightConfirmed;
-    $('manualCalculation').hidden=id!=='height';
+    $('manualHistory').hidden=id!=='measure'&&id!=='height';
+    $('manualCalculation').hidden=id!=='height'||view.points.length!==2;
     const heightAction=$('height'),complete=view.height!==null;
     heightAction.hidden=!view.outlined;
     heightAction.disabled=view.length===null||!!measurementAnimation.frame;
     heightAction.classList.toggle('primary',!complete);
-    heightAction.textContent=complete?'重新实验':'计算高度';
+    heightAction.textContent=complete?'重新实验':'自动测高';
   }
   function cancelMeasurementAnimation(){
     cancelAnimationFrame(measurementAnimation.frame);
@@ -512,22 +514,29 @@
     return `<circle cx="${x}" cy="${y}" r="9" fill="#152735" stroke="#f2d59a" stroke-width="2"/><circle cx="${x}" cy="${y}" r="4" fill="${color}"/><text x="${x}" y="${y-24}" text-anchor="middle" fill="#f2e1bd" stroke="#101d2a" stroke-width="4" paint-order="stroke" style="font-size:var(--type-body)">${label}</text>`;
   }
 
+  const formatModelDistance = units => (units*kilometresPerModelUnit).toFixed(2)+' km';
+
   function measureLabel(kind,x,y,anchor,value){
     const height=kind==='height';
     const text=height?'Δh':'L',color=height?'#a9d8df':'#fff0c9';
-    return `<text data-measure-label="${kind}" x="${x}" y="${y}" text-anchor="${anchor}" dominant-baseline="middle" fill="${color}" stroke="#102330" stroke-width="5" stroke-linejoin="round" paint-order="stroke" style="font-size:var(--type-data-label);font-variant-numeric:tabular-nums" font-weight="500" opacity="${height?measurementAnimation.vertical:1}">${text}=${value.toFixed(2)}</text>`;
+    return `<text data-measure-label="${kind}" x="${x}" y="${y}" text-anchor="${anchor}" dominant-baseline="middle" fill="${color}" stroke="#102330" stroke-width="5" stroke-linejoin="round" paint-order="stroke" style="font-size:var(--type-data-label);font-variant-numeric:tabular-nums" font-weight="500" opacity="${height?measurementAnimation.vertical:1}">${text}=${formatModelDistance(value)}</text>`;
   }
 
+  const scaleKm=20;
+  const calculatorScale=$('manualScaleBar');
+  const calculatorScalePath=calculatorScale.querySelector('path');
   function drawBoundaries(){
     const w=topCanvas.clientWidth,h=topCanvas.clientHeight;
     shadowScaleLayer.setAttribute('viewBox',`0 0 ${w} ${h}`);
-    const scaleKm=20;
     // Match the nominal rim diameter to Tycho for the plan-view reference scale.
-    const scaleUnits=scaleKm*(2*referenceRimRadius)/tychoReferenceDiameterKm;
+    const scaleUnits=scaleKm/kilometresPerModelUnit;
     const scaleStart=new THREE.Vector3(0,0,0).project(topCamera);
     const scaleEnd=new THREE.Vector3(scaleUnits,0,0).project(topCamera);
     const scaleCenter=w/2,scaleHalfWidth=Math.abs(scaleEnd.x-scaleStart.x)*w/4,scaleY=h/2+270;
     const scaleLeft=scaleCenter-scaleHalfWidth,scaleRight=scaleCenter+scaleHalfWidth;
+    const scaleWidth=scaleRight-scaleLeft;
+    calculatorScale.setAttribute('width',String(scaleWidth+4));
+    calculatorScalePath.setAttribute('d',`M 2 4 v 8 h ${scaleWidth} v -8`);
     shadowScaleLayer.innerHTML=`<path data-model-scale d="M ${scaleLeft} ${scaleY-6} v 6 H ${scaleRight} v -6" fill="none" stroke="#f2d59a" stroke-width="2.5"/>
       <text x="${scaleCenter}" y="${scaleY-16}" text-anchor="middle" fill="#fff0c9" stroke="#102330" stroke-width="4" paint-order="stroke" style="font-size:var(--type-body)">${scaleKm} km</text>`;
 
@@ -662,9 +671,9 @@
     const mid=(p.x+q.x)/2,base=q.y;
     const label=(x,y,text,color='#fff0c9')=>`<text x="${x}" y="${y}" text-anchor="middle" fill="${color}" stroke="#132735" stroke-width="4" paint-order="stroke" font-size="15" font-weight="600">${text}</text>`;
     $('closeupOverlay').setAttribute('viewBox',`0 0 ${w} ${h}`);
-    $('closeupOverlay').innerHTML=`<path d="M ${p.x} ${p.y} L ${q.x} ${q.y}" stroke="#f2d59a" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>${animatedLeg(q.x,base,p.x,base,'baseline','#f2d59a')}${animatedLeg(p.x,base,p.x,p.y,'vertical','#a9d8df')}${measurementPoint(p.x,p.y,0)}${measurementPoint(q.x,q.y,1)}${angleAnnotation(q)}${view.height===null?'':label(mid,Math.min(h-8,base+20),`L=${view.length.toFixed(2)}`)}`;
+    $('closeupOverlay').innerHTML=`<path d="M ${p.x} ${p.y} L ${q.x} ${q.y}" stroke="#f2d59a" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>${animatedLeg(q.x,base,p.x,base,'baseline','#f2d59a')}${animatedLeg(p.x,base,p.x,p.y,'vertical','#a9d8df')}${measurementPoint(p.x,p.y,0)}${measurementPoint(q.x,q.y,1)}${angleAnnotation(q)}${view.height===null?'':label(mid,Math.min(h-8,base+20),`L=${formatModelDistance(view.length)}`)}`;
     $('closeupScale').textContent=`${zoom.toFixed(1)}× · 跟随 A / B`;
-    $('closeupCaption').textContent=view.height===null?'先连线，再标出太阳高度角，最后计算高度差。':`按所选影长估算 Δh = ${view.height.toFixed(2)} 模型单位 · 太阳高度角 ${view.angle}°`;
+    $('closeupCaption').textContent=view.height===null?'先连线，再标出太阳高度角，最后计算高度差。':`按所选影长估算 Δh = ${formatModelDistance(view.height)} · 太阳高度角 ${view.angle}°`;
   }
   function requestRender() { if(!pending){pending=true;requestAnimationFrame(render);} }
   function fit(renderer,canvas,camera,halfHeight) {
@@ -721,6 +730,44 @@
     updateMeasurementInk();
 
   }
+  // Capture only on confirmation, while the WebGL drawing buffer is still available.
+  window.LunarManualSection = {
+    scaleKm,
+    capture() {
+      if (view.points.length !== 2) return null;
+      const w=sideCanvas.clientWidth,h=sideCanvas.clientHeight;
+      if (!w || !h) return null;
+      const [a,b]=view.points.map(x=>{
+        const vec=new THREE.Vector3(x,heightAt(x,view.cut),view.cut).project(sideCamera);
+        return {x:(vec.x+1)*w/2,y:(1-vec.y)*h/2};
+      });
+      const left=Math.max(0,Math.min(a.x,b.x)-44),right=Math.min(w,Math.max(a.x,b.x)+44);
+      const top=Math.max(0,Math.min(a.y,b.y)-48),bottom=Math.min(h,Math.max(a.y,b.y)+38);
+      const width=right-left,height=bottom-top;
+      if (width<=0 || height<=0) return null;
+      const image=document.createElement('canvas');
+      const scale=Math.min(512/width,400/height,1.5);
+      image.width=Math.ceil(width*scale);image.height=Math.ceil(height*scale);
+      const ctx=image.getContext('2d');
+      ctx.scale(scale,scale);
+      ctx.fillStyle='#102334';ctx.fillRect(0,0,width,height);
+      sideRenderer.render(sideScene,sideCamera);
+      const sx=sideCanvas.width/w,sy=sideCanvas.height/h;
+      ctx.drawImage(sideCanvas,left*sx,top*sy,width*sx,height*sy,0,0,width,height);
+      ctx.translate(-left,-top);
+      ctx.strokeStyle='#f2d59a';ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(a.x,b.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+      ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font='600 18px sans-serif';ctx.textAlign='center';
+      for (const [point,label] of [[a,'A'],[b,'B']]) {
+        ctx.fillStyle='#f2d59a';ctx.beginPath();ctx.arc(point.x,point.y,5,0,2*Math.PI);ctx.fill();
+        ctx.strokeStyle='#102334';ctx.lineWidth=4;ctx.strokeText(label,point.x,point.y-12);
+        ctx.fillText(label,point.x,point.y-12);
+      }
+      return {angle:view.angle, image:image.toDataURL('image/webp',0.85)};
+    }
+  };
   new ResizeObserver(requestRender).observe(topCanvas.parentElement);
   new ResizeObserver(requestRender).observe(sideCanvas.parentElement);
   function fitStage(){

@@ -27,3 +27,7 @@
 .lunar-stage-actions > .lunar-primary-action{grid-area:1 / 2;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px}
 .view.side .lunar-ready-tip{top:auto;bottom:112px;left:auto;right:44px;translate:none;animation:none;--operation-tip-bg:#142b38f2}
 .lunar-ready-tip::after{content:"";position:absolute;right:66px;bottom:-7px;width:12px;height:12px;background:var(--operation-tip-bg);border-right:1px solid #f4cb83;border-bottom:1px solid #f4cb83;rotate:45deg}
+
+.lunar-stage-actions:has(> #manualCalculation:not([hidden])){grid-template-columns:var(--lunar-action-height) 144px 144px}
+.lunar-stage-actions:has(> #manualCalculation:not([hidden])) > #height{grid-column:3}
+.lunar-stage-actions > #manualCalculation[aria-expanded="true"]{background:#2b4c5e;border-color:#e4c787}
