@@ -1,4 +1,5 @@
 import {loadRocketSilhouette, drawRocketSilhouette} from './rocket-silhouette.js';
+import {createRocketStarfield} from './components/rocket-flight-sky/starfield.js';
 import {createCannonTransition,groundPlaybackEnd,TRANSITION_TIMING,usesGroundView} from './cannon-transition.js?v=cannon-projectile';
 import {CANNON_ART} from './assets/cannon-scene/geometry.js';
 import {MODEL,GEARS,model,pathOf,solarPath,positionAt,groundPath,projectGroundDistance} from './orbital-model.js';
@@ -66,6 +67,7 @@ export function createVelocityScene(hooks={}){
  const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
  if(hooks.onFrame)loadRocketSilhouette(hooks.onFrame);
  const launchSite=new Image();
+ let directionStars;
  launchSite.onload=()=>hooks.onFrame?.();
  launchSite.src=new URL('./assets/vertical-launch/ascent.webp',import.meta.url).href;
  const direction={};
@@ -558,11 +560,9 @@ export function createVelocityScene(hooks={}){
    const frameTime=Math.min(dt||.016,.05);
    if(st.mode==='vertical'){
     if(st.started&&!st.paused&&!opening){
-     const previousAge=st.age;
      st.age+=frameTime;
      let phaseChanged=false;
      for(const condition of DIRECTION_CONDITIONS){
-      phaseChanged ||= directionCamera(previousAge,condition).pullingBack!==directionCamera(st.age,condition).pullingBack;
       const flight=directionState(st.age,condition);
       phaseChanged ||= flight.phase!==direction[condition].phase;
       direction[condition]=flight;
@@ -570,6 +570,18 @@ export function createVelocityScene(hooks={}){
      if(phaseChanged)hooks.onChange?.();
     }
     const gap=24, panelWidth=(W-gap)/2;
+    const reduced=reducedMotion.matches;
+    const skyBlend=opening?ease((opening.elapsed-.98)/1.32):0;
+    const skyOpacity=opening?1-directionEarthReveal(opening):0;
+    if(skyBlend>0&&skyOpacity>0&&!directionStars){
+     directionStars=createRocketStarfield();
+     const stars=directionStars.getContext('2d');
+     stars.globalCompositeOperation='destination-over';
+     stars.fillStyle='#09111e';
+     stars.fillRect(0,0,directionStars.width,directionStars.height);
+    }
+    // Downward drift gives the fixed follow camera a visual reference for ascent.
+    const starShift=reduced||!opening?0:Math.round(Math.max(0,opening.elapsed-.98)*.28*H)%H;
     for(const [index,condition] of DIRECTION_CONDITIONS.entries()){
      c.save();
      c.translate(index*(panelWidth+gap),0);
@@ -578,19 +590,20 @@ export function createVelocityScene(hooks={}){
      c.clip();
      c.fillStyle='#09121e60';
      c.fillRect(0,0,panelWidth,H);
-     if(opening&&launchSite.naturalWidth){
+     if(skyOpacity>0&&skyBlend<1&&launchSite.naturalWidth){
       const {phase,local}=opening;
       const ascent=.9*ease(opening.elapsed/1.2)+.1*ease((opening.elapsed-1.2)/2);
-      const opacity=1-directionEarthReveal(opening);
-      if(opacity>0){
-       const sourceHeight=launchSite.naturalWidth*H/panelWidth;
-       const scan=reducedMotion.matches?(phase==='ready'?0:phase==='ascent'&&local<.97?(local<.49?0:.5):1):ascent;
-       c.save();
-       c.globalAlpha=opacity;
-       c.drawImage(launchSite,0,(launchSite.naturalHeight-sourceHeight)*(1-scan),
-        launchSite.naturalWidth,sourceHeight,0,0,panelWidth,H);
-       c.restore();
-      }
+      const sourceHeight=launchSite.naturalWidth*H/panelWidth;
+      const scan=reduced?(phase==='ready'?0:phase==='ascent'&&local<.97?(local<.49?0:.5):1):ascent;
+      c.drawImage(launchSite,0,(launchSite.naturalHeight-sourceHeight)*(1-scan),
+       launchSite.naturalWidth,sourceHeight,0,0,panelWidth,H);
+     }
+     if(skyBlend>0&&skyOpacity>0){
+      c.save();
+      c.globalAlpha=skyBlend*skyOpacity;
+      c.drawImage(directionStars,0,starShift,panelWidth,H);
+      if(starShift>0)c.drawImage(directionStars,0,starShift-H,panelWidth,H);
+      c.restore();
      }
      c.translate(panelWidth/2,H/2);
      c.scale(DIRECTION_PANEL_SCALE,DIRECTION_PANEL_SCALE);

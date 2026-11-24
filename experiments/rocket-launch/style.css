@@ -706,33 +706,17 @@ header{height:106px;flex:none;align-items:flex-start}
   gap: 24px;
 }
 .direction-panels section {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   background: linear-gradient(#091426a8, transparent 17%);
   border: 1px solid #a8c4c660;
   border-radius: 16px;
   padding: 18px 24px;
 }
-.direction-panels h3,
-.direction-panels p {
+.direction-panels h3 {
   margin: 0;
   text-align: center;
   font-size: var(--type-body);
-}
-.direction-panels h3 {
   color: var(--ink);
   font-weight: 600;
-}
-.direction-panels p {
-  align-self: center;
-  padding: 4px 14px;
-  border-radius: 8px;
-  background: #091426e8;
-  color: var(--warm);
-}
-.direction-panels p:empty {
-  visibility: hidden;
 }
 #app[data-vertical-flight] aside {
   grid-template-columns: minmax(0, 1fr) auto;

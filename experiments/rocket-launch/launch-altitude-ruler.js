@@ -69,7 +69,7 @@ export class LaunchAltitudeRuler {
   this.invalidate();
  }
 
- draw(context, {height, target, flying, finished, ignition}) {
+ draw(context, {height, flying, finished, ignition}) {
   const c = context;
   const line = (x1, y1, x2, y2, color, width = 1) => {
    c.strokeStyle = color;
@@ -94,9 +94,6 @@ export class LaunchAltitudeRuler {
   line(FLIGHT_X, TOP, FLIGHT_X, GROUND, '#5e7c9477');
 
   const y = yAt(height);
-  c.setLineDash([7, 6]);
-  line(AXIS + 65, yAt(target), 860, yAt(target), GOLD, 2);
-  c.setLineDash([]);
   if (flying) {
    if (height > 0) line(FLIGHT_X, GROUND, FLIGHT_X, y, CURRENT, 5);
    drawRocketSilhouette(c, FLIGHT_X, y, 62, CURRENT);
@@ -105,14 +102,11 @@ export class LaunchAltitudeRuler {
     line(FLIGHT_X, y + 2, FLIGHT_X, y + 19, GOLD, 4);
     c.globalAlpha = 1;
    }
-   c.fillStyle = CURRENT;
-   c.fillText(String(Math.round(height)), FLIGHT_X + 18, y - 9);
+   if (!finished) {
+    c.fillStyle = CURRENT;
+    c.fillText(String(Math.round(height)), FLIGHT_X + 18, y - 9);
+   }
   }
-  c.font = '23px "Alibaba PuHuiTi 3", sans-serif';
-  c.fillStyle = CURRENT;
-  c.fillText((finished ? '最终高度 ' : '当前高度 ') + Math.round(height), AXIS + 65, 63);
-  c.fillStyle = GOLD;
-  c.fillText('本次可达 ' + target, AXIS + 65, 99);
 
   const k = Math.min(this.host.clientWidth / this.canvas.width, this.host.clientHeight / this.canvas.height);
   const ox = (this.host.clientWidth - this.canvas.width * k) / 2;

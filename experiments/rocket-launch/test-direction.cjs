@@ -104,7 +104,6 @@ async function run(browser, viewport, offline = false) {
     ([condition, name]) => RocketModel.scene.state.direction[condition].phase === name,
     [condition, name]
   );
-  const status = condition => page.locator('#direction-status-' + condition).innerText();
   const forceLabels = () => page.evaluate(() => window.flightLabels.filter(text =>
     ['引力', '推进加速度', '箭头 · 速度'].includes(text)));
   const cannon = () => page.locator('#steps').getByRole('button', { name: '高山大炮' }).click();
@@ -147,8 +146,9 @@ async function run(browser, viewport, offline = false) {
     assert.equal(await page.locator('#velocity-speed,#velocity-compare,#velocity-adjust').count(), 0);
     await page.keyboard.press('ArrowRight');
     assert.equal(await page.locator('[data-direction],#direction-adjust').count(), 0);
-    const left = page.getByRole('region', { name: '保持竖直', exact: true });
-    const right = page.getByRole('region', { name: '升空中转向', exact: true });
+    const left = page.getByRole('region', { name: '无水平推力', exact: true });
+    const right = page.getByRole('region', { name: '有水平推力', exact: true });
+    assert.equal(await page.locator('.direction-panels section > :not(h3)').count(), 0);
     const leftRect = await left.boundingBox(), rightRect = await right.boundingBox();
     assert(leftRect.x + leftRect.width < rightRect.x);
     assert.equal(leftRect.y, rightRect.y);
@@ -186,14 +186,16 @@ async function run(browser, viewport, offline = false) {
     });
     assert.deepEqual(await forceLabels(), []);
     await shot('01-双屏待发');
-    const shotStatus = message => page.waitForFunction(message =>
-      ['straight', 'turn'].every(condition =>
-        document.querySelector('#direction-status-' + condition).textContent === message),
-      message
+    const openingShot = (phase, index = 0, local = 0) => page.waitForFunction(
+      ([phase, index, local]) => {
+        const shot = RocketModel.directionOpening;
+        return shot.phase === phase && shot.index === index && shot.local >= local;
+      },
+      [phase, index, local]
     );
     await page.locator('#direction-fire').click();
     assert.equal(await page.locator('#next').isDisabled(), true);
-    await shotStatus('火箭升空');
+    await openingShot('ascent');
     await page.waitForFunction(() => window.flightLabels?.filter(text=>text==='引力').length===2);
     assert.deepEqual(await forceLabels(), ['引力', '引力']);
     const pause = page.locator('#direction-pause');
@@ -204,12 +206,28 @@ async function run(browser, viewport, offline = false) {
     assert.equal(await image(), frozen);
     await pause.click();
 
-    await shotStatus('穿越云层');
+    await openingShot('ascent', 0, .49);
     await shot('02a-穿越云层');
-    await shotStatus('飞出大气层');
+    await openingShot('ascent', 0, .97);
     await shot('02b-飞出大气层');
-    await shotStatus('助推器分离');
-    await shotStatus('一级与二级分离');
+    await openingShot('animation', 0);
+    await openingShot('animation', 1);
+    const skyPatches = () => page.locator('#scene').evaluate(canvas => {
+      const ctx = canvas.getContext('2d');
+      return [100, 736].map(x => String.fromCharCode(...ctx.getImageData(x, 160, 64, 64).data));
+    });
+    const skyBefore = await skyPatches();
+    await page.waitForTimeout(140);
+    const skyDuring = await skyPatches();
+    for (const [index, patch] of skyDuring.entries()) {
+      if (offline) assert.equal(patch, skyBefore[index], 'reduced motion holds the sky still');
+      else assert.notEqual(patch, skyBefore[index], 'the sky keeps moving after the image has faded out');
+    }
+    await pause.click();
+    const skyPaused = await skyPatches();
+    await page.waitForTimeout(140);
+    assert.deepEqual(await skyPatches(), skyPaused);
+    await pause.click();
     const componentArrows=await page.evaluate(()=>RocketForces.lastDraws.map(({id,angle})=>[id,angle]));
     assert.deepEqual(componentArrows,[
       ['direction-straight-vertical',-Math.PI/2],
@@ -234,19 +252,17 @@ async function run(browser, viewport, offline = false) {
     });
     assert(anchoredAtTips);
     await shot('02-分级分离');
-    await shotStatus('整流罩分离');
-    await shotStatus('载荷释放');
+    await openingShot('animation', 2);
+    await openingShot('animation', 3);
     assert.deepEqual(await forceLabels(), ['引力', '引力']);
     assert.equal(await page.evaluate(() => RocketChapter3.adapter.mode), null);
     await shot('03-释放载荷');
-    if(!offline){
+    if (!offline) {
       await page.waitForFunction(() => RocketModel.scene.directionPullingBack('turn'));
-      assert.equal(await status('turn'), '镜头拉远');
-      assert.notEqual(await status('straight'), '镜头拉远');
+      assert.equal(await page.evaluate(() => RocketModel.scene.directionPullingBack('straight')), false);
+      await page.waitForFunction(() => !RocketModel.scene.directionPullingBack('turn'));
     }
-    await page.waitForFunction(() =>
-      document.querySelector('#direction-status-turn').textContent === '载荷进入转向航段'
-    );
+    await phase('turn', 'turn');
     assert.deepEqual(await forceLabels(), ['引力', '引力', '推进加速度']);
 
     await phase('turn', 'orbit');
@@ -259,22 +275,18 @@ async function run(browser, viewport, offline = false) {
       return colors.size;
     });
     assert(globeColors > 16, 'the orbital shot uses the textured globe');
-    assert.equal(await status('turn'), '卫星开始绕地飞行');
     assert.deepEqual(await forceLabels(), ['引力', '引力']);
     assert.equal(await page.locator('#next').isDisabled(), true);
     assert.equal(await page.locator('#direction-conclusion').isHidden(), true);
     await phase('straight', 'fall');
     if(!offline){
-      assert.equal(await status('straight'), '镜头拉远');
-      assert.notEqual(await status('turn'), '镜头拉远');
+      assert.deepEqual(await page.evaluate(() => ['straight', 'turn'].map(RocketModel.scene.directionPullingBack)), [true, false]);
     }
     await shot('04-回落与环绕');
     await page.waitForFunction(() => {
       const { direction } = RocketModel.scene.state;
       return direction.straight.phase === 'landed' && direction.turn.phase === 'orbited';
     });
-    assert.equal(await status('straight'), '载荷落回地面');
-    assert.equal(await status('turn'), '环绕地球');
     assert.equal(await page.locator('#next').isEnabled(), true);
     assert.match(await page.locator('#direction-conclusion').innerText(), /转向的一侧成功入轨/);
     const completed = await state();
@@ -292,7 +304,7 @@ async function run(browser, viewport, offline = false) {
     });
     assert(bounds);
     await page.locator('#direction-fire').click();
-    await shotStatus('火箭升空');
+    await openingShot('ascent');
     await cannon();
     await vertical();
     assert.deepEqual(await state(), { age: 0, straight: 'ready', turn: 'ready' });

@@ -57,7 +57,7 @@ function drawPreviewGlobe(c2,cx,cy,r,muted=false){
  c2.drawImage(muted?directionGlobePreview:globePreview,cx-200*k,cy-200*k,400*k,400*k);
 }
 if(globeOK)velScene.setGlobe(drawPreviewGlobe);
-window.RocketModel={mu:MODEL.MU,r0:MODEL.R0,kmPerUnit:MODEL.KM_PER_UNIT,vCircKm:MODEL.V_CIRC_KM,vEscKm:MODEL.V_ESC,model,pathOf,solarPath,scene:velScene,gears:velScene.gears,cam:velScene.cam,toPixel:velScene.toPixel};
+window.RocketModel={mu:MODEL.MU,r0:MODEL.R0,kmPerUnit:MODEL.KM_PER_UNIT,vCircKm:MODEL.V_CIRC_KM,vEscKm:MODEL.V_ESC,model,pathOf,solarPath,scene:velScene,get directionOpening(){const {phase,index,local}=directionOpening;return {phase,index,local};},gears:velScene.gears,cam:velScene.cam,toPixel:velScene.toPixel};
 const kit=loadRocketAssets(()=>{dirty=true;});
 // One smooth source; latex deforms around a fixed wheel/tape region.
 const balloonFrames=Array.from({length:1},(_,i)=>{const im=new Image();im.onload=()=>{dirty=true;};im.src='assets/balloon-seedance-20261117/sprites/'+String(i).padStart(2,'0')+'.webp';return im;});
@@ -242,23 +242,7 @@ function openVelocityMode(mode){
  step=4;
  render();
 }
-const directionNames={straight:'保持竖直',turn:'升空中转向'};
-const directionMessages={
- straight:'载荷竖直上升',coast:'载荷继续上升',fall:'载荷正在回落',
- landed:'载荷落回地面',turn:'载荷进入转向航段',orbit:'卫星开始绕地飞行',orbited:'环绕地球'
-};
-function directionOpeningLabel(){
- const {phase,index}=directionOpening;
- if(phase==='ready')return '';
- if(phase==='ascent'){
-  if(directionOpening.local>=.97)return '飞出大气层';
-  if(directionOpening.local>=.49)return '穿越云层';
-  return '火箭升空';
- }
- if(phase==='complete')return null;
- if(phase==='payload-gap')return '准备释放载荷';
- return separationLabels[index];
-}
+const directionNames={straight:'无水平推力',turn:'有水平推力'};
 function mountDirectionControls(){
  const panels=document.createElement('div');
  panels.className='direction-panels';
@@ -268,10 +252,7 @@ function mountDirectionControls(){
   heading.id='direction-title-'+condition;
   heading.textContent=directionNames[condition];
   panel.setAttribute('aria-labelledby',heading.id);
-  const status=document.createElement('p');
-  status.id='direction-status-'+condition;
-  status.setAttribute('role','status');
-  panel.append(heading,status);
+  panel.append(heading);
   panels.append(panel);
  }
  $('#parts').append(panels);
@@ -291,20 +272,14 @@ function mountDirectionControls(){
 
  $('#controls').before(conclusion);
  disposeAssembly=()=>conclusion.remove();
- c.setAttribute('aria-label','垂直发射对照。左侧保持竖直，右侧升空中转向。轨迹与时间为教学示意。');
+ c.setAttribute('aria-label','垂直发射对照。左侧无水平推力，右侧有水平推力。轨迹与时间为教学示意。');
  syncDirectionControls();
 }
 function syncDirectionControls(){
  if(!$('#direction-fire'))return;
  const {started,paused,direction}=velScene.state;
- const openingLabel=directionOpeningLabel();
  const done=direction.straight.phase==='landed'&&direction.turn.phase==='orbited';
  $('#next').disabled=started&&!done;
- for(const condition of DIRECTION_CONDITIONS){
-  const status=$('#direction-status-'+condition);
-  const message=openingLabel??(velScene.directionPullingBack(condition)?'镜头拉远':directionMessages[direction[condition].phase]);
-  if(status.textContent!==message)status.textContent=message;
- }
  const fire=$('#direction-fire'),pause=$('#direction-pause');
  const focusPause=document.activeElement===fire&&started&&!done;
  fire.hidden=started&&!done;
@@ -440,15 +415,15 @@ if(c.getAttribute('aria-label')!==description)c.setAttribute('aria-label',descri
 
 
 if(step===2){
- const flight=launch!==null, target=flight?launch.distance:distance();
- const height=flight?target*smooth(Math.min(time/5,1)):0;
+ const flight=launch!==null;
+ const height=flight?launch.distance*smooth(Math.min(time/5,1)):0;
  if($('#app').dataset.launchFlight!==String(flight))$('#app').dataset.launchFlight=String(flight);
  if(!flight){
   rocket3D.update(lastDt);
   launchDiagram?.draw(ctx);
  }
  if(records.length){
-  launchRuler?.draw(ctx,{height,target,flying:flight,finished:!!launch?.saved,ignition:playing?Math.max(0,1-time/.45):0});
+  launchRuler?.draw(ctx,{height,flying:flight,finished:!!launch?.saved,ignition:playing?Math.max(0,1-time/.45):0});
  }
 }
 
@@ -456,11 +431,9 @@ if(step===2){
 if(isVerticalFlight()){
  const {started,paused}=velScene.state;
  if(started&&!paused&&directionOpening.phase!=='complete'){
-  const previousLabel=directionOpeningLabel();
   const event=directionOpening.advance(lastDt*(directionOpening.phase==='ascent'?.32:1.8));
   if(event==='wait')directionOpening.trigger();
   if(event==='complete')velScene.beginDirectionFlight();
-  if(event||previousLabel!==directionOpeningLabel())syncDirectionControls();
  }
  sky.draw();
  velScene.draw(ctx,c.width,c.height,lastDt,directionOpening.phase==='complete'?null:directionOpening);
