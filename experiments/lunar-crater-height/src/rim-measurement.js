@@ -32,10 +32,11 @@
   }
   function candidates(terrain,radius,angle){
     const all=[];
-    // Fixed, symmetric section samples cover both sides, without searching each frame.
+    // Sample fixed sections across the crater without searching each frame.
     for(let i=-10;i<=10;i++){
       const z=i*radius/11;
       for(const pair of shadows(terrain,z,angle)){
+        if(pair.side!=='right')continue;
         if(Math.abs(Math.hypot(pair.a.x,z)-radius)>12)continue;
         // A must be on a ridge near the fitted outline, not a small interior crater.
         const r=Math.hypot(pair.a.x,z),ux=pair.a.x/r,uz=z/r;
@@ -46,12 +47,10 @@
       }
     }
     const chosen=[];
-    for(const side of ['left','right']){
-      const group=all.filter(p=>p.side===side).sort((a,b)=>a.a.z-b.a.z);
-      for(const pair of group){
-        if(chosen.some(p=>Math.hypot(p.a.x-pair.a.x,p.a.z-pair.a.z)<14))continue;
-        chosen.push(pair);
-      }
+    all.sort((a,b)=>a.a.z-b.a.z);
+    for(const pair of all){
+      if(chosen.some(p=>Math.hypot(p.a.x-pair.a.x,p.a.z-pair.a.z)<14))continue;
+      chosen.push(pair);
     }
     return chosen.map((pair,id)=>({...pair,id}));
   }
