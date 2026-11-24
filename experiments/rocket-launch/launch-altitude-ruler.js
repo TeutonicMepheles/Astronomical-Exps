@@ -1,10 +1,11 @@
-import {loadRocketSilhouette, drawRocketSilhouette} from './rocket-silhouette.js';
+import {loadRocketSilhouette} from './rocket-silhouette.js';
+import {ALTITUDE_INK as INK,altitudeLine,drawAltitudeGrid,drawAltitudeFlight,drawAltitudeGuides} from './altitude-chart.js';
 
 const AXIS = 112, RIGHT = 690, TOP = 105, GROUND = 711;
 const FRAME_LEFT = 45, FRAME_TOP = 1, FRAME_RIGHT = 726, FRAME_BOTTOM = 799;
 const PAGE_SIZE = 6;
 export const MAX_HEIGHT = 140;
-const CURRENT = '#99e2e3', INK = '#a9bdcb';
+const CURRENT = '#99e2e3';
 const yAt = height => GROUND - (GROUND - TOP) * height / MAX_HEIGHT;
 const xAt = slot => AXIS + (slot + .5) * (RIGHT - AXIS) / PAGE_SIZE;
 
@@ -17,6 +18,7 @@ export class LaunchAltitudeRuler {
   this.root.className = 'launch-altitude-records';
   this.root.setAttribute('role','group');
   this.root.setAttribute('aria-label','高度记录');
+  this.root.setAttribute('aria-description','横轴为发射次序，纵轴为高度（示意格）。');
   this.detail = document.createElement('output');
   this.detail.id = 'launch-altitude-detail';
   this.detail.hidden = true;
@@ -154,45 +156,27 @@ export class LaunchAltitudeRuler {
  }
 
  draw(c,{height,flying,ignition}) {
-  const line=(x1,y1,x2,y2,color,width=1)=>{
-   c.strokeStyle=color;
-   c.lineWidth=width;
-   c.beginPath();
-   c.moveTo(x1,y1);
-   c.lineTo(x2,y2);
-   c.stroke();
-  };
   c.save();
-  c.font='20px "Alibaba PuHuiTi 3", sans-serif';
-  c.textBaseline='middle';
-  c.fillStyle=INK;
-  c.fillText('高度（示意格）',AXIS,TOP-68);
-  line(AXIS,TOP,AXIS,GROUND,INK);
-  for(let value=0;value<=MAX_HEIGHT;value+=35){
-   const y=yAt(value);
-   line(AXIS,y,RIGHT,y,value===0?INK:'#5e7c9466');
-   c.textAlign='right';
-   c.fillText(String(value),AXIS-13,y);
-  }
+  drawAltitudeGrid(c,{left:AXIS,right:RIGHT,top:TOP,ground:GROUND,max:MAX_HEIGHT,interval:35,yAt,title:'高度（示意格）'});
   c.textAlign='center';
   const offset=this.page*PAGE_SIZE;
-  for(let slot=0;slot<PAGE_SIZE && offset+slot<this.records.length;slot++){
-   c.fillText(String(offset+slot+1),xAt(slot),GROUND+25);
+  for(let slot=0;slot<PAGE_SIZE;slot++){
+   const x=xAt(slot);
+   altitudeLine(c,x,GROUND,x,GROUND+7,INK);
+   c.fillText(String(offset+slot+1),x,GROUND+25);
   }
+  c.textAlign='right';
+  c.fillText('发射次序（次）',RIGHT,GROUND+61);
   if(this.selected){
    const {x,y}=this.selected;
-   c.setLineDash([8,7]);
-   line(AXIS,y,x,y,CURRENT,2);
-   line(x,y,x,GROUND,CURRENT,2);
-   c.setLineDash([]);
+   drawAltitudeGuides(c,AXIS,GROUND,x,y,CURRENT);
   }
   if(flying){
    const x=xAt(this.records.length-1-offset),y=yAt(height);
-   line(x,GROUND,x,y,CURRENT,4);
-   drawRocketSilhouette(c,x,y,62,CURRENT);
+   drawAltitudeFlight(c,x,y,GROUND,CURRENT);
    if(ignition>0){
     c.globalAlpha=ignition;
-    line(x,y+2,x,y+19,'#e3bb79',4);
+    altitudeLine(c,x,y+2,x,y+19,'#e3bb79',4);
     c.globalAlpha=1;
    }
    c.textAlign='left';

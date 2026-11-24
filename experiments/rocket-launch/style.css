@@ -433,7 +433,7 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 .dv-accessible{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
 /* One linked model/curve workbench: the burn axis lives on the chart itself. */
-#app[data-step="9"] .stage{bottom:88px}
+#app[data-step="9"] .stage{bottom:12px}
 #app[data-step="9"] aside{height:80px;display:flex;align-items:center;gap:24px}
 #app[data-step="9"] #controls{margin-left:auto;flex-wrap:nowrap;gap:20px;order:2}
 #app[data-step="9"] #feedback{flex:1;margin:0;max-width:660px}

@@ -1,8 +1,9 @@
+import {COMPARISON_WIDTH,COMPARISON_HEIGHT} from './comparison-flight.js?v=taller-comparison';
 import {addRocketHardware} from './rocket-hardware.js?v=tianzhou-solar';
 import {createRocketExhaust} from './rocket-exhaust.js?v=flight-refinement-20261117';
 import {RocketAssemblyParts} from './rocket-assembly-parts.js?v=assembly-original-position';
 import * as T from './vendor/three/three.module.js';
-import {StagingRig} from './staging-rig.js?v=altitude-result-focus';
+import {StagingRig} from './staging-rig.js?v=taller-comparison';
 import {RocketAssemblyGuide} from './rocket-assembly-guide.js?v=tianzhou-solar';
 import {RocketSelectionOutline} from './rocket-selection-outline.js?v=tianzhou-solar';
 import {RocketBlueprint} from './rocket-blueprint.js?v=course-refinements-20261118';
@@ -155,7 +156,7 @@ export class Rocket3D {
    const focus=this.paperY*.4;this.camera.position.set(0,focus+145,110);this.camera.lookAt(0,focus,0);
   }
   if(['launch','separation'].includes(mode))this.layout.rotation.y=-.55;if(mode==='comparison'){this.model.visible=false;if(this.stagingRig)this.stagingRig.root.visible=true;else if(this.stagingError)this.showComparisonError();else this.loadComparison();}this.resize();this.blueprint?.setVisible(mode==='structure'||mode==='assembly');this.assemblyParts?.setVisible(mode==='assembly');this.assemblyGuide?.update();}
- resize(){if(!this.renderer)return;const w=this.layer.clientWidth,h=this.layer.clientHeight;if(!w||!h)return;this.renderer.setSize(w,h,false);const aspect=w/h;if(this.mode==='comparison'){this.camera.far=2000;const half=Math.max(325,750/aspect);this.camera.position.set(750,325,1000);this.camera.lookAt(750,325,0);this.camera.left=-half*aspect;this.camera.right=half*aspect;this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();this.invalidateFrame();return;}const half=['separation','launch'].includes(this.mode)?35:['structure','assembly'].includes(this.mode)?this.layer.clientHeight/464*11.5:32/aspect;this.camera.left=-half*aspect;this.camera.right=half*aspect;this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();this.blueprint?.draw();if(this.mode==='assembly'&&!this.assemblyMotion)for(const n of MODULES)if(!this.assemblyGuide?.installed.has(n))this.setModule(n,false);this.assemblyParts?.layout();this.invalidateFrame();}
+ resize(){if(!this.renderer)return;const w=this.layer.clientWidth,h=this.layer.clientHeight;if(!w||!h)return;this.renderer.setSize(w,h,false);const aspect=w/h;if(this.mode==='comparison'){this.camera.far=2000;const centerX=COMPARISON_WIDTH/2,centerY=COMPARISON_HEIGHT/2,half=Math.max(centerY,centerX/aspect);this.camera.position.set(centerX,centerY,1000);this.camera.lookAt(centerX,centerY,0);this.camera.left=-half*aspect;this.camera.right=half*aspect;this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();this.invalidateFrame();return;}const half=['separation','launch'].includes(this.mode)?35:['structure','assembly'].includes(this.mode)?this.layer.clientHeight/464*11.5:32/aspect;this.camera.left=-half*aspect;this.camera.right=half*aspect;this.camera.top=half;this.camera.bottom=-half;this.camera.updateProjectionMatrix();this.blueprint?.draw();if(this.mode==='assembly'&&!this.assemblyMotion)for(const n of MODULES)if(!this.assemblyGuide?.installed.has(n))this.setModule(n,false);this.assemblyParts?.layout();this.invalidateFrame();}
  setXray(enabled){if(!this.manifest)return;
   if(enabled&&!this.xraySaved.size){for(const n of this.xrayMeshNames||[]){this.xraySaved.set(n,this.nodes[n].visible);this.nodes[n].visible=false;const scan=this.scanMeshes.get(n);if(scan)scan.visible=true;}}
   else if(!enabled){for(const [n,v] of this.xraySaved)this.nodes[n].visible=v;this.xraySaved.clear();for(const scan of this.scanMeshes.values())scan.visible=false;}
