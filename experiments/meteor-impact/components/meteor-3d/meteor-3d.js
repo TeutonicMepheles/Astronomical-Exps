@@ -301,7 +301,7 @@
       return bowl + rim + apron + shelves + gullies + slump + relief * (1 - smooth(1.5, 3.6, u)) + floor + peak;
     }
 
-    _earthCraterProfile(x, y, visual, loose, groundHeight) {
+    _materialCraterProfile(x, y, visual, loose, groundHeight) {
       const nx = x / visual.radius;
       const ny = y / visual.radius;
       const bearing = Math.atan2(ny, nx);
@@ -419,6 +419,8 @@
       const rimColor = new T.Color(0xb4b7ba);
       const color = new T.Color();
       const scaled = impacted && Boolean(visual.metersPerUnit);
+      const loose = params.ground === 'loose';
+      const useMaterialProfile = scaled && (params.scene === 'earth' || loose);
       const backgroundCraters = impacted && !scaled ? Array.from({ length: 4 }, (_, i) => {
         const angle = hash(i + visual.seed, 1.7) * Math.PI * 2;
         const distance = visual.radius + 9 + hash(i + visual.seed, 9.3) * 18;
@@ -476,8 +478,8 @@
         const ejectaDistance = scaled ? Math.hypot(x, y) / visual.radius : craterDistance;
         let profile;
         if (impacted) {
-          if (scaled && params.scene === 'earth' && craterDistance < 1.85) {
-            profile = this._earthCraterProfile(craterX, craterY, visual, params.ground === 'loose', height);
+          if (useMaterialProfile && craterDistance < 1.85) {
+            profile = this._materialCraterProfile(craterX, craterY, visual, loose, height);
             height = profile.height;
             craterDistance = profile.distance;
           } else if (scaled) {
@@ -512,7 +514,7 @@
           .lerp(wallColor, wallTint).lerp(rimColor, rimTint);
         color.multiplyScalar(.96 + .06 * this._noise(x * .075 + 12, y * .075 - 7));
         if (profile) {
-          const roughness = params.ground === 'loose' ? .58 : .26;
+          const roughness = loose ? .58 : .26;
           color.multiplyScalar(1 + profile.grain * roughness - profile.fissure * .19 - profile.shade);
         }
         if (impacted) {
@@ -548,15 +550,19 @@
       }
       const position = this.geometry.attributes.position;
       const uv = this.geometry.attributes.uv;
-      // Project the ground texture from world-space coordinates after grid redistribution.
+      // Keep texture features at a fixed size in meters across comparison scales.
+      // The 400 m/unit reference preserves the existing wide-view texture density.
+      const metersPerUnit = impacted && this.params.metersPerUnit;
+      const textureScale = metersPerUnit ? metersPerUnit / 400 : 1;
+      const uPerUnit = textureScale / this.geometry.parameters.width;
+      const vPerUnit = textureScale / this.geometry.parameters.height;
       for (let i = 0; i < position.count; i++) {
-        uv.setXY(i, position.getX(i) / this.geometry.parameters.width + .5,
-          position.getY(i) / this.geometry.parameters.height + .5);
+        uv.setXY(i, position.getX(i) * uPerUnit + .5, position.getY(i) * vPerUnit + .5);
       }
       uv.needsUpdate = true;
-      const earthImpact = impacted && this.params.estimate && this.sceneMode === 'earth';
       const loose = this.params.ground === 'loose';
-      const normals = earthImpact ? (loose ? this.mudNormal : this.rockNormal) || null : null;
+      const useImpactMaterial = impacted && this.params.estimate && (this.sceneMode === 'earth' || loose);
+      const normals = useImpactMaterial ? (loose ? this.mudNormal : this.rockNormal) || null : null;
       const roughnessMap = normals && loose ? this.mudRoughness : null;
       if (normals) {
         const visual = this._visualParams(this.params);
@@ -854,7 +860,24 @@
 
     _render() {
       if (!this.renderer || (!this.fixedViewport && (!this.canvas.clientWidth || !this.canvas.clientHeight))) return;
-      this.renderer.render(this.scene, this.camera);
+      this.renderer.render(this.scene, this.observationCamera ?? this.camera);
+    }
+
+    setObservationView(view, render = true) {
+      if (view === 'top') {
+        if (!this.observationTopCamera) {
+          const camera = this.topCamera.clone();
+          const halfHeight = 23.5 * this.canvas.height / this.canvas.width;
+          camera.left = -23.5; camera.right = 23.5;
+          camera.top = halfHeight; camera.bottom = -halfHeight;
+          camera.updateProjectionMatrix();
+          this.observationTopCamera = camera;
+        }
+        this.observationCamera = this.observationTopCamera;
+      } else {
+        this.observationCamera = null;
+      }
+      if (render) this._render();
     }
 
     resize() {
@@ -874,11 +897,12 @@
       const changed = scene !== this.sceneMode;
       this.sceneMode = scene;
       this.params.scene = scene;
-      this.material.map = scene === 'earth' ? this.soilTexture : this.lunarTexture;
-      this.material.bumpMap = this.material.map;
+      const groundTexture = scene === 'earth' ? this.soilTexture : this.lunarTexture;
+      const stylized = this.params.stylizedLunar && this.stylizedLunarTexture;
+      this.material.map = stylized || groundTexture;
+      this.material.bumpMap = groundTexture;
       this.material.bumpScale = scene === 'earth' ? .018 : .006;
-      // Match EXP-02's lunar material illumination; keep the Earth preset intact.
-      const moon = scene === 'moon';
+      const moon = scene === 'moon' || Boolean(stylized);
       this.renderer.toneMappingExposure = moon ? 1.08 : .82;
       this.sun.color.setHex(moon ? 0xfff4e4 : 0xfff1e5);
       this.sun.intensity = moon ? 3.2 : 1.35;
@@ -898,7 +922,7 @@
       await this._loadMeteor();
     }
 
-    drawFloatingMeteor(elapsed) {
+    drawFloatingMeteor(elapsed, scale = 1, lift = 0) {
       const T = this.THREE;
       if (!this.floatingScene) {
         this.floatingScene = new T.Scene();
@@ -906,13 +930,13 @@
         this.floatingCamera.position.z = 5;
         this.floatingRock = new T.Mesh(this.meteorGeometry, this.meteorMaterial);
         this.meteorGeometry.computeBoundingSphere();
-        this.floatingRock.scale.setScalar(1 / this.meteorGeometry.boundingSphere.radius);
         const light = new T.DirectionalLight(0xffe4ce, 2.8);
         light.position.set(-3, 4, 3);
         this.floatingScene.add(light, new T.HemisphereLight(0xbad8ff, 0x5a3829, 1.45), this.floatingRock);
       }
+      this.floatingRock.scale.setScalar(scale / this.meteorGeometry.boundingSphere.radius);
       this.floatingRock.rotation.set(.35, .45 + elapsed * .34, -.25);
-      this.floatingRock.position.y = Math.sin(elapsed * .65) * .08;
+      this.floatingRock.position.y = lift;
       this.renderer.render(this.floatingScene, this.floatingCamera);
     }
 
@@ -1218,15 +1242,21 @@
       const textures = await Promise.all([
         loader.loadAsync('assets/quarry_wall_02_nor_gl_1k.jpg'),
         loader.loadAsync('assets/brown_mud_03_nor_gl_1k.jpg'),
-        loader.loadAsync('assets/brown_mud_03_rough_1k.jpg')
+        loader.loadAsync('assets/brown_mud_03_rough_1k.jpg'),
+        loader.loadAsync('assets/lunar-highlands-stylized.webp')
       ]);
       if (this.disposed) { textures.forEach(texture => texture.dispose()); return; }
-      [this.rockNormal, this.mudNormal, this.mudRoughness] = textures;
+      [this.rockNormal, this.mudNormal, this.mudRoughness, this.stylizedLunarTexture] = textures;
       for (const texture of textures) {
         texture.wrapS = texture.wrapT = this.THREE.RepeatWrapping;
         texture.repeat.set(165, 165);
         texture.anisotropy = 4;
       }
+      this.stylizedLunarTexture.colorSpace = this.THREE.SRGBColorSpace;
+      // Center one highlands patch in the camera's working area.
+      this.stylizedLunarTexture.wrapS = this.stylizedLunarTexture.wrapT = this.THREE.MirroredRepeatWrapping;
+      this.stylizedLunarTexture.repeat.set(4.4, 4.4);
+      this.stylizedLunarTexture.offset.set(-1.7, -1.7);
       // Pack rock striations more tightly across the grain than along it.
       this.rockNormal.repeat.set(174, 232);
       await this.warmCapture();
@@ -1260,11 +1290,18 @@
       const started = performance.now();
       const width = this.renderer.domElement.width;
       const height = this.renderer.domElement.height;
-      const captureWidth = 800;
+      const captureWidth = framing.detail ? 320 : 800;
       const aspect = framing.captureAspect || this.canvas.clientWidth / this.canvas.clientHeight || 800 / 700;
       const captureHeight = Math.round(captureWidth / aspect);
-      const camera = new this.THREE.OrthographicCamera(-23.5, 23.5, 23.5 * captureHeight / captureWidth, -23.5 * captureHeight / captureWidth, .1, 500);
+      const halfWidth = framing.detail ? framing.halfWidth : 23.5;
+      const halfHeight = halfWidth * captureHeight / captureWidth;
+      const camera = new this.THREE.OrthographicCamera(-halfWidth, halfWidth, halfHeight, -halfHeight, .1, 500);
       camera.position.copy(this.camera.position); camera.quaternion.copy(this.camera.quaternion);
+      if (framing.top) {
+        camera.position.copy(this.topCamera.position);
+        camera.quaternion.copy(this.topCamera.quaternion);
+      }
+      if (framing.detail) camera.lookAt(0, 0, 0);
       if (cutaway) {
         const halfHeight = framing.halfWidth * captureHeight / captureWidth;
         camera.left = -framing.halfWidth; camera.right = framing.halfWidth;
@@ -1354,7 +1391,7 @@
       const extent = visual.ejectaRadius ?? visual.radius * (1.3 + visual.spread);
       const ejectaStretch = visual.metersPerUnit ? 1 : Math.sqrt(visual.round);
       this.annotationViews ||= {};
-      this.annotationViews[cutaway ? 'cutaway' : 'whole'] = {
+      if (!framing.detail) this.annotationViews[cutaway ? 'cutaway' : framing.top ? 'top' : 'whole'] = {
         viewportHeight: captureHeight,
         baseline: project(0, 0, 0),
         left: project(leftRim.x, leftRim.height, 0), right: project(rightRim.x, rightRim.height, 0),
@@ -1372,7 +1409,7 @@
         if (!cutaway || z <= 0) points.push(new T.Vector3(x, .28, z));
       }
       const boundary = new T.Line(new T.BufferGeometry().setFromPoints(points), new T.LineDashedMaterial({ color: framing.outlineColor ?? 0x53c7eb, dashSize: .65, gapSize: .48, transparent: true, opacity: .95, toneMapped: false }));
-      boundary.visible = !cutaway; // In a strict front view it collapses onto the neutral ground datum.
+      boundary.visible = !cutaway && !framing.detail;
       boundary.computeLineDistances(); overlay.add(boundary);
       this.scene.add(overlay);
       const built = performance.now();
@@ -1426,6 +1463,7 @@
       this.rockNormal?.dispose();
       this.mudNormal?.dispose();
       this.mudRoughness?.dispose();
+      this.stylizedLunarTexture?.dispose();
       this.material.dispose();
       this.meteorGeometry.dispose();
       this.meteorMaterial.map?.dispose();

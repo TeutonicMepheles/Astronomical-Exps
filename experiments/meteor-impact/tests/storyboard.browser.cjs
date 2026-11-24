@@ -11,7 +11,7 @@ const localPage = require('./local-page.cjs');
     page.on('pageerror', error => errors.push(error.message));
     const button = name => page.getByRole('button', { name, exact: true });
     const count = () => page.locator('#recordCount').textContent();
-    const finish = () => page.locator('#showResult').waitFor({ timeout: 30000 });
+    const finish = () => page.locator('#left .observed-result').waitFor({ timeout: 30000 });
     async function configure(name, first, second) {
       await button(name).click();
       assert(await page.locator('#fire').isDisabled());
@@ -25,14 +25,37 @@ const localPage = require('./local-page.cjs');
     await page.locator('#start').click({ timeout: 20000 });
     assert.equal(await page.locator('#factors button').count(), 5);
     await configure('陨石大小', '小 20 m', '小 20 m');
-    assert.equal(await page.locator('[data-owner="both"] .marker').textContent(), '1/2');
+    assert(await page.locator('#space-left #first').isVisible());
+    assert(await page.locator('#space-right').isHidden());
+    const toast = page.locator('#selection-toast');
+    assert.match(await toast.textContent(), /实验 1 已选此档/);
+    assert(await toast.isVisible());
+    assert(await page.locator('#fire').isDisabled());
+    assert.equal(await page.locator('[data-owner="1"]').count(), 0);
+    assert.equal(await button('实验 2').getAttribute('aria-pressed'), 'true');
+    await button('中 50 m').click();
+    assert.equal(await button('中 50 m').getAttribute('aria-pressed'), 'true');
+    assert.equal(await toast.textContent(), '');
     await page.locator('#fire:enabled').waitFor();
-    await button('实验 2').click();
+    await button('小 20 m').click();
+    assert.match(await toast.textContent(), /实验 1 已选此档/);
+    assert.equal(await button('中 50 m').getAttribute('aria-pressed'), 'true');
+    assert(await page.locator('#fire').isEnabled());
     await button('大 300 m').click();
+    assert.equal(await button('中 50 m').getAttribute('aria-pressed'), 'false');
+    assert.equal(await page.locator('[data-owner="1"]').getAttribute('data-value'), 'large');
+    assert(await page.locator('#space-right #second').isVisible());
+    assert.deepEqual(await page.locator('#fixed-comparison h2').allTextContents(), ['实验 1 · 小 20 m', '实验 2 · 大 300 m']);
     assert.equal(await page.locator('[data-owner="both"]').count(), 0);
     assert.equal(await page.locator('[data-owner="0"]').getAttribute('data-value'), 'small');
     await page.locator('#fire').click();
+    assert(await page.locator('#result-views').isVisible());
+    await page.getByRole('tab', { name: '剖面' }).click();
+    assert(await page.locator('#result-view-status').isVisible());
     await finish();
+    assert.equal(await page.locator('.observed-result .rc-baseline').count(), 2);
+    assert(await page.locator('#result-view-status').isHidden());
+    await page.getByRole('tab', { name: '默认' }).click();
     assert.equal(await count(), '1');
     assert.equal(await page.locator('.observed-result svg').count(), 2);
     const liveValues = await page.locator('.observed-readouts').evaluateAll(rows =>
@@ -41,7 +64,19 @@ const localPage = require('./local-page.cjs');
       liveValues.forEach(values => assert.match(values[metric], /^\d+(?:\.\d+)? (?:cm|m|km)$/));
       assert.notEqual(liveValues[0][metric], liveValues[1][metric]);
     }
-    await page.locator('#showResult').click();
+    assert.equal(await page.locator('#split .phase:visible').count(), 0);
+    const currentViews = () => page.locator('.observed-result > img').evaluateAll(images => images.map(image => image.src));
+    const defaultViews = await currentViews();
+    await page.getByRole('tab', { name: '俯视' }).click();
+    assert.notDeepEqual(await currentViews(), defaultViews);
+    assert.equal(await page.locator('#result-views [aria-selected="true"]').count(), 1);
+    await page.getByRole('tab', { name: '俯视' }).press('End');
+    assert.equal(await page.getByRole('tab', { name: '剖面' }).getAttribute('aria-selected'), 'true');
+    assert.equal(await page.locator('.observed-result .rc-baseline').count(), 2);
+    await page.getByRole('tab', { name: '默认' }).click();
+    assert.deepEqual(await currentViews(), defaultViews);
+    assert(await page.locator('#records').isHidden());
+    await page.locator('#openRecords').click();
     const savedValues = await page.locator('.record-card footer').evaluateAll(rows =>
       rows.map(row => [...row.querySelectorAll('b')].map(value => value.textContent)));
     assert.deepEqual(savedValues, liveValues);
@@ -71,23 +106,67 @@ const localPage = require('./local-page.cjs');
       pins.map(pin => Math.abs(Number(pin.getAttribute('cx')) - 400)));
     assert.equal(ejectaPins.length, 2);
     const expectedEjectaRatio = await page.evaluate(() => {
-      const params = { scene: 'moon', ground: 'compact', angle: '90', speed: 'medium' };
+      const params = { scene: 'moon', ground: 'loose', angle: '90', speed: 'medium' };
       const calculate = MeteorImpactResultModel.calculate;
       return calculate({ ...params, size: 'large' }).ejecta / calculate({ ...params, size: 'small' }).ejecta;
     });
     assert(Math.abs(ejectaPins[1] / ejectaPins[0] - expectedEjectaRatio) < .001);
     await page.locator('#closeRecords').click();
     await page.locator('#another').click();
-    await configure('撞击目标类型', '地球', '月球');
-    await page.locator('#fire').click();
+    await button('地面类型').click();
+    assert(await page.locator('#space-split').isVisible());
+    assert.equal(await page.locator('.split-ground:visible').count(), 2);
+    assert(await page.locator('#space-planets').isHidden());
+    assert.deepEqual(await page.locator('#fixed-comparison h2').allTextContents(), ['实验 1 · 疏松地面', '实验 2 · 紧致地面']);
+    await button('返回研究因素').click();
+    assert(await page.locator('#space-split').isHidden());
+    await button('撞击目标类型').click();
+    assert(await page.locator('#space-split').isVisible());
+    const planetPreviews = page.locator('#space-planets img');
+    assert.deepEqual(await planetPreviews.evaluateAll(images => images.map(image => image.getAttribute('src'))),
+      ['assets/target-earth.webp', 'assets/target-moon.webp']);
+    for (const preview of await planetPreviews.all()) assert(await preview.isVisible());
+    const [backBox, fireBox] = await Promise.all([
+      button('返回研究因素').boundingBox(), button('开始实验').boundingBox()
+    ]);
+    assert(backBox.x + backBox.width < fireBox.x && backBox.y === fireBox.y);
+    assert.match(await page.locator('#first').evaluate(node => getComputedStyle(node).filter), /meteor-selection-outline/);
+    assert.match(await page.locator('#second').evaluate(node => getComputedStyle(node).filter), /meteor-right-outline/);
+    assert(await page.locator('#options').isHidden());
+    assert.deepEqual(await page.locator('#fixed-comparison h2').allTextContents(), ['实验 1 · 地球', '实验 2 · 月球']);
+    await button('开始实验').click();
     await finish();
     assert.equal(await count(), '2');
-    await page.locator('#showResult').click();
+    assert(await page.locator('#left .crater-detail img').isVisible());
+    assert.equal(await page.locator('#right .crater-detail').count(), 0);
+    assert.match(await page.locator('#observation').textContent(), /同一比例尺/);
+    const worldScaleLabels = await page.locator('.observed-result .rc-scale').evaluateAll(bars =>
+      bars.map(bar => bar.getAttribute('aria-label')));
+    assert.equal(worldScaleLabels.length, 2);
+    assert.equal(worldScaleLabels[0], worldScaleLabels[1]);
+    await page.locator('#openRecords').click();
+    assert.match(await page.locator('.record-note').textContent(), /同一比例尺/);
+    const recordedScaleLabels = () => page.locator('.record-scene .rc-scale').evaluateAll(bars =>
+      bars.map(bar => bar.getAttribute('aria-label')));
+    assert.deepEqual(await recordedScaleLabels(), worldScaleLabels);
+    await button('立体剖面').click();
+    assert.deepEqual(await recordedScaleLabels(), worldScaleLabels);
+    const cutWidths = await page.locator('.record-scene svg').evaluateAll(overlays =>
+      overlays.map(overlay => {
+        const [, start, , , end] = overlay.querySelector('.rc-trace:not(.rc-extension)').getAttribute('d').split(/\s+/);
+        return Math.abs(Number(end) - Number(start));
+      }));
+    const expectedWidthRatio = await page.evaluate(() => {
+      const params = { size: 'medium', speed: 'medium', angle: '90', ground: 'loose' };
+      const calculate = MeteorImpactResultModel.calculate;
+      return calculate({ ...params, scene: 'earth' }).diameter / calculate({ ...params, scene: 'moon' }).diameter;
+    });
+    assert(cutWidths[0] > 0 && Math.abs(cutWidths[0] / cutWidths[1] - expectedWidthRatio) < .001);
     assert.deepEqual(await page.locator('.record-card header strong').allTextContents(), ['地球', '月球']);
     const conditions = await page.locator('.record-conditions').evaluateAll(rows =>
       rows.map(row => [...row.querySelectorAll('b')].map(value => value.textContent)));
     assert.deepEqual(conditions, [
-      ['50 m', '20 km/s', '90°', '紧致地面'],
+      ['50 m', '20 km/s', '90°', '疏松地面'],
       ['50 m', '20 km/s', '90°', '月壤']
     ]);
     await page.locator('#previous').click();
@@ -95,11 +174,16 @@ const localPage = require('./local-page.cjs');
     await page.locator('#deleteLast').click();
     assert.equal(await count(), '1');
     await page.locator('#closeRecords').click();
-    await page.locator('#retry').click();
-    await page.locator('#fire').click();
+    assert(await page.locator('#result-views').isVisible());
+    await page.getByRole('tab', { name: '俯视' }).click();
+    assert.equal(await page.locator('.observed-result > img[alt="俯视坑体"]').count(), 2);
+    await page.locator('#another').click();
+    await button('撞击目标类型').click();
+    await button('开始实验').click();
     await page.locator('#cancel').click();
     assert.equal(await count(), '1');
-    assert(await page.locator('#settings').isVisible());
+    assert(await page.locator('#fixed-comparison').isVisible());
+    assert(await button('开始实验').isEnabled());
     await page.setViewportSize({ width: 1100, height: 850 });
     const stage = await page.locator('#story').boundingBox();
     assert(Math.abs(stage.width / stage.height - 16 / 9) < .01);

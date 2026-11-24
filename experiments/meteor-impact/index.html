@@ -6,19 +6,45 @@
   <title>陨石坑撞击</title>
   <link rel="stylesheet" href="../../shared/typography/typography.css">
   <link rel="stylesheet" href="storyboard.css">
-  <link rel="stylesheet" href="storyboard-results.css">
+  <link rel="stylesheet" href="storyboard-results.css?v=3">
+  <link rel="stylesheet" href="storyboard-course-hud.css?v=2">
+  <link rel="stylesheet" href="../../shared/components/experiment-actions.css">
 </head>
 <body>
-  <main id="story" data-stage="intro" data-loading>
+  <main id="story" class="comparison-layout" data-stage="intro" data-loading>
     <div id="stars" aria-hidden="true"></div>
+    <svg class="condition-filter" width="0" height="0" aria-hidden="true">
+      <filter id="meteor-hot-rim" color-interpolation-filters="sRGB">
+        <feOffset in="SourceAlpha" dx="0" dy="10"/>
+        <feGaussianBlur stdDeviation="4"/>
+        <feComposite in="SourceAlpha" operator="out" result="leading-edge"/>
+        <feFlood flood-color="#ffffff" flood-opacity=".55"/>
+        <feComposite in2="leading-edge" operator="in" result="flame"/>
+        <feBlend in="flame" in2="SourceGraphic" mode="screen"/>
+      </filter>
+      <filter id="meteor-selection-outline" color-interpolation-filters="sRGB">
+        <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="expanded"/>
+        <feFlood flood-color="#71d2ff"/>
+        <feComposite in2="expanded" operator="in"/>
+        <feComposite in2="SourceAlpha" operator="out" result="outline"/>
+        <feMerge><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="meteor-right-outline" color-interpolation-filters="sRGB">
+        <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="expanded"/>
+        <feFlood flood-color="#c3a2ff"/>
+        <feComposite in2="expanded" operator="in"/>
+        <feComposite in2="SourceAlpha" operator="out" result="outline"/>
+        <feMerge><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </svg>
     <header id="story-header" hidden>
       <h1>陨石坑撞击实验</h1>
-      <ol aria-label="任务阶段">
-        <li data-step="factors"><b>1</b>选择研究因素</li>
-        <li data-step="settings"><b>2</b>设置对比参数</li>
-        <li data-step="observe"><b>3</b>观察与记录</li>
+      <ol class="story-stage-progress" aria-label="任务阶段">
+        <li data-step="factors"><b>1</b><span>选择研究因素</span></li>
+        <li data-step="settings"><b>2</b><span>设置对比参数</span></li>
+        <li data-step="observe"><b>3</b><span>观察与记录</span></li>
       </ol>
-      <button id="openRecords">实验记录 <b id="recordCount">0</b></button>
+      <button id="openRecords" aria-haspopup="dialog"><span class="record-spine"><svg class="record-book-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h13v16H7a2 2 0 0 1 0-4h12M6 3.5a1 1 0 0 0-1 1v13M9 7.5h6M9 10.5h6"/></svg></span><span class="record-label">实验记录</span><b id="recordCount">0</b></button>
     </header>
     <div id="hero"><canvas id="first" aria-hidden="true"></canvas></div>
     <button id="start" disabled><span>正在准备实验…</span></button>
@@ -29,28 +55,76 @@
       <div id="settings" hidden>
         <h3 id="factor"></h3>
         <div id="options" aria-label="对比参数" role="group"></div>
-        <div id="assign">
-          <button id="back" aria-label="返回研究因素">←</button>
+        <div id="assign" class="side-assignment">
           <button data-side="0">实验 1</button>
           <button data-side="1">实验 2</button>
         </div>
       </div>
     </section>
-    <button id="fire" hidden disabled>发射 <span aria-hidden="true">↗</span></button>
-    <div id="space-split" aria-hidden="true" hidden>
-      <div class="space-rock" id="space-left"></div>
-      <div class="space-rock" id="space-right"></div>
+    <div id="selection-toast" role="status" aria-atomic="true"></div>
+    <div id="launch-actions" class="experiment-actions" role="group" aria-label="参数设置操作" hidden>
+      <button type="button" id="back" class="experiment-actions__secondary experiment-actions__icon" aria-label="返回研究因素">
+        <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 12H4m7-7-7 7 7 7"/>
+        </svg>
+      </button>
+      <button id="fire" class="experiment-actions__primary" hidden disabled><b>发射</b> <span aria-hidden="true">↗</span></button>
+    </div>
+    <section id="fixed-comparison" aria-label="实验对照" hidden>
+      <h2></h2>
+      <h2></h2>
+    </section>
+    <div id="space-split" hidden>
+      <div id="space-planets" aria-hidden="true" hidden>
+        <div><img src="assets/target-earth.webp" alt=""></div>
+        <div><img src="assets/target-moon.webp" alt=""></div>
+      </div>
+      <div id="space-ground" hidden>
+        <figure class="split-ground">
+          <figcaption>干石英砂剖面</figcaption>
+          <img src="assets/quartz-diagram-loose.webp" alt="">
+          <p>松散砂层 · 颗粒间隙较大</p>
+        </figure>
+        <figure class="split-ground">
+          <figcaption>干石英砂剖面</figcaption>
+          <img src="assets/quartz-diagram-dense.webp" alt="">
+          <p>密实砂层 · 颗粒间隙较小</p>
+        </figure>
+      </div>
+      <div class="space-flight">
+        <div class="space-rock" id="space-left" aria-hidden="true">
+          <canvas class="split-diagram" width="600" height="388" hidden></canvas>
+        </div>
+      </div>
+      <div class="space-flight">
+        <div class="space-rock" id="space-right" aria-hidden="true">
+          <canvas class="split-diagram" width="600" height="388" hidden></canvas>
+        </div>
+      </div>
     </div>
     <section id="split" aria-label="撞击对照" hidden>
       <article id="left" class="side-0"><h2></h2><p class="phase"></p></article>
       <article id="right" class="side-1"><h2></h2><canvas id="second" aria-hidden="true"></canvas><p class="phase"></p></article>
     </section>
+    <div id="result-views" role="tablist" aria-label="撞击结果视角" hidden>
+      <button id="view-top" role="tab" data-view="top" aria-controls="split" aria-selected="false" tabindex="-1">俯视</button>
+      <button id="view-whole" role="tab" data-view="whole" aria-controls="split" aria-selected="true">默认</button>
+      <button id="view-cutaway" role="tab" data-view="cutaway" aria-controls="split" aria-selected="false" tabindex="-1">剖面</button>
+    </div>
+    <p id="result-view-status" role="status" hidden></p>
     <footer id="observations" hidden>
       <p id="observation" role="status" tabindex="-1"></p>
       <button id="cancel">取消</button>
-      <button id="showResult" hidden>查看坑体与剖面</button>
-      <button id="retry">调整参数</button>
-      <button id="another">更换因素</button>
+      <button id="retry" class="observation-icon" aria-label="调整参数">
+        <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+          <path d="M4 6h16M4 12h16M4 18h16M8 4v4m8 2v4m-6 2v4"/>
+        </svg>
+      </button>
+      <button id="another" class="observation-icon" aria-label="更换因素">
+        <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 12H4m7-7-7 7 7 7"/>
+        </svg>
+      </button>
     </footer>
     <p id="error" role="status"></p>
     <dialog id="records" aria-labelledby="recordsTitle">
@@ -58,7 +132,7 @@
         <h2 id="recordsTitle">课堂对照记录</h2>
         <button id="closeRecords">关闭 ×</button>
       </header>
-      <p class="record-note">参考模型估算（固定石陨石）。同组左右共用比例尺，轮次之间会按结果重新取景。</p>
+      <p class="record-note">参考模型估算（固定石陨石）。</p>
       <div id="recordBody"></div>
       <footer>
         <button id="deleteLast">删除上一组</button>
@@ -71,10 +145,10 @@
     </dialog>
   </main>
   <script src="vendor/three.local.js"></script>
-  <script src="components/meteor-3d/meteor-3d.js"></script>
+  <script src="components/meteor-3d/meteor-3d.js?v=3"></script>
   <script src="components/result-callouts/result-callouts.js"></script>
   <script src="impact-result-model.js"></script>
-  <script src="storyboard-results.js"></script>
-  <script src="storyboard.js"></script>
+  <script src="storyboard-results.js?v=3"></script>
+  <script type="module" src="storyboard.js?v=3"></script>
 </body>
 </html>

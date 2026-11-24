@@ -1,0 +1,36 @@
+/* Public layout contract for host-owned stage actions. */
+.experiment-actions {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: var(--experiment-action-gap, 14px);
+}
+
+.experiment-actions[hidden],
+.experiment-actions > [hidden] {
+  display: none !important;
+}
+
+.experiment-actions > :is(.experiment-actions__primary, .experiment-actions__secondary) {
+  box-sizing: border-box;
+  min-block-size: var(--experiment-action-height, 60px);
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.experiment-actions > .experiment-actions__primary {
+  min-inline-size: var(--experiment-action-primary-width, 144px);
+}
+
+.experiment-actions--reserve-primary:has(> .experiment-actions__secondary:not([hidden])):not(:has(> .experiment-actions__primary:not([hidden])))::after {
+  content: "";
+  flex: 0 0 var(--experiment-action-primary-width, 144px);
+}
+
+.experiment-actions > .experiment-actions__icon {
+  display: grid;
+  place-items: center;
+  inline-size: var(--experiment-action-height, 60px);
+  min-inline-size: 0;
+  padding: 0;
+}

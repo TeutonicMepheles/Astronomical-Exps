@@ -6,6 +6,7 @@
   <title>陨石坑撞击 · 分镜预览</title>
   <link rel="stylesheet" href="../../shared/typography/typography.css">
   <link rel="stylesheet" href="storyboard.css">
+  <link rel="stylesheet" href="storyboard-course-hud.css">
 </head>
 <body>
   <main id="story" data-stage="intro">
@@ -34,6 +35,7 @@
         </div>
       </div>
     </section>
+    <div id="selection-toast" role="status" aria-atomic="true"></div>
     <button id="fire" hidden disabled>发射 <span aria-hidden="true">↗</span></button>
     <div id="space-split" aria-hidden="true" hidden>
       <div class="space-rock" id="space-left"></div>
@@ -52,6 +54,6 @@
   </main>
   <script src="vendor/three.local.js"></script>
   <script src="components/meteor-3d/meteor-3d.js"></script>
-  <script src="storyboard.js"></script>
+  <script type="module" src="storyboard.js"></script>
 </body>
 </html>

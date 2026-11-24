@@ -18,47 +18,55 @@
       ejecta: formatLength(ejecta)
     };
   }
-  window.createMeteorRecords = (engines, onDelete) => {
+  window.createMeteorRecords = engines => {
     const state = { records: [], page: 0 };
     const resultCache = new Map();
     const imageResources = new Set();
+    let observation;
     const nextTask = () => new Promise(resolve => setTimeout(resolve, 0));
     function releaseUnusedImages() {
       const retained = new Set([...resultCache.values(), ...state.records.flatMap(record => record.sides)]);
+      observation?.sides.forEach(side => retained.add(side));
       for (const resource of imageResources) if (!retained.has(resource)) {
-        URL.revokeObjectURL(resource.whole); URL.revokeObjectURL(resource.cutaway);
+        URL.revokeObjectURL(resource.whole); URL.revokeObjectURL(resource.cutaway); URL.revokeObjectURL(resource.top);
+        if (resource.detail) URL.revokeObjectURL(resource.detail);
         imageResources.delete(resource);
       }
     }
     async function capture(input, mode, factor, current) {
       const results = [];
       try {
-        const framing = engines[0].framingFor(input);
+        const sharedFraming = engines[0].framingFor(input);
         for (const [side, combo] of input.entries()) {
           if (!current()) return;
-          const sideFraming = { ...framing, captureAspect: 960 / 1080, outlineColor: side === 0 ? 0x53c7eb : 0xc3a2ff };
+          const sideFraming = { ...sharedFraming, captureAspect: 960 / 1080, outlineColor: side === 0 ? 0x53c7eb : 0xc3a2ff };
           const key = JSON.stringify([combo, sideFraming, mode, factor]);
           let result = resultCache.get(key);
           if (!result) {
-            await nextTask();
-            if (!current()) return;
-            const whole = await engines[side].captureResult(false, false, sideFraming);
-            if (!current()) { URL.revokeObjectURL(whole); return; }
-            let cutaway;
+            const urls = [];
+            const { diameter, ejecta } = combo.estimate;
+            const detailWidth = diameter < sharedFraming.halfWidth * 2 * combo.metersPerUnit * .08
+              ? Math.max(diameter * 3, ejecta * 2.4) : 0;
+            const views = [[false, sideFraming], [true, sideFraming], [false, { ...sideFraming, top: true }]];
+            if (detailWidth) views.push([false, {
+              ...sideFraming, detail: true, halfWidth: detailWidth / (2 * combo.metersPerUnit), captureAspect: 1
+            }]);
             try {
-              await nextTask();
-              if (!current()) { URL.revokeObjectURL(whole); return; }
-              cutaway = await engines[side].captureResult(true, false, sideFraming);
-            } catch (error) { URL.revokeObjectURL(whole); throw error; }
-            if (!current()) { URL.revokeObjectURL(whole); URL.revokeObjectURL(cutaway); return; }
-            // Decode before revealing or opening records, outside the click handler.
-            try {
-              await Promise.all([whole, cutaway].map(async url => { const image = new Image(); image.src = url; await image.decode(); }));
-            } catch (error) { URL.revokeObjectURL(whole); URL.revokeObjectURL(cutaway); throw error; }
-            if (!current()) { URL.revokeObjectURL(whole); URL.revokeObjectURL(cutaway); return; }
-            result = { whole, cutaway, outcome: outcome(combo), ...engines[side].resultData() };
-            resultCache.set(key, result); imageResources.add(result);
-            if (resultCache.size > 8) resultCache.delete(resultCache.keys().next().value);
+              for (const [cutaway, framing] of views) {
+                await nextTask();
+                if (!current()) return;
+                urls.push(await engines[side].captureResult(cutaway, false, framing));
+              }
+              if (!current()) return;
+              await Promise.all(urls.map(async url => { const image = new Image(); image.src = url; await image.decode(); }));
+              if (!current()) return;
+              const [whole, cutaway, top, detail] = urls;
+              result = { whole, cutaway, top, detail, detailWidth, outcome: outcome(combo), ...engines[side].resultData() };
+              resultCache.set(key, result); imageResources.add(result);
+              if (resultCache.size > 8) resultCache.delete(resultCache.keys().next().value);
+            } finally {
+              if (!result) urls.forEach(url => URL.revokeObjectURL(url));
+            }
           }
           results.push(result);
         }
@@ -75,29 +83,61 @@
     }
 
     let recordView = 'whole';
-    function renderObservation(record, panels) {
+    function renderObservation(record, panels, view = 'whole') {
+      const previous = observation;
+      observation = record;
+      if (previous && !record) releaseUnusedImages();
       panels.forEach((panel, side) => {
-        panel.querySelector('.observed-result')?.remove();
-        if (!record) return;
+        let result = panel.querySelector('.observed-result');
+        if (!record) {
+          result?.remove();
+          return;
+        }
         const data = record.sides[side];
-        const result = document.createElement('div');
-        result.className = 'observed-result';
-        result.innerHTML = '<img alt="三维坑体"><svg class="meteor-annotations" preserveAspectRatio="xMidYMid meet" role="img"></svg><div class="observed-readouts"></div>';
-        result.querySelector('img').src = data.whole;
-        result.querySelector('.observed-readouts').innerHTML = readouts(data.outcome).map(([name, value]) => '<span>' + name + ' <b>' + value + '</b></span>').join('');
-        MeteorResultCallouts.render(result.querySelector('svg'), data.annotations.whole, data.outcome, 'whole');
-        panel.append(result);
+        if (!result) {
+          result = document.createElement('div');
+          result.className = 'observed-result';
+          result.innerHTML = '<img alt=""><svg class="meteor-annotations" preserveAspectRatio="xMidYMid meet" role="img"></svg><div class="observed-readouts"></div>';
+          result.querySelector('.observed-readouts').innerHTML = readouts(data.outcome).map(([name, value]) => '<span>' + name + ' <b>' + value + '</b></span>').join('');
+          panel.append(result);
+        }
+        const scene = result.querySelector('img');
+        scene.src = data[view];
+        scene.alt = { whole: '三维坑体', top: '俯视坑体', cutaway: '立体剖面' }[view];
+        MeteorResultCallouts.render(result.querySelector('svg'), data.annotations[view], data.outcome, view);
+        const existingDetail = result.querySelector('.crater-detail');
+        if (existingDetail) existingDetail.hidden = view !== 'whole';
+        else if (data.detail && view === 'whole') {
+          const detail = document.createElement('figure');
+          detail.className = 'crater-detail';
+          const image = new Image();
+          image.src = data.detail;
+          image.alt = '小撞击坑的放大画面';
+          const caption = document.createElement('figcaption');
+          caption.textContent = '局部放大';
+          const scale = document.createElement('span');
+          const scaleLength = 10 ** Math.floor(Math.log10(data.detailWidth / 3));
+          scale.className = 'detail-scale';
+          scale.style.setProperty('--detail-scale-width', (100 * scaleLength / data.detailWidth) + '%');
+          scale.textContent = MeteorImpactResultModel.formatLength(scaleLength);
+          scale.setAttribute('aria-label', '局部比例尺 ' + scale.textContent);
+          caption.append(scale);
+          detail.append(image, caption);
+          result.append(detail);
+        }
       });
     }
-    function openRecords(record) { const index = state.records.indexOf(record); state.page = index >= 0 ? index : Math.max(0, state.records.length - 1); recordView = 'whole'; renderRecords(); $('#records').showModal(); }
+    function openRecords() { state.page = Math.max(0, state.records.length - 1); recordView = 'whole'; renderRecords(); $('#records').showModal(); }
     function renderRecords() {
       const record = state.records[state.page]; const container = $('#recordBody');
+      const scaleNote = record ? '左右使用同一比例尺。' : '';
+      const deepened = record?.combos.find(combo => combo.estimate.referenceDepth);
+      const modelNote = deepened
+        ? '疏松坑深为教学演示值，参考模型坑深为 ' + MeteorImpactResultModel.formatLength(deepened.estimate.referenceDepth) + '。'
+        : '参考模型估算（固定石陨石）。';
+      $('#records .record-note').textContent = scaleNote + modelNote;
       if (!record) container.textContent = '尚无对照记录';
       else {
-        const deepened = record.combos.find(combo => combo.estimate.referenceDepth);
-        $('#records .record-note').textContent = deepened
-          ? '左右共用比例尺。疏松坑深为教学演示值，参考模型坑深为 ' + MeteorImpactResultModel.formatLength(deepened.estimate.referenceDepth) + '。'
-          : '参考模型估算（固定石陨石）。同组左右共用比例尺，轮次之间会按结果重新取景。';
         container.replaceChildren();
         const toolbar = document.createElement('div'); toolbar.className = 'record-toolbar';
         const heading = document.createElement('h3');
@@ -132,16 +172,16 @@
     $('#previous').onclick = () => { state.page--; renderRecords(); };
     $('#next').onclick = () => { state.page++; renderRecords(); };
     $('#deleteLast').onclick = () => {
-      const removed = state.records.pop();
+      state.records.pop();
       state.page = Math.min(state.page, Math.max(0, state.records.length - 1));
       $('#recordCount').textContent = state.records.length;
       releaseUnusedImages();
       renderRecords();
-      onDelete(removed);
     };
-    return { capture, renderObservation, open: openRecords, dispose() {
+    return { capture, renderObservation, dispose() {
       resultCache.clear();
       state.records.length = 0;
+      observation = null;
       releaseUnusedImages();
     } };
   };
