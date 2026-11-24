@@ -45,11 +45,17 @@ const root=path.resolve(__dirname,'..');
     assert.equal(await page.locator('.marker[data-id="public"]').count(),0,'Public building is merged into residential');
     await page.locator('.marker[data-id="road"]').click();
     assert(await page.locator('aside').isVisible());
-    assert.equal(await page.locator('#panel-body input[type=range]').count(),1);
-    await page.locator('#road-gain').fill('0.25');
-    assert.equal(await page.evaluate(()=>scenePreview.state().groups.road.gain),0.25);
+    assert.equal(await page.evaluate(()=>scenePreview.state().view),'detail');
+    assert.equal(await page.locator('#panel-body input[type=range]:visible').count(),0);
+    const before=await page.evaluate(()=>({groups:scenePreview.state().groups,fixtures:scenePreview.fixtures()}));
+    const brightness=page.getByRole('group',{name:'路灯亮度'});
+    assert.equal(await brightness.getByRole('radio').count(),5);
+    await brightness.getByRole('radio',{name:'25%',exact:true}).check();
+    assert(await brightness.getByRole('radio',{name:'25%',exact:true}).isChecked());
     await page.locator('#panel-body [data-shade="full"]').click();
-    assert.equal(await page.evaluate(()=>scenePreview.state().groups.path.shade),'full');
+    const after=await page.evaluate(()=>({groups:scenePreview.state().groups,fixtures:scenePreview.fixtures()}));
+    assert.deepEqual(after.groups,before.groups,'Single-lamp controls preserve global road and path settings');
+    assert.deepEqual(after.fixtures.filter((fixture,i)=>JSON.stringify(fixture)!==JSON.stringify(before.fixtures[i])).map(fixture=>fixture.id),['road-3']);
     await page.locator('#close-panel').click();
     // Retired entry points must stay absent; only city-night is shipped.
     for(const retired of ['app/index.html?scene=panorama-20261111','legacy-preview.html','lib-static-demo/index.html']){

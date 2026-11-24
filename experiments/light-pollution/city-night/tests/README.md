@@ -50,3 +50,5 @@ Bloom独立专项：导出--screen-review后运行 `node experiments/light-pollu
 Glitch与Bloom联动：导出独立测试离线包后运行 verify-screen-glitch.cjs；真实画面差异、减少动态禁用Glitch、光强提高时有效Bloom下降，在线/断网离线检查。
 
 C 方案远景：运行 node experiments/light-pollution/city-night/tests/verify-distant-windows.cjs。通过实验根入口及断网离线包分别比较全亮和关灯，检查三个城市光样点、三个探照灯区域样点和前景／商场保护样点，重复切换并核对纹理上传数和 WebGL 错误。可用 CITY_URL 和 CITY_OUT 指定当前工作区入口与独立输出目录。
+
+课堂照明三档与单灯特写：node experiments/light-pollution/city-night/tests/verify-classroom-lighting.cjs。默认 HTTP 端口 11460，离线文件 dist/light-pollution/index.html，可用 CITY_URL 和 CITY_OFFLINE 指定。检查全局开关与星空、单灯局部与全景隔离、星位与纹理复用。

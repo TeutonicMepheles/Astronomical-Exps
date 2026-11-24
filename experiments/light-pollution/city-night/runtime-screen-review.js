@@ -143,7 +143,10 @@ function renderLamps(){
 }
 function drawBillboardGlow(gain){if(gain<=0)return;light(1747,940,150,130,[1,.985,.94],gain*.18,10);light(1748,1056,100,58,[1,.985,.94],gain*.09,0,0);light(1748,1110,112,40,[1,.97,.92],gain*.03,0,0);}
 function renderAmbient(){const stadium=stadiumGain()*2.6;
- for(const [x,y] of [[442,606],[548,624],[708,574],[1098,568],[1205,594],[968,670]]){light(x,y,66,64,[1,.90,.72],stadium*.04,1);light(x,y,19,15,[1,.93,.80],stadium*.08,2);drawAirBeam(x,y+6,x<820?x+145:x-115,750,88,[1,.90,.76],stadium*.09)}
+ const x=1098,y=568;
+ light(x,y,66,64,[1,.90,.72],stadium*.04,1);
+ light(x,y,19,15,[1,.93,.80],stadium*.08,2);
+ drawAirBeam(x,y+6,x-115,750,88,[1,.90,.76],stadium*.09);
  light(820,570,590,310,[1,.80,.53],stadium*.023,1);
  const ad=state.gains.billboard*2.5,screens=state.gains['commercial-screens']*1.4;
  drawBillboardGlow(ad);
@@ -273,7 +276,7 @@ function positionPanel(){if(panel.hidden||!selected)return;const r=layout.getBou
  const right=rightSpace>=pw+gap&&(preferRight||leftSpace<pw+gap);let left=right?objectRight+gap:objectLeft-gap-pw;left=Math.max(edge,Math.min(r.width-pw-edge,left));
  const top=Math.max(edge,Math.min(r.height-ph-edge,y-ph/2));panel.style.left=left+'px';panel.style.top=top+'px';panel.dataset.side=right?'right':'left';panel.style.setProperty('--anchor-y',Math.max(18,Math.min(ph-18,y-top))+'px');}
 new ResizeObserver(positionPanel).observe(layout);new ResizeObserver(positionPanel).observe(panel);
-function choose(id){if(id==='path')id='road';if(id==='wall'||id==='public')id='residential';if(id==='commercial-screens')id='commercial-windows';const item=items.find(i=>i[0]===id);if(!item)return;selected=id;zoom=false;state.view='scene';$('view').value='scene';$('detail').textContent='查看局部';$('detail').hidden=id!=='residential'&&id!=='road';for(const child of [...body.children])document.querySelector('.legacy-controls').append(child);body.replaceChildren(controls[id]);panel.hidden=false;$('panel-title').innerHTML=icon(id==='public-pair'?'public':id)+item[1];const img=document.querySelector('.object-preview');img.src=window.UI_THUMBNAILS?.[id]||'previews/ui-'+id+'.jpg';img.alt=item[1]+'场景局部';render();sync();positionPanel();request()}
+function choose(id){if(id==='path')id='road';if(id==='wall'||id==='public')id='residential';if(id==='commercial-screens')id='commercial-windows';const item=items.find(i=>i[0]===id);if(!item)return;selected=id;zoom=false;state.view='scene';$('view').value='scene';$('detail').textContent='查看局部';$('detail').hidden=id!=='residential'&&id!=='road';for(const child of [...body.children])document.querySelector('.legacy-controls').append(child);body.replaceChildren(controls[id]);panel.hidden=false;$('panel-title').innerHTML=icon(id==='public-pair'?'public':id)+item[1];const img=document.querySelector('.object-preview');img.src=window.UI_THUMBNAILS?.[id]||('previews/ui-'+id+(id==='stadium'?'.png':'.jpg'));img.alt=item[1]+'场景局部';render();sync();positionPanel();request()}
 function render(){markers.replaceChildren();for(const i of items){const b=document.createElement('button');b.className='marker';b.dataset.id=i[0];b.style.left=i[4]+'%';b.style.top=i[5]+'%';b.hidden=zoom;b.innerHTML='<span aria-hidden="true">'+icon(i[0]==='public-pair'?'public':i[0])+'</span>'+(completed.has(i[0])?'<span class="completion" aria-hidden="true">✓</span>':'');b.setAttribute('aria-label',i[1]+'调节'+(completed.has(i[0])?'，已完成':''));b.setAttribute('aria-pressed',String(i[0]===selected&&!panel.hidden));b.setAttribute('aria-expanded',String(i[0]===selected&&!panel.hidden));b.onclick=()=>{if(!markerEditing)choose(i[0])};markers.append(b)}}
 $('close-panel').onclick=()=>{panel.hidden=true;state.view='scene';zoom=false;render();request()};cv.addEventListener('click',()=>{if(!panel.hidden)$('close-panel').click()});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('close-panel').click()});
 $('detail').onclick=()=>{if(selected!=='residential'&&selected!=='road')return;zoom=!zoom;state.view=zoom?'detail':'scene';$('detail').textContent=zoom?'返回全景':'查看局部';render();positionPanel();request()};

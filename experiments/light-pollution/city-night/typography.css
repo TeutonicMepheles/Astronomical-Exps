@@ -20,7 +20,7 @@ aside .detail-button {font-size:var(--type-action);font-weight:600;min-height:3.
 .layout {--type-title:calc(48 * var(--type-unit));--type-body:calc(24 * var(--type-unit));--type-leading:calc(32 * var(--type-unit));--type-data-label:calc(30 * var(--type-unit));--type-number:calc(36 * var(--type-unit));--type-action:calc(36 * var(--type-unit));--type-help:calc(14 * var(--type-unit));}
 
 .editing-markers .marker{touch-action:none;cursor:grab}.editing-markers .marker:active{cursor:grabbing}.editing-markers .marker::before{outline:2px dashed #e8bc6b;outline-offset:4px}.marker-editor-bar{position:absolute;left:50%;top:3%;transform:translateX(-50%);z-index:13;display:flex;align-items:center;gap:.5cqw;padding:.45cqw .65cqw;border:1px solid #d5deeb;background:#f3f6ffed;border-radius:.65cqw;color:#29446b;box-shadow:0 .2cqw .8cqw #07173044;white-space:nowrap}.marker-editor-bar span,.marker-editor-bar button{font-size:var(--type-help)}.marker-editor-bar button{color:#29446b;background:#dfe7f4;border:1px solid #a7bad3;min-height:2cqw}
-.lane-dev{position:fixed;z-index:30;left:12px;bottom:12px;display:flex;align-items:center;gap:8px}.lamp-dev{bottom:56px}.lane-dev button,.lane-dev span{font-family:var(--font-ui);font-size:14px;line-height:1.2}.lane-dev button{color:#29446b;background:#f3f6ffed;border:1px solid #a7bad3;border-radius:8px;min-height:34px;padding:6px 12px;cursor:pointer}.lane-dev button:hover,.lane-dev button[aria-pressed=true]{background:#263f68;color:#fff;border-color:#263f68}.lane-dev div{display:flex;align-items:center;gap:8px}.lane-dev span{color:#f7f9ff;text-shadow:0 1px 4px #061020}
+.lane-dev{position:absolute;z-index:13;left:1.5%;bottom:1.5%;display:flex;align-items:center;gap:8px}.lane-dev button,.lane-dev span{font-family:var(--font-ui);font-size:14px;line-height:1.2}.lane-dev button{color:#29446b;background:#f3f6ffed;border:1px solid #a7bad3;border-radius:8px;min-height:34px;padding:6px 12px;cursor:pointer}.lane-dev button:hover,.lane-dev button[aria-pressed=true]{background:#263f68;color:#fff;border-color:#263f68}.lane-dev div{display:flex;align-items:center;gap:8px}.lane-dev span{color:#f7f9ff;text-shadow:0 1px 4px #061020}
 .lane-editor{position:absolute;inset:0;z-index:6;pointer-events:none}.lane-editor svg{width:100%;height:100%;display:block;overflow:visible;pointer-events:none;touch-action:none}.lane-editor [data-role=line]{stroke:transparent;stroke-width:96;pointer-events:stroke;cursor:grab}.lane-editor [data-role=ink]{fill:none;stroke-width:14;pointer-events:none}.lane-editor [data-role=ink].is-active,.lane-editor [data-role=line]:hover+[data-role=ink]{stroke-width:22}.lane-editor [data-role=handle]{stroke-width:10;pointer-events:all;cursor:grab}.lane-editor [data-role=handle]:hover,.lane-editor [data-role=handle].is-active{fill:#263f68;stroke:#fff}.lane-editor [data-role=line]:active,.lane-editor [data-role=handle]:active{cursor:grabbing}.lane-editor text{font-size:40px;font-family:var(--font-ui);font-weight:600;stroke:#102038;stroke-width:8px;paint-order:stroke;pointer-events:none}
 
 /* Local heading/readout treatment, aligned with Newton and Foucault.
@@ -31,19 +31,23 @@ aside .detail-button {font-size:var(--type-action);font-weight:600;min-height:3.
 
 
 /* Road brightness is five clickable demonstration steps. The legacy range stays for the existing gain pipeline. */
-.has-lamp-levels{position:relative}
-aside .lamp-gain-proxy{position:absolute;left:0;top:0;width:12px;height:12px;margin:0;padding:0;overflow:hidden;opacity:.03;pointer-events:none;display:block;border:0}
-aside .lamp-gain-proxy input,aside .lamp-gain-proxy input::-webkit-slider-thumb{appearance:none;background:transparent;border:0;box-shadow:none;width:12px;height:12px;margin:0}
-.lamp-levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:.15cqw 0 .1cqw}
-.lamp-levels button{display:flex;flex-direction:column;align-items:center;gap:0;min-height:0;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:#516278;font-size:var(--type-body);font-weight:400;line-height:1.2}
-.lamp-level-face{width:100%;height:6.55cqw;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.08cqw;padding:.32cqw 0 .2cqw;box-sizing:border-box;background:#e7eef6;position:relative}
-.lamp-levels button:first-child .lamp-level-face{border-radius:3.275cqw 0 0 3.275cqw}
-.lamp-levels button:last-child .lamp-level-face{border-radius:0 3.275cqw 3.275cqw 0}
-.lamp-levels button:not(:last-child) .lamp-level-face::after{content:"";position:absolute;top:.9cqw;height:2.7cqw;right:0;width:1px;background:#d0dae6}
-.lamp-level-svg{width:3.05cqw;height:3.05cqw;display:block;flex:none}
-.lamp-level-name{margin-top:auto;font-size:var(--type-body);font-weight:400;color:#44566e;white-space:nowrap}
-.lamp-level-name::after{content:"";display:block;width:1.15cqw;height:.16cqw;margin:.16cqw auto 0;border-radius:1cqw;background:transparent}
-.lamp-levels button:hover,.lamp-levels button[aria-checked="true"]{background:transparent;color:#243e67;border-color:transparent}
-.lamp-levels button:hover .lamp-level-name,.lamp-levels button[aria-checked="true"] .lamp-level-name{color:#243e67;font-weight:600}
-.lamp-levels button:hover .lamp-level-name::after,.lamp-levels button[aria-checked="true"] .lamp-level-name::after{background:#29446b}
-.lamp-levels button:focus-visible{outline:3px solid #e4bb6f;outline-offset:2px;border-radius:.4cqw}
+#global-dimming{position:absolute;right:2.5%;bottom:3%;z-index:4;display:grid;justify-items:center;gap:.25cqw;width:max(6.5cqw,44px);padding:0;border:0;border-radius:12px;background:transparent;color:#e3edf9;font-size:1.2cqw;font-weight:500;line-height:1.35;text-shadow:0 2px 5px #0b1320;touch-action:manipulation}
+#global-dimming svg{display:block;width:max(5.83cqw,36px);height:auto}
+.dimming-disc{fill:#233650;stroke:#7992b7;stroke-width:1.2}
+#global-dimming:hover .dimming-disc,#global-dimming[aria-expanded=true] .dimming-disc{fill:#344e70;stroke:#b8cde7}
+#global-dimming:focus-visible{outline:2px solid #d3e0ff;outline-offset:4px}
+#global-dimming-panel{position:absolute;z-index:7;right:2.5%;bottom:calc(3% + max(8.5cqw,55px));width:max(16cqw,205px);padding:1cqw;background:#112136f5;border:1px solid #607694;border-radius:12px;color:#ecf1f9}
+#global-dimming-panel h2{font-size:var(--type-data-label)}
+#global-dimming-panel .panel-head button{min-width:max(2.5cqw,34px);min-height:max(2.5cqw,34px);color:#ecf1f9}
+
+.brightness-source{display:none!important}
+.lighting-steps{min-width:0;margin:0 0 .6cqw;padding:0;border:0}
+.lighting-steps legend{margin-bottom:.35cqw;font-size:var(--type-body)}
+.lighting-step-bar{display:flex;isolation:isolate;overflow:hidden;border:1px solid #9eafc5;border-radius:999px;background:#e7eef6;color:#33465f}
+.lighting-step-bar label{position:relative;display:grid;flex:1;min-width:0;margin:0;cursor:pointer}
+.lighting-step-bar label+label{border-left:1px solid #b8c7d8}
+.lighting-step-bar input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.lighting-step-bar span{display:grid;place-items:center;min-height:max(2.6cqw,30px);padding-inline:.2cqw;font-size:var(--type-body);white-space:nowrap}
+.lighting-step-bar label:hover span,.lighting-step-bar input:checked+span{background:#43648a;color:#fff}
+.lighting-step-bar input:focus-visible+span{outline:2px solid #f2c77d;outline-offset:-3px}
+#global-dimming-panel{width:max(19cqw,230px)}
