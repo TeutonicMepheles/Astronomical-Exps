@@ -114,7 +114,21 @@ async function run(browser, viewport, offline = false) {
   const forceLabels = () => page.evaluate(() => window.flightLabels.filter(text =>
     ['引力', '推进加速度', '箭头 · 速度'].includes(text)));
   const cannon = () => page.locator('#steps').getByRole('button', { name: '高山大炮' }).click();
-  const vertical = () => page.locator('#steps').getByRole('button', { name: '垂直发射' }).click();
+  const showComparison = async () => {
+    const intro = page.locator('.direction-orbit-intro[data-orbit-state="ready"]');
+    await intro.waitFor();
+    assert.equal(await intro.locator('canvas').count(), 2);
+    assert.equal(await page.getByText('卫星如何进入近地轨道？', { exact: true }).isVisible(), true);
+    assert.equal(await page.locator('.direction-panels').count(), 0);
+    await page.getByRole('button', { name: '查看演示', exact: true }).click();
+    await page.locator('.direction-orbit-intro').waitFor({ state: 'detached' });
+    assert.equal(await page.getByText('卫星如何进入近地轨道？', { exact: true }).count(), 0);
+    assert.equal(await page.locator('#direction-fire').evaluate(el => el === document.activeElement), true);
+  };
+  const vertical = async () => {
+    await page.locator('#steps').getByRole('button', { name: '垂直发射' }).click();
+    await showComparison();
+  };
   try {
     await page.goto(offline ? pathToFileURL(process.env.DIRECTION_OFFLINE_HTML).href : origin + entry);
     await page.waitForFunction(() => Boolean(window.RocketModel));
@@ -147,6 +161,7 @@ async function run(browser, viewport, offline = false) {
     assert.match(await page.locator('#next').innerText(), /垂直发射/);
     await page.locator('#next').click();
     assert.match(await page.locator('#next').innerText(), /推力与载荷/);
+    await showComparison();
     if (offline) {
       assert.equal(await page.locator('.stage').evaluate(el => getComputedStyle(el).animationName), 'none');
     }
@@ -310,7 +325,7 @@ async function run(browser, viewport, offline = false) {
 
     const bounds = await page.locator('#app').evaluate(app => {
       const outer = app.getBoundingClientRect();
-      const buttons = [...app.querySelectorAll('#controls button,#next')].filter(button => !button.hidden);
+      const buttons = [...app.querySelectorAll('#controls button,#page-actions button,#next')].filter(button => !button.hidden);
       return buttons.every(button => {
         const rect = button.getBoundingClientRect();
         return rect.left >= outer.left && rect.right <= outer.right && rect.bottom <= outer.bottom && rect.height >= 40;

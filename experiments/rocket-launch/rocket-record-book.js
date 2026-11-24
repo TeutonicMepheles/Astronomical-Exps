@@ -23,8 +23,8 @@ export function captureLaunchRecord(adapter,arrows,conditions){
 }
 
 export class RocketRecordBook{
- constructor({host,getRecords,arrows,onOpen=()=>{},onClose=()=>{}}){
-  this.records=getRecords;this.arrows=arrows;this.previewCache=new Map();this.page=0;this.onOpen=onOpen;this.onClose=onClose;this.button=document.createElement('button');this.button.type='button';this.button.className='rocket-record-button';this.button.setAttribute('aria-haspopup','dialog');this.button.onclick=()=>this.open();host.append(this.button);
+ constructor({host,buttonHost=host,getRecords,arrows,onOpen=()=>{},onClose=()=>{}}){
+  this.records=getRecords;this.arrows=arrows;this.previewCache=new Map();this.page=0;this.onOpen=onOpen;this.onClose=onClose;this.button=document.createElement('button');this.button.type='button';this.button.className='rocket-record-button';this.button.setAttribute('aria-haspopup','dialog');this.button.onclick=()=>this.open();buttonHost.append(this.button);
   this.dialog=document.createElement('dialog');this.dialog.className='rocket-record-book';this.dialog.setAttribute('aria-labelledby','rocket-record-title');
   this.dialog.innerHTML='<article class="rocket-record-paper"><header class="rocket-record-header"><h2 id="rocket-record-title">实验记录</h2><button type="button" class="rocket-record-close">关闭 ×</button></header><div class="rocket-record-cards"></div><nav class="rocket-record-pages" aria-label="记录翻页"><button type="button" class="record-prev">上一页</button><output></output><button type="button" class="record-next">下一页</button></nav></article>';
   document.body.append(this.dialog);this.closeButton=this.dialog.querySelector('.rocket-record-close');this.closeButton.onclick=()=>this.close();this.dialog.addEventListener('cancel',e=>{e.preventDefault();this.close();});this.dialog.addEventListener('click',e=>{if(e.target===this.dialog)this.close();});

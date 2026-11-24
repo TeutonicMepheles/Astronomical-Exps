@@ -131,9 +131,7 @@ dialog h2{margin-top:0}
 
 /* 第一轮：共用标题语言、按目的分组、场景内装配。 */
 header{height:100px;align-items:center;border:0;padding:0;gap:32px}
-.experiment-heading{align-self:flex-start;padding-top:11px;flex:none}
-.title-rule{display:block;width:59px;height:3px;background:var(--warm);margin-bottom:12px}
-h1{font-family:var(--font-ui);font-size:50.88px;font-weight:650;letter-spacing:4px;line-height:1.2;color:var(--ink);text-shadow:0 2px 1px #7391c84d,0 5px 16px #91baff25}
+h1{font-family:var(--font-ui);font-size:50.88px;font-weight:650;letter-spacing:4px;line-height:1.2;color:var(--ink);text-shadow:none}
 h2{font-family:var(--font-ui);font-size:28px;font-weight:600;letter-spacing:1px;margin:12px 0 24px}
 #chapters{gap:8px;padding:0;background:none;border:0}
 #chapters button{font-size:20px;letter-spacing:0;min-height:52px;padding:10px 20px;border:1px solid transparent;border-radius:9px}
@@ -298,11 +296,10 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 
 #scene-controls .control-cluster[data-control-kind="action"]{min-width:136px}
 #app[data-step="3"] #controls>.control-cluster{min-width:120px}
-#velocity-fire,#velocity-pause{min-width:88px}
 .control-cluster[data-control-kind="choice"] button.active:disabled{opacity:.7}
 
 /* 左侧章节目录：当前章节展开步骤，场景与操作共用右侧工作区。 */
-header{height:106px;flex:none;align-items:flex-start}
+#app > header{height:106px;flex:none;align-items:flex-start;justify-content:space-between;margin-inline:-4px;padding-top:6px}
 #chapters{position:absolute;left:44px;top:164px;width:232px;margin:0;padding:0;display:flex;flex-direction:column;align-items:stretch;gap:8px;border:0;background:none}
 #chapters>button{flex:none;text-align:left;min-height:56px;padding:12px 8px;font-size:23px;font-weight:600;border:0;border-radius:0;background:none;color:var(--ink-dim)}
 #chapters>button.active,#chapters>button:hover{border:0;background:none;color:var(--warm)}
@@ -500,14 +497,10 @@ header{height:106px;flex:none;align-items:flex-start}
 
 #app[data-step="4"] .cannon-height-label{align-self:center;font-size:18px;white-space:nowrap;color:#a9b0bf;margin-right:4px}
 
-#app[data-step="4"] #controls{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"mode height compare" "play play play";gap:12px 22px;align-items:center}
+#app[data-step="4"] #controls{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"mode height compare";gap:12px 22px;align-items:center}
 #app[data-step="4"] .cannon-mode-controls{grid-area:mode}
 #app[data-step="4"] .cannon-height-options{grid-area:height;justify-content:center}
-#app[data-step="4"] .cannon-playback-controls{grid-area:play;justify-content:flex-end}
-#app[data-step="4"] #controls>.control-cluster:last-child{grid-area:compare}
-#app[data-step="4"] #velocity-adjust[hidden]{display:inline-flex!important;visibility:hidden;pointer-events:none}
-#app[data-step="4"] #velocity-fire,#app[data-step="4"] #velocity-pause{min-width:94px}
-#app[data-step="4"] .cannon-playback-controls{display:flex!important}#app[data-step="4"] .cannon-playback-controls button{flex:none;width:auto;min-width:94px}
+#app[data-step="4"]:not([data-vertical-flight]) #controls>.control-cluster:last-child{grid-area:compare}
 
 /* Continuous blueprint workbench: fixed camera and stage in both lesson phases. */
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]){background:linear-gradient(140deg,#102e46,#091e31)}
@@ -540,7 +533,6 @@ header{height:106px;flex:none;align-items:flex-start}
 /* User-selected dark blueprint sheet; retain the oblique paper scene and original GLB. */
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]){--ink:#e5e7df;--ink-dim:#b6c6d3;--ink-faint:#a6bdce66;--warm:#dfbc7f;--warm-dim:#dfbc7f40;--line:#b8ccdb40;--cool:#9fc4cf;background:#13364f}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) h1{color:#edf0e8}
-#app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .title-rule{background:#d6b57e}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #steps button.active{background:#d6b57e14;border-left-color:#d6b57e;color:#e4c790}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #controls.structure-controls button{background:#bfd4df0a;color:var(--ink)}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #controls.structure-controls button:is(.active,:hover,:focus-visible){background:#dfbc7f16;color:#edcd97;border-color:#d6b57e70}
@@ -550,7 +542,6 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-rocket-phase="assemble"] .assembly-3d-piece:is(.selected,:hover,:focus-visible),#app[data-rocket-phase="assemble"] .assembly-3d-return:is(:hover,:focus-visible){background:#354c59;color:#edcd97;border-color:#d6b57e}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback{left:-264px;right:auto;top:-20px;width:232px;max-width:232px;background:#102b40e6;border-left-color:#d6b57e;color:#e3e8e5;padding:14px 16px}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .rocket-3d-label{background:#102b40ed;color:#edcd97;border-bottom-color:#d6b57e}
-#app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #next.rocket-next-action{box-shadow:0 5px 0 #8e7c4b40,0 10px 20px #07151f40,inset 0 1px #fff4d9}
 .rocket-model-shadows{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .rocket-model-shadows[hidden]{display:none}
 
@@ -626,13 +617,12 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="8"] > #chapters{z-index:3}
 #app[data-step="8"] > .workspace{z-index:2}
 
-/* Balloon playback controls stay below the pump, outside the clipped stage. */
+/* Balloon readouts stay with the scene. */
 .balloon-reading{position:absolute;display:grid;gap:2px;color:var(--ink-dim);font-size:var(--type-body);pointer-events:none}
 .balloon-reading output{display:block;color:var(--ink);font-variant-numeric:tabular-nums}
 .balloon-reading-value{font-size:var(--type-number);font-weight:500}
 .balloon-reading-unit{color:var(--ink-dim);font-size:var(--type-body);font-weight:400}
 .balloon-operation-tip{font-size:var(--type-body)}
-#app[data-step="0"] .balloon-tools{position:absolute;z-index:4;margin:0;padding:0;border:0;display:flex;align-items:center;gap:14px;background:none;min-width:0}
 .rocket-replay-icon,#controls .rocket-replay-icon,#app[data-step="4"] #controls .rocket-replay-icon{flex:none;color:var(--ink);background:#10263a99}
 .rocket-replay-icon:is(:hover,:focus-visible),#controls .rocket-replay-icon:is(:hover,:focus-visible){background:#344859;border-color:#d8b074;color:#f3e3c4}
 
@@ -669,16 +659,13 @@ header{height:106px;flex:none;align-items:flex-start}
 @media (forced-colors:active) {
   #app[data-step="2"] #controls [data-segmented-control] button[aria-pressed="true"]{border-color:Highlight}
 }
-#app[data-step="2"] #controls>.control-cluster[data-control-kind="action"]{position:absolute;pointer-events:auto}
 #app[data-step="2"] aside{top:auto;bottom:0;width:500px;pointer-events:none}
 #app[data-step="2"] #feedback{font-size:18px}
 
-#app[data-step="2"] #launch-fire{min-width:230px;min-height:48px}
 
 /* Force diagram overlays the subdued rocket; choices remain click-only. */
 #app[data-step="2"] .rocket-3d{left:33%;right:29%;opacity:.32;filter:grayscale(.65)}
 
-#app[data-step="2"] .rocket-record-button{right:70px;bottom:146px}
 
 .rocket-launch-toast{position:absolute;z-index:20;left:50%;top:104px;transform:translateX(-50%);padding:14px 24px;border:1px solid #d8b07499;border-radius:8px;background:#142b40f5;color:var(--ink);font-size:var(--type-body);pointer-events:none}
 .rocket-launch-toast[hidden]{display:none}
@@ -692,32 +679,17 @@ header{height:106px;flex:none;align-items:flex-start}
 #launch-altitude-detail{position:absolute;transform:translateY(-50%);padding:8px 13px;border:1px solid #64829a;border-radius:7px;background:#172e44;color:#eef1f4;font-size:var(--type-body);white-space:nowrap}
 @media(prefers-reduced-motion:reduce){#app[data-step="2"] .rocket-3d{transition:none}}
 
-/* Click-to-reveal explanations; comparison leaves the stage to the three flights. */
-.rocket-insight{position:absolute;top:95px;right:44px;z-index:8}
-.rocket-insight-toggle{width:52px;height:52px;min-height:52px;padding:12px;color:var(--warm);border-color:var(--warm-dim);background:#142b40ed;border-radius:50%}
-.rocket-insight-toggle svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.rocket-insight-toggle:is(:hover,:focus-visible,[aria-expanded="true"]){background:#344859;border-color:var(--warm)}
-.rocket-insight-panel{position:absolute;right:0;top:64px;width:420px;padding:22px;background:#142b40fa;border:1px solid var(--warm-dim);border-radius:12px;box-shadow:0 12px 40px #0006}
-.rocket-insight-panel[hidden]{display:none}
-.rocket-insight-panel p{margin:0 0 18px;font-size:var(--type-body);line-height:1.6;color:var(--ink)}
-.rocket-insight-panel button{display:block;margin-left:auto}
+/* The comparison stage is reserved for the three flights. */
 #app[data-step="9"] #feedback{display:none}
 #app[data-step="9"] aside{justify-content:flex-end}
 #app[data-step="9"] #controls{margin:0;order:0;justify-content:center}
-#app[data-step="9"] #controls .rocket-comparison-play{display:grid;place-items:center;width:58px;height:58px;padding:0;border:1px solid #b3c6d8;border-radius:50%;background:#14283ceb;color:#eef3f6;font-size:23px}
+#app[data-step="9"] #page-actions .rocket-comparison-play{border:1px solid #b3c6d8;border-radius:50%;background:#14283ceb;color:#eef3f6;font-size:23px}
 #app[data-step="9"] .rocket-webgl{pointer-events:none}
 
-.rocket-insight-panel{position:absolute;right:0;top:64px;width:440px;padding:20px;border:1px solid var(--warm-dim);border-radius:12px;background:#10253bf7;color:var(--ink);box-shadow:0 12px 32px #0005}
-.rocket-insight-panel[hidden]{display:none}
-.rocket-insight-panel p{margin:0 0 14px;font-size:20px;line-height:1.6}
-.rocket-insight-panel button{min-height:44px;font-size:18px;display:block;margin-left:auto;padding:8px 20px}
 
-
-#app[data-step="4"].orbit-playing > :is(header,#chapters,footer,#dock),
-#app[data-step="4"].orbit-playing #controls > :not(.cannon-playback-controls),
-#app[data-step="4"].orbit-playing .cannon-playback-controls button:not(#velocity-pause) {
- visibility:hidden;
-}
+#app[data-step="4"].orbit-playing > :is(header,#chapters,#dock),
+#app[data-step="4"].orbit-playing #controls {visibility:hidden}
+#app[data-step="4"].orbit-playing #page-actions button:not(#velocity-pause) {display:none}
 
 #app[data-vertical-flight] .stage {
   top: 16px;
@@ -744,7 +716,7 @@ header{height:106px;flex:none;align-items:flex-start}
   font-weight: 600;
 }
 #app[data-vertical-flight] aside {
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   height: 88px;
   align-content: center;
 }
@@ -754,25 +726,6 @@ header{height:106px;flex:none;align-items:flex-start}
   margin: 0;
   font-size: var(--type-body);
   color: var(--ink-dim);
-}
-#app[data-vertical-flight] #controls {
-  display: flex;
-  grid-column: 2;
-  grid-row: 1;
-  gap: 20px;
-  flex-wrap: nowrap;
-}
-#app[data-vertical-flight] #controls .control-cluster {
-  gap: 10px;
-}
-#app[data-vertical-flight] #controls button {
-  min-height: 52px;
-  min-width: 100px;
-  font-size: var(--type-body);
-  padding-inline: 14px;
-}
-#app[data-vertical-flight] #controls button[hidden] {
-  display: none;
 }
 @media (prefers-reduced-motion: no-preference) {
   #app[data-vertical-flight] .stage,
@@ -796,7 +749,7 @@ header{height:106px;flex:none;align-items:flex-start}
   border:1px solid #9fc7df55;border-radius:14px;background:#102b40;
 }
 #rocket-part-tabs button{
-  min-width:134px;min-height:50px;border:1px solid transparent;
+  min-width:134px;min-height:calc(64 * var(--type-unit) - 10px);padding-block:0;border:1px solid transparent;
   color:var(--ink);font-size:var(--type-body);font-weight:500;
 }
 #rocket-part-tabs button[aria-selected="true"]{
@@ -820,4 +773,40 @@ footer #prompt{
 }
 #app[data-vertical-flight] .rocket-webgl {
   visibility: hidden;
+}
+
+/* Page actions share the 48 px safe edge of the header. */
+#app > footer {
+  position:relative;z-index:6;bottom:6px;margin-right:-4px;
+  gap:calc(16 * var(--type-unit));
+}
+#page-actions,#page-actions .control-cluster {
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:calc(16 * var(--type-unit));
+}
+#page-actions:empty,#page-actions .control-cluster:not(:has(button:not([hidden]))),
+#record-action:not(:has(button:not([hidden]))) {display:none}
+#page-actions button,#app > footer .rocket-record-button {
+  flex:none;min-width:calc(128 * var(--type-unit));min-height:calc(64 * var(--type-unit));
+  padding:0 16px;border-radius:calc(12 * var(--type-unit));font-size:var(--type-body);
+}
+#page-actions button.primary {
+  min-width:160px;font-size:var(--type-action);font-weight:600;
+}
+#page-actions :is(.rocket-replay-icon,.rocket-comparison-play) {
+  display:grid;place-items:center;
+  width:calc(64 * var(--type-unit));height:calc(64 * var(--type-unit));min-width:0;
+  padding:0;font-size:var(--type-body);
+}
+
+
+/* The orbit fills the stage under the existing course navigation. */
+#app > .direction-orbit-intro { z-index: 3 }
+#app[data-direction-intro] > .workspace { visibility: hidden }
+#app[data-vertical-flight] > :is(header, #chapters, footer) { z-index: 4 }
+.direction-orbit-tip {
+  font-size: var(--type-body);
+  --operation-tip-accent: #849ab0;
+  --operation-tip-bg: #14283ceb;
+  --operation-tip-text: #e1ebf4;
 }
