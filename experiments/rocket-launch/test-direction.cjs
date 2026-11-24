@@ -72,10 +72,17 @@ async function run(browser, viewport, offline = false) {
   const page = await context.newPage();
   await page.addInitScript(() => {
     const proto = CanvasRenderingContext2D.prototype;
-    const { clearRect, fillText } = proto;
+    const { clearRect, drawImage, fillText } = proto;
     proto.clearRect = function (...args) {
-      if (this.canvas.id === 'scene') { window.flightLabels = []; window.flightLabelSizes = []; window.flightLabelAnchors = []; }
+      if (this.canvas.id === 'scene') { window.flightLabels = []; window.flightLabelSizes = []; window.flightLabelAnchors = []; window.starLayer = null; }
       return clearRect.apply(this, args);
+    };
+    proto.drawImage = function (source, ...args) {
+      if (this.canvas.id === 'scene' && source instanceof HTMLCanvasElement
+          && source.width === 1920 && source.height === 1080 && args.length === 4 && args[1] >= 0) {
+        window.starLayer = { shift: args[1], opacity: this.globalAlpha };
+      }
+      return drawImage.call(this, source, ...args);
     };
     proto.fillText = function (text, ...args) {
       if (this.canvas.id === 'scene') {
@@ -208,7 +215,14 @@ async function run(browser, viewport, offline = false) {
 
     await openingShot('ascent', 0, .49);
     await shot('02a-穿越云层');
+    await openingShot('ascent', 0, .8);
+    const earlyStars = await page.evaluate(() => window.starLayer);
+    assert(earlyStars && earlyStars.opacity > .1 && earlyStars.opacity < 1);
     await openingShot('ascent', 0, .97);
+    const lateStars = await page.evaluate(() => window.starLayer);
+    assert(lateStars.opacity > earlyStars.opacity);
+    if (offline) assert.equal(lateStars.shift, 0);
+    else assert(lateStars.shift > earlyStars.shift);
     await shot('02b-飞出大气层');
     await openingShot('animation', 0);
     await openingShot('animation', 1);

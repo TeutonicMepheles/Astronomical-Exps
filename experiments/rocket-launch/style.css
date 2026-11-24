@@ -639,15 +639,40 @@ header{height:106px;flex:none;align-items:flex-start}
 /* Place click choices beside their force arrows. */
 #app[data-step="2"] #parts #controls{position:absolute;inset:0;pointer-events:none;display:block}
 #app[data-step="2"] #controls>.control-cluster{position:static}
-#app[data-step="2"] #controls fieldset{position:absolute;display:flex;align-items:center;gap:18px;margin:0;min-width:0;pointer-events:auto}
-#app[data-step="2"] #controls legend{float:left;width:138px;margin:0;font-size:24px;color:var(--ink)}
-#app[data-step="2"] #controls fieldset .control-cluster{display:flex;gap:8px;padding:0;border:0;background:none;flex-wrap:nowrap}
-#app[data-step="2"] #controls fieldset button{min-width:68px;min-height:52px;font-size:23px}
+#app[data-step="2"] #controls fieldset{position:absolute;display:flex;align-items:center;gap:12px;margin:0;min-width:0;pointer-events:auto;transform:translateY(-50%)}
+#app[data-step="2"] #controls legend{float:left;margin:0;padding:0;white-space:nowrap;color:var(--ink)}
+#app[data-step="2"] #controls [data-segmented-control] {
+  display:flex;
+  gap:2px;
+  padding:3px;
+  border:1px solid #d8b07466;
+  border-radius:999px;
+  background:#ffffff07;
+  flex-wrap:nowrap;
+}
+#app[data-step="2"] #controls [data-segmented-control] button {
+  flex:0 0 54px;
+  min-width:0;
+  min-height:44px;
+  padding:4px 8px;
+  border:1px solid transparent;
+  border-radius:999px;
+  background:transparent;
+  text-align:center;
+}
+#app[data-step="2"] #controls [data-segmented-control] button::before{content:none}
+#app[data-step="2"] #controls [data-segmented-control] button:is([aria-pressed="true"],:hover:not(:disabled)) {
+  background:var(--warm);
+  border-color:var(--warm);
+  color:#14202e;
+}
+@media (forced-colors:active) {
+  #app[data-step="2"] #controls [data-segmented-control] button[aria-pressed="true"]{border-color:Highlight}
+}
 #app[data-step="2"] #controls>.control-cluster[data-control-kind="action"]{position:absolute;pointer-events:auto}
 #app[data-step="2"] aside{top:auto;bottom:0;width:500px;pointer-events:none}
 #app[data-step="2"] #feedback{font-size:18px}
 
-#app[data-step="2"] #controls fieldset button{min-height:44px;padding:6px 10px}
 #app[data-step="2"] #launch-fire{min-width:230px;min-height:48px}
 
 /* Force diagram overlays the subdued rocket; choices remain click-only. */

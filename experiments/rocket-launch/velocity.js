@@ -571,7 +571,10 @@ export function createVelocityScene(hooks={}){
     }
     const gap=24, panelWidth=(W-gap)/2;
     const reduced=reducedMotion.matches;
-    const skyBlend=opening?ease((opening.elapsed-.98)/1.32):0;
+    const starFadeStart=.62;
+    const starFadeEnd=1.2;
+    // Bring in moving stars before the ascent image eases to the end of its scan.
+    const skyBlend=opening?ease((opening.elapsed-starFadeStart)/(starFadeEnd-starFadeStart)):0;
     const skyOpacity=opening?1-directionEarthReveal(opening):0;
     if(skyBlend>0&&skyOpacity>0&&!directionStars){
      directionStars=createRocketStarfield();
@@ -581,7 +584,7 @@ export function createVelocityScene(hooks={}){
      stars.fillRect(0,0,directionStars.width,directionStars.height);
     }
     // Downward drift gives the fixed follow camera a visual reference for ascent.
-    const starShift=reduced||!opening?0:Math.round(Math.max(0,opening.elapsed-.98)*.28*H)%H;
+    const starShift=reduced||!opening?0:Math.round(Math.max(0,opening.elapsed-starFadeStart)*.28*H)%H;
     for(const [index,condition] of DIRECTION_CONDITIONS.entries()){
      c.save();
      c.translate(index*(panelWidth+gap),0);
@@ -592,7 +595,7 @@ export function createVelocityScene(hooks={}){
      c.fillRect(0,0,panelWidth,H);
      if(skyOpacity>0&&skyBlend<1&&launchSite.naturalWidth){
       const {phase,local}=opening;
-      const ascent=.9*ease(opening.elapsed/1.2)+.1*ease((opening.elapsed-1.2)/2);
+      const ascent=.9*ease(opening.elapsed/starFadeEnd);
       const sourceHeight=launchSite.naturalWidth*H/panelWidth;
       const scan=reduced?(phase==='ready'?0:phase==='ascent'&&local<.97?(local<.49?0:.5):1):ascent;
       c.drawImage(launchSite,0,(launchSite.naturalHeight-sourceHeight)*(1-scan),
