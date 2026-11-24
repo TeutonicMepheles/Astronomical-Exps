@@ -1,5 +1,5 @@
 import {Vector3} from './vendor/three/three.module.js';
-import {selectionContours} from './selection-contours.js?v=assembly-uniform-20261117';
+import {selectionContours} from './selection-contours.js?v=tianzhou-solar';
 
 // Static assembly destinations from the actual silhouette, without blueprint detail or scan grids.
 export class RocketAssemblyGuide {

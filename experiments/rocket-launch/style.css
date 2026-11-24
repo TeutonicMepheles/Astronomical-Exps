@@ -252,7 +252,7 @@ header{height:88px}
 #app[data-step="8"] #controls .control-cluster:first-child{flex-direction:row;flex-wrap:nowrap}
 #app[data-step="8"] #controls button[hidden]{display:none}
 
-.rocket-flight-sky{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.8}
+.rocket-flight-sky{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 #scene{position:relative;z-index:1}
 #parts,#readout{z-index:2}
 
@@ -272,7 +272,6 @@ header{height:88px}
 #app[data-step="4"] .velocity-gears button{min-width:70px}
 
 /* Interaction roles: choices, persistent switches, actions and feedback. */
-#prompt{font-size:25px;line-height:1.5;margin:0 0 24px;color:var(--ink)}
 #prompt[hidden],button[hidden]{display:none!important}
 #feedback:empty{display:none}
 .control-cluster[data-control-kind="choice"] button{border-color:transparent;background:#ffffff07;text-align:left}
@@ -300,7 +299,6 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 #dock #controls{gap:24px}
 #app[data-step="8"] #controls .control-cluster:first-child{min-width:230px}
 #app[data-step="8"] #controls .control-cluster:last-child{min-width:100px}
-#app[data-step="7"] #prompt{font-size:21px;color:var(--ink-dim)}
 #app[data-step="7"] #controls{gap:20px}
 #app[data-step="6"] .control-cluster[data-control-kind="choice"] button::before{width:14px;margin-right:4px;font-size:13px}
 #app[data-step="6"] #controls.structure-controls{grid-template-columns:138px 1fr 1.4fr}
@@ -345,7 +343,6 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="0"] aside{display:none}
 #app[data-step="0"] .stage{position:absolute;inset:0}
 #app[data-step="1"] aside{padding-top:66px}
-#app[data-step="1"] #prompt{font-size:24px}
 #app[data-step="5"] aside{padding-top:40px}
 #app[data-step="2"] aside{top:18px;left:20px;width:260px}
 #app[data-step="3"] .stage,#app[data-step="8"] .stage{bottom:80px}
@@ -366,7 +363,6 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="7"] .workspace{display:block}
 #app[data-step="7"] .stage{position:absolute;inset:0 0 88px}
 #app[data-step="7"] aside{position:absolute;bottom:0;left:0;right:0;height:80px;padding:10px 12px;display:flex;align-items:center;gap:24px}
-#app[data-step="7"] #prompt{flex:none;margin:0;font-size:22px}
 #app[data-step="7"] #controls{margin-left:auto;flex-direction:row;gap:24px;order:2}
 #app[data-step="7"] #controls>.control-cluster{min-width:128px}
 #app[data-step="7"] #feedback{font-size:18px;line-height:1.4;margin:0;max-width:400px}
@@ -426,10 +422,14 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="8"] .rocket-3d .rocket-webgl{pointer-events:none}
 #app[data-step="7"] #parts{z-index:3}
 #app[data-step="7"] .stage{overflow:hidden}
-.assembly-3d-board{position:absolute;inset:0;pointer-events:none}
+.assembly-3d-board{position:absolute;right:80px;bottom:92px;z-index:7;pointer-events:none}
 .assembly-3d-piece,.assembly-3d-return{position:absolute;bottom:12px;width:18%;font-size:18px;touch-action:none;background:#10172bcc;pointer-events:auto}
 .assembly-3d-piece.selected{border-color:var(--warm);color:var(--warm)}
-.assembly-3d-slot{position:absolute;transform:translate(-50%,-50%);border:2px dashed var(--warm);background:#d8b07420;min-width:100px;min-height:64px;font-size:18px;pointer-events:auto;touch-action:none}
+.assembly-context-action{min-width:210px;min-height:52px;font-size:var(--type-body);background:#213e50;border:1px solid #d6b57e;color:#edcd97;pointer-events:auto;touch-action:manipulation}
+.assembly-install-target{position:absolute;z-index:4;min-width:0;min-height:0;padding:0;border:1px solid transparent;background:transparent;pointer-events:auto;touch-action:manipulation}
+.assembly-install-target.internal{border:1px dashed #a6d5e08c}
+.assembly-install-target:is(:hover,:focus-visible){border-color:#e8bf7e;background:#e8bf7e12;outline:none}
+.assembly-install-target[hidden]{display:none}
 .assembly-3d-board button[hidden]{display:none}
 
 /* Generic staging comparison follows the CZ-7 lesson, with its own ideal data. */
@@ -495,7 +495,19 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="4"] #controls .control-cluster{display:flex;flex-wrap:nowrap;gap:7px;padding:0;border:0}
 #app[data-step="4"] #controls button{font-size:17px;padding:8px 12px;min-height:46px}
 
-#velocity-preset-axis{position:absolute;inset:0;pointer-events:none}#velocity-preset-axis button{pointer-events:auto;padding:6px;border:1px solid #72829466;background:#142032df;color:#e8e0cc;border-radius:8px}#velocity-preset-axis button:hover,#velocity-preset-axis button[aria-pressed=true]{border-color:#d8b074;background:#534b3e}
+#velocity-preset-axis{position:absolute;inset:0;pointer-events:none}
+#velocity-preset-axis button{
+ --tip-bg:#d7dce0;
+ pointer-events:auto;transform:translateX(-50%);min-width:56px;min-height:52px;padding:6px 14px;
+ border:1px solid transparent;background:var(--tip-bg);color:#20303d;border-radius:9px;
+ font-size:var(--type-number);line-height:1;white-space:nowrap;touch-action:manipulation;
+}
+#velocity-preset-axis button::before{
+ content:"";position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+ border:10px solid transparent;border-top:0;border-bottom:14px solid var(--tip-bg);pointer-events:none;
+}
+#velocity-preset-axis button.is-revealed{font-size:var(--type-body)}
+#velocity-preset-axis button:hover,#velocity-preset-axis button[aria-pressed=true]{--tip-bg:#eac98e}
 #app[data-step="4"] aside{z-index:5}
 
 #app[data-step="4"] .cannon-height-label{align-self:center;font-size:18px;white-space:nowrap;color:#a9b0bf;margin-right:4px}
@@ -525,16 +537,13 @@ header{height:106px;flex:none;align-items:flex-start}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #controls.structure-controls button{min-height:44px;padding:5px 4px}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback{position:absolute;left:32px;top:-390px;width:440px;min-height:0;max-width:440px;padding:14px 18px;background:#092438ec;border-left:2px solid #a5dce9;color:#ebf3ef;pointer-events:none}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback:empty{display:none}
-#app[data-rocket-phase="assemble"] #prompt{position:absolute;top:0;right:12px;font-size:var(--type-body);margin:0;color:var(--ink-dim)}
 #app[data-rocket-phase="assemble"] .assembly-3d-piece,#app[data-rocket-phase="assemble"] .assembly-3d-return{bottom:10px;background:#0b2b40ed;min-height:44px}
 #app[data-rocket-phase="assemble"] #controls.structure-controls::after{content:none}
-#app[data-rocket-phase="assemble"] #prompt{left:12px;right:auto}
 #app[data-rocket-phase="assemble"] #controls>.control-cluster:nth-child(4){display:flex;position:absolute;top:0;right:155px}
 #app[data-rocket-phase="assemble"] #controls>.control-cluster:nth-child(5){display:flex;position:absolute;top:0;right:0}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .stage{overflow:visible}
 #app[data-rocket-phase="assemble"] .assembly-3d-piece,#app[data-rocket-phase="assemble"] .assembly-3d-return{bottom:-52px}
 #app[data-rocket-phase="assemble"] #controls>.control-cluster:nth-child(4),#app[data-rocket-phase="assemble"] #controls>.control-cluster:nth-child(5){top:50px}
-#app[data-rocket-phase="assemble"] #prompt{top:60px}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback{left:auto;right:16px;top:-446px;width:340px;max-width:340px;z-index:5}
 /* Full-screen drafting sheet; model and projected outline keep the same coordinates. */
 #app>.rocket-blueprint{position:absolute;inset:0;width:100%;height:100%;z-index:0;border-radius:0}
@@ -551,7 +560,6 @@ header{height:106px;flex:none;align-items:flex-start}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) button[role="switch"][aria-checked="true"]::after{background:radial-gradient(circle at 27px 11px,#263b49 7px,transparent 8px),#d6b57e}
 #app[data-rocket-phase="assemble"] .assembly-3d-piece,#app[data-rocket-phase="assemble"] .assembly-3d-return{background:#102d43e8;border-color:#9ebbd24d;color:#dce4e7}
 #app[data-rocket-phase="assemble"] .assembly-3d-piece:is(.selected,:hover,:focus-visible),#app[data-rocket-phase="assemble"] .assembly-3d-return:is(:hover,:focus-visible){background:#354c59;color:#edcd97;border-color:#d6b57e}
-#app[data-rocket-phase="assemble"] .assembly-3d-slot{background:#213e50ec;border-color:#d6b57e;color:#edcd97}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback{left:-264px;right:auto;top:-20px;width:232px;max-width:232px;background:#102b40e6;border-left-color:#d6b57e;color:#e3e8e5;padding:14px 16px}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .rocket-3d-label{background:#102b40ed;color:#edcd97;border-bottom-color:#d6b57e}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #next.rocket-next-action{box-shadow:0 5px 0 #8e7c4b40,0 10px 20px #07151f40,inset 0 1px #fff4d9}
@@ -579,9 +587,8 @@ header{height:106px;flex:none;align-items:flex-start}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #controls{display:none}
 #app[data-rocket-phase="assemble"] #controls{display:block;position:absolute;right:16px;bottom:16px;width:auto;pointer-events:auto}
 #app[data-rocket-phase="assemble"] #controls>.control-cluster{display:block;position:static;border:0;background:none;padding:0}
-#app[data-rocket-phase="assemble"] #prompt{position:absolute;left:16px;top:auto;bottom:18px;width:auto;margin:0;font-size:var(--type-body)}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback{top:auto;bottom:30px;pointer-events:none}
-.assembly-context-return{position:absolute;transform:translate(-50%,0);min-height:44px;pointer-events:auto;background:#102d43f2;border-color:#dfbc7f;color:#edcd97;font-size:var(--type-body)}
+#app[data-step="7"] #feedback[data-floating="assembly"]{position:fixed;inset:auto 365px 92px 510px;max-width:none;width:auto;min-height:52px;margin:0;padding:12px 54px 12px 16px;background:#0d2b40f2;border-left:2px solid #e8bf7e;pointer-events:auto}
 .rocket-blueprint-targets button.blueprint-label{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:5px 10px;clip-path:none!important;background:#10334ed9!important;border:1px solid #9fc7df55;border-radius:20px;font-size:var(--type-body);font-weight:400;line-height:var(--type-leading);white-space:nowrap;transform:translate(-50%,-50%);transition:background .1s,color .1s}
 .rocket-blueprint-targets button.blueprint-label::before{content:'';width:10px;height:10px;border:1.5px solid #a8d5e3;border-radius:50%;flex:none}
 .rocket-blueprint-targets button.blueprint-label:is(:hover,:focus-visible,[aria-pressed="true"]){background:#344d5beF!important;border-color:#e8bf7e;color:#f0cd8d}
@@ -592,20 +599,28 @@ header{height:106px;flex:none;align-items:flex-start}
 /* Plain drawing annotations; the graphics alone carry interaction state. */
 .blueprint-note{position:absolute;transform:translate(-50%,-50%);font-size:var(--type-body);font-weight:400;line-height:var(--type-leading);white-space:nowrap;color:#d7e8ef;pointer-events:none}
 .rocket-blueprint-targets button.blueprint-graphic-target,.rocket-blueprint-targets button.blueprint-graphic-target:is(:hover,:focus-visible,[aria-pressed="true"],:active){padding:0;min-height:0;border:0;border-radius:0;background:transparent!important;box-shadow:none;outline:none;transform:none}
-#app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback[data-floating="true"]{position:fixed;inset:auto;bottom:auto;width:260px;max-width:260px;min-height:0;margin:0;padding:12px 16px;background:#0d2b40f2;border-left:2px solid #e8bf7e;z-index:8;pointer-events:none}
+#app[data-rocket-phase="recognize"] #feedback[data-floating="true"]{
+ position:fixed;inset:auto;min-height:0;max-width:330px;margin:0;z-index:8;pointer-events:auto;
+}
 /* Larger model workbench; details attach to the selected 3D object. */
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .stage{left:-16px;right:-20px;top:-126px;bottom:-8px}
-#app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback[data-floating="true"]{pointer-events:auto}
-.rocket-info-leader{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
-.rocket-info-leader[hidden]{display:none}
-.rocket-info-leader path{fill:none;stroke:#e8bf7e;stroke-width:1.2;opacity:.8}
-.rocket-info-leader circle{fill:#e8bf7e}
-#app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback[data-floating="true"]{width:320px;max-width:320px}
-/* Drawing annotations echo selection without gaining button chrome. */
+#app #feedback:is([data-floating="true"],[data-floating="assembly"]){
+ --rocket-tip-surface:#e5f4ed;--rocket-tip-edge:#84ab9d;
+ padding:7px 13px 11px;background:var(--rocket-tip-surface);color:#1b3735;
+ border:1px solid var(--rocket-tip-edge);border-radius:10px;box-shadow:0 3px 10px #071b303d;
+}
+#feedback[data-tip-side]::before{
+ content:"";position:absolute;left:calc(50% - 4px);width:8px;height:8px;
+ background:var(--rocket-tip-surface);transform:rotate(45deg);pointer-events:none;
+}
+#feedback[data-tip-side="above"]::before{bottom:-5px;border-right:1px solid var(--rocket-tip-edge);border-bottom:1px solid var(--rocket-tip-edge)}
+#feedback[data-tip-side="below"]::before{top:-5px;border-left:1px solid var(--rocket-tip-edge);border-top:1px solid var(--rocket-tip-edge)}
+.rocket-info-title{display:block;min-height:36px;padding-right:44px;font-size:var(--type-body);font-weight:600;line-height:1.35}
+.rocket-info-copy{display:block;font-size:16px;line-height:1.45}
 .blueprint-note[data-active="true"]{color:#f2cb74;font-size:var(--type-data-label);font-weight:500;text-shadow:0 0 8px #e8bf7e30}
-#app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback[data-floating="true"]{padding-right:54px}
-.rocket-info-close{position:absolute;right:2px;top:2px;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:4px;background:transparent;color:#e5d5af;font-size:30px;line-height:44px;font-weight:400;pointer-events:auto}
-.rocket-info-close:is(:hover,:focus-visible){color:#ffe0a3;background:#e8bf7e20;outline:1px solid #e8bf7e}
+.rocket-info-close{position:absolute;right:3px;top:0;width:44px;height:44px;min-height:44px;padding:0;border:0;border-radius:8px;background:transparent;color:#1b3735;font-size:23px;line-height:44px;font-weight:400;pointer-events:auto}
+.rocket-info-close:is(:hover,:focus-visible){color:#1b3735;background:#c4dfd4;outline:1px solid #197c67}
+@media(forced-colors:active){#feedback[data-tip-side]::before{display:none}}
 
 /* Consistent navigation contrast across every rocket chapter. */
 #app::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(2,12,25,.68) 0%,rgba(2,12,25,.49) 15%,rgba(2,12,25,.14) 25%,transparent 36%)}
@@ -677,3 +692,92 @@ header{height:106px;flex:none;align-items:flex-start}
 .rocket-insight-panel[hidden]{display:none}
 .rocket-insight-panel p{margin:0 0 14px;font-size:20px;line-height:1.6}
 .rocket-insight-panel button{min-height:44px;font-size:18px;display:block;margin-left:auto;padding:8px 20px}
+
+
+#app[data-step="4"].orbit-playing > :is(header,#chapters,footer,#dock),
+#app[data-step="4"].orbit-playing #controls > :not(.cannon-playback-controls),
+#app[data-step="4"].orbit-playing .cannon-playback-controls button:not(#velocity-pause) {
+ visibility:hidden;
+}
+
+#app[data-vertical-flight] aside {
+  grid-template-columns: minmax(0, 1fr) auto;
+  height: 132px;
+  align-content: center;
+  row-gap: 4px;
+}
+#app[data-vertical-flight] #feedback {
+  display: block;
+  grid-column: 1;
+  grid-row: 1;
+  font-size: var(--type-data-label);
+  color: var(--ink);
+}
+#app[data-vertical-flight] #direction-conclusion {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  font-size: var(--type-body);
+  color: var(--ink-dim);
+}
+#app[data-vertical-flight] #controls {
+  display: flex;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+#app[data-vertical-flight] #controls .control-cluster {
+  gap: 10px;
+}
+#app[data-vertical-flight] #controls button {
+  min-height: 52px;
+  min-width: 100px;
+  font-size: var(--type-body);
+  padding-inline: 14px;
+}
+#app[data-vertical-flight] #controls button[aria-pressed=true] {
+  border-color: var(--warm);
+  color: var(--warm);
+}
+#app[data-vertical-flight] #controls button[hidden] {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  #app[data-vertical-flight] .stage,
+  #app[data-direction-arrival] .stage {
+    animation: direction-page-in 180ms ease-out both;
+  }
+  @keyframes direction-page-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+#separation-stage{
+  position:absolute;top:4px;left:0;right:0;margin:0;
+  color:var(--ink);font-size:var(--type-data-label);font-weight:500;
+  line-height:1.25;text-align:center;pointer-events:none
+}
+
+#rocket-part-tabs:not([hidden]){
+  display:flex;gap:4px;padding:4px;
+  border:1px solid #9fc7df55;border-radius:14px;background:#102b40;
+}
+#rocket-part-tabs button{
+  min-width:134px;min-height:50px;border:1px solid transparent;
+  color:var(--ink);font-size:var(--type-body);font-weight:500;
+}
+#rocket-part-tabs button[aria-selected="true"]{
+  background:#d8b074;border-color:#edcc9a;color:#241f19;
+}
+#rocket-part-tabs button:focus-visible{
+  outline:2px solid #f0cd8d;outline-offset:2px;
+}
+
+footer #prompt{
+  margin:0 auto 0 0;
+  color:var(--ink-dim);
+  font-size:var(--type-body);
+  line-height:var(--type-leading);
+}

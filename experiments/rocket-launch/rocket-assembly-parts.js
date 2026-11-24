@@ -1,27 +1,57 @@
 import * as T from './vendor/three/three.module.js';
 
-// Inspection copies share the source GLB geometry/textures; the five assembly modules stay intact.
+const names=['Stage1LOXTank','Stage1FuelTank','Stage2LOXTank','Stage2FuelTank','Stage1Engine01','Stage1Engine02','Stage2Engine01','Stage2Engine02','Stage2Engine03','Stage2Engine04'];
+const group=name=>name.replace(/Engine0[2-4]$/,'Engine01');
+
+// Loose pieces share the source GLB geometry and textures.
 export class RocketAssemblyParts {
  constructor(adapter){this.adapter=adapter;this.nodes=new Map();this.root=new T.Group();this.root.name='AssemblyInternalParts';this.root.visible=false;adapter.scene.add(this.root);}
  setVisible(visible){
   const a=this.adapter;this.root.visible=visible;if(!visible)return;
   a.scene.updateMatrixWorld(true);
   if(!this.nodes.size){
-   for(const name of ['Stage1LOXTank','Stage1FuelTank','Stage2LOXTank','Stage2FuelTank','Stage1Engine01','Stage1Engine02','Stage2Engine01','Stage2Engine02','Stage2Engine03','Stage2Engine04']){
-    const source=a.nodes[name],node=source.clone(true);node.name=name;node.userData.assemblyPart=name.replace(/Engine0[2-4]$/,'Engine01');
+   for(const name of names){
+    const source=a.nodes[name],node=source.clone(true);node.name=name;node.userData.assemblyPart=group(name);
     const trim=(original,copy)=>{for(let i=original.children.length-1;i>=0;i--){const child=original.children[i],clone=copy.children[i];if(child.userData.scan||a.effects.some(e=>e.group===child))clone.removeFromParent();else trim(child,clone);}};trim(source,node);node.traverse(o=>{if(o.isMesh){o.visible=true;o.castShadow=true;}});
     // Engines may contain effect anchors; those are animation-only children, never part models.
     node.traverse(o=>{if(/Flame$/.test(o.name))o.visible=false;});
-    source.matrixWorld.decompose(node.position,node.quaternion,node.scale);node.userData.base={position:node.position.clone(),quaternion:node.quaternion.clone(),scale:node.scale.clone()};this.root.add(node);this.nodes.set(name,node);
+    a.reference.getObjectByName(name).matrixWorld.decompose(node.position,node.quaternion,node.scale);node.userData.base={position:node.position.clone(),quaternion:node.quaternion.clone(),scale:node.scale.clone()};this.root.add(node);this.nodes.set(name,node);
    }
   }
   this.layout();
  }
- layout(){
+ members(name){return names.filter(part=>group(part)===name);}
+ mountIndependentSockets(){
+  const a=this.adapter,root=a.nodes.RocketRoot,saved=[];
+  a.scene.updateMatrixWorld(true);
+  const inverse=root.matrixWorld.clone().invert();
+  for(const name of names){
+   const node=a.nodes[name],reference=a.reference.getObjectByName(name);
+   saved.push({node,parent:node.parent,position:node.position.clone(),quaternion:node.quaternion.clone(),scale:node.scale.clone()});
+   root.add(node);
+   inverse.clone().multiply(reference.matrixWorld).decompose(node.position,node.quaternion,node.scale);
+  }
+  return ()=>{
+   for(const {node,parent,position,quaternion,scale} of saved){
+    parent.add(node);
+    node.position.copy(position);node.quaternion.copy(quaternion);node.scale.copy(scale);
+   }
+  };
+ }
+ setInstalled(name,installed){
+  for(const part of this.members(name)){
+   this.adapter.nodes[part].visible=installed;
+   this.nodes.get(part).visible=!installed;
+  }
+  if(!installed)this.layout(name);
+  this.adapter.invalidateFrame();
+ }
+ layout(only){
   const a=this.adapter;if(!this.root.visible||!a.blueprint?.data)return;
   a.blueprint.draw();
   for(const [name,node]of this.nodes){
-   const canonical=name.replace(/Engine0[2-4]$/,'Engine01'),regions=a.blueprint.data.assembly.filter(r=>r.node===canonical),index=/Engine/.test(name)?Number(name.slice(-2))-1:0,region=regions[index];if(!region)continue;
+   const canonical=group(name);if(!node.visible||only&&canonical!==only)continue;
+   const regions=a.blueprint.data.assembly.filter(r=>r.node===canonical),index=/Engine/.test(name)?Number(name.slice(-2))-1:0,region=regions[index];if(!region)continue;
    const base=node.userData.base;node.position.copy(base.position);node.quaternion.copy(base.quaternion);node.scale.copy(base.scale);this.root.updateMatrixWorld(true);
    const [x,y,w,h]=region.rect,points=[[x,y],[x+w,y],[x,y+h],[x+w,y+h]].map(p=>a.blueprint.project(...p)),left=Math.min(...points.map(p=>p.x)),right=Math.max(...points.map(p=>p.x)),top=Math.min(...points.map(p=>p.y)),bottom=Math.max(...points.map(p=>p.y));
    node.scale.multiplyScalar(a.assemblyDisplayScale());this.root.updateMatrixWorld(true);

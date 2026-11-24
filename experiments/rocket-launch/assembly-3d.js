@@ -1,21 +1,80 @@
-import {MODULES} from './rocket-3d.js?v=course-refinements-20261118';
-import {PARTS} from './cz7.js?v=part-labels-20261117';
+import {MODULES,STRUCTURE_NODES} from './rocket-3d.js?v=assembly-guide-20261123';
+import {STRUCTURE_PARTS} from './cz7.js?v=part-labels-20261117';
 
-/** Model/blueprint selection and contextual installation; no fixed part button tray. */
-export function createAssembly3D({host,adapter,assembled,onChange,onFeedback,onInspect}){
- const board=document.createElement('div');board.className='assembly-3d-board';host.append(board);
- const abort=new AbortController(),opts={signal:abort.signal},slots=[],returns=[];let selected=null,drag=null,destroyed=false,inspectOnly=false;
- const select=(i,node=MODULES[i],event)=>{selected=i;inspectOnly=node!==MODULES[i];onInspect?.(node,event);refresh();};
- const install=i=>{if(destroyed||adapter.assemblyMotion||selected!==i||inspectOnly||adapter.selected!==MODULES[i]||assembled.has(i))return false;const deps=adapter.manifest.assemblyDependency[MODULES[i]]||[];if(deps.some(n=>!assembled.has(MODULES.indexOf(n)))){adapter.setModule(MODULES[i],false);refresh();onFeedback('先装载荷，再装整流罩。');return false;}assembled.add(i);adapter.setModule(MODULES[i],true);selected=null;adapter.clearSelection();refresh();onChange(i);return true;};
- const retract=i=>{if(destroyed||adapter.assemblyMotion||selected!==i||inspectOnly||adapter.selected!==MODULES[i]||!assembled.has(i))return;for(const[n,deps]of Object.entries(adapter.manifest.assemblyDependency))if(deps.includes(MODULES[i])){assembled.delete(MODULES.indexOf(n));adapter.setModule(n,false);}assembled.delete(i);adapter.setModule(MODULES[i],false);selected=null;adapter.clearSelection();refresh();onChange(i);};
- const refresh=()=>{if(destroyed)return;MODULES.forEach((n,i)=>{const target=adapter.target(n),p=adapter.moduleCenter(n);slots[i].hidden=inspectOnly||selected!==i||assembled.has(i);returns[i].hidden=inspectOnly||selected!==i||!assembled.has(i);Object.assign(slots[i].style,{left:target.x+'px',top:target.y+'px'});Object.assign(returns[i].style,{left:p.x+'px',top:(p.y+50)+'px'});});adapter.info.key=null;adapter.info.update();};
- const cancel=()=>{if(!drag)return;const d=drag;drag=null;adapter.setModule(MODULES[d.i],assembled.has(d.i));if(d.el.hasPointerCapture(d.id))d.el.releasePointerCapture(d.id);selected=null;adapter.clearSelection();refresh();};
- MODULES.forEach((n,i)=>{adapter.setModule(n,assembled.has(i));const slot=document.createElement('button');slot.className='assembly-3d-slot slot';slot.textContent='安装'+PARTS[i].name;slot.onclick=e=>{e.stopPropagation();install(i);};board.append(slot);slots.push(slot);const back=document.createElement('button');back.className='assembly-context-return';back.textContent='退回'+PARTS[i].name;back.onclick=e=>{e.stopPropagation();retract(i);};board.append(back);returns.push(back);});
- const inspect=(n,event)=>{const i=MODULES.findIndex(m=>n===m||n.startsWith(m));if(i>=0)select(i,n,event);};adapter.onAssemblyInspect=inspect;const clear=()=>{selected=null;inspectOnly=false;refresh();};adapter.onAssemblyClear=clear;
+/** Select loose parts and install at their assembled positions. */
+export function createAssembly3D({adapter,assembled,onChange,onFeedback,onInspect}){
+ const board=document.createElement('div');board.className='assembly-3d-board';adapter.host.closest('#app').append(board);
+ const abort=new AbortController(),opts={signal:abort.signal},returns=[];let selected=null,drag=null,destroyed=false;
+ const entries=STRUCTURE_NODES.map((name,index)=>{
+  const internal=index>=MODULES.length;
+  return {name,internal,members:internal?adapter.assemblyParts.members(name):[name]};
+ });
+ // Installed internals stay at their sockets while the corresponding shell is loose.
+ const restoreInternals=adapter.assemblyParts.mountIndependentSockets();
+ const slot=document.createElement('button');
+ slot.type='button';slot.className='assembly-install-target';slot.hidden=true;
+ adapter.layer.append(slot);
+ const positionSlot=()=>{
+  if(slot.hidden)return;
+  const {members,internal}=entries[selected];
+  const bounds=members.map(name=>adapter.assemblyParts.bounds(adapter.reference.getObjectByName(name)));
+  const left=Math.min(...bounds.map(b=>b.left)),right=Math.max(...bounds.map(b=>b.right));
+  const top=Math.min(...bounds.map(b=>b.top)),bottom=Math.max(...bounds.map(b=>b.bottom));
+  const width=Math.max(44,right-left),height=Math.max(44,bottom-top);
+  Object.assign(slot.style,{left:(left+right-width)/2+'px',top:(top+bottom-height)/2+'px',width:width+'px',height:height+'px'});
+  slot.classList.toggle('internal',internal);
+ };
+ const observer=new ResizeObserver(positionSlot);
+ observer.observe(adapter.host);
+ const setInstalled=(i,value)=>{
+  const {name,internal}=entries[i];
+  if(value)assembled.add(i);else assembled.delete(i);
+  if(internal)adapter.assemblyParts.setInstalled(name,value);else adapter.setModule(name,value);
+ };
+ const refresh=()=>{
+  if(destroyed)return;
+  entries.forEach((_,i)=>{
+   returns[i].hidden=selected!==i||!assembled.has(i);
+  });
+  slot.hidden=selected===null||assembled.has(selected);
+  if(!slot.hidden){
+   slot.dataset.installTarget=entries[selected].name;
+   slot.setAttribute('aria-label','在原位安装'+STRUCTURE_PARTS[selected].name);
+   positionSlot();
+  }
+  adapter.info.key=null;adapter.info.update();
+ };
+ const inspect=(name,event)=>{
+  const i=STRUCTURE_NODES.indexOf(name);
+  if(i<0)return;
+  selected=i;onInspect?.(name,event);refresh();
+ };
+ const clear=()=>{selected=null;refresh();};
+ const finish=()=>{selected=null;adapter.clearSelection();refresh();onChange();};
+ const install=i=>{
+  if(destroyed||adapter.assemblyMotion||selected!==i||adapter.selected!==entries[i].name||assembled.has(i))return;
+  setInstalled(i,true);finish();
+ };
+ const retract=i=>{
+  if(destroyed||adapter.assemblyMotion||selected!==i||adapter.selected!==entries[i].name||!assembled.has(i))return;
+  setInstalled(i,false);finish();
+ };
+ const cancel=()=>{
+  if(!drag)return;
+  const d=drag;drag=null;setInstalled(d.i,false);
+  if(d.el.hasPointerCapture(d.id))d.el.releasePointerCapture(d.id);
+  selected=null;adapter.clearSelection();refresh();
+ };
+ entries.forEach(({name,internal},i)=>{
+  if(internal)adapter.assemblyParts.setInstalled(name,assembled.has(i));else adapter.setModule(name,assembled.has(i));
+  const back=document.createElement('button');back.className='assembly-context-action';back.textContent='退回'+STRUCTURE_PARTS[i].name;back.onclick=e=>{e.stopPropagation();retract(i);};board.append(back);returns.push(back);
+ });
+ slot.onclick=e=>{e.stopPropagation();if(selected!==null)install(selected);};
+ adapter.onAssemblyInspect=inspect;adapter.onAssemblyClear=clear;
  const canvas=adapter.renderer.domElement,surface=adapter.host;
- surface.addEventListener('pointerdown',e=>{if(e.button!==0||adapter.assemblyMotion||!(e.target===canvas||e.target.closest('.blueprint-graphic-target')))return;const hit=e.target.closest?.('[data-blueprint]')?.dataset.blueprint||adapter.blueprint?.pick(e)||adapter.pick(e),i=MODULES.findIndex(n=>hit===n||hit?.startsWith(n));if(i<0)return;select(i,hit,e);if(assembled.has(i)||hit!==MODULES[i])return;drag={id:e.pointerId,i,el:canvas,x:e.clientX,y:e.clientY,start:adapter.nodes[MODULES[i]].position.clone(),moved:false};canvas.setPointerCapture(e.pointerId);},opts);
- surface.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const scale=canvas.getBoundingClientRect().width/adapter.host.clientWidth,dx=(e.clientX-drag.x)/scale,dy=(e.clientY-drag.y)/scale;if(Math.hypot(dx,dy)<6&&!drag.moved)return;drag.moved=true;adapter.moveModule(MODULES[drag.i],dx,dy,drag.start);},opts);
- surface.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const d=drag;drag=null;if(!d.moved)return;adapter.assemblyClickBlockUntil=performance.now()+250;adapter.blueprint?.setState('hover',null);adapter.blueprint?.setState('pressed',null);const n=MODULES[d.i],p=adapter.moduleCenter(n),target=adapter.target(n);if(Math.hypot(p.x-target.x,p.y-target.y)<=70)install(d.i);else{adapter.setModule(n,false);selected=null;adapter.clearSelection();refresh();onFeedback('未对准，已放回。');}},opts);
+ surface.addEventListener('pointerdown',e=>{if(e.button!==0||adapter.assemblyMotion||!(e.target===canvas||e.target.closest('.blueprint-graphic-target')))return;const hit=e.target.closest?.('[data-blueprint]')?.dataset.blueprint||adapter.blueprint?.pick(e)||adapter.pick(e),i=STRUCTURE_NODES.indexOf(hit);if(i<0)return;inspect(hit,e);if(assembled.has(i))return;drag={id:e.pointerId,i,el:canvas,x:e.clientX,y:e.clientY,start:entries[i].members.map(name=>[name,adapter.displayNode(name).position.clone()]),moved:false};canvas.setPointerCapture(e.pointerId);},opts);
+ surface.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const scale=canvas.getBoundingClientRect().width/adapter.host.clientWidth,dx=(e.clientX-drag.x)/scale,dy=(e.clientY-drag.y)/scale;if(Math.hypot(dx,dy)<6&&!drag.moved)return;drag.moved=true;for(const [name,start] of drag.start)adapter.moveModule(name,dx,dy,start);},opts);
+ surface.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const d=drag;drag=null;if(!d.moved)return;adapter.assemblyClickBlockUntil=performance.now()+250;adapter.blueprint?.setState('hover',null);adapter.blueprint?.setState('pressed',null);const n=entries[d.i].name,p=adapter.assemblyCenter(n),target=adapter.target(n);if(Math.hypot(p.x-target.x,p.y-target.y)<=70)install(d.i);else{setInstalled(d.i,false);selected=null;adapter.clearSelection();refresh();onFeedback('未对准，已放回。');}},opts);
  surface.addEventListener('pointercancel',cancel,opts);canvas.addEventListener('lostpointercapture',cancel,opts);window.addEventListener('blur',cancel,opts);document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel();},opts);window.addEventListener('keydown',e=>{if(e.key==='Escape')cancel();},opts);
- const ro=new ResizeObserver(refresh);ro.observe(host);refresh();return()=>{cancel();destroyed=true;abort.abort();if(adapter.onAssemblyInspect===inspect)adapter.onAssemblyInspect=null;if(adapter.onAssemblyClear===clear)adapter.onAssemblyClear=null;ro.disconnect();board.remove();};
+ refresh();return()=>{cancel();destroyed=true;abort.abort();observer.disconnect();slot.remove();restoreInternals();if(adapter.onAssemblyInspect===inspect)adapter.onAssemblyInspect=null;if(adapter.onAssemblyClear===clear)adapter.onAssemblyClear=null;board.remove();};
 }

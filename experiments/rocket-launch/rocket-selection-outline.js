@@ -1,5 +1,5 @@
 import * as T from './vendor/three/three.module.js';
-import {selectionContours} from './selection-contours.js?v=assembly-uniform-20261117';
+import {selectionContours} from './selection-contours.js?v=tianzhou-solar';
 
 // Scene supplies actual projected GLB silhouettes. Shared component owns the SVG/glow.
 // Translation/resize changes only our host box; never query or mutate component internals.

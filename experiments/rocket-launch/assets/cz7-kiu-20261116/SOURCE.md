@@ -51,3 +51,7 @@ python experiments/rocket-launch/tools/validate-kiu-model.py
 现行默认切换至 cz7-interior-20261117.glb；外壳来源、比例及原贴图保持。四个教学贮箱重做表面，有效载荷替换为NASA Terra衍生教学模型，详情见 [内部升级记录](../../docs/INTERIOR_UPGRADE_20261117.md)。原cz7-kiu.glb及Blend保留，不能把旧Capsule说明当作当前模型状态。
 
 当前有效载荷已由Terra替代件改为本实验原创天舟一号外形参考；总体尺寸依据国家航天局公开资料，太阳翼按用户要求作收拢示意。来源与范围见 [天舟载荷记录](../../docs/TIANZHOU_PAYLOAD_20261117.md)。
+
+## 垂直发射用模型渲染图
+
+`cz7-assembled-render.png` 由本目录清单指定的 `cz7-interior-20261117.glb` 和原贴图经 Three.js 正交相机渲染，沿用发射场景的箭体朝向，供垂直发射主画面和缩略视窗离线使用。
