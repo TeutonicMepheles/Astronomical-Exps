@@ -87,7 +87,7 @@ const separation=new SeparationLesson();
 const directionOpening=new SeparationLesson();
 let payloadTime=0;
 const deploymentDuration=2.4;
-const rocket3D=new Rocket3D(document.querySelector('.stage'),{invalidate:()=>{dirty=true;},onPick(n,event){if(rocket3D.onAssemblyInspect){rocket3D.onAssemblyInspect(n,event);return;}const i=STRUCTURE_NODES.indexOf(n);if(i>=0)selectStructure(i);},onStagingPart(part){if(false&&step===9&&dvLesson.activeIndex===2&&part.plan===2&&part.stage===dvLesson.waitingStage){dvLesson.act();stagingUI?.sync();}},onStatus(ready){if(isVerticalFlight())return;if(ready&&(step===2||step>=6&&step<=8))render();else if(!ready&&(step===2||step>=6&&step<=8)){playing=false;separation.paused=true;dirty=true;syncSeparation();}}});
+const rocket3D=new Rocket3D(document.querySelector('.stage'),{invalidate:()=>{dirty=true;},onPadReady:syncSeparation,onPick(n,event){if(rocket3D.onAssemblyInspect){rocket3D.onAssemblyInspect(n,event);return;}const i=STRUCTURE_NODES.indexOf(n);if(i>=0)selectStructure(i);},onStagingPart(part){if(false&&step===9&&dvLesson.activeIndex===2&&part.plan===2&&part.stage===dvLesson.waitingStage){dvLesson.act();stagingUI?.sync();}},onStatus(ready){if(isVerticalFlight())return;if(ready&&(step===2||step>=6&&step<=8))render();else if(!ready&&(step===2||step>=6&&step<=8)){playing=false;separation.paused=true;dirty=true;syncSeparation();}}});
 addEventListener('pagehide',e=>{if(!e.persisted){disposeAssembly();rocket3D.destroy();forceArrows.destroy();}});
 const separationLabels=['助推器分离','一级与二级分离','整流罩分离','载荷释放'];
 const separationActions=['分离助推器','分离一级','抛离整流罩'];
@@ -99,12 +99,12 @@ rocket3D.onDismissInspection=dismissInspection;
 document.addEventListener('click',event=>{if(![6,7].includes(step)||!rocket3D.selected||$('#feedback').contains(event.target))return;if(step===7&&event.target===rocket3D.renderer?.domElement&&performance.now()<(rocket3D.assemblyClickBlockUntil||0))return;if(event.target.closest?.('[data-blueprint]'))return;if(event.target===rocket3D.renderer?.domElement&&(rocket3D.blueprint?.pick(event)||rocket3D.pick(event)))return;dismissInspection();},{signal:rocket3D.abort.signal});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&rocket3D.selected)dismissInspection();},{signal:rocket3D.abort.signal});
 
-function syncSeparation(){const action=$('#separate');if(!action)return;const started=separation.phase!=='ready',complete=separation.phase==='complete';$('#separation-start').hidden=started;$('#separation-start').disabled=!rocket3D.ready;action.hidden=true;action.textContent=separation.index<3?separationActions[separation.index]:complete?'分离完成':'释放载荷';action.disabled=separation.phase!=='waiting'||separation.paused;const pause=$('#separation-pause');pause.disabled=!started;pause.classList.toggle('primary',started);pause.textContent=separation.paused?'继续':'暂停';$('#separation-replay').hidden=!started;
+function syncSeparation(){const action=$('#separate');if(!action)return;const started=separation.phase!=='ready',complete=separation.phase==='complete';$('#separation-start').hidden=started;$('#separation-start').disabled=!rocket3D.ready||!rocket3D.separationPad;action.hidden=true;action.textContent=separation.index<3?separationActions[separation.index]:complete?'分离完成':'释放载荷';action.disabled=separation.phase!=='waiting'||separation.paused;const pause=$('#separation-pause');pause.disabled=!started;pause.classList.toggle('primary',started);pause.textContent=separation.paused?'继续':'暂停';$('#separation-replay').hidden=!started;
  const stage = complete ? (payloadTime<deploymentDuration?'太阳翼展开（示意）':'天舟绕地（示意）') : separation.phase==='ready' ? '准备发射' : separation.phase==='ascent' ? '火箭升空' : separationLabels[separation.index];
  const heading = $('#separation-stage');
  if (heading.textContent!==stage) heading.textContent=stage;
 }
-function startSeparation(){if(!rocket3D.ready)return;rocket3D.setScene('separation');payloadTime=0;separation.start();time=0;playing=true;say('');syncSeparation();}
+function startSeparation(){if(!rocket3D.ready||!rocket3D.separationPad)return;rocket3D.setScene('separation');payloadTime=0;separation.start();time=0;playing=true;say('');syncSeparation();}
 const launchToast=document.createElement('div');launchToast.className='rocket-launch-toast';launchToast.setAttribute('role','status');launchToast.setAttribute('aria-live','polite');launchToast.hidden=true;$('#app').append(launchToast);let launchToastTimer;function notifyLaunch(message){clearTimeout(launchToastTimer);launchToast.textContent=message;launchToast.hidden=false;launchToastTimer=setTimeout(()=>{launchToast.hidden=true;},4000);}
 const LAUNCH_DURATION = 5;
 function finishLaunch(interrupted=false){if(!launch||launch.saved)return;launch.saved=true;const r=records.find(r=>r.id===launch.id);if(r){r.status=interrupted?'interrupted':'complete';r.height=interrupted?Math.round(launch.distance*smooth(Math.min(time/LAUNCH_DURATION,1))):launch.distance;}launchRuler?.sync(records);playing=false;if(!interrupted){say('');notifyLaunch(launch.distance>0?'发射完成，实验已记录':'发射失败：推力不足，火箭未起飞');$('#launch-fire').disabled=false;for(const b of document.querySelectorAll('#controls fieldset button'))b.disabled=false;}}
@@ -586,7 +586,7 @@ function colorTimeline(x,y,label,i,done,current){const color=done?'#e8e0cc':i===
 
 function advanceSeparation(lesson,dt,effectTime){
  // Finish the current clip before switching to the next stage.
- rocket3D.update(dt,{animate:lesson.running,effectTime,flames:true,upper:lesson.index>=2});
+ rocket3D.update(dt,{animate:lesson.running,effectTime,flames:true,upper:lesson.index>=2,renderFrame:false});
  let event=lesson.advance(dt);
  if(event==='wait'){
   lesson.trigger();

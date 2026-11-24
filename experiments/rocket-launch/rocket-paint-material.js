@@ -22,7 +22,7 @@ float rocketFBM(vec3 p) {return .68*rocketNoise(p)+.32*rocketNoise(p*2.13);}
 
 // Globe-inspired directional wash and chalk pigment, adapted to arbitrary meshes.
 // Keep UV albedo, alpha, emissive selection and any pre-existing scan/fill hooks.
-export function applyRocketPaint(material) {
+export function applyRocketPaint(material,padLighting) {
  if(material.userData.rocketPaint)return material;
  if(/^(Interior_|NASA_Terra_|Tianzhou_)/.test(material.name))return applyInteriorSurface(material);
  material.userData.rocketPaint=true;
@@ -32,6 +32,11 @@ export function applyRocketPaint(material) {
   previous.call(material,shader);
   shader.vertexShader='varying vec3 vRocketPaper; varying vec3 vRocketNormal;\n'+shader.vertexShader.replace(
    '#include <begin_vertex>','#include <begin_vertex>\nvRocketPaper=position/8.; vRocketNormal=normalize(normalMatrix*normal);');
+  if(padLighting){
+   Object.assign(shader.uniforms,padLighting);
+   shader.vertexShader='varying vec3 vPadWorld;\n'+shader.vertexShader.replace('#include <begin_vertex>',
+    '#include <begin_vertex>\nvPadWorld=(modelMatrix*vec4(position,1.)).xyz;');
+  }
   shader.fragmentShader=pigmentGLSL+'varying vec3 vRocketNormal;\n'+shader.fragmentShader.replace('#include <opaque_fragment>',`
    {
    vec3 paperN=normalize(vRocketNormal);
@@ -62,8 +67,37 @@ export function applyRocketPaint(material) {
    }
    #include <opaque_fragment>
   `);
+  if(padLighting){
+   shader.fragmentShader=`
+    varying vec3 vPadWorld;
+    uniform float padLightMix;
+    uniform vec3 padLightA;
+    uniform vec3 padLightB;
+    uniform vec3 padAim;
+    float padBeam(vec3 lamp, vec3 normalView) {
+     vec3 ray=vPadWorld-lamp;
+     float distanceToLamp=max(length(ray),1.);
+     vec3 direction=ray/distanceToLamp;
+     float cone=smoothstep(.82,.98,dot(direction,normalize(padAim-lamp)));
+     vec3 lightView=mat3(viewMatrix)*(-direction);
+     return cone*max(dot(normalView,lightView),0.)*min(1.45,5000./(distanceToLamp*distanceToLamp));
+    }
+   `+shader.fragmentShader.replace('outgoingLight=painted+totalEmissiveRadiance;',`
+    if(padLightMix>0.) {
+     float key=padBeam(padLightA,paperN);
+     float fill=padBeam(padLightB,paperN);
+     float aboveBeam=smoothstep(padAim.y+7.,padAim.y+37.,vPadWorld.y);
+     vec3 evening=painted*mix(vec3(.24,.30,.46),vec3(.16,.21,.35),aboveBeam);
+     vec3 pools=diffuseColor.rgb*(key*vec3(.86,.69,.49)+fill*vec3(.22,.32,.49))*(.91+.18*brush);
+     vec3 lit=evening+pools*(1.-.72*aboveBeam);
+     vec3 shoulder=max(lit-vec3(.42),vec3(0.));
+     painted=mix(painted,min(lit,vec3(.42))+shoulder/(1.+1.5*shoulder),padLightMix);
+    }
+    outgoingLight=painted+totalEmissiveRadiance;
+   `);
+  }
  };
- material.customProgramCacheKey=()=>previousKey+'-rocket-globe-pigment-v2';
+ material.customProgramCacheKey=()=>previousKey+(padLighting?'-rocket-pad-lit-v1':'-rocket-globe-pigment-v2');
  material.needsUpdate=true;
  return material;
 }

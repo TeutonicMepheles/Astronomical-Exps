@@ -968,6 +968,8 @@ function drawPayloadSilhouette(c,x,y,tilt,wingSpread){
  c.restore();
 }
 
+// Blender source frames 1–114, cropped inside the original 256 px camera frame.
+const tianzhouAtlas={frames:114,columns:10,width:236,height:172,left:10,top:44,sourceSize:256};
 const tianzhouFrames=new Image();
 tianzhouFrames.src=new URL('./assets/tianzhou-solar/deployment.webp',import.meta.url).href;
 
@@ -975,9 +977,11 @@ export function drawTianzhou(c,tilt,progress){
  c.save();
  c.rotate(tilt);
  if(tianzhouFrames.naturalWidth){
-  const frame=Math.round(15*Math.max(0,Math.min(1,progress)));
-  const tile=tianzhouFrames.naturalWidth/4;
-  c.drawImage(tianzhouFrames,frame%4*tile,Math.floor(frame/4)*tile,tile,tile,-30,-30,60,60);
+  const {frames,columns,width,height,left,top,sourceSize}=tianzhouAtlas;
+  const frame=Math.round((frames-1)*Math.max(0,Math.min(1,progress)));
+  const scale=60/sourceSize;
+  c.drawImage(tianzhouFrames,frame%columns*width,Math.floor(frame/columns)*height,width,height,
+   left*scale-30,top*scale-30,width*scale,height*scale);
  }
  c.restore();
 }

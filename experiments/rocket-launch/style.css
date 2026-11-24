@@ -406,7 +406,6 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 .rocket-3d-status[hidden],.rocket-3d-label[hidden]{display:none}
 .rocket-3d-label{position:absolute;transform:translateX(-50%);max-width:240px;padding:8px 14px;border-bottom:1px solid var(--warm);background:#10172be6;color:var(--warm);font-size:20px;text-align:center;pointer-events:none}
 #app[data-step="6"] #scene,#app[data-step="7"] #scene{visibility:hidden}
-#app[data-step="8"] .rocket-3d{left:30%}
 #app[data-step="8"] .rocket-3d .rocket-webgl{pointer-events:none}
 #app[data-step="7"] #parts{z-index:3}
 #app[data-step="7"] .stage{overflow:hidden}
@@ -467,7 +466,64 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 #app[data-step="2"] .rocket-3d{left:45%;right:18%;pointer-events:none}
 #app[data-step="2"] .rocket-webgl{pointer-events:none}
 #app[data-step="2"] #scene{position:relative;z-index:3;pointer-events:none}
-#app[data-step="8"] .rocket-3d{left:32%;right:28%}
+#app[data-step="8"] .rocket-3d{
+  inset:44px 4% 38px 21%;
+  overflow:hidden;
+  border:1px solid #afc7de40;
+  border-radius:18px;
+  background:radial-gradient(ellipse at 42% 85%,#30456980,transparent 72%),linear-gradient(150deg,#0c1628d9,#09101ba6);
+}
+#app[data-step="8"] .rocket-3d[data-separation-pad]{
+  background:#142039 url('assets/separation-pad/illustrated-ground.webp') center/cover no-repeat;
+}
+/* The launch-pad shots cover the presentation frame underneath the course controls. */
+#app[data-step="8"]:has(.rocket-3d[data-separation-pad]) .workspace{
+  position:static;
+}
+#app[data-step="8"]:has(.rocket-3d[data-separation-pad]) .stage{
+  inset:0;
+}
+#app[data-step="8"] .rocket-3d[data-separation-pad]{
+  inset:0;
+  border:0;
+  border-radius:0;
+}
+#app[data-step="8"] .rocket-3d[data-separation-pad]::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,#070e1bd9,transparent 34%),linear-gradient(0deg,#070e1bc9,transparent 22%);
+}
+#app[data-step="8"] .stage:has(.rocket-3d[data-separation-pad]) #parts{z-index:3}
+#app[data-step="8"] .stage:has(.rocket-3d[data-separation-pad]) #separation-stage{
+  inset:94px auto auto 44px;
+  text-align:left;
+  text-shadow:0 1px 8px #070e1b;
+}
+#app[data-step="8"] .rocket-3d[data-separation-pad] .separation-shot-label{
+  top:auto;
+  bottom:40px;
+  left:40px;
+  padding:0;
+  background:none;
+}
+.separation-views:not([hidden]){
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  pointer-events:none;
+}
+.separation-shot-label:not([hidden]){position:absolute;top:0;left:0;z-index:1;pointer-events:none}
+.separation-views span,.separation-shot-label{
+  padding:16px 20px;
+  color:var(--ink);
+  font-size:var(--type-body);
+  background:linear-gradient(#080f1bb3,transparent 18%);
+}
+.separation-views span+span{border-left:1px solid #afc7de70}
 #app.launch-transition #parts,#app.launch-transition aside{visibility:hidden}
 #app.launch-transition .rocket-3d{transition:left 1.6s ease,right 1.6s ease;left:32%;right:28%}
 @media(prefers-reduced-motion:reduce){#app.launch-transition .rocket-3d{transition:none}}
