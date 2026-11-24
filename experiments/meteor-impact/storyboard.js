@@ -34,6 +34,9 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
   const sideButtons = [...document.querySelectorAll('#assign [data-side]')];
   const steps = [...document.querySelectorAll('[data-step]')];
   const panels = [$('#left'), $('#right')];
+  const observationPanels = [...document.querySelectorAll('.observation-panel')];
+  const another = $('#another');
+  const retry = $('#retry');
   const phases = { fall: '下落中', contact: '撞击', dust: '扬尘', result: '撞击完成' };
   const viewport = [960, 1080];
   const engines = [];
@@ -58,7 +61,7 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
   let currentRecord;
   let resultFailed = false;
   let selectedResultTab;
-  const records = window.createMeteorRecords?.(engines);
+  const records = window.createMeteorRecords?.(engines, viewport);
   let heroStartTime;
   let previousFrameTime;
 
@@ -119,16 +122,18 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
   function setStage(stage) {
     clearSelectionToast();
     story.dataset.stage = stage;
-    if (resultViews) resultViews.hidden = stage !== 'observe';
+    if (resultViews) {
+      resultViews.hidden = stage !== 'observe';
+      $('#observation-panels').hidden = stage !== 'observe';
+    }
     if (resultViewStatus) resultViewStatus.hidden = true;
     const current = steps.findIndex(step => step.dataset.step === stage);
     steps.forEach((step, index) => {
       if (index === current) step.setAttribute('aria-current', 'step');
       else step.removeAttribute('aria-current');
-      step.classList.toggle('done', index < current);
-      if (!step.parentElement.classList.contains('story-stage-progress')) {
-        step.querySelector('b').textContent = index < current ? '✓' : index + 1;
-      }
+      const done = index < current && (index === 0 ? Boolean(factor) : Boolean(values?.every(value => value !== null)));
+      step.classList.toggle('done', done);
+      step.querySelector('b').textContent = done ? '✓' : index + 1;
     });
     $('#controls').hidden = stage === 'observe';
     $('#factors').hidden = stage !== 'factors';
@@ -151,7 +156,7 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     const waitingForSection = !currentRecord && view === 'cutaway';
     resultViewStatus.hidden = !waitingForSection;
     if (waitingForSection) resultViewStatus.textContent = resultFailed ? '剖面生成失败' : '撞击后显示剖面';
-    if (currentRecord) records.renderObservation(currentRecord, panels, view);
+    if (currentRecord) records.renderObservation(currentRecord, panels, observationPanels, view);
     else if (!split.hidden) engines.forEach(engine => engine.setObservationView(view));
   }
 
@@ -211,9 +216,12 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     return Boolean(fixedComparison && factor?.choices.length === 2);
   }
 
+  function comparisonValue(side) {
+    return factor.choices.find(([value]) => value === values[side])[1];
+  }
+
   function comparisonLabel(side) {
-    const label = factor.choices.find(([value]) => value === values[side])[1];
-    return '实验 ' + (side + 1) + ' · ' + label;
+    return '实验 ' + (side + 1) + ' · ' + comparisonValue(side);
   }
 
   function showSpaceSplit() {
@@ -329,21 +337,34 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
       });
     }
     showSpaceSplit();
+    if (observationPanels.length) {
+      $('#comparison-factor').textContent = '比较因素：' + factor.title;
+      const symbol = { size: 'D', speed: 'v', angle: 'θ' }[factor.key];
+      observationPanels.forEach((panel, side) => {
+        const value = comparisonValue(side);
+        const label = symbol
+          ? symbol + ' = ' + (factor.key === 'size' ? value.slice(2) : value)
+          : value;
+        panel.querySelector('.trial-value').textContent = label;
+        panel.querySelector('h2').setAttribute('aria-label', '实验 ' + (side + 1) + '，' + label);
+      });
+    }
     panels.forEach((panel, side) => {
-      panel.querySelector('h2').textContent = comparisonLabel(side);
+      const heading = panel.querySelector('h2');
+      if (heading) heading.textContent = comparisonLabel(side);
       panel.querySelector('.phase').textContent = '准备撞击';
     });
     $('#observations').hidden = false;
-    $('#retry').disabled = $('#another').disabled = true;
-    $('#retry').hidden = hasFixedPair();
+    if (another) retry.disabled = another.disabled = true;
     $('#observation').textContent = '观察两颗陨石的下落与撞击。';
-    $('#observation').focus();
+    $('#error').textContent = '';
+    (resultViews ? retry : $('#observation')).focus();
     if (cancel) cancel.hidden = false;
     currentRecord = null;
     resultFailed = false;
     split.removeAttribute('role');
     split.removeAttribute('aria-labelledby');
-    records?.renderObservation(null, panels);
+    records?.renderObservation(null, panels, observationPanels);
     selectResultView($('#view-whole'));
     // Populate the terrain cache while the two rocks are still in space.
     void (async () => {
@@ -393,7 +414,7 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
           if (cancel) cancel.hidden = true;
           $('#observation').textContent = '比较两组的坑径、坑深与溅射范围。' +
             '左右使用同一比例尺。';
-          $('#retry').disabled = $('#another').disabled = false;
+          if (another) retry.disabled = another.disabled = false;
         }
       }, { startTime, reduced: motion.matches, inFrame: true }));
     }, 500);
@@ -402,12 +423,13 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
   function leaveSplit(next) {
     ++runId;
     clearTimeout(fallTimer);
+    $('#error').textContent = '';
     engines.forEach(engine => {
       engine.cancel(false, false);
       engine.setObservationView('whole', false);
     });
     currentRecord = null;
-    records?.renderObservation(null, panels);
+    records?.renderObservation(null, panels, observationPanels);
     spaceSplit.hidden = true;
     spaceSplit.removeAttribute('data-dropping');
     hero.append(canvas);
@@ -418,6 +440,35 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     updateHero();
   }
 
+  function navigateStage(stage) {
+    if (story.dataset.stage === stage) return;
+    function showPending() {
+      setStage(stage);
+      if (resultViews) resultViews.hidden = true;
+      $('#observation-panels').hidden = true;
+      $('#controls').hidden = false;
+      $('#settings').hidden = true;
+      fire.hidden = true;
+      if (launchActions) launchActions.hidden = true;
+      $('#task').textContent = stage === 'settings' ? '设置对比参数' : '观察与记录';
+      $('#instruction').textContent = '请先完成前置操作';
+      $('#task').focus();
+    }
+    const next = stage === 'factors' ? showFactors : stage === 'settings' && factor ? showSettings : showPending;
+    if (!spaceSplit.hidden) leaveSplit(next);
+    else next();
+  }
+
+  steps.forEach(step => {
+    step.setAttribute('role', 'button');
+    step.tabIndex = 0;
+    step.addEventListener('click', () => navigateStage(step.dataset.step));
+    step.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      navigateStage(step.dataset.step);
+    });
+  });
   for (const item of factors) {
     const button = document.createElement('button');
     button.className = 'factor-button';
@@ -444,8 +495,8 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     else showFactors();
   };
   fire.onclick = launch;
-  $('#retry').onclick = () => leaveSplit(showSettings);
-  $('#another').onclick = () => leaveSplit(showFactors);
+  retry.onclick = () => leaveSplit(showSettings);
+  if (another) another.onclick = () => leaveSplit(showFactors);
   if (cancel) cancel.onclick = () => leaveSplit(showSettings);
   resultTabs.forEach((tab, index) => {
     tab.onclick = () => selectResultView(tab);

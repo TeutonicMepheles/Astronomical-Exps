@@ -24,6 +24,7 @@ const localPage = require('./local-page.cjs');
     await page.goto(server.url);
     await page.locator('#start').click({ timeout: 20000 });
     assert.equal(await page.locator('#factors button').count(), 5);
+    assert(await page.locator('#openRecords').isHidden());
     await configure('陨石大小', '小 20 m', '小 20 m');
     assert(await page.locator('#space-left #first').isVisible());
     assert(await page.locator('#space-right').isHidden());
@@ -48,12 +49,49 @@ const localPage = require('./local-page.cjs');
     assert.deepEqual(await page.locator('#fixed-comparison h2').allTextContents(), ['实验 1 · 小 20 m', '实验 2 · 大 300 m']);
     assert.equal(await page.locator('[data-owner="both"]').count(), 0);
     assert.equal(await page.locator('[data-owner="0"]').getAttribute('data-value'), 'small');
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.evaluate(() => {
+      const split = document.querySelector('#split');
+      const observer = new MutationObserver(() => {
+        const overlays = [...split.querySelectorAll('.observed-result svg')];
+        if (overlays.length !== 2) return;
+        observer.disconnect();
+        window.pausedCallouts = overlays.map(overlay => overlay.getAnimations({ subtree: true }));
+        window.pausedCallouts.flat().forEach(animation => animation.pause());
+      });
+      observer.observe(split, { childList: true, subtree: true });
+    });
+    assert(await page.locator('#openRecords').isHidden());
     await page.locator('#fire').click();
     assert(await page.locator('#result-views').isVisible());
+    assert(await page.locator('#openRecords').isVisible());
+    assert.equal(await page.locator('#comparison-factor').textContent(), '比较因素：陨石大小');
+    assert.deepEqual(await page.locator('.trial-value').allTextContents(), ['D = 20 m', 'D = 300 m']);
+    assert.equal(await page.locator('.observed-readouts:visible').count(), 0);
+    const [viewsBox, comparisonBox, recordsBox, progressBox] = await Promise.all(
+      ['#result-views', '#comparison-factor', '#openRecords', '.story-stage-progress'].map(selector => page.locator(selector).boundingBox())
+    );
+    assert(viewsBox.x + viewsBox.width < comparisonBox.x);
+    assert(comparisonBox.x + comparisonBox.width < recordsBox.x);
+    assert(progressBox.x > 640 && progressBox.y < 70);
     await page.getByRole('tab', { name: '剖面' }).click();
     assert(await page.locator('#result-view-status').isVisible());
     await finish();
+    const trial = page.locator('.observation-panel h2').first();
+    const initialY = (await trial.boundingBox()).y;
+    const readouts = page.locator('.observed-readouts');
+    assert.equal(await page.locator('.observed-readouts:visible').count(), 0);
+    const calloutsPerSide = await page.evaluate(() => window.pausedCallouts.map(side => side.length));
+    assert(calloutsPerSide.every(count => count > 0));
+    await page.evaluate(() => window.pausedCallouts[0].forEach(animation => animation.finish()));
+    assert.equal(await page.locator('.observed-readouts:visible').count(), 0);
+    await page.evaluate(() => window.pausedCallouts[1].forEach(animation => animation.finish()));
+    await readouts.last().waitFor();
+    await page.waitForFunction(startY =>
+      document.querySelector('.observation-panel h2').getBoundingClientRect().y < startY - 90, initialY);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await page.locator('.observed-result .rc-baseline').count(), 2);
+    assert.equal(await page.locator('.observed-result svg').getByText(/^坑径 · /).count(), 2);
     assert(await page.locator('#result-view-status').isHidden());
     await page.getByRole('tab', { name: '默认' }).click();
     assert.equal(await count(), '1');
@@ -64,6 +102,9 @@ const localPage = require('./local-page.cjs');
       liveValues.forEach(values => assert.match(values[metric], /^\d+(?:\.\d+)? (?:cm|m|km)$/));
       assert.notEqual(liveValues[0][metric], liveValues[1][metric]);
     }
+    const directions = await readouts.evaluateAll(panels => panels.map(panel =>
+      [...panel.querySelectorAll('dd')].map(row => row.querySelector('.readout-direction')?.dataset.direction ?? null)));
+    assert.deepEqual(directions, [['down', 'down', null, 'down'], ['up', 'up', null, 'up']]);
     assert.equal(await page.locator('#split .phase:visible').count(), 0);
     const currentViews = () => page.locator('.observed-result > img').evaluateAll(images => images.map(image => image.src));
     const defaultViews = await currentViews();
@@ -77,6 +118,7 @@ const localPage = require('./local-page.cjs');
     assert.deepEqual(await currentViews(), defaultViews);
     assert(await page.locator('#records').isHidden());
     await page.locator('#openRecords').click();
+    assert(await page.locator('#record-pagination').isHidden());
     const savedValues = await page.locator('.record-card footer').evaluateAll(rows =>
       rows.map(row => [...row.querySelectorAll('b')].map(value => value.textContent)));
     assert.deepEqual(savedValues, liveValues);
@@ -95,9 +137,9 @@ const localPage = require('./local-page.cjs');
       })));
     assert(sectionSpans[1][0] > sectionSpans[0][0], 'Larger modeled diameter produces a wider cut');
     assert(sectionSpans[1][1] > sectionSpans[0][1], 'Larger modeled depth produces a deeper cut');
-    const annotations = await page.locator('.record-scene svg').evaluateAll(nodes => nodes.map(node => node.getAttribute('aria-label')));
+    const annotations = await page.locator('.record-scene .meteor-annotations').evaluateAll(nodes => nodes.map(node => node.getAttribute('aria-label')));
     assert.equal(annotations.length, 2);
-    annotations.forEach(label => assert.match(label, /坑宽.*坑深/));
+    annotations.forEach(label => assert.match(label, /坑径.*坑深/));
     const cutaways = await page.locator('.record-scene img').evaluateAll(nodes => nodes.map(node => node.src));
     await button('3D 坑体').click();
     const whole = await page.locator('.record-scene img').evaluateAll(nodes => nodes.map(node => node.src));
@@ -112,7 +154,9 @@ const localPage = require('./local-page.cjs');
     });
     assert(Math.abs(ejectaPins[1] / ejectaPins[0] - expectedEjectaRatio) < .001);
     await page.locator('#closeRecords').click();
-    await page.locator('#another').click();
+    await button('返回对比参数设置').click();
+    assert(await page.locator('#openRecords').isHidden());
+    await button('返回研究因素').click();
     await button('地面类型').click();
     assert(await page.locator('#space-split').isVisible());
     assert.equal(await page.locator('.split-ground:visible').count(), 2);
@@ -139,19 +183,46 @@ const localPage = require('./local-page.cjs');
     assert.equal(await count(), '2');
     assert(await page.locator('#left .crater-detail img').isVisible());
     assert.equal(await page.locator('#right .crater-detail').count(), 0);
+    const detailImage = page.locator('#left .crater-detail img');
+    const detailUrls = new Set([await detailImage.getAttribute('src')]);
+    const detailScale = await page.locator('#left .detail-scale').textContent();
+    for (const [tab, alt] of [['俯视', '俯视坑体局部放大'], ['剖面', '立体剖面局部放大']]) {
+      await page.getByRole('tab', { name: tab }).click();
+      assert(await detailImage.isVisible());
+      assert.equal(await detailImage.getAttribute('alt'), alt);
+      assert.equal(await detailImage.evaluate(async image => { await image.decode(); return image.naturalWidth; }), 320);
+      detailUrls.add(await detailImage.getAttribute('src'));
+      assert.equal(await page.locator('#left .detail-scale').textContent(), detailScale);
+      assert.equal(await page.locator('#right .crater-detail').count(), 0);
+    }
+    assert.equal(detailUrls.size, 3);
+    await page.getByRole('tab', { name: '默认' }).click();
+    assert.equal(await detailImage.getAttribute('src'), [...detailUrls][0]);
     assert.match(await page.locator('#observation').textContent(), /同一比例尺/);
     const worldScaleLabels = await page.locator('.observed-result .rc-scale').evaluateAll(bars =>
       bars.map(bar => bar.getAttribute('aria-label')));
     assert.equal(worldScaleLabels.length, 2);
     assert.equal(worldScaleLabels[0], worldScaleLabels[1]);
     await page.locator('#openRecords').click();
-    assert.match(await page.locator('.record-note').textContent(), /同一比例尺/);
+    assert(await page.getByRole('dialog', { name: '实验记录' }).isVisible());
+    assert.equal(await page.locator('.record-note, .record-conditions, #deleteLast, #pageNumber').count(), 0);
+    assert.equal(await button('关闭实验记录').textContent().then(text => text.trim()), '');
+    const recordDetail = page.locator('#records .crater-detail img');
+    assert.equal(await recordDetail.count(), 1);
+    for (const [name, expected] of [['3D 坑体', 0], ['俯视', 1], ['立体剖面', 2]]) {
+      await button(name).click();
+      assert(await recordDetail.isVisible());
+      assert.equal(await recordDetail.getAttribute('src'), [...detailUrls][expected]);
+      assert.equal(await page.locator('#records .detail-scale').textContent(), detailScale);
+      await recordDetail.evaluate(image => image.decode());
+    }
+    await button('3D 坑体').click();
     const recordedScaleLabels = () => page.locator('.record-scene .rc-scale').evaluateAll(bars =>
       bars.map(bar => bar.getAttribute('aria-label')));
     assert.deepEqual(await recordedScaleLabels(), worldScaleLabels);
     await button('立体剖面').click();
     assert.deepEqual(await recordedScaleLabels(), worldScaleLabels);
-    const cutWidths = await page.locator('.record-scene svg').evaluateAll(overlays =>
+    const cutWidths = await page.locator('.record-scene .meteor-annotations').evaluateAll(overlays =>
       overlays.map(overlay => {
         const [, start, , , end] = overlay.querySelector('.rc-trace:not(.rc-extension)').getAttribute('d').split(/\s+/);
         return Math.abs(Number(end) - Number(start));
@@ -163,32 +234,43 @@ const localPage = require('./local-page.cjs');
     });
     assert(cutWidths[0] > 0 && Math.abs(cutWidths[0] / cutWidths[1] - expectedWidthRatio) < .001);
     assert.deepEqual(await page.locator('.record-card header strong').allTextContents(), ['地球', '月球']);
-    const conditions = await page.locator('.record-conditions').evaluateAll(rows =>
-      rows.map(row => [...row.querySelectorAll('b')].map(value => value.textContent)));
-    assert.deepEqual(conditions, [
-      ['50 m', '20 km/s', '90°', '疏松地面'],
-      ['50 m', '20 km/s', '90°', '月壤']
-    ]);
+    const scaleInset = await page.locator('.record-scene .rc-scale').evaluateAll(scales => scales.map(scale => {
+      const bounds = scale.getBoundingClientRect();
+      const scene = scale.closest('.record-scene').getBoundingClientRect();
+      return { bottom: scene.bottom - bounds.bottom, right: scene.right - bounds.right };
+    }));
+    assert(scaleInset.every(({bottom, right}) => bottom > 0 && bottom < 30 && right > 0 && right < 36));
+    const pagination = page.locator('#record-pagination');
+    assert(await pagination.isVisible());
+    assert.equal(await pagination.locator('[aria-current="page"]').getAttribute('aria-label'), '第 2 组');
+    await pagination.getByRole('button', { name: '第 1 组' }).click();
+    assert.match(await page.locator('#record-comparison').textContent(), /陨石大小/);
+    assert.equal(await pagination.locator('[aria-current="page"]').getAttribute('aria-label'), '第 1 组');
+    await page.locator('#next').click();
+    assert.equal(await pagination.locator('[aria-current="page"]').getAttribute('aria-label'), '第 2 组');
     await page.locator('#previous').click();
-    assert.match(await page.locator('#recordBody h3').textContent(), /陨石大小/);
-    await page.locator('#deleteLast').click();
-    assert.equal(await count(), '1');
+    assert.equal(await pagination.locator('[aria-current="page"]').getAttribute('aria-label'), '第 1 组');
+    assert.deepEqual(await page.locator('#record-pages button').allTextContents(), ['', '']);
+    assert.equal(await count(), '2');
     await page.locator('#closeRecords').click();
     assert(await page.locator('#result-views').isVisible());
     await page.getByRole('tab', { name: '俯视' }).click();
     assert.equal(await page.locator('.observed-result > img[alt="俯视坑体"]').count(), 2);
-    await page.locator('#another').click();
+    await button('返回对比参数设置').click();
+    assert(await page.locator('#openRecords').isHidden());
+    await button('返回研究因素').click();
     await button('撞击目标类型').click();
     await button('开始实验').click();
-    await page.locator('#cancel').click();
-    assert.equal(await count(), '1');
+    await button('返回对比参数设置').click();
+    assert(await page.locator('#openRecords').isHidden());
+    assert.equal(await count(), '2');
     assert(await page.locator('#fixed-comparison').isVisible());
     assert(await button('开始实验').isEnabled());
     await page.setViewportSize({ width: 1100, height: 850 });
     const stage = await page.locator('#story').boundingBox();
     assert(Math.abs(stage.width / stage.height - 16 / 9) < .01);
     assert.deepEqual(errors, []);
-    console.log('PASS default storyboard, distinct parameters, live results, actual cutaway captures, Earth/Moon controls, paging, deletion and cancellation.');
+    console.log('PASS default storyboard, distinct parameters, live results, actual cutaway captures, Earth/Moon controls, dot paging and cancellation.');
   } finally {
     await browser.close();
     await server.close();

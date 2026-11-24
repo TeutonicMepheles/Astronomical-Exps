@@ -77,7 +77,7 @@ const screenshotPrefix = entry === 'index2.html' ? 'guided-index2' : 'guided';
       await page.locator('.record-toolbar button').nth(view === 'whole' ? 0 : 1).click();
       const expected = await page.evaluate(v => meteorExperiment.state().records[0].sides.map(side => side[v]), view);
       assert.deepEqual(await page.locator('.record-card img').evaluateAll(images => images.map(image => image.src)), expected);
-      assert.match(await page.locator('.record-card svg').first().getAttribute('aria-label'), view === 'whole' ? /溅射范围.*坑形/ : /坑宽.*坑深/);
+      assert.match(await page.locator('.record-card svg').first().getAttribute('aria-label'), view === 'whole' ? /溅射范围.*坑形/ : /坑径.*坑深/);
       await page.locator('.record-card img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       await page.screenshot({ path: path.resolve(__dirname, '../docs/' + screenshotPrefix + '-record-cards-' + view + '.png') });

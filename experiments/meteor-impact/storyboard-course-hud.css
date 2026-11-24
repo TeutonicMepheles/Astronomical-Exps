@@ -19,9 +19,8 @@
 }
 #story-header .story-stage-progress .done { color: #a7b6ca; }
 #story-header .story-stage-progress .done b {
-  border-color: #617a80; color: #b9ded2; box-shadow: inset 0 0 0 1px #b9ded2;
+  border-color: #617a80; color: #b9ded2; font-weight: 700; box-shadow: inset 0 0 0 1px #b9ded2;
 }
-.story-stage-progress .done span::after { content: " ✓"; color: #b9ded2; }
 
 #openRecords {
   display: inline-grid;
@@ -51,7 +50,9 @@
   width: 22px;
   height: 22px;
 }
-#story-header #recordCount {
+#openRecords #recordCount {
+  display: grid;
+  place-items: center;
   width: auto;
   height: auto;
   padding-inline: 7px;
@@ -66,3 +67,5 @@
   background: #284766;
   border-color: #b7cfe2;
 }
+
+#story-header .story-stage-progress li[role="button"] { cursor:pointer; }

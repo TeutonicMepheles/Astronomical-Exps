@@ -1301,7 +1301,7 @@
         camera.position.copy(this.topCamera.position);
         camera.quaternion.copy(this.topCamera.quaternion);
       }
-      if (framing.detail) camera.lookAt(0, 0, 0);
+      if (framing.detail && !framing.top && !cutaway) camera.lookAt(0, 0, 0);
       if (cutaway) {
         const halfHeight = framing.halfWidth * captureHeight / captureWidth;
         camera.left = -framing.halfWidth; camera.right = framing.halfWidth;

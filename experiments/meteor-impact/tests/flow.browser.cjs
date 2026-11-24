@@ -28,7 +28,7 @@ const { chromium } = require('../../../node_modules/playwright');
   await page.locator('#cutView').click();
   assert.equal(await page.locator('#result0').getAttribute('src'), first.sides[0].cutaway);
   assert.equal(await page.locator('#annotations0').isVisible(), true);
-  assert.match(await page.locator('#annotations0').getAttribute('aria-label'), /坑宽.*坑深/);
+  assert.match(await page.locator('#annotations0').getAttribute('aria-label'), /坑径.*坑深/);
   assert.equal(first.sides[0].annotations.cutaway.baseline.y, first.sides[1].annotations.cutaway.baseline.y, 'Shared ground baseline');
   assert.deepEqual(first.sides[0].annotations.cutaway.framing, first.sides[1].annotations.cutaway.framing);
   assert(first.sides[0].annotations.cutaway.framing.frustum[1] < 23.5, 'Cutaway framing must enlarge the section');
