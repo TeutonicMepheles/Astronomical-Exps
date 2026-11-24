@@ -19,6 +19,13 @@ state.halo={...haloDefaults};
 try{const saved=JSON.parse(localStorage.getItem(haloStorage));for(const k in haloDefaults)if(Number.isFinite(saved?.[k]))state.halo[k]=Math.max(0,Math.min(3,saved[k]));}catch{}
 // All exterior road and sidewalk fixtures belong to one editable object.
 state.groups.path=state.groups.road;state.groups.road.useTiled=false;
+let selected=null;
+const roadDetail={shade:'open',gain:2};
+function demonstrationLamp(){
+ const fixtures=window.SCENE_LIGHT_LAYOUT.wholeFixtures.filter(lamp=>lamp.group==='road');
+ return fixtures.find(lamp=>lamp.id==='road-3')||fixtures[0];
+}
+let demonstrationLampId=demonstrationLamp()?.id;
 const views={scene:[0,0,W,H],road:[1100,780,620,348],path:[500,940,700,393],wall:[170,780,630,354],parking:[1450,1000,800,449]};
 let ready=false,dirty=true,pending=0,last=0,frames=0,staticDraws=0,uploads=0,dead=false;
 const timings=[];
@@ -30,7 +37,7 @@ function syncRoadControls(){for(const id of ['road','path']){for(const key of ['
 syncRoadControls();
 function changed(){dirty=true;request()}
 for(const k of Object.keys(names)){
- if(k!=='parking')$('shade-'+k).onchange=e=>{state.groups[k].shade=e.target.value;state.groups[k].useTiled=false;if(k==='road'||k==='path')syncRoadControls();changed()};
+ if(k!=='parking')$('shade-'+k).onchange=e=>{state.groups[k].shade=e.target.value;state.groups[k].useTiled=false;if(k==='road'||k==='path'){roadDetail.shade=e.target.value;syncRoadControls();}changed()};
  for(const p of ['gain','spread','halo'])$(k+'-'+p).oninput=e=>{state.groups[k][p]=+e.target.value;$('o-'+k+'-'+p).value=Math.round(+e.target.value*100)+'%';if(k==='road'||k==='path')syncRoadControls();changed()};
 }
 function setBuildingGain(id,value){const linked=id==='residential'||id==='public'?['residential','public']:[id];for(const k of linked){state.gains[k]=value;$('gain-'+k).value=state.gains[k];if(k!=='distant')$('o-gain-'+k).value=buildingPercent(value)}if(id==='distant')syncDistantSearchlights();changed()}
@@ -38,7 +45,6 @@ for(const k of Object.keys(labels))$('gain-'+k).oninput=e=>setBuildingGain(k,+e.
 $('beam').onchange=e=>{state.traffic.beam=e.target.checked?'high':'low';changed()};
 $('view').onchange=e=>{state.view=e.target.value;request()};
 for(const id of ['fixtures','buildings'])$('tab-'+id).onclick=()=>{for(const n of ['fixtures','buildings']){$(n).hidden=n!==id;$('tab-'+n).setAttribute('aria-pressed',String(n===id))}};
-function all(value){for(const k in state.gains){state.gains[k]=value;$('gain-'+k).value=state.gains[k];if(k!=='distant')$('o-gain-'+k).value=buildingPercent(value)}for(const k in state.groups){state.groups[k].gain=value;$(k+'-gain').value=value;$('o-'+k+'-gain').value=value*100+'%'}state.traffic.gain=value;syncDistantSearchlights();changed()}
 
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');reducedMotion.addEventListener('change',()=>{last=0;request()});
 const linear=`vec3 lin(vec3 c){return mix(c/12.92,pow((c+.055)/1.055,vec3(2.4)),step(vec3(.04045),c));}vec3 enc(vec3 c){c=max(c,vec3(0));return mix(c*12.92,1.055*pow(c,vec3(1./2.4))-.055,step(vec3(.0031308),c));}`;
@@ -84,7 +90,7 @@ function drawSkyStars(){use(starP);f(starP,'limit',skyReadout.limit);f(starP,'st
 
 const residentFixedP=program(window.RESIDENT_FIXED.fragment);
 const finalP=program(`uniform sampler2D image;uniform vec4 view;void main(){vec2 p=(view.xy+uv*view.zw)/vec2(${W},${H});frag=vec4(clamp(enc(texture(image,vec2(p.x,1.-p.y)).rgb),0.,1.),1);}`);
-const spriteP=program(`uniform sampler2D image;uniform sampler2D receivers;uniform vec4 crop;uniform vec3 tint;uniform float opacity;uniform float flip;uniform float occlude;void main(){vec2 p=vec2(mix(uv.x,1.-uv.x,flip),uv.y);vec4 c=texture(image,crop.xy+p*crop.zw);float a=c.a*opacity;if(occlude>.5)a*=texture(receivers,world/vec2(${W},${H})).a;frag=vec4(lin(c.rgb)*tint*a,a);}`);
+const spriteP=program(`uniform sampler2D image;uniform sampler2D receivers;uniform vec4 crop;uniform vec3 tint;uniform float opacity;uniform float flip;uniform float occlude;uniform bool restoreScene;uniform sampler2D staticScene;void main(){vec2 p=vec2(mix(uv.x,1.-uv.x,flip),uv.y);vec4 c=texture(image,crop.xy+p*crop.zw);float a=c.a*opacity;if(occlude>.5)a*=texture(receivers,world/vec2(${W},${H})).a;vec3 color=restoreScene?texelFetch(staticScene,ivec2(gl_FragCoord.xy),0).rgb:lin(c.rgb)*tint;frag=vec4(color*a,a);}`);
 // The original Seedream paintings are static materials on continuously projected vehicle geometry.
 const carP=program(`uniform sampler2D image;uniform float opacity;in vec3 materialColor;
 void main(){vec4 paint=texture(image,uv);vec3 color=mix(lin(materialColor),lin(paint.rgb),smoothstep(.15,.85,paint.a));frag=vec4(color*opacity,opacity);}`,`#version 300 es
@@ -100,9 +106,9 @@ else if(kind<3.5){float y=direction.y<0.?1.-uv.y:uv.y;float width=.10+.85*y;floa
 else if(kind<4.5){float r=length(p);float rays=0.;float axes=direction.x;for(int i=0;i<3;i++){if(float(i)>=axes)break;float angle=.30+float(i)*3.14159265/axes;vec2 axis=vec2(cos(angle),sin(angle));float along=abs(dot(p,axis));float side=abs(p.x*axis.y-p.y*axis.x);float width=.008+.016*pow(max(0.,1.-along),2.);float column=exp(-pow(side/width,2.))+.16*exp(-pow(side/(width*2.8),2.));rays+=column*pow(max(0.,1.-along),1.8);}a=exp(-900.*r*r)*.65+exp(-70.*r*r)*.30+rays*.44; a*=1.-smoothstep(.82,1.,r);}
 else if(kind<5.5){float t=uv.y;float center=mix(direction.x,direction.y,t);float sigma=.012+.19*pow(t,.92);float side=(uv.x-center)/sigma;float veil=exp(-.5*side*side);float core=exp(-2.5*side*side);a=(veil*.65+core*.35)*exp(-1.35*t)*smoothstep(0.,.022,t)*(1.-smoothstep(.60,1.,t));a*=texture(receivers,world/vec2(${W},${H})).a;}
 else if(kind<6.5){vec2 dir=normalize(direction);float along=dot(p,dir);float side=abs(p.x*dir.y-p.y*dir.x);a=exp(-2.8*dot(p,p))*smoothstep(0.,.08,along)*(1.-smoothstep(.06+.30*along,.14+.52*along,side))*pow(max(0.,1.-dot(p,p)),1.3);}
-else if(kind<7.5){float t=uv.y;float depth=t/max(direction.x,.01);float x=uv.x-.5;float sigma=.009+.105*pow(max(depth,0.),.86);float core=exp(-.5*pow(x/sigma,2.));float veil=exp(-.5*pow(x/(sigma*1.85+.012),2.));float distanceFade=exp(-1.65*depth);float floorFade=1.-smoothstep(direction.x-direction.y*.45,direction.x+direction.y*1.35,t);float aperture=smoothstep(0.,.018,t);float edgeFade=1.-smoothstep(.43,.5,abs(x));float coneWidth=.006+.325*max(depth,0.);float feather=.012+.020*max(depth,0.);float inside=1.-smoothstep(coneWidth-feather,coneWidth+feather,abs(x));float rim=exp(-.5*pow((abs(x)-coneWidth)/(feather*.65),2.))*smoothstep(.015,.10,depth)*(1.-smoothstep(.98,1.08,depth));a=((core*.28+veil*.08)*distanceFade+(.16*inside+.26*rim)*exp(-.65*depth))*floorFade*aperture*edgeFade;}
+else if(kind<7.5){float t=uv.y;float depth=t/max(direction.x,.01);float x=uv.x-.5;float sigma=.009+.105*pow(max(depth,0.),.86);float core=exp(-.5*pow(x/sigma,2.));float veil=exp(-.5*pow(x/(sigma*1.85+.012),2.));float distanceFade=exp(-1.65*depth);float floorFade=1.-smoothstep(direction.x-direction.y*.45,direction.x+direction.y*1.35,t);float aperture=smoothstep(0.,.018,t);float edgeFade=1.-smoothstep(.43,.5,abs(x));float coneWidth=mix(max(.006,cutoff),.331,max(depth,0.));float feather=.012+.020*max(depth,0.);float inside=1.-smoothstep(coneWidth-feather,coneWidth+feather,abs(x));float rim=exp(-.5*pow((abs(x)-coneWidth)/(feather*.65),2.))*smoothstep(.015,.10,depth)*(1.-smoothstep(.98,1.08,depth));a=((core*.28+veil*.08)*distanceFade+(.16*inside+.26*rim)*exp(-.65*depth))*floorFade*aperture*edgeFade;}
 else if(kind<8.5){float t=uv.y;float spread=.055+.42*pow(t,.7);float side=(uv.x-.5)/spread;a=exp(-2.8*side*side)*exp(-2.4*t)*smoothstep(0.,.045,t)*(1.-smoothstep(.65,1.,t));a*=texture(receivers,world/vec2(${W},${H})).b;}
-else if(kind<9.5){float r=length(p);float angle=atan(p.y,p.x);float rays=pow(.5+.5*cos(angle*16.),6.)*.07*exp(-3.5*r*r);a=(.65*exp(-4.*r*r)+.35*exp(-70.*r*r)+rays)*pow(max(0.,1.-r*r),1.5);if(cutoff<.5)a*=mix(.5,1.,smoothstep(-.3,-.06,p.y));else if(cutoff>.5&&cutoff<1.5)a*=smoothstep(-.04,.06,p.y+abs(p.x)*.75);else if(cutoff>1.5&&cutoff<2.5)a*=smoothstep(-.01,.06,p.y);else if(cutoff>2.5)a*=smoothstep(.02,.09,p.y)*(1.-smoothstep(.10+.32*max(p.y,0.),.18+.48*max(p.y,0.),abs(p.x)));}
+else if(kind<9.5){float r=length(p);float angle=atan(p.y,p.x);float rays=pow(.5+.5*cos(angle*16.),6.)*.07*exp(-3.5*r*r);a=(.65*exp(-4.*r*r)+.35*exp(-70.*r*r)+rays)*pow(max(0.,1.-r*r),1.5);if(cutoff<.5)a*=mix(.5,1.,smoothstep(-.3,-.06,p.y));else if(cutoff>.5&&cutoff<1.5)a*=mix(.16,1.,smoothstep(-.42,.02,p.y));else if(cutoff>1.5&&cutoff<2.5)a*=smoothstep(-.01,.06,p.y);else if(cutoff>2.5)a*=smoothstep(.02,.09,p.y)*(1.-smoothstep(.10+.32*max(p.y,0.),.18+.48*max(p.y,0.),abs(p.x)));}
 else{vec2 o=vec2(1663.,871.);vec2 au=vec2(169.,30.);vec2 av=vec2(-2.,92.);float det=au.x*av.y-au.y*av.x;vec2 dlt=world-o;float u=(dlt.x*av.y-dlt.y*av.x)/det;float v=(au.x*dlt.y-au.y*dlt.x)/det;vec2 outside=max(max(-vec2(u,v),vec2(u,v)-1.),0.);float dist=length(outside*vec2(171.,93.));float edge=exp(-pow(dist/16.,2.));float lower=mix(.38,1.,smoothstep(.15,.92,v));float corner=smoothstep(.35,1.05,length(outside*vec2(2.4,1.4)));a=edge*smoothstep(0.,3.2,dist)*lower*(.7+.5*corner);a*=1.-smoothstep(36.,52.,dist);a*=smoothstep(-.28,-.02,v);}
 if(kind>4.5&&kind<5.5||kind>7.5&&kind<8.5)a*=smoothstep(0.,.035,uv.x)*(1.-smoothstep(.965,1.,uv.x));
 a*=texture(receivers,world/vec2(${W},${H})).a;frag=vec4(color*gain*a,0);}`);
@@ -131,10 +137,10 @@ const distantSearchlightOrigins=[
 ];
 const distantSearchlightSweeps=new Map([[3,[.12,17,.35]]]);
 let distantSearchlightTime=0;
-function distantSearchlightsEnabled(){return state.distantSearchlights&&state.gains.distant!==1}
+function distantSearchlightsEnabled(){return state.distantSearchlights&&state.gains.distant===2}
 function syncDistantSearchlights(){
  const control=$('distant-searchlights');
- control.disabled=state.gains.distant===1;
+ control.disabled=state.gains.distant!==2;
  control.checked=distantSearchlightsEnabled();
 }
 function searchlightsPlaying(){
@@ -180,7 +186,7 @@ function bind(p,n,t,unit=0){gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl
 function texture(image){const t=gl.createTexture();textureList.push(t);gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);uploads++;return t}
 function target(){let t=gl.createTexture();textureList.push(t);gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA16F,W,H,0,gl.RGBA,gl.HALF_FLOAT,null);let fb=gl.createFramebuffer();buffers.push(fb);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t,0);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('浮点合成缓冲不完整');return {t,fb}}
 let cached,frame;const meta={};
-function sprite(name,r,{flip=0,opacity=1,tint=[1,1,1],occlude=0}={}){const p=spriteP;use(p);bind(p,'image',textures[name]);bind(p,'receivers',textures.receivers,1);v(p,'crop',meta[name]?.crop||[0,0,1,1]);v(p,'tint',tint);f(p,'flip',flip);f(p,'opacity',opacity);f(p,'occlude',occlude);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);quad(p,r)}
+function sprite(name,r,{flip=0,opacity=1,tint=[1,1,1],occlude=0,restoreScene=false}={}){const p=spriteP;use(p);bind(p,'image',textures[name]);bind(p,'receivers',textures.receivers,1);v(p,'crop',meta[name]?.crop||[0,0,1,1]);v(p,'tint',tint);f(p,'flip',flip);f(p,'opacity',opacity);f(p,'occlude',occlude);gl.uniform1i(loc(p,'restoreScene'),Number(restoreScene));bind(p,'staticScene',restoreScene?cached.t:textures[name],2);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);quad(p,r)}
 function additive(name,rect,gain,crop=[0,0,1,1]){if(gain<=0)return;use(additiveP);bind(additiveP,'image',textures[name]);v(additiveP,'crop',crop);f(additiveP,'gain',gain);gl.blendFunc(gl.ONE,gl.ONE);quad(additiveP,rect)}
 function contactShadow(x,y,rx,ry,opacity,groundOnly=1){use(shadowP);bind(shadowP,'receivers',textures.receivers);f(shadowP,'opacity',opacity);f(shadowP,'groundOnly',groundOnly);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);quad(shadowP,[x-rx,y-ry,rx*2,ry*2])}
 function light(x,y,rx,ry,color,gain,kind=1,channel=0,cutoff=0,direction=[0,1]){if(gain<=0||rx<=0||ry<=0)return;use(lightP);bind(lightP,'receivers',textures.receivers);v(lightP,'color',color);v(lightP,'direction',direction);f(lightP,'gain',gain);f(lightP,'kind',kind);f(lightP,'channel',channel);f(lightP,'cutoff',cutoff);gl.blendFunc(gl.ONE,gl.ONE);quad(lightP,[x-rx,y-ry,rx*2,ry*2])}
@@ -190,18 +196,31 @@ function fixture(group,x,y,s,groundX,groundY){lamps.push({id:group+'-'+lamps.len
 for(const family of ['wall'])for(const a of window.SCENE_LIGHT_LAYOUT[family]){fixture(family,...a.slice(0,5));if(a.length>5)lamps[lamps.length-1].receiver=a[5]}
 const parking=window.SCENE_LIGHT_LAYOUT.parking;
 function drawAirBeam(x,y,gx,gy,radius,color,gain){if(gain<=0)return;const left=Math.min(x,gx)-radius*1.8,right=Math.max(x,gx)+radius*1.8;use(lightP);bind(lightP,'receivers',textures.receivers);v(lightP,'color',color);v(lightP,'direction',[(x-left)/(right-left),(gx-left)/(right-left)]);f(lightP,'gain',gain);f(lightP,'kind',5);f(lightP,'channel',0);f(lightP,'cutoff',0);gl.blendFunc(gl.ONE,gl.ONE);quad(lightP,[left,y,right-left,gy-y]);}
-function drawDownCone(ex,ey,footY,rx,ry,color,gain){if(gain<=0)return;const length=footY+ry*1.5-ey;use(lightP);bind(lightP,'receivers',textures.receivers);v(lightP,'color',color);v(lightP,'direction',[(footY-ey)/length,ry/length]);f(lightP,'gain',gain);f(lightP,'kind',7);f(lightP,'channel',0);f(lightP,'cutoff',0);gl.blendFunc(gl.ONE,gl.ONE);quad(lightP,[ex-rx*1.5,ey,rx*3,length]);}
+function drawDownCone(ex,ey,footY,rx,ry,color,gain,openingHalfWidth){if(gain<=0)return;const length=footY+ry*1.5-ey;use(lightP);bind(lightP,'receivers',textures.receivers);v(lightP,'color',color);v(lightP,'direction',[(footY-ey)/length,ry/length]);f(lightP,'gain',gain);f(lightP,'kind',7);f(lightP,'channel',0);f(lightP,'cutoff',openingHalfWidth/(rx*3));gl.blendFunc(gl.ONE,gl.ONE);quad(lightP,[ex-rx*1.5,ey,rx*3,length]);}
 
+function fixtureShade(lamp){
+ const group=state.groups[lamp.group];
+ if(lamp.id===demonstrationLampId)return roadDetail.shade;
+ return group.useTiled?lamp.defaultShade:group.shade;
+}
+const trafficOccluders=[];
+// Half-widths sampled at the shade lips in the 2048-pixel fixture frames.
+const shadeOpeningHalfWidths={open:0,cap:143,half:137,full:157};
 function renderLamps(){
- for(const l of window.SCENE_LIGHT_LAYOUT.wholeFixtures){const a=state.groups[l.group],shade=a.useTiled?l.defaultShade:a.shade,p=profiles[shade],g=a.gain,road=l.group==='road',sz=l.sourceScale,c=road?[1,.76,.47]:[1,.78,.45];
+ trafficOccluders.length=0;
+ for(const l of window.SCENE_LIGHT_LAYOUT.wholeFixtures){const a=state.groups[l.group],demo=l.id===demonstrationLampId,shade=fixtureShade(l),p=profiles[shade],g=demo?a.gain*roadDetail.gain/2:a.gain,road=l.group==='road',sz=l.sourceScale,c=road?[1,.76,.47]:[1,.78,.45];
  const head='whole-road-'+shade,m=meta[head],[x,y,w,h]=l.rect,flip=l.flip,[cx,cy,cw,ch]=m.uploadCrop;
  // A single complete generated fixture is the Tiled object. Its light shares that transform.
  const ex=x+(flip?2048-m.emitterFrame[0]:m.emitterFrame[0])*w/2048,ey=y+m.emitterFrame[1]*h/2048;
  const bodyRect=[x+(flip?2048-cx-cw:cx)*w/2048,y+cy*h/2048,cw*w/2048,ch*h/2048];
+ const footY=y+h*1900/2048;
+ trafficOccluders.push({head,bodyRect,flip,footY});
  if(g<=0||p.ground<=0){sprite(head,bodyRect,{flip,occlude:1});continue;}
- const footY=y+h*1900/2048,height=footY-ey,rx=height*.72*a.spread*p.width,ry=rx*.32;
+ const height=footY-ey,rx=height*.72*a.spread*p.width,ry=rx*.32;
  // Vertical fixture axis and floor projection coincide. Legacy side-arm targets are not used.
- drawDownCone(ex,ey+sz,footY,rx,ry,c,g*p.beam*.65);
+ // Start the half-cutoff beam inside the bulb so its fade reaches the glass lip.
+ const beamTop=shade==='half'?ey-40*h/2048:ey+sz;
+ drawDownCone(ex,beamTop,footY,rx,ry,c,g*p.beam*.65,shadeOpeningHalfWidths[shade]*w/2048);
  light(ex,footY,rx,ry,c,g*p.ground*.48,0,l.receiver);
  light(ex,footY,rx*1.5,ry*1.5,c,g*p.ground*.22,0,l.receiver);
  sprite(head,bodyRect,{flip,occlude:1});
@@ -215,7 +234,10 @@ function renderLamps(){
 }
 function drawBillboardGlow(gain){if(gain<=0)return;light(1747,940,150,130,[1,.985,.94],gain*.18,10);light(1748,1056,100,58,[1,.985,.94],gain*.09,0,0);light(1748,1110,112,40,[1,.97,.92],gain*.03,0,0);}
 function renderAmbient(){const stadium=stadiumGain()*2.6;
- for(const [x,y] of [[442,606],[548,624],[708,574],[1098,568],[1205,594],[968,670]]){light(x,y,66,64,[1,.90,.72],stadium*.04,1);light(x,y,19,15,[1,.93,.80],stadium*.08,2);drawAirBeam(x,y+6,x<820?x+145:x-115,750,88,[1,.90,.76],stadium*.09)}
+ const x=1098,y=568;
+ light(x,y,66,64,[1,.90,.72],stadium*.04,1);
+ light(x,y,19,15,[1,.93,.80],stadium*.08,2);
+ drawAirBeam(x,y+6,x-115,750,88,[1,.90,.76],stadium*.09);
  light(820,570,590,310,[1,.80,.53],stadium*.023,1);
  const ad=state.gains.billboard*2.5,screens=state.gains['commercial-screens']*1.4;
  drawBillboardGlow(ad);
@@ -252,15 +274,32 @@ function poses(time=state.time){return window.CITY_TRAFFIC.poses(time,meta['car-
 function carLights(c){return c.lamps.map(l=>({x:l.point[0],y:l.point[1],front:l.front,visibility:l.visibility}))}
 function carLampPoints(c){return c.lamps.map(l=>l.point.slice())}
 function drawCar(c){const mesh=vehicleGeometry.get(c.type);use(carP);v(carP,'groundPivot',[c.x,c.y]);v(carP,'groundBasis',c.groundBasis);f(carP,'heightY',c.heightY);f(carP,'worldScale',c.worldScale);v(carP,'viewAngles',[c.yaw,c.pitch]);bind(carP,'image',textures['car-angles']);f(carP,'opacity',c.opacity);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.enable(gl.DEPTH_TEST);gl.depthMask(true);gl.clear(gl.DEPTH_BUFFER_BIT);gl.bindVertexArray(mesh.vao);if(c.opacity<.999){gl.colorMask(false,false,false,false);gl.drawArrays(gl.TRIANGLES,0,mesh.count);gl.colorMask(true,true,true,true);gl.depthMask(false);gl.depthFunc(gl.EQUAL);}gl.drawArrays(gl.TRIANGLES,0,mesh.count);gl.depthMask(true);gl.depthFunc(gl.LESS);gl.bindVertexArray(null);gl.disable(gl.DEPTH_TEST)}
+function drawLampOccluders(car,radius){
+ const [left,top,right,bottom]=car.bodyBounds;
+ for(const {head,bodyRect,flip,footY} of trafficOccluders){
+  if(footY<=car.y)continue;
+  const [x,y,w,h]=bodyRect;
+  if(x>=right+radius||x+w<=left-radius||y>=bottom+radius||y+h<=top-radius)continue;
+  sprite(head,bodyRect,{flip,occlude:1,restoreScene:true});
+ }
+}
 function drawTraffic(){const cars=poses().filter(c=>c.opacity>.001),a=state.traffic,high=a.beam==='high';if(trafficLayers.ground)for(const c of cars){const g=a.gain*c.opacity,[x,y]=c.frontGround,[dx,dy]=c.forward;if(c.horizontal){light(x+dx*45*c.s,y,80*c.s,16*c.s,[1,.85,.61],g*.10,0);continue}light(x+dx*32*c.s,y+dy*32*c.s,54*c.s,35*c.s,[1,.86,.65],g*(high?.23:.11),0);light(x+dx*70*c.s,y+dy*70*c.s,45*c.s,(high?110:65)*c.s,[1,.88,.70],g*(high?.13:.06),3,0,0,[dx,dy]);}
-for(const c of cars){const box=c.footBounds;if(trafficLayers.shadows){contactShadow((box[0]+box[2])/2,(box[1]+box[3])/2,(box[2]-box[0])*.46,c.shadowDepth,c.opacity*.50,0);for(const [x,y] of c.wheelContacts)contactShadow(x,y,.24*c.worldScale,.12*c.worldScale,c.opacity*.65,0);}if(trafficLayers.body)drawCar(c);}
-if(trafficLayers.lamps)for(const c of cars){for(const lamp of carLights(c)){const {x,y,front,visibility}=lamp,g=a.gain*c.opacity*visibility,color=front?[1,.87,.68]:[1,.055,.014];light(x,y,3.5*c.s,1.7*c.s,color,g*.9,2);const lens=g*a.glare*(front?(high?3.2:1.4):.05)*Math.pow(Math.min(1,c.s),.75);light(x,y,(high?125:85)*c.s,(high?125:85)*c.s,[.78,.88,1],lens*.72,4,0,0,[high?3:2,0]);light(x,y,38*c.s,38*c.s,color,lens*.06,1);light(x,y,9*c.s,9*c.s,color,lens*.22,1);if(front&&high)light(x+(W*.5-x)*.18,y+(H*.5-y)*.18,12*c.s,12*c.s,[.4,.6,1],lens*.025,1)}}return cars;}
+for(const c of cars){const box=c.footBounds;if(trafficLayers.shadows){contactShadow((box[0]+box[2])/2,(box[1]+box[3])/2,(box[2]-box[0])*.46,c.shadowDepth,c.opacity*.50,0);for(const [x,y] of c.wheelContacts)contactShadow(x,y,.24*c.worldScale,.12*c.worldScale,c.opacity*.65,0);}}
+for(const c of cars.sort((a,b)=>a.y-b.y)){
+ if(trafficLayers.body)drawCar(c);
+ if(trafficLayers.lamps)for(const lamp of carLights(c)){const {x,y,front,visibility}=lamp,g=a.gain*c.opacity*visibility,color=front?[1,.87,.68]:[1,.055,.014];light(x,y,3.5*c.s,1.7*c.s,color,g*.9,2);const lens=g*a.glare*(front?(high?3.2:1.4):.05)*Math.pow(Math.min(1,c.s),.75);light(x,y,(high?125:85)*c.s,(high?125:85)*c.s,[.78,.88,1],lens*.72,4,0,0,[high?3:2,0]);light(x,y,38*c.s,38*c.s,color,lens*.06,1);light(x,y,9*c.s,9*c.s,color,lens*.22,1);if(front&&high)light(x+(W*.5-x)*.18,y+(H*.5-y)*.18,12*c.s,12*c.s,[.4,.6,1],lens*.025,1)}
+ if(trafficLayers.body||trafficLayers.lamps&&a.gain>0)
+  drawLampOccluders(c,trafficLayers.lamps&&a.gain>0?(high?125:85)*c.s:0);
+ }
+ return cars;
+}
 
 function request(){if(!pending&&!dead&&!document.hidden)pending=requestAnimationFrame(tick)}
-function tick(now){pending=0;if(!ready||dead||document.hidden)return;let start=performance.now();const dt=last?Math.max(0,Math.min(.07,(now-last)/1000)):0;if(!state.traffic.paused)state.time+=dt*state.traffic.speed;if(screensPlaying())state.media.time+=dt;if(searchlightsPlaying())distantSearchlightTime+=dt;if(starsPlaying())starTime+=dt;last=now;gl.viewport(0,0,W,H);renderView=views[state.view];if(cachedView!==state.view){dirty=true;cachedView=state.view}if(dirty)rebuild();gl.disable(gl.BLEND);gl.bindFramebuffer(gl.READ_FRAMEBUFFER,cached.fb);gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,frame.fb);gl.blitFramebuffer(0,0,W,H,0,0,W,H,gl.COLOR_BUFFER_BIT,gl.NEAREST);gl.bindFramebuffer(gl.FRAMEBUFFER,frame.fb);gl.enable(gl.BLEND);drawDistantSearchlights(true);drawSkyStars();drawScreens();drawTraffic();gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.disable(gl.BLEND);renderView=[0,0,W,H];use(finalP);bind(finalP,'image',frame.t);v(finalP,'view',[0,0,W,H]);quad(finalP,[0,0,W,H]);frames++;timings.push(performance.now()-start);if(timings.length>600)timings.shift();if(!state.traffic.paused&&state.traffic.speed>0||screensPlaying()||searchlightsPlaying()||starsPlaying())request()}
+function trafficVisible(){return state.view!=='detail'||selected!=='road'}
+function tick(now){pending=0;if(!ready||dead||document.hidden)return;let start=performance.now();const dt=last?Math.max(0,Math.min(.07,(now-last)/1000)):0;if(trafficVisible()&&!state.traffic.paused)state.time+=dt*state.traffic.speed;if(screensPlaying())state.media.time+=dt;if(searchlightsPlaying())distantSearchlightTime+=dt;if(starsPlaying())starTime+=dt;last=now;gl.viewport(0,0,W,H);renderView=views[state.view];if(cachedView!==state.view){dirty=true;cachedView=state.view}if(dirty)rebuild();gl.disable(gl.BLEND);gl.bindFramebuffer(gl.READ_FRAMEBUFFER,cached.fb);gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,frame.fb);gl.blitFramebuffer(0,0,W,H,0,0,W,H,gl.COLOR_BUFFER_BIT,gl.NEAREST);gl.bindFramebuffer(gl.FRAMEBUFFER,frame.fb);gl.enable(gl.BLEND);drawDistantSearchlights(true);drawSkyStars();drawScreens();if(trafficVisible())drawTraffic();gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.disable(gl.BLEND);renderView=[0,0,W,H];use(finalP);bind(finalP,'image',frame.t);v(finalP,'view',[0,0,W,H]);quad(finalP,[0,0,W,H]);frames++;timings.push(performance.now()-start);if(timings.length>600)timings.shift();if(trafficVisible()&&!state.traffic.paused&&state.traffic.speed>0||screensPlaying()||searchlightsPlaying()||starsPlaying())request()}
 document.addEventListener('visibilitychange',()=>{last=0;if(document.hidden){cancelAnimationFrame(pending);pending=0}else request()});
 window.addEventListener('pagehide',()=>{dead=true;cancelAnimationFrame(pending);textureList.forEach(t=>gl.deleteTexture(t));buffers.forEach(b=>gl.deleteFramebuffer(b));programs.forEach(p=>gl.deleteProgram(p));vehicleBuffers.forEach(({vao,buffer})=>{gl.deleteVertexArray(vao);gl.deleteBuffer(buffer)});depthBuffers.forEach(b=>gl.deleteRenderbuffer(b));gl.deleteBuffer(skyBuffer);gl.deleteVertexArray(skyVAO);});
-window.scenePreview={sky:()=>({...skyReadout}),stars:()=>Array.from({length:skyVertices.length/6},(_,i)=>Array.from(skyVertices.slice(i*6,i*6+6))),setTrafficOptions:options=>{for(const k of ['gain','glare','speed','paused'])if(k in options)state.traffic[k]=options[k];last=0;request()},setTrafficLayers:layers=>{Object.assign(trafficLayers,{body:true,ground:true,shadows:true,lamps:true},layers);request()},state:()=>JSON.parse(JSON.stringify(state)),camera:()=>views[state.view].slice(),poses:()=>poses(),lampPoints:()=>poses().map(c=>({id:c.id,points:carLampPoints(c)})),screenEffects:()=>({emission:screenEmissionGain,bloom:screenBloomGain,effectiveBloom:effectiveScreenBloom(),glitch:screenGlitchGain}),setScreenGlitch:gain=>{if(Number.isFinite(gain)){screenGlitchGain=Math.max(0,Math.min(1,gain));request()}},setScreenEmission:gain=>{if(Number.isFinite(gain)){screenEmissionGain=Math.max(0,Math.min(2,gain));request()}},setScreenBloom:gain=>{if(Number.isFinite(gain)){screenBloomGain=Math.max(0,Math.min(1,gain));request()}},setMediaOptions:options=>{if("paused" in options)state.media.paused=!!options.paused;last=0;request()},screens:()=>JSON.parse(JSON.stringify(window.CITY_SCREENS)),setMediaTime:t=>{if(Number.isFinite(t)){state.media.time=t;state.media.paused=true;request()}},setTime:t=>{state.time=t;last=0;request()},stats:()=>({screenTextureBytes:14*2032*1152*4,liveScreenTextures:Object.entries(textures).filter(([name,t])=>name.startsWith("screen-")&&gl.isTexture(t)).length,frames,staticDraws,uploads,canvas:[W,H],errors:gl.getError(),frameCpuMs:timings.slice(),skyBufferBytes:skyVertices.byteLength,liveSkyBuffer:!!skyBuffer&&gl.isBuffer(skyBuffer),fixtureCount:lamps.filter(l=>l.x<2000).length+2+window.SCENE_LIGHT_LAYOUT.wholeFixtures.length+window.SCENE_LIGHT_LAYOUT.parkBollards.length,parkCount:window.SCENE_LIGHT_LAYOUT.parkBollards.length,parkingCount:parking.length,textureCount:textureList.length,vehicleBufferCount:vehicleBuffers.length,vehicleVertexBytes:[...vehicleGeometry.values()].reduce((n,m)=>n+m.count*32,0),vehicleDepthBytes:W*H*2,liveVehicleBuffers:vehicleBuffers.filter(({buffer})=>gl.isBuffer(buffer)).length,liveVehicleDepth:depthBuffers.filter(b=>gl.isRenderbuffer(b)).length}),fixtures:()=>window.SCENE_LIGHT_LAYOUT.wholeFixtures.map(l=>{const m=meta['whole-road-'+(state.groups[l.group].useTiled?l.defaultShade:state.groups[l.group].shade)],[x,y,w,h]=l.rect;return {id:l.id,group:l.group,rect:l.rect.slice(),sourceScale:l.sourceScale,foot:[x+w*.5,y+h*1900/2048],emitter:[x+(l.flip?2048-m.emitterFrame[0]:m.emitterFrame[0])*w/2048,y+m.emitterFrame[1]*h/2048]}}),layout:()=>JSON.parse(JSON.stringify(window.SCENE_LIGHT_LAYOUT)),pixel:(x,y)=>{const p=new Uint8Array(4);gl.readPixels(x,H-1-y,1,1,gl.RGBA,gl.UNSIGNED_BYTE,p);return Array.from(p)}};
+window.scenePreview={sky:()=>({...skyReadout}),stars:()=>Array.from({length:skyVertices.length/6},(_,i)=>Array.from(skyVertices.slice(i*6,i*6+6))),setTrafficOptions:options=>{for(const k of ['gain','glare','speed','paused'])if(k in options)state.traffic[k]=options[k];last=0;request()},setTrafficLayers:layers=>{Object.assign(trafficLayers,{body:true,ground:true,shadows:true,lamps:true},layers);request()},state:()=>JSON.parse(JSON.stringify(state)),camera:()=>views[state.view].slice(),poses:()=>poses(),lampPoints:()=>poses().map(c=>({id:c.id,points:carLampPoints(c)})),screenEffects:()=>({emission:screenEmissionGain,bloom:screenBloomGain,effectiveBloom:effectiveScreenBloom(),glitch:screenGlitchGain}),setScreenGlitch:gain=>{if(Number.isFinite(gain)){screenGlitchGain=Math.max(0,Math.min(1,gain));request()}},setScreenEmission:gain=>{if(Number.isFinite(gain)){screenEmissionGain=Math.max(0,Math.min(2,gain));request()}},setScreenBloom:gain=>{if(Number.isFinite(gain)){screenBloomGain=Math.max(0,Math.min(1,gain));request()}},setMediaOptions:options=>{if("paused" in options)state.media.paused=!!options.paused;last=0;request()},screens:()=>JSON.parse(JSON.stringify(window.CITY_SCREENS)),setMediaTime:t=>{if(Number.isFinite(t)){state.media.time=t;state.media.paused=true;request()}},setTime:t=>{state.time=t;last=0;request()},stats:()=>({screenTextureBytes:14*2032*1152*4,liveScreenTextures:Object.entries(textures).filter(([name,t])=>name.startsWith("screen-")&&gl.isTexture(t)).length,frames,staticDraws,uploads,canvas:[W,H],errors:gl.getError(),frameCpuMs:timings.slice(),skyBufferBytes:skyVertices.byteLength,liveSkyBuffer:!!skyBuffer&&gl.isBuffer(skyBuffer),fixtureCount:lamps.filter(l=>l.x<2000).length+2+window.SCENE_LIGHT_LAYOUT.wholeFixtures.length+window.SCENE_LIGHT_LAYOUT.parkBollards.length,parkCount:window.SCENE_LIGHT_LAYOUT.parkBollards.length,parkingCount:parking.length,textureCount:textureList.length,vehicleBufferCount:vehicleBuffers.length,vehicleVertexBytes:[...vehicleGeometry.values()].reduce((n,m)=>n+m.count*32,0),vehicleDepthBytes:W*H*2,liveVehicleBuffers:vehicleBuffers.filter(({buffer})=>gl.isBuffer(buffer)).length,liveVehicleDepth:depthBuffers.filter(b=>gl.isRenderbuffer(b)).length}),fixtures:()=>window.SCENE_LIGHT_LAYOUT.wholeFixtures.map(l=>{const m=meta['whole-road-'+fixtureShade(l)],[x,y,w,h]=l.rect;return {id:l.id,group:l.group,rect:l.rect.slice(),sourceScale:l.sourceScale,foot:[x+w*.5,y+h*1900/2048],emitter:[x+(l.flip?2048-m.emitterFrame[0]:m.emitterFrame[0])*w/2048,y+m.emitterFrame[1]*h/2048]}}),layout:()=>JSON.parse(JSON.stringify(window.SCENE_LIGHT_LAYOUT)),pixel:(x,y)=>{const p=new Uint8Array(4);gl.readPixels(x,H-1-y,1,1,gl.RGBA,gl.UNSIGNED_BYTE,p);return Array.from(p)}};
 async function load(){const manifest=await getManifest();prepareVehicles(manifest);for(const r of manifest.runtime){let im=new Image();im.src=window.EMBEDDED?.[r.name]||(r.path+'?v='+r.sha256.slice(0,16));await im.decode();if(r.uploadCrop){const b=await createImageBitmap(im,...r.uploadCrop,{premultiplyAlpha:'none',colorSpaceConversion:'none'});textures[r.name]=texture(b);b.close()}else textures[r.name]=texture(im);meta[r.name]=r;}prepareSky();cached=target();frame=target();const depth=gl.createRenderbuffer();depthBuffers.push(depth);gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,W,H);gl.bindFramebuffer(gl.FRAMEBUFFER,frame.fb);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,depth);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('车辆深度缓冲不完整');ready=true;tick(performance.now());$('loading').hidden=true;document.body.dataset.ready='true'}
 async function getManifest(){return window.BUNDLE||fetch('runtime-manifest.json',{cache:'no-store'}).then(r=>r.json())}
 load().catch(e=>{$('loading').textContent=e.message;console.error(e)});
@@ -288,7 +327,7 @@ const filledIcons={
 };
 const icon=id=>filledIcons[id]?'<svg class="ui-icon filled-icon" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">'+filledIcons[id]+'</svg>':'<img class="ui-icon" alt="" aria-hidden="true" src="'+(window.UI_ICONS?.[id]||'assets/ui/'+id+'.png')+'">';
 const categoryIcons={'总览':'home','灯具':'road','建筑':'residential','商业':'commercial-windows','体育场':'stadium','远景':'distant','车流':'traffic'};
-let selected=null,zoom=false;const completed=new Set();
+let zoom=false;const completed=new Set();
 const markerStorage='city-night-marker-positions-v1',markerDefaults={road:[47,61],park:[31,63],'public-pair':[13,53],parking:[64,69],residential:[83,70],'commercial-windows':[71,43],billboard:[59,54],stadium:[34,40],distant:[52,29],traffic:[49,80]};
 for(const item of items)[item[4],item[5]]=markerDefaults[item[0]];
 try{const saved=JSON.parse(localStorage.getItem(markerStorage));if(saved?.version===1)for(const item of items){const p=saved.positions?.[item[0]];if(Array.isArray(p)&&p.length===2&&p.every(Number.isFinite)&&p[0]>=3&&p[0]<=97&&p[1]>=8&&p[1]<=97)[item[4],item[5]]=p;}}catch{}
@@ -297,10 +336,18 @@ function markerPositions(){return Object.fromEntries(items.map(i=>[i[0],[i[4],i[
 
 const markers=document.querySelector('.markers'),panel=document.querySelector('aside'),body=$('panel-body'),layout=document.querySelector('.layout');
 const objectChannels={'residential':['residential','wall'],'commercial-windows':['commercial-windows','commercial-screens']};
-const controls={};for(const id of [...Object.keys(names),...Object.keys(labels),'traffic'])controls[id]=id==='traffic'?document.querySelector('.traffic'):names[id]?$(id+'-gain').closest('section'):$('gain-'+id).closest('label');
+const controls={};for(const id of [...Object.keys(names),...Object.keys(labels),'traffic']){
+ if(id==='traffic'){controls[id]=document.querySelector('.traffic');continue}
+ if(names[id]){controls[id]=$(id+'-gain').closest('section');continue}
+ const label=$('gain-'+id).closest('label');
+ const wrapper=document.createElement('div');
+ label.before(wrapper);
+ wrapper.append(label);
+ controls[id]=wrapper;
+}
 // Keep fixed calibration controls outside user-facing fixture panels.
 for(const id of ['road','wall','parking'])document.querySelector('.legacy-controls').append(controls[id].querySelector('.twins'));
-for(const [id,channels] of Object.entries(objectChannels)){const group=document.createElement('section');group.className='object-controls';for(const channel of channels)group.append(controls[channel]);controls[id]=group}
+for(const [id,channels] of Object.entries(objectChannels)){const group=document.createElement('section');group.className='object-controls';for(const channel of channels)group.append(controls[channel]);controls[id]=group;document.querySelector('.legacy-controls').append(group)}
 
 const distantControls=document.createElement('section');
 distantControls.append(controls.distant);
@@ -312,21 +359,79 @@ const stadiumControls=document.createElement('section');stadiumControls.append(c
 const parkControls=document.createElement('section');parkControls.innerHTML=range('park-gain','公园亮度',0,1,state.park.gain,.01);document.querySelector('.legacy-controls').append(parkControls);controls.park=parkControls;$('park-gain').oninput=e=>{state.park.gain=+e.target.value;$('o-park-gain').value=Math.round(+e.target.value*100)+'%';changed()};
 const pairControls=document.createElement('section');pairControls.append(controls['public-pair']);pairControls.insertAdjacentHTML('beforeend',range('pair-warmth','冷暖',0,1,.5,.01));controls['public-pair']=pairControls;document.querySelector('.legacy-controls').append(pairControls);$('pair-warmth').oninput=e=>{state.pair.warmth=+e.target.value;$('o-pair-warmth').value=Math.round(+e.target.value*100)+'%';changed()};
 const shadeIcon=key=>'<img class="ui-icon fixture-head-icon" alt="" aria-hidden="true" src="'+(window.LAMP_HEADS?.[key]||'assets/lamp-heads/'+key+'.png')+'">';
-const shadeChoices={};for(const id of ['road','wall','public-pair']){const div=document.createElement('div');div.className='shade-choices';for(const [key,title] of Object.entries(shades)){let b=document.createElement('button');b.innerHTML='<span aria-hidden="true">'+shadeIcon(key)+'</span>'+title;b.onclick=()=>{if(id==='public-pair'){state.pair.shade=key;changed()}else{$('shade-'+id).value=key;$('shade-'+id).dispatchEvent(new Event('change'));}markComplete(selected);sync()};b.dataset.shade=key;div.append(b)}if(id==='public-pair'){const title=document.createElement('b');title.textContent='墙灯灯罩';title.style.fontSize='1cqw';controls[id].append(title)}controls[id].append(div);shadeChoices[id]=div}
-// Five clickable demonstration steps inside the existing 0–2 road gain. Not a photometric scale.
-const roadLevels=[{id:'off',name:'关闭',gain:0},{id:'dim',name:'微光',gain:.5},{id:'save',name:'节能',gain:1},{id:'standard',name:'标准',gain:1.5},{id:'boost',name:'增强',gain:2}];
-function roadLevelIcon(id){if(id==='off')return '<svg class="lamp-level-svg" viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="road-bulb-off" cx="38%" cy="32%" r="68%"><stop offset="0" stop-color="#f7f9fb"/><stop offset=".62" stop-color="#e7edf3"/><stop offset="1" stop-color="#c9d3de"/></radialGradient></defs><path fill="url(#road-bulb-off)" stroke="#b7c3d0" stroke-width="1.4" d="M32 14c-6.4 0-10.6 5-10.6 11.1 0 3.8 1.8 6.6 3.8 8.4.6.5 1 1.2 1 1.9V40h11.6v-4.6c0-.7.4-1.4 1-1.9 2-1.8 3.8-4.6 3.8-8.4C42.6 19 38.4 14 32 14z"/><path d="M28.4 23c1.5-1.7 4-1.7 5.4 0" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".9"/><rect x="26.4" y="40.2" width="11.2" height="2.8" rx="1" fill="#c5d0dc"/><rect x="27.8" y="44" width="8.4" height="2.1" rx=".7" fill="#b4c0cc"/></svg>';const tone={dim:['#fff6ea','#f6b56a','#e07a32','#f0a45a',.4],save:['#fffceb','#ffe07a','#f0b423','#ffd15a',.52],standard:['#fffef6','#fff3a6','#ffcf3a','#ffe07a',.68],boost:['#ffffff','#fff7c8','#ffe56a','#fff1ad',.8]}[id];const rays=id==='boost'?'<g stroke="#ffe7a0" stroke-width="2.4" stroke-linecap="round"><path d="M32 3v6M32 55v6M7 32H3M61 32h-6M14 14l4.2 4.2M50 14l-4.2 4.2M14 50l4.2-4.2M50 50l-4.2-4.2"/></g>':'';return `<svg class="lamp-level-svg" viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="road-bulb-${id}" cx="38%" cy="32%" r="68%"><stop offset="0" stop-color="${tone[0]}"/><stop offset=".55" stop-color="${tone[1]}"/><stop offset="1" stop-color="${tone[2]}"/></radialGradient></defs><ellipse cx="32" cy="33" rx="${id==='boost'?19:15.5}" ry="${id==='boost'?17:13.5}" fill="${tone[3]}" opacity="${tone[4]}"/>${rays}<path fill="url(#road-bulb-${id})" d="M32 14c-6.4 0-10.6 5-10.6 11.1 0 3.8 1.8 6.6 3.8 8.4.6.5 1 1.2 1 1.9V40h11.6v-4.6c0-.7.4-1.4 1-1.9 2-1.8 3.8-4.6 3.8-8.4C42.6 19 38.4 14 32 14z"/><path d="M28.4 23c1.5-1.7 4-1.7 5.4 0" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".85"/><rect x="26.4" y="40.2" width="11.2" height="2.8" rx="1" fill="#e6c68e"/><rect x="27.8" y="44" width="8.4" height="2.1" rx=".7" fill="#d7b57c"/></svg>`}
-const roadLevelBox=document.createElement('div');roadLevelBox.className='lamp-levels';roadLevelBox.setAttribute('role','radiogroup');roadLevelBox.setAttribute('aria-label','路灯亮度');
-for(const level of roadLevels){const button=document.createElement('button');button.type='button';button.dataset.level=level.id;button.setAttribute('role','radio');button.setAttribute('aria-checked','false');button.innerHTML=`<span class="lamp-level-face">${roadLevelIcon(level.id)}<span class="lamp-level-name">${level.name}</span></span>`;button.onclick=()=>{const input=$('road-gain');input.value=String(level.gain);input.dispatchEvent(new Event('input',{bubbles:true}))};roadLevelBox.append(button)}
-const roadGainLabel=$('road-gain').closest('label');roadGainLabel.classList.add('lamp-gain-proxy');roadGainLabel.setAttribute('aria-hidden','true');$('road-gain').tabIndex=-1;controls.road.classList.add('has-lamp-levels');controls.road.insertBefore(roadLevelBox,roadGainLabel);
-function nearestRoadLevel(gain){let nearest=roadLevels[0],distance=Infinity;for(const level of roadLevels){const gap=Math.abs(gain-level.gain);if(gap<distance){distance=gap;nearest=level}}return nearest}
-function sync(){if(selected==='road'||selected==='path'){const image=document.querySelector('.object-preview');image.src=window.LAMP_HERO?.[state.groups[selected].shade]||'assets/lamp-hero/'+state.groups[selected].shade+'.png';image.classList.add('lamp-preview');image.alt=shades[state.groups[selected].shade]+'完整路灯'}else document.querySelector('.object-preview').classList.remove('lamp-preview');for(const input of document.querySelectorAll('input[type=range]'))input.style.setProperty('--fill',((input.value-input.min)/(input.max-input.min)*100)+'%');for(const [id,div] of Object.entries(shadeChoices))for(const b of div.children)b.setAttribute('aria-pressed',String(b.dataset.shade===(id==='public-pair'?state.pair.shade:state.groups[id].shade)));const current=nearestRoadLevel(state.groups.road.gain).id;for(const button of roadLevelBox.children)button.setAttribute('aria-checked',String(button.dataset.level===current))}
-document.addEventListener('input',sync);document.addEventListener('change',sync);
+const shadeChoices={};for(const id of ['road','wall','public-pair']){const div=document.createElement('div');div.className='shade-choices';for(const [key,title] of Object.entries(shades)){let b=document.createElement('button');b.innerHTML='<span aria-hidden="true">'+shadeIcon(key)+'</span>'+title;b.onclick=()=>{if(id==='road'){roadDetail.shade=key;changed()}else if(id==='public-pair'){state.pair.shade=key;changed()}else{$('shade-'+id).value=key;$('shade-'+id).dispatchEvent(new Event('change'));}markComplete(selected);sync()};b.dataset.shade=key;div.append(b)}if(id==='public-pair'){const title=document.createElement('b');title.textContent='墙灯灯罩';title.style.fontSize='1cqw';controls[id].append(title)}controls[id].append(div);shadeChoices[id]=div}
+const brightnessSteps=['0%','25%','50%','75%','100%'];
+let nextStepGroup=0;
+function createSteps(name, values, onSelect){
+ const group=document.createElement('fieldset');
+ group.className='lighting-steps';
+ const legend=document.createElement('legend');
+ legend.textContent=name;
+ group.append(legend);
+ const bar=document.createElement('div');
+ bar.className='lighting-step-bar';
+ group.append(bar);
+ const groupName='city-lighting-steps-'+(++nextStepGroup);
+ const inputs=values.map((caption,index)=>{
+  const label=document.createElement('label');
+  const input=document.createElement('input');
+  input.type='radio';
+  input.name=groupName;
+  input.value=index;
+  input.addEventListener('change',()=>onSelect(index));
+  const text=document.createElement('span');
+  text.textContent=caption;
+  label.append(input,text);
+  bar.append(label);
+  return input;
+ });
+ return {group,select(index){for(const input of inputs)input.checked=Number(input.value)===index}};
+}
+const brightnessControls=[];
+for(const id of ['road-gain','wall-gain','parking-gain','park-gain',...Object.keys(labels)
+ .filter(id=>id!=='distant'&&id!=='public').map(id=>'gain-'+id)]){
+ const input=$(id);
+ const label=input.closest('label');
+ const max=Number(input.max);
+ const isRoad=id==='road-gain';
+ const fixtureLabel=isRoad?'路灯亮度':input.getAttribute('aria-label');
+ const steps=createSteps(fixtureLabel,brightnessSteps,index=>{
+  if(isRoad){
+   roadDetail.gain=max*index/4;
+   changed();
+   markComplete();
+   sync();
+   return;
+  }
+  input.value=max*index/4;
+  input.dispatchEvent(new Event('input',{bubbles:true}));
+ });
+ label.before(steps.group);
+ label.classList.add('brightness-source');
+ brightnessControls.push({steps,read:()=>4*(isRoad?roadDetail.gain:Number(input.value))/max});
+}
+function sync(){
+ const image=document.querySelector('.object-preview');
+ if(selected==='road'){
+  image.src=window.LAMP_HERO?.[roadDetail.shade]||'assets/lamp-hero/'+roadDetail.shade+'.png';
+  image.classList.add('lamp-preview');
+  image.alt=shades[roadDetail.shade]+'完整路灯';
+ }else image.classList.remove('lamp-preview');
+ for(const input of document.querySelectorAll('input[type=range]'))
+  input.style.setProperty('--fill',((input.value-input.min)/(input.max-input.min)*100)+'%');
+ for(const [id,div] of Object.entries(shadeChoices)){
+  const shade=id==='road'?roadDetail.shade:id==='public-pair'?state.pair.shade:state.groups[id].shade;
+  for(const button of div.children)button.setAttribute('aria-pressed',String(button.dataset.shade===shade));
+ }
+ for(const {steps,read} of brightnessControls)steps.select(read());
+}
+document.addEventListener('input',sync);
+document.addEventListener('change',sync);
 // Completion follows current reductions from the initial maximum-pollution choices.
 function reduced(id){
  const group=k=>state.groups[k].gain<2||state.groups[k].shade!=='open';
  switch(id){
- case 'road':return group('road');
+ case 'road':return roadDetail.gain<2||roadDetail.shade!=='open';
  case 'park':return state.park.gain<1;
  case 'parking':return state.groups.parking.gain<2;
  case 'residential':return state.gains.residential<2||group('wall');
@@ -338,11 +443,27 @@ function reduced(id){
  default:return state.gains[id]<2;
  }
 }
-function markComplete(){let updated=false;for(const item of items){const id=item[0],value=reduced(id);if(value!==completed.has(id)){updated=true;if(value)completed.add(id);else completed.delete(id)}}if(updated)render()}
+function markComplete(){
+ if(!selected)return;
+ const value=reduced(selected);
+ if(value===completed.has(selected))return;
+ if(value)completed.add(selected);
+ else completed.delete(selected);
+ render();
+}
 body.addEventListener('input',e=>{if(e.target.matches('input[type=range]'))markComplete()});
 body.addEventListener('change',markComplete);
-const detailFrames={road:[680,1080,800,450]};
-function detailSubject(){return detailFrames[selected]||items.find(i=>i[0]===selected)[6]}
+function detailSubject(){
+ const lamp=selected==='road'?demonstrationLamp():null;
+ if(!lamp)return items.find(i=>i[0]===selected)[6];
+ const [x,y]=lamp.ground;
+ const size=lamp.rect[3];
+ // Frame the full lamp, its ground lighting and the park behind it.
+ const width=Math.min(W,Math.max(440,size*4.7));
+ const height=Math.min(H,Math.max(260,size*2.8));
+ return [Math.max(0,Math.min(W-width,x-width/2)),
+  Math.max(0,Math.min(H-height,y-height*.64)),width,height];
+}
 function frameDetail(){const box=detailSubject(),fraction=panel.offsetWidth/layout.clientWidth,margin=.02,gap=.035,available=1-fraction-margin*2-gap,dock=box[0]+box[2]/2>=W/2?'left':'right',width=Math.min(W,Math.max(box[2]/available,box[3]/.96*W/H)),height=width*H/W,target=dock==='left'?margin+fraction+gap+available/2:margin+available/2;const camera=[Math.max(0,Math.min(W-width,box[0]+box[2]/2-target*width)),Math.max(0,Math.min(H-height,box[1]+box[3]/2-height/2)),width,height];if(!views.detail||camera.some((v,i)=>Math.abs(v-views.detail[i])>.01)){views.detail=camera;dirty=true;request()}panel.dataset.dock=dock;return dock;}
 function positionPanel(){if(panel.hidden||!selected)return;const r=layout.getBoundingClientRect();panel.dataset.detail=String(zoom);
  if(selected==='distant'){
@@ -360,15 +481,64 @@ function positionPanel(){if(panel.hidden||!selected)return;const r=layout.getBou
  const right=rightSpace>=pw+gap&&(preferRight||leftSpace<pw+gap);let left=right?objectRight+gap:objectLeft-gap-pw;left=Math.max(edge,Math.min(r.width-pw-edge,left));
  const top=Math.max(edge,Math.min(r.height-ph-edge,y-ph/2));panel.style.left=left+'px';panel.style.top=top+'px';panel.dataset.side=right?'right':'left';panel.style.setProperty('--anchor-y',Math.max(18,Math.min(ph-18,y-top))+'px');}
 new ResizeObserver(positionPanel).observe(layout);new ResizeObserver(positionPanel).observe(panel);
-function choose(id){if(id==='path')id='road';if(id==='wall'||id==='public')id='residential';if(id==='commercial-screens')id='commercial-windows';const item=items.find(i=>i[0]===id);if(!item)return;selected=id;zoom=false;state.view='scene';$('view').value='scene';$('detail').textContent='查看局部';$('detail').hidden=id!=='residential'&&id!=='road';for(const child of [...body.children])document.querySelector('.legacy-controls').append(child);body.replaceChildren(controls[id]);panel.hidden=false;$('panel-title').innerHTML=icon(id==='public-pair'?'public':id)+item[1];const img=document.querySelector('.object-preview');img.src=window.UI_THUMBNAILS?.[id]||'previews/ui-'+id+'.jpg';img.alt=item[1]+'场景局部';render();sync();positionPanel();request()}
+function choose(id){setGlobalDimming(false);if(id==='path')id='road';if(id==='wall'||id==='public')id='residential';if(id==='commercial-screens')id='commercial-windows';const item=items.find(i=>i[0]===id);if(!item)return;selected=id;zoom=id==='road'&&!!demonstrationLamp();state.view=zoom?'detail':'scene';$('view').value='scene';$('detail').textContent=zoom?'返回全景':'查看局部';$('detail').hidden=id!=='residential'&&id!=='road';for(const child of [...body.children])document.querySelector('.legacy-controls').append(child);body.replaceChildren(controls[id]);panel.hidden=false;$('panel-title').innerHTML=icon(id==='public-pair'?'public':id)+item[1];const img=document.querySelector('.object-preview');img.src=window.UI_THUMBNAILS?.[id]||('previews/ui-'+id+(id==='stadium'?'.png':'.jpg'));img.alt=item[1]+'场景局部';render();sync();positionPanel();request()}
 function render(){markers.replaceChildren();for(const i of items){const b=document.createElement('button');b.className='marker';b.dataset.id=i[0];b.style.left=i[4]+'%';b.style.top=i[5]+'%';b.hidden=zoom;b.innerHTML='<span aria-hidden="true">'+icon(i[0]==='public-pair'?'public':i[0])+'</span>'+(completed.has(i[0])?'<span class="completion" aria-hidden="true">✓</span>':'');b.setAttribute('aria-label',i[1]+'调节'+(completed.has(i[0])?'，已完成':''));b.setAttribute('aria-pressed',String(i[0]===selected&&!panel.hidden));b.setAttribute('aria-expanded',String(i[0]===selected&&!panel.hidden));b.onclick=()=>{if(!markerEditing&&!laneEditing)choose(i[0])};markers.append(b)}}
 $('close-panel').onclick=()=>{panel.hidden=true;state.view='scene';zoom=false;render();request()};cv.addEventListener('click',()=>{if(!panel.hidden)$('close-panel').click()});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('close-panel').click()});
 $('detail').onclick=()=>{if(selected!=='residential'&&selected!=='road')return;zoom=!zoom;state.view=zoom?'detail':'scene';$('detail').textContent=zoom?'返回全景':'查看局部';render();positionPanel();request()};
+const dimmingButton=$('global-dimming'),dimmingPanel=$('global-dimming-panel');
+// Classroom presets use the existing visual gains. The dark preset also turns off moving light sources.
+const lightingPresets=[
+ {buildings:2,decorative:2,road:2,stadium:2,distant:2,traffic:1},
+ {buildings:1,decorative:0,road:1,stadium:0,distant:1,traffic:1},
+ {buildings:0,decorative:0,road:0,stadium:0,distant:0,traffic:0}
+];
+const globalSteps=createSteps('照明档位',['全亮','部分改造','关闭'],applyLightingPreset);
+$('global-lighting-steps').append(globalSteps.group);
+globalSteps.select(0);
+function clearPresetForLocalChange(event){
+ if(selected!=='road'&&event.isTrusted)globalSteps.select(-1);
+}
+body.addEventListener('change',clearPresetForLocalChange);
+function setGlobalDimming(open){
+ dimmingPanel.hidden=!open;
+ dimmingButton.setAttribute('aria-expanded',String(open));
+}
+function closeGlobalDimming(){
+ setGlobalDimming(false);
+ dimmingButton.focus();
+}
+dimmingButton.onclick=()=>{
+ if(!dimmingPanel.hidden){closeGlobalDimming();return}
+ if(!panel.hidden)$('close-panel').click();
+ setGlobalDimming(true);
+ (globalSteps.group.querySelector(':checked')||globalSteps.group.querySelector('input')).focus();
+};
+$('close-global-dimming').onclick=closeGlobalDimming;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dimmingPanel.hidden)closeGlobalDimming()});
+function applyLightingPreset(index){
+ const preset=lightingPresets[index];
+ for(const id of Object.keys(labels)){
+  if(id==='public')continue;
+  const gain=id==='distant'?preset.distant:id==='stadium'?preset.stadium:
+   id==='billboard'||id==='commercial-screens'?preset.decorative:preset.buildings;
+  setBuildingGain(id,gain);
+ }
+ for(const [id,gain] of Object.entries({road:preset.road,wall:preset.buildings,parking:preset.road,park:preset.road/2})){
+  const input=$(id+'-gain');
+  input.value=gain;
+  input.dispatchEvent(new Event('input'));
+ }
+ state.traffic.gain=preset.traffic;
+ completed.clear();
+ render();
+ sync();
+ changed();
+}
 const markerBar=document.createElement('div');markerBar.className='marker-editor-bar';markerBar.hidden=true;markerBar.innerHTML='<span id="marker-edit-status">拖动气泡定位</span><button id="marker-save">保存位置</button><button id="marker-finish">退出定位</button>';layout.append(markerBar);
 function markerStatus(text){$('marker-edit-status').textContent=text;window.dispatchEvent(new CustomEvent('city-marker-layout-change',{detail:{editing:markerEditing,dirty:markerDirty,status:text}}))}
 function applyMarkerPosition(item,node,x,y){item[4]=Math.round(Math.max(3,Math.min(97,x))*10000)/10000;item[5]=Math.round(Math.max(8,Math.min(97,y))*10000)/10000;node.style.left=item[4]+'%';node.style.top=item[5]+'%'}
 function cancelMarkerDrag(){if(!markerDrag)return;const d=markerDrag;markerDrag=null;applyMarkerPosition(d.item,d.node,...d.start);if(markers.hasPointerCapture(d.pointerId))markers.releasePointerCapture(d.pointerId)}
-function editMarkerLayout(value){if(value&&laneEditing)editLanes(false);if(value&&lampEditing)editLamps(false);cancelMarkerDrag();markerEditing=!!value;markerBar.hidden=!markerEditing;layout.classList.toggle('editing-markers',markerEditing);if(markerEditing){panel.hidden=true;zoom=false;if(state.view!=='scene'){state.view='scene';request()}render()}markerStatus(markerDirty?'位置未保存':'拖动气泡定位')}
+function editMarkerLayout(value){if(value)setGlobalDimming(false);if(value&&laneEditing)editLanes(false);if(value&&lampEditing)editLamps(false);cancelMarkerDrag();markerEditing=!!value;markerBar.hidden=!markerEditing;layout.classList.toggle('editing-markers',markerEditing);if(markerEditing){panel.hidden=true;zoom=false;if(state.view!=='scene'){state.view='scene';request()}render()}markerStatus(markerDirty?'位置未保存':'拖动气泡定位')}
 function saveMarkerLayout(){try{localStorage.setItem(markerStorage,JSON.stringify({version:1,positions:markerPositions()}));markerDirty=false;markerStatus('位置已保存到本机');return true}catch{markerStatus('本机存储不可用，请导出位置');return false}}
 function resetMarkerLayout(){cancelMarkerDrag();for(const item of items)[item[4],item[5]]=markerDefaults[item[0]];markerDirty=true;render();positionPanel();markerStatus('已恢复默认位置，尚未保存')}
 markers.addEventListener('pointerdown',e=>{if(!markerEditing||e.button!==0||!e.isPrimary)return;const node=e.target.closest('.marker');if(!node)return;e.preventDefault();cancelMarkerDrag();const item=items.find(i=>i[0]===node.dataset.id);markerDrag={node,item,start:[item[4],item[5]],x:e.clientX,y:e.clientY,rect:layout.getBoundingClientRect(),pointerId:e.pointerId};markers.setPointerCapture(e.pointerId)});
@@ -378,8 +548,8 @@ markers.addEventListener('pointercancel',cancelMarkerDrag);markers.addEventListe
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&markerEditing)editMarkerLayout(false)});
 $('marker-save').onclick=saveMarkerLayout;$('marker-finish').onclick=()=>editMarkerLayout(false);
 const laneStorage='city-night-traffic-lanes-v1',laneNames={southbound:'驶来',northbound:'驶远'},laneColors={southbound:'#f0c36a',northbound:'#7ec8ff'};
-const laneDock=document.createElement('div');laneDock.className='lane-dev';laneDock.innerHTML='<button id="lane-edit" type="button" aria-pressed="false">调整行驶轨迹</button><div id="lane-edit-bar" hidden><span id="lane-edit-status">拖动直线或端点</span><button type="button" id="lane-reset">恢复默认</button><button type="button" id="lane-finish">收起</button></div>';document.body.append(laneDock);
-const laneButton=$('lane-edit'),laneBar=$('lane-edit-bar');
+const laneDock=document.createElement('div');laneDock.className='lane-dev';laneDock.innerHTML='<div id="lane-edit-bar" hidden><span id="lane-edit-status">拖动直线或端点</span><button type="button" id="lane-reset">恢复默认</button><button type="button" id="lane-finish">收起</button></div>';layout.append(laneDock);
+const laneBar=$('lane-edit-bar');
 const laneLayer=document.createElement('div');laneLayer.className='lane-editor';laneLayer.hidden=true;laneLayer.innerHTML='<svg viewBox="0 0 2736 1536" preserveAspectRatio="none"></svg>';layout.append(laneLayer);
 function lanePoint(event){const r=layout.getBoundingClientRect();return [(event.clientX-r.left)/r.width*2736,(event.clientY-r.top)/r.height*1536]}
 function laneX(line,y){return line.far[0]+(line.near[0]-line.far[0])*((y-line.far[1])/((line.near[1]-line.far[1])||1))}
@@ -391,36 +561,34 @@ function cancelLaneDrag(){if(!laneDrag)return;const origin=laneDrag.origin;laneD
 function onLaneMove(e){const d=laneDrag;if(!d||e.pointerId!==d.pointerId)return;e.preventDefault();const p=lanePoint(e);applyLanes({...d.origin,[d.id]:moveLane(d.origin[d.id],d.role,d.end,p[0]-d.start[0],p[1]-d.start[1])})}
 function onLaneUp(e){if(!laneDrag||e.pointerId!==laneDrag.pointerId)return;laneDrag=null;stopLanePointer();rememberLanes();drawLaneEditor()}
 function onLaneCancel(e){if(laneDrag&&e.pointerId===laneDrag.pointerId)cancelLaneDrag()}
-function editLanes(value){if(value&&markerEditing)editMarkerLayout(false);if(value&&lampEditing)editLamps(false);if(!value){if(laneDrag){laneDrag=null;stopLanePointer();rememberLanes()}laneEditing=false;laneLayer.hidden=true;laneBar.hidden=true;laneButton.setAttribute('aria-pressed','false');return}laneEditing=true;laneLayer.hidden=false;laneBar.hidden=false;laneButton.setAttribute('aria-pressed','true');panel.hidden=true;zoom=false;if(state.view!=='scene'){state.view='scene';request()}render();drawLaneEditor();$('lane-edit-status').textContent='拖动直线或端点'}
+function editLanes(value){if(value&&markerEditing)editMarkerLayout(false);if(value&&lampEditing)editLamps(false);if(!value){if(laneDrag){laneDrag=null;stopLanePointer();rememberLanes()}laneEditing=false;laneLayer.hidden=true;laneBar.hidden=true;return}laneEditing=true;laneLayer.hidden=false;laneBar.hidden=false;setGlobalDimming(false);panel.hidden=true;zoom=false;if(state.view!=='scene'){state.view='scene';request()}render();drawLaneEditor();$('lane-edit-status').textContent='拖动直线或端点'}
 function moveLane(line,role,end,dx,dy){if(role==='line'){const xs=[line.far[0],line.near[0]],ys=[line.far[1],line.near[1]];dx=Math.max(700-Math.min(...xs),Math.min(2100-Math.max(...xs),dx));dy=Math.max(580-Math.min(...ys),Math.min(1520-Math.max(...ys),dy));return {far:[line.far[0]+dx,line.far[1]+dy],near:[line.near[0]+dx,line.near[1]+dy]}}const next={far:line.far.slice(),near:line.near.slice()};next[end]=[Math.max(700,Math.min(2100,line[end][0]+dx)),Math.max(580,Math.min(1520,line[end][1]+dy))];if(next.far[1]>next.near[1]-120)next[end][1]=end==='far'?next.near[1]-120:next.far[1]+120;return next}
 try{const saved=JSON.parse(localStorage.getItem(laneStorage));if(saved?.version===1)CITY_TRAFFIC.setPaths(saved.paths)}catch{}
-laneButton.onclick=()=>editLanes(true);
 laneLayer.addEventListener('pointerdown',e=>{if(!laneEditing||e.button!==0||!e.isPrimary)return;const node=e.target.closest('[data-id]');if(!node||node.dataset.role==='ink')return;e.preventDefault();cancelLaneDrag();laneDrag={id:node.dataset.id,role:node.dataset.role,end:node.dataset.end,pointerId:e.pointerId,origin:CITY_TRAFFIC.paths(),start:lanePoint(e)};window.addEventListener('pointermove',onLaneMove);window.addEventListener('pointerup',onLaneUp);window.addEventListener('pointercancel',onLaneCancel);drawLaneEditor()});
 $('lane-reset').onclick=()=>{cancelLaneDrag();CITY_TRAFFIC.resetPaths();rememberLanes();drawLaneEditor();scenePreview.setTrafficOptions({})};
 $('lane-finish').onclick=()=>editLanes(false);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&laneEditing)editLanes(false);if(e.key==='Escape'&&lampEditing)editLamps(false)});
 const lampStorage='city-night-road-fixtures-v1',lampLimit=80;
 const lampDefaults=window.SCENE_LIGHT_LAYOUT.wholeFixtures.filter(f=>f.group==='road'||f.group==='path').map(f=>JSON.parse(JSON.stringify(f)));
-const lampDock=document.createElement('div');lampDock.className='lane-dev lamp-dev';lampDock.innerHTML='<button id="lamp-edit" type="button" aria-pressed="false">摆放路灯</button><div id="lamp-edit-bar" hidden><span id="lamp-edit-status">拖动圆点移动路灯</span><button type="button" id="lamp-add">增加路灯</button><button type="button" id="lamp-delete">删除选中</button><button type="button" id="lamp-reset">恢复默认</button><button type="button" id="lamp-finish">收起</button></div>';document.body.append(lampDock);
-const lampButton=$('lamp-edit'),lampBar=$('lamp-edit-bar');
+const lampDock=document.createElement('div');lampDock.className='lane-dev lamp-dev';lampDock.innerHTML='<div id="lamp-edit-bar" hidden><span id="lamp-edit-status">拖动圆点移动路灯</span><button type="button" id="lamp-add">增加路灯</button><button type="button" id="lamp-delete">删除选中</button><button type="button" id="lamp-reset">恢复默认</button><button type="button" id="lamp-finish">收起</button></div>';layout.append(lampDock);
+const lampBar=$('lamp-edit-bar');
 const lampLayer=document.createElement('div');lampLayer.className='lane-editor';lampLayer.hidden=true;lampLayer.innerHTML='<svg viewBox="0 0 2736 1536" preserveAspectRatio="none"></svg>';layout.append(lampLayer);
 function uprightLamps(){return window.SCENE_LIGHT_LAYOUT.wholeFixtures.filter(f=>f.group==='road'||f.group==='path')}
 function roadLamps(){return uprightLamps()}
 function clampFoot(x,y){return [Math.max(16,Math.min(2720,x)),Math.max(600,Math.min(1520,y))]}
 function placeFixture(source,ground,flip){const policy=window.SCENE_LIGHT_LAYOUT.fixturePerspective,[x,y]=clampFoot(ground[0],ground[1]),depth=y-policy.horizonY,size=policy.heightPerDepth*depth*policy.frameSize/(policy.footFrameY-policy.referenceEmitterY),facing=flip===0||flip===1?flip:source.group==='path'?source.flip:x>=1368?1:0;return {id:source.id,group:source.group,rect:[x-size/2,y-size*policy.footFrameY/policy.frameSize,size,size],flip:facing,ground:[x,y],receiver:source.receiver||0,sourceScale:size/policy.referenceRectSize,tileGid:source.group==='path'?source.tileGid:(facing?2147483651:3),defaultShade:source.defaultShade||(source.group==='path'?'full':'half')}}
-function commitUpright(lamps){const others=window.SCENE_LIGHT_LAYOUT.wholeFixtures.filter(f=>f.group!=='road'&&f.group!=='path');window.SCENE_LIGHT_LAYOUT.wholeFixtures=lamps.concat(others);changed();if(lampEditing)drawLampEditor()}
+function commitUpright(lamps){const others=window.SCENE_LIGHT_LAYOUT.wholeFixtures.filter(f=>f.group!=='road'&&f.group!=='path');window.SCENE_LIGHT_LAYOUT.wholeFixtures=lamps.concat(others);demonstrationLampId=demonstrationLamp()?.id;changed();if(lampEditing)drawLampEditor()}
 function rememberLamps(){try{localStorage.setItem(lampStorage,JSON.stringify({version:2,fixtures:uprightLamps().map(f=>({id:f.id,group:f.group,ground:f.ground.slice(),flip:f.flip}))}));$('lamp-edit-status').textContent='路灯位置已记在本机';return true}catch{$('lamp-edit-status').textContent='本机存储不可用，本次仍生效';return false}}
 function drawLampEditor(){const svg=lampLayer.querySelector('svg'),ns='http://www.w3.org/2000/svg';svg.replaceChildren();for(const lamp of uprightLamps().slice().sort((a,b)=>a.ground[1]-b.ground[1])){const handle=document.createElementNS(ns,'circle');handle.dataset.role='handle';handle.dataset.id=lamp.id;handle.setAttribute('role','button');handle.setAttribute('aria-label','路灯 '+lamp.id);handle.setAttribute('cx',lamp.ground[0]);handle.setAttribute('cy',lamp.ground[1]);handle.setAttribute('r',Math.max(16,Math.min(34,lamp.sourceScale*46)));handle.setAttribute('fill',lamp.id===lampSelected?'#263f68':'#f7f9ff');handle.setAttribute('stroke','#f0c36a');if(lamp.id===lampSelected||lamp.id===lampDrag?.id)handle.classList.add('is-active');svg.append(handle)}}
 function stopLampPointer(){window.removeEventListener('pointermove',onLampMove);window.removeEventListener('pointerup',onLampUp);window.removeEventListener('pointercancel',onLampCancel)}
 function onLampMove(e){const d=lampDrag;if(!d||e.pointerId!==d.pointerId)return;e.preventDefault();const p=lanePoint(e);if(Math.hypot(p[0]-d.start[0],p[1]-d.start[1])>2)d.moved=true;const lamp=uprightLamps().find(f=>f.id===d.id);if(!lamp)return;Object.assign(lamp,placeFixture(lamp,[d.origin[0]+p[0]-d.start[0],d.origin[1]+p[1]-d.start[1]],lamp.group==='path'?d.flip:undefined));changed();drawLampEditor()}
 function onLampUp(e){if(!lampDrag||e.pointerId!==lampDrag.pointerId)return;const moved=lampDrag.moved;lampDrag=null;stopLampPointer();if(moved)rememberLamps();drawLampEditor()}
 function onLampCancel(e){if(!lampDrag||e.pointerId!==lampDrag.pointerId)return;const lamp=uprightLamps().find(f=>f.id===lampDrag.id);if(lamp)Object.assign(lamp,placeFixture(lamp,lampDrag.origin,lampDrag.flip));lampDrag=null;stopLampPointer();changed();drawLampEditor()}
-function editLamps(value){if(value&&markerEditing)editMarkerLayout(false);if(value&&laneEditing)editLanes(false);if(!value){if(lampDrag){const moved=lampDrag.moved;lampDrag=null;stopLampPointer();if(moved)rememberLamps()}lampEditing=false;lampLayer.hidden=true;lampBar.hidden=true;lampButton.setAttribute('aria-pressed','false');return}lampEditing=true;lampLayer.hidden=false;lampBar.hidden=false;lampButton.setAttribute('aria-pressed','true');panel.hidden=true;zoom=false;if(state.view!=='scene'){state.view='scene';request()}render();drawLampEditor();$('lamp-edit-status').textContent='拖动圆点移动路灯'}
+function editLamps(value){if(value&&markerEditing)editMarkerLayout(false);if(value&&laneEditing)editLanes(false);if(!value){if(lampDrag){const moved=lampDrag.moved;lampDrag=null;stopLampPointer();if(moved)rememberLamps()}lampEditing=false;lampLayer.hidden=true;lampBar.hidden=true;return}lampEditing=true;lampLayer.hidden=false;lampBar.hidden=false;setGlobalDimming(false);panel.hidden=true;zoom=false;if(state.view!=='scene'){state.view='scene';request()}render();drawLampEditor();$('lamp-edit-status').textContent='拖动圆点移动路灯'}
 function addRoadLamp(){if(uprightLamps().length>=lampLimit){$('lamp-edit-status').textContent='路灯数量已满';return}let foot=[1240,1180];while(uprightLamps().some(f=>Math.hypot(f.ground[0]-foot[0],f.ground[1]-foot[1])<56))foot[0]+=72;const ids=new Set(window.SCENE_LIGHT_LAYOUT.wholeFixtures.map(f=>f.id));let n=1;while(ids.has('road-'+n))n++;const lamp=placeFixture({id:'road-'+n,group:'road',receiver:0,tileGid:3,defaultShade:'half',flip:0},foot);const lamps=uprightLamps();lamps.push(lamp);lamps.sort((a,b)=>a.ground[1]-b.ground[1]);lampSelected=lamp.id;commitUpright(lamps);rememberLamps()}
 function deleteRoadLamp(){if(!lampSelected){$('lamp-edit-status').textContent='先点选一盏路灯';return}const lamps=uprightLamps().filter(f=>f.id!==lampSelected);lampSelected=lamps.at(-1)?.id||null;commitUpright(lamps);rememberLamps()}
 function savedFixtureOk(item){return item&&typeof item.id==='string'&&Array.isArray(item.ground)&&item.ground.length===2&&item.ground.every(Number.isFinite)}
 try{const saved=JSON.parse(localStorage.getItem(lampStorage));if(saved?.version===2&&Array.isArray(saved.fixtures)&&saved.fixtures.every(savedFixtureOk)){const known=new Map(lampDefaults.map(f=>[f.id,f]));commitUpright(saved.fixtures.slice(0,lampLimit).map(item=>placeFixture(known.get(item.id)||{id:item.id,group:item.group==='path'?'path':'road',receiver:0,tileGid:item.group==='path'?4:3,defaultShade:item.group==='path'?'full':'half',flip:item.flip},item.ground,item.flip)));}else if(saved?.version===1&&Array.isArray(saved.fixtures)&&saved.fixtures.every(savedFixtureOk)){const paths=window.SCENE_LIGHT_LAYOUT.wholeFixtures.filter(f=>f.group==='path');const roads=saved.fixtures.slice(0,Math.max(0,lampLimit-paths.length)).map(item=>placeFixture({id:item.id,group:'road',receiver:0,tileGid:item.flip?2147483651:3,defaultShade:'half',flip:item.flip},item.ground,item.flip));commitUpright(roads.concat(paths))}}catch{}
-lampButton.onclick=()=>editLamps(!lampEditing);
 lampLayer.addEventListener('pointerdown',e=>{if(!lampEditing||e.button!==0||!e.isPrimary)return;const node=e.target.closest('[data-id]');if(!node)return;e.preventDefault();if(lampDrag)onLampCancel({pointerId:lampDrag.pointerId});const lamp=uprightLamps().find(f=>f.id===node.dataset.id);if(!lamp)return;lampSelected=lamp.id;lampDrag={id:lamp.id,pointerId:e.pointerId,origin:lamp.ground.slice(),flip:lamp.flip,start:lanePoint(e),moved:false};window.addEventListener('pointermove',onLampMove);window.addEventListener('pointerup',onLampUp);window.addEventListener('pointercancel',onLampCancel);drawLampEditor()});
 $('lamp-add').onclick=addRoadLamp;$('lamp-delete').onclick=deleteRoadLamp;$('lamp-reset').onclick=()=>{if(lampDrag)onLampCancel({pointerId:lampDrag.pointerId});lampSelected=null;commitUpright(lampDefaults.map(f=>JSON.parse(JSON.stringify(f))));rememberLamps()};$('lamp-finish').onclick=()=>editLamps(false);
 $('close-panel').innerHTML=icon('close');window.lightingUI={markerLayout:{positions:markerPositions,defaults:()=>JSON.parse(JSON.stringify(markerDefaults)),edit:editMarkerLayout,editing:()=>markerEditing,save:saveMarkerLayout,reset:resetMarkerLayout},trafficPaths:{paths:()=>CITY_TRAFFIC.paths(),defaults:()=>CITY_TRAFFIC.defaults(),set:paths=>{applyLanes(paths);rememberLanes()},reset:()=>{$('lane-reset').click()},edit:editLanes,editing:()=>laneEditing},roadLamps:{fixtures:()=>uprightLamps().map(f=>({id:f.id,group:f.group,ground:f.ground.slice(),flip:f.flip})),defaults:()=>lampDefaults.map(f=>({id:f.id,group:f.group,ground:f.ground.slice(),flip:f.flip})),edit:editLamps,editing:()=>lampEditing,add:addRoadLamp,remove:deleteRoadLamp,reset:()=>{$('lamp-reset').click()}},select:choose,close:()=>$('close-panel').click(),items:()=>items.map(i=>({id:i[0],name:i[1],category:i[2],markerPosition:[i[4],i[5]],channels:objectChannels[i[0]]||[i[0]]})),selected:()=>selected,bounds:()=>items.find(i=>i[0]===selected)?.[6].slice(),detailBounds:()=>detailSubject().slice(),completed:()=>[...completed]};panel.hidden=true;render();sync();
@@ -431,14 +599,16 @@ $('close-panel').innerHTML=icon('close');window.lightingUI={markerLayout:{positi
  const layout=document.querySelector('.layout'),box=document.createElement('section');box.id='city-halo-dev';box.hidden=true;box.setAttribute('aria-label','开发者模式：城市光晕');
  const style=document.createElement('style');style.textContent='#city-halo-dev{position:absolute;z-index:12;right:2%;top:12%;width:27%;padding:1.2cqw;background:#112136f5;border:1px solid #607694;border-radius:1cqw;color:#ecf1f9}#city-halo-dev h2{font-size:1.25cqw;margin:0 0 1cqw}#city-halo-dev label{font-size:.9cqw;margin:.7cqw 0}#city-halo-dev input{width:100%;accent-color:#edc68d}#city-halo-dev button{font-size:.85cqw;min-height:2cqw}#city-halo-dev .dev-actions{display:flex;gap:.4cqw;flex-wrap:wrap}#city-halo-dev p{font-size:.8cqw;margin:.6cqw 0 0}';document.head.append(style);
  const titles={total:'总强度',stadium:'体育场',commercial:'商业综合体',billboard:'独立广告牌',road:'道路路灯'};
- box.innerHTML='<h2>开发者模式</h2><div class="dev-actions"><button id="marker-edit">拖动气泡位置</button><button id="marker-reset">恢复默认位置</button><button id="marker-export">导出气泡位置</button></div>'+Object.entries(titles).map(([k,t])=>range('city-halo-'+k,t,0,3,state.halo[k],.01)).join('')+'<div class="dev-actions"><button id="halo-save">保存参数</button><button id="halo-reset">恢复默认</button><button id="halo-export">导出参数</button><button id="halo-close">关闭</button></div><p id="halo-status" role="status">视觉演示参数</p>';layout.append(box);
+ box.innerHTML='<h2>开发者模式</h2><div class="dev-actions"><button id="lane-edit" type="button">调整行驶轨迹</button><button id="lamp-edit" type="button">摆放路灯</button><button id="marker-edit">拖动气泡位置</button><button id="marker-reset">恢复默认位置</button><button id="marker-export">导出气泡位置</button></div>'+Object.entries(titles).map(([k,t])=>range('city-halo-'+k,t,0,3,state.halo[k],.01)).join('')+'<div class="dev-actions"><button id="halo-save">保存参数</button><button id="halo-reset">恢复默认</button><button id="halo-export">导出参数</button><button id="halo-close">关闭</button></div><p id="halo-status" role="status">视觉演示参数</p>';layout.append(box);
  function sync(){for(const k in titles){$('city-halo-'+k).value=state.halo[k];$('o-city-halo-'+k).value=Math.round(state.halo[k]*100)+'%';}}
  for(const k in titles)$('city-halo-'+k).oninput=e=>{state.halo[k]=+e.target.value;sync();$('halo-status').textContent='未保存';changed()};
  $('halo-save').onclick=()=>{try{localStorage.setItem(haloStorage,JSON.stringify(state.halo));$('halo-status').textContent='已保存到本机';}catch{$('halo-status').textContent='本机存储不可用，请导出参数';}};
  $('halo-reset').onclick=()=>{Object.assign(state.halo,haloDefaults);sync();changed();$('halo-status').textContent='已恢复默认，保存后下次生效';};
  $('halo-export').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({version:1,halo:state.halo},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='city-halo.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+ $('lane-edit').onclick=()=>{box.hidden=true;lightingUI.trafficPaths.edit(true)};
+ $('lamp-edit').onclick=()=>{box.hidden=true;lightingUI.roadLamps.edit(true)};
  $('marker-edit').onclick=()=>{box.hidden=true;lightingUI.markerLayout.edit(true)};$('marker-reset').onclick=()=>lightingUI.markerLayout.reset();$('marker-export').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({version:1,positions:lightingUI.markerLayout.positions()},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='city-night-marker-positions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
- function toggle(){lightingUI.markerLayout.edit(false);box.hidden=!box.hidden;} $('halo-close').onclick=()=>{box.hidden=true;};
+ function toggle(){lightingUI.markerLayout.edit(false);lightingUI.trafficPaths.edit(false);lightingUI.roadLamps.edit(false);box.hidden=!box.hidden;} $('halo-close').onclick=()=>{box.hidden=true;};
  let timer=0,held=false;function cancel(){clearTimeout(timer);timer=0;held=false;}
  document.addEventListener('keydown',e=>{if(e.key==='Control'&&!e.altKey&&!e.shiftKey&&!e.metaKey){if(!held&&!e.repeat){held=true;timer=setTimeout(()=>{timer=0;toggle();},3000);}}else cancel();});
  document.addEventListener('keyup',e=>{if(e.key==='Control')cancel();});window.addEventListener('blur',cancel);document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel();});window.addEventListener('pagehide',cancel);sync();

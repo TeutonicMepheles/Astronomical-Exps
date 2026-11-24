@@ -12,11 +12,22 @@ aside[data-side="right"]::before{left:-.5cqw}aside[data-side="bottom"]::before{c
 .marker .completion{position:absolute;right:-.5cqw;top:-.55cqw;display:grid;place-items:center;width:1.25cqw;height:1.25cqw;border:2px solid white;border-radius:50%;background:#27a66a;color:#fff;font-size:.85cqw;font-weight:800;line-height:1;box-shadow:0 .1cqw .3cqw #10203655}
 aside[data-detail="true"]::before{display:none}aside .beam-toggle{display:flex;align-items:center;justify-content:center;gap:1cqw;margin:.8cqw 0;font-weight:400}aside .beam-toggle input{position:absolute;opacity:0;width:3.6cqw;height:2cqw;margin:0;cursor:pointer}aside .beam-track{width:3.6cqw;height:2cqw;border-radius:2cqw;background:#b9c7da;position:relative;pointer-events:none}aside .beam-track:after{content:"";position:absolute;left:.25cqw;top:.25cqw;width:1.5cqw;height:1.5cqw;border-radius:50%;background:white;box-shadow:0 .1cqw .3cqw #29446b44}aside .beam-toggle input:checked+.beam-track{background:#29446b}aside .beam-toggle input:checked+.beam-track:after{transform:translateX(1.6cqw)}aside .beam-toggle input:focus-visible+.beam-track{outline:3px solid #e4bb6f;outline-offset:3px}</style>
 <link rel="stylesheet" href="../../../shared/typography/typography.css">
-<link rel="stylesheet" href="typography.css?v=1c29da07ec3200d1">
-<div class="layout"><header class="masthead">夜天光</header><div class="markers"></div><main><canvas id="scene" width="2736" height="1536" aria-label="可切换灯罩与独立调光的动态城市夜景"></canvas><span class="corner">2736 × 1536 · 2K</span></main><aside aria-label="光源调节面板" hidden><div class="panel-head"><h2 id="panel-title">路灯</h2><button id="close-panel" aria-label="关闭调节面板">×</button></div><img class="object-preview" alt="当前对象局部预览"><div id="panel-body"></div><button class="detail-button" id="detail">查看局部</button><div class="legacy-controls">
+<link rel="stylesheet" href="typography.css?v=d9c0128b7e29e87f">
+<div class="layout"><header class="masthead">夜天光</header><div class="markers"></div><main><canvas id="scene" width="2736" height="1536" aria-label="可切换灯罩与独立调光的动态城市夜景"></canvas><span class="corner">2736 × 1536 · 2K</span></main><button id="global-dimming" type="button" aria-expanded="false" aria-controls="global-dimming-panel">
+<svg viewBox="0 0 112 112" aria-hidden="true">
+<circle class="dimming-disc" cx="56" cy="56" r="51"/><circle cx="56" cy="56" r="47" fill="none" stroke="#58708d"/>
+<path d="M26 47a32 25 0 0 1 60 0" fill="none" stroke="#eac286" stroke-width="1.7" stroke-linecap="round"/>
+<path fill="#89a2bf" d="M30 59h15v17H30z"/><path fill="#bdd0e4" d="M45 48h18v28H45z"/><path fill="#8fa8c4" d="M63 55h17v21H63z"/>
+<path d="M26 77h58" stroke="#c1d2e6" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M36 65h2.5v2.5H36zm15-10h2.5v2.5H51zm6 0h2.5v2.5H57zm-6 7h2.5v2.5H51zm19-1h2.5v2.5H70zm5 5h2.5v2.5H75z" fill="#ffdb98"/>
+</svg><span>全局调光</span></button>
+<section id="global-dimming-panel" aria-labelledby="global-dimming-title" hidden>
+<div class="panel-head"><h2 id="global-dimming-title">全局调光</h2><button id="close-global-dimming" type="button" aria-label="关闭全局调光">×</button></div>
+<div id="global-lighting-steps"></div>
+</section><aside aria-label="光源调节面板" hidden><div class="panel-head"><h2 id="panel-title">路灯</h2><button id="close-panel" aria-label="关闭调节面板">×</button></div><img class="object-preview" alt="当前对象局部预览"><div id="panel-body"></div><button class="detail-button" id="detail">查看局部</button><div class="legacy-controls">
 <select id="view" aria-label="场景视图"><option value="scene">完整场景</option><option value="road">路灯与车流</option><option value="path">步道灯</option><option value="wall">住宅墙灯</option><option value="parking">停车场地灯</option></select>
 
 <div class="tabs"><button id="tab-fixtures" aria-pressed="true">灯具</button><button id="tab-buildings" aria-pressed="false">建筑</button></div>
 <div id="fixtures"></div><div id="buildings" hidden></div>
 <div class="traffic"><label class="beam-toggle"><span>近光</span><input id="beam" type="checkbox" checked role="switch" aria-label="远光"><span class="beam-track" aria-hidden="true"></span><span>远光</span></label></div>
-</div></aside></div><div id="loading">加载 2K 场景</div><script src="lighting-layout.js?v=5a1274447d87df69"></script><script src="resident-vignette-layout.js?v=f32cd910bd49cc34"></script><script src="resident-fixed-lighting.js?v=c1a6a18e6039ed63"></script><script src="traffic-motion.js?v=11f896c0691cf7ca"></script><script src="sky-model.js?v=a982311d9f25c2a3"></script><script src="screen-sequences.js"></script><script src="runtime.js?v=f58bd2e9aaa99051"></script></html>
+</div></aside></div><div id="loading">加载 2K 场景</div><script src="lighting-layout.js?v=5a1274447d87df69"></script><script src="resident-vignette-layout.js?v=f32cd910bd49cc34"></script><script src="resident-fixed-lighting.js?v=c1a6a18e6039ed63"></script><script src="traffic-motion.js?v=11f896c0691cf7ca"></script><script src="sky-model.js?v=693131bc66a45066"></script><script src="screen-sequences.js"></script><script src="runtime.js?v=3d419e4b717b48c5"></script></html>
