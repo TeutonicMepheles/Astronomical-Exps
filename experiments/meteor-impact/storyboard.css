@@ -159,7 +159,13 @@ h2, h3, p { margin: 0; }
 .comparison-layout[data-stage="settings"] #space-split::after { bottom: 280px; }
 #launch-actions {
   position: absolute; right: 53px; bottom: var(--settings-bottom); z-index: 2;
-  --experiment-action-height: var(--settings-action-height);
+  display: flex; align-items: stretch; justify-content: flex-end; gap: 14px;
+}
+#launch-actions > button {
+  min-block-size: var(--settings-action-height); flex: 0 0 auto; white-space: nowrap;
+}
+#launch-actions #back {
+  display: grid; place-items: center; inline-size: var(--settings-action-height); padding: 0;
 }
 #launch-actions #fire { position: static; }
 #fixed-comparison { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
