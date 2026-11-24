@@ -17,7 +17,7 @@ const context={window:{},atob};vm.createContext(context);
 for(const file of ['assets/reference-terrain.js','src/reference-terrain.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),context);
 const terrain=context.window.LunarReferenceTerrain;
 const actual=candidates(terrain,110,35);
-assert(actual.some(p=>p.side==='left')&&actual.some(p=>p.side==='right'));
+assert(actual.length>0&&actual.every(p=>p.side==='right'),'Only the right rim offers measurement candidates');
 assert(actual.length<=24,'Finite, spaced candidates');
 for(const p of actual){
   assert(Math.abs(Math.hypot(p.a.x,p.a.z)-110)<=12);

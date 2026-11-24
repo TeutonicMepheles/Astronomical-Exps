@@ -1,0 +1,29 @@
+/* Adapted from svg-grain-demo.html?type=slider and svg-grain-controls.js, 2026-11-23.
+   Local styles because the specimen has no standalone slider component. */
+#lightPanel{left:50%;top:auto;bottom:44px;translate:-50% 0;width:640px;padding:10px}
+.lunar-stepped-slider{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px}
+.lunar-stepped-stepper{display:flex;gap:2px}
+.lunar-stepped-stepper button{min-width:48px;min-height:46px;padding:0 6px;font-size:16px}
+.lunar-stepped-stepper [data-speed=coarse]{background:#e2ca95;color:#172735}
+.lunar-stepped-stepper button:disabled{opacity:.48;cursor:default}
+.lunar-stepped-bar{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:46px;padding:0 12px;border:1px solid #668392;border-radius:8px;background:#182c39;color:#fff0cb}
+.lunar-stepped-bar::before{content:"";position:absolute;inset:0 auto 0 0;width:var(--slider-fill,0%);z-index:-1;background:#716044;border-radius:7px;pointer-events:none}
+.lunar-stepped-bar output{font-variant-numeric:tabular-nums}
+.lunar-stepped-bar input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
+.lunar-stepped-bar input::-webkit-slider-thumb{appearance:none;width:1px;height:40px}
+.lunar-stepped-bar input::-moz-range-thumb{width:1px;height:40px;border:0}
+.lunar-stepped-bar:focus-within{outline:3px solid #9bdcfb;outline-offset:2px}
+.lunar-light-tip{--operation-tip-bg:#142b38f2}
+.lunar-light-prompt:not([hidden]){animation:lunar-light-pulse 800ms ease-in-out 2}
+@keyframes lunar-light-pulse{50%{box-shadow:0 0 18px #f4cb8390}}
+@media(prefers-reduced-motion:reduce){.lunar-light-prompt:not([hidden]){animation:none}}
+
+.lunar-rim-controls .lunar-stepped-slider{flex:1;min-width:0}
+
+/* Local adaptation of the stage action layout from a856d2d. Main removed that shared stylesheet. */
+.lunar-stage-actions{position:absolute;right:44px;bottom:44px;z-index:8;--lunar-action-height:52px;display:grid;grid-template-columns:var(--lunar-action-height) 144px;gap:12px}
+.lunar-stage-actions > button{box-sizing:border-box;block-size:var(--lunar-action-height);white-space:nowrap}
+.lunar-stage-actions > #previousStep{grid-area:1 / 1;display:grid;place-items:center;min-width:0;padding:0}
+.lunar-stage-actions > .lunar-primary-action{grid-area:1 / 2;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px}
+.view.side .lunar-ready-tip{top:auto;bottom:112px;left:auto;right:44px;translate:none;animation:none;--operation-tip-bg:#142b38f2}
+.lunar-ready-tip::after{content:"";position:absolute;right:66px;bottom:-7px;width:12px;height:12px;background:var(--operation-tip-bg);border-right:1px solid #f4cb83;border-bottom:1px solid #f4cb83;rotate:45deg}
