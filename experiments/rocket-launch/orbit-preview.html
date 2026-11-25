@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>天舟一号绕地 · 3D 预览</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../shared/typography/typography.css">
+  <link rel="stylesheet" href="orbit-scene.css">
+  <style>
+    * { box-sizing: border-box }
+    body { margin: 0; min-height: 100dvh; display: grid; place-items: center; background: #060912; color: #e1ebf4; font-family: var(--font-ui) }
+    main {
+      position: relative; isolation: isolate; overflow: hidden;
+      width: min(100vw, calc(100dvh * 16 / 9)); aspect-ratio: 16 / 9; container-type: inline-size;
+    }
+    button, p { position: absolute; bottom: 2.5cqw; right: 2.5cqw; margin: 0; font: inherit; font-size: clamp(16px, 1.25cqw, 24px) }
+    button { min-height: max(44px, 3.333cqw); padding: 0 1.2em; color: inherit; border: 1px solid #849ab0; border-radius: .5em; background: #14283ceb; cursor: pointer }
+    button:hover { background: #263e53 }
+    button:focus-visible { outline: 3px solid #bdd8ed; outline-offset: 4px }
+    [hidden] { display: none }
+  </style>
+</head>
+<body>
+  <main aria-label="天舟一号绕地轨道三维示意">
+    <div class="orbit-view" aria-label="风格化地球、天舟一号与近地轨道。比例和速度为教学示意。" role="img"></div>
+    <p role="status">正在加载 3D 资源…</p>
+    <button type="button" hidden>播放环绕</button>
+  </main>
+  <script src="../../shared/components/optical-beam.js"></script>
+  <script type="module" src="orbit-preview.js"></script>
+</body>
+</html>

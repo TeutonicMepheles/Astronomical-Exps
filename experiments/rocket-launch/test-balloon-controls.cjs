@@ -1,7 +1,57 @@
-const{chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
-(async()=>{const out=path.join(__dirname,'docs/review/balloon-controls-20261118');fs.mkdirSync(out,{recursive:true});const b=await chromium.launch({channel:'chrome'});try{const p=await b.newPage({viewport:{width:1920,height:1080}}),errors=[],layouts=[];p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});await p.goto(((process.env.TEST_ORIGIN||'http://127.0.0.1:9041')+'/experiments/rocket-launch/?v=balloon-controls-20261118'));await p.evaluate(()=>document.fonts.ready);
-for(const[width,height]of[[1920,1080],[1600,900],[1024,768]]){await p.setViewportSize({width,height});await p.waitForTimeout(100);const result=await p.evaluate(async()=>{const {auditControls}=await import('./interaction-contract.js'),box=s=>document.querySelector(s).getBoundingClientRect(),pump=box('.pump-control'),count=box('.pump-count'),replay=box('.balloon-reset'),slow=box('.balloon-slow'),app=box('#app'),blocked=[];for(const s of['.pump-control','.balloon-reset','.balloon-slow']){const e=document.querySelector(s),r=e.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);if(hit!==e&&!e.contains(hit))blocked.push(s);}return{pump:pump.toJSON(),replay:replay.toJSON(),slow:slow.toJSON(),below:replay.top>=count.bottom+5,beside:slow.left>replay.right,inside:[replay,slow].every(r=>r.left>=app.left&&r.right<=app.right&&r.top>=app.top&&r.bottom<=app.bottom),blocked,audit:auditControls(document.querySelector('#app')),icon:getComputedStyle(document.querySelector('.balloon-reset svg')).fill,scale:RocketBalloon.layout.displayScale};});assert(result.below&&result.beside&&result.inside);assert.deepEqual(result.blocked,[]);assert.deepEqual(result.audit,[]);assert.equal(result.icon,'none');assert.equal(result.scale,.78);assert.equal(await p.getByRole('switch',{name:'慢镜头',exact:true}).getAttribute('aria-checked'),'true');layouts.push({width,height,...result});await p.screenshot({path:path.join(out,'ready-'+width+'.png')});}
-await p.setViewportSize({width:1920,height:1080});const pump=p.locator('.pump-control');await pump.focus();await p.keyboard.down('Space');await p.waitForTimeout(300);await p.keyboard.up('Space');const start=await p.evaluate(()=>RocketBalloon.state.time);await p.waitForTimeout(800);const slowDelta=await p.evaluate(start=>RocketBalloon.state.time-start,start);assert(slowDelta>.12&&slowDelta<.30,'quarter-speed clock');const before=await p.evaluate(()=>RocketBalloon.state);await p.getByRole('switch',{name:'慢镜头',exact:true}).click();const switched=await p.evaluate(()=>RocketBalloon.state);assert(switched.time>=before.time&&switched.charge===before.charge&&switched.pumpCount===before.pumpCount,'toggle changes rate without restarting');const begin=switched.time;await p.waitForTimeout(800);const normalDelta=await p.evaluate(begin=>RocketBalloon.state.time-begin,begin);assert(normalDelta>.6&&normalDelta<1.05,'normal-speed clock');await p.getByRole('switch',{name:'慢镜头',exact:true}).click();assert.equal(await p.getByRole('switch',{name:'慢镜头',exact:true}).getAttribute('aria-checked'),'true');
-await p.getByRole('button',{name:'重新开始',exact:true}).click();const reset=await p.evaluate(()=>RocketBalloon.state);assert.equal(reset.time,0);assert.equal(reset.charge,0);assert.equal(reset.pumpCount,0);assert.equal(reset.displacementCm,0);assert.equal(reset.playing,false);assert.equal(reset.slow,true);
-await pump.focus();await p.keyboard.down('Space');await p.waitForTimeout(4300);assert.equal(await p.evaluate(()=>RocketBalloon.state.pumpCount),6);await p.screenshot({path:path.join(out,'full-size-1920.png')});await p.keyboard.up('Space');await p.getByRole('switch',{name:'慢镜头',exact:true}).click();await p.waitForFunction(()=>!RocketBalloon.state.playing);assert.equal(await p.evaluate(()=>RocketBalloon.state.displacementCm),100);await p.screenshot({path:path.join(out,'ended-1920.png')});
-await p.getByRole('button',{name:'推力与载荷',exact:true}).click();assert.equal(await p.locator('.balloon-tools').count(),0);await p.getByRole('button',{name:'气球反作用力',exact:true}).click();assert.equal(await p.locator('.balloon-tools').count(),1);assert.equal(await p.getByRole('switch',{name:'慢镜头',exact:true}).getAttribute('aria-checked'),'false');assert.deepEqual(errors,[]);fs.writeFileSync(path.join(out,'results.json'),JSON.stringify({browser:b.version(),layouts,slowDelta,normalDelta,reset,errors},null,2));console.log('PASS 22% smaller sprite, replay/slow toggle below pump at three viewports, keyboard pumping, live rate change without reset, replay cleanup, endpoint unchanged and navigation cleanup');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+const { chromium } = require('playwright');
+const assert = require('node:assert/strict');
+
+(async()=>{
+ const browser=await chromium.launch();
+ try{
+  const page=await browser.newPage({viewport:{width:1920,height:1080}});
+  const errors=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  const origin=process.env.TEST_ORIGIN||'http://127.0.0.1:9041';
+  await page.goto(origin+'/experiments/rocket-launch/');
+  const pump=page.getByRole('button',{name:'按住打气，松开发射'});
+  const tip=page.getByRole('status').filter({hasText:'按住打气，松开发射'});
+  const restart=page.getByRole('button',{name:'重新开始',exact:true});
+  assert.equal(await tip.isVisible(),true);
+  assert.equal(await page.getByRole('switch',{name:'慢镜头'}).count(),0);
+  assert.equal(await page.locator('#pump-count').count(),0);
+  for(const [width,height] of [[1920,1080],[1600,900],[1024,768]]){
+   await page.setViewportSize({width,height});
+   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+   const target=await pump.boundingBox(),reset=await restart.boundingBox();
+   assert(target&&reset&&reset.y>target.y+target.height);
+   assert(reset.x>=0&&reset.y+reset.height<=height);
+  }
+  await page.setViewportSize({width:1920,height:1080});
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  const sizes=await page.locator('#balloon-charge span').evaluateAll(nodes=>{
+   const scale=document.querySelector('#app').getBoundingClientRect().width/1600;
+   return nodes.map(node=>Math.round(parseFloat(getComputedStyle(node).fontSize)*scale));
+  });
+  assert.deepEqual(sizes,[36,24]);
+  await pump.focus();
+  await page.keyboard.down('Space');
+  await page.getByRole('status').filter({hasText:'松开发射'}).waitFor();
+  await page.waitForFunction(()=>RocketBalloon.state.charge>0);
+  await page.keyboard.up('Space');
+  assert.equal(await tip.isVisible(),false);
+  assert.equal(await page.evaluate(()=>RocketBalloon.state.playbackRate),1);
+  await page.waitForFunction(()=>RocketBalloon.state.time>.4);
+  assert.equal(await page.locator('#app').getAttribute('data-balloon-moving'),'');
+  const motionArrows=await page.evaluate(()=>RocketForces.lastDraws.filter(arrow=>arrow.id.startsWith('balloon-')));
+  assert.equal(motionArrows.length,2);
+  assert.equal(motionArrows[0].y,motionArrows[1].y);
+  assert.equal(motionArrows[0].y,270);
+  assert.equal(motionArrows[0].length,motionArrows[1].length);
+  await restart.click();
+  await page.waitForFunction(()=>document.querySelector('#balloon-charge').textContent==='0%');
+  assert.equal(await tip.isVisible(),true);
+  assert.equal(await page.locator('#app').getAttribute('data-balloon-moving'),null);
+  assert.equal(await page.locator('#balloon-charge').textContent(),'0%');
+  assert.equal(await page.locator('#balloon-displacement').innerText(),'0.0 cm');
+  await page.locator('#chapters > button').filter({hasText:'速度与轨道'}).click();
+  assert.equal(await tip.count(),0);
+  assert.deepEqual(errors,[]);
+  console.log('PASS shared tips, normal playback, reset, and 36 px / 24 px charge reading');
+ }finally{await browser.close();}
+})().catch(error=>{console.error(error);process.exitCode=1;});
