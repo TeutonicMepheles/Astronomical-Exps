@@ -29,7 +29,10 @@ def build(target, review=False):
         'UI_ICONS': {p.stem: data(p) for p in (ROOT / 'assets/ui').glob('*.png')},
         'LAMP_HERO': {p.stem: data(p) for p in (ROOT / 'assets/lamp-hero').glob('*.png')},
         'LAMP_HEADS': {p.stem: data(p) for p in (ROOT / 'assets/lamp-heads').glob('*.png')},
-        'UI_THUMBNAILS': {p.stem[3:]: data(p) for p in [*(ROOT / 'previews').glob('ui-*.jpg'), ROOT / 'previews/ui-stadium.png']},
+        'UI_THUMBNAILS': (
+            {p.stem[3:]: data(p) for p in [*(ROOT / 'previews').glob('ui-*.jpg'), ROOT / 'previews/ui-stadium.png']}
+            if review else {p.stem: data(p) for p in (ROOT / 'assets/panel-closeups').glob('*.jpg')}
+        ),
     }
     script += ''.join('window.' + key + '=' + json.dumps(value, ensure_ascii=False) + ';'
                       for key, value in values.items())
