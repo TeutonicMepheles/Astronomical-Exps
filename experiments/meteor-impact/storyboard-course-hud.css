@@ -11,7 +11,7 @@
   content: ""; width: 16px; height: 3px; margin-right: 4px; background: #52636e;
 }
 #story-header .story-stage-progress b {
-  width: 34px; height: 34px; border: 3px solid #52636e; font-size: 20px; font-weight: 400;
+  flex: 0 0 34px; width: 34px; height: 34px; border: 3px solid #52636e; font-size: 20px; font-weight: 400;
 }
 #story-header .story-stage-progress [aria-current="step"] { color: #e9d9b6; }
 #story-header .story-stage-progress [aria-current="step"] b {
