@@ -1,4 +1,4 @@
-/* Owned chrome for the storyboard's course sequence and record book. */
+/* Owned chrome for the storyboard's course sequence. */
 #story-header { background: linear-gradient(#061022f0, #061022c4 55%, transparent); }
 /* Stage indicator follows the lunar crater measurement page's horizontal pattern. */
 #story-header .story-stage-progress {
@@ -22,50 +22,5 @@
   border-color: #617a80; color: #b9ded2; font-weight: 700; box-shadow: inset 0 0 0 1px #b9ded2;
 }
 
-#openRecords {
-  display: inline-grid;
-  grid-template-columns: 42px auto 52px;
-  align-items: stretch;
-  gap: 0;
-  min-height: 57px;
-  padding: 0;
-  color: #eef7ff;
-  border: 1px solid #70849a;
-  border-radius: 5px 12px 12px 5px;
-  background: #15283f;
-}
-#openRecords .record-spine {
-  display: grid;
-  place-items: center;
-  color: #c9e9e4;
-  background: #2e4660;
-  border-right: 1px solid #70849a;
-  border-radius: 4px 0 0 4px;
-}
-#openRecords .record-label {
-  align-self: center;
-  padding-inline: 11px;
-}
-#openRecords .record-book-icon {
-  width: 22px;
-  height: 22px;
-}
-#openRecords #recordCount {
-  display: grid;
-  place-items: center;
-  width: auto;
-  height: auto;
-  padding-inline: 7px;
-  border: 0;
-  border-radius: 0 10px 10px 0;
-  background: #f0cd9d;
-  color: #322333;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-#openRecords:hover,#openRecords:focus-visible {
-  background: #284766;
-  border-color: #b7cfe2;
-}
 
 #story-header .story-stage-progress li[role="button"] { cursor:pointer; }
