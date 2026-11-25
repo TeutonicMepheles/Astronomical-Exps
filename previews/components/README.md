@@ -59,3 +59,7 @@ npm run dev -- --experiment components
 `measure.cjs` 是描边性能对照工具，旧测量结果只适用于当时的设备和页面，不能作为其他实验的性能结论。
 
 2026-11-11：progress 预览模拟五类镜片、两镜组装和四天体记录，调用实验公开课程 API；保留完成徽章、锁定、返回、重置与多实例回归。
+
+地球预览的薄大气层和昼夜／城市灯光可独立切换。城市灯光贴图来自 [Solaris Earth](https://solaris.cuvii.dev/earth/)（原资料 [Solar System Scope / INOVE](https://www.solarsystemscope.com/textures/)，基于 NASA Blue Marble；[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)），本地 WebP 做了重编码，灯光颜色和强度在 Shader 中重新映射。
+
+预览沿用单个 WebGL 上下文和单次绘制调用。贴图初始化时上传，切换或贴图就绪时重绘，释放渲染器时删除纹理。光照与大气厚度为视觉演示参数。
