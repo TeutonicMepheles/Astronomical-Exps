@@ -1,6 +1,7 @@
 /* 入口 B：纹理 / 夜面版（textured.html）。交互与白底版完全共用 globe-core.js。 */
 
 import { createScene } from './globe-core.js';
+import { mountEarthSunlight } from '../components/earth-sunlight.js?v=globe-occlusion';
 import { createGlobeShaderRenderer } from '../../../shared/components/globe-shader-renderer/index.js';
 
 const renderer = createGlobeShaderRenderer({
@@ -78,62 +79,7 @@ if (!scene.ready()) {
   svg.replaceChildren(frag);
 })();
 
-/* Parallel rays share the shader's projected Earth-to-Sun direction.
- * Arrowheads stop outside the surface; the central ray extends through the
- * projected subsolar normal and centre. */
-const BEAM = {
-  count: 5,
-  length: 200,      // 光束在屏幕上的长度（逻辑像素，尖端 → 尾端）
-  tipGap: 1.30,     // 箭头尖端距球心的半径倍数：参考图实测约 1.43R，停在球外不贴球面
-  spacing: 68,      // 相邻光束的垂直间距（参考图 2048 基准 87.2px → 1600 舞台 68.1px）
-  sprite: { tipX: 0, tipY: 118, axisDeg: 149.77, lengthPx: 234.5 },
-};
-const beamEls = [];
-for (let i = 0; i < BEAM.count; i += 1) beamEls.push(document.getElementById('beam' + i));
-
-function layoutBeams() {
-  const cam = window.__globe?.camera?.();
-  if (!cam || beamEls.some((e) => !e)) return;
-  const { centre: C, radius: r, subsolar: S } = cam;
-  let dx = S.x - C.x;
-  let dy = S.y - C.y;
-  const len = Math.hypot(dx, dy);
-  if (len < r * 0.08) return;          // 直射点几乎与球心重合时方向退化，保持上一帧
-  dx /= len;
-  dy /= len;                            // 球心 → 直射点（朝太阳一侧）
-  const px = -dy;
-  const py = dx;
-  const mid = (BEAM.count - 1) / 2;
-  const beamDeg = (Math.atan2(dy, dx) * 180) / Math.PI;      // 屏幕坐标 y 向下，与 SVG rotate 同向
-  // 箭头指向球体：把素材「尖端→尾端」方向对齐到 +d（球心→直射点，即朝太阳一侧），
-  // 于是尾端在球外、尖端落在受光面。实测 dTail 应 ≈ 半径 + 光束长度。
-  // 旋转必须让「箭头端 → 尾端」对齐到 +d（球心朝太阳一侧），即尾端在球外、箭头贴向球面。
-  // 素材：箭头端在 (0,118)，尾端在 (206,0)，其「端→尾」方向 = axisDeg − 180°，故 +180°。
-  // 注意：验证时只能映射素材的**真实角点**，不要沿轴外推一个点——外推点会落在素材外侧，
-  // 上一版就是被这种"虚拟尾端"验出 402px 而实际整条光束是朝里画的。
-  const rot = beamDeg + 180 - BEAM.sprite.axisDeg;
-  // 测量视角下球体放大到 3 倍，光束若维持 200 会显得过短；按 zoom 适度加长（上限 1.8×）
-  const lenNow = (scene.measuring ? BEAM.length * Math.min(1.8, Math.max(1, cam.zoom)) : 135);
-  const scale = lenNow / BEAM.sprite.lengthPx;
-
-  beamEls.forEach((el, i) => {
-    const o = (i - mid) * BEAM.spacing;
-    if (Math.abs(o) >= r - 4) { el.setAttribute('opacity', '0'); return; }
-    el.removeAttribute('opacity');
-    const tipR = r * BEAM.tipGap;
-    const half = Math.sqrt(Math.max(tipR * tipR - o * o, 0));
-    // 受光面交点：轴上最近点朝太阳一侧走 half
-    const ex = C.x + o * px + half * dx;
-    const ey = C.y + o * py + half * dy;   // 尖端位置（球外，距球心 tipR）
-    // 把素材的尖端点 (tipX,tipY) 映射到 (ex,ey)，并按主轴对齐到 d
-    el.setAttribute('transform',
-      `translate(${ex.toFixed(2)} ${ey.toFixed(2)}) rotate(${rot.toFixed(3)}) ` +
-      `scale(${scale.toFixed(4)}) translate(${-BEAM.sprite.tipX} ${-BEAM.sprite.tipY})`);
-  });
-}
-
-window.addEventListener('globe-frame', layoutBeams);
-window.addEventListener('resize', layoutBeams);
+mountEarthSunlight(scene);
 
 /* ---------- 进入测量：沿经线画弧并标注距离 ---------- */
 const measureLayer = document.getElementById('measureLayer');
@@ -177,7 +123,7 @@ renderer.grainMode = 0;
 scene.redraw();
 window.addEventListener('globe-frame', paintMeasure);
 window.addEventListener('globe-mode-change', paintMeasure);
-import { mountObservation } from './observation.js';
+import { mountObservation } from './observation.js?v=globe-observation-scale';
 mountObservation(scene);
 import { mountAngleGuide } from './angle-guide.js';
 mountAngleGuide(scene);
@@ -186,7 +132,7 @@ mountLineStyles(scene);
 
 import { mountPointGuides } from './point-guides.js';
 mountPointGuides(scene);
-import { mountCalculation } from './calculation.js';
+import { mountCalculation } from './calculation.js?v=inline-formula';
 mountCalculation(scene);
 import { mountBackdrop } from './backdrop.js';
 mountBackdrop(scene.stage);
@@ -205,5 +151,5 @@ mountNoonArrivalAnimation(scene);
 import { mountObservationTips } from './observation-tips.js';
 mountObservationTips(scene);
 
-import { mountMeridianSelection } from './meridian-selection.js';
+import { mountMeridianSelection } from './meridian-selection.js?v=operation-tip';
 mountMeridianSelection(scene);
