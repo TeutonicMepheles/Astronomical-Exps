@@ -6,8 +6,8 @@
   <title>陨石坑撞击</title>
   <link rel="stylesheet" href="../../shared/typography/typography.css">
   <link rel="stylesheet" href="storyboard.css?v=2">
-  <link rel="stylesheet" href="storyboard-results.css?v=12">
-  <link rel="stylesheet" href="storyboard-course-hud.css?v=5">
+  <link rel="stylesheet" href="storyboard-results.css?v=13">
+  <link rel="stylesheet" href="storyboard-course-hud.css?v=6">
 </head>
 <body>
   <main id="story" class="comparison-layout" data-stage="intro" data-loading>
@@ -41,7 +41,7 @@
       <ol class="story-stage-progress" aria-label="任务阶段">
         <li data-step="factors"><b>1</b><span>选择研究因素</span></li>
         <li data-step="settings"><b>2</b><span>设置对比参数</span></li>
-        <li data-step="observe"><b>3</b><span>观察与记录</span></li>
+        <li data-step="observe"><b>3</b><span>观察结果</span></li>
       </ol>
     </header>
     <div id="hero"><canvas id="first" aria-hidden="true"></canvas></div>
@@ -121,50 +121,24 @@
         <button id="view-cutaway" role="tab" data-view="cutaway" aria-controls="split" aria-selected="false" tabindex="-1">剖面</button>
       </div>
       <p id="comparison-factor"></p>
-      <div class="observation-actions" role="group" aria-label="观察与记录操作">
+      <div class="observation-actions" role="group" aria-label="观察结果操作">
         <button id="retry" type="button" aria-label="返回对比参数设置">
           <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 12H4m7-7-7 7 7 7"/>
           </svg>
         </button>
-        <button id="openRecords" aria-haspopup="dialog"><span class="record-spine"><svg class="record-book-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h13v16H7a2 2 0 0 1 0-4h12M6 3.5a1 1 0 0 0-1 1v13M9 7.5h6M9 10.5h6"/></svg></span><span class="record-label">实验记录</span><b id="recordCount">0</b></button>
+        <button id="continue-experiment" type="button">继续实验</button>
       </div>
       <p id="observation" class="observation-status" role="status" tabindex="-1"></p>
     </footer>
     <p id="result-view-status" role="status" hidden></p>
     <p id="error" role="status"></p>
-    <dialog id="records" aria-labelledby="recordsTitle">
-      <header>
-        <h2 id="recordsTitle">实验记录</h2>
-        <button id="closeRecords" type="button" aria-label="关闭实验记录">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="m6 6 12 12M18 6 6 18"/>
-          </svg>
-        </button>
-      </header>
-      <div id="recordBody"></div>
-      <footer>
-        <div id="record-controls">
-          <div id="record-views" class="segments" role="group" aria-label="记录对照视角">
-            <button data-view="top" aria-pressed="false">俯视</button>
-            <button data-view="whole" aria-pressed="true">3D 坑体</button>
-            <button data-view="cutaway" aria-pressed="false">立体剖面</button>
-          </div>
-          <h3 id="record-comparison"></h3>
-          <nav id="record-pagination" aria-label="实验记录分页" hidden>
-            <button id="previous" aria-label="上一组">←</button>
-            <div id="record-pages" role="group" aria-label="选择实验组"></div>
-            <button id="next" aria-label="下一组">→</button>
-          </nav>
-        </div>
-      </footer>
-    </dialog>
   </main>
   <script src="vendor/three.local.js"></script>
   <script src="components/meteor-3d/meteor-3d.js?v=4"></script>
   <script src="components/result-callouts/result-callouts.js?v=4"></script>
   <script src="impact-result-model.js"></script>
-  <script src="storyboard-results.js?v=9"></script>
-  <script type="module" src="storyboard.js?v=7"></script>
+  <script src="storyboard-results.js?v=10"></script>
+  <script type="module" src="storyboard.js?v=8"></script>
 </body>
 </html>

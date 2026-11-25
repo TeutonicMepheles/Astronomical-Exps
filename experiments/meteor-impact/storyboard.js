@@ -35,6 +35,7 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
   const steps = [...document.querySelectorAll('[data-step]')];
   const panels = [$('#left'), $('#right')];
   const observationPanels = [...document.querySelectorAll('.observation-panel')];
+  const continueExperiment = $('#continue-experiment');
   const another = $('#another');
   const retry = $('#retry');
   const phases = { fall: '下落中', contact: '撞击', dust: '扬尘', result: '撞击完成' };
@@ -58,10 +59,10 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
   let fallTimer;
   let toastTimer;
   let runId = 0;
-  let currentRecord;
+  let currentResult;
   let resultFailed = false;
   let selectedResultTab;
-  const records = window.createMeteorRecords?.(engines, viewport);
+  const results = window.createMeteorResults?.(engines, viewport);
   let heroStartTime;
   let previousFrameTime;
 
@@ -153,10 +154,10 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     split.setAttribute('role', 'tabpanel');
     split.setAttribute('aria-labelledby', selected.id);
     const view = selected.dataset.view;
-    const waitingForSection = !currentRecord && view === 'cutaway';
+    const waitingForSection = !currentResult && view === 'cutaway';
     resultViewStatus.hidden = !waitingForSection;
     if (waitingForSection) resultViewStatus.textContent = resultFailed ? '剖面生成失败' : '撞击后显示剖面';
-    if (currentRecord) records.renderObservation(currentRecord, panels, observationPanels, view);
+    if (currentResult) results.renderObservation(currentResult, panels, observationPanels, view);
     else if (!split.hidden) engines.forEach(engine => engine.setObservationView(view));
   }
 
@@ -295,7 +296,7 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     pending = (async () => {
       try {
         engines.push(new MeteorScene3D($('#second'), { initialRotation: [-.65, 2.1, .8], viewport }));
-        if (records) await engines[1].warmStoryboard();
+        if (results) await engines[1].warmStoryboard();
         else await engines[1].loadMeteor();
         if (unloaded) return;
         splitReady = true;
@@ -315,9 +316,9 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     const id = ++runId;
     const conditions = factor.key === 'ground' ? { ...fixed, scene: 'earth', size: 'large' } : fixed;
     const inputs = values.map(value => ({
-      ...conditions, [factor.key]: value, stylizedLunar: Boolean(records) && factor.key !== 'scene'
+      ...conditions, [factor.key]: value, stylizedLunar: Boolean(results) && factor.key !== 'scene'
     }));
-    const estimates = records ? inputs.map(input => {
+    const estimates = results ? inputs.map(input => {
       const reference = MeteorImpactResultModel.calculate(input);
       if (factor.key !== 'ground' || input.ground !== 'loose') return reference;
       return { ...reference, depth: reference.depth * 1.6, referenceDepth: reference.depth };
@@ -360,11 +361,11 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     $('#error').textContent = '';
     (resultViews ? retry : $('#observation')).focus();
     if (cancel) cancel.hidden = false;
-    currentRecord = null;
+    currentResult = null;
     resultFailed = false;
     split.removeAttribute('role');
     split.removeAttribute('aria-labelledby');
-    records?.renderObservation(null, panels, observationPanels);
+    results?.renderObservation(null, panels, observationPanels);
     selectResultView($('#view-whole'));
     // Populate the terrain cache while the two rocks are still in space.
     void (async () => {
@@ -395,13 +396,13 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
         },
         onComplete: async () => {
           if (++completed !== 2) return;
-          if (records) {
+          if (results) {
             $('#observation').textContent = '正在整理坑体和立体剖面…';
             const mode = factor.key === 'scene' ? 'world' : 'factor';
             try {
-              const result = await records.capture(combos, mode, factor.key, () => id === runId);
+              const result = await results.capture(combos, mode, () => id === runId);
               if (id !== runId) return;
-              currentRecord = result;
+              currentResult = result;
               selectResultView(selectedResultTab);
             } catch (error) {
               if (id !== runId) return;
@@ -428,8 +429,8 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
       engine.cancel(false, false);
       engine.setObservationView('whole', false);
     });
-    currentRecord = null;
-    records?.renderObservation(null, panels, observationPanels);
+    currentResult = null;
+    results?.renderObservation(null, panels, observationPanels);
     spaceSplit.hidden = true;
     spaceSplit.removeAttribute('data-dropping');
     hero.append(canvas);
@@ -450,7 +451,7 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
       $('#settings').hidden = true;
       fire.hidden = true;
       if (launchActions) launchActions.hidden = true;
-      $('#task').textContent = stage === 'settings' ? '设置对比参数' : '观察与记录';
+      $('#task').textContent = stage === 'settings' ? '设置对比参数' : '观察结果';
       $('#instruction').textContent = '请先完成前置操作';
       $('#task').focus();
     }
@@ -496,7 +497,8 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
   };
   fire.onclick = launch;
   retry.onclick = () => leaveSplit(showSettings);
-  if (another) another.onclick = () => leaveSplit(showFactors);
+  const changeFactor = continueExperiment || another;
+  if (changeFactor) changeFactor.onclick = () => leaveSplit(showFactors);
   if (cancel) cancel.onclick = () => leaveSplit(showSettings);
   resultTabs.forEach((tab, index) => {
     tab.onclick = () => selectResultView(tab);
@@ -520,7 +522,7 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
     clearTimeout(fallTimer);
     engines.forEach(engine => engine.dispose());
     clearSelectionToast();
-    records?.dispose();
+    results?.dispose();
     splitPreviews.forEach(preview => preview.dispose());
   });
 
@@ -528,7 +530,7 @@ import { MeteorConditionPreview, entrySpeeds } from './condition-preview.js';
   (async () => {
     try {
       engines.push(new MeteorScene3D(canvas, { viewport }));
-      if (records) {
+      if (results) {
         await engines[0].warmStoryboard();
         await prepareSecond();
         if (!splitReady) return;

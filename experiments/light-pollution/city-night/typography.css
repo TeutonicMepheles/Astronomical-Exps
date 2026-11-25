@@ -93,7 +93,6 @@ aside{background:linear-gradient(155deg,#f3f0fffa,#dfdaf8fa);color:var(--scheme-
 aside::before{background:#e9e4fa}
 aside .panel-head{padding-bottom:.3cqw;border-color:#c3b9e4}
 aside .panel-head h2,aside output,aside label,aside select{color:var(--scheme-ink)}
-aside .object-preview,aside .object-preview.lamp-preview{background:#dbd6f7;border-radius:.7cqw}
 aside button,aside select{color:var(--scheme-ink);background:#ded8fa;border:1px solid #b5a8e5;border-radius:.67cqw}
 aside button:hover,aside select:hover{background:#cfc5f5;color:var(--scheme-ink)}
 aside button[aria-pressed=true],aside button[aria-selected=true],aside button.is-selected,aside .lighting-step-bar input:checked+span{background:var(--scheme-warm);color:var(--scheme-ink);border-color:#d28682;font-weight:650}
@@ -128,7 +127,6 @@ aside .lighting-step-bar,#global-dimming-panel .lighting-step-bar{padding:.22cqw
 aside .lighting-step-bar label,#global-dimming-panel .lighting-step-bar label{border:0;margin:0;isolation:isolate}
 aside .lighting-step-bar span,#global-dimming-panel .lighting-step-bar span{margin:0;border-radius:999px;min-width:0;overflow:hidden}
 aside .lighting-step-bar input:focus-visible+span,#global-dimming-panel .lighting-step-bar input:focus-visible+span{outline-offset:-2px}
-aside .object-preview,aside .object-preview.lamp-preview{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;padding:0;background:#dcd5f4}
 .marker{color:#332d76;display:grid;place-items:center}
 .marker::before{background:linear-gradient(145deg,#f7f2ff,#e0d9f7);border:1.5px solid #b7a7e8;border-radius:50% 50% 50% 19%}
 .marker:hover,.marker[aria-pressed=true]{color:#332d76}

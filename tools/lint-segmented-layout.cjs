@@ -156,9 +156,13 @@ async function main() {
               await page.getByRole('button', {name: label, exact: true}).click();
             }
             await page.locator('#fire').click();
+            await page.locator('#left .observed-result').waitFor({ state: 'visible', timeout: 30000 });
             await collect(experiment, viewport, '撞击结果');
-            await page.locator('#openRecords').click();
-            await collect(experiment, viewport, '实验记录');
+            await page.getByRole('button', { name: '继续实验', exact: true }).click();
+            await page.locator('#story[data-stage="factors"] #factors').waitFor({ state: 'visible' });
+            await page.locator('#factors').getByRole('button', { name: '陨石大小', exact: true }).waitFor({ state: 'visible' });
+            await page.locator('#observations').waitFor({ state: 'hidden' });
+            await collect(experiment, viewport, '继续实验 → 选择研究因素');
           }
           if (experiment === 'lunar-crater-height') {
             await page.locator('#lightPanel [data-nudge="5"]').click();
