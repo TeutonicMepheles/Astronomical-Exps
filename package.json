@@ -8,7 +8,8 @@
     "test": "python tools/test.py",
     "test:browser": "node tools/smoke.cjs",
     "export": "python tools/export.py",
-    "export:eight": "node tools/export-eight.cjs"
+    "export:eight": "node tools/export-eight.cjs",
+    "lint:layout": "node tools/lint-segmented-layout.cjs"
   },
   "devDependencies": {
     "acorn": "8.19.0",
