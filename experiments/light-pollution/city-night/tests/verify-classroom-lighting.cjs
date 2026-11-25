@@ -49,7 +49,7 @@ async function verify(page, url) {
   assert.equal(occlusion.errors, 0);
   const full = await snapshot();
 
-  await page.getByRole('button', {name: '全局调光', exact: true}).click();
+  await page.getByRole('button', {name: '调光', exact: true}).click();
   await page.getByRole('radio', {name: '必要照明', exact: true}).check();
   await settle();
   const middle = await snapshot();
