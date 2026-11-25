@@ -13,7 +13,6 @@
 #records .record-gallery { display: grid; grid-template-columns: 1fr 1fr; }
 #records button:disabled { opacity: .5; }
 #split { --one: var(--blue); --two: var(--violet); }
-.comparison-layout[data-stage="observe"] #story-header { height: 114px; padding-right: 30px; }
 .comparison-layout #split #right { border: 0; }
 .comparison-layout #split .phase { z-index: 3; top: 132px; right: 30px; margin: 0; }
 .observed-result { position: absolute; inset: 0; background: #111c24; }

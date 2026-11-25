@@ -2,6 +2,7 @@ const { chromium } = require('playwright');
 const { spawn } = require('node:child_process');
 const { mkdirSync, writeFileSync } = require('node:fs');
 const { resolve } = require('node:path');
+const { inspectInteraction } = require('./lint-interaction-states.cjs');
 
 const root = resolve(__dirname, '..');
 const selectors = '[role=tablist], [role=radiogroup], .lighting-step-bar, .segmented, .segments, [data-segmented-control]';
@@ -60,7 +61,7 @@ async function measure(page) {
 
 async function main() {
   let server, browser;
-  const samples = [], failures = [], coverage = [], errors = [];
+  const samples = [], failures = [], coverage = [], errors = [], interactions = [], ruleChecks = [];
   const preview = process.env.SEGMENTED_LINT_URL;
   try {
     let base = process.env.BASE_URL;
@@ -170,13 +171,28 @@ async function main() {
         } finally {
           await page.close();
         }
+        const interactionPage = await browser.newPage({ viewport });
+        interactionPage.setDefaultTimeout(12000);
+        try {
+          await interactionPage.goto(preview || base + '/experiments/' + experiment + '/');
+          if (!preview && ['lunar-crater-height', 'earth-circumference', 'light-pollution'].includes(experiment)) {
+            await interactionPage.waitForURL(url => url.pathname !== '/experiments/' + experiment + '/');
+          }
+          await interactionPage.evaluate(async () => { await document.fonts.ready; });
+          await inspectInteraction(interactionPage, experiment, viewport, tolerance, interactions, ruleChecks);
+        } catch (error) {
+          errors.push({ experiment, viewport, rule: 'interaction-states', message: error.message });
+        } finally {
+          await interactionPage.close();
+        }
       }
     }
   } finally {
     await browser?.close();
     server?.kill();
   }
-  const report = { rule: 'segmented-control-geometry', toleranceCssPx: tolerance, coverage, samples, failures, errors };
+  const report = { rule: 'segmented-control-geometry', toleranceCssPx: tolerance,
+    coverage, samples, failures, interactions, ruleChecks, errors };
   const directory = resolve(root, 'artifacts');
   mkdirSync(directory, { recursive: true });
   const file = resolve(directory, preview ? 'segmented-layout-preview.json' : 'segmented-layout.json');
@@ -185,8 +201,23 @@ async function main() {
     console.error(finding.experiment, finding.viewport.width, finding.state, finding.name,
       finding.problems.join(', '), 'left=' + finding.left.toFixed(2), 'right=' + finding.right.toFixed(2));
   }
+  const ruleFailures = ruleChecks.filter(check => check.problems.length);
+  for (const check of ruleFailures) {
+    console.error(check.experiment, check.viewport.width, check.rule, check.state, check.problems.join('；'));
+  }
+  let anchorViolations = 0;
+  for (const run of interactions) {
+    for (const finding of run.violations) {
+      anchorViolations++;
+      console.error(run.experiment, run.viewport.width, run.name, finding.phase, finding.scope,
+        finding.anchor, finding.dimension, finding.delta.toFixed(2) + ' CSS px');
+    }
+  }
   for (const error of errors) console.error(error.experiment, error.viewport.width, error.message);
-  console.log(samples.length + ' controls measured, ' + failures.length + ' violations, ' + errors.length + ' coverage errors. ' + file);
-  if (failures.length || errors.length || !samples.length) process.exitCode = 1;
+  console.log(samples.length + ' controls measured, ' + interactions.length + ' interaction runs, ' +
+    failures.length + ' layout violations, ' + anchorViolations + ' anchor violations, ' +
+    ruleChecks.length + ' page rule checks, ' + ruleFailures.length + ' failed, ' +
+    errors.length + ' errors. ' + file);
+  if (failures.length || anchorViolations || ruleFailures.length || errors.length || !samples.length) process.exitCode = 1;
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });
