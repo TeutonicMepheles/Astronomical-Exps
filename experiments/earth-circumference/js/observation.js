@@ -17,17 +17,14 @@ export function mountObservation(scene){
  <text id="altitude-label" class="local-label"/><text id="shadow-result" class="local-label"/></g><text id="rod-label" class="local-label">100 cm</text>
  <circle cx="330" cy="${GROUND_Y}" r="4" fill="#fff4cb"/></g></svg><div class="subsolar-zero-note" hidden>太阳直射点：正午影长为0</div>
  <div class="measure-entry-hint" role="note"><span>点击右上角尺子</span><b>开始测量影长</b></div></div>
- <div class="observation-footer"><div class="rod-length-control"><span>杆长 L</span><button type="button" data-rod-decrease aria-label="缩短杆长">−</button><input type="range" min="10" max="100" step="10" value="100" data-rod-range aria-label="杆长，10 到 100 厘米"><output data-rod-value>100 cm</output><button type="button" data-rod-increase aria-label="增长杆长">＋</button></div></div>`;
- const pin=document.createElementNS('http://www.w3.org/2000/svg','svg');
- pin.setAttribute('viewBox','0 0 1600 900');pin.setAttribute('aria-hidden','true');pin.classList.add('observation-pin');
- pin.innerHTML='<path/>';
+ <div class="observation-footer"><div class="rod-length-control"><button type="button" data-rod-decrease aria-label="缩短杆长">−</button><label class="rod-length-bar"><span>杆长 L</span><input type="range" min="10" max="100" step="10" value="100" data-rod-range aria-label="杆长，10 到 100 厘米"><output data-rod-value>100 cm</output></label><button type="button" data-rod-increase aria-label="增长杆长">＋</button></div></div>`;
  const globeRod=document.createElementNS('http://www.w3.org/2000/svg','svg');
  globeRod.classList.add('observation-globe-rod');
  globeRod.setAttribute('viewBox','0 0 1600 900');
  globeRod.setAttribute('aria-hidden','true');
  globeRod.innerHTML='<path class="observation-rod-shadow"/><path class="observation-rod-ray"/><path class="observation-rod-stem"/><path class="observation-rod-angle"/>';
  const [globeShadow,globeRay,globeStem,globeAngle]=globeRod.children;
- scene.stage.append(pin,globeRod,panel);
+ scene.stage.append(globeRod,panel);
  const q=s=>panel.querySelector(s);
  function paintGlobeRod(visible,arc,latitude,theta){
   globeRod.style.display=visible?'':'none';
@@ -41,8 +38,9 @@ export function mountObservation(scene){
   const dx=nx*cosine-sun[0],dy=ny*cosine-sun[1];
   const direction=Math.sign(dx)||1;
   const baseX=cam.centre.x+nx*cam.radius,baseY=cam.centre.y-ny*cam.radius;
-  const height=scene.calibration.rod*.58;
-  const shadowScale=cosine>0?Math.min(height/cosine,120):0;
+  const magnification=scene.measuring&&!scene.calculating?1.3:1;
+  const height=scene.calibration.rod*.58*magnification;
+  const shadowScale=cosine>0?Math.min(height/cosine,120*magnification):0;
   globeRod.style.visibility=point.visible?'visible':'hidden';
   const tipX=baseX+nx*height,tipY=baseY-ny*height;
   globeStem.setAttribute('d','M'+baseX+' '+baseY+'L'+tipX+' '+tipY);
@@ -64,19 +62,14 @@ export function mountObservation(scene){
   return direction;
  }
  const solarRayPaths=[...panel.querySelectorAll('.site-solar-ray')];
- function updatePin(){
-  const target=selected==='selected'?scene.measureArc().sel:scene.camera().subsolar;
-  const stageRect=scene.stage.getBoundingClientRect(),rect=panel.getBoundingClientRect(),scale=stageRect.width/1600;
-  const left=(rect.left-stageRect.left)/scale,top=(rect.top-stageRect.top)/scale,bottom=(rect.bottom-stageRect.top)/scale;
-  const anchor=Math.max(top+80,Math.min(bottom-55,target.y));
-  pin.firstElementChild.setAttribute('d',`M${left+1} ${anchor-28} L${target.x} ${target.y} L${left+1} ${anchor+28} Z`);
- }
  const measurement=mountShadowMeasurement(panel);scene.measurements=measurement;scene.calibration={rod:100,ground:100};
  function setRodLength(value){
   const next=Math.max(10,Math.min(100,Math.round(Number(value)/10)*10));
   if(next===scene.calibration.rod)return;
   scene.calibration.rod=next;
-  q('[data-rod-range]').value=String(next);
+  const range=q('[data-rod-range]');
+  range.value=String(next);
+  range.parentElement.style.setProperty('--rod-fill',`${100*(next-range.min)/(range.max-range.min)}%`);
   q('[data-rod-value]').textContent=`${next} cm`;
   q('[data-rod-decrease]').disabled=next<=10;
   q('[data-rod-increase]').disabled=next>=100;
@@ -109,7 +102,6 @@ export function mountObservation(scene){
   paintGlobeRod(false);
   measurement.suspend();return;
  }
- updatePin();
  panel.dataset.site=selected;
  q('.subsolar-zero-note').hidden=selected!=='subsolar';
  q('.rod-length-control').hidden=selected!=='selected';

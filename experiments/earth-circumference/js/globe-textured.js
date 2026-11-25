@@ -1,7 +1,7 @@
 /* 入口 B：纹理 / 夜面版（textured.html）。交互与白底版完全共用 globe-core.js。 */
 
 import { createScene } from './globe-core.js';
-import { mountEarthSunlight } from '../components/earth-sunlight.js';
+import { mountEarthSunlight } from '../components/earth-sunlight.js?v=globe-occlusion';
 import { createGlobeShaderRenderer } from '../../../shared/components/globe-shader-renderer/index.js';
 
 const renderer = createGlobeShaderRenderer({
@@ -123,7 +123,7 @@ renderer.grainMode = 0;
 scene.redraw();
 window.addEventListener('globe-frame', paintMeasure);
 window.addEventListener('globe-mode-change', paintMeasure);
-import { mountObservation } from './observation.js';
+import { mountObservation } from './observation.js?v=globe-observation-scale';
 mountObservation(scene);
 import { mountAngleGuide } from './angle-guide.js';
 mountAngleGuide(scene);
@@ -132,7 +132,7 @@ mountLineStyles(scene);
 
 import { mountPointGuides } from './point-guides.js';
 mountPointGuides(scene);
-import { mountCalculation } from './calculation.js';
+import { mountCalculation } from './calculation.js?v=inline-formula';
 mountCalculation(scene);
 import { mountBackdrop } from './backdrop.js';
 mountBackdrop(scene.stage);
@@ -151,5 +151,5 @@ mountNoonArrivalAnimation(scene);
 import { mountObservationTips } from './observation-tips.js';
 mountObservationTips(scene);
 
-import { mountMeridianSelection } from './meridian-selection.js';
+import { mountMeridianSelection } from './meridian-selection.js?v=operation-tip';
 mountMeridianSelection(scene);

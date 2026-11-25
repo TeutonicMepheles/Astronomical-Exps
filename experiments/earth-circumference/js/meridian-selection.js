@@ -3,6 +3,7 @@ import { GLOBE_CENTER } from './globe-core.js';
 // Direct input and touch buttons share the same longitude preview.
 export function mountMeridianSelection(scene){
  const control=document.createElement('section');control.className='meridian-selection';
+ const hint=new window.ExperimentUI.OperationTip(scene.stage,{top:'690px',className:'earth-pick-hint'});
  // Adapt the 11458 svg-grain-demo dual-step specimen to the experiment's existing scene state.
  control.innerHTML=`
   <svg class="meridian-grain-defs" aria-hidden="true" focusable="false">
@@ -27,11 +28,14 @@ export function mountMeridianSelection(scene){
    </button>
   </div>
   <p id="longitude-error" role="status" hidden></p>`;
- for(const surface of [control,...control.querySelectorAll('button,.meridian-stepper-field')]){
+ const viewTabs=scene.stage.querySelector('.view-mode-tabs');
+ const surfaces=[control,...control.querySelectorAll('button,.meridian-stepper-field')];
+ if(viewTabs)surfaces.push(viewTabs,...viewTabs.querySelectorAll('.view-mode-tab'));
+ for(const surface of surfaces){
   surface.insertAdjacentHTML('afterbegin','<svg class="meridian-grain" aria-hidden="true" focusable="false"><rect width="100%" height="100%" filter="url(#meridian-grain)"/></svg>');
  }
  control.style.left=GLOBE_CENTER.x+"px";
- scene.stage.append(control);
+ scene.stage.append(control.querySelector('.meridian-grain-defs'),control);
  const input=control.querySelector('[data-longitude]');
  const error=control.querySelector('#longitude-error');
  const confirm=control.querySelector('[data-apply-meridian]');
@@ -84,8 +88,7 @@ export function mountMeridianSelection(scene){
    input.focus({preventScroll:true});
    input.select();
   }
-  const hint=scene.stage.querySelector('.earth-pick-hint');
-  hint.textContent=scene.meridianAligning?'经线转向正午':scene.pickingMeridian?'选择经度，确认经线':'点按所选经线，选择观测点';
+  hint.show(scene.meridianAligning?'经线转向正午':scene.pickingMeridian?'选择经度，确认经线':'点按所选经线，选择观测点');
   scene.canvas.setAttribute('aria-label',scene.pickingMeridian?'点按地球预选经线，随后确认':'点按所选经线选择观测点');
  }
  for(const event of ['globe-mode-change','meridian-selection-change'])window.addEventListener(event,update);

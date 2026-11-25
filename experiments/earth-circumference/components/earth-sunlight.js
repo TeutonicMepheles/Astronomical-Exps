@@ -54,7 +54,11 @@ function maskGlobeShadow(ctx, centre, radius, angle, length) {
   ctx.translate(centre.x, centre.y);
   ctx.rotate(angle);
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(0, -radius, length, radius * 2);
+  // Erase both the projected globe and the shadow extending away from the Sun.
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+  ctx.rect(0, -radius, length, radius * 2);
+  ctx.fill();
   ctx.restore();
 }
 
