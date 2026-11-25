@@ -72,8 +72,8 @@ body { position:relative;overflow:clip; }
 .stage:not(.is-measuring) .timeline .selected-date { display:none; }
 .selected-date small { color:#9eb0b9; }
 .view-mode-tabs {
-  left:48px;bottom:43px;transform:none;border:solid var(--control-edge);border-width:0 2px 2px 0;
-  border-radius:16px;background:var(--control-footer);box-shadow:none;padding:5px;gap:5px;isolation:isolate;
+  left:48px;bottom:43px;transform:none;border:0;
+  border-radius:16px;background:var(--control-footer);box-shadow:inset -2px -2px var(--control-edge);padding:6px;gap:5px;isolation:isolate;
 }
 .view-mode-tabs .view-mode-tab {
   position:relative;isolation:isolate;border:solid #9a91b7;border-width:0 2px 2px 0;

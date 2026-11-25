@@ -87,9 +87,13 @@ async function main() {
     }
     async function inspectLights(experiment, viewport) {
       await page.waitForFunction(() => document.body.dataset.ready === 'true', null, { timeout: 90000 });
-      await page.getByRole('button', { name: '全局调光', exact: true }).click();
+      const dimming = page.getByRole('button', { name: '调光', exact: true });
+      await dimming.click();
+      const dimmingPanel = page.locator('#global-dimming-panel');
+      await dimmingPanel.waitFor({ state: 'visible' });
       await collect(experiment, viewport, '全局调光');
-      await page.keyboard.press('Escape');
+      await dimming.click();
+      await dimmingPanel.waitFor({ state: 'hidden' });
       const markerIds = await page.evaluate(() => lightingUI.items().map(item => item.id));
       for (const id of markerIds) {
         await page.evaluate(() => lightingUI.close());
@@ -162,7 +166,7 @@ async function main() {
             await collect(experiment, viewport, '辅助轮廓');
           }
         } catch (error) {
-          errors.push({ experiment, viewport, message: error.message.split('\n')[0] });
+          errors.push({ experiment, viewport, message: error.message });
         } finally {
           await page.close();
         }
