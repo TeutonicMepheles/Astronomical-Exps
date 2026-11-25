@@ -44,10 +44,25 @@ export function instances({t=0,xray=false,flight=false}={}){const state=flightSt
 export function drawSprite(ctx,images,r){const im=images[r.asset];if(!im?.naturalWidth)return;ctx.save();ctx.globalAlpha*=r.alpha??1;ctx.translate(r.x+r.w/2,r.y+r.h/2);ctx.rotate(r.angle||0);const scale=r.fit==='cover'?Math.max(r.w/im.naturalWidth,r.h/im.naturalHeight):Math.min(r.w/im.naturalWidth,r.h/im.naturalHeight),w=im.naturalWidth*scale,h=im.naturalHeight*scale;ctx.drawImage(im,-w/2,-h/2,w,h);ctx.restore();}
 function tank(ctx,images,name,x,y,w,h){ctx.save();ctx.beginPath();ctx.roundRect(x,y,w,h,[w/2]);ctx.clip();ctx.filter='grayscale(1)';drawSprite(ctx,images,sprite(name,x,y,w,h,{fit:'cover'}));ctx.restore();ctx.strokeStyle='#cbd1d8';ctx.lineWidth=.8;ctx.beginPath();ctx.roundRect(x,y,w,h,[w/2]);ctx.stroke();}
 function nozzles(ctx,images,upper){for(const r of upper?[[-14,307],[-4,307],[6,307],[16,307]]:[[-11,681],[11,681]])drawSprite(ctx,images,sprite('nozzle',r[0]-4,r[1],8,11));}
-function plume(ctx,x,y,w,h,time){ctx.save();const g=ctx.createLinearGradient(0,y,0,y+h);g.addColorStop(0,'#fff8dc');g.addColorStop(.25,'#ffd998');g.addColorStop(1,'#e3984500');ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(x-w/2,y);ctx.quadraticCurveTo(x-w*.35,y+h*.55,x,y+h*(.94+.06*Math.sin(time*18)));ctx.quadraticCurveTo(x+w*.35,y+h*.55,x+w/2,y);ctx.fill();ctx.restore();}
+function plume(ctx,x,y,w,h,time){
+ const length=h*(.97+.03*Math.sin(time*18+x));
+ const gradient=ctx.createLinearGradient(0,y,0,y+length);
+ gradient.addColorStop(0,'#fffbed');
+ gradient.addColorStop(.26,'#fff7cf');
+ gradient.addColorStop(.54,'#ffae65e0');
+ gradient.addColorStop(.81,'#d8aa9380');
+ gradient.addColorStop(1,'#d3d9e600');
+ ctx.fillStyle=gradient;
+ ctx.beginPath();
+ ctx.moveTo(x-w*.5,y);
+ ctx.bezierCurveTo(x-w*2.9,y+length*.2,x-w*4.5,y+length*.68,x-w*3.9,y+length);
+ ctx.lineTo(x+w*4.1,y+length);
+ ctx.bezierCurveTo(x+w*4.6,y+length*.66,x+w*2.65,y+length*.20,x+w*.5,y);
+ ctx.fill();
+}
 export function drawLiftoffExhaust(ctx,time,boosters=true){
- for(const x of [-11,11])plume(ctx,x,695,11,80,time);
- if(boosters)for(const booster of GEOMETRY[2])plume(ctx,booster.x+booster.w/2,695,10,70,time);
+ for(const x of [-11,11])plume(ctx,x,695,11,720,time);
+ if(boosters)for(const booster of GEOMETRY[2])plume(ctx,booster.x+booster.w/2,695,10,610,time);
 }
 export function drawRocket(ctx,images,{x=570,y=40,height=560,t=0,xray=false,selected=null,ignited=false,installed=null,rotation=0,flight=false,exhaustTime=t}={}){
  ctx.save();ctx.translate(x,y);ctx.rotate(rotation);ctx.scale(height/700,height/700);const state=flightState(t),all=instances({t,xray,flight}),isInstalled=i=>!installed||installed.has(i);const draw=r=>{if(!isInstalled(r.part)||(r.alpha??1)<=0)return;drawSprite(ctx,images,r);};
@@ -58,7 +73,7 @@ export function drawRocket(ctx,images,{x=570,y=40,height=560,t=0,xray=false,sele
  all.filter(r=>r.part===3).forEach(draw);
  all.filter(r=>r.part===4).forEach(draw);
  all.filter(r=>r.part===2&&!r.rear).forEach(draw);
- if(ignited){if(state.lower===0){drawLiftoffExhaust(ctx,exhaustTime,state.boosters===0);}else if(state.payload===0)for(const px of [-14,-4,6,16])plume(ctx,px,319,8,58,exhaustTime);}
+ if(ignited){if(state.lower===0){drawLiftoffExhaust(ctx,exhaustTime,state.boosters===0);}else if(state.payload===0)for(const px of [-14,-4,6,16])plume(ctx,px,319,8,390,exhaustTime);}
  if(selected>=PARTS.length){const [left,top,w,h]=INTERNAL_PARTS[selected-PARTS.length].box;ctx.fillStyle='#d8b07433';ctx.strokeStyle='#edcc9a';ctx.lineWidth=2;ctx.fillRect(left-4,top-4,w+8,h+8);ctx.strokeRect(left-4,top-4,w+8,h+8);}
  if(selected!==null&&selected<PARTS.length){const ranges=all.filter(r=>r.part===selected&&!r.rear);ctx.strokeStyle='#e4e9ef';ctx.lineWidth=1.5;ctx.setLineDash([5,5]);for(const r of ranges){ctx.strokeRect(r.x-5,r.y-5,r.w+10,r.h+10);}}
  ctx.restore();

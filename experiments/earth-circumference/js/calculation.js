@@ -6,7 +6,7 @@ export function mountCalculation(scene){
  <ol class="calculation-steps">
  <li data-step="angle"><button type="button" data-angle><span class="calculation-step-title"><i>1</i> 正午夹角 θ</span><span class="angle-equation"><span>θ =</span><strong>—</strong></span><span class="central-equation">球心角 θ <b data-central-value>—</b></span></button></li>
  <li data-step="distance"><button type="button" id="meridian-distance"><span class="calculation-step-title"><i>2</i> 沿经线测量距离</span><span class="distance-equation">同经线距离 d <strong>点击测距</strong></span></button></li>
- <li data-step="formula"><button type="button" data-calculate><span class="calculation-step-title"><i>3</i> 计算地球周长</span><span class="circumference-formula"><var>C</var> ≈ <span class="math-fraction"><span>360°</span><span><var>θ</var></span></span> · <var>d</var></span></button><div class="calculation-substitution" aria-live="polite"></div><output class="calculation-result" aria-live="polite"></output></li>
+ <li data-step="formula"><button type="button" data-calculate><span class="calculation-step-title"><i>3</i> 计算地球周长</span><span class="circumference-formula" aria-live="polite"><var>C</var><span class="formula-value"><span class="formula-expression">≈ <span class="math-fraction"><span>360°</span><span data-slot="angle">θ</span></span> · <span data-slot="distance">d</span></span><output class="calculation-result"></output></span></span></button></li>
  </ol><p class="formula-tip" role="status"></p>
  `;
  scene.stage.append(panel);
@@ -16,7 +16,17 @@ export function mountCalculation(scene){
  function mark(step,done){const row=q(`[data-step="${step}"]`);row.dataset.complete=String(done);row.querySelector('.calculation-step-check').textContent=done?'✓':'';row.querySelector('.calculation-step-check').setAttribute('aria-label',done?'已完成':'未完成');}
  function refreshValue(element){if(!matchMedia('(prefers-reduced-motion:reduce)').matches)element.animate([{opacity:.2,transform:'translateY(5px)'},{opacity:1,transform:'none'}],{duration:646});}
  let formulaTimers=[],angleDone=false;
- function cancelFormula(){formulaTimers.forEach(clearTimeout);formulaTimers=[];panel.dataset.formulaPhase='';}
+ function resetFormula(){
+  panel.dataset.formulaPhase='';
+  q('[data-slot="angle"]').textContent='θ';
+  q('[data-slot="distance"]').textContent='d';
+  q('.calculation-result').textContent='';
+ }
+ function cancelFormula(){
+  formulaTimers.forEach(clearTimeout);
+  formulaTimers=[];
+  if(panel.dataset.formulaPhase==='angle'||panel.dataset.formulaPhase==='distance')resetFormula();
+ }
  function cancelAngle(){angleDone=false;window.dispatchEvent(new Event('cancel-angle'));panel.dataset.anglePhase='';}
  function focusStep(name){panel.dataset.activeStep=name;panel.querySelectorAll('.calculation-steps button').forEach(button=>button.classList.toggle('is-active',button.closest('li').dataset.step===name));}
  let distance=null,placeKey='',measureKey='',complete=false;
@@ -27,7 +37,7 @@ export function mountCalculation(scene){
   const arc=scene.measureArc();
   return Math.abs(arc.selLat-arc.subLat)*Math.PI/180*arc.radiusKm;
  }
- function clearResult(){panel.dataset.nextStep='';mark('formula',false);cancelFormula();complete=false;scene.stage.dataset.calculationComplete='false';q('.calculation-result').textContent='';q('.calculation-substitution').textContent='';}
+ function clearResult(){panel.dataset.nextStep='';mark('formula',false);cancelFormula();complete=false;scene.stage.dataset.calculationComplete='false';resetFormula();}
  function clearDistance(){mark('distance',false);distance=null;measure.exit();clearResult();}
  function update(){
   panel.hidden=!scene.calculating;
@@ -81,11 +91,11 @@ export function mountCalculation(scene){
   const angle=thetaOf(scene.measurements.snapshot().selected);if(distance===null||!(Number(angle?.toFixed(2))>0))return;
   clearResult();focusStep('formula');panel.dataset.nextStep='';
   const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  q('.calculation-substitution').innerHTML='<span class="math-fraction"><span>360°</span><span data-slot="angle">θ</span></span> · <span data-slot="distance">d</span>';
   function later(delay,action){if(reduced)action();else formulaTimers.push(setTimeout(action,delay*1.7));}
   later(250,()=>{panel.dataset.formulaPhase='angle';q('[data-slot="angle"]').textContent=`${angle.toFixed(2)}°`;refreshValue(q('[data-slot="angle"]'));});
   later(950,()=>{panel.dataset.formulaPhase='distance';q('[data-slot="distance"]').textContent=`${distance.toFixed(0)} km`;refreshValue(q('[data-slot="distance"]'));});
   later(1650,()=>{
+   formulaTimers=[];
    panel.dataset.formulaPhase='result';
    q('.calculation-result').textContent=`≈ ${(360/Number(angle.toFixed(2))*Number(distance.toFixed(0))).toFixed(0)} km`;
    mark('formula',true);complete=true;scene.stage.dataset.calculationComplete='true';window.dispatchEvent(new Event('calculation-progress'));

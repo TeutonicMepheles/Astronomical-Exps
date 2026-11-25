@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="../../shared/typography/typography.css">
-<link rel="stylesheet" href="css/globe-textured.css">
-<link rel="stylesheet" href="css/observatory.css">
+<link rel="stylesheet" href="css/globe-textured.css?v=observation-controls">
+<link rel="stylesheet" href="css/observatory.css?v=inline-formula">
 <link rel="stylesheet" href="../../shared/components/operation-tip.css">
 <link rel="stylesheet" href="typography.css">
 <link rel="stylesheet" href="./components/earth-stage-actions.css">
@@ -17,34 +17,15 @@
 
   <header class="experiment-heading"><h1>地球周长实验</h1></header>
 
-  <!-- 星空：一次性生成，纯矢量 -->
-  <svg class="starfield" id="starfield" viewBox="0 0 1600 900" aria-hidden="true"></svg>
+  <div class="orbit-viewport" aria-hidden="true">
+    <svg class="orbit-starfield" id="starfield" viewBox="0 0 1600 900"></svg>
+  </div>
 
   <!-- 中央地球：纹理 + 晨昏线 + 大气边缘 -->
   <canvas id="globe" aria-label="可旋转的地球，拖动改变自转角度" role="img"></canvas>
 
-  <div class="earth-pick-hint"><span aria-hidden="true">◎</span>点按地球，选择观测点</div>
 
-  <!-- 太阳平行光线（方向固定） -->
-  <svg class="sun-arrows" viewBox="0 0 1600 900" aria-hidden="true">
-    <defs>
-      <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5"
-              markerWidth="3.1" markerHeight="3.1" orient="auto-start-reverse">
-        <path d="M10 0 L0 5 L10 10 z" fill="#E8703A"></path>
-      </marker>
-      <linearGradient id="rayA" x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#F7B48A" stop-opacity=".18"></stop>
-        <stop offset="1" stop-color="#E8703A" stop-opacity=".95"></stop>
-      </linearGradient>
-    </defs>
-    <g class="sun-beams">
-      <image id="beam0" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-      <image id="beam1" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-      <image id="beam2" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-      <image id="beam3" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-      <image id="beam4" href="assets/shaft-single.png" width="206" height="123" aria-hidden="true"></image>
-    </g>
-  </svg>
+  <canvas class="sun-arrows" id="earth-sunlight" aria-hidden="true"></canvas>
 
   <!-- 地轴与朝向手柄 -->
   <svg class="axis-layer" viewBox="0 0 1600 900" aria-hidden="true">
@@ -128,8 +109,9 @@
     <button class="view-mode-tab" type="button" role="tab" aria-selected="true"
             aria-controls="stage" data-view-mode-button="orbit" aria-label="公转观测">
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <ellipse cx="12" cy="12" rx="9" ry="4.5"></ellipse>
-        <circle cx="12" cy="12" r="2.2"></circle>
+        <path d="M18.8 6.5C16.7 5.3 12.8 6.6 9.4 9.1c-4.1 3.1-6.3 7-4.9 9 1.5 1.9 6 .9 10.1-2.2 2.6-1.9 4.4-4.1 5-6"></path>
+        <circle cx="19.5" cy="7.5" r="1.6" fill="currentColor" stroke="none"></circle>
+        <circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"></circle>
       </svg>
 
     </button>
@@ -137,8 +119,8 @@
             aria-controls="stage" data-view-mode-button="earth" aria-label="自转观测" tabindex="-1">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="8.5"></circle>
-        <path d="M5.5 7.5c2.2.8 4.3.2 5.7 1.3 1.5 1.2-.2 2.7.8 4.1.9 1.3 2.8.8 4.4 2.1 1 .8 1.3 2 1.3 3.5"></path>
-        <path d="M11.5 3.7c-.7 1.4-.2 2.4.8 3.1"></path>
+        <ellipse cx="12" cy="12" rx="3.9" ry="8.5"></ellipse>
+        <path d="M3.5 12h17"></path>
       </svg>
 
     </button>
@@ -146,7 +128,9 @@
 
 </div>
 <script src="../../shared/components/operation-tip.js"></script>
-<script type="module" src="js/globe-textured.js"></script>
+<script src="vendor/three.min.js"></script>
+<script src="../../shared/components/optical-beam.js"></script>
+<script type="module" src="js/globe-textured.js?v=inline-formula"></script>
 
 </body>
 </html>

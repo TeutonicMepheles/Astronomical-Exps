@@ -5,7 +5,7 @@ const assert=require('node:assert/strict');
  const page=await browser.newPage({viewport:{width:1600,height:900},hasTouch:true});
  await page.goto(process.env.ROCKET_BASE||'http://127.0.0.1:9013/experiments/rocket-launch/');
  const pump=page.locator('.pump-control'),upper=page.locator('.pump-upper');
- const count=async()=>Number((await page.locator('#pump-count').textContent()).match(/\d+/)[0]);
+ const count=async()=>page.evaluate(()=>RocketBalloon.state.pumpCount);
  const transform=()=>upper.evaluate(e=>getComputedStyle(e).transform);
  const box=await pump.boundingBox(),x=box.x+box.width/2,y=box.y+box.height/2;
  assert.equal(await count(),0);

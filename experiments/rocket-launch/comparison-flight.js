@@ -1,30 +1,23 @@
 import {sampleStaging,STAGING_CONSTANTS} from './staging-model.js';
-export const COMPARISON_BOTTOM=552;
-export const COMPARISON_TOP=114;
-export const COMPARISON_SPAN=30;
-
-export function comparisonRange(heights,complete){
- if(complete)return {min:80,max:105};
- const highest=Math.max(...heights),lowest=Math.min(...heights);
- const headroom=Math.min(5,(100-highest)/2);
- const min=Math.max(0,Math.min(70,highest+headroom-COMPARISON_SPAN,Math.max(lowest,highest-COMPARISON_SPAN)));
+export const COMPARISON_WIDTH=1500;
+export const COMPARISON_HEIGHT=800;
+export const COMPARISON_BOTTOM=733;
+export const COMPARISON_TOP=90;
+export function comparisonRange(heights) {
+ const highest=Math.max(...heights), lowest=Math.min(...heights);
+ const min=Math.max(0,Math.min(highest-25,lowest-4));
  const approach=Math.max(0,Math.min(1,(highest-90)/10));
  const blend=approach*approach*(3-2*approach);
- return {
-  min:Math.min(lowest,min+(80-min)*blend),
-  max:min+COMPARISON_SPAN+(105-min-COMPARISON_SPAN)*blend
- };
+ return {min:min+(80-min)*blend,max:min+30+(105-min-30)*blend};
 }
 
-export const comparisonHeightY=(height,range)=>COMPARISON_BOTTOM-
- (COMPARISON_BOTTOM-COMPARISON_TOP)*(height-range.min)/(range.max-range.min);
+export const comparisonHeightY=(height,{min,max})=>COMPARISON_BOTTOM-
+ (COMPARISON_BOTTOM-COMPARISON_TOP)*(height-min)/(max-min);
 
-export function comparisonFrame(index,height,launched,range){
- const arrowX=180+index*435, arrowY=comparisonHeightY(height,range);
- const window={x:arrowX+54,y:Math.min(332,arrowY+5),width:158,height:210};
- return {arrowX,arrowY,window,labelX:arrowX+100,
-  modelX:launched?window.x+window.width/2:arrowX+100,
-  modelBase:launched?window.y+158:COMPARISON_BOTTOM};
+export function comparisonFrame(index){
+ const x=188+index*455;
+ const panel={x:x+45,y:COMPARISON_TOP,width:264,height:COMPARISON_BOTTOM-COMPARISON_TOP};
+ return {x,panel,modelX:panel.x+panel.width/2,modelBase:COMPARISON_BOTTOM-72};
 }
 const N=384,integrals=Array.from({length:3},(_,i)=>{const a=new Float64Array(N+1);let previous=0;for(let n=1;n<=N;n++){const v=sampleStaging(i,n/N).dv;a[n]=a[n-1]+(previous+v)/2/N*STAGING_CONSTANTS.playbackSeconds;previous=v;}return a;});
 const gates=[1/3,2/3],coast=.8;

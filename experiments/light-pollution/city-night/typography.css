@@ -6,7 +6,7 @@ button,input,select,textarea { font-family:var(--font-ui); }
 
 /* This scene uses its container width directly, with no 1600px transform. */
 .layout {--type-unit: .0520833333cqw;font-family:var(--font-ui)}
-.masthead {font-family:var(--font-ui);font-size:var(--type-title);font-weight:500;letter-spacing:.05em}
+.masthead {font-family:var(--font-ui);font-size:var(--type-title);font-weight:500}
 aside {width:29%;padding:1.25cqw;gap:.8cqw}
 aside .panel-head h2 {font-size:var(--type-data-label);font-weight:500}
 aside label {font-size:var(--type-body);font-weight:400;line-height:1.35;margin:.8cqw 0}
@@ -23,20 +23,56 @@ aside .detail-button {font-size:var(--type-action);font-weight:600;min-height:3.
 .lane-dev{position:absolute;z-index:13;left:1.5%;bottom:1.5%;display:flex;align-items:center;gap:8px}.lane-dev button,.lane-dev span{font-family:var(--font-ui);font-size:14px;line-height:1.2}.lane-dev button{color:#29446b;background:#f3f6ffed;border:1px solid #a7bad3;border-radius:8px;min-height:34px;padding:6px 12px;cursor:pointer}.lane-dev button:hover,.lane-dev button[aria-pressed=true]{background:#263f68;color:#fff;border-color:#263f68}.lane-dev div{display:flex;align-items:center;gap:8px}.lane-dev span{color:#f7f9ff;text-shadow:0 1px 4px #061020}
 .lane-editor{position:absolute;inset:0;z-index:6;pointer-events:none}.lane-editor svg{width:100%;height:100%;display:block;overflow:visible;pointer-events:none;touch-action:none}.lane-editor [data-role=line]{stroke:transparent;stroke-width:96;pointer-events:stroke;cursor:grab}.lane-editor [data-role=ink]{fill:none;stroke-width:14;pointer-events:none}.lane-editor [data-role=ink].is-active,.lane-editor [data-role=line]:hover+[data-role=ink]{stroke-width:22}.lane-editor [data-role=handle]{stroke-width:10;pointer-events:all;cursor:grab}.lane-editor [data-role=handle]:hover,.lane-editor [data-role=handle].is-active{fill:#263f68;stroke:#fff}.lane-editor [data-role=line]:active,.lane-editor [data-role=handle]:active{cursor:grabbing}.lane-editor text{font-size:40px;font-family:var(--font-ui);font-weight:600;stroke:#102038;stroke-width:8px;paint-order:stroke;pointer-events:none}
 
-/* Local heading/readout treatment, aligned with Newton and Foucault.
-   Static gradients keep the sky readable without a backdrop-filter pass. */
+/* Static gradients keep the sky readable without a backdrop-filter pass. */
 .layout::before {content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#06102080,transparent 28%),radial-gradient(ellipse 42% 34% at 0 0,#06102066,transparent 100%),radial-gradient(ellipse 32% 52% at 100% 0,#06102080,transparent 100%)}
-.masthead {left:3.3%;top:5%;margin:0;color:#dbe8ff;line-height:1.2;letter-spacing:calc(1 * var(--type-unit));text-shadow:0 2px 12px #04112599}
-.masthead::before {content:"";display:block;width:3.6875cqw;height:.1875cqw;margin-bottom:.75cqw;background:#648fcf}
-
-
-/* Road brightness is five clickable demonstration steps. The legacy range stays for the existing gain pipeline. */
-#global-dimming{position:absolute;right:2.5%;bottom:3%;z-index:4;display:grid;justify-items:center;gap:.25cqw;width:max(6.5cqw,44px);padding:0;border:0;border-radius:12px;background:transparent;color:#e3edf9;font-size:1.2cqw;font-weight:500;line-height:1.35;text-shadow:0 2px 5px #0b1320;touch-action:manipulation}
-#global-dimming svg{display:block;width:max(5.83cqw,36px);height:auto}
-.dimming-disc{fill:#233650;stroke:#7992b7;stroke-width:1.2}
-#global-dimming:hover .dimming-disc,#global-dimming[aria-expanded=true] .dimming-disc{fill:#344e70;stroke:#b8cde7}
-#global-dimming:focus-visible{outline:2px solid #d3e0ff;outline-offset:4px}
-#global-dimming-panel{position:absolute;z-index:7;right:2.5%;bottom:calc(3% + max(8.5cqw,55px));width:max(16cqw,205px);padding:1cqw;background:#112136f5;border:1px solid #607694;border-radius:12px;color:#ecf1f9}
+.layout {
+  --page-safe-edge:calc(48 * var(--type-unit));
+  --dimming-control-height:calc(88 * var(--type-unit));
+}
+.masthead {
+  left:var(--page-safe-edge);
+  top:var(--page-safe-edge);
+  margin:0;
+  color:#dbe8ff;
+  line-height:1.2;
+  letter-spacing:var(--type-unit);
+  text-shadow:none;
+  white-space:nowrap;
+}
+#global-dimming {
+  position:absolute;
+  right:var(--page-safe-edge);
+  bottom:var(--page-safe-edge);
+  z-index:4;
+  display:grid;
+  place-items:center;
+  width:var(--dimming-control-height);
+  height:var(--dimming-control-height);
+  min-height:0;
+  padding:calc(8 * var(--type-unit));
+  border:1px solid var(--dimming-edge);
+  border-radius:50%;
+  background:var(--scheme-dark);
+  color:var(--scheme-text);
+  touch-action:manipulation;
+}
+#global-dimming svg {display:block;width:calc(56 * var(--type-unit));height:auto}
+#global-dimming-panel {
+  position:absolute;
+  z-index:7;
+  right:calc(var(--page-safe-edge) + var(--dimming-control-height) + 16 * var(--type-unit));
+  bottom:var(--page-safe-edge);
+  width:max(29cqw,200px);
+  height:var(--dimming-control-height);
+  padding:.4cqw;
+  display:grid;
+  align-content:center;
+  border:1px solid var(--dimming-edge);
+  border-radius:999px;
+  background:var(--scheme-dark);
+  color:var(--scheme-text);
+  box-shadow:0 .27cqw .9cqw #0b103260;
+}
 #global-dimming-panel h2{font-size:var(--type-data-label)}
 #global-dimming-panel .panel-head button{min-width:max(2.5cqw,34px);min-height:max(2.5cqw,34px);color:#ecf1f9}
 
@@ -44,10 +80,106 @@ aside .detail-button {font-size:var(--type-action);font-weight:600;min-height:3.
 .lighting-steps{min-width:0;margin:0 0 .6cqw;padding:0;border:0}
 .lighting-steps legend{margin-bottom:.35cqw;font-size:var(--type-body)}
 .lighting-step-bar{display:flex;isolation:isolate;overflow:hidden;border:1px solid #9eafc5;border-radius:999px;background:#e7eef6;color:#33465f}
-.lighting-step-bar label{position:relative;display:grid;flex:1;min-width:0;margin:0;cursor:pointer}
+.lighting-step-bar label{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:0;flex:1;min-width:0;margin:0;cursor:pointer}
 .lighting-step-bar label+label{border-left:1px solid #b8c7d8}
 .lighting-step-bar input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
 .lighting-step-bar span{display:grid;place-items:center;min-height:max(2.6cqw,30px);padding-inline:.2cqw;font-size:var(--type-body);white-space:nowrap}
 .lighting-step-bar label:hover span,.lighting-step-bar input:checked+span{background:#43648a;color:#fff}
 .lighting-step-bar input:focus-visible+span{outline:2px solid #f2c77d;outline-offset:-3px}
-#global-dimming-panel{width:max(19cqw,230px)}
+
+/* Scheme 3 classroom controls */
+.layout{--scheme-ink:#332d76;--scheme-text:#f5f2ff;--scheme-face:#efecff;--scheme-soft:#dcd8fa;--scheme-glass:#a29cea;--scheme-warm:linear-gradient(145deg,#ffe0b8,#f7a797);--scheme-dark:linear-gradient(115deg,#6d6aca,#373881 68%,#5453aa);--scheme-edge:#aa9ce4;--dimming-edge:#9c9beb90}
+aside{background:linear-gradient(155deg,#f3f0fffa,#dfdaf8fa);color:var(--scheme-ink);border:1px solid #c0b3ec;border-radius:1.1cqw;box-shadow:0 .35cqw .88cqw #16143766}
+aside::before{background:#e9e4fa}
+aside .panel-head{padding-bottom:.3cqw;border-color:#c3b9e4}
+aside .panel-head h2,aside output,aside label,aside select{color:var(--scheme-ink)}
+aside .object-preview,aside .object-preview.lamp-preview{background:#dbd6f7;border-radius:.7cqw}
+aside button,aside select{color:var(--scheme-ink);background:#ded8fa;border:1px solid #b5a8e5;border-radius:.67cqw}
+aside button:hover,aside select:hover{background:#cfc5f5;color:var(--scheme-ink)}
+aside button[aria-pressed=true],aside button[aria-selected=true],aside button.is-selected,aside .lighting-step-bar input:checked+span{background:var(--scheme-warm);color:var(--scheme-ink);border-color:#d28682;font-weight:650}
+aside .lighting-step-bar{background:#e2dbf9;border-color:#b3a5dc}
+aside .lighting-step-bar label+label{border-color:#c2b5e5}
+aside .lighting-step-bar label:hover span{background:#d5c9fa;color:var(--scheme-ink)}
+aside .beam-toggle .beam-track{background:#b3a8dc}
+aside .beam-toggle input:checked+.beam-track{background:#665bb1}
+aside .beam-toggle input:checked+.beam-track::after{background:#ffd2aa}
+aside input[type=range]{accent-color:#695db9}
+aside :is(input,button,select):focus-visible,#global-dimming:focus-visible{outline:2px solid #6854bf;outline-offset:2px}
+aside #detail{background:#564c9b;color:#fff;border-radius:999px;border-color:#7568c4}
+aside #detail:hover{background:#443b82}
+#global-dimming:is(:hover,[aria-expanded=true]) {border-color:var(--scheme-edge)}
+#global-dimming-panel .panel-head,#global-dimming-panel legend{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+#close-global-dimming{display:none}
+#global-dimming-panel .lighting-steps{margin:0}
+#global-dimming-panel .lighting-step-bar{border:0;background:transparent}
+#global-dimming-panel .lighting-step-bar label{flex:1}
+#global-dimming-panel .lighting-step-bar label:nth-child(3){flex:1.28}
+#global-dimming-panel .lighting-step-bar label+label{border:0}
+#global-dimming-panel .lighting-step-bar span{color:#f5f2ff;background:#a6a3ff1a;margin:.08cqw;border-radius:999px;min-height:max(3.2cqw,29px)}
+#global-dimming-panel .lighting-step-bar input:checked+span{color:#332d76;background:var(--scheme-warm);font-weight:650}
+
+aside input[type=range]{background:linear-gradient(to right,#685ab2 var(--fill,50%),#cfc4ed var(--fill,50%));accent-color:#685ab2}
+aside input[type=range]::-webkit-slider-thumb{background:#ffdec1;border-color:#685ab2}
+aside .shade-choices button:hover{background:#d5c9fa;border-color:#a591da}
+aside .shade-choices button[aria-pressed=true]{background:var(--scheme-warm);border-color:#d28682;color:var(--scheme-ink)}
+aside .lighting-step-bar label:hover input:checked+span{background:var(--scheme-warm);color:var(--scheme-ink)}
+
+aside .lighting-step-bar,#global-dimming-panel .lighting-step-bar{padding:.22cqw;gap:.16cqw;overflow:hidden;isolation:isolate}
+aside .lighting-step-bar label,#global-dimming-panel .lighting-step-bar label{border:0;margin:0;isolation:isolate}
+aside .lighting-step-bar span,#global-dimming-panel .lighting-step-bar span{margin:0;border-radius:999px;min-width:0;overflow:hidden}
+aside .lighting-step-bar input:focus-visible+span,#global-dimming-panel .lighting-step-bar input:focus-visible+span{outline-offset:-2px}
+aside .object-preview,aside .object-preview.lamp-preview{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;padding:0;background:#dcd5f4}
+.marker{color:#332d76;display:grid;place-items:center}
+.marker::before{background:linear-gradient(145deg,#f7f2ff,#e0d9f7);border:1.5px solid #b7a7e8;border-radius:50% 50% 50% 19%}
+.marker:hover,.marker[aria-pressed=true]{color:#332d76}
+.marker:hover::before,.marker[aria-pressed=true]::before{background:linear-gradient(145deg,#ffe0b8,#f7a797);border-color:#ffdbb5}
+.marker:hover .ui-icon,.marker[aria-pressed=true] .ui-icon{filter:none}
+.marker .completion{background:#6553a1;border-color:#f4eaff}
+aside .shade-choices .ui-icon{color:#332d76}
+#global-dimming svg .global-pictogram{fill:currentColor}
+
+aside .lighting-steps{margin:0}
+aside .lighting-steps+.lighting-steps,aside .object-controls > * + *{margin-top:.75cqw}
+aside .lighting-steps legend{padding:0;margin:0 0 .36cqw;line-height:1.35}
+aside .lighting-step-bar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.22cqw;padding:.26cqw}
+aside .lighting-step-bar label,aside .lighting-step-bar label+label{border:0;min-width:0;margin:0;line-height:1.25}
+aside .lighting-step-bar span{min-height:max(2.6cqw,28px);padding:0;border:0;background:transparent}
+aside .lighting-step-bar label:hover span{background:transparent;color:var(--scheme-ink)}
+aside .lighting-step-bar:hover input:checked+span,aside .lighting-step-bar input:checked+span{background:var(--scheme-warm);color:var(--scheme-ink)}
+aside .lighting-step-bar input:focus-visible+span{outline:2px solid #6854bf;outline-offset:-3px}
+
+aside #distant-lighting-steps .lighting-step-bar{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+.editing-markers aside .panel-head{cursor:grab;touch-action:none;user-select:none}.editing-markers aside .panel-head:active{cursor:grabbing}
+
+aside .segmented-toggle{margin:.65cqw 0 0}
+aside .segmented-toggle legend{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+aside .segmented-toggle .lighting-step-bar{grid-template-columns:repeat(2,minmax(0,1fr))}
+aside .segmented-toggle .lighting-step-bar label > span{display:flex;justify-content:center;align-items:center;gap:.38cqw;min-height:max(2.6cqw,30px)}
+aside .segmented-toggle svg.ui-icon{width:max(1.12cqw,14px);height:max(1.12cqw,14px);flex:none}
+
+aside .segmented-toggle .lighting-step-bar{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:.22cqw;padding:.26cqw;border:1px solid #b3a5dc;
+}
+aside .segmented-toggle .lighting-step-bar label{
+ display:grid;grid-template-columns:minmax(0,1fr);gap:0;
+ min-width:0;width:100%;margin:0;padding:0;border:0;
+}
+aside .segmented-toggle .lighting-step-bar label > span{
+ grid-column:1;width:100%;min-width:0;margin:0;padding:0 .28cqw;
+}
+
+.layout .lighting-step-bar > label{
+ display:grid;grid-template-columns:minmax(0,1fr);gap:0;min-width:0;
+}
+.layout .lighting-step-bar > label > span{grid-column:1;width:100%;min-width:0}
+
+aside[data-side="anchor-top"]::before,aside[data-side="anchor-bottom"]::before{left:var(--anchor-x);transform:translateX(-50%) rotate(45deg)}aside[data-side="anchor-top"]::before{top:-.5cqw}aside[data-side="anchor-bottom"]::before{top:auto;bottom:-.5cqw}
+
+aside .lighting-steps legend{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+aside .labeled-step-control{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:.6cqw}
+aside .labeled-step-control .step-caption{font-size:var(--type-body);font-weight:600;white-space:nowrap}
+
+aside label.warmth-control{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:.58cqw;padding:.5cqw .65cqw;border-radius:999px;background:#e2dbf9;border:1px solid #b3a5dc}
+aside label.warmth-control input{grid-column:auto}

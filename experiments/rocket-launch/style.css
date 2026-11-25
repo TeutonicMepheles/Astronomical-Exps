@@ -122,13 +122,6 @@ dialog h2{margin-top:0}
 .pump-control:hover,.pump-control:focus-visible{background-color:transparent;border:0;transform:translateY(-2px)}
 .pump-control:active{transform:translateY(6px) scale(.985);filter:drop-shadow(0 6px 12px rgba(4,7,16,.5))}
 .pump-control:focus-visible{outline:1px solid rgba(216,176,116,.55);outline-offset:6px}
-.pump-hint{
-  position:absolute;right:9%;bottom:2%;width:150px;text-align:center;
-  font-size:15px;letter-spacing:.14em;color:var(--ink-dim);pointer-events:none;
-}
-.pump-hint::before{content:'';position:absolute;left:0;right:0;top:-10px;height:1px;background:rgba(232,224,204,.14)}
-
-
 /* ---- 第二章：速度配对（matching 紧凑排布） ---- */
 #controls.matching{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 #controls.matching button{font-size:15px;padding:8px;min-height:52px;letter-spacing:.04em}
@@ -138,9 +131,7 @@ dialog h2{margin-top:0}
 
 /* 第一轮：共用标题语言、按目的分组、场景内装配。 */
 header{height:100px;align-items:center;border:0;padding:0;gap:32px}
-.experiment-heading{align-self:flex-start;padding-top:11px;flex:none}
-.title-rule{display:block;width:59px;height:3px;background:var(--warm);margin-bottom:12px}
-h1{font-family:var(--font-ui);font-size:50.88px;font-weight:650;letter-spacing:4px;line-height:1.2;color:var(--ink);text-shadow:0 2px 1px #7391c84d,0 5px 16px #91baff25}
+h1{font-family:var(--font-ui);font-size:50.88px;font-weight:650;letter-spacing:4px;line-height:1.2;color:var(--ink);text-shadow:none}
 h2{font-family:var(--font-ui);font-size:28px;font-weight:600;letter-spacing:1px;margin:12px 0 24px}
 #chapters{gap:8px;padding:0;background:none;border:0}
 #chapters button{font-size:20px;letter-spacing:0;min-height:52px;padding:10px 20px;border:1px solid transparent;border-radius:9px}
@@ -305,11 +296,10 @@ button.secondary{border-color:transparent;color:var(--ink-dim);background:none}
 
 #scene-controls .control-cluster[data-control-kind="action"]{min-width:136px}
 #app[data-step="3"] #controls>.control-cluster{min-width:120px}
-#velocity-fire,#velocity-pause{min-width:88px}
 .control-cluster[data-control-kind="choice"] button.active:disabled{opacity:.7}
 
 /* 左侧章节目录：当前章节展开步骤，场景与操作共用右侧工作区。 */
-header{height:106px;flex:none;align-items:flex-start}
+#app > header{height:106px;flex:none;align-items:flex-start;justify-content:space-between;margin-inline:-4px;padding-top:6px}
 #chapters{position:absolute;left:44px;top:164px;width:232px;margin:0;padding:0;display:flex;flex-direction:column;align-items:stretch;gap:8px;border:0;background:none}
 #chapters>button{flex:none;text-align:left;min-height:56px;padding:12px 8px;font-size:23px;font-weight:600;border:0;border-radius:0;background:none;color:var(--ink-dim)}
 #chapters>button.active,#chapters>button:hover{border:0;background:none;color:var(--warm)}
@@ -385,19 +375,18 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="4"] #chapters{position:absolute}
 #app[data-step="4"] .stage{background:none}
 
-#app[data-step="4"] .rocket-flight-sky{visibility:hidden}
-
 #velocity-backdrop[hidden]{display:none}
 
 /* Balloon bench: generated environment, independently drawn apparatus and balloon. */
 #app[data-step="0"]{background:#131e31 url('assets/balloon-lab/background.webp') center/cover no-repeat}
 #app[data-step="0"]::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#091020e8,#09102088 17%,transparent 37%),linear-gradient(0deg,#091020e8,transparent 28%)}
+#app[data-step="0"][data-balloon-moving]::after{background-color:#07101c94}
+#app[data-step="0"][data-balloon-moving] .pump-control{opacity:.44}
 #app[data-step="0"] header,#app[data-step="0"] .workspace,#app[data-step="0"] footer{position:relative;z-index:2}
 #app[data-step="0"] #chapters{z-index:3}
 #app[data-step="0"] .stage{background:none}
 #app[data-step="0"] .rocket-flight-sky{visibility:hidden}
 #app[data-step="0"] .pump-control{width:125px;height:255px;left:2.5%;right:auto;bottom:17%}
-#app[data-step="0"] .pump-hint{left:2.5%;right:auto;bottom:12%;width:125px}
 
 /* Fixed hit area and pump cylinder; only the upper handle/piston moves. */
 #app[data-step="0"] .pump-control{background:none;overflow:hidden}
@@ -405,7 +394,6 @@ header{height:106px;flex:none;align-items:flex-start}
 .pump-upper,.pump-lower{position:absolute;inset:0;pointer-events:none;background:url('assets/balloon-lab/pump-modern.webp') center/contain no-repeat}
 .pump-upper{clip-path:inset(0 0 80% 0);transform:translateY(var(--pump-travel,0px))}
 .pump-lower{clip-path:inset(19% 0 0 0)}
-.pump-count{position:absolute;left:2.5%;right:auto;bottom:7%;width:125px;text-align:center;color:var(--ink);font-size:22px;pointer-events:none;font-variant-numeric:tabular-nums}
 .rocket-replay-icon,#controls .rocket-replay-icon,#app[data-step="4"] #controls .rocket-replay-icon{width:56px;min-width:56px;height:56px;min-height:56px;padding:14px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:#10172b55;color:var(--ink-dim)}
 .balloon-reset svg{width:26px;height:26px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
 #app[data-step="0"] #scene-controls .control-cluster{min-width:0}
@@ -418,19 +406,15 @@ header{height:106px;flex:none;align-items:flex-start}
 .rocket-3d-status[hidden],.rocket-3d-label[hidden]{display:none}
 .rocket-3d-label{position:absolute;transform:translateX(-50%);max-width:240px;padding:8px 14px;border-bottom:1px solid var(--warm);background:#10172be6;color:var(--warm);font-size:20px;text-align:center;pointer-events:none}
 #app[data-step="6"] #scene,#app[data-step="7"] #scene{visibility:hidden}
-#app[data-step="8"] .rocket-3d{left:30%}
 #app[data-step="8"] .rocket-3d .rocket-webgl{pointer-events:none}
 #app[data-step="7"] #parts{z-index:3}
 #app[data-step="7"] .stage{overflow:hidden}
-.assembly-3d-board{position:absolute;right:80px;bottom:92px;z-index:7;pointer-events:none}
 .assembly-3d-piece,.assembly-3d-return{position:absolute;bottom:12px;width:18%;font-size:18px;touch-action:none;background:#10172bcc;pointer-events:auto}
 .assembly-3d-piece.selected{border-color:var(--warm);color:var(--warm)}
-.assembly-context-action{min-width:210px;min-height:52px;font-size:var(--type-body);background:#213e50;border:1px solid #d6b57e;color:#edcd97;pointer-events:auto;touch-action:manipulation}
 .assembly-install-target{position:absolute;z-index:4;min-width:0;min-height:0;padding:0;border:1px solid transparent;background:transparent;pointer-events:auto;touch-action:manipulation}
-.assembly-install-target.internal{border:1px dashed #a6d5e08c}
-.assembly-install-target:is(:hover,:focus-visible){border-color:#e8bf7e;background:#e8bf7e12;outline:none}
+.assembly-install-target.internal:not(.installed){border:1px dashed #a6d5e08c}
+.assembly-install-target:not(.installed):hover,.assembly-install-target:focus-visible{border-color:#e8bf7e;background:#e8bf7e12;outline:none}
 .assembly-install-target[hidden]{display:none}
-.assembly-3d-board button[hidden]{display:none}
 
 /* Generic staging comparison follows the CZ-7 lesson, with its own ideal data. */
 #app[data-step="9"] .workspace{display:block}
@@ -448,7 +432,7 @@ header{height:106px;flex:none;align-items:flex-start}
 .dv-accessible{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
 /* One linked model/curve workbench: the burn axis lives on the chart itself. */
-#app[data-step="9"] .stage{bottom:88px}
+#app[data-step="9"] .stage{bottom:12px}
 #app[data-step="9"] aside{height:80px;display:flex;align-items:center;gap:24px}
 #app[data-step="9"] #controls{margin-left:auto;flex-wrap:nowrap;gap:20px;order:2}
 #app[data-step="9"] #feedback{flex:1;margin:0;max-width:660px}
@@ -482,7 +466,56 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="2"] .rocket-3d{left:45%;right:18%;pointer-events:none}
 #app[data-step="2"] .rocket-webgl{pointer-events:none}
 #app[data-step="2"] #scene{position:relative;z-index:3;pointer-events:none}
-#app[data-step="8"] .rocket-3d{left:32%;right:28%}
+#app[data-step="8"] .rocket-3d[data-separation-pad]{
+  background:#142039 url('assets/separation-pad/illustrated-ground.webp') center/cover no-repeat;
+}
+/* Launch and flight share the full presentation frame. */
+#app[data-step="8"] .workspace{position:static}
+#app[data-step="8"] .stage{inset:0}
+.orbit-horizon{
+  position:absolute;inset:auto 0 0;width:100%;height:350px;
+  pointer-events:none;object-fit:fill;
+}
+.orbit-horizon[hidden]{display:none}
+.orbit-horizon-fallback{
+  background:radial-gradient(circle 2170px at 800px 2340px,
+    #122b48 91%,#284d73 98.6%,#5292c6 99.9%,transparent 100.1%);
+}
+#app[data-step="8"] .stage::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 66% 83%,#577c9f,transparent 75%),
+    linear-gradient(165deg,#192b49,#385f85 57%,#66869d);
+  opacity:var(--separation-atmosphere,1);
+}
+#app[data-step="8"] .rocket-3d[data-separation-pad]::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,#070e1bd9,transparent 34%),linear-gradient(0deg,#070e1bc9,transparent 22%);
+}
+#app[data-step="8"] .stage:has(.rocket-3d[data-separation-pad]) #parts{z-index:3}
+#app[data-step="8"] .rocket-3d[data-booster-viewport]::after{
+  content:"";position:absolute;inset:0 auto 0 0;
+  width:var(--booster-viewport);box-sizing:border-box;
+  border-right:1px solid #b0c9dc55;
+  background:linear-gradient(90deg,#09172a42,transparent 90%);
+  pointer-events:none;
+}
+.separation-views:not([hidden]){
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  pointer-events:none;
+}
+.separation-views span{
+  padding:16px 20px;
+  color:var(--ink);
+  font-size:var(--type-body);
+  background:linear-gradient(#080f1bb3,transparent 18%);
+}
 #app.launch-transition #parts,#app.launch-transition aside{visibility:hidden}
 #app.launch-transition .rocket-3d{transition:left 1.6s ease,right 1.6s ease;left:32%;right:28%}
 @media(prefers-reduced-motion:reduce){#app.launch-transition .rocket-3d{transition:none}}
@@ -512,14 +545,10 @@ header{height:106px;flex:none;align-items:flex-start}
 
 #app[data-step="4"] .cannon-height-label{align-self:center;font-size:18px;white-space:nowrap;color:#a9b0bf;margin-right:4px}
 
-#app[data-step="4"] #controls{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"mode height compare" "play play play";gap:12px 22px;align-items:center}
+#app[data-step="4"] #controls{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"mode height compare";gap:12px 22px;align-items:center}
 #app[data-step="4"] .cannon-mode-controls{grid-area:mode}
 #app[data-step="4"] .cannon-height-options{grid-area:height;justify-content:center}
-#app[data-step="4"] .cannon-playback-controls{grid-area:play;justify-content:flex-end}
-#app[data-step="4"] #controls>.control-cluster:last-child{grid-area:compare}
-#app[data-step="4"] #velocity-adjust[hidden]{display:inline-flex!important;visibility:hidden;pointer-events:none}
-#app[data-step="4"] #velocity-fire,#app[data-step="4"] #velocity-pause{min-width:94px}
-#app[data-step="4"] .cannon-playback-controls{display:flex!important}#app[data-step="4"] .cannon-playback-controls button{flex:none;width:auto;min-width:94px}
+#app[data-step="4"]:not([data-vertical-flight]) #controls>.control-cluster:last-child{grid-area:compare}
 
 /* Continuous blueprint workbench: fixed camera and stage in both lesson phases. */
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]){background:linear-gradient(140deg,#102e46,#091e31)}
@@ -552,7 +581,6 @@ header{height:106px;flex:none;align-items:flex-start}
 /* User-selected dark blueprint sheet; retain the oblique paper scene and original GLB. */
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]){--ink:#e5e7df;--ink-dim:#b6c6d3;--ink-faint:#a6bdce66;--warm:#dfbc7f;--warm-dim:#dfbc7f40;--line:#b8ccdb40;--cool:#9fc4cf;background:#13364f}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) h1{color:#edf0e8}
-#app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .title-rule{background:#d6b57e}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #steps button.active{background:#d6b57e14;border-left-color:#d6b57e;color:#e4c790}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #controls.structure-controls button{background:#bfd4df0a;color:var(--ink)}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #controls.structure-controls button:is(.active,:hover,:focus-visible){background:#dfbc7f16;color:#edcd97;border-color:#d6b57e70}
@@ -562,7 +590,6 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-rocket-phase="assemble"] .assembly-3d-piece:is(.selected,:hover,:focus-visible),#app[data-rocket-phase="assemble"] .assembly-3d-return:is(:hover,:focus-visible){background:#354c59;color:#edcd97;border-color:#d6b57e}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback{left:-264px;right:auto;top:-20px;width:232px;max-width:232px;background:#102b40e6;border-left-color:#d6b57e;color:#e3e8e5;padding:14px 16px}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .rocket-3d-label{background:#102b40ed;color:#edcd97;border-bottom-color:#d6b57e}
-#app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #next.rocket-next-action{box-shadow:0 5px 0 #8e7c4b40,0 10px 20px #07151f40,inset 0 1px #fff4d9}
 .rocket-model-shadows{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .rocket-model-shadows[hidden]{display:none}
 
@@ -588,7 +615,6 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-rocket-phase="assemble"] #controls{display:block;position:absolute;right:16px;bottom:16px;width:auto;pointer-events:auto}
 #app[data-rocket-phase="assemble"] #controls>.control-cluster{display:block;position:static;border:0;background:none;padding:0}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) #feedback{top:auto;bottom:30px;pointer-events:none}
-#app[data-step="7"] #feedback[data-floating="assembly"]{position:fixed;inset:auto 365px 92px 510px;max-width:none;width:auto;min-height:52px;margin:0;padding:12px 54px 12px 16px;background:#0d2b40f2;border-left:2px solid #e8bf7e;pointer-events:auto}
 .rocket-blueprint-targets button.blueprint-label{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:5px 10px;clip-path:none!important;background:#10334ed9!important;border:1px solid #9fc7df55;border-radius:20px;font-size:var(--type-body);font-weight:400;line-height:var(--type-leading);white-space:nowrap;transform:translate(-50%,-50%);transition:background .1s,color .1s}
 .rocket-blueprint-targets button.blueprint-label::before{content:'';width:10px;height:10px;border:1.5px solid #a8d5e3;border-radius:50%;flex:none}
 .rocket-blueprint-targets button.blueprint-label:is(:hover,:focus-visible,[aria-pressed="true"]){background:#344d5beF!important;border-color:#e8bf7e;color:#f0cd8d}
@@ -596,6 +622,10 @@ header{height:106px;flex:none;align-items:flex-start}
 .rocket-blueprint-targets button.blueprint-label:active,.rocket-blueprint-targets button.blueprint-label[data-down="true"]{background:#756342!important;border-color:#ffe0a3;box-shadow:inset 0 0 0 2px #f0cd8d66}
 .blueprint-heading{position:absolute;transform:translateY(-50%);font-size:var(--type-data-label);font-weight:600;color:#bad7e3;pointer-events:none;white-space:nowrap}
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) aside{z-index:6}
+#app[data-rocket-phase="assemble"] #feedback:not(:empty){
+ position:fixed;inset:auto 365px 92px 510px;width:auto;max-width:none;
+ border-left-color:#e8bf7e;color:#f0eadb;
+}
 /* Plain drawing annotations; the graphics alone carry interaction state. */
 .blueprint-note{position:absolute;transform:translate(-50%,-50%);font-size:var(--type-body);font-weight:400;line-height:var(--type-leading);white-space:nowrap;color:#d7e8ef;pointer-events:none}
 .rocket-blueprint-targets button.blueprint-graphic-target,.rocket-blueprint-targets button.blueprint-graphic-target:is(:hover,:focus-visible,[aria-pressed="true"],:active){padding:0;min-height:0;border:0;border-radius:0;background:transparent!important;box-shadow:none;outline:none;transform:none}
@@ -604,7 +634,7 @@ header{height:106px;flex:none;align-items:flex-start}
 }
 /* Larger model workbench; details attach to the selected 3D object. */
 #app:is([data-rocket-phase="recognize"],[data-rocket-phase="assemble"]) .stage{left:-16px;right:-20px;top:-126px;bottom:-8px}
-#app #feedback:is([data-floating="true"],[data-floating="assembly"]){
+#app #feedback[data-floating="true"]{
  --rocket-tip-surface:#e5f4ed;--rocket-tip-edge:#84ab9d;
  padding:7px 13px 11px;background:var(--rocket-tip-surface);color:#1b3735;
  border:1px solid var(--rocket-tip-edge);border-radius:10px;box-shadow:0 3px 10px #071b303d;
@@ -635,113 +665,140 @@ header{height:106px;flex:none;align-items:flex-start}
 #app[data-step="8"] > #chapters{z-index:3}
 #app[data-step="8"] > .workspace{z-index:2}
 
-/* Balloon playback controls stay below the pump, outside the clipped stage. */
-#app[data-step="0"] .balloon-tools{position:absolute;z-index:4;margin:0;padding:0;border:0;display:flex;align-items:center;gap:14px;background:none;min-width:0}
+/* Balloon readouts stay with the scene. */
+.balloon-reading{position:absolute;display:grid;gap:2px;color:var(--ink-dim);font-size:var(--type-body);pointer-events:none}
+.balloon-reading output{display:block;color:var(--ink);font-variant-numeric:tabular-nums}
+.balloon-reading-value{font-size:var(--type-number);font-weight:500}
+.balloon-reading-unit{color:var(--ink-dim);font-size:var(--type-body);font-weight:400}
+.balloon-operation-tip{font-size:var(--type-body)}
 .rocket-replay-icon,#controls .rocket-replay-icon,#app[data-step="4"] #controls .rocket-replay-icon{flex:none;color:var(--ink);background:#10263a99}
 .rocket-replay-icon:is(:hover,:focus-visible),#controls .rocket-replay-icon:is(:hover,:focus-visible){background:#344859;border-color:#d8b074;color:#f3e3c4}
-#app[data-step="0"] .balloon-tools .balloon-slow{min-height:56px;min-width:156px;padding:8px 10px;font-size:var(--type-body);gap:12px;white-space:nowrap}
-#app[data-step="0"] .balloon-tools .balloon-slow:is(:hover,:focus-visible){background:#ffffff08;color:#f3e3c4}
 
 /* Place click choices beside their force arrows. */
 #app[data-step="2"] #parts #controls{position:absolute;inset:0;pointer-events:none;display:block}
 #app[data-step="2"] #controls>.control-cluster{position:static}
-#app[data-step="2"] #controls fieldset{position:absolute;display:flex;align-items:center;gap:18px;margin:0;min-width:0;pointer-events:auto}
-#app[data-step="2"] #controls legend{float:left;width:138px;margin:0;font-size:24px;color:var(--ink)}
-#app[data-step="2"] #controls fieldset .control-cluster{display:flex;gap:8px;padding:0;border:0;background:none;flex-wrap:nowrap}
-#app[data-step="2"] #controls fieldset button{min-width:68px;min-height:52px;font-size:23px}
-#app[data-step="2"] #controls>.control-cluster[data-control-kind="action"]{position:absolute;pointer-events:auto}
+#app[data-step="2"] #controls fieldset{position:absolute;display:flex;align-items:center;gap:12px;margin:0;min-width:0;pointer-events:auto;transform:translateY(-50%)}
+#app[data-step="2"] #controls fieldset{right:0}
+#app[data-step="2"] #controls fieldset:nth-child(1){top:32%}
+#app[data-step="2"] #controls fieldset:nth-child(2){top:66%}
+#app[data-step="2"] #controls fieldset:nth-child(3){top:76%}
+#app[data-step="2"] #controls legend{float:left;margin:0;padding:0;white-space:nowrap;color:var(--ink)}
+#app[data-step="2"] #controls [data-segmented-control] {
+  display:flex;
+  gap:2px;
+  padding:3px;
+  border:1px solid #d8b07466;
+  border-radius:999px;
+  background:#ffffff07;
+  flex-wrap:nowrap;
+}
+#app[data-step="2"] #controls [data-segmented-control] button {
+  flex:0 0 54px;
+  min-width:0;
+  min-height:44px;
+  padding:4px 8px;
+  border:1px solid transparent;
+  border-radius:999px;
+  background:transparent;
+  text-align:center;
+}
+#app[data-step="2"] #controls [data-segmented-control] button::before{content:none}
+#app[data-step="2"] #controls [data-segmented-control] button:is([aria-pressed="true"],:hover:not(:disabled)) {
+  background:var(--warm);
+  border-color:var(--warm);
+  color:#14202e;
+}
+@media (forced-colors:active) {
+  #app[data-step="2"] #controls [data-segmented-control] button[aria-pressed="true"]{border-color:Highlight}
+}
 #app[data-step="2"] aside{top:auto;bottom:0;width:500px;pointer-events:none}
 #app[data-step="2"] #feedback{font-size:18px}
 
-#app[data-step="2"] #controls fieldset button{min-height:44px;padding:6px 10px}
-#app[data-step="2"] #launch-fire{min-width:230px;min-height:48px}
 
-/* Force diagram overlays the subdued rocket; choices remain click-only. */
-#app[data-step="2"] .rocket-3d{left:33%;right:29%;opacity:.32;filter:grayscale(.65)}
+/* The fixed ground plate fades over the existing moving ascent background. */
+#app[data-step="2"] .rocket-3d {
+  left:49%;
+  right:21%;
+  overflow:hidden;
+  border:1px solid #87a9be44;
+  border-radius:12px;
+  background:#14263a url('assets/vertical-launch/ascent.webp') center var(--launch-sky-position,100%)/100% auto no-repeat;
+  background-image:linear-gradient(#0d1c2d7d,#0c1827a6),url('assets/vertical-launch/ascent.webp');
+}
+#app[data-step="2"] .rocket-3d::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 18% 2.4% at 50% 88%, #02070dcc, transparent),
+    url('assets/launch-pad/force-window-ground.webp') center 88%/cover no-repeat;
+  opacity:var(--launch-pad-opacity,1);
+  pointer-events:none;
+}
+#app[data-step="2"] .rocket-webgl{opacity:calc(.78 * var(--launch-pad-opacity,1));filter:saturate(.6)}
 
-#app[data-step="2"] .rocket-record-button{right:70px;bottom:146px}
 
 .rocket-launch-toast{position:absolute;z-index:20;left:50%;top:104px;transform:translateX(-50%);padding:14px 24px;border:1px solid #d8b07499;border-radius:8px;background:#142b40f5;color:var(--ink);font-size:var(--type-body);pointer-events:none}
 .rocket-launch-toast[hidden]{display:none}
 
-#app[data-step="2"] .rocket-3d{transform-origin:50% 88%;transition:opacity .25s ease-out,transform .25s ease-out}
-#app[data-step="2"][data-launch-flight="true"] .rocket-3d{opacity:0;transform:scale(.25)}
-.launch-altitude-records{position:absolute;inset:0;pointer-events:none}
-.launch-altitude-records[hidden],#launch-altitude-detail[hidden]{display:none}
-.launch-altitude-records button{position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;min-width:0;padding:0;border-radius:50%;border:1px solid #64829a;background:#21394e;color:#eef1f4;font-size:var(--type-body);font-variant-numeric:tabular-nums}
-.launch-altitude-records button[aria-expanded="true"]{border-color:#99e2e3;color:#99e2e3}
-#launch-altitude-detail{position:absolute;transform:translateY(-50%);padding:8px 13px;border:1px solid #64829a;border-radius:7px;background:#172e44;color:#eef1f4;font-size:var(--type-body);white-space:nowrap}
-@media(prefers-reduced-motion:reduce){#app[data-step="2"] .rocket-3d{transition:none}}
+.launch-altitude-records{position:absolute;z-index:4;border:1px solid #87a9be44;border-radius:12px;box-sizing:border-box;pointer-events:auto;touch-action:none;user-select:none}
+.launch-altitude-records [hidden]{display:none}
+.launch-record-point{position:absolute;transform:translate(-50%,-50%);width:48px;height:48px;min-height:0;min-width:0;padding:0;border:0;border-radius:50%;background:transparent}
+.launch-record-point::before{content:'';position:absolute;inset:0;margin:auto;width:19px;height:19px;border:2px solid #142b40;border-radius:50%;background:#a9bdcb;box-sizing:border-box}
+.launch-record-point:is(:hover,[aria-pressed="true"])::before{background:#99e2e3;box-shadow:0 0 0 4px #99e2e399}
+#launch-altitude-detail{position:absolute;transform:translate(-50%,calc(-100% - 17px));padding:6px 10px;border:1px solid #99e2e388;border-radius:7px;background:#172e44;color:#eef1f4;font-size:var(--type-body);white-space:nowrap;pointer-events:none}
+#launch-altitude-detail[data-below]{transform:translate(-50%,17px)}
+.launch-altitude-pages{position:absolute;bottom:1%;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px}
+.launch-altitude-pages button{padding:0;width:44px;min-height:36px;line-height:1;font-size:24px}
+.launch-altitude-pages output{font-size:var(--type-body);color:#a9bdcb;white-space:nowrap}
 
-/* Click-to-reveal explanations; comparison leaves the stage to the three flights. */
-.rocket-insight{position:absolute;top:95px;right:44px;z-index:8}
-.rocket-insight-toggle{width:52px;height:52px;min-height:52px;padding:12px;color:var(--warm);border-color:var(--warm-dim);background:#142b40ed;border-radius:50%}
-.rocket-insight-toggle svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.rocket-insight-toggle:is(:hover,:focus-visible,[aria-expanded="true"]){background:#344859;border-color:var(--warm)}
-.rocket-insight-panel{position:absolute;right:0;top:64px;width:420px;padding:22px;background:#142b40fa;border:1px solid var(--warm-dim);border-radius:12px;box-shadow:0 12px 40px #0006}
-.rocket-insight-panel[hidden]{display:none}
-.rocket-insight-panel p{margin:0 0 18px;font-size:var(--type-body);line-height:1.6;color:var(--ink)}
-.rocket-insight-panel button{display:block;margin-left:auto}
+/* The comparison stage is reserved for the three flights. */
 #app[data-step="9"] #feedback{display:none}
 #app[data-step="9"] aside{justify-content:flex-end}
 #app[data-step="9"] #controls{margin:0;order:0;justify-content:center}
-#app[data-step="9"] #controls .rocket-comparison-play{display:grid;place-items:center;width:58px;height:58px;padding:0;border:1px solid #b3c6d8;border-radius:50%;background:#14283ceb;color:#eef3f6;font-size:23px}
+#app[data-step="9"] #page-actions .rocket-comparison-play{border:1px solid #b3c6d8;border-radius:50%;background:#14283ceb;color:#eef3f6;font-size:23px}
 #app[data-step="9"] .rocket-webgl{pointer-events:none}
 
-.rocket-insight-panel{position:absolute;right:0;top:64px;width:440px;padding:20px;border:1px solid var(--warm-dim);border-radius:12px;background:#10253bf7;color:var(--ink);box-shadow:0 12px 32px #0005}
-.rocket-insight-panel[hidden]{display:none}
-.rocket-insight-panel p{margin:0 0 14px;font-size:20px;line-height:1.6}
-.rocket-insight-panel button{min-height:44px;font-size:18px;display:block;margin-left:auto;padding:8px 20px}
 
+#app[data-step="4"].orbit-playing > :is(header,#chapters,#dock),
+#app[data-step="4"].orbit-playing #controls {visibility:hidden}
+#app[data-step="4"].orbit-playing #page-actions button:not(#velocity-pause) {display:none}
 
-#app[data-step="4"].orbit-playing > :is(header,#chapters,footer,#dock),
-#app[data-step="4"].orbit-playing #controls > :not(.cannon-playback-controls),
-#app[data-step="4"].orbit-playing .cannon-playback-controls button:not(#velocity-pause) {
- visibility:hidden;
+#app[data-vertical-flight] .stage {
+  top: 16px;
+  bottom: auto;
+  height: 560px;
 }
-
-#app[data-vertical-flight] aside {
-  grid-template-columns: minmax(0, 1fr) auto;
-  height: 132px;
-  align-content: center;
-  row-gap: 4px;
+.direction-panels {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
 }
-#app[data-vertical-flight] #feedback {
-  display: block;
-  grid-column: 1;
-  grid-row: 1;
-  font-size: var(--type-data-label);
+.direction-panels section {
+  background: linear-gradient(#091426a8, transparent 17%);
+  border: 1px solid #a8c4c660;
+  border-radius: 16px;
+  padding: 18px 24px;
+}
+.direction-panels h3 {
+  margin: 0;
+  text-align: center;
+  font-size: var(--type-body);
   color: var(--ink);
+  font-weight: 600;
+}
+#app[data-vertical-flight] aside {
+  grid-template-columns: minmax(0, 1fr);
+  height: 88px;
+  align-content: center;
 }
 #app[data-vertical-flight] #direction-conclusion {
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 1;
   margin: 0;
   font-size: var(--type-body);
   color: var(--ink-dim);
-}
-#app[data-vertical-flight] #controls {
-  display: flex;
-  grid-column: 2;
-  grid-row: 1 / 3;
-  gap: 20px;
-  flex-wrap: nowrap;
-}
-#app[data-vertical-flight] #controls .control-cluster {
-  gap: 10px;
-}
-#app[data-vertical-flight] #controls button {
-  min-height: 52px;
-  min-width: 100px;
-  font-size: var(--type-body);
-  padding-inline: 14px;
-}
-#app[data-vertical-flight] #controls button[aria-pressed=true] {
-  border-color: var(--warm);
-  color: var(--warm);
-}
-#app[data-vertical-flight] #controls button[hidden] {
-  display: none;
 }
 @media (prefers-reduced-motion: no-preference) {
   #app[data-vertical-flight] .stage,
@@ -754,10 +811,40 @@ header{height:106px;flex:none;align-items:flex-start}
   }
 }
 
-#separation-stage{
-  position:absolute;top:4px;left:0;right:0;margin:0;
-  color:var(--ink);font-size:var(--type-data-label);font-weight:500;
-  line-height:1.25;text-align:center;pointer-events:none
+#app[data-step="8"] > :is(#chapters,#separation-progress){
+  transition:transform 280ms ease,visibility 0s;
+}
+#app[data-separation-started] > #chapters,
+#app[data-step="8"]:not([data-separation-started]) > #separation-progress{
+  transform:translateX(-300px);visibility:hidden;
+  transition-delay:0s,280ms;
+}
+#app[data-separation-started] > #separation-progress{transition-delay:120ms,0s}
+@media(prefers-reduced-motion:reduce){
+  #app[data-step="8"] > :is(#chapters,#separation-progress){transition:none}
+}
+#separation-progress{
+  position:absolute;z-index:3;left:44px;top:164px;width:232px;
+  color:var(--ink-dim);font-size:var(--type-body);
+}
+#separation-progress ol{list-style:none;margin:0;padding:0}
+#separation-progress li{
+  position:relative;display:flex;align-items:center;
+  min-height:52px;padding-left:28px;
+}
+#separation-progress li:not(:last-child)::after{
+  content:"";position:absolute;left:5px;top:50%;bottom:-50%;width:1px;background:var(--line);
+}
+#separation-progress li::before{
+  content:"";position:absolute;z-index:1;left:0;width:11px;height:11px;
+  border:1px solid currentColor;border-radius:50%;background:#142235;
+}
+#separation-progress li[data-complete]{color:var(--ink)}
+#separation-progress li[data-complete]::before,
+#separation-progress li[aria-current="step"]::before{background:currentColor}
+#separation-progress li[aria-current="step"]{color:var(--warm);font-weight:600}
+.separation-progress-status{
+  position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;
 }
 
 #rocket-part-tabs:not([hidden]){
@@ -765,7 +852,7 @@ header{height:106px;flex:none;align-items:flex-start}
   border:1px solid #9fc7df55;border-radius:14px;background:#102b40;
 }
 #rocket-part-tabs button{
-  min-width:134px;min-height:50px;border:1px solid transparent;
+  min-width:134px;min-height:calc(64 * var(--type-unit) - 10px);padding-block:0;border:1px solid transparent;
   color:var(--ink);font-size:var(--type-body);font-weight:500;
 }
 #rocket-part-tabs button[aria-selected="true"]{
@@ -780,4 +867,63 @@ footer #prompt{
   color:var(--ink-dim);
   font-size:var(--type-body);
   line-height:var(--type-leading);
+}
+
+
+/* Render the common opening at one panel's size and composite it into both views. */
+#app[data-vertical-flight] .rocket-3d {
+  right: calc(50% + 12px);
+}
+#app[data-vertical-flight] .rocket-webgl {
+  visibility: hidden;
+}
+
+/* Page actions share the 48 px safe edge of the header. */
+#app > footer {
+  position:relative;z-index:6;bottom:6px;margin-right:-4px;
+  gap:calc(16 * var(--type-unit));
+}
+#page-actions,#page-actions .control-cluster {
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:calc(16 * var(--type-unit));
+}
+#page-actions:empty,#page-actions .control-cluster:not(:has(button:not([hidden]))) {display:none}
+#page-actions button {
+  flex:none;min-width:calc(128 * var(--type-unit));min-height:calc(64 * var(--type-unit));
+  padding:0 16px;border-radius:calc(12 * var(--type-unit));font-size:var(--type-body);
+}
+#page-actions button.primary {
+  min-width:160px;font-size:var(--type-action);font-weight:600;
+}
+#page-actions :is(.rocket-replay-icon,.rocket-comparison-play,#separation-pause) {
+  display:grid;place-items:center;
+  width:calc(64 * var(--type-unit));height:calc(64 * var(--type-unit));min-width:0;
+  padding:0;font-size:var(--type-body);
+}
+
+
+#separation-pause::before {
+  content:"";
+  box-sizing:border-box;
+  width:calc(21 * var(--type-unit));
+  height:calc(25 * var(--type-unit));
+  border-inline:calc(7 * var(--type-unit)) solid currentColor;
+}
+#separation-pause[data-paused]::before {
+  width:0;
+  height:0;
+  border:0;
+  border-block:calc(12.5 * var(--type-unit)) solid transparent;
+  border-left:calc(20 * var(--type-unit)) solid currentColor;
+}
+
+/* The orbit fills the stage under the existing course navigation. */
+#app > .direction-orbit-intro { z-index: 3 }
+#app[data-direction-intro] > .workspace { visibility: hidden }
+#app[data-vertical-flight] > :is(header, #chapters, footer) { z-index: 4 }
+.direction-orbit-tip {
+  font-size: var(--type-body);
+  --operation-tip-accent: #849ab0;
+  --operation-tip-bg: #14283ceb;
+  --operation-tip-text: #e1ebf4;
 }

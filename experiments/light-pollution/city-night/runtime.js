@@ -32,7 +32,7 @@ const timings=[];
 function buildingPercent(value){return Math.round(value*100)+'%'}
 function range(id,label,min,max,value,step=1){return `<label>${label}<output id="o-${id}">${buildingPercent(value)}</output><input id="${id}" aria-label="${label}" type="range" min="${min}" max="${max}" step="${step}" value="${value}"></label>`}
 $('fixtures').innerHTML=Object.entries(names).map(([k,n])=>`<section><div class="section-title"><b>${n}</b>${k==='parking'?'':`<select id="shade-${k}" aria-label="${n}灯罩">${Object.entries(shades).map(([v,l])=>`<option value="${v}" ${state.groups[k].shade===v?'selected':''}>${l}</option>`).join('')}</select>`}</div>${range(k+'-gain',n+'亮度',0,2,state.groups[k].gain,.01)}<div class="twins">${range(k+'-spread','范围',.45,1.8,1,.01)}${range(k+'-halo','光晕',0,1.5,.85,.01)}</div></section>`).join('');
-$('buildings').innerHTML=Object.entries(labels).map(([k,n])=>k==='distant'?'<label>远景城市照明<select id="gain-distant"><option value="0">关灯</option><option value="1">仅必要照明</option><option value="2" selected>全亮</option></select></label>':range('gain-'+k,n,0,2,state.gains[k],.01)).join('');
+$('buildings').innerHTML=Object.entries(labels).map(([k,n])=>k==='distant'?'<label>远景城市照明<select id="gain-distant"><option value="0">关灯</option><option value="1">仅必要照明</option><option value="1.5">较亮</option><option value="2" selected>全亮</option></select></label>':range('gain-'+k,n,0,2,state.gains[k],.01)).join('');
 function syncRoadControls(){for(const id of ['road','path']){for(const key of ['gain','spread','halo']){$(id+'-'+key).value=state.groups.road[key];$('o-'+id+'-'+key).value=Math.round(state.groups.road[key]*100)+'%'}$('shade-'+id).value=state.groups.road.shade}}
 syncRoadControls();
 function changed(){dirty=true;request()}
@@ -40,7 +40,7 @@ for(const k of Object.keys(names)){
  if(k!=='parking')$('shade-'+k).onchange=e=>{state.groups[k].shade=e.target.value;state.groups[k].useTiled=false;if(k==='road'||k==='path'){roadDetail.shade=e.target.value;syncRoadControls();}changed()};
  for(const p of ['gain','spread','halo'])$(k+'-'+p).oninput=e=>{state.groups[k][p]=+e.target.value;$('o-'+k+'-'+p).value=Math.round(+e.target.value*100)+'%';if(k==='road'||k==='path')syncRoadControls();changed()};
 }
-function setBuildingGain(id,value){const linked=id==='residential'||id==='public'?['residential','public']:[id];for(const k of linked){state.gains[k]=value;$('gain-'+k).value=state.gains[k];if(k!=='distant')$('o-gain-'+k).value=buildingPercent(value)}if(id==='distant')syncDistantSearchlights();changed()}
+function setBuildingGain(id,value){const linked=id==='residential'||id==='public'?['residential','public']:[id];for(const k of linked){state.gains[k]=value;$('gain-'+k).value=state.gains[k];if(k!=='distant')$('o-gain-'+k).value=buildingPercent(value)}changed()}
 for(const k of Object.keys(labels))$('gain-'+k).oninput=e=>setBuildingGain(k,+e.target.value);
 $('beam').onchange=e=>{state.traffic.beam=e.target.checked?'high':'low';changed()};
 $('view').onchange=e=>{state.view=e.target.value;request()};
@@ -138,11 +138,7 @@ const distantSearchlightOrigins=[
 const distantSearchlightSweeps=new Map([[3,[.12,17,.35]]]);
 let distantSearchlightTime=0;
 function distantSearchlightsEnabled(){return state.distantSearchlights&&state.gains.distant===2}
-function syncDistantSearchlights(){
- const control=$('distant-searchlights');
- control.disabled=state.gains.distant!==2;
- control.checked=distantSearchlightsEnabled();
-}
+
 function searchlightsPlaying(){
  return distantSearchlightsEnabled()&&!state.media.paused&&!reducedMotion.matches&&state.view==='scene';
 }
@@ -325,12 +321,25 @@ const filledIcons={
  distant:'<path fill-rule="evenodd" d="M1 14h8V5h9V1h9v19h4v11H1V14Zm11-5v3h3V9h-3Zm0 6v3h3v-3h-3Zm0 6v3h3v-3h-3Zm9-16v3h3V5h-3Zm0 6v3h3v-3h-3Zm0 6v3h3v-3h-3Zm0 6v3h3v-3h-3ZM4 18v3h3v-3H4Zm0 6v3h3v-3H4Z"/>',
  traffic:'<path fill-rule="evenodd" d="m7 6-4 9H1v10h3a5 5 0 0 0 10 0h5a5 5 0 0 0 10 0h2V15h-4l-5-9H7Zm2 4h11l3 6H6l3-6ZM6 23a3 3 0 1 0 6 0 3 3 0 0 0-6 0Zm15 0a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z"/>'
 };
-const icon=id=>filledIcons[id]?'<svg class="ui-icon filled-icon" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">'+filledIcons[id]+'</svg>':'<img class="ui-icon" alt="" aria-hidden="true" src="'+(window.UI_ICONS?.[id]||'assets/ui/'+id+'.png')+'">';
+const schemeIcons={"road": "M8 21h9a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2Zm3 0V8a5 5 0 0 1 5-5h3a3 3 0 0 1 3 3v2h-8V7h2a2 2 0 0 0-2 2v12Z", "park": "M11 2a1 1 0 0 1 2 0l7 12a1 1 0 0 1-1 2h-5v4h5a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2h5v-4H5a1 1 0 0 1-1-2Z", "public": "M3 8l8-5a2 2 0 0 1 2 0l8 5a1 1 0 0 1-1 2H4a1 1 0 0 1-1-2Zm2 4h3v7H5Zm5 0h4v7h-4Zm6 0h3v7h-3ZM3 20h18v2H3Z", "parking": "M5 15l2-3h10l2 3a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3Zm2 4h10v2H7Zm4-15h2v5h-2ZM4 6l2-1 2 4-2 1Zm16 0-2-1-2 4 2 1Z", "residential": "M2 10l9-7a2 2 0 0 1 2 0l9 7-2 2-2-1v9a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-9l-2 1Zm8 3v5h4v-5Z", "commercial-windows": "M5 4h14l3 6a3 3 0 0 1-5 2 3 3 0 0 1-5 0 3 3 0 0 1-5 0 3 3 0 0 1-5-2Zm0 10h14v7H5Zm3 2v3h4v-3Zm6 0v5h3v-5Z", "billboard": "M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4v3h-2v-3h-4v3H8v-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm1 10h14l-4-5-3 4-2-2Z", "stadium": "M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm7 2v10h2V7ZM4 9v6h3V9Zm13 0v6h3V9Z", "distant": "M3 10h5V5h7v3h6v13H3Zm2 3v2h2v-2Zm5-5v2h3V8Zm0 4v2h3v-2Zm0 4v2h3v-2Zm7-5v2h2v-2Zm0 4v2h2v-2Z", "traffic": "M6 6h12l2 5 2 2v5h-2v3h-3v-3H7v3H4v-3H2v-5l2-2Zm2 2-1 3h10l-1-3Zm-3 5v2h3v-2Zm11 0v2h3v-2Z", "open": "M4 7h16v2H4Zm3 2h10a5 5 0 1 1-10 0Zm4 8h2v4h-2Zm-6 0 2 1-2 3-2-1Zm14 0 2 3-2 1-2-3Z", "cap": "M4 8l3-4h10l3 4v2H4Zm4 3h8a4 4 0 1 1-8 0Zm3 6h2v4h-2Zm-6 0 2 1-2 3-2-1Zm14 0 2 3-2 1-2-3Z", "half": "M4 8l3-4h10l3 4v2H4Zm2 2h6v4H6Zm7 1h4a4 4 0 0 1-4 4Zm-2 6h2v4h-2Zm6 0 2-1 2 4-2 1Z", "full": "M4 11l3-7h10l3 7v2H4Zm5 3h6a3 3 0 0 1-6 0Zm2 4h2v3h-2Z", "off": "M4 8l3-4h10l3 4v2h-6L6 18l-2-2 6-6H4Zm12 3h1a5 5 0 0 1-5 5h-1ZM3 21 21 3l1 1L4 22Z", "global": "M9 10a3 3 0 1 1 6 0ZM11 2h2v2h-2ZM5 6l1-2 2 2-1 1Zm14 0-2 1-1-1 2-2ZM3 15h5v-3h8v2h5v7H3Zm2 2v2h2v-2Zm5-3v2h2v-2Zm0 4v2h2v-2Zm5-2v3h2v-3Z"};
+const schemeIcon=key=>'<svg class="ui-icon" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="'+schemeIcons[key]+'"/></svg>';
+const panelPhoto=id=>window.UI_THUMBNAILS?.[id]||'assets/panel-closeups/'+id+'.jpg';
+const icon=id=>schemeIcons[id]?schemeIcon(id):filledIcons[id]?'<svg class="ui-icon filled-icon" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">'+filledIcons[id]+'</svg>':'<img class="ui-icon" alt="" aria-hidden="true" src="'+(window.UI_ICONS?.[id]||'assets/ui/'+id+'.png')+'">';
 const categoryIcons={'总览':'home','灯具':'road','建筑':'residential','商业':'commercial-windows','体育场':'stadium','远景':'distant','车流':'traffic'};
 let zoom=false;const completed=new Set();
 const markerStorage='city-night-marker-positions-v1',markerDefaults={road:[47,61],park:[31,63],'public-pair':[13,53],parking:[64,69],residential:[83,70],'commercial-windows':[71,43],billboard:[59,54],stadium:[34,40],distant:[52,29],traffic:[49,80]};
+const panelPositions={};
+const panelKey=()=>selected+(zoom?'/detail':'/scene');
 for(const item of items)[item[4],item[5]]=markerDefaults[item[0]];
 try{const saved=JSON.parse(localStorage.getItem(markerStorage));if(saved?.version===1)for(const item of items){const p=saved.positions?.[item[0]];if(Array.isArray(p)&&p.length===2&&p.every(Number.isFinite)&&p[0]>=3&&p[0]<=97&&p[1]>=8&&p[1]<=97)[item[4],item[5]]=p;}}catch{}
+try{
+ const state=JSON.parse(localStorage.getItem(markerStorage));
+ if(state?.version===1)for(const [id] of items)for(const view of ['scene','detail']){
+  const key=id+'/'+view,point=state.panels?.[key];
+  if(Array.isArray(point)&&point.length===2&&point.every(n=>Number.isFinite(n)&&n>=0&&n<=1))panelPositions[key]=point;
+ }
+}catch{}
+let panelDrag=null;
 let markerEditing=false,markerDirty=false,markerDrag=null,laneEditing=false,laneDrag=null,lampEditing=false,lampDrag=null,lampSelected=null;
 function markerPositions(){return Object.fromEntries(items.map(i=>[i[0],[i[4],i[5]]]))}
 
@@ -349,18 +358,19 @@ const controls={};for(const id of [...Object.keys(names),...Object.keys(labels),
 for(const id of ['road','wall','parking'])document.querySelector('.legacy-controls').append(controls[id].querySelector('.twins'));
 for(const [id,channels] of Object.entries(objectChannels)){const group=document.createElement('section');group.className='object-controls';for(const channel of channels)group.append(controls[channel]);controls[id]=group;document.querySelector('.legacy-controls').append(group)}
 
-const distantControls=document.createElement('section');
-distantControls.append(controls.distant);
-distantControls.insertAdjacentHTML('beforeend','<label class="beam-toggle"><span>集束光柱</span><input id="distant-searchlights" type="checkbox" role="switch" aria-label="集束光柱" checked><span class="beam-track" aria-hidden="true"></span></label>');
-controls.distant=distantControls;
-document.querySelector('.legacy-controls').append(distantControls);
-$('distant-searchlights').onchange=e=>{state.distantSearchlights=e.target.checked;changed();markComplete()};
 const stadiumControls=document.createElement('section');stadiumControls.append(controls.stadium);stadiumControls.insertAdjacentHTML('beforeend','<label class="beam-toggle"><span>使用时打开</span><input id="stadium-schedule" type="checkbox" role="switch" aria-label="通宵打开" checked><span class="beam-track" aria-hidden="true"></span><span>通宵打开</span></label>');controls.stadium=stadiumControls;document.querySelector('.legacy-controls').append(stadiumControls);$('stadium-schedule').onchange=e=>{state.stadium.overnight=e.target.checked;changed();markComplete('stadium')};
 const parkControls=document.createElement('section');parkControls.innerHTML=range('park-gain','公园亮度',0,1,state.park.gain,.01);document.querySelector('.legacy-controls').append(parkControls);controls.park=parkControls;$('park-gain').oninput=e=>{state.park.gain=+e.target.value;$('o-park-gain').value=Math.round(+e.target.value*100)+'%';changed()};
-const pairControls=document.createElement('section');pairControls.append(controls['public-pair']);pairControls.insertAdjacentHTML('beforeend',range('pair-warmth','冷暖',0,1,.5,.01));controls['public-pair']=pairControls;document.querySelector('.legacy-controls').append(pairControls);$('pair-warmth').oninput=e=>{state.pair.warmth=+e.target.value;$('o-pair-warmth').value=Math.round(+e.target.value*100)+'%';changed()};
+const pairControls=document.createElement('section');pairControls.append(controls['public-pair']);pairControls.insertAdjacentHTML('beforeend',range('pair-warmth','冷暖',0,1,.5,.01));const warmthInput=pairControls.querySelector('#pair-warmth');
+const warmthLabel=warmthInput.closest('label');
+warmthLabel.classList.add('warmth-control');
+for(const node of [...warmthLabel.childNodes])if(node.nodeType===Node.TEXT_NODE)node.remove();
+warmthLabel.querySelector('output').hidden=true;
+warmthInput.insertAdjacentHTML('beforebegin','<span aria-hidden="true">冷</span>');
+warmthInput.insertAdjacentHTML('afterend','<span aria-hidden="true">暖</span>');
+controls['public-pair']=pairControls;document.querySelector('.legacy-controls').append(pairControls);$('pair-warmth').oninput=e=>{state.pair.warmth=+e.target.value;$('o-pair-warmth').value=Math.round(+e.target.value*100)+'%';changed()};
 const shadeIcon=key=>'<img class="ui-icon fixture-head-icon" alt="" aria-hidden="true" src="'+(window.LAMP_HEADS?.[key]||'assets/lamp-heads/'+key+'.png')+'">';
-const shadeChoices={};for(const id of ['road','wall','public-pair']){const div=document.createElement('div');div.className='shade-choices';for(const [key,title] of Object.entries(shades)){let b=document.createElement('button');b.innerHTML='<span aria-hidden="true">'+shadeIcon(key)+'</span>'+title;b.onclick=()=>{if(id==='road'){roadDetail.shade=key;changed()}else if(id==='public-pair'){state.pair.shade=key;changed()}else{$('shade-'+id).value=key;$('shade-'+id).dispatchEvent(new Event('change'));}markComplete(selected);sync()};b.dataset.shade=key;div.append(b)}if(id==='public-pair'){const title=document.createElement('b');title.textContent='墙灯灯罩';title.style.fontSize='1cqw';controls[id].append(title)}controls[id].append(div);shadeChoices[id]=div}
-const brightnessSteps=['0%','25%','50%','75%','100%'];
+const shadeChoices={};for(const id of ['road','wall','public-pair']){const div=document.createElement('div');div.className='shade-choices';for(const [key,title] of Object.entries(shades)){let b=document.createElement('button');b.innerHTML='<span aria-hidden="true">'+shadeIcon(key)+'</span>'+title;b.onclick=()=>{if(id==='road'){roadDetail.shade=key;changed()}else if(id==='public-pair'){state.pair.shade=key;changed()}else{$('shade-'+id).value=key;$('shade-'+id).dispatchEvent(new Event('change'));}markComplete(selected);sync()};b.dataset.shade=key;div.append(b)}controls[id].append(div);shadeChoices[id]=div}
+const brightnessSteps=['关闭','微光','中亮','较亮','极亮'];
 let nextStepGroup=0;
 function createSteps(name, values, onSelect){
  const group=document.createElement('fieldset');
@@ -387,6 +397,39 @@ function createSteps(name, values, onSelect){
  });
  return {group,select(index){for(const input of inputs)input.checked=Number(input.value)===index}};
 }
+Object.assign(schemeIcons,{
+ 'stadium-in-use':'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 4h2v5h4v2h-6Z',
+ 'stadium-overnight':'M19.8 15.2A8.6 8.6 0 0 1 8.8 4.3a9 9 0 1 0 11 10.9ZM17 2l.8 2.2L20 5l-2.2.8L17 8l-.8-2.2L14 5l2.2-.8Z',
+ 'beam-low':'M3 5a7 7 0 0 1 0 14H2V5Zm9 3 8 3-.7 2-8-3Zm0 5 8 3-.7 2-8-3Zm-1 5 7 2.5-.7 2-7-2.5Z',
+ 'beam-high':'M3 5a7 7 0 0 1 0 14H2V5Zm9 2h10v2H12Zm0 5h10v2H12Zm0 5h10v2H12Z'
+});
+function createToggleSegments(input,name,options,icons){
+ const control=createSteps(name,options,index=>{
+  input.checked=index===1;
+  input.dispatchEvent(new Event('change',{bubbles:true}));
+ });
+ control.group.classList.add('segmented-toggle');
+ for(const [i,caption] of [...control.group.querySelectorAll('label > span')].entries()){
+  caption.insertAdjacentHTML('afterbegin',schemeIcon(icons[i]));
+ }
+ const original=input.closest('.beam-toggle');
+ original.before(control.group);
+ original.hidden=true;
+ control.select(Number(input.checked));
+ input.addEventListener('change',()=>control.select(Number(input.checked)));
+}
+createToggleSegments($('stadium-schedule'),'体育场照明时段',['使用时打开','通宵打开'],['stadium-in-use','stadium-overnight']);
+createToggleSegments($('beam'),'车灯模式',['近光','远光'],['beam-low','beam-high']);
+const distantGains=[2,1.5,1,0];
+const distantSteps=createSteps('远景城市照明',['极亮','较亮','必要照明','全暗'],index=>{
+ setBuildingGain('distant',distantGains[index]);
+ markComplete();
+ sync();
+});
+distantSteps.group.id='distant-lighting-steps';
+controls.distant.querySelector('label').hidden=true;
+controls.distant.append(distantSteps.group);
+const brightnessCaptions={'gain-residential':'窗灯','wall-gain':'墙灯','gain-commercial-windows':'窗灯','gain-commercial-screens':'屏幕'};
 const brightnessControls=[];
 for(const id of ['road-gain','wall-gain','parking-gain','park-gain',...Object.keys(labels)
  .filter(id=>id!=='distant'&&id!=='public').map(id=>'gain-'+id)]){
@@ -406,6 +449,17 @@ for(const id of ['road-gain','wall-gain','parking-gain','park-gain',...Object.ke
   input.value=max*index/4;
   input.dispatchEvent(new Event('input',{bubbles:true}));
  });
+ const caption=brightnessCaptions[id];
+ if(caption){
+  const bar=steps.group.querySelector('.lighting-step-bar');
+  const shell=document.createElement('div'),name=document.createElement('span');
+  shell.className='labeled-step-control';
+  name.className='step-caption';
+  name.textContent=caption;
+  name.setAttribute('aria-hidden','true');
+  bar.before(shell);
+  shell.append(name,bar);
+ }
  label.before(steps.group);
  label.classList.add('brightness-source');
  brightnessControls.push({steps,read:()=>4*(isRoad?roadDetail.gain:Number(input.value))/max});
@@ -413,9 +467,9 @@ for(const id of ['road-gain','wall-gain','parking-gain','park-gain',...Object.ke
 function sync(){
  const image=document.querySelector('.object-preview');
  if(selected==='road'){
-  image.src=window.LAMP_HERO?.[roadDetail.shade]||'assets/lamp-hero/'+roadDetail.shade+'.png';
+  if(image.src!==panelPhoto('road'))image.src=panelPhoto('road');
   image.classList.add('lamp-preview');
-  image.alt=shades[roadDetail.shade]+'完整路灯';
+  image.alt='路灯光源特写';
  }else image.classList.remove('lamp-preview');
  for(const input of document.querySelectorAll('input[type=range]'))
   input.style.setProperty('--fill',((input.value-input.min)/(input.max-input.min)*100)+'%');
@@ -423,6 +477,7 @@ function sync(){
   const shade=id==='road'?roadDetail.shade:id==='public-pair'?state.pair.shade:state.groups[id].shade;
   for(const button of div.children)button.setAttribute('aria-pressed',String(button.dataset.shade===shade));
  }
+ distantSteps.select(distantGains.indexOf(state.gains.distant));
  for(const {steps,read} of brightnessControls)steps.select(read());
 }
 document.addEventListener('input',sync);
@@ -465,7 +520,28 @@ function detailSubject(){
   Math.max(0,Math.min(H-height,y-height*.64)),width,height];
 }
 function frameDetail(){const box=detailSubject(),fraction=panel.offsetWidth/layout.clientWidth,margin=.02,gap=.035,available=1-fraction-margin*2-gap,dock=box[0]+box[2]/2>=W/2?'left':'right',width=Math.min(W,Math.max(box[2]/available,box[3]/.96*W/H)),height=width*H/W,target=dock==='left'?margin+fraction+gap+available/2:margin+available/2;const camera=[Math.max(0,Math.min(W-width,box[0]+box[2]/2-target*width)),Math.max(0,Math.min(H-height,box[1]+box[3]/2-height/2)),width,height];if(!views.detail||camera.some((v,i)=>Math.abs(v-views.detail[i])>.01)){views.detail=camera;dirty=true;request()}panel.dataset.dock=dock;return dock;}
+function panelTravel(){
+ const edge=layout.clientWidth*.015;
+ return [edge,Math.max(0,layout.clientWidth-panel.offsetWidth-edge*2),Math.max(0,layout.clientHeight-panel.offsetHeight-edge*2)];
+}
+function placePanel([x,y],[edge,width,height]){
+ const left=edge+x*width,top=edge+y*height;
+ panel.style.left=left+'px';
+ panel.style.top=top+'px';
+ if(zoom){panel.dataset.side='bottom';return}
+ const item=items.find(item=>item[0]===selected);
+ const ax=item[4]*layout.clientWidth/100-left;
+ const ay=item[5]*layout.clientHeight/100-layout.clientWidth*.014-top;
+ const pw=panel.offsetWidth,ph=panel.offsetHeight;
+ const candidates=[['right',ax],['left',pw-ax],['anchor-top',ay],['anchor-bottom',ph-ay]];
+ panel.dataset.side=candidates.reduce((nearest,next)=>next[1]<nearest[1]?next:nearest)[0];
+ const inset=Math.min(layout.clientWidth*.012,pw/2,ph/2);
+ panel.style.setProperty('--anchor-x',Math.max(inset,Math.min(pw-inset,ax))+'px');
+ panel.style.setProperty('--anchor-y',Math.max(inset,Math.min(ph-inset,ay))+'px');
+}
 function positionPanel(){if(panel.hidden||!selected)return;const r=layout.getBoundingClientRect();panel.dataset.detail=String(zoom);
+ const custom=panelPositions[panelKey()];
+ if(custom){if(zoom)frameDetail();placePanel(custom,panelTravel());return}
  if(selected==='distant'){
   const inset=r.width*.015;
   panel.dataset.side='bottom';
@@ -481,18 +557,20 @@ function positionPanel(){if(panel.hidden||!selected)return;const r=layout.getBou
  const right=rightSpace>=pw+gap&&(preferRight||leftSpace<pw+gap);let left=right?objectRight+gap:objectLeft-gap-pw;left=Math.max(edge,Math.min(r.width-pw-edge,left));
  const top=Math.max(edge,Math.min(r.height-ph-edge,y-ph/2));panel.style.left=left+'px';panel.style.top=top+'px';panel.dataset.side=right?'right':'left';panel.style.setProperty('--anchor-y',Math.max(18,Math.min(ph-18,y-top))+'px');}
 new ResizeObserver(positionPanel).observe(layout);new ResizeObserver(positionPanel).observe(panel);
-function choose(id){setGlobalDimming(false);if(id==='path')id='road';if(id==='wall'||id==='public')id='residential';if(id==='commercial-screens')id='commercial-windows';const item=items.find(i=>i[0]===id);if(!item)return;selected=id;zoom=id==='road'&&!!demonstrationLamp();state.view=zoom?'detail':'scene';$('view').value='scene';$('detail').textContent=zoom?'返回全景':'查看局部';$('detail').hidden=id!=='residential'&&id!=='road';for(const child of [...body.children])document.querySelector('.legacy-controls').append(child);body.replaceChildren(controls[id]);panel.hidden=false;$('panel-title').innerHTML=icon(id==='public-pair'?'public':id)+item[1];const img=document.querySelector('.object-preview');img.src=window.UI_THUMBNAILS?.[id]||('previews/ui-'+id+(id==='stadium'?'.png':'.jpg'));img.alt=item[1]+'场景局部';render();sync();positionPanel();request()}
-function render(){markers.replaceChildren();for(const i of items){const b=document.createElement('button');b.className='marker';b.dataset.id=i[0];b.style.left=i[4]+'%';b.style.top=i[5]+'%';b.hidden=zoom;b.innerHTML='<span aria-hidden="true">'+icon(i[0]==='public-pair'?'public':i[0])+'</span>'+(completed.has(i[0])?'<span class="completion" aria-hidden="true">✓</span>':'');b.setAttribute('aria-label',i[1]+'调节'+(completed.has(i[0])?'，已完成':''));b.setAttribute('aria-pressed',String(i[0]===selected&&!panel.hidden));b.setAttribute('aria-expanded',String(i[0]===selected&&!panel.hidden));b.onclick=()=>{if(!markerEditing&&!laneEditing)choose(i[0])};markers.append(b)}}
+const panelTitles={"road": "路灯调节", "park": "公园照明", "public-pair": "公共建筑墙灯", "parking": "停车场地灯", "residential": "住宅照明", "commercial-windows": "商场照明", "billboard": "广告牌亮度", "stadium": "体育场照明", "distant": "远景照明", "traffic": "车灯模式"};
+function choose(id){setGlobalDimming(false);if(id==='path')id='road';if(id==='wall'||id==='public')id='residential';if(id==='commercial-screens')id='commercial-windows';const item=items.find(i=>i[0]===id);if(!item)return;selected=id;zoom=false;state.view=zoom?'detail':'scene';$('view').value='scene';$('detail').textContent=zoom?'返回全景':'查看局部';$('detail').hidden=id!=='residential'&&id!=='road';for(const child of [...body.children])document.querySelector('.legacy-controls').append(child);body.replaceChildren(controls[id]);panel.hidden=false;$('panel-title').innerHTML=icon(id==='public-pair'?'public':id)+panelTitles[id];const img=document.querySelector('.object-preview');img.src=panelPhoto(id);img.alt=item[1]+'场景局部';render();sync();positionPanel();request()}
+function render(){markers.replaceChildren();for(const i of items){const b=document.createElement('button');b.className='marker';b.dataset.id=i[0];b.style.left=i[4]+'%';b.style.top=i[5]+'%';b.hidden=zoom;b.innerHTML='<span aria-hidden="true">'+icon(i[0]==='public-pair'?'public':i[0])+'</span>'+(completed.has(i[0])?'<span class="completion" aria-hidden="true">✓</span>':'');b.setAttribute('aria-label',i[1]+'调节'+(completed.has(i[0])?'，已完成':''));b.setAttribute('aria-pressed',String(i[0]===selected&&!panel.hidden));b.setAttribute('aria-expanded',String(i[0]===selected&&!panel.hidden));b.onclick=event=>{if(!laneEditing&&!lampEditing&&(!markerEditing||event.detail===0))choose(i[0])};markers.append(b)}}
 $('close-panel').onclick=()=>{panel.hidden=true;state.view='scene';zoom=false;render();request()};cv.addEventListener('click',()=>{if(!panel.hidden)$('close-panel').click()});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('close-panel').click()});
 $('detail').onclick=()=>{if(selected!=='residential'&&selected!=='road')return;zoom=!zoom;state.view=zoom?'detail':'scene';$('detail').textContent=zoom?'返回全景':'查看局部';render();positionPanel();request()};
 const dimmingButton=$('global-dimming'),dimmingPanel=$('global-dimming-panel');
 // Classroom presets use the existing visual gains. The dark preset also turns off moving light sources.
 const lightingPresets=[
  {buildings:2,decorative:2,road:2,stadium:2,distant:2,traffic:1},
+ {buildings:1.5,decorative:1,road:1.5,stadium:1,distant:1.5,traffic:1},
  {buildings:1,decorative:0,road:1,stadium:0,distant:1,traffic:1},
  {buildings:0,decorative:0,road:0,stadium:0,distant:0,traffic:0}
 ];
-const globalSteps=createSteps('照明档位',['全亮','部分改造','关闭'],applyLightingPreset);
+const globalSteps=createSteps('照明档位',['极亮','较亮','必要照明','全暗'],applyLightingPreset);
 $('global-lighting-steps').append(globalSteps.group);
 globalSteps.select(0);
 function clearPresetForLocalChange(event){
@@ -534,18 +612,50 @@ function applyLightingPreset(index){
  sync();
  changed();
 }
-const markerBar=document.createElement('div');markerBar.className='marker-editor-bar';markerBar.hidden=true;markerBar.innerHTML='<span id="marker-edit-status">拖动气泡定位</span><button id="marker-save">保存位置</button><button id="marker-finish">退出定位</button>';layout.append(markerBar);
+const markerBar=document.createElement('div');markerBar.className='marker-editor-bar';markerBar.hidden=true;markerBar.innerHTML='<span id="marker-edit-status">拖动气泡或面板标题定位</span><button id="marker-save">保存位置</button><button id="marker-finish">退出定位</button>';layout.append(markerBar);
 function markerStatus(text){$('marker-edit-status').textContent=text;window.dispatchEvent(new CustomEvent('city-marker-layout-change',{detail:{editing:markerEditing,dirty:markerDirty,status:text}}))}
 function applyMarkerPosition(item,node,x,y){item[4]=Math.round(Math.max(3,Math.min(97,x))*10000)/10000;item[5]=Math.round(Math.max(8,Math.min(97,y))*10000)/10000;node.style.left=item[4]+'%';node.style.top=item[5]+'%'}
 function cancelMarkerDrag(){if(!markerDrag)return;const d=markerDrag;markerDrag=null;applyMarkerPosition(d.item,d.node,...d.start);if(markers.hasPointerCapture(d.pointerId))markers.releasePointerCapture(d.pointerId)}
-function editMarkerLayout(value){if(value)setGlobalDimming(false);if(value&&laneEditing)editLanes(false);if(value&&lampEditing)editLamps(false);cancelMarkerDrag();markerEditing=!!value;markerBar.hidden=!markerEditing;layout.classList.toggle('editing-markers',markerEditing);if(markerEditing){panel.hidden=true;zoom=false;if(state.view!=='scene'){state.view='scene';request()}render()}markerStatus(markerDirty?'位置未保存':'拖动气泡定位')}
-function saveMarkerLayout(){try{localStorage.setItem(markerStorage,JSON.stringify({version:1,positions:markerPositions()}));markerDirty=false;markerStatus('位置已保存到本机');return true}catch{markerStatus('本机存储不可用，请导出位置');return false}}
-function resetMarkerLayout(){cancelMarkerDrag();for(const item of items)[item[4],item[5]]=markerDefaults[item[0]];markerDirty=true;render();positionPanel();markerStatus('已恢复默认位置，尚未保存')}
+function editMarkerLayout(value){if(value)setGlobalDimming(false);if(value&&laneEditing)editLanes(false);if(value&&lampEditing)editLamps(false);cancelMarkerDrag();cancelPanelDrag();markerEditing=!!value;markerBar.hidden=!markerEditing;layout.classList.toggle('editing-markers',markerEditing);if(markerEditing){panel.hidden=true;zoom=false;if(state.view!=='scene'){state.view='scene';request()}render()}markerStatus(markerDirty?'位置未保存':'拖动气泡或面板标题定位')}
+const markerLayoutData=()=>({version:1,positions:markerPositions(),...(Object.keys(panelPositions).length?{panels:panelPositions}:{})});
+function saveMarkerLayout(){try{localStorage.setItem(markerStorage,JSON.stringify(markerLayoutData()));markerDirty=false;markerStatus('位置已保存到本机');return true}catch{markerStatus('本机存储不可用，请导出位置');return false}}
+function resetMarkerLayout(){cancelMarkerDrag();cancelPanelDrag();for(const key of Object.keys(panelPositions))delete panelPositions[key];for(const item of items)[item[4],item[5]]=markerDefaults[item[0]];markerDirty=true;render();positionPanel();markerStatus('已恢复默认位置，尚未保存')}
 markers.addEventListener('pointerdown',e=>{if(!markerEditing||e.button!==0||!e.isPrimary)return;const node=e.target.closest('.marker');if(!node)return;e.preventDefault();cancelMarkerDrag();const item=items.find(i=>i[0]===node.dataset.id);markerDrag={node,item,start:[item[4],item[5]],x:e.clientX,y:e.clientY,rect:layout.getBoundingClientRect(),pointerId:e.pointerId};markers.setPointerCapture(e.pointerId)});
-markers.addEventListener('pointermove',e=>{const d=markerDrag;if(!d||e.pointerId!==d.pointerId)return;e.preventDefault();applyMarkerPosition(d.item,d.node,d.start[0]+(e.clientX-d.x)/d.rect.width*100,d.start[1]+(e.clientY-d.y)/d.rect.height*100)});
-markers.addEventListener('pointerup',e=>{if(!markerDrag||e.pointerId!==markerDrag.pointerId)return;const d=markerDrag;markerDrag=null;if(markers.hasPointerCapture(e.pointerId))markers.releasePointerCapture(e.pointerId);if(d.start[0]!==d.item[4]||d.start[1]!==d.item[5]){markerDirty=true;markerStatus('位置未保存')}});
+markers.addEventListener('pointermove',e=>{const d=markerDrag;if(!d||e.pointerId!==d.pointerId)return;if(!d.moved&&Math.hypot(e.clientX-d.x,e.clientY-d.y)<5)return;d.moved=true;e.preventDefault();applyMarkerPosition(d.item,d.node,d.start[0]+(e.clientX-d.x)/d.rect.width*100,d.start[1]+(e.clientY-d.y)/d.rect.height*100)});
+markers.addEventListener('pointerup',e=>{if(!markerDrag||e.pointerId!==markerDrag.pointerId)return;const d=markerDrag;markerDrag=null;if(markers.hasPointerCapture(e.pointerId))markers.releasePointerCapture(e.pointerId);if(!d.moved){choose(d.item[0]);return}if(d.start[0]!==d.item[4]||d.start[1]!==d.item[5]){markerDirty=true;positionPanel();markerStatus('位置未保存')}});
 markers.addEventListener('pointercancel',cancelMarkerDrag);markers.addEventListener('lostpointercapture',cancelMarkerDrag);window.addEventListener('resize',cancelMarkerDrag);window.addEventListener('blur',cancelMarkerDrag);window.addEventListener('pagehide',cancelMarkerDrag);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&markerEditing)editMarkerLayout(false)});
+const panelHandle=panel.querySelector('.panel-head');
+const clampUnit=n=>Math.max(0,Math.min(1,n));
+function cancelPanelDrag(){
+ if(!panelDrag)return;
+ const {pointerId}=panelDrag;panelDrag=null;
+ if(panelHandle.hasPointerCapture(pointerId))panelHandle.releasePointerCapture(pointerId);
+ positionPanel();
+}
+panelHandle.addEventListener('pointerdown',e=>{
+ if(!markerEditing||panel.hidden||panelDrag||e.button!==0||!e.isPrimary||e.target.closest('button'))return;
+ e.preventDefault();
+ panelDrag={key:panelKey(),pointerId:e.pointerId,x:e.clientX,y:e.clientY,left:panel.offsetLeft,top:panel.offsetTop,travel:panelTravel()};
+ panelHandle.setPointerCapture(e.pointerId);
+});
+panelHandle.addEventListener('pointermove',e=>{
+ const drag=panelDrag;
+ if(!drag||e.pointerId!==drag.pointerId)return;
+ const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+ if(!drag.point&&Math.hypot(dx,dy)<5)return;
+ const [edge,width,height]=drag.travel;
+ drag.point=[width?clampUnit((drag.left+dx-edge)/width):0,height?clampUnit((drag.top+dy-edge)/height):0];
+ placePanel(drag.point,drag.travel);
+});
+panelHandle.addEventListener('pointerup',e=>{
+ const drag=panelDrag;
+ if(!drag||e.pointerId!==drag.pointerId)return;
+ if(drag.point){panelPositions[drag.key]=drag.point;markerDirty=true;markerStatus('位置未保存')}
+ cancelPanelDrag();
+});
+for(const type of ['pointercancel','lostpointercapture'])panelHandle.addEventListener(type,cancelPanelDrag);
+for(const type of ['resize','blur','pagehide'])window.addEventListener(type,cancelPanelDrag);
 $('marker-save').onclick=saveMarkerLayout;$('marker-finish').onclick=()=>editMarkerLayout(false);
 const laneStorage='city-night-traffic-lanes-v1',laneNames={southbound:'驶来',northbound:'驶远'},laneColors={southbound:'#f0c36a',northbound:'#7ec8ff'};
 const laneDock=document.createElement('div');laneDock.className='lane-dev';laneDock.innerHTML='<div id="lane-edit-bar" hidden><span id="lane-edit-status">拖动直线或端点</span><button type="button" id="lane-reset">恢复默认</button><button type="button" id="lane-finish">收起</button></div>';layout.append(laneDock);
@@ -591,7 +701,7 @@ function savedFixtureOk(item){return item&&typeof item.id==='string'&&Array.isAr
 try{const saved=JSON.parse(localStorage.getItem(lampStorage));if(saved?.version===2&&Array.isArray(saved.fixtures)&&saved.fixtures.every(savedFixtureOk)){const known=new Map(lampDefaults.map(f=>[f.id,f]));commitUpright(saved.fixtures.slice(0,lampLimit).map(item=>placeFixture(known.get(item.id)||{id:item.id,group:item.group==='path'?'path':'road',receiver:0,tileGid:item.group==='path'?4:3,defaultShade:item.group==='path'?'full':'half',flip:item.flip},item.ground,item.flip)));}else if(saved?.version===1&&Array.isArray(saved.fixtures)&&saved.fixtures.every(savedFixtureOk)){const paths=window.SCENE_LIGHT_LAYOUT.wholeFixtures.filter(f=>f.group==='path');const roads=saved.fixtures.slice(0,Math.max(0,lampLimit-paths.length)).map(item=>placeFixture({id:item.id,group:'road',receiver:0,tileGid:item.flip?2147483651:3,defaultShade:'half',flip:item.flip},item.ground,item.flip));commitUpright(roads.concat(paths))}}catch{}
 lampLayer.addEventListener('pointerdown',e=>{if(!lampEditing||e.button!==0||!e.isPrimary)return;const node=e.target.closest('[data-id]');if(!node)return;e.preventDefault();if(lampDrag)onLampCancel({pointerId:lampDrag.pointerId});const lamp=uprightLamps().find(f=>f.id===node.dataset.id);if(!lamp)return;lampSelected=lamp.id;lampDrag={id:lamp.id,pointerId:e.pointerId,origin:lamp.ground.slice(),flip:lamp.flip,start:lanePoint(e),moved:false};window.addEventListener('pointermove',onLampMove);window.addEventListener('pointerup',onLampUp);window.addEventListener('pointercancel',onLampCancel);drawLampEditor()});
 $('lamp-add').onclick=addRoadLamp;$('lamp-delete').onclick=deleteRoadLamp;$('lamp-reset').onclick=()=>{if(lampDrag)onLampCancel({pointerId:lampDrag.pointerId});lampSelected=null;commitUpright(lampDefaults.map(f=>JSON.parse(JSON.stringify(f))));rememberLamps()};$('lamp-finish').onclick=()=>editLamps(false);
-$('close-panel').innerHTML=icon('close');window.lightingUI={markerLayout:{positions:markerPositions,defaults:()=>JSON.parse(JSON.stringify(markerDefaults)),edit:editMarkerLayout,editing:()=>markerEditing,save:saveMarkerLayout,reset:resetMarkerLayout},trafficPaths:{paths:()=>CITY_TRAFFIC.paths(),defaults:()=>CITY_TRAFFIC.defaults(),set:paths=>{applyLanes(paths);rememberLanes()},reset:()=>{$('lane-reset').click()},edit:editLanes,editing:()=>laneEditing},roadLamps:{fixtures:()=>uprightLamps().map(f=>({id:f.id,group:f.group,ground:f.ground.slice(),flip:f.flip})),defaults:()=>lampDefaults.map(f=>({id:f.id,group:f.group,ground:f.ground.slice(),flip:f.flip})),edit:editLamps,editing:()=>lampEditing,add:addRoadLamp,remove:deleteRoadLamp,reset:()=>{$('lamp-reset').click()}},select:choose,close:()=>$('close-panel').click(),items:()=>items.map(i=>({id:i[0],name:i[1],category:i[2],markerPosition:[i[4],i[5]],channels:objectChannels[i[0]]||[i[0]]})),selected:()=>selected,bounds:()=>items.find(i=>i[0]===selected)?.[6].slice(),detailBounds:()=>detailSubject().slice(),completed:()=>[...completed]};panel.hidden=true;render();sync();
+$('close-panel').innerHTML=icon('close');window.lightingUI={markerLayout:{positions:markerPositions,defaults:()=>JSON.parse(JSON.stringify(markerDefaults)),export:()=>JSON.parse(JSON.stringify(markerLayoutData())),edit:editMarkerLayout,editing:()=>markerEditing,save:saveMarkerLayout,reset:resetMarkerLayout},trafficPaths:{paths:()=>CITY_TRAFFIC.paths(),defaults:()=>CITY_TRAFFIC.defaults(),set:paths=>{applyLanes(paths);rememberLanes()},reset:()=>{$('lane-reset').click()},edit:editLanes,editing:()=>laneEditing},roadLamps:{fixtures:()=>uprightLamps().map(f=>({id:f.id,group:f.group,ground:f.ground.slice(),flip:f.flip})),defaults:()=>lampDefaults.map(f=>({id:f.id,group:f.group,ground:f.ground.slice(),flip:f.flip})),edit:editLamps,editing:()=>lampEditing,add:addRoadLamp,remove:deleteRoadLamp,reset:()=>{$('lamp-reset').click()}},select:choose,close:()=>$('close-panel').click(),items:()=>items.map(i=>({id:i[0],name:i[1],category:i[2],markerPosition:[i[4],i[5]],channels:objectChannels[i[0]]||[i[0]]})),selected:()=>selected,bounds:()=>items.find(i=>i[0]===selected)?.[6].slice(),detailBounds:()=>detailSubject().slice(),completed:()=>[...completed]};panel.hidden=true;render();sync();
 })();
 
 // City-night developer controls, sharing the original Ctrl-hold convention.
@@ -607,7 +717,7 @@ $('close-panel').innerHTML=icon('close');window.lightingUI={markerLayout:{positi
  $('halo-export').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({version:1,halo:state.halo},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='city-halo.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
  $('lane-edit').onclick=()=>{box.hidden=true;lightingUI.trafficPaths.edit(true)};
  $('lamp-edit').onclick=()=>{box.hidden=true;lightingUI.roadLamps.edit(true)};
- $('marker-edit').onclick=()=>{box.hidden=true;lightingUI.markerLayout.edit(true)};$('marker-reset').onclick=()=>lightingUI.markerLayout.reset();$('marker-export').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({version:1,positions:lightingUI.markerLayout.positions()},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='city-night-marker-positions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+ $('marker-edit').onclick=()=>{box.hidden=true;lightingUI.markerLayout.edit(true)};$('marker-reset').onclick=()=>lightingUI.markerLayout.reset();$('marker-export').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(lightingUI.markerLayout.export(),null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='city-night-marker-positions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
  function toggle(){lightingUI.markerLayout.edit(false);lightingUI.trafficPaths.edit(false);lightingUI.roadLamps.edit(false);box.hidden=!box.hidden;} $('halo-close').onclick=()=>{box.hidden=true;};
  let timer=0,held=false;function cancel(){clearTimeout(timer);timer=0;held=false;}
  document.addEventListener('keydown',e=>{if(e.key==='Control'&&!e.altKey&&!e.shiftKey&&!e.metaKey){if(!held&&!e.repeat){held=true;timer=setTimeout(()=>{timer=0;toggle();},3000);}}else cancel();});

@@ -49,14 +49,14 @@ async function verify(page, url) {
   assert.equal(occlusion.errors, 0);
   const full = await snapshot();
 
-  await page.getByRole('button', {name: '全局调光', exact: true}).click();
-  await page.getByRole('radio', {name: '部分改造', exact: true}).check();
+  await page.getByRole('button', {name: '调光', exact: true}).click();
+  await page.getByRole('radio', {name: '必要照明', exact: true}).check();
   await settle();
   const middle = await snapshot();
   assert.equal(middle.state.gains.distant, 1);
   assert.equal(middle.state.gains.billboard, 0);
   assert.equal(middle.state.groups.road.gain, 1);
-  await page.getByRole('radio', {name: '关闭', exact: true}).check();
+  await page.getByRole('radio', {name: '全暗', exact: true}).check();
   await settle();
   const dark = await snapshot();
   assert(Object.values(dark.state.gains).every(value => value === 0));
@@ -66,20 +66,22 @@ async function verify(page, url) {
   assert(full.sky.visibleStars < middle.sky.visibleStars);
   assert(middle.sky.visibleStars < dark.sky.visibleStars);
   assert.deepEqual(dark.stars, full.stars);
-  await page.getByRole('radio', {name: '全亮', exact: true}).check();
+  await page.getByRole('radio', {name: '极亮', exact: true}).check();
   await settle();
   assert.deepEqual((await snapshot()).sky, full.sky);
   assert.deepEqual(await page.evaluate(() => lightingUI.completed()), []);
-  await page.getByRole('button', {name: '关闭全局调光', exact: true}).click();
+  await page.keyboard.press('Escape');
 
   await page.locator('.marker[data-id="road"]').click();
+  assert.equal(await page.evaluate(() => scenePreview.state().view), 'scene');
+  await page.getByRole('button',{name:'查看局部',exact:true}).click();
   assert.equal(await page.evaluate(() => scenePreview.state().view), 'detail');
   assert.equal(await page.locator('#detail').innerText(), '返回全景');
   assert.equal(await page.locator('#panel-body input[type=range]:visible').count(), 0);
   const fixtures = () => page.evaluate(() => scenePreview.fixtures());
   const original = await fixtures();
   await page.locator('#panel-body [data-shade="full"]').click();
-  await page.getByRole('radio', {name: '75%', exact: true}).check();
+  await page.getByRole('radio', {name: '较亮', exact: true}).check();
   await settle();
   const modified = await fixtures();
   assert.deepEqual(modified.filter((lamp, index) =>
