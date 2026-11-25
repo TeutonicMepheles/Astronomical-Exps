@@ -73,9 +73,12 @@ npm run export -- light-pollution
 npm run check
 npm test
 npm run test:browser
+npm run lint:layout
 ```
 
 前两项检查代码和现有测试；第三项用浏览器检查已接入页面、组件预览和离线导出，默认自行启动临时服务。自动检查后仍需亲自试玩。仅修改文档时运行前两项，并核对链接；修改页面或组件时三项都要运行。
+
+`npm run lint:layout` 在 1920×1080 和 1280×720 下打开八个默认入口及脚本登记的交互状态，测量可见横向分段控件的左右留白、选项间距、重叠与越界。默认识别 Tab、单选组及现有分段控件。自定义控件可在外框上加 `data-segmented-control`，选项使用直接子级按钮、标签或具有 tab/radio 角色的元素。规则允许 1 CSS px 的取整误差，违规或无法进入登记状态时返回非零退出码。完整测量及覆盖清单见 `artifacts/segmented-layout.json`。在 PowerShell 中可将 `SEGMENTED_LINT_URL` 设为夜天光离线预览的 `file://` URL 来单独复核，报告写到 `artifacts/segmented-layout-preview.json`。
 
 ## 其他文档
 
