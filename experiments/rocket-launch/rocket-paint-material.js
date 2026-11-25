@@ -3,6 +3,15 @@
 // procedural brush and rough pigment). The globe API renders spheres only; this
 // variant retains the imported mesh UV paint and Three.js lighting/selection.
 // Object-space noise is static: no additional clock, textures, render pass or RAF.
+import { RepeatWrapping, TextureLoader } from './vendor/three/three.module.js';
+
+export function loadTianzhouPaper(invalidate) {
+ const url=new URL('./assets/orbit-globe/grain-ref-512.png',import.meta.url);
+ const texture=new TextureLoader().load(url.href,invalidate);
+ texture.wrapS=texture.wrapT=RepeatWrapping;
+ return texture;
+}
+
 const pigmentGLSL = `
 varying vec3 vRocketPaper;
 float rocketHash(vec3 p) {
@@ -22,7 +31,7 @@ float rocketFBM(vec3 p) {return .68*rocketNoise(p)+.32*rocketNoise(p*2.13);}
 
 // Globe-inspired directional wash and chalk pigment, adapted to arbitrary meshes.
 // Keep UV albedo, alpha, emissive selection and any pre-existing scan/fill hooks.
-export function applyRocketPaint(material) {
+export function applyRocketPaint(material,padLighting) {
  if(material.userData.rocketPaint)return material;
  if(/^(Interior_|NASA_Terra_|Tianzhou_)/.test(material.name))return applyInteriorSurface(material);
  material.userData.rocketPaint=true;
@@ -32,6 +41,11 @@ export function applyRocketPaint(material) {
   previous.call(material,shader);
   shader.vertexShader='varying vec3 vRocketPaper; varying vec3 vRocketNormal;\n'+shader.vertexShader.replace(
    '#include <begin_vertex>','#include <begin_vertex>\nvRocketPaper=position/8.; vRocketNormal=normalize(normalMatrix*normal);');
+  if(padLighting){
+   Object.assign(shader.uniforms,padLighting);
+   shader.vertexShader='varying vec3 vPadWorld;\n'+shader.vertexShader.replace('#include <begin_vertex>',
+    '#include <begin_vertex>\nvPadWorld=(modelMatrix*vec4(position,1.)).xyz;');
+  }
   shader.fragmentShader=pigmentGLSL+'varying vec3 vRocketNormal;\n'+shader.fragmentShader.replace('#include <opaque_fragment>',`
    {
    vec3 paperN=normalize(vRocketNormal);
@@ -62,10 +76,68 @@ export function applyRocketPaint(material) {
    }
    #include <opaque_fragment>
   `);
+  if(padLighting){
+   shader.fragmentShader=`
+    varying vec3 vPadWorld;
+    uniform float padLightMix;
+    uniform vec3 padLightA;
+    uniform vec3 padLightB;
+    uniform vec3 padAim;
+    float padBeam(vec3 lamp, vec3 normalView) {
+     vec3 ray=vPadWorld-lamp;
+     float distanceToLamp=max(length(ray),1.);
+     vec3 direction=ray/distanceToLamp;
+     float cone=smoothstep(.82,.98,dot(direction,normalize(padAim-lamp)));
+     vec3 lightView=mat3(viewMatrix)*(-direction);
+     return cone*max(dot(normalView,lightView),0.)*min(1.45,5000./(distanceToLamp*distanceToLamp));
+    }
+   `+shader.fragmentShader.replace('outgoingLight=painted+totalEmissiveRadiance;',`
+    if(padLightMix>0.) {
+     float key=padBeam(padLightA,paperN);
+     float fill=padBeam(padLightB,paperN);
+     float aboveBeam=smoothstep(padAim.y+7.,padAim.y+37.,vPadWorld.y);
+     vec3 evening=painted*mix(vec3(.24,.30,.46),vec3(.16,.21,.35),aboveBeam);
+     vec3 pools=diffuseColor.rgb*(key*vec3(.86,.69,.49)+fill*vec3(.22,.32,.49))*(.91+.18*brush);
+     vec3 lit=evening+pools*(1.-.72*aboveBeam);
+     vec3 shoulder=max(lit-vec3(.42),vec3(0.));
+     painted=mix(painted,min(lit,vec3(.42))+shoulder/(1.+1.5*shoulder),padLightMix);
+    }
+    outgoingLight=painted+totalEmissiveRadiance;
+   `);
+  }
  };
- material.customProgramCacheKey=()=>previousKey+'-rocket-globe-pigment-v2';
+ material.customProgramCacheKey=()=>previousKey+(padLighting?'-rocket-pad-lit-v1':'-rocket-globe-pigment-v2');
  material.needsUpdate=true;
  return material;
+}
+
+// Sample the existing paper texture in three planes because the model has no UVs.
+export function applyTianzhouPaint(material,paperTexture){
+ if(material.userData.tianzhouPaint)return;
+ material.userData.tianzhouPaint=true;
+ material.roughness=.89;
+ material.metalness=0;
+ material.onBeforeCompile=shader=>{
+  shader.uniforms.tianzhouPaper={value:paperTexture};
+  shader.vertexShader='varying vec3 vRocketPaper; varying vec3 vPaintNormal;\n'+shader.vertexShader.replace(
+   '#include <begin_vertex>','#include <begin_vertex>\nvRocketPaper=position; vPaintNormal=normal;');
+  shader.fragmentShader=pigmentGLSL+'uniform sampler2D tianzhouPaper; varying vec3 vPaintNormal;\n'+shader.fragmentShader.replace(
+   '#include <color_fragment>',`#include <color_fragment>
+    vec3 weights=pow(abs(normalize(vPaintNormal)),vec3(4.));
+    weights/=weights.x+weights.y+weights.z;
+    vec3 tile=vRocketPaper*2.0;
+    float fiber=texture2D(tianzhouPaper,tile.yz).r*weights.x
+      +texture2D(tianzhouPaper,tile.zx).r*weights.y
+      +texture2D(tianzhouPaper,tile.xy).r*weights.z;
+    float strokes=rocketFBM(vec3(vRocketPaper.x+vRocketPaper.z*.46,vRocketPaper.y,vRocketPaper.z)*vec3(8.,27.,12.));
+    vec3 stippleUV=vRocketPaper*145.;
+    float stipple=(rocketNoise(stippleUV)-.5)*(1.-smoothstep(.7,2.5,length(fwidth(stippleUV))));
+    float pigment=(fiber-.5)*1.85+(strokes-.5)*.30+stipple*.26;
+    diffuseColor.rgb*=1.+pigment;
+   `);
+ };
+ material.customProgramCacheKey=()=> 'tianzhou-painted-paper-v1';
+ material.needsUpdate=true;
 }
 
 // Interior metals keep the imported PBR response; restrained grain never replaces lighting.

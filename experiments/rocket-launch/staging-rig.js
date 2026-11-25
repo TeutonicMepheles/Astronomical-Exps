@@ -1,4 +1,4 @@
-import {comparisonFlight,comparisonFrame,comparisonRange} from './comparison-flight.js?v=altitude-result-focus';
+import {comparisonFrame,COMPARISON_HEIGHT} from './comparison-flight.js?v=taller-comparison';
 import * as T from './vendor/three/three.module.js';
 import {createRocketExhaust} from './rocket-exhaust.js?v=flight-refinement-20261117';
 
@@ -67,17 +67,16 @@ export class StagingRig{
  }
  reset(){for(const a of this.actors)for(const s of a.stages){s.group.position.set(0,s.baseY,0);s.group.rotation.set(0,0,0);s.group.visible=true;for(const t of s.tanks){t.fill.value=1;t.fluid.visible=true;t.surface.visible=true;t.surface.position.y=t.bounds.max.y;}for(const e of s.exhausts)e.reset();}}
  setState(lesson){
-  const samples=lesson.samples(),triple=lesson.lessons?.[2]||lesson,flight=comparisonFlight(lesson);
-  const launched=lesson.running||lesson.progress>0||lesson.complete;
-  const range=comparisonRange(flight.heights,lesson.complete);
+  const samples=lesson.samples(),triple=lesson.lessons?.[2]||lesson;
   this.actors.forEach((a,index)=>{
-   const frame=comparisonFrame(index,flight.heights[index],launched,range);
-   const ratio=launched?Math.min(1,144/(a.height*a.displayScale)):1;
-   a.root.scale.setScalar(a.displayScale*ratio);
-   a.root.position.set(frame.modelX,650-frame.modelBase+a.baseOffset*ratio,0);
+   const frame=comparisonFrame(index);
+   a.root.position.set(frame.modelX,COMPARISON_HEIGHT-frame.modelBase+a.baseOffset,0);
    a.root.visible=lesson.activeIndex===undefined||lesson.activeIndex===index;const state=lesson.lessons?.[index]||lesson,sample=samples[index];a.stages.forEach((s,i)=>{
    const fraction=Math.max(0,sample.remaining[i]/(index===1?300:100)),eject=index===2?(i<sample.detached?1:triple.phase==='eject'&&triple.ejectStage===i+1?triple.ejectProgress:0):0;
-   s.group.position.set(-eject*5,s.baseY-eject*13,0);s.group.rotation.z=eject*.12;s.group.visible=eject<1;
+   const drop=this.motion.matches?0:eject;
+   s.group.position.set(drop*68/a.displayScale,s.baseY-drop*62/a.displayScale,0);
+   s.group.rotation.z=-drop*.28;
+   s.group.visible=eject<1;
    for(const tank of s.tanks){tank.fill.value=fraction;tank.fluid.visible=fraction>1e-6;tank.surface.visible=fraction>1e-6;tank.surface.position.y=T.MathUtils.lerp(tank.bounds.min.y,tank.bounds.max.y,fraction);}
    const burning=sample.progress>0&&sample.progress<1&&fraction>1e-6&&sample.remaining.slice(0,i).every(v=>v<1e-6)&&!['gate','eject','after'].includes(state.phase);
    for(const e of s.exhausts){e.group.visible=burning;e.update(this.motion.matches?0:state.effectTime);}

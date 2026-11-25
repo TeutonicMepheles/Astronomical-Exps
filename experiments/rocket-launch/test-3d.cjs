@@ -99,7 +99,7 @@ const near=(a,b)=>a.length===b.length&&a.every((v,i)=>Math.abs(v-b[i])<1e-4);
  const hiddenFrame=await p.evaluate(()=>RocketChapter3.adapter.renderer.info.render.frame);await p.waitForTimeout(200);assert.equal(await p.evaluate(()=>RocketChapter3.adapter.renderer.info.render.frame),hiddenFrame);
  assert.equal(requests.filter(u=>u.endsWith('cz7-teaching.glb')).length,1);assert.equal(requests.filter(u=>u.endsWith('rocket-manifest.json')).length,1);
  // First two chapters still run and preserve the existing controls and teaching result.
- await step(0);const pump=p.locator('.pump-control'),pumpBox=await pump.boundingBox();await p.mouse.move(pumpBox.x+30,pumpBox.y+50);await p.mouse.down();await p.waitForTimeout(400);await p.mouse.up();assert.match(await p.locator('#pump-count').innerText(),/[1-9]/);
+ await step(0);const pump=p.locator('.pump-control'),pumpBox=await pump.boundingBox();await p.mouse.move(pumpBox.x+30,pumpBox.y+50);await p.mouse.down();await p.waitForTimeout(400);await p.mouse.up();assert(await p.evaluate(()=>RocketBalloon.state.charge>0));
  await step(1);await p.getByRole('button',{name:'不能',exact:true}).click();await p.locator('#comparison-play').click();await p.waitForFunction(()=>document.querySelector('#feedback').textContent.includes('都能前进'));
  await step(4);await p.locator('#velocity-speed').fill('7.9');assert.equal(await p.evaluate(()=>RocketModel.scene.value),7.9);await p.locator('#velocity-fire').click();assert.equal(await p.locator('#velocity-speed').getAttribute('aria-label'),'初速度（km/s）');
  assert.deepEqual(errors,[]);assert.deepEqual(external,[]);assert.deepEqual(bad,[]);

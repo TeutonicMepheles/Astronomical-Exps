@@ -19,3 +19,5 @@
 中间场景后发射版：fast-ground-to-earth.mp4 只拼接 ground-to-earth.mp4 与 earth-pullback.mp4（各取6/4秒），setpts=PTS/8、fps=60、libx264/crf19/yuv420p，时长1.25秒，运行时1倍速。未新增AI生成内容；fast-ground用于1.5秒准备镜头，随后才发射。
 
 单媒体时钟修订：prepared-earth.mp4 将 fast-ground（1.5秒）与 fast-ground-to-earth（1.25秒）离线无空隙拼接为2.75秒/60fps，libx264/crf19/yuv420p，运行时同一video正常速率播放，无新增AI素材。末段构图由二维合成并入视频播放期间。
+
+近景性能修订：运行版 close.webp、ground.webp 将原 PNG 缩至场景画布的 1600 × 900。muzzle-sequence.webp 将原图集缩至 1408 × 792，沿用 4 × 2 分格和原透明通道。三个运行文件均由原图使用 Lanczos 缩放与 WebP 质量 92 导出。原 PNG 留作源图。
