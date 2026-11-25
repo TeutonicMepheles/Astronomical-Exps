@@ -46,23 +46,54 @@ async function verify() {
    return a.assemblyParts.members(name).map(n => [a.nodes[n].visible,a.assemblyParts.nodes.get(n).visible]);
   },name);
   assert.deepEqual(await state('Stage2Engine01'),Array(4).fill([false,true]));
+  const shells = () => page.evaluate(() => {
+   const a=RocketChapter3.adapter;
+   return ['Stage1Shell','Stage2Shell','Interstage','Booster01Shell','FairingLeft','FairingRight']
+    .map(name=>[a.nodes[name].visible,a.scanMeshes.get(name).visible]);
+  });
+  const dragTank = async () => {
+   const grip = await part('Stage1LOXTank').boundingBox();
+   const drop = await page.evaluate(() => {
+    const a = RocketChapter3.adapter, target = a.target('Stage1LOXTank'), r = a.host.getBoundingClientRect();
+    const scale = r.width/a.host.clientWidth;
+    return {x:r.left+target.x*scale,y:r.top+target.y*scale};
+   });
+   await page.mouse.move(grip.x+grip.width/2,grip.y+grip.height/2);
+   await page.mouse.down();
+   await page.mouse.move(drop.x,drop.y,{steps:12});
+   await page.mouse.up();
+  };
+  const blocked = async () => {
+   assert.equal(await page.locator('#feedback').isVisible(),true);
+   assert.match(await page.locator('#feedback').innerText(),/先装齐外部模块/);
+   assert.equal(await page.getByRole('button',{name:'在原位安装一级液氧贮箱'}).count(),0);
+   assert.deepEqual(await state('Stage1LOXTank'),[[false,true]]);
+  };
   await part('Stage1LOXTank').click();
+  await blocked();
   await page.mouse.click(10,10);
   await progress(0);
+  for (const [node,name] of [['Fairing','有效载荷整流罩'],['Stage1','一级芯级箭体'],['Stage2','二级芯级箭体'],['Boosters','助推器']]) {
+   await install(node,name);
+   assert.deepEqual(await shells(),Array(6).fill([true,false]));
+  }
+  await dragTank();
+  await blocked();
+  await progress(4);
+  await install('Payload','有效载荷');
+  await progress(5);
+  assert.deepEqual(await shells(),Array(6).fill([false,true]));
   await install('Stage1LOXTank','一级液氧贮箱');
-  await progress(1);
-  assert.deepEqual(await state('Stage1LOXTank'),[[true,false]]);
   const tankPosition=()=>page.evaluate(()=>RocketChapter3.adapter.target('Stage1LOXTank'));
   const position=await tankPosition();
-  await install('Stage1','一级芯级箭体');
   await act('Stage1','退回','一级芯级箭体');
+  assert.deepEqual(await shells(),Array(6).fill([true,false]));
   assert.deepEqual(await state('Stage1LOXTank'),[[true,false]]);
   assert.deepEqual(await tankPosition(),position);
+  await part('Stage1FuelTank').click();
+  assert.match(await page.locator('#feedback').innerText(),/先装齐外部模块/);
+  await install('Stage1','一级芯级箭体');
   await act('Stage1LOXTank','退回','一级液氧贮箱');
-  await progress(0);
-  for (const [node,name] of [['Fairing','有效载荷整流罩'],['Stage1','一级芯级箭体'],['Stage2','二级芯级箭体'],['Boosters','助推器'],['Payload','有效载荷']]) {
-   await install(node,name);
-  }
   await progress(5);
   for(const [width,height] of [[1920,1080],[1200,900]]){
    await page.setViewportSize({width,height});
@@ -79,6 +110,8 @@ async function verify() {
   await assembleTab.press('ArrowLeft');
   assert.equal(await recognizeTab.evaluate(tab=>tab===document.activeElement),true);
   await recognizeTab.press('Enter');
+  await part('Fairing').click();
+  assert.equal(await page.getByRole('button',{name:'关闭部件详情'}).isVisible(),true);
   assert.equal(await recognizeTab.getAttribute('aria-selected'),'true');
   assert.equal(await page.locator('#next').isVisible(),false);
   await assembleTab.click();
@@ -88,11 +121,12 @@ async function verify() {
    await page.setViewportSize({width,height});
    await part('Fairing').click();
    const action = await page.getByRole('button',{name:'退回有效载荷整流罩'}).boundingBox();
-   const info = await page.locator('#feedback[data-floating="assembly"]').boundingBox();
+   assert.equal(await page.locator('#feedback').isVisible(),false);
+   assert.equal(await page.getByRole('button',{name:'关闭部件详情'}).count(),0);
    const labels = await page.locator('.blueprint-note').evaluateAll(nodes =>
     Math.max(...nodes.map(node => node.getBoundingClientRect().bottom)));
-   assert(info && action && info.y > labels && action.y > labels && info.x + info.width < action.x);
-   await page.getByRole('button',{name:'关闭部件详情'}).click();
+   assert(action && action.y+action.height < labels);
+   await page.keyboard.press('Escape');
   }
   await page.setViewportSize({width:1920,height:1080});
   assert(await page.evaluate(() => {
@@ -116,16 +150,7 @@ async function verify() {
   }
   if(process.env.ROCKET_ASSEMBLY_SCREENSHOT)await page.screenshot({path:process.env.ROCKET_ASSEMBLY_SCREENSHOT});
 
-  const grip = await part('Stage1LOXTank').boundingBox();
-  const drop = await page.evaluate(() => {
-   const a = RocketChapter3.adapter, target = a.target('Stage1LOXTank'), r = a.host.getBoundingClientRect();
-   const scale = r.width/a.host.clientWidth;
-   return {x:r.left+target.x*scale,y:r.top+target.y*scale};
-  });
-  await page.mouse.move(grip.x+grip.width/2,grip.y+grip.height/2);
-  await page.mouse.down();
-  await page.mouse.move(drop.x,drop.y,{steps:12});
-  await page.mouse.up();
+  await dragTank();
   assert.deepEqual(await state('Stage1LOXTank'),[[true,false]]);
   for (const [node,name] of [['Stage1FuelTank','一级煤油贮箱'],['Stage1Engine01','一级发动机组'],['Stage2LOXTank','二级液氧贮箱'],['Stage2FuelTank','二级煤油贮箱']]) {
    await install(node,name);
@@ -142,7 +167,7 @@ async function verify() {
   await enter();
   assert.deepEqual(await state('Stage2Engine01'),Array(4).fill([false,true]));
   assert.deepEqual(errors,[]);
-  console.log('PASS position-based clicks, arbitrary order, blueprint clearance, drag, retained completion and re-entry');
+  console.log('PASS shell-first clicks and drag, shell rendering transition, blueprint clearance, retained assembly and re-entry');
  } finally {
   await browser.close();
  }

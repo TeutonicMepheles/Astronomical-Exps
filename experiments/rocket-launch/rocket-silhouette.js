@@ -12,7 +12,7 @@ export function loadRocketSilhouette(invalidate) {
   listeners.clear();
  };
  source.onerror = () => listeners.clear();
- source.src = new URL('./assets/rocket-kit/assembled.png', import.meta.url).href;
+ source.src = new URL('./assets/cz7-kiu-20261116/cz7-silhouette.png', import.meta.url).href;
 }
 
 export function drawRocketSilhouette(context, x, base, height, color) {
@@ -31,6 +31,15 @@ export function drawRocketSilhouette(context, x, base, height, color) {
   ctx.drawImage(source, 0, 0);
   ctx.globalCompositeOperation = 'source-in';
   ctx.fillStyle = color;
+  ctx.fillRect(0, 0, mask.width, mask.height);
+  // Keep the middle flat and shade only the edges, at the scale of the whole model.
+  ctx.globalCompositeOperation = 'source-atop';
+  const shading = ctx.createLinearGradient(0, 0, mask.width, 0);
+  shading.addColorStop(0, '#d1ebef30');
+  shading.addColorStop(.34, '#d1ebef00');
+  shading.addColorStop(.57, '#172e4600');
+  shading.addColorStop(1, '#172e4670');
+  ctx.fillStyle = shading;
   ctx.fillRect(0, 0, mask.width, mask.height);
   masks.set(color, mask);
  }

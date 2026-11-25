@@ -115,6 +115,11 @@ vec3 placeholder(vec2 uv) {
   return color;
 }
 
+uniform sampler2D u_night;
+uniform float u_hasNight;
+uniform float u_dayNight;
+uniform float u_atmosphere;
+
 void main() {
   vec2 p = (gl_FragCoord.xy - u_center) / u_radius;
   float r2 = dot(p, p);
@@ -123,7 +128,19 @@ void main() {
   float radial = sqrt(r2);
   float edgeAA = max(fwidth(radial), 1.0 / u_radius);
   float cover = 1.0 - smoothstep(1.0 - edgeAA, 1.0 + edgeAA, radial);
-  if (cover <= 0.002) discard;
+  float haloAlpha = 0.0;
+  if (u_atmosphere > 0.5 && radial > 0.98 && radial < 1.075) {
+    float litRim = smoothstep(-0.35, 0.70, dot(vec3(p / radial, 0.0), u_sun));
+    float altitude = max(0.0, radial - 1.0);
+    haloAlpha = 0.90 * litRim * exp(-altitude * 42.0)
+      * (1.0 - smoothstep(0.044, 0.075, altitude));
+  }
+  vec3 airColor = vec3(0.28, 0.65, 1.0);
+  if (cover <= 0.002) {
+    if (haloAlpha <= 0.002) discard;
+    gl_FragColor = vec4(airColor * haloAlpha, haloAlpha);
+    return;
+  }
 
   float z = sqrt(max(0.0, 1.0 - r2));
   vec3 n = vec3(p, z);
@@ -292,6 +309,21 @@ void main() {
   if (u_debug > 4.5) { gl_FragColor = vec4(vec3(day), 1.0); return; }
   if (u_debug > 0.5) { gl_FragColor = vec4(uv, 0.0, 1.0); return; }
 
+  if (u_dayNight > 0.5) {
+    float sunlight = smoothstep(-0.06, 0.13, ndl);
+    col = mix(col * vec3(0.18, 0.24, 0.40), col, sunlight);
+    if (u_hasNight > 0.5) {
+      vec3 night = texture2D(u_night, uv).rgb;
+      float lights = smoothstep(0.006, 0.10, night.r - night.b);
+      float shadow = 1.0 - smoothstep(-0.18, -0.025, ndl);
+      col += vec3(1.0, 0.66, 0.28) * lights * shadow * 1.25;
+    }
+  }
+  if (u_atmosphere > 0.5) {
+    float grazing = exp(-max(0.0, 1.0 - radial) * 72.0);
+    col += airColor * grazing * smoothstep(-0.28, 0.65, ndl) * 0.58;
+  }
+
   float gridAlpha = 0.38 + grid * 0.28;
   vec3 wireColor = mix(col, vec3(0.68, 0.81, 1.0), grid * 0.55);
   vec4 solid = vec4(col * cover, cover);
@@ -299,7 +331,9 @@ void main() {
   vec4 textured = mix(solid, wire, u_observation);
   float pureAlpha = (0.025 + grid * 0.68) * cover;
   vec4 pureGrid = vec4(vec3(0.66, 0.81, 1.0) * pureAlpha, pureAlpha);
-  gl_FragColor = mix(textured, pureGrid, u_gridOnly);
+  vec4 globe = mix(textured, pureGrid, u_gridOnly);
+  float outsideAlpha = haloAlpha * (1.0 - cover);
+  gl_FragColor = globe + vec4(airColor * outsideAlpha, outsideAlpha);
 }
 `;
 
@@ -404,6 +438,7 @@ export function createGlobeShaderRenderer(options = {}) {
   let grainTexture = null;
   let grainBrushTexture = null;
   let reliefTexture = null;
+  let nightTexture = null;
   let grainMode = 0;
   let alive = true;
   let surfaceGeneration = 0;
@@ -514,6 +549,7 @@ export function createGlobeShaderRenderer(options = {}) {
           'u_highColor', 'u_rimColor', 'u_ambientColor',
           'u_highStrength', 'u_highRange', 'u_rimStrength',
           'u_ambientStrength', 'u_highGrain', 'u_highGrainScale',
+          'u_night', 'u_hasNight', 'u_dayNight', 'u_atmosphere',
         ]) {
           uniforms[name] = gl.getUniformLocation(program, name);
         }
@@ -530,6 +566,11 @@ export function createGlobeShaderRenderer(options = {}) {
         loadAuxiliary(options.reliefUrl, (next) => {
           const previous = reliefTexture;
           reliefTexture = next;
+          return previous;
+        }, false);
+        loadAuxiliary(options.nightUrl, (next) => {
+          const previous = nightTexture;
+          nightTexture = next;
           return previous;
         }, false);
         loadSurfaceTexture(textTextureUrl);
@@ -600,6 +641,9 @@ export function createGlobeShaderRenderer(options = {}) {
       gl.uniform3f(uniforms.u_e2, e2[0], e2[1], e2[2]);
       gl.uniform3f(uniforms.u_e3, e3[0], e3[1], e3[2]);
       gl.uniform3f(uniforms.u_sun, scene.sun[0], scene.sun[1], scene.sun[2]);
+      gl.uniform1f(uniforms.u_atmosphere, scene.atmosphere ? 1 : 0);
+      gl.uniform1f(uniforms.u_dayNight, scene.dayNight ? 1 : 0);
+      gl.uniform1f(uniforms.u_hasNight, nightTexture ? 1 : 0);
       gl.uniform1f(uniforms.u_hasTex, hasTexture ? 1 : 0);
       gl.uniform1f(uniforms.u_debug, scene.debug || 0);
       gl.uniform1f(uniforms.u_grainMode, grainMode);
@@ -657,6 +701,12 @@ export function createGlobeShaderRenderer(options = {}) {
         gl.uniform1i(uniforms.u_relief, 3);
       }
 
+      if (nightTexture) {
+        gl.activeTexture(gl.TEXTURE4);
+        gl.bindTexture(gl.TEXTURE_2D, nightTexture);
+        gl.uniform1i(uniforms.u_night, 4);
+      }
+
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -666,7 +716,7 @@ export function createGlobeShaderRenderer(options = {}) {
       alive = false;
       surfaceGeneration += 1;
       if (gl) {
-        for (const item of [texture, grainTexture, grainBrushTexture, reliefTexture]) {
+        for (const item of [texture, grainTexture, grainBrushTexture, reliefTexture, nightTexture]) {
           if (item) gl.deleteTexture(item);
         }
         disposeGL(context);
@@ -675,6 +725,7 @@ export function createGlobeShaderRenderer(options = {}) {
       grainTexture = null;
       grainBrushTexture = null;
       reliefTexture = null;
+      nightTexture = null;
       context = null;
       gl = null;
       program = null;

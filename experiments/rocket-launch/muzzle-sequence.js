@@ -5,7 +5,8 @@ export function muzzleFrame(elapsed){
  let end=0;for(let i=0;i<MUZZLE_SEQUENCE.durations.length;i++){end+=MUZZLE_SEQUENCE.durations[i];if(elapsed<end)return i;}return -1;
 }
 export function createMuzzleSequence(onReady=()=>{}){
- const atlas=new Image();atlas.onload=onReady;atlas.src='assets/cannon-transition/muzzle-sequence.png';
+ const atlas=new Image();atlas.src='assets/cannon-transition/muzzle-sequence.webp';
+ atlas.decode().then(onReady,()=>{});
  return{
   ready:()=>atlas.complete&&atlas.naturalWidth>0,
   draw(c,elapsed,muzzle,pipeWidth){

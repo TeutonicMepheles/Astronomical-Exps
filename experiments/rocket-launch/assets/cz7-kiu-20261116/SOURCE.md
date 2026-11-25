@@ -55,3 +55,7 @@ python experiments/rocket-launch/tools/validate-kiu-model.py
 ## 垂直发射用模型渲染图
 
 `cz7-assembled-render.png` 由本目录清单指定的 `cz7-interior-20261117.glb` 和原贴图经 Three.js 正交相机渲染，沿用发射场景的箭体朝向，供垂直发射主画面和缩略视窗离线使用。
+
+## 二维升空剪影
+
+`cz7-silhouette.png` 由本目录的 `cz7-assembled-render.png` 的 Alpha 轮廓生成。以 3 × 3 闭运算补齐细小接缝，保留原图取景、整流罩、芯级和助推器比例。运行时按需着色，仅在轮廓两侧叠加轻微明暗，与火箭实验的色块插画一致。该衍生素材沿用本目录 CC BY-NC-SA 4.0 来源和署名。

@@ -1,149 +1,187 @@
-import {loadRocketSilhouette, drawRocketSilhouette} from './rocket-silhouette.js';
+import {loadRocketSilhouette} from './rocket-silhouette.js';
+import {ALTITUDE_INK as INK,altitudeLine,drawAltitudeGrid,drawAltitudeFlight,drawAltitudeGuides} from './altitude-chart.js';
 
-const AXIS = 555;
-const FLIGHT_X = 780;
-const GROUND = 690;
-const TOP = 145;
-const MAX_HEIGHT = 140;
-const RECORD_SPACING = 58;
+const AXIS = 112, RIGHT = 690, TOP = 105, GROUND = 711;
+const FRAME_LEFT = 45, FRAME_TOP = 1, FRAME_RIGHT = 726, FRAME_BOTTOM = 799;
+const PAGE_SIZE = 6;
+export const MAX_HEIGHT = 140;
 const CURRENT = '#99e2e3';
-const GOLD = '#e3bb79';
-const INK = '#a9bdcb';
 const yAt = height => GROUND - (GROUND - TOP) * height / MAX_HEIGHT;
+const xAt = slot => AXIS + (slot + .5) * (RIGHT - AXIS) / PAGE_SIZE;
+
 export class LaunchAltitudeRuler {
- constructor({host, canvas, invalidate}) {
-  this.host = host;
-  this.canvas = canvas;
-  this.invalidate = invalidate;
-  loadRocketSilhouette(invalidate);
+ constructor({host, canvas, invalidate, onSelect}) {
+  Object.assign(this,{host,canvas,invalidate,onSelect});
+  this.records = [];
+  this.page = 0;
   this.root = document.createElement('div');
   this.root.className = 'launch-altitude-records';
-  this.root.setAttribute('role', 'group');
-  this.root.setAttribute('aria-label', '高度记录');
+  this.root.setAttribute('role','group');
+  this.root.setAttribute('aria-label','高度记录');
+  this.root.setAttribute('aria-description','横轴为发射次序，纵轴为高度（示意格）。');
   this.detail = document.createElement('output');
   this.detail.id = 'launch-altitude-detail';
   this.detail.hidden = true;
-  this.root.append(this.detail);
-  this.root.addEventListener('keydown', event => {
-   if (event.key === 'Escape' && this.selected) {
-    this.toggle(this.selected);
+  this.points = document.createElement('div');
+  this.nav = document.createElement('nav');
+  this.nav.className = 'launch-altitude-pages';
+  this.nav.setAttribute('aria-label','实验记录翻页');
+  this.previous = this.pageButton('‹','上一组记录',-1);
+  this.next = this.pageButton('›','下一组记录',1);
+  this.pageStatus = document.createElement('output');
+  this.nav.append(this.previous,this.pageStatus,this.next);
+  this.root.append(this.points,this.detail,this.nav);
+  host.append(this.root);
+  loadRocketSilhouette(invalidate);
+
+  this.root.addEventListener('pointerdown',event=>{
+   if (!event.isPrimary || event.button!==0 || this.nav.contains(event.target)) return;
+   this.swipe = {id:event.pointerId,x:event.clientX,y:event.clientY};
+   this.ignoreClick = false;
+  });
+  this.root.addEventListener('pointermove',event=>{
+   if (this.swipe?.id!==event.pointerId) return;
+   const dx=event.clientX-this.swipe.x, dy=event.clientY-this.swipe.y;
+   if(Math.abs(dx)>30 && Math.abs(dx)>Math.abs(dy)){
+    this.ignoreClick = true;
+    this.root.setPointerCapture(event.pointerId);
+   }
+  });
+  this.root.addEventListener('pointerup',event=>{
+   if (this.swipe?.id!==event.pointerId) return;
+   const dx=event.clientX-this.swipe.x;
+   if(this.ignoreClick)this.changePage(dx<0?1:-1);
+   this.swipe=null;
+  });
+  this.root.addEventListener('pointercancel',()=>{this.swipe=null;});
+  this.root.addEventListener('click',event=>{
+   if(this.ignoreClick && event.detail>0){
+    this.ignoreClick=false;
+    event.stopPropagation();
+   }
+  },true);
+  this.root.addEventListener('keydown',event=>{
+   if(event.key==='Escape' && this.selected){
+    this.clearSelection();
     event.stopPropagation();
    }
   });
-  host.append(this.root);
-  this.markers = [];
  }
 
- sync(records) {
-  this.root.hidden = records.length === 0;
-  const existing = new Map(this.markers.map(marker => [marker.record, marker]));
-  this.markers = records.flatMap((record, index) => {
-   if (record.metric !== 'flight-height' || !Number.isFinite(record.height)) return [];
-   let marker = existing.get(record);
-   if (!marker) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = index + 1;
-    button.setAttribute('aria-label', '第 ' + (index + 1) + ' 次发射');
-    button.setAttribute('aria-controls', this.detail.id);
-    button.setAttribute('aria-expanded', 'false');
-    marker = {record, button};
-    button.onclick = () => this.toggle(marker);
-    this.root.append(button);
-   }
-   return [marker];
-  }).sort((a, b) => b.record.height - a.record.height);
-  if (this.selected) this.toggle(this.selected);
+ pageButton(text,label,direction) {
+  const button=document.createElement('button');
+  button.type='button';
+  button.textContent=text;
+  button.setAttribute('aria-label',label);
+  button.onclick=()=>this.changePage(direction);
+  return button;
  }
 
- toggle(marker) {
-  this.selected?.button.setAttribute('aria-expanded', 'false');
-  this.selected = this.selected === marker ? null : marker;
-  this.detail.hidden = !this.selected;
-  if (this.selected) {
-   const {height, status} = marker.record;
-   const qualifier = status === 'interrupted' ? '中断时 ' : height === 0 ? '未起飞 · ' : '';
-   this.detail.textContent = qualifier + height + ' 示意格';
-   marker.button.setAttribute('aria-expanded', 'true');
-  }
+ sync(records,followLatest=false) {
+  this.records=records;
+  this.running=records.at(-1)?.status==='running';
+  this.pages=Math.max(1,Math.ceil(records.length/PAGE_SIZE));
+  this.page=followLatest?this.pages-1:Math.min(this.page,this.pages-1);
+  this.selected=null;
+  this.layout();
+ }
+
+ changePage(direction) {
+  const page=this.page+direction;
+  if(this.running || page<0 || page>=this.pages)return;
+  this.page=page;
+  this.selected=null;
+  this.layout();
   this.invalidate();
  }
 
- draw(context, {height, target, flying, finished, ignition}) {
-  const c = context;
-  const line = (x1, y1, x2, y2, color, width = 1) => {
-   c.strokeStyle = color;
-   c.lineWidth = width;
-   c.beginPath();
-   c.moveTo(x1, y1);
-   c.lineTo(x2, y2);
-   c.stroke();
-  };
+ clearSelection() {
+  if(!this.selected)return;
+  this.selected=null;
+  this.updateSelection();
+  this.invalidate();
+ }
+
+ layout() {
+  const {clientWidth,clientHeight}=this.host;
+  this.scale=Math.min(clientWidth/this.canvas.width,clientHeight/this.canvas.height);
+  const k=this.scale;
+  Object.assign(this.root.style,{
+   left:((clientWidth-this.canvas.width*k)/2+FRAME_LEFT*k)+'px',
+   top:((clientHeight-this.canvas.height*k)/2+FRAME_TOP*k)+'px',
+   width:((FRAME_RIGHT-FRAME_LEFT)*k)+'px',
+   height:((FRAME_BOTTOM-FRAME_TOP)*k)+'px'
+  });
+  const offset=this.page*PAGE_SIZE;
+  this.markers=this.records.slice(offset,offset+PAGE_SIZE).flatMap((record,slot)=>{
+   if(record.metric!=='flight-height'||!Number.isFinite(record.height))return [];
+   const button=document.createElement('button');
+   button.type='button';
+   button.className='launch-record-point';
+   button.disabled=this.running;
+   button.setAttribute('aria-label','第 '+(offset+slot+1)+' 次发射');
+   button.setAttribute('aria-controls',this.detail.id);
+   const marker={record,button,x:xAt(slot),y:yAt(record.height)};
+   button.style.left=(marker.x-FRAME_LEFT)*k+'px';
+   button.style.top=(marker.y-FRAME_TOP)*k+'px';
+   button.onclick=()=>{
+    if(this.selected===marker){this.clearSelection();return;}
+    this.selected=marker;
+    this.onSelect(record);
+    this.updateSelection();
+    this.invalidate();
+   };
+   return [marker];
+  });
+  this.points.replaceChildren(...this.markers.map(marker=>marker.button));
+  this.nav.hidden=this.pages===1;
+  this.previous.disabled=this.running||this.page===0;
+  this.next.disabled=this.running||this.page===this.pages-1;
+  this.pageStatus.textContent=(this.page+1)+' / '+this.pages;
+  this.updateSelection();
+ }
+
+ updateSelection() {
+  for(const marker of this.markers){
+   marker.button.setAttribute('aria-pressed',String(marker===this.selected));
+  }
+  this.detail.hidden=!this.selected;
+  if(!this.selected)return;
+  const {x,y,record:{height,status}}=this.selected;
+  const qualifier=status==='interrupted'?'中断时 · ':height===0?'未起飞 · ':'';
+  this.detail.textContent=qualifier+height+' 示意格';
+  this.detail.toggleAttribute('data-below', y<TOP+42);
+  this.detail.style.left=(x-FRAME_LEFT)*this.scale+'px';
+  this.detail.style.top=(y-FRAME_TOP)*this.scale+'px';
+ }
+
+ draw(c,{height,flying,ignition}) {
   c.save();
-  c.font = '20px "Alibaba PuHuiTi 3", sans-serif';
-  c.textBaseline = 'middle';
-  c.fillStyle = INK;
-  c.fillText('示意格', AXIS + 12, TOP - 26);
-  line(AXIS, TOP, AXIS, GROUND, INK);
-  for (let value = 0; value <= MAX_HEIGHT; value += 35) {
-   const y = yAt(value);
-   line(AXIS - 6, y, AXIS + 7, y, INK);
-   c.fillText(String(value), AXIS + 13, y);
+  drawAltitudeGrid(c,{left:AXIS,right:RIGHT,top:TOP,ground:GROUND,max:MAX_HEIGHT,interval:35,yAt,title:'高度（示意格）'});
+  c.textAlign='center';
+  const offset=this.page*PAGE_SIZE;
+  for(let slot=0;slot<PAGE_SIZE;slot++){
+   const x=xAt(slot);
+   altitudeLine(c,x,GROUND,x,GROUND+7,INK);
+   c.fillText(String(offset+slot+1),x,GROUND+25);
   }
-  line(AXIS, GROUND, 860, GROUND, INK);
-  line(FLIGHT_X, TOP, FLIGHT_X, GROUND, '#5e7c9477');
-
-  const y = yAt(height);
-  c.setLineDash([7, 6]);
-  line(AXIS + 65, yAt(target), 860, yAt(target), GOLD, 2);
-  c.setLineDash([]);
-  if (flying) {
-   if (height > 0) line(FLIGHT_X, GROUND, FLIGHT_X, y, CURRENT, 5);
-   drawRocketSilhouette(c, FLIGHT_X, y, 62, CURRENT);
-   if (ignition > 0) {
-    c.globalAlpha = ignition;
-    line(FLIGHT_X, y + 2, FLIGHT_X, y + 19, GOLD, 4);
-    c.globalAlpha = 1;
-   }
-   c.fillStyle = CURRENT;
-   c.fillText(String(Math.round(height)), FLIGHT_X + 18, y - 9);
+  c.textAlign='right';
+  c.fillText('发射次序（次）',RIGHT,GROUND+61);
+  if(this.selected){
+   const {x,y}=this.selected;
+   drawAltitudeGuides(c,AXIS,GROUND,x,y,CURRENT);
   }
-  c.font = '23px "Alibaba PuHuiTi 3", sans-serif';
-  c.fillStyle = CURRENT;
-  c.fillText((finished ? '最终高度 ' : '当前高度 ') + Math.round(height), AXIS + 65, 63);
-  c.fillStyle = GOLD;
-  c.fillText('本次可达 ' + target, AXIS + 65, 99);
-
-  const k = Math.min(this.host.clientWidth / this.canvas.width, this.host.clientHeight / this.canvas.height);
-  const ox = (this.host.clientWidth - this.canvas.width * k) / 2;
-  const oy = (this.host.clientHeight - this.canvas.height * k) / 2;
-  const perColumn = Math.floor((GROUND - TOP) / RECORD_SPACING) + 1;
-  for (let start = 0; start < this.markers.length; start += perColumn) {
-   const column = this.markers.slice(start, start + perColumn);
-   const x = AXIS - 48 - start / perColumn * 58;
-   let edge = TOP;
-   for (const marker of column) {
-    marker.anchor = yAt(marker.record.height);
-    marker.y = Math.max(marker.anchor, edge);
-    edge = marker.y + RECORD_SPACING;
+  if(flying){
+   const x=xAt(this.records.length-1-offset),y=yAt(height);
+   drawAltitudeFlight(c,x,y,GROUND,CURRENT);
+   if(ignition>0){
+    c.globalAlpha=ignition;
+    altitudeLine(c,x,y+2,x,y+19,'#e3bb79',4);
+    c.globalAlpha=1;
    }
-   edge = GROUND;
-   for (const marker of [...column].reverse()) {
-    marker.y = Math.min(marker.y, edge);
-    edge = marker.y - RECORD_SPACING;
-    const color = this.selected === marker ? CURRENT : INK;
-    line(x + 23, marker.y, AXIS - 5, marker.anchor, color);
-    c.fillStyle = color;
-    c.beginPath();
-    c.arc(AXIS, marker.anchor, 4, 0, Math.PI * 2);
-    c.fill();
-    marker.button.style.left = ox + x * k + 'px';
-    marker.button.style.top = oy + marker.y * k + 'px';
-   }
-  }
-  if (this.selected) {
-   this.detail.style.left = ox + (AXIS + 68) * k + 'px';
-   this.detail.style.top = oy + this.selected.y * k + 'px';
+   c.textAlign='left';
+   c.fillStyle=CURRENT;
+   c.fillText(String(Math.round(height)),x+16,y-9);
   }
   c.restore();
  }

@@ -6,14 +6,24 @@ export function arrowSlices(maxLength,strength,height=40){
  return{length,body:length-tail-head,tail,head,opacity:Math.min(1,wanted/(tail+head))};
 }
 
+function paintedTip(source){
+ const {data}=source.getContext('2d').getImageData(WIDTH-HEAD,0,HEAD,HEIGHT);
+ for(let x=HEAD-1;x>=0;x--){
+  for(let y=0;y<HEIGHT;y++){
+   if(data[(y*HEAD+x)*4+3]>=128)return WIDTH-HEAD+x+.5;
+  }
+ }
+ return WIDTH;
+}
+
 /** Local three-slice presentation sprite; hosts own all force state and clocks. */
 export class ThrustArrow {
  constructor(invalidate=()=>{}){
-  this.cache=new Map();this.lastDraws=[];this.source=this.fallback();this.ready=false;
+  this.cache=new Map();this.lastDraws=[];this.source=this.fallback();this.tip=paintedTip(this.source);this.ready=false;
   this.image=new Image();this.image.onload=()=>{
    if(this.disposed)return;const c=document.createElement('canvas');c.width=WIDTH;c.height=HEIGHT;const x=c.getContext('2d'),angle=Math.atan2(115,-200);
    x.translate(12,20);x.rotate(-angle);x.translate(-203,-3);x.drawImage(this.image,0,0);
-   this.source=c;this.cache.clear();this.ready=true;invalidate();
+   this.source=c;this.tip=paintedTip(c);this.cache.clear();this.ready=true;invalidate();
   };
   this.image.onerror=()=>{if(!this.disposed){this.failed=true;invalidate();}};
   this.image.src=new URL('./shaft-source.png',import.meta.url).href;
@@ -21,8 +31,14 @@ export class ThrustArrow {
  fallback(){const c=document.createElement('canvas');c.width=WIDTH;c.height=HEIGHT;const x=c.getContext('2d');x.fillStyle='#fff';x.beginPath();x.moveTo(10,16);x.lineTo(218,16);x.lineTo(218,5);x.lineTo(250,20);x.lineTo(218,35);x.lineTo(218,24);x.lineTo(10,24);x.closePath();x.fill();return c;}
  sprite(color){if(!this.cache.has(color)){const c=document.createElement('canvas');c.width=WIDTH;c.height=HEIGHT;const x=c.getContext('2d');x.drawImage(this.source,0,0);x.globalCompositeOperation='source-in';x.fillStyle=color;x.fillRect(0,0,WIDTH,HEIGHT);this.cache.set(color,c);}return this.cache.get(color);}
  beginFrame(){this.lastDraws.length=0;}
+ drawBetween(c,{id,from,to,color,height=20}){
+  const dx=to[0]-from[0],dy=to[1]-from[1];
+  const length=Math.hypot(dx,dy);
+  if(!length)return;
+  return this.draw(c,{id,x:from[0],y:from[1],angle:Math.atan2(dy,dx),maxLength:length,height:Math.min(height,length*.55),color});
+ }
  draw(c,{id,x,y,angle=0,maxLength=260,strength=1,height=40,color='#a8c4c6',label='',labelBelow=false,labelMinOffset=0}){
-  const slices=arrowSlices(maxLength,strength,height),record={id,x,y,angle,strength,...slices};this.lastDraws.push(record);if(!slices.length)return record;
+  const slices=arrowSlices(maxLength,strength,height),tipLength=slices.length?(slices.length-(WIDTH-this.tip)*height/HEIGHT):0,record={id,x,y,angle,strength,...slices,tipLength};this.lastDraws.push(record);if(!slices.length)return record;
   const image=this.sprite(color);c.save();c.translate(x,y);c.rotate(angle);c.globalAlpha*=slices.opacity;
   c.drawImage(image,0,0,TAIL,HEIGHT,0,-height/2,slices.tail,height);
   if(slices.body>0)c.drawImage(image,TAIL,0,WIDTH-TAIL-HEAD,HEIGHT,slices.tail,-height/2,slices.body,height);

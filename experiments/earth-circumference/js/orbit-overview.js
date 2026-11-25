@@ -234,7 +234,7 @@ export function mountOrbitOverview(scene) {
   let visualAngle = null;
   let visualDay = null;
   function paint() {
-    if (scene.calculating) return;
+    if (scene.measuring || scene.calculating) return;
     const model = scene.solarModel;
     const angle = visualAngle !== null && visualDay === model.day ? visualAngle : orbitAngleForDate(model.year, model.day);
     const currentPoint = pointForAngle(angle);
