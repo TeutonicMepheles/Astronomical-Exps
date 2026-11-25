@@ -4,6 +4,7 @@
 
 | 组件 | 入口 | 公开能力 |
 | --- | --- | --- |
+| ExperimentLayout | components/experiment-layout.css | 页面安全区、标题、右上状态槽、右下主次操作及纯文字／纯 ICON／文字 + ICON 内容形式 |
 | GestureHint | components/gesture.js + components.css | show/hide/destroy；目标、tap/drag、手势 ID |
 | NameBubble | components/name-bubble.js + components.css | show/hide/destroy；目标和纯文本 |
 | AffordanceHint | components/affordance.js + components.css | 宿主传目标与轮廓；setEnabled/destroy |

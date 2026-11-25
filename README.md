@@ -14,7 +14,7 @@
 
 ## 实验目录
 
-[UI 控件示例页](experiments/ui-controls-demo/index.html)提供可操作的控件试样和 SVG／静态颗粒对照。
+[UI 控件示例页](experiments/ui-controls-demo/index.html)提供可操作的控件试样和 SVG／静态颗粒对照；[页面布局独立预览](previews/components/experiment-layout.html)展示统一安全区、标题、右上状态和右下主次操作。
 
 | 编号 | 实验 | 当前状态 | 页面入口 | 需求 |
 | --- | --- | --- | --- | --- |
@@ -82,7 +82,7 @@ npm run test:browser
 - [当前实现与文档状态](docs/CURRENT_STATUS.md)：八个实验的默认入口、实现阶段和已知差距。
 - [文档目录](docs/README.md)：按贡献者、开发和维护用途查找。
 - [功能需求](Function-Spec/README.md)：功能、参数和待确认问题。
-- [视觉规范](Visual-Spec/README.md)与[字体规范](shared/typography/README.md)：共用画风和字体，各实验独立配色。
+- [视觉规范](Visual-Spec/README.md)、[页面与控制布局规范](Visual-Spec/CONTROL_LAYOUT.md)与[字体规范](shared/typography/README.md)：共用画风、页面骨架和字体，各实验独立配色。
 - [设计资料与前端参考](docs/DESIGN_REFERENCES.md)：建议贡献者按需阅读的设计、图标和组件网站。
 - [公共组件](shared/README.md)：可复用接口及预览。
 - [历史资料](archive/README.md)与[早期原型](prototypes/README.md)：供追溯，不作为正式页面模板。SpaceHTML 仅备份，不作交互、视觉或代码参考。

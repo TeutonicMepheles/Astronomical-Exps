@@ -40,6 +40,10 @@ npm run dev -- --experiment components
 
 - [scene-rotation.html](scene-rotation.html)：直接检查 `SharedComponents.SceneRotationControl` 的左转／右转 30°、上抬／下探 15°、停止位置和减少动态效果。预览中的 CSS 立方体只演示宿主如何消费 `onChange` 角度，控件本身不依赖 Three.js 或该示例模型。
 
+## 页面布局独立预览
+
+- [experiment-layout.html](experiment-layout.html)：检查页面四周安全区、左上标题、右上“横向阶段进度／跨页导航”、右下主次操作，以及主次按钮的纯文字、纯 ICON、文字 + ICON 三种内容形式。右上进度区域只提供插槽，继续使用 ui-demo 中已有的横向任务进度，不在此预览重做进度状态机。
+
 ## 视觉调试
 
 前三页可通过右下角按钮或 `Ctrl+Alt+D` 打开调试面板；Esc 关闭。面板可调整手势、轨迹、描边和气泡。“保存本机”保存到浏览器，“导出 JSON”保存参数文件，“恢复默认”清除本机配置。
@@ -50,7 +54,7 @@ npm run dev -- --experiment components
 
 ## 检查
 
-在根目录运行 `npm run test:browser`，检查组件分页、任务菜单和销毁行为。独立测试文件包括 `catalog.test.cjs`、`debug-panel.test.cjs` 和 `progress.test.cjs`；不把未执行的独立测试算作根检查结果。
+在根目录运行 `npm run test:browser`，检查组件分页、任务菜单、页面布局和销毁行为。独立测试文件包括 `catalog.test.cjs`、`debug-panel.test.cjs`、`progress.test.cjs` 和 `experiment-layout.test.cjs`；不把未执行的独立测试算作根检查结果。
 
 `measure.cjs` 是描边性能对照工具，旧测量结果只适用于当时的设备和页面，不能作为其他实验的性能结论。
 
