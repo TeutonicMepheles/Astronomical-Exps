@@ -16,6 +16,7 @@ const root=path.resolve(__dirname,'..');
   }
   fs.mkdirSync(path.join(root,'artifacts'),{recursive:true});
   const progress=await execFile(process.execPath,[path.join(root,'previews/components/progress.test.cjs')],{cwd:root,env:{...process.env,BASE_URL:base}});console.log(progress.stdout.trim());
+  const layout=await execFile(process.execPath,[path.join(root,'previews/components/experiment-layout.test.cjs')],{cwd:root,env:{...process.env,BASE_URL:base}});console.log(layout.stdout.trim());
   browser=await chromium.launch(process.env.BROWSER_CHANNEL?{channel:process.env.BROWSER_CHANNEL}:{});const page=await browser.newPage({viewport:{width:1600,height:900}});const errors=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
   page.on('requestfailed',r=>errors.push('REQUEST FAILED '+r.url()));
@@ -135,6 +136,6 @@ const root=path.resolve(__dirname,'..');
    assert.deepEqual(await p.locator('img').evaluateAll(xs=>xs.filter(i=>i.getAttribute('src')&&(!i.complete||!i.naturalWidth)).map(i=>i.src.slice(0,100))),[]);
    await offline.close();
   }
-  assert.deepEqual(errors,[]);console.log('PASS eight experiment entries, shared globe/beam/scene-rotation integration, six preview pages, measure-mode and scene-rotation previews, completion lifecycle, offline exports; not visual acceptance.');
+  assert.deepEqual(errors,[]);console.log('PASS eight experiment entries, experiment-layout contract, shared globe/beam/scene-rotation integration, six preview pages, measure-mode and scene-rotation previews, completion lifecycle, offline exports; not visual acceptance.');
  } finally {if(browser)await browser.close();if(server)server.kill();}
 })().catch(e=>{console.error(e);process.exitCode=1});

@@ -46,6 +46,12 @@
 
 `SceneRotationControl` 提供横轴/纵轴的角度请求、取消与销毁，独立预览见 [场景旋转](../previews/components/scene-rotation.html)。它不接管宿主相机；牛顿当前自动检视/对准流程未恢复手动俯仰或缩放。
 
+## 公共页面布局
+
+2026-11-25 新增[页面与控制布局规范](../Visual-Spec/CONTROL_LAYOUT.md)与 `ExperimentLayout` 纯布局样式。公共层统一页面安全边距、左上标题、右上状态槽、右下主次操作，以及纯文字／纯 ICON／文字 + ICON 三种按钮内容形式；右上状态槽可放现有横向任务进度或低强调的跨页导航按钮。独立预览见[页面布局](../previews/components/experiment-layout.html)。
+
+本项先完成公共定义、预览和浏览器检查，尚未批量改写八个实验的页面结构。各实验仍须逐页接入并完成白板触控、缩放、碰撞和视觉验收，不能以规范或预览替代整页验收。
+
 ## 工具与验证边界
 
 - `npm run dev` 支持八个实验；`npm run export` 只支持光污染最新 `city-night` 与牛顿望远镜。

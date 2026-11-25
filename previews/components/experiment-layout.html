@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>页面布局规范 · 公共组件预览</title>
+  <link rel="stylesheet" href="../../shared/typography/typography.css">
+  <link rel="stylesheet" href="../../shared/components/experiment-layout.css">
+  <link rel="stylesheet" href="experiment-layout.css">
+</head>
+<body>
+  <main class="preview-shell">
+    <div class="preview-toolbar" aria-label="布局预览选项">
+      <div class="option-group" role="group" aria-label="右上角内容">
+        <span>右上角</span>
+        <button type="button" data-top-mode="progress" aria-pressed="true">进度控件</button>
+        <button type="button" data-top-mode="button" aria-pressed="false">跨页导航</button>
+      </div>
+      <div class="option-group" role="group" aria-label="主按钮内容形式">
+        <span>主按钮</span>
+        <button type="button" data-action-target="primary" data-format="label" aria-pressed="false">纯文字</button>
+        <button type="button" data-action-target="primary" data-format="icon" aria-pressed="false">纯 ICON</button>
+        <button type="button" data-action-target="primary" data-format="icon-label" aria-pressed="true">文字 + ICON</button>
+      </div>
+      <div class="option-group" role="group" aria-label="次按钮内容形式">
+        <span>次按钮</span>
+        <button type="button" data-action-target="secondary" data-format="label" aria-pressed="false">纯文字</button>
+        <button type="button" data-action-target="secondary" data-format="icon" aria-pressed="false">纯 ICON</button>
+        <button type="button" data-action-target="secondary" data-format="icon-label" aria-pressed="true">文字 + ICON</button>
+      </div>
+      <label class="guide-toggle">
+        <input id="layout-guides" type="checkbox" checked>
+        显示布局标注
+      </label>
+    </div>
+
+    <div class="stage-viewport">
+      <section class="layout-stage" id="layout-stage" data-top-mode="progress" data-guides="true" aria-label="1920×1080 页面布局示意">
+        <div class="star-field" aria-hidden="true"></div>
+
+        <div class="experiment-layout">
+          <header class="experiment-layout__heading">
+            <h1 class="experiment-layout__title">地球周长实验</h1>
+          </header>
+
+          <div class="experiment-layout__status" id="layout-status-slot">
+            <nav class="demo-stage-progress" id="demo-stage-progress" aria-label="实验进度">
+              <ol>
+                <li class="current" aria-current="step">
+                  <span class="step-number" aria-hidden="true"></span>
+                  <span class="step-order" aria-hidden="true">1</span>
+                  <span>选取观测点</span>
+                </li>
+                <li>
+                  <span class="step-number" aria-hidden="true"></span>
+                  <span class="step-order" aria-hidden="true">2</span>
+                  <span>观测正午夹角</span>
+                </li>
+                <li>
+                  <span class="step-number" aria-hidden="true"></span>
+                  <span class="step-order" aria-hidden="true">3</span>
+                  <span>计算地球周长</span>
+                </li>
+              </ol>
+            </nav>
+            <button class="experiment-action experiment-action--secondary experiment-action--icon-label" id="layout-top-action" type="button" hidden>
+              <span class="experiment-action__label">计算地球周长</span>
+              <span class="experiment-action__icon" aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <div class="experiment-layout__actions" id="layout-actions" role="group" aria-label="当页实验操作">
+            <button class="experiment-action experiment-action--secondary experiment-action--icon-label" id="layout-secondary-action" type="button">
+              <span class="experiment-action__icon" aria-hidden="true">↺</span>
+              <span class="experiment-action__label">重置</span>
+            </button>
+            <button class="experiment-action experiment-action--primary experiment-action--icon-label" id="layout-primary-action" type="button">
+              <span class="experiment-action__label">开始观测</span>
+              <span class="experiment-action__icon" aria-hidden="true">▶</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="layout-guide" aria-hidden="true">
+          <div class="layout-guide__safe"></div>
+          <div class="layout-guide__content"></div>
+          <div class="layout-guide__actions" id="layout-guide-actions"></div>
+          <span class="layout-guide__edge layout-guide__edge--top">48 px</span>
+          <span class="layout-guide__edge layout-guide__edge--right">48 px</span>
+          <span class="layout-guide__edge layout-guide__edge--bottom">48 px</span>
+          <span class="layout-guide__edge layout-guide__edge--left">48 px</span>
+        </div>
+        <p class="sr-only" id="layout-status" aria-live="polite"></p>
+      </section>
+    </div>
+  </main>
+  <script src="experiment-layout.js"></script>
+</body>
+</html>

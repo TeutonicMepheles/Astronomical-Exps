@@ -1,9 +1,10 @@
 # 公共组件接口
 
-公共实现位于本目录，八个界面组件和两个渲染组件目前均为试验中。实验提供业务状态、相机与科学计算，组件负责显示和操作请求；使用限制见[组件规则](../../docs/COMPONENT_POLICY.md)。
+公共实现位于本目录，九个界面组件和两个渲染组件目前均为试验中。实验提供业务状态、相机与科学计算，组件负责显示和操作请求；使用限制见[组件规则](../../docs/COMPONENT_POLICY.md)。
 
 | 组件 | 脚本 / 样式 | 用途 |
 | --- | --- | --- |
+| ExperimentLayout | [experiment-layout.css](experiment-layout.css) | 页面安全区、左上标题、右上状态槽和右下主次操作；纯布局，不管理主题与业务 |
 | ExperimentProgress | [experiment-progress.js](experiment-progress.js) / experiment-progress.css | 折叠任务清单与阶段导航 |
 | OperationTip | [operation-tip.js](operation-tip.js) / operation-tip.css | 顶部展开式操作提示 |
 | NameBubble | [name-bubble.js](name-bubble.js) / components.css | 名称气泡 |
@@ -14,6 +15,27 @@
 | OpticalBeam | [optical-beam.js](optical-beam.js) | Three.js 光路线条柔光与透明度 |
 | MeasureMode | [measure-mode/measure-mode.js](measure-mode/measure-mode.js) / measure-mode.css + skins/*.css | 画面内取点测量：扫描、起终点、虚线确认、描线与长度读数 |
 | SceneRotationControl | [scene-rotation-control.js](scene-rotation-control.js) / scene-rotation-control.css | 场景三维物体的左转／右转或上抬／下探按钮与平滑角度请求 |
+
+## ExperimentLayout 页面框架
+
+加载 `experiment-layout.css`，宿主按[页面与控制布局规范](../../Visual-Spec/CONTROL_LAYOUT.md)提供标题、右上状态内容和右下操作。组件只管理几何、层级和内容形式，不管理主题色、课程解锁、页面切换或进度状态。
+
+```html
+<div class="experiment-layout">
+  <header class="experiment-layout__heading">
+    <h1 class="experiment-layout__title">实验标题</h1>
+  </header>
+  <div class="experiment-layout__status"><!-- 横向阶段进度或跨页导航 --></div>
+  <div class="experiment-layout__actions" role="group" aria-label="页面级操作">
+    <button class="experiment-action experiment-action--secondary experiment-action--label-only" type="button">上一步</button>
+    <button class="experiment-action experiment-action--primary experiment-action--label-only" type="button">下一步</button>
+  </div>
+</div>
+```
+
+`experiment-action--label-only`、`experiment-action--icon-only`、`experiment-action--icon-label` 分别提供纯文字、纯 ICON、文字 + ICON。纯 ICON 必须由宿主提供 `aria-label`。右上状态槽使用现有 ui-demo 横向任务进度时不复制其交互；跨页导航使用 `experiment-action--secondary`。右下特殊主按钮可由宿主定制尺寸和形状，沿用公共安全区。
+
+独立预览为 [experiment-layout.html](../../previews/components/experiment-layout.html)，自动检查为 `node previews/components/experiment-layout.test.cjs`。
 
 ## 渲染组件
 
