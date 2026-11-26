@@ -6,7 +6,7 @@
   <title>傅科摆实验</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="../../shared/typography/typography.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261126-swing-plane">
   <link rel="stylesheet" href="parameter-dialog.css">
 <link rel="stylesheet" href="../../shared/components/components.css">
 <link rel="stylesheet" href="typography.css">
@@ -97,10 +97,9 @@
           </feMerge>
         </filter>
       </defs>
-      <polygon id="swingSurface" fill="#a8d9ff" fill-opacity=".15" stroke="#b7d3ee" stroke-opacity=".5" stroke-width="1.4"/>
-      <g id="swingArc" fill="none" stroke="#fff2ad" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"><path id="swingArcGlow" stroke-width="9" opacity=".16"/><path id="swingArcLine" stroke-width="2.4" opacity=".95"/></g>
+      <polygon id="swingSurface" visibility="hidden" fill="#a8d9ff" fill-opacity=".15" stroke="#b7d3ee" stroke-opacity=".5" stroke-width="1.4"/>
       <ellipse id="shadow" cx="1040" cy="680" rx="37" ry="10" fill="#49647a" opacity=".24"/>
-      <line id="swingPlane" x1="620" y1="680" x2="1460" y2="680" stroke="#b7d3ee" stroke-width="1" stroke-dasharray="8 7" stroke-linecap="round" opacity=".85" filter="url(#swingGlow)"/>
+      <line id="swingPlane" visibility="hidden" x1="620" y1="680" x2="1460" y2="680" stroke="#b7d3ee" stroke-width="1" stroke-dasharray="8 7" stroke-linecap="round" opacity=".85" filter="url(#swingGlow)"/>
       <g class="pendulum-cable">
         <path id="cableBack" stroke="#eaf4f9" stroke-width="4.5" fill="none"/>
         <path id="cable" stroke="#31546b" stroke-width="2" fill="none"/>
@@ -215,6 +214,6 @@
   </aside>
   <script src="../../shared/components/gesture.js"></script>
   <script src="../../shared/components/name-bubble.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/main.js?v=20261126-swing-plane"></script>
 </body>
 </html>
