@@ -7,7 +7,7 @@ import {PARAMETER_DEFAULTS} from './scale-reference.js';
 import {mountParameterDialog} from './parameter-dialog.js';
 import {mountDebug} from './debug-panel.js';
 import {lighting,grid,pedestal,defaultPedestal,background} from './lighting.js';
-import {createMotion} from './pendulum-model.js';
+import {createMotion} from './pendulum-model.js?v=20261126-swing-plane';
 import { createTexturedRenderer } from './globe-renderer.js';
 import { mountGlobeObservatory } from './globe-observatory.js';
 import { createCityMarkers, CITIES } from './city-markers.js';
@@ -55,7 +55,6 @@ const joint=document.querySelector('#bobJoint');
 const swingPlane=document.querySelector('#swingPlane');
 const trailColor=swingPlane.getAttribute('stroke');
 const swingSurface=document.querySelector('#swingSurface');
-const swingArcLine=document.querySelector('#swingArcLine'),swingArcGlow=document.querySelector('#swingArcGlow');
 let paramMode=false;
 const markers=createCityMarkers(document.querySelector('#cityMarkers'));
 let selectedCity=null;
@@ -305,11 +304,9 @@ function drawGlobe(){
   dirty=false;
 }
 // Accumulated phases and immutable historical positions survive rate changes.
-const history=createMotion(pendulumConfig);
+// The 0°–180° axis runs into the scene along the viewing direction.
+const history=createMotion(pendulumConfig,Math.PI/2);
 const STAGE_ONE_REACH=320,GROUND_DEPTH=.26;
-const arcDistances=Array.from({length:65},(_,i)=>STAGE_ONE_REACH*(i/32-1));
-const arcRises=new Float64Array(arcDistances.length);
-let arcRadius;
 function ground(p){return {x:PX+p.x*STAGE_ONE_REACH,y:PY+p.z*STAGE_ONE_REACH*GROUND_DEPTH};}
 // Zoom anchor: scale the pendulum (suspension/cable/bob/ground/trail) about the
 // ground point so "zoom out" (param mode) keeps the floor fixed and shrinks upward.
@@ -432,35 +429,28 @@ function drawPendulum(config=pendulumConfig){
   joint.setAttribute('r',3.5*bobScale);joint.setAttribute('stroke-width',1.5*bobScale);
   shadow.setAttribute('cx',gx);shadow.setAttribute('cy',gy);
   shadow.setAttribute('rx',37*bobScale);shadow.setAttribute('ry',10*bobScale);
-  // Swing-plane reference line on the ground: rotates with the precession.
+  if(!elapsed)return;
+  // Swing plane and its ground reference rotate with the precession.
   const sc=Math.cos(p.rotation), ss=Math.sin(p.rotation);
-  const planeCorners=[sz(PX-sc*420,PY-ss*420*.26),sz(PX+sc*420,PY+ss*420*.26),
-    sz(PX+sc*420,PY-TRAIL_CANVAS_CENTER.y*.5+ss*420*.26),sz(PX-sc*420,PY-TRAIL_CANVAS_CENTER.y*.5-ss*420*.26)];
+  const planeCorners=[sz(PX-sc*420,PY-ss*420*GROUND_DEPTH),sz(PX+sc*420,PY+ss*420*GROUND_DEPTH),
+    sz(PX+sc*420,PY-TRAIL_CANVAS_CENTER.y*.5+ss*420*GROUND_DEPTH),sz(PX-sc*420,PY-TRAIL_CANVAS_CENTER.y*.5-ss*420*GROUND_DEPTH)];
   swingSurface.setAttribute('points',planeCorners.map(v=>v.map(n=>n.toFixed(2)).join(',')).join(' '));
-  // Fixed-size path in the current swing plane; use exactly the bob's projection.
-  // No accumulating history or additional animation clock.
-  if(arcRadius!==swingRadius){
-    arcRadius=swingRadius;
-    for(let i=0;i<arcDistances.length;i++){
-      const distance=arcDistances[i];
-      arcRises[i]=distance**2/(swingRadius+Math.sqrt(swingRadius**2-distance**2));
-    }
-  }
-  let arc='';
-  for(let i=0;i<arcDistances.length;i++){
-    const distance=arcDistances[i];
-    arc+=`${i?'L':'M'}${(PX+distance*sc).toFixed(2)} ${(stageOneBobY-arcRises[i]+distance*ss*GROUND_DEPTH).toFixed(2)}`;
-  }
-  swingArcLine.setAttribute('d',arc);swingArcGlow.setAttribute('d',arc);
-  swingPlane.setAttribute('x1',(PX-sc*420*zoom).toFixed(2));swingPlane.setAttribute('y1',(PY-ss*420*.26*zoom).toFixed(2));
-  swingPlane.setAttribute('x2',(PX+sc*420*zoom).toFixed(2));swingPlane.setAttribute('y2',(PY+ss*420*.26*zoom).toFixed(2));
+  swingPlane.setAttribute('x1',(PX-sc*420*zoom).toFixed(2));swingPlane.setAttribute('y1',(PY-ss*420*GROUND_DEPTH*zoom).toFixed(2));
+  swingPlane.setAttribute('x2',(PX+sc*420*zoom).toFixed(2));swingPlane.setAttribute('y2',(PY+ss*420*GROUND_DEPTH*zoom).toFixed(2));
 }
 function tick(now){
   frame=0;if(document.hidden)return;
   if(last){
     const dt=Math.min((now-last)/1000,.5);
     if(!reduced.matches&&!paramMode&&!stage.classList.contains('no-background'))globeObservatory.advance(dt);
-    if(selectedCity&&!reduced.matches&&!paramMode){elapsed+=dt;history.advance(dt);}
+    if(selectedCity&&!reduced.matches&&!paramMode&&dt>0){
+      if(!elapsed){
+        swingSurface.removeAttribute('visibility');
+        swingPlane.removeAttribute('visibility');
+      }
+      elapsed+=dt;
+      history.advance(dt);
+    }
     if(paramMode)parameterDialog.advance(dt);
   }
   last=now;

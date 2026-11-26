@@ -27,8 +27,8 @@ export function createTrail(config=defaults){
 }
 
 // Integrate elapsed intervals: changing speed affects future motion only.
-export function createMotion(config=defaults){
-  let swingPhase=0, rotation=0, time=0;
+export function createMotion(config=defaults,initialRotation=0){
+  let swingPhase=0, rotation=initialRotation, time=0;
   const points=[];
   function state(){
     const period=stageOnePeriod(config);
